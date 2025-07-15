@@ -15,76 +15,184 @@ export default function Testimonials() {
       id: 1,
       clientName: "Gabriela Casanova",
       clientTitle: "Reseña Google Maps · 2 meses",
-      content: "Atención rápida, arquitecto con gran conocimiento de normativas vigentes y me dio muy buenas sugerencias para mejorar los problemas en mi hogar.",
+      content: "Atención rápida, arquitecto con gran conocimiento de la normativa vigente y me entregó muy buenas sugerencias para mejorar los problemas en mi vivienda.",
       rating: 5,
       gender: "female",
       isGoogleReview: true
     },
     {
       id: 2,
-      clientName: "José Yáñez",
-      clientTitle: "Reseña Google Maps · 7 meses",
-      content: "Muy profesional y receptivo en su enfoque. Su trabajo es una guía enfocada en contribuir a las ideas y deseos del cliente. Su visita fue muy útil para concebir y planificar un proyecto de remodelación.",
-      rating: 5,
-      gender: "male",
-      isGoogleReview: true
-    },
-    {
-      id: 3,
       clientName: "Pamela Aguilera",
       clientTitle: "Reseña Google Maps · 6 meses",
-      content: "Estoy teniendo problemas con la nueva construcción de mi vecino, y el consejo de Patricio fue muy informativo respecto a qué afecta mi propiedad. Se tomó el tiempo para responder cada una de mis preguntas sin apuros, incluidas algunas que no tenían que ver directamente con mi consulta.",
+      content: "Tengo problemas con la construcción nueva de mi vecino y la asesoría de Patricio fue muy esclarecedora con respecto a lo que afecta mi propiedad. Se tomó el tiempo para responder cada una de mis consultas sin ningún apuro.",
       rating: 5,
       gender: "female",
       isGoogleReview: true
     },
     {
+      id: 3,
+      clientName: "José Yáñez",
+      clientTitle: "Reseña Google Maps · 7 meses",
+      content: "Muy profesional y adecuado en el trato. Su intervención es una guía centrada en contribuir a las ideas y deseos de uno como cliente. Su visita me fue de mucha ayuda para idear y planificar un proyecto de remodelación.",
+      rating: 5,
+      gender: "male",
+      isGoogleReview: true
+    },
+    {
       id: 4,
-      clientName: "Matias Paredes",
-      clientTitle: "Reseña Google Maps · 8 meses",
-      content: "Excelente trabajo, muy profesional y responsable. Recomiendo 100%",
+      clientName: "Carlos Olivares",
+      clientTitle: "Reseña Google Maps · 3 años",
+      content: "Necesitaba hacer un vano para una puerta en una pared y no sabía si necesitaba refuerzo o no. Al contactarlo y coordinar una visita a domicilio revisó el perímetro de la casa, revisó pilares y cadenas y determinó que tipo de refuerzo se necesitaba.",
       rating: 5,
       gender: "male",
       isGoogleReview: true
     },
     {
       id: 5,
-      clientName: "Cristian Santander",
+      clientName: "Fernanda Paz",
       clientTitle: "Reseña Google Maps · 11 meses",
-      content: "Muy buen servicio, profesional y responsable. Totalmente recomendado",
+      content: "Excelente asesoría, muy profesional. Captó muy bien la idea que tenía en mente.",
       rating: 5,
-      gender: "male",
+      gender: "female",
       isGoogleReview: true
     },
     {
       id: 6,
-      clientName: "Constanza Soto",
-      clientTitle: "Reseña Google Maps · 1 año",
-      content: "Excelente profesional, muy dedicado y confiable. Sus consejos fueron muy útiles para nuestro proyecto.",
+      clientName: "Yasna Moya Vera",
+      clientTitle: "Reseña Google Maps · 2 años",
+      content: "Excelente atención de Patricio, muy preocupado y atento a nuestras consultas, buscando siempre lo más cómodo, económico y adecuado a nuestras necesidades. 100% recomendado",
       rating: 5,
       gender: "female",
       isGoogleReview: true
     },
     {
       id: 7,
-      clientName: "Mario Gonzalez",
-      clientTitle: "Reseña Google Maps · 1 año",
-      content: "Muy profesional y conocedor de la materia. Me ayudó mucho con mi proyecto de ampliación.",
+      clientName: "Daihyana Nicolett Rodriguez",
+      clientTitle: "Reseña Google Maps · 5 años",
+      content: "Busqué y coticé varias empresas desde un principio, pero todas tenían una forma de comunicación mediante correo donde no te daba la libertad de poder tener contacto directo o hacer tus consultas. Llamé a Patricio por las buenas opiniones.",
       rating: 5,
-      gender: "male",
+      gender: "female",
       isGoogleReview: true
     },
     {
       id: 8,
-      clientName: "Carolina Ramirez",
+      clientName: "Sandra del Carmen Pezo",
       clientTitle: "Reseña Google Maps · 1 año",
-      content: "Excelente atención y muy buen trabajo. Cumple con lo prometido y es muy responsable.",
+      content: "Excelente profesional, explicación detallada de principio a fin. Claro, preciso y conciso. Gracias.",
       rating: 5,
       gender: "female",
       isGoogleReview: true
     },
     {
       id: 9,
+      clientName: "Waldo Varas",
+      clientTitle: "Reseña Google Maps · 3 años",
+      content: "Quiero manifestarle que estoy muy agradecido de usted, por su disponibilidad a mi persona, por su correcto Profesionalismo de Arquitecto, siendo muy responsable en su trabajo.",
+      rating: 5,
+      gender: "male",
+      isGoogleReview: true
+    },
+    {
+      id: 10,
+      clientName: "Juan Fuentes Riffo",
+      clientTitle: "Reseña Google Maps · 4 años",
+      content: "Muy buena atención, de una gentileza que no es fácil de encontrar cuando no hay relación previa y además no se ha pactado una tarifa previa. Me orientó y solo puedo expresar mi agradecimiento.",
+      rating: 5,
+      gender: "male",
+      isGoogleReview: true
+    },
+    {
+      id: 11,
+      clientName: "J Concha",
+      clientTitle: "Reseña Google Maps · 3 años",
+      content: "100% Recomendado, la dedicación tiempo y compromiso es destacable. Siempre atento a responder las dudas y apoyar para tomar las mejores decisiones.",
+      rating: 5,
+      gender: "male",
+      isGoogleReview: true
+    },
+    {
+      id: 12,
+      clientName: "Rafael Quiros",
+      clientTitle: "Reseña Google Maps · 2 años",
+      content: "Estimado Patricio, gracias por la gestión de regularización del año 2014 ante la DOM de la municipalidad de la Florida. Fui citado y está en orden toda tu gestión, saludos y gracias.",
+      rating: 5,
+      gender: "male",
+      isGoogleReview: true
+    },
+    {
+      id: 13,
+      clientName: "Maritza Villanueva",
+      clientTitle: "Reseña Google Maps · 3 años",
+      content: "Buena asesoría de Patricio, pudo resolver todas mis dudas tomándose el tiempo para ver cada una, 100% recomendable.",
+      rating: 5,
+      gender: "female",
+      isGoogleReview: true
+    },
+    {
+      id: 14,
+      clientName: "Jorge Augant",
+      clientTitle: "Reseña Google Maps · 1 año",
+      content: "Excelente asesoría, explicada de manera clara e ideas que ayudan a tomar decisiones.",
+      rating: 5,
+      gender: "male",
+      isGoogleReview: true
+    },
+    {
+      id: 15,
+      clientName: "Krishna Beatriz Villanueva",
+      clientTitle: "Reseña Google Maps · 3 años",
+      content: "Un excelente profesional, realiza los trabajos con compromiso y dedicación, buena comunicación y atento a todos los detalles. Se recomienda 100% su trabajo.",
+      rating: 5,
+      gender: "female",
+      isGoogleReview: true
+    },
+    {
+      id: 16,
+      clientName: "La Profe Abby",
+      clientTitle: "Reseña Google Maps · 11 meses",
+      content: "Buena asesoría. Respondió a todas las consultas.",
+      rating: 5,
+      gender: "female",
+      isGoogleReview: true
+    },
+    {
+      id: 17,
+      clientName: "Valentina Morales",
+      clientTitle: "Reseña Google Maps · 2 años",
+      content: "Buen asesoramiento, resolvieron mis dudas, muy atentos a responder y detallar lo que necesitaba, muchas gracias.",
+      rating: 5,
+      gender: "female",
+      isGoogleReview: true
+    },
+    {
+      id: 18,
+      clientName: "Mario Castro",
+      clientTitle: "Reseña Google Maps · 1 año",
+      content: "Muy buena asesoría. Amplia, clara y precisa.",
+      rating: 5,
+      gender: "male",
+      isGoogleReview: true
+    },
+    {
+      id: 19,
+      clientName: "Jose Luis Lagos",
+      clientTitle: "Reseña Google Maps · 3 años",
+      content: "Muy buena atención, profesionalismo, 100% recomendable.",
+      rating: 5,
+      gender: "male",
+      isGoogleReview: true
+    },
+    {
+      id: 20,
+      clientName: "Aldo Alexii Saavedra",
+      clientTitle: "Reseña Google Maps · 2 años",
+      content: "Empresa excelente que cumple con los plazos y un excelente servicio.",
+      rating: 5,
+      gender: "male",
+      isGoogleReview: true
+    },
+    {
+      id: 21,
       clientName: "Roberto Fuentes",
       clientTitle: "Cliente del Ebook · Ñuñoa",
       content: "Pensé que remodelar mi casa en Ñuñoa sería una pesadilla, pero este libro lo hizo sorprendentemente fácil. Los consejos sobre permisos municipales fueron oro puro. ¡Altamente recomendado!",
@@ -93,7 +201,7 @@ export default function Testimonials() {
       isEbookReview: true
     },
     {
-      id: 10,
+      id: 22,
       clientName: "María José Gómez",
       clientTitle: "Cliente del Ebook · Providencia",
       content: "Gracias a este ebook, pude ampliar mi casa sin dolores de cabeza. La Metodología MDAC me ahorró tiempo, dinero y muchísimo estrés. ¡Ahora disfruto de mi nuevo espacio sin remordimientos!",
@@ -146,18 +254,18 @@ export default function Testimonials() {
               <div className="flex items-start space-x-4">
                 <div className={`w-12 h-12 rounded-full flex-shrink-0 flex items-center justify-center border-2 ${
                   testimonial.gender === "female" 
-                    ? "bg-gradient-to-br from-pink-100 to-pink-200 border-pink-300" 
+                    ? "bg-gradient-to-br from-cyan-100 to-cyan-200 border-cyan-300" 
                     : "bg-gradient-to-br from-blue-100 to-blue-200 border-blue-300"
                 }`}>
-                  <svg className={`w-8 h-8 ${
-                    testimonial.gender === "female" ? "text-pink-600" : "text-blue-600"
+                  <svg className={`w-7 h-7 ${
+                    testimonial.gender === "female" ? "text-cyan-600" : "text-blue-600"
                   }`} fill="currentColor" viewBox="0 0 24 24">
                     {testimonial.gender === "female" ? (
-                      // Female avatar - simplified person with longer hair indication
-                      <path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2ZM8 4C8 3.5 8.1 3 8.3 2.6C7.8 2.2 7.2 2 6.5 2C5.1 2 4 3.1 4 4.5C4 5.9 5.1 7 6.5 7C7.2 7 7.8 6.8 8.3 6.4C8.1 6 8 5.5 8 5V4ZM16 4V5C16 5.5 15.9 6 15.7 6.4C16.2 6.8 16.8 7 17.5 7C18.9 7 20 5.9 20 4.5C20 3.1 18.9 2 17.5 2C16.8 2 16.2 2.2 15.7 2.6C15.9 3 16 3.5 16 4ZM12 8C14.2 8 16 9.8 16 12S13.8 16 12 16C10.2 16 8 14.2 8 12S9.8 8 12 8ZM12 18C15.3 18 18 15.3 18 12C18 8.7 15.3 6 12 6C8.7 6 6 8.7 6 12C6 15.3 8.7 18 12 18Z"/>
+                      // Female profile silhouette
+                      <path d="M12 2C14.5 2 16.5 4 16.5 6.5C16.5 8.5 15.5 10.2 14 11.2C14.8 11.5 15.5 11.9 16.1 12.4C17.2 13.3 18 14.5 18.5 15.8C18.7 16.3 18.5 16.9 18 17.1C17.5 17.3 16.9 17.1 16.7 16.6C16.3 15.6 15.7 14.7 14.8 14C13.9 13.3 12.9 12.9 11.9 12.9C10.9 12.9 9.9 13.3 9 14C8.1 14.7 7.5 15.6 7.1 16.6C6.9 17.1 6.3 17.3 5.8 17.1C5.3 16.9 5.1 16.3 5.3 15.8C5.8 14.5 6.6 13.3 7.7 12.4C8.3 11.9 9 11.5 9.8 11.2C8.3 10.2 7.3 8.5 7.3 6.5C7.3 4 9.3 2 11.8 2H12ZM12 4C10.3 4 9 5.3 9 6.5C9 7.7 10.3 9 12 9C13.7 9 15 7.7 15 6.5C15 5.3 13.7 4 12 4ZM5.5 3C6.3 3 7 3.7 7 4.5C7 5.3 6.3 6 5.5 6C4.7 6 4 5.3 4 4.5C4 3.7 4.7 3 5.5 3ZM18.5 3C19.3 3 20 3.7 20 4.5C20 5.3 19.3 6 18.5 6C17.7 6 17 5.3 17 4.5C17 3.7 17.7 3 18.5 3Z"/>
                     ) : (
-                      // Male avatar - simplified person
-                      <path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2ZM12 8C14.2 8 16 9.8 16 12S13.8 16 12 16C10.2 16 8 14.2 8 12S9.8 8 12 8ZM12 18C15.3 18 18 15.3 18 12C18 8.7 15.3 6 12 6C8.7 6 6 8.7 6 12C6 15.3 8.7 18 12 18Z"/>
+                      // Male profile silhouette
+                      <path d="M12 2C14.5 2 16.5 4 16.5 6.5C16.5 8.5 15.5 10.2 14 11.2C14.8 11.5 15.5 11.9 16.1 12.4C17.2 13.3 18 14.5 18.5 15.8C18.7 16.3 18.5 16.9 18 17.1C17.5 17.3 16.9 17.1 16.7 16.6C16.3 15.6 15.7 14.7 14.8 14C13.9 13.3 12.9 12.9 11.9 12.9C10.9 12.9 9.9 13.3 9 14C8.1 14.7 7.5 15.6 7.1 16.6C6.9 17.1 6.3 17.3 5.8 17.1C5.3 16.9 5.1 16.3 5.3 15.8C5.8 14.5 6.6 13.3 7.7 12.4C8.3 11.9 9 11.5 9.8 11.2C8.3 10.2 7.3 8.5 7.3 6.5C7.3 4 9.3 2 11.8 2H12ZM12 4C10.3 4 9 5.3 9 6.5C9 7.7 10.3 9 12 9C13.7 9 15 7.7 15 6.5C15 5.3 13.7 4 12 4Z"/>
                     )}
                   </svg>
                 </div>
