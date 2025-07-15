@@ -78,10 +78,51 @@ export const aiAgentEvents = pgTable("ai_agent_events", {
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
+// Budget Templates for automated quote generation
+export const budgetTemplates = pgTable("budget_templates", {
+  id: serial("id").primaryKey(),
+  name: text("name").notNull(),
+  serviceType: text("service_type").notNull(), // 'ampliacion', 'remodelacion', 'permiso_edificacion', etc.
+  basePrice: decimal("base_price", { precision: 10, scale: 2 }).notNull(),
+  pricePerM2: decimal("price_per_m2", { precision: 10, scale: 2 }),
+  minSize: integer("min_size").default(0),
+  maxSize: integer("max_size"),
+  region: text("region").notNull().default("rm"), // 'rm', 'valparaiso', 'bio_bio', etc.
+  complexity: text("complexity").notNull().default("medium"), // 'low', 'medium', 'high'
+  includesPermits: boolean("includes_permits").default(false),
+  includesStructural: boolean("includes_structural").default(false),
+  includesElectrical: boolean("includes_electrical").default(false),
+  includesPlumbing: boolean("includes_plumbing").default(false),
+  variables: json("variables").notNull(), // Additional calculation variables
+  description: text("description").notNull(),
+  active: boolean("active").default(true),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+// Generated Quotes from AI agents
+export const generatedQuotes = pgTable("generated_quotes", {
+  id: serial("id").primaryKey(),
+  leadId: integer("lead_id").references(() => leads.id),
+  templateId: integer("template_id").references(() => budgetTemplates.id),
+  projectSize: integer("project_size").notNull(),
+  region: text("region").notNull(),
+  complexity: text("complexity").notNull(),
+  basePrice: decimal("base_price", { precision: 10, scale: 2 }).notNull(),
+  sizePrice: decimal("size_price", { precision: 10, scale: 2 }).notNull(),
+  adjustments: json("adjustments").notNull(), // Price adjustments and reasons
+  totalPrice: decimal("total_price", { precision: 10, scale: 2 }).notNull(),
+  currency: text("currency").notNull().default("CLP"),
+  validUntil: timestamp("valid_until").notNull(),
+  status: text("status").notNull().default("pending"), // 'pending', 'sent', 'accepted', 'rejected'
+  generatedBy: text("generated_by").notNull().default("ai_agent"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
 // Relations
 export const leadsRelations = relations(leads, ({ many }) => ({
   calculatorResults: many(calculatorResults),
   aiAgentEvents: many(aiAgentEvents),
+  generatedQuotes: many(generatedQuotes),
 }));
 
 export const calculatorResultsRelations = relations(calculatorResults, ({ one }) => ({
@@ -95,6 +136,21 @@ export const aiAgentEventsRelations = relations(aiAgentEvents, ({ one }) => ({
   lead: one(leads, {
     fields: [aiAgentEvents.leadId],
     references: [leads.id],
+  }),
+}));
+
+export const budgetTemplatesRelations = relations(budgetTemplates, ({ many }) => ({
+  generatedQuotes: many(generatedQuotes),
+}));
+
+export const generatedQuotesRelations = relations(generatedQuotes, ({ one }) => ({
+  lead: one(leads, {
+    fields: [generatedQuotes.leadId],
+    references: [leads.id],
+  }),
+  template: one(budgetTemplates, {
+    fields: [generatedQuotes.templateId],
+    references: [budgetTemplates.id],
   }),
 }));
 
@@ -133,6 +189,16 @@ export const insertAiAgentEventSchema = createInsertSchema(aiAgentEvents).omit({
   createdAt: true,
 });
 
+export const insertBudgetTemplateSchema = createInsertSchema(budgetTemplates).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertGeneratedQuoteSchema = createInsertSchema(generatedQuotes).omit({
+  id: true,
+  createdAt: true,
+});
+
 // Types
 export type User = typeof users.$inferSelect;
 export type InsertUser = z.infer<typeof insertUserSchema>;
@@ -148,3 +214,7 @@ export type BlogPost = typeof blogPosts.$inferSelect;
 export type InsertBlogPost = z.infer<typeof insertBlogPostSchema>;
 export type AiAgentEvent = typeof aiAgentEvents.$inferSelect;
 export type InsertAiAgentEvent = z.infer<typeof insertAiAgentEventSchema>;
+export type BudgetTemplate = typeof budgetTemplates.$inferSelect;
+export type InsertBudgetTemplate = z.infer<typeof insertBudgetTemplateSchema>;
+export type GeneratedQuote = typeof generatedQuotes.$inferSelect;
+export type InsertGeneratedQuote = z.infer<typeof insertGeneratedQuoteSchema>;

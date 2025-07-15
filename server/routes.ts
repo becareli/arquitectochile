@@ -1,7 +1,7 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { insertLeadSchema, insertCalculatorResultSchema } from "@shared/schema";
+import { insertLeadSchema, insertCalculatorResultSchema, insertBudgetTemplateSchema, insertGeneratedQuoteSchema } from "@shared/schema";
 import { z } from "zod";
 
 // Webhook schema for AI agent integration
@@ -116,6 +116,73 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Budget Templates Endpoints
+  app.post("/api/budget-templates", async (req, res) => {
+    try {
+      const templateData = insertBudgetTemplateSchema.parse(req.body);
+      const template = await storage.createBudgetTemplate(templateData);
+      res.json({ success: true, template });
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        res.status(400).json({ error: "Invalid input", details: error.errors });
+      } else {
+        res.status(500).json({ error: "Internal server error" });
+      }
+    }
+  });
+
+  app.get("/api/budget-templates", async (req, res) => {
+    try {
+      const templates = await storage.getActiveBudgetTemplates();
+      res.json(templates);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch budget templates" });
+    }
+  });
+
+  app.get("/api/budget-templates/:serviceType", async (req, res) => {
+    try {
+      const templates = await storage.getBudgetTemplatesByServiceType(req.params.serviceType);
+      res.json(templates);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch budget templates" });
+    }
+  });
+
+  // Generated Quotes Endpoints
+  app.post("/api/quotes", async (req, res) => {
+    try {
+      const quoteData = insertGeneratedQuoteSchema.parse(req.body);
+      const quote = await storage.createGeneratedQuote(quoteData);
+      res.json({ success: true, quote });
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        res.status(400).json({ error: "Invalid input", details: error.errors });
+      } else {
+        res.status(500).json({ error: "Internal server error" });
+      }
+    }
+  });
+
+  app.get("/api/quotes/lead/:leadId", async (req, res) => {
+    try {
+      const quotes = await storage.getGeneratedQuotesByLeadId(parseInt(req.params.leadId));
+      res.json(quotes);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch quotes" });
+    }
+  });
+
+  app.patch("/api/quotes/:id/status", async (req, res) => {
+    try {
+      const { status } = req.body;
+      const quote = await storage.updateQuoteStatus(parseInt(req.params.id), status);
+      res.json({ success: true, quote });
+    } catch (error) {
+      res.status(500).json({ error: "Failed to update quote status" });
+    }
+  });
+
   // AI Agent Webhook Endpoints for N8N/MAKE Integration
   
   // Lead qualification webhook
@@ -179,6 +246,74 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Automated Quote Generation Webhook
+  app.post("/api/webhooks/generate-quote", async (req, res) => {
+    try {
+      const webhook = webhookSchema.parse(req.body);
+      console.log("Quote generation webhook received:", webhook);
+      
+      // Extract quote parameters from webhook data
+      const { leadId, serviceType, projectSize, region, complexity } = webhook.data;
+      
+      // Find appropriate budget template
+      const templates = await storage.getBudgetTemplatesByServiceType(serviceType);
+      const template = templates.find(t => 
+        t.region === region && 
+        t.complexity === complexity &&
+        (!t.maxSize || projectSize <= t.maxSize) &&
+        projectSize >= (t.minSize || 0)
+      );
+      
+      if (!template) {
+        return res.status(404).json({ error: "No matching budget template found" });
+      }
+      
+      // Calculate quote pricing
+      const basePrice = parseFloat(template.basePrice);
+      const sizePrice = template.pricePerM2 ? parseFloat(template.pricePerM2) * projectSize : 0;
+      const totalPrice = basePrice + sizePrice;
+      
+      // Create quote
+      const quote = await storage.createGeneratedQuote({
+        leadId: parseInt(leadId),
+        templateId: template.id,
+        projectSize: parseInt(projectSize),
+        region,
+        complexity,
+        basePrice: basePrice.toString(),
+        sizePrice: sizePrice.toString(),
+        adjustments: webhook.data.adjustments || {},
+        totalPrice: totalPrice.toString(),
+        validUntil: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 30 days
+        generatedBy: webhook.source || "ai_agent"
+      });
+      
+      // Log AI agent event
+      await storage.createAiAgentEvent({
+        eventType: "quote_generated",
+        leadId: parseInt(leadId),
+        source: webhook.source || "ai_agent",
+        data: {
+          quoteId: quote.id,
+          templateId: template.id,
+          totalPrice: totalPrice,
+          ...webhook.data
+        },
+        status: "processed"
+      });
+      
+      res.json({ 
+        success: true, 
+        message: "Quote generated successfully",
+        quote,
+        processed_at: new Date().toISOString()
+      });
+    } catch (error) {
+      console.error("Quote generation error:", error);
+      res.status(400).json({ error: "Failed to generate quote" });
+    }
+  });
+
   // General AI agent webhook for business process automation
   app.post("/api/webhooks/ai-agent", async (req, res) => {
     try {
@@ -211,6 +346,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         "/api/webhooks/lead-qualification",
         "/api/webhooks/appointment-scheduled", 
         "/api/webhooks/permit-update",
+        "/api/webhooks/generate-quote",
         "/api/webhooks/ai-agent"
       ]
     });

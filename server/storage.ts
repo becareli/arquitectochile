@@ -6,6 +6,8 @@ import {
   testimonials, 
   blogPosts,
   aiAgentEvents,
+  budgetTemplates,
+  generatedQuotes,
   type User, 
   type InsertUser, 
   type Lead, 
@@ -19,7 +21,11 @@ import {
   type BlogPost,
   type InsertBlogPost,
   type AiAgentEvent,
-  type InsertAiAgentEvent
+  type InsertAiAgentEvent,
+  type BudgetTemplate,
+  type InsertBudgetTemplate,
+  type GeneratedQuote,
+  type InsertGeneratedQuote
 } from "@shared/schema";
 import { db } from "./db";
 import { eq, desc } from "drizzle-orm";
@@ -63,6 +69,21 @@ export interface IStorage {
   getAiAgentEvents(): Promise<AiAgentEvent[]>;
   getAiAgentEventsByLeadId(leadId: number): Promise<AiAgentEvent[]>;
   getAiAgentEventsByType(eventType: string): Promise<AiAgentEvent[]>;
+  
+  // Budget Templates
+  createBudgetTemplate(template: InsertBudgetTemplate): Promise<BudgetTemplate>;
+  getBudgetTemplates(): Promise<BudgetTemplate[]>;
+  getActiveBudgetTemplates(): Promise<BudgetTemplate[]>;
+  getBudgetTemplateById(id: number): Promise<BudgetTemplate | undefined>;
+  getBudgetTemplatesByServiceType(serviceType: string): Promise<BudgetTemplate[]>;
+  updateBudgetTemplate(id: number, updates: Partial<InsertBudgetTemplate>): Promise<BudgetTemplate>;
+  
+  // Generated Quotes
+  createGeneratedQuote(quote: InsertGeneratedQuote): Promise<GeneratedQuote>;
+  getGeneratedQuotes(): Promise<GeneratedQuote[]>;
+  getGeneratedQuotesByLeadId(leadId: number): Promise<GeneratedQuote[]>;
+  getGeneratedQuoteById(id: number): Promise<GeneratedQuote | undefined>;
+  updateQuoteStatus(id: number, status: string): Promise<GeneratedQuote>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -185,6 +206,58 @@ export class DatabaseStorage implements IStorage {
 
   async getAiAgentEventsByType(eventType: string): Promise<AiAgentEvent[]> {
     return await db.select().from(aiAgentEvents).where(eq(aiAgentEvents.eventType, eventType)).orderBy(desc(aiAgentEvents.createdAt));
+  }
+
+  // Budget Templates
+  async createBudgetTemplate(template: InsertBudgetTemplate): Promise<BudgetTemplate> {
+    const [newTemplate] = await db.insert(budgetTemplates).values(template).returning();
+    return newTemplate;
+  }
+
+  async getBudgetTemplates(): Promise<BudgetTemplate[]> {
+    return await db.select().from(budgetTemplates).orderBy(desc(budgetTemplates.createdAt));
+  }
+
+  async getActiveBudgetTemplates(): Promise<BudgetTemplate[]> {
+    return await db.select().from(budgetTemplates).where(eq(budgetTemplates.active, true)).orderBy(desc(budgetTemplates.createdAt));
+  }
+
+  async getBudgetTemplateById(id: number): Promise<BudgetTemplate | undefined> {
+    const [template] = await db.select().from(budgetTemplates).where(eq(budgetTemplates.id, id));
+    return template || undefined;
+  }
+
+  async getBudgetTemplatesByServiceType(serviceType: string): Promise<BudgetTemplate[]> {
+    return await db.select().from(budgetTemplates).where(eq(budgetTemplates.serviceType, serviceType)).orderBy(desc(budgetTemplates.createdAt));
+  }
+
+  async updateBudgetTemplate(id: number, updates: Partial<InsertBudgetTemplate>): Promise<BudgetTemplate> {
+    const [updatedTemplate] = await db.update(budgetTemplates).set(updates).where(eq(budgetTemplates.id, id)).returning();
+    return updatedTemplate;
+  }
+
+  // Generated Quotes
+  async createGeneratedQuote(quote: InsertGeneratedQuote): Promise<GeneratedQuote> {
+    const [newQuote] = await db.insert(generatedQuotes).values(quote).returning();
+    return newQuote;
+  }
+
+  async getGeneratedQuotes(): Promise<GeneratedQuote[]> {
+    return await db.select().from(generatedQuotes).orderBy(desc(generatedQuotes.createdAt));
+  }
+
+  async getGeneratedQuotesByLeadId(leadId: number): Promise<GeneratedQuote[]> {
+    return await db.select().from(generatedQuotes).where(eq(generatedQuotes.leadId, leadId)).orderBy(desc(generatedQuotes.createdAt));
+  }
+
+  async getGeneratedQuoteById(id: number): Promise<GeneratedQuote | undefined> {
+    const [quote] = await db.select().from(generatedQuotes).where(eq(generatedQuotes.id, id));
+    return quote || undefined;
+  }
+
+  async updateQuoteStatus(id: number, status: string): Promise<GeneratedQuote> {
+    const [updatedQuote] = await db.update(generatedQuotes).set({ status }).where(eq(generatedQuotes.id, id)).returning();
+    return updatedQuote;
   }
 }
 

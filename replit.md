@@ -19,6 +19,10 @@ The platform architecture must support AI agents via N8N or MAKE for automated b
 
 ## Recent Changes
 
+✓ **Automated Budgeting System (Jul 15, 2025)**: Implemented AI agent-driven quote generation system
+✓ **Budget Templates**: Created standardized pricing templates for common architectural services
+✓ **Quote Generation Webhook**: AI agents can now generate quotes automatically via /api/webhooks/generate-quote
+✓ **Responsive Architecture**: Full mobile-first design with AI agent integration support
 ✓ **Lead Magnet Integration (Jan 15, 2025)**: Added existing ebook "Cómo Ampliar o Remodelar Tu Vivienda en Santiago" as lead magnet section
 ✓ **Enhanced Navigation**: Added "Ebook Gratis" to main navigation and hero CTA
 ✓ **Lead Generation**: Integrated ebook download form with database lead capture
@@ -68,6 +72,12 @@ The platform architecture must support AI agents via N8N or MAKE for automated b
 - **Contact Forms**: Multi-step forms for different service inquiries
 - **Calculator Integration**: Captures leads through interactive tools
 - **Lead Storage**: Comprehensive lead tracking with source attribution and status management
+
+### Automated Budgeting System
+- **Budget Templates**: Standardized pricing templates for architectural services (ampliación, remodelación, permisos)
+- **AI Quote Generation**: Automated quote creation via webhook integration with N8N/MAKE
+- **Dynamic Pricing**: Base price + per-m² calculations with regional and complexity adjustments
+- **Quote Management**: Generated quotes with validity periods and status tracking
 
 ### Service Presentation
 - **Service Cards**: Detailed presentation of architecture services with pricing
