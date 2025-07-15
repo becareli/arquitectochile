@@ -14,23 +14,12 @@ export default function AboutArchitect() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Professional Photo and Contact */}
           <div className="text-center lg:text-left">
-            <div className="w-48 h-48 mx-auto lg:mx-0 mb-6 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center overflow-hidden border-4 border-white shadow-xl">
-              <svg className="w-32 h-32 text-white" viewBox="0 0 100 100">
-                <g>
-                  {/* Hair */}
-                  <path d="M50 10 C35 10, 25 18, 25 30 C25 33, 26 36, 28 38 L28 85 C28 90, 33 95, 38 95 L62 95 C67 95, 72 90, 72 85 L72 38 C74 36, 75 33, 75 30 C75 18, 65 10, 50 10 Z" fill="#2D1B1B"/>
-                  {/* Face */}
-                  <path d="M50 20 C42 20, 35 25, 35 33 C35 41, 42 50, 50 50 C58 50, 65 41, 65 33 C65 25, 58 20, 50 20 Z" fill="#F4C2A1"/>
-                  {/* Jawline */}
-                  <path d="M38 40 C40 45, 45 48, 50 48 C55 48, 60 45, 62 40" fill="#E8A87C"/>
-                  {/* Body/Suit */}
-                  <path d="M28 85 C28 70, 33 60, 40 60 L60 60 C67 60, 72 70, 72 85 L72 95 L28 95 Z" fill="#1E3A8A"/>
-                  {/* Neck */}
-                  <rect x="44" y="48" width="12" height="12" fill="#F4C2A1"/>
-                  {/* Collar */}
-                  <path d="M40 60 L45 65 L50 62 L55 65 L60 60" fill="#FFFFFF"/>
-                </g>
-              </svg>
+            <div className="w-48 h-48 mx-auto lg:mx-0 mb-6 rounded-full overflow-hidden border-4 border-white shadow-xl">
+              <img 
+                src="/attached_assets/arquitecto_1752611474737.png" 
+                alt="Patricio Becar Elissegaray - Arquitecto Universidad de Chile"
+                className="w-full h-full object-cover"
+              />
             </div>
             
             <h3 className="text-2xl font-bold text-dark mb-2">Patricio Becar Elissegaray</h3>
