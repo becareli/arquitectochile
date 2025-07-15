@@ -71,7 +71,7 @@ export default function LeadMagnet() {
           <div className="text-white">
             <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 mb-8">
               <div className="text-center mb-6">
-                <div className="w-64 h-80 mx-auto mb-4 rounded-lg overflow-hidden shadow-2xl">
+                <div className="w-48 h-60 mx-auto mb-4 rounded-lg overflow-hidden shadow-2xl border-2 border-white/20">
                   <img 
                     src={ebookCover} 
                     alt="Ebook: ¿Cómo Ampliar o Remodelar Mi Casa? en Santiago de Chile"
