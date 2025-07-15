@@ -5,6 +5,7 @@ import {
   projects, 
   testimonials, 
   blogPosts,
+  aiAgentEvents,
   type User, 
   type InsertUser, 
   type Lead, 
@@ -16,7 +17,9 @@ import {
   type Testimonial,
   type InsertTestimonial,
   type BlogPost,
-  type InsertBlogPost
+  type InsertBlogPost,
+  type AiAgentEvent,
+  type InsertAiAgentEvent
 } from "@shared/schema";
 import { db } from "./db";
 import { eq, desc } from "drizzle-orm";
@@ -54,6 +57,12 @@ export interface IStorage {
   getBlogPostById(id: number): Promise<BlogPost | undefined>;
   getBlogPostBySlug(slug: string): Promise<BlogPost | undefined>;
   createBlogPost(post: InsertBlogPost): Promise<BlogPost>;
+  
+  // AI Agent Events
+  createAiAgentEvent(event: InsertAiAgentEvent): Promise<AiAgentEvent>;
+  getAiAgentEvents(): Promise<AiAgentEvent[]>;
+  getAiAgentEventsByLeadId(leadId: number): Promise<AiAgentEvent[]>;
+  getAiAgentEventsByType(eventType: string): Promise<AiAgentEvent[]>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -158,6 +167,24 @@ export class DatabaseStorage implements IStorage {
   async createBlogPost(post: InsertBlogPost): Promise<BlogPost> {
     const [newPost] = await db.insert(blogPosts).values(post).returning();
     return newPost;
+  }
+
+  // AI Agent Events
+  async createAiAgentEvent(event: InsertAiAgentEvent): Promise<AiAgentEvent> {
+    const [newEvent] = await db.insert(aiAgentEvents).values(event).returning();
+    return newEvent;
+  }
+
+  async getAiAgentEvents(): Promise<AiAgentEvent[]> {
+    return await db.select().from(aiAgentEvents).orderBy(desc(aiAgentEvents.createdAt));
+  }
+
+  async getAiAgentEventsByLeadId(leadId: number): Promise<AiAgentEvent[]> {
+    return await db.select().from(aiAgentEvents).where(eq(aiAgentEvents.leadId, leadId)).orderBy(desc(aiAgentEvents.createdAt));
+  }
+
+  async getAiAgentEventsByType(eventType: string): Promise<AiAgentEvent[]> {
+    return await db.select().from(aiAgentEvents).where(eq(aiAgentEvents.eventType, eventType)).orderBy(desc(aiAgentEvents.createdAt));
   }
 }
 

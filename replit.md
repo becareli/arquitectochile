@@ -8,6 +8,15 @@ ArquitectoChile is a full-stack web application for an architecture services com
 
 Preferred communication style: Simple, everyday language.
 
+## AI Agent Integration Requirements
+
+The platform architecture must support AI agents via N8N or MAKE for automated business processes:
+- **Agent-Ready Architecture**: Modular design supporting AI integration for each business aspect
+- **Enhanced UX Focus**: AI agents will provide exceptional user experience differentiation
+- **Responsive Design**: Full mobile-first responsive architecture across all components
+- **API-First Approach**: RESTful APIs designed for both human and AI agent consumption
+- **Business Process Automation**: Future AI agents will handle lead qualification, appointment scheduling, permit tracking, and client communication
+
 ## Recent Changes
 
 ✓ **Lead Magnet Integration (Jan 15, 2025)**: Added existing ebook "Cómo Ampliar o Remodelar Tu Vivienda en Santiago" as lead magnet section
@@ -32,8 +41,10 @@ Preferred communication style: Simple, everyday language.
 - **Language**: TypeScript with ESM modules
 - **Database**: PostgreSQL with Neon serverless database
 - **ORM**: Drizzle ORM for type-safe database operations
-- **API Design**: RESTful API with JSON responses
+- **API Design**: RESTful API with JSON responses optimized for AI agent consumption
 - **Session Management**: Express sessions with PostgreSQL storage
+- **AI Agent Integration**: API endpoints designed for N8N/MAKE webhook consumption
+- **Webhook Support**: Real-time event handling for AI agent triggers
 
 ### Development Environment
 - **Package Manager**: npm

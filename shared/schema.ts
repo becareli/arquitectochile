@@ -66,15 +66,35 @@ export const blogPosts = pgTable("blog_posts", {
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
+// AI Agent Events table for tracking automation
+export const aiAgentEvents = pgTable("ai_agent_events", {
+  id: serial("id").primaryKey(),
+  eventType: text("event_type").notNull(), // 'lead_qualification', 'appointment_scheduled', 'permit_update', etc.
+  leadId: integer("lead_id").references(() => leads.id),
+  source: text("source").notNull(), // 'n8n', 'make', 'manual', etc.
+  data: json("data").notNull(), // Event-specific data
+  status: text("status").notNull().default("processed"), // 'processed', 'failed', 'pending'
+  response: json("response"), // Response data from processing
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
 // Relations
 export const leadsRelations = relations(leads, ({ many }) => ({
   calculatorResults: many(calculatorResults),
+  aiAgentEvents: many(aiAgentEvents),
 }));
 
 export const calculatorResultsRelations = relations(calculatorResults, ({ one }) => ({
   lead: one(leads, {
     fields: [calculatorResults.email],
     references: [leads.email],
+  }),
+}));
+
+export const aiAgentEventsRelations = relations(aiAgentEvents, ({ one }) => ({
+  lead: one(leads, {
+    fields: [aiAgentEvents.leadId],
+    references: [leads.id],
   }),
 }));
 
@@ -108,6 +128,11 @@ export const insertBlogPostSchema = createInsertSchema(blogPosts).omit({
   createdAt: true,
 });
 
+export const insertAiAgentEventSchema = createInsertSchema(aiAgentEvents).omit({
+  id: true,
+  createdAt: true,
+});
+
 // Types
 export type User = typeof users.$inferSelect;
 export type InsertUser = z.infer<typeof insertUserSchema>;
@@ -121,3 +146,5 @@ export type Testimonial = typeof testimonials.$inferSelect;
 export type InsertTestimonial = z.infer<typeof insertTestimonialSchema>;
 export type BlogPost = typeof blogPosts.$inferSelect;
 export type InsertBlogPost = z.infer<typeof insertBlogPostSchema>;
+export type AiAgentEvent = typeof aiAgentEvents.$inferSelect;
+export type InsertAiAgentEvent = z.infer<typeof insertAiAgentEventSchema>;
