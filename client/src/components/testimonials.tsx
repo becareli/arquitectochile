@@ -271,16 +271,18 @@ export default function Testimonials() {
                         <rect x="45" y="62" width="10" height="8" fill="#F4C2A1"/>
                       </g>
                     ) : (
-                      // Male avatar with short hair
+                      // Male avatar with masculine features
                       <g>
-                        {/* Hair */}
-                        <path d="M50 15 C35 15, 25 25, 25 35 C25 42, 28 48, 32 52 L32 85 C32 90, 37 95, 42 95 L58 95 C63 95, 68 90, 68 85 L68 52 C72 48, 75 42, 75 35 C75 25, 65 15, 50 15 Z" fill="#2D1B1B"/>
-                        {/* Face */}
-                        <ellipse cx="50" cy="42" rx="18" ry="20" fill="#F4C2A1"/>
-                        {/* Body/Shirt */}
-                        <path d="M32 85 C32 75, 37 70, 47 70 L53 70 C63 70, 68 75, 68 85 L68 95 L32 95 Z" fill="#1E3A8A"/>
-                        {/* Neck */}
-                        <rect x="45" y="60" width="10" height="10" fill="#F4C2A1"/>
+                        {/* Hair - shorter and more masculine */}
+                        <path d="M50 15 C38 15, 30 22, 30 32 C30 35, 31 38, 33 40 L33 85 C33 90, 38 95, 43 95 L57 95 C62 95, 67 90, 67 85 L67 40 C69 38, 70 35, 70 32 C70 22, 62 15, 50 15 Z" fill="#2D1B1B"/>
+                        {/* Face - more angular and masculine */}
+                        <path d="M50 25 C42 25, 35 30, 35 38 C35 46, 42 55, 50 55 C58 55, 65 46, 65 38 C65 30, 58 25, 50 25 Z" fill="#F4C2A1"/>
+                        {/* Jawline */}
+                        <path d="M38 45 C40 50, 45 53, 50 53 C55 53, 60 50, 62 45" fill="#E8A87C"/>
+                        {/* Body/Shirt - broader shoulders */}
+                        <path d="M33 85 C33 72, 38 65, 45 65 L55 65 C62 65, 67 72, 67 85 L67 95 L33 95 Z" fill="#1E3A8A"/>
+                        {/* Neck - thicker and more masculine */}
+                        <rect x="44" y="53" width="12" height="12" fill="#F4C2A1"/>
                       </g>
                     )}
                   </svg>
