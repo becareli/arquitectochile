@@ -1,5 +1,6 @@
 import Navigation from "@/components/navigation";
 import Hero from "@/components/hero";
+import LeadMagnet from "@/components/lead-magnet";
 import ConstructionCalculator from "@/components/calculators/construction-calculator";
 import EnergyCalculator from "@/components/calculators/energy-calculator";
 import Services from "@/components/services";
@@ -15,6 +16,11 @@ export default function Home() {
     <div className="min-h-screen bg-white">
       <Navigation />
       <Hero />
+      
+      {/* Lead Magnet Section */}
+      <section id="ebook">
+        <LeadMagnet />
+      </section>
       
       {/* Interactive Calculators Section */}
       <section id="calculadoras" className="py-20 bg-neutral">

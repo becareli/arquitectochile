@@ -79,6 +79,10 @@ export const calculatorResultsRelations = relations(calculatorResults, ({ one })
 }));
 
 // Zod schemas
+export const insertUserSchema = createInsertSchema(users).omit({
+  id: true,
+});
+
 export const insertLeadSchema = createInsertSchema(leads).omit({
   id: true,
   createdAt: true,
@@ -106,7 +110,7 @@ export const insertBlogPostSchema = createInsertSchema(blogPosts).omit({
 
 // Types
 export type User = typeof users.$inferSelect;
-export type InsertUser = z.infer<typeof insertLeadSchema>;
+export type InsertUser = z.infer<typeof insertUserSchema>;
 export type Lead = typeof leads.$inferSelect;
 export type InsertLead = z.infer<typeof insertLeadSchema>;
 export type CalculatorResult = typeof calculatorResults.$inferSelect;

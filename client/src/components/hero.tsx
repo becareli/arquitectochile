@@ -38,10 +38,10 @@ export default function Hero() {
                 Cotizar Ahora
               </button>
               <button 
-                onClick={() => scrollToSection('calculadoras')}
+                onClick={() => scrollToSection('ebook')}
                 className="bg-white/10 backdrop-blur-sm text-white px-8 py-4 rounded-md text-lg font-semibold hover:bg-white/20 transition-colors text-center"
               >
-                Calculadoras Gratis
+                📖 Ebook Gratis
               </button>
             </div>
           </div>
