@@ -252,20 +252,36 @@ export default function Testimonials() {
           {displayTestimonials.map((testimonial: any) => (
             <Card key={testimonial.id} className="bg-gray-50 rounded-xl p-6">
               <div className="flex items-start space-x-4">
-                <div className={`w-12 h-12 rounded-full flex-shrink-0 flex items-center justify-center border-2 ${
+                <div className={`relative w-12 h-12 rounded-full flex-shrink-0 overflow-hidden ${
                   testimonial.gender === "female" 
-                    ? "bg-gradient-to-br from-cyan-100 to-cyan-200 border-cyan-300" 
-                    : "bg-gradient-to-br from-blue-100 to-blue-200 border-blue-300"
+                    ? "bg-gradient-to-br from-pink-400 to-pink-600" 
+                    : "bg-gradient-to-br from-blue-400 to-blue-600"
                 }`}>
-                  <svg className={`w-7 h-7 ${
-                    testimonial.gender === "female" ? "text-cyan-600" : "text-blue-600"
-                  }`} fill="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-full h-full" viewBox="0 0 100 100">
                     {testimonial.gender === "female" ? (
-                      // Female profile silhouette
-                      <path d="M12 2C14.5 2 16.5 4 16.5 6.5C16.5 8.5 15.5 10.2 14 11.2C14.8 11.5 15.5 11.9 16.1 12.4C17.2 13.3 18 14.5 18.5 15.8C18.7 16.3 18.5 16.9 18 17.1C17.5 17.3 16.9 17.1 16.7 16.6C16.3 15.6 15.7 14.7 14.8 14C13.9 13.3 12.9 12.9 11.9 12.9C10.9 12.9 9.9 13.3 9 14C8.1 14.7 7.5 15.6 7.1 16.6C6.9 17.1 6.3 17.3 5.8 17.1C5.3 16.9 5.1 16.3 5.3 15.8C5.8 14.5 6.6 13.3 7.7 12.4C8.3 11.9 9 11.5 9.8 11.2C8.3 10.2 7.3 8.5 7.3 6.5C7.3 4 9.3 2 11.8 2H12ZM12 4C10.3 4 9 5.3 9 6.5C9 7.7 10.3 9 12 9C13.7 9 15 7.7 15 6.5C15 5.3 13.7 4 12 4ZM5.5 3C6.3 3 7 3.7 7 4.5C7 5.3 6.3 6 5.5 6C4.7 6 4 5.3 4 4.5C4 3.7 4.7 3 5.5 3ZM18.5 3C19.3 3 20 3.7 20 4.5C20 5.3 19.3 6 18.5 6C17.7 6 17 5.3 17 4.5C17 3.7 17.7 3 18.5 3Z"/>
+                      // Female avatar with long hair
+                      <g>
+                        {/* Hair */}
+                        <path d="M50 15 C30 15, 20 25, 20 40 C20 45, 22 50, 25 54 L25 85 C25 90, 30 95, 35 95 L65 95 C70 95, 75 90, 75 85 L75 54 C78 50, 80 45, 80 40 C80 25, 70 15, 50 15 Z" fill="#2D1B1B"/>
+                        {/* Face */}
+                        <ellipse cx="50" cy="45" rx="18" ry="20" fill="#F4C2A1"/>
+                        {/* Body/Shirt */}
+                        <path d="M25 85 C25 75, 30 70, 40 70 L60 70 C70 70, 75 75, 75 85 L75 95 L25 95 Z" fill="#A91B60"/>
+                        {/* Neck */}
+                        <rect x="45" y="62" width="10" height="8" fill="#F4C2A1"/>
+                      </g>
                     ) : (
-                      // Male profile silhouette
-                      <path d="M12 2C14.5 2 16.5 4 16.5 6.5C16.5 8.5 15.5 10.2 14 11.2C14.8 11.5 15.5 11.9 16.1 12.4C17.2 13.3 18 14.5 18.5 15.8C18.7 16.3 18.5 16.9 18 17.1C17.5 17.3 16.9 17.1 16.7 16.6C16.3 15.6 15.7 14.7 14.8 14C13.9 13.3 12.9 12.9 11.9 12.9C10.9 12.9 9.9 13.3 9 14C8.1 14.7 7.5 15.6 7.1 16.6C6.9 17.1 6.3 17.3 5.8 17.1C5.3 16.9 5.1 16.3 5.3 15.8C5.8 14.5 6.6 13.3 7.7 12.4C8.3 11.9 9 11.5 9.8 11.2C8.3 10.2 7.3 8.5 7.3 6.5C7.3 4 9.3 2 11.8 2H12ZM12 4C10.3 4 9 5.3 9 6.5C9 7.7 10.3 9 12 9C13.7 9 15 7.7 15 6.5C15 5.3 13.7 4 12 4Z"/>
+                      // Male avatar with short hair
+                      <g>
+                        {/* Hair */}
+                        <path d="M50 15 C35 15, 25 25, 25 35 C25 42, 28 48, 32 52 L32 85 C32 90, 37 95, 42 95 L58 95 C63 95, 68 90, 68 85 L68 52 C72 48, 75 42, 75 35 C75 25, 65 15, 50 15 Z" fill="#2D1B1B"/>
+                        {/* Face */}
+                        <ellipse cx="50" cy="42" rx="18" ry="20" fill="#F4C2A1"/>
+                        {/* Body/Shirt */}
+                        <path d="M32 85 C32 75, 37 70, 47 70 L53 70 C63 70, 68 75, 68 85 L68 95 L32 95 Z" fill="#1E3A8A"/>
+                        {/* Neck */}
+                        <rect x="45" y="60" width="10" height="10" fill="#F4C2A1"/>
+                      </g>
                     )}
                   </svg>
                 </div>
