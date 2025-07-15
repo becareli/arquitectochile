@@ -1,6 +1,7 @@
 import { ExternalLink, Award, Building2, Users, Calendar, Shield, CheckCircle } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import arquitectoPhoto from "@assets/arquitecto_1752611474737.png";
 
 export default function AboutArchitect() {
   return (
@@ -16,7 +17,7 @@ export default function AboutArchitect() {
           <div className="text-center lg:text-left">
             <div className="w-48 h-48 mx-auto lg:mx-0 mb-6 rounded-full overflow-hidden border-4 border-white shadow-xl">
               <img 
-                src="/attached_assets/arquitecto_1752611474737.png" 
+                src={arquitectoPhoto} 
                 alt="Patricio Becar Elissegaray - Arquitecto Universidad de Chile"
                 className="w-full h-full object-cover"
               />
