@@ -6,6 +6,7 @@ import EnergyCalculator from "@/components/calculators/energy-calculator";
 import Services from "@/components/services";
 import AboutArchitect from "@/components/about-architect";
 import VideoCallWidget from "@/components/video-call-widget";
+import HomeownerVideoCallWidget from "@/components/homeowner-video-call-widget";
 import Projects from "@/components/projects";
 import Testimonials from "@/components/testimonials";
 import Blog from "@/components/blog";
@@ -42,6 +43,7 @@ export default function Home() {
       <Services />
       <AboutArchitect />
       <VideoCallWidget />
+      <HomeownerVideoCallWidget />
       <Projects />
       <Testimonials />
       <Blog />
