@@ -1,0 +1,164 @@
+import { ExternalLink, Award, Building2, Users, Calendar, Shield, CheckCircle } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+
+export default function AboutArchitect() {
+  return (
+    <section id="arquitecto" className="py-20 bg-gradient-to-br from-gray-50 to-gray-100">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl font-bold text-dark mb-4">Sobre el Arquitecto</h2>
+          <p className="text-xl text-gray-600">Experiencia y credenciales profesionales que avalan nuestro trabajo</p>
+        </div>
+        
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          {/* Professional Photo and Contact */}
+          <div className="text-center lg:text-left">
+            <div className="w-48 h-48 mx-auto lg:mx-0 mb-6 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center overflow-hidden border-4 border-white shadow-xl">
+              <svg className="w-32 h-32 text-white" viewBox="0 0 100 100">
+                <g>
+                  {/* Hair */}
+                  <path d="M50 10 C35 10, 25 18, 25 30 C25 33, 26 36, 28 38 L28 85 C28 90, 33 95, 38 95 L62 95 C67 95, 72 90, 72 85 L72 38 C74 36, 75 33, 75 30 C75 18, 65 10, 50 10 Z" fill="#2D1B1B"/>
+                  {/* Face */}
+                  <path d="M50 20 C42 20, 35 25, 35 33 C35 41, 42 50, 50 50 C58 50, 65 41, 65 33 C65 25, 58 20, 50 20 Z" fill="#F4C2A1"/>
+                  {/* Jawline */}
+                  <path d="M38 40 C40 45, 45 48, 50 48 C55 48, 60 45, 62 40" fill="#E8A87C"/>
+                  {/* Body/Suit */}
+                  <path d="M28 85 C28 70, 33 60, 40 60 L60 60 C67 60, 72 70, 72 85 L72 95 L28 95 Z" fill="#1E3A8A"/>
+                  {/* Neck */}
+                  <rect x="44" y="48" width="12" height="12" fill="#F4C2A1"/>
+                  {/* Collar */}
+                  <path d="M40 60 L45 65 L50 62 L55 65 L60 60" fill="#FFFFFF"/>
+                </g>
+              </svg>
+            </div>
+            
+            <h3 className="text-2xl font-bold text-dark mb-2">Patricio Becar Elissegaray</h3>
+            <p className="text-lg text-gray-600 mb-2">Arquitecto Universidad de Chile</p>
+            <p className="text-sm text-gray-500 mb-6">Titulado en 1999 • +25 años de experiencia</p>
+            
+            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+              <Button 
+                className="bg-blue-600 text-white hover:bg-blue-700 transition-colors"
+                onClick={() => window.open('https://www.linkedin.com/in/patriciobecar/', '_blank')}
+              >
+                <ExternalLink className="w-4 h-4 mr-2" />
+                Ver Perfil en LinkedIn
+              </Button>
+              <Button 
+                variant="outline"
+                className="border-primary text-primary hover:bg-primary hover:text-white transition-colors"
+                onClick={() => window.open('tel:+56979316827', '_self')}
+              >
+                📞 +56 9 7931 6827
+              </Button>
+            </div>
+          </div>
+          
+          {/* Professional Summary */}
+          <div className="space-y-6">
+            <Card className="bg-white shadow-lg">
+              <CardHeader>
+                <CardTitle className="flex items-center text-primary">
+                  <Award className="w-5 h-5 mr-2" />
+                  Credenciales Profesionales
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  <div className="flex items-start space-x-3">
+                    <CheckCircle className="w-5 h-5 text-green-500 mt-1" />
+                    <div>
+                      <p className="font-semibold text-dark">Arquitecto Universidad de Chile</p>
+                      <p className="text-gray-600">Titulado en 1999 • Colegio de Arquitectos de Chile</p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-start space-x-3">
+                    <Shield className="w-5 h-5 text-blue-500 mt-1" />
+                    <div>
+                      <p className="font-semibold text-dark">Arquitecto Revisor Independiente</p>
+                      <p className="text-gray-600">Reconocido por el MINVU • Especialista en normativas DFL2 y OGUC</p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-start space-x-3">
+                    <Users className="w-5 h-5 text-purple-500 mt-1" />
+                    <div>
+                      <p className="font-semibold text-dark">Creador Metodología MDAC</p>
+                      <p className="text-gray-600">Sistema innovador para ampliaciones y remodelaciones sin estrés</p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-start space-x-3">
+                    <Building2 className="w-5 h-5 text-orange-500 mt-1" />
+                    <div>
+                      <p className="font-semibold text-dark">Experto en Regularizaciones</p>
+                      <p className="text-gray-600">Especialista en resolver construcciones sin permisos</p>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+            
+            <Card className="bg-white shadow-lg">
+              <CardHeader>
+                <CardTitle className="flex items-center text-primary">
+                  <Building2 className="w-5 h-5 mr-2" />
+                  Áreas de Especialización
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div className="flex items-center space-x-2">
+                    <div className="w-2 h-2 bg-primary rounded-full"></div>
+                    <span className="text-gray-700">Ampliaciones de Vivienda</span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <div className="w-2 h-2 bg-primary rounded-full"></div>
+                    <span className="text-gray-700">Remodelaciones Integrales</span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <div className="w-2 h-2 bg-primary rounded-full"></div>
+                    <span className="text-gray-700">Regularizaciones DOM</span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <div className="w-2 h-2 bg-primary rounded-full"></div>
+                    <span className="text-gray-700">Permisos de Edificación</span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <div className="w-2 h-2 bg-primary rounded-full"></div>
+                    <span className="text-gray-700">Estudios de Cabida</span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <div className="w-2 h-2 bg-primary rounded-full"></div>
+                    <span className="text-gray-700">Recepción Final</span>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+            
+            <Card className="bg-primary text-white">
+              <CardContent className="pt-6">
+                <div className="grid grid-cols-3 gap-4 text-center">
+                  <div>
+                    <div className="text-2xl font-bold">25+</div>
+                    <div className="text-sm opacity-90">Años de Experiencia</div>
+                  </div>
+                  <div>
+                    <div className="text-2xl font-bold">500+</div>
+                    <div className="text-sm opacity-90">Proyectos Completados</div>
+                  </div>
+                  <div>
+                    <div className="text-2xl font-bold">4.9★</div>
+                    <div className="text-sm opacity-90">Rating Google Maps</div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}

@@ -42,6 +42,12 @@ export default function Navigation() {
                 Servicios
               </button>
               <button 
+                onClick={() => scrollToSection('arquitecto')}
+                className="text-dark hover:text-primary transition-colors"
+              >
+                Arquitecto
+              </button>
+              <button 
                 onClick={() => scrollToSection('ebook')}
                 className="text-dark hover:text-primary transition-colors"
               >
@@ -107,6 +113,12 @@ export default function Navigation() {
               className="block w-full text-left px-3 py-2 text-dark hover:text-primary"
             >
               Servicios
+            </button>
+            <button 
+              onClick={() => scrollToSection('arquitecto')}
+              className="block w-full text-left px-3 py-2 text-dark hover:text-primary"
+            >
+              Arquitecto
             </button>
             <button 
               onClick={() => scrollToSection('ebook')}

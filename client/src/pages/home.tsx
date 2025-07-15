@@ -4,6 +4,7 @@ import LeadMagnet from "@/components/lead-magnet";
 import ConstructionCalculator from "@/components/calculators/construction-calculator";
 import EnergyCalculator from "@/components/calculators/energy-calculator";
 import Services from "@/components/services";
+import AboutArchitect from "@/components/about-architect";
 import Projects from "@/components/projects";
 import Testimonials from "@/components/testimonials";
 import Blog from "@/components/blog";
@@ -38,6 +39,7 @@ export default function Home() {
       </section>
 
       <Services />
+      <AboutArchitect />
       <Projects />
       <Testimonials />
       <Blog />
