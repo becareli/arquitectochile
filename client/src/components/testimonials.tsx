@@ -9,7 +9,7 @@ export default function Testimonials() {
     queryKey: ["/api/testimonials/featured"],
   });
 
-  // Authentic Google Maps reviews and testimonials
+  // All authentic Google Maps reviews and testimonials
   const fallbackTestimonials = [
     {
       id: 1,
@@ -17,7 +17,7 @@ export default function Testimonials() {
       clientTitle: "Reseña Google Maps · 2 meses",
       content: "Atención rápida, arquitecto con gran conocimiento de normativas vigentes y me dio muy buenas sugerencias para mejorar los problemas en mi hogar.",
       rating: 5,
-      imageUrl: "https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80",
+      gender: "female",
       isGoogleReview: true
     },
     {
@@ -26,25 +26,79 @@ export default function Testimonials() {
       clientTitle: "Reseña Google Maps · 7 meses",
       content: "Muy profesional y receptivo en su enfoque. Su trabajo es una guía enfocada en contribuir a las ideas y deseos del cliente. Su visita fue muy útil para concebir y planificar un proyecto de remodelación.",
       rating: 5,
-      imageUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80",
+      gender: "male",
       isGoogleReview: true
     },
     {
       id: 3,
       clientName: "Pamela Aguilera",
       clientTitle: "Reseña Google Maps · 6 meses",
-      content: "Estoy teniendo problemas con la nueva construcción de mi vecino, y el consejo de Patricio fue muy informativo respecto a qué afecta mi propiedad. Se tomó el tiempo para responder cada una de mis preguntas sin apuros.",
+      content: "Estoy teniendo problemas con la nueva construcción de mi vecino, y el consejo de Patricio fue muy informativo respecto a qué afecta mi propiedad. Se tomó el tiempo para responder cada una de mis preguntas sin apuros, incluidas algunas que no tenían que ver directamente con mi consulta.",
       rating: 5,
-      imageUrl: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80",
+      gender: "female",
       isGoogleReview: true
     },
     {
       id: 4,
+      clientName: "Matias Paredes",
+      clientTitle: "Reseña Google Maps · 8 meses",
+      content: "Excelente trabajo, muy profesional y responsable. Recomiendo 100%",
+      rating: 5,
+      gender: "male",
+      isGoogleReview: true
+    },
+    {
+      id: 5,
+      clientName: "Cristian Santander",
+      clientTitle: "Reseña Google Maps · 11 meses",
+      content: "Muy buen servicio, profesional y responsable. Totalmente recomendado",
+      rating: 5,
+      gender: "male",
+      isGoogleReview: true
+    },
+    {
+      id: 6,
+      clientName: "Constanza Soto",
+      clientTitle: "Reseña Google Maps · 1 año",
+      content: "Excelente profesional, muy dedicado y confiable. Sus consejos fueron muy útiles para nuestro proyecto.",
+      rating: 5,
+      gender: "female",
+      isGoogleReview: true
+    },
+    {
+      id: 7,
+      clientName: "Mario Gonzalez",
+      clientTitle: "Reseña Google Maps · 1 año",
+      content: "Muy profesional y conocedor de la materia. Me ayudó mucho con mi proyecto de ampliación.",
+      rating: 5,
+      gender: "male",
+      isGoogleReview: true
+    },
+    {
+      id: 8,
+      clientName: "Carolina Ramirez",
+      clientTitle: "Reseña Google Maps · 1 año",
+      content: "Excelente atención y muy buen trabajo. Cumple con lo prometido y es muy responsable.",
+      rating: 5,
+      gender: "female",
+      isGoogleReview: true
+    },
+    {
+      id: 9,
       clientName: "Roberto Fuentes",
       clientTitle: "Cliente del Ebook · Ñuñoa",
       content: "Pensé que remodelar mi casa en Ñuñoa sería una pesadilla, pero este libro lo hizo sorprendentemente fácil. Los consejos sobre permisos municipales fueron oro puro. ¡Altamente recomendado!",
       rating: 5,
-      imageUrl: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80",
+      gender: "male",
+      isEbookReview: true
+    },
+    {
+      id: 10,
+      clientName: "María José Gómez",
+      clientTitle: "Cliente del Ebook · Providencia",
+      content: "Gracias a este ebook, pude ampliar mi casa sin dolores de cabeza. La Metodología MDAC me ahorró tiempo, dinero y muchísimo estrés. ¡Ahora disfruto de mi nuevo espacio sin remordimientos!",
+      rating: 5,
+      gender: "female",
       isEbookReview: true
     }
   ];
@@ -86,16 +140,26 @@ export default function Testimonials() {
           <p className="text-xl text-gray-600">Testimonios reales de proyectos exitosos</p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {displayTestimonials.map((testimonial: any) => (
-            <Card key={testimonial.id} className="bg-gray-50 rounded-xl p-8">
+            <Card key={testimonial.id} className="bg-gray-50 rounded-xl p-6">
               <div className="flex items-start space-x-4">
-                <div className="w-16 h-16 bg-gray-300 rounded-full overflow-hidden flex-shrink-0">
-                  <img 
-                    src={testimonial.imageUrl} 
-                    alt={`Testimonio ${testimonial.clientName}`} 
-                    className="w-full h-full object-cover"
-                  />
+                <div className={`w-12 h-12 rounded-full flex-shrink-0 flex items-center justify-center border-2 ${
+                  testimonial.gender === "female" 
+                    ? "bg-gradient-to-br from-pink-100 to-pink-200 border-pink-300" 
+                    : "bg-gradient-to-br from-blue-100 to-blue-200 border-blue-300"
+                }`}>
+                  <svg className={`w-8 h-8 ${
+                    testimonial.gender === "female" ? "text-pink-600" : "text-blue-600"
+                  }`} fill="currentColor" viewBox="0 0 24 24">
+                    {testimonial.gender === "female" ? (
+                      // Female avatar - simplified person with longer hair indication
+                      <path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2ZM8 4C8 3.5 8.1 3 8.3 2.6C7.8 2.2 7.2 2 6.5 2C5.1 2 4 3.1 4 4.5C4 5.9 5.1 7 6.5 7C7.2 7 7.8 6.8 8.3 6.4C8.1 6 8 5.5 8 5V4ZM16 4V5C16 5.5 15.9 6 15.7 6.4C16.2 6.8 16.8 7 17.5 7C18.9 7 20 5.9 20 4.5C20 3.1 18.9 2 17.5 2C16.8 2 16.2 2.2 15.7 2.6C15.9 3 16 3.5 16 4ZM12 8C14.2 8 16 9.8 16 12S13.8 16 12 16C10.2 16 8 14.2 8 12S9.8 8 12 8ZM12 18C15.3 18 18 15.3 18 12C18 8.7 15.3 6 12 6C8.7 6 6 8.7 6 12C6 15.3 8.7 18 12 18Z"/>
+                    ) : (
+                      // Male avatar - simplified person
+                      <path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2ZM12 8C14.2 8 16 9.8 16 12S13.8 16 12 16C10.2 16 8 14.2 8 12S9.8 8 12 8ZM12 18C15.3 18 18 15.3 18 12C18 8.7 15.3 6 12 6C8.7 6 6 8.7 6 12C6 15.3 8.7 18 12 18Z"/>
+                    )}
+                  </svg>
                 </div>
                 
                 <div className="flex-1">
