@@ -6,6 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
+import ebookCover from "@assets/PortadaEbook_1752612398787.png";
 
 export default function LeadMagnet() {
   const [email, setEmail] = useState("");
@@ -70,13 +71,20 @@ export default function LeadMagnet() {
           <div className="text-white">
             <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 mb-8">
               <div className="text-center mb-6">
-                <div className="bg-white/20 w-32 h-40 rounded-lg mx-auto mb-4 flex items-center justify-center">
-                  <div className="text-4xl">📖</div>
+                <div className="w-64 h-80 mx-auto mb-4 rounded-lg overflow-hidden shadow-2xl">
+                  <img 
+                    src={ebookCover} 
+                    alt="Ebook: ¿Cómo Ampliar o Remodelar Mi Casa? en Santiago de Chile"
+                    className="w-full h-full object-cover"
+                  />
                 </div>
                 <h2 className="text-3xl font-bold mb-2">NUEVO EBOOK GRATUITO</h2>
                 <h3 className="text-xl font-semibold mb-4">
-                  Descubre cómo <span className="text-accent">Ampliar</span> o <span className="text-accent">Remodelar</span> Tu Vivienda en Santiago de Chile
+                  <span className="text-accent">¿Cómo Ampliar o Remodelar Mi Casa?</span> en Santiago de Chile
                 </h3>
+                <p className="text-lg text-accent font-bold">
+                  ...y no morir en el intento!!
+                </p>
               </div>
               
               <p className="text-lg mb-6 opacity-90">
