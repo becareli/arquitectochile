@@ -38,9 +38,9 @@ export default function AboutArchitect() {
               <Button 
                 variant="outline"
                 className="border-primary text-primary hover:bg-primary hover:text-white transition-colors"
-                onClick={() => window.open('tel:+56979316827', '_self')}
+                onClick={() => window.open('https://wa.me/56979316827?text=Hola%20Patricio,%20me%20interesa%20conocer%20más%20sobre%20tus%20servicios%20de%20arquitectura', '_blank')}
               >
-                📞 +56 9 7931 6827
+                📞 +56979316827
               </Button>
             </div>
           </div>

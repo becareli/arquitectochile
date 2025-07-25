@@ -65,10 +65,15 @@ export default function Footer() {
                 <Mail size={16} className="mr-2" />
                 info@arquitectochile.com
               </p>
-              <p className="flex items-center">
+              <a 
+                href="https://wa.me/56979316827?text=Hola%20Patricio,%20me%20interesa%20conocer%20más%20sobre%20tus%20servicios%20de%20arquitectura"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center hover:text-white transition-colors cursor-pointer"
+              >
                 <Phone size={16} className="mr-2" />
-                +56 9 XXXX XXXX
-              </p>
+                +56979316827
+              </a>
               <p className="flex items-center">
                 <MapPin size={16} className="mr-2" />
                 Santiago, Chile

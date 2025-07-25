@@ -69,7 +69,7 @@ export default function Contact() {
 
   const handleInstantConsult = () => {
     // This would integrate with WhatsApp or phone system
-    window.open("https://wa.me/56912345678?text=Hola%2C%20necesito%20una%20consulta%20inmediata%20sobre%20mi%20proyecto", '_blank');
+    window.open("https://wa.me/56979316827?text=Hola%20Patricio%2C%20necesito%20una%20consulta%20inmediata%20sobre%20mi%20proyecto", '_blank');
   };
 
   return (

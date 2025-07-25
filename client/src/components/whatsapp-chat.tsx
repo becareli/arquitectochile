@@ -3,9 +3,9 @@ import { Button } from "@/components/ui/button";
 
 export default function WhatsAppChat() {
   const handleWhatsAppClick = () => {
-    const message = "Hola, me interesa conocer más sobre sus servicios de arquitectura.";
+    const message = "Hola Patricio, me interesa conocer más sobre tus servicios de arquitectura.";
     const encodedMessage = encodeURIComponent(message);
-    window.open(`https://wa.me/56912345678?text=${encodedMessage}`, '_blank');
+    window.open(`https://wa.me/56979316827?text=${encodedMessage}`, '_blank');
   };
 
   return (
