@@ -145,7 +145,7 @@ export default function SalesMechanism() {
             </div>
 
             <p className="text-gray-600 italic">
-              "La diferencia está en nuestros 15 años de experiencia y el sistema probado 
+              "La diferencia está en nuestros 26 años de experiencia y el sistema probado 
               que elimina los errores típicos que cometen otros arquitectos."
             </p>
           </div>

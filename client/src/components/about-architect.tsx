@@ -25,7 +25,7 @@ export default function AboutArchitect() {
             
             <h3 className="text-2xl font-bold text-dark mb-2">Patricio Becar Elissegaray</h3>
             <p className="text-lg text-gray-600 mb-2">Arquitecto Universidad de Chile</p>
-            <p className="text-sm text-gray-500 mb-6">Titulado en 1999 • +25 años de experiencia</p>
+            <p className="text-sm text-gray-500 mb-6">Titulado en 1999 • +26 años de experiencia</p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
               <Button 
@@ -132,7 +132,7 @@ export default function AboutArchitect() {
               <CardContent className="pt-6">
                 <div className="grid grid-cols-3 gap-4 text-center">
                   <div>
-                    <div className="text-2xl font-bold">25+</div>
+                    <div className="text-2xl font-bold">26+</div>
                     <div className="text-sm opacity-90">Años de Experiencia</div>
                   </div>
                   <div>

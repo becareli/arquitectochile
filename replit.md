@@ -29,6 +29,7 @@ The platform architecture must support AI agents via N8N or MAKE for automated b
 
 ## Recent Changes
 
+✓ **Experience Update (Jul 25, 2025)**: Updated professional experience from 15+ to 26+ years (Universidad de Chile 1999)
 ✓ **Client Portal Platform (Jul 25, 2025)**: Revolutionary client experience with secure access, document management, payment tracking, and project timeline
 ✓ **Regularización de Inmuebles Service (Jul 25, 2025)**: Added specialized "Ley del Mono" service with dedicated landing section
 ✓ **Client Dashboard System (Jul 25, 2025)**: Comprehensive admin panel with lead and quote management
