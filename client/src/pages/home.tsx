@@ -10,6 +10,8 @@ import HomeownerVideoCallWidget from "@/components/homeowner-video-call-widget";
 import Projects from "@/components/projects";
 import Testimonials from "@/components/testimonials";
 import SocialProof from "@/components/social-proof";
+import SalesMechanism from "@/components/sales-mechanism";
+import ObjectionHandling from "@/components/objection-handling";
 import Guarantees from "@/components/guarantees";
 import Blog from "@/components/blog";
 import Contact from "@/components/contact";
@@ -49,6 +51,8 @@ export default function Home() {
       <Projects />
       <Testimonials />
       <SocialProof />
+      <SalesMechanism />
+      <ObjectionHandling />
       <Guarantees />
       <Blog />
       <Contact />

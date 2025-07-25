@@ -11,10 +11,26 @@ export default function Hero() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div>
+            {/* Urgency Banner (Alex Hormozi) */}
+            <div className="bg-red-600 text-white px-4 py-2 rounded-lg mb-6 inline-block animate-pulse">
+              <p className="font-bold text-sm">
+                🔥 ÚLTIMO CUPO ENERO 2025 - Solo 1 cupo disponible
+              </p>
+            </div>
+            
             <h1 className="text-4xl lg:text-6xl font-bold mb-6">¿Quieres construir una casa hermosa y única para tu familia, sin preocuparte por trámites o problemas legales?</h1>
-            <p className="text-xl mb-8 opacity-90">
+            <p className="text-xl mb-6 opacity-90">
               Para padres de familia de Santiago que buscan diseño personalizado con visualización 3D, gestión completa de permisos y acompañamiento especializado hasta la entrega final.
             </p>
+            
+            {/* Value Stack Preview */}
+            <div className="bg-white/20 backdrop-blur-sm rounded-lg p-4 mb-6">
+              <h3 className="text-lg font-bold mb-2">OFERTA ESPECIAL HOY:</h3>
+              <p className="text-2xl font-bold text-accent">
+                <span className="line-through text-white/70 text-lg">$3.200.000</span> → $1.800.000
+              </p>
+              <p className="text-sm opacity-90">Ahorras $1.400.000 si decides hoy</p>
+            </div>
             
             {/* Beneficios clave basados en VSL */}
             <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 mb-8">
@@ -51,19 +67,29 @@ export default function Hero() {
               </div>
             </div>
             
-            <div className="flex flex-col sm:flex-row gap-4">
+            <div className="flex flex-col gap-4">
               <button 
                 onClick={() => scrollToSection('contacto')}
-                className="bg-accent text-primary px-8 py-4 rounded-md text-lg font-semibold hover:bg-yellow-500 transition-colors text-center shadow-lg"
+                className="bg-red-600 text-white px-8 py-5 rounded-md text-xl font-bold hover:bg-red-700 transition-colors text-center shadow-xl border-4 border-red-400 transform hover:scale-105 animate-bounce"
               >
-                Consulta Gratuita Ahora
+                SÍ, QUIERO AGENDAR Y AHORRAR $1.400.000
               </button>
               <button 
                 onClick={() => scrollToSection('ebook')}
-                className="bg-white/10 backdrop-blur-sm text-white px-8 py-4 rounded-md text-lg font-semibold hover:bg-white/20 transition-colors text-center border border-white/30"
+                className="bg-white/10 backdrop-blur-sm text-white px-6 py-3 rounded-md text-md font-semibold hover:bg-white/20 transition-colors text-center border border-white/30"
               >
-                📖 Descarga Ebook Gratis
+                📖 O descarga primero el Ebook Gratuito
               </button>
+              
+              {/* Risk Reversal */}
+              <div className="text-center mt-4">
+                <p className="text-sm opacity-90">
+                  ✓ Consulta 100% gratuita ✓ Sin compromiso ✓ Garantía total
+                </p>
+                <p className="text-xs text-accent mt-1 font-semibold">
+                  ⚠️ Oferta válida solo por 24 horas
+                </p>
+              </div>
             </div>
           </div>
           
