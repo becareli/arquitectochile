@@ -19,16 +19,18 @@ export default function Navigation() {
   return (
     <nav className="bg-white shadow-sm sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-20">
-          <div className="flex items-center">
-            <div className="flex-shrink-0">
-              <h1 className="text-3xl font-bold text-primary">ArquitectoChile.com</h1>
-            </div>
-          </div>
+        {/* Logo Section */}
+        <div className="text-center py-4 border-b border-gray-100">
+          <h1 className="text-4xl font-bold text-primary">ArquitectoChile.com</h1>
+        </div>
+        
+        {/* Navigation Section */}
+        <div className="flex justify-between items-center h-16">
+          <div className="flex-1"></div>
           
           {/* Desktop Navigation */}
           <div className="hidden md:block">
-            <div className="ml-10 flex items-center space-x-6">
+            <div className="flex items-center space-x-6 justify-center">
               <button 
                 onClick={() => scrollToSection('inicio')}
                 className="text-dark hover:text-primary transition-colors text-sm font-medium"
@@ -83,25 +85,29 @@ export default function Navigation() {
               >
                 Blog
               </button>
-              <a
-                href="/colaboradores"
-                className="bg-green-600 text-white px-4 py-2.5 rounded-md hover:bg-green-700 transition-colors font-semibold text-sm"
-              >
-                Colaboradores
-              </a>
-              <a
-                href="/portal-cliente"
-                className="bg-blue-600 text-white px-4 py-2.5 rounded-md hover:bg-blue-700 transition-colors font-semibold text-sm"
-              >
-                Portal Cliente
-              </a>
-              <button 
-                onClick={() => scrollToSection('contacto')}
-                className="bg-accent text-white px-4 py-2.5 rounded-md hover:bg-yellow-500 transition-colors font-semibold text-sm"
-              >
-                Contacto
-              </button>
             </div>
+          </div>
+          
+          {/* Action Buttons */}
+          <div className="hidden md:flex items-center space-x-3">
+            <a
+              href="/colaboradores"
+              className="bg-green-600 text-white px-4 py-2.5 rounded-md hover:bg-green-700 transition-colors font-semibold text-sm"
+            >
+              Colaboradores
+            </a>
+            <a
+              href="/portal-cliente"
+              className="bg-blue-600 text-white px-4 py-2.5 rounded-md hover:bg-blue-700 transition-colors font-semibold text-sm"
+            >
+              Portal Cliente
+            </a>
+            <button 
+              onClick={() => scrollToSection('contacto')}
+              className="bg-accent text-white px-4 py-2.5 rounded-md hover:bg-yellow-500 transition-colors font-semibold text-sm"
+            >
+              Contacto
+            </button>
           </div>
           
           {/* Mobile menu button */}
@@ -168,12 +174,28 @@ export default function Navigation() {
             >
               Blog
             </button>
-            <button 
-              onClick={() => scrollToSection('contacto')}
-              className="block w-full text-left px-3 py-2 mx-3 bg-accent text-white rounded-md"
-            >
-              Contacto
-            </button>
+            
+            {/* Mobile Action Buttons */}
+            <div className="pt-4 border-t border-gray-200 space-y-2">
+              <a
+                href="/colaboradores"
+                className="block w-full bg-green-600 text-white px-3 py-2 rounded-md hover:bg-green-700 transition-colors font-semibold text-center"
+              >
+                Colaboradores
+              </a>
+              <a
+                href="/portal-cliente"
+                className="block w-full bg-blue-600 text-white px-3 py-2 rounded-md hover:bg-blue-700 transition-colors font-semibold text-center"
+              >
+                Portal Cliente
+              </a>
+              <button 
+                onClick={() => scrollToSection('contacto')}
+                className="block w-full bg-accent text-white px-3 py-2 rounded-md hover:bg-yellow-500 transition-colors font-semibold"
+              >
+                Contacto
+              </button>
+            </div>
           </div>
         </div>
       )}
