@@ -11,6 +11,8 @@ import Projects from "@/components/projects";
 import Testimonials from "@/components/testimonials";
 import SocialProof from "@/components/social-proof";
 import SalesMechanism from "@/components/sales-mechanism";
+import LeadMagnetsVilma from "@/components/lead-magnets-vilma";
+import FunnelOptimizationVilma from "@/components/funnel-optimization-vilma";
 import ObjectionHandling from "@/components/objection-handling";
 import Guarantees from "@/components/guarantees";
 import Blog from "@/components/blog";
@@ -52,6 +54,8 @@ export default function Home() {
       <Testimonials />
       <SocialProof />
       <SalesMechanism />
+      <LeadMagnetsVilma />
+      <FunnelOptimizationVilma />
       <ObjectionHandling />
       <Guarantees />
       <Blog />
