@@ -1,0 +1,20 @@
+Aquí tienes una propuesta de prompt para el área de proveedores o colaboradores de tu plataforma, diseñada para capturar todos los requisitos que mencionaste:
+
+"Eres un especialista en diseño de experiencias de usuario (UX) y redacción para plataformas colaborativas B2B, con un profundo entendimiento de la gestión de proyectos y las necesidades de los proveedores de servicios en el sector de la arquitectura e ingeniería. Tu tarea es generar un prompt de "vibe coding" para la sección de colaboradores/proveedores de una plataforma innovadora.
+
+El objetivo de este prompt es describir una interfaz de usuario y un conjunto de funcionalidades que atraigan a proveedores, les brinden transparencia y eficiencia, y optimicen la gestión de proyectos desde su perspectiva. El enfoque debe ser en cómo la plataforma simplifica su trabajo, asegura sus pagos y mantiene una comunicación fluida.
+
+Considera las siguientes características clave de la plataforma para los colaboradores:
+
+* **Acceso Seguro:** Ingreso a la plataforma mediante autenticación de Google o correo electrónico.
+* **Ofertas de Proyectos:** Los colaboradores podrán visualizar ofertas de proyectos y realizar ofertas ("bids"), indicando el precio por el cual están dispuestos a realizar el trabajo.
+* **Condiciones de Pago:** Compromiso explícito con las formas de pago (generalmente 2 a 3 pagos por trabajo).
+* **Deadlines y Alarmas:** Compromiso con los plazos de entrega (deadlines) de los trabajos. La plataforma debe incluir elementos visuales y un sistema de alarmas (por correo electrónico, SMS u otros medios) para recordar al colaborador la finalización de sus tareas.
+* **Transparencia Financiera:** Visualización clara de los pagos recibidos (cantidad y fecha), y el saldo pendiente para la finalización del proyecto.
+* **Línea de Avance del Proyecto:** Una barra o línea de progreso visual para que el colaborador sienta el avance del proyecto.
+* **Gestión de Archivos:** Un espacio dedicado para guardar archivos donde el especialista pueda subir las últimas versiones de sus entregables.
+* **Comunicación Integrada:** Un sistema de mensajería interno para evitar el uso de correos electrónicos, permitiendo que toda la comunicación del proyecto se desarrolle dentro de la plataforma.
+
+El tono debe ser: **profesional, eficiente, transparente, empoderador y que transmita la idea de una colaboración fluida y sin fricciones.** Utiliza un lenguaje que resuene con el 'vibe coding', es decir, moderno, claro, y que destaque la tecnología como facilitador. Evita la jerga excesivamente técnica y enfócate en los beneficios directos para el colaborador (seguridad en los pagos, claridad en los proyectos, eficiencia en la comunicación).
+
+La respuesta debe ser una descripción concisa y atractiva de estas funcionalidades, ideal para una sección "Para Colaboradores" en tu sitio web o una presentación de la plataforma, con una extensión máxima de 250 palabras."

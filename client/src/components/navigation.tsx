@@ -84,6 +84,12 @@ export default function Navigation() {
                 Blog
               </button>
               <a
+                href="/colaboradores"
+                className="bg-green-600 text-white px-4 py-2.5 rounded-md hover:bg-green-700 transition-colors font-semibold text-sm"
+              >
+                Colaboradores
+              </a>
+              <a
                 href="/portal-cliente"
                 className="bg-blue-600 text-white px-4 py-2.5 rounded-md hover:bg-blue-700 transition-colors font-semibold text-sm"
               >

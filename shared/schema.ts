@@ -118,6 +118,94 @@ export const generatedQuotes = pgTable("generated_quotes", {
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
+// Collaborators/Providers for the platform
+export const collaborators = pgTable("collaborators", {
+  id: serial("id").primaryKey(),
+  name: text("name").notNull(),
+  email: text("email").notNull().unique(),
+  phone: text("phone"),
+  specialty: text("specialty").notNull(), // 'arquitecto', 'ingeniero', 'constructor', 'electricista', etc.
+  experience: integer("experience").notNull(), // years of experience
+  location: text("location").notNull(),
+  rating: decimal("rating", { precision: 3, scale: 2 }).default("0.00"),
+  totalProjects: integer("total_projects").default(0),
+  profileImage: text("profile_image"),
+  description: text("description"),
+  skills: text("skills").array(),
+  certifications: text("certifications").array(),
+  portfolio: json("portfolio"), // Array of portfolio items
+  paymentTerms: text("payment_terms").notNull().default("2_payments"), // '2_payments', '3_payments'
+  hourlyRate: decimal("hourly_rate", { precision: 10, scale: 2 }),
+  fixedRateMin: decimal("fixed_rate_min", { precision: 10, scale: 2 }),
+  fixedRateMax: decimal("fixed_rate_max", { precision: 10, scale: 2 }),
+  availability: text("availability").notNull().default("available"), // 'available', 'busy', 'unavailable'
+  verified: boolean("verified").default(false),
+  active: boolean("active").default(true),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+// Project offers for collaborators to bid on
+export const projectOffers = pgTable("project_offers", {
+  id: serial("id").primaryKey(),
+  title: text("title").notNull(),
+  description: text("description").notNull(),
+  category: text("category").notNull(), // 'ampliacion', 'remodelacion', 'permiso', etc.
+  budget: decimal("budget", { precision: 10, scale: 2 }),
+  deadline: timestamp("deadline").notNull(),
+  location: text("location").notNull(),
+  requirements: text("requirements").array(),
+  attachments: json("attachments"), // File attachments
+  clientId: integer("client_id").references(() => leads.id),
+  status: text("status").notNull().default("open"), // 'open', 'in_progress', 'completed', 'cancelled'
+  selectedBidId: integer("selected_bid_id"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+// Bids from collaborators on project offers
+export const projectBids = pgTable("project_bids", {
+  id: serial("id").primaryKey(),
+  projectOfferId: integer("project_offer_id").references(() => projectOffers.id).notNull(),
+  collaboratorId: integer("collaborator_id").references(() => collaborators.id).notNull(),
+  bidAmount: decimal("bid_amount", { precision: 10, scale: 2 }).notNull(),
+  proposedDeadline: timestamp("proposed_deadline").notNull(),
+  coverLetter: text("cover_letter").notNull(),
+  paymentSchedule: json("payment_schedule").notNull(), // Payment milestones
+  status: text("status").notNull().default("pending"), // 'pending', 'accepted', 'rejected', 'withdrawn'
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+// Active projects assigned to collaborators
+export const activeProjects = pgTable("active_projects", {
+  id: serial("id").primaryKey(),
+  projectOfferId: integer("project_offer_id").references(() => projectOffers.id).notNull(),
+  collaboratorId: integer("collaborator_id").references(() => collaborators.id).notNull(),
+  bidId: integer("bid_id").references(() => projectBids.id).notNull(),
+  startDate: timestamp("start_date").defaultNow().notNull(),
+  deadline: timestamp("deadline").notNull(),
+  totalAmount: decimal("total_amount", { precision: 10, scale: 2 }).notNull(),
+  paidAmount: decimal("paid_amount", { precision: 10, scale: 2 }).default("0.00"),
+  progress: integer("progress").default(0), // 0-100%
+  status: text("status").notNull().default("in_progress"), // 'in_progress', 'review', 'completed', 'cancelled'
+  paymentSchedule: json("payment_schedule").notNull(),
+  deliverables: json("deliverables"), // Array of deliverable files
+  messages: json("messages"), // Internal messaging
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+// Payment records for collaborators
+export const collaboratorPayments = pgTable("collaborator_payments", {
+  id: serial("id").primaryKey(),
+  activeProjectId: integer("active_project_id").references(() => activeProjects.id).notNull(),
+  collaboratorId: integer("collaborator_id").references(() => collaborators.id).notNull(),
+  amount: decimal("amount", { precision: 10, scale: 2 }).notNull(),
+  paymentDate: timestamp("payment_date").defaultNow().notNull(),
+  paymentMethod: text("payment_method").notNull().default("bank_transfer"),
+  transactionId: text("transaction_id"),
+  milestone: text("milestone").notNull(), // 'first_payment', 'second_payment', 'final_payment'
+  status: text("status").notNull().default("completed"), // 'pending', 'completed', 'failed'
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
 // Relations
 export const leadsRelations = relations(leads, ({ many }) => ({
   calculatorResults: many(calculatorResults),
@@ -151,6 +239,63 @@ export const generatedQuotesRelations = relations(generatedQuotes, ({ one }) => 
   template: one(budgetTemplates, {
     fields: [generatedQuotes.templateId],
     references: [budgetTemplates.id],
+  }),
+}));
+
+export const collaboratorsRelations = relations(collaborators, ({ many }) => ({
+  projectBids: many(projectBids),
+  activeProjects: many(activeProjects),
+  collaboratorPayments: many(collaboratorPayments),
+}));
+
+export const projectOffersRelations = relations(projectOffers, ({ one, many }) => ({
+  client: one(leads, {
+    fields: [projectOffers.clientId],
+    references: [leads.id],
+  }),
+  projectBids: many(projectBids),
+  activeProjects: many(activeProjects),
+}));
+
+export const projectBidsRelations = relations(projectBids, ({ one }) => ({
+  projectOffer: one(projectOffers, {
+    fields: [projectBids.projectOfferId],
+    references: [projectOffers.id],
+  }),
+  collaborator: one(collaborators, {
+    fields: [projectBids.collaboratorId],
+    references: [collaborators.id],
+  }),
+  activeProject: one(activeProjects, {
+    fields: [projectBids.id],
+    references: [activeProjects.bidId],
+  }),
+}));
+
+export const activeProjectsRelations = relations(activeProjects, ({ one, many }) => ({
+  projectOffer: one(projectOffers, {
+    fields: [activeProjects.projectOfferId],
+    references: [projectOffers.id],
+  }),
+  collaborator: one(collaborators, {
+    fields: [activeProjects.collaboratorId],
+    references: [collaborators.id],
+  }),
+  bid: one(projectBids, {
+    fields: [activeProjects.bidId],
+    references: [projectBids.id],
+  }),
+  collaboratorPayments: many(collaboratorPayments),
+}));
+
+export const collaboratorPaymentsRelations = relations(collaboratorPayments, ({ one }) => ({
+  activeProject: one(activeProjects, {
+    fields: [collaboratorPayments.activeProjectId],
+    references: [activeProjects.id],
+  }),
+  collaborator: one(collaborators, {
+    fields: [collaboratorPayments.collaboratorId],
+    references: [collaborators.id],
   }),
 }));
 
@@ -199,6 +344,31 @@ export const insertGeneratedQuoteSchema = createInsertSchema(generatedQuotes).om
   createdAt: true,
 });
 
+export const insertCollaboratorSchema = createInsertSchema(collaborators).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertProjectOfferSchema = createInsertSchema(projectOffers).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertProjectBidSchema = createInsertSchema(projectBids).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertActiveProjectSchema = createInsertSchema(activeProjects).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertCollaboratorPaymentSchema = createInsertSchema(collaboratorPayments).omit({
+  id: true,
+  createdAt: true,
+});
+
 // Types
 export type User = typeof users.$inferSelect;
 export type InsertUser = z.infer<typeof insertUserSchema>;
@@ -218,3 +388,13 @@ export type BudgetTemplate = typeof budgetTemplates.$inferSelect;
 export type InsertBudgetTemplate = z.infer<typeof insertBudgetTemplateSchema>;
 export type GeneratedQuote = typeof generatedQuotes.$inferSelect;
 export type InsertGeneratedQuote = z.infer<typeof insertGeneratedQuoteSchema>;
+export type Collaborator = typeof collaborators.$inferSelect;
+export type InsertCollaborator = z.infer<typeof insertCollaboratorSchema>;
+export type ProjectOffer = typeof projectOffers.$inferSelect;
+export type InsertProjectOffer = z.infer<typeof insertProjectOfferSchema>;
+export type ProjectBid = typeof projectBids.$inferSelect;
+export type InsertProjectBid = z.infer<typeof insertProjectBidSchema>;
+export type ActiveProject = typeof activeProjects.$inferSelect;
+export type InsertActiveProject = z.infer<typeof insertActiveProjectSchema>;
+export type CollaboratorPayment = typeof collaboratorPayments.$inferSelect;
+export type InsertCollaboratorPayment = z.infer<typeof insertCollaboratorPaymentSchema>;

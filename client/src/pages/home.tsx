@@ -10,6 +10,7 @@ import AsesoriaTerreno from "@/components/asesoria-terreno";
 import AboutArchitect from "@/components/about-architect";
 import VideoCallWidget from "@/components/video-call-widget";
 import HomeownerVideoCallWidget from "@/components/homeowner-video-call-widget";
+import ColaboradoresSection from "@/components/colaboradores-section";
 import Projects from "@/components/projects";
 import Testimonials from "@/components/testimonials";
 import SocialProof from "@/components/social-proof";
@@ -61,6 +62,7 @@ export default function Home() {
       <AboutArchitect />
       <VideoCallWidget />
       <HomeownerVideoCallWidget />
+      <ColaboradoresSection />
       <Projects />
       <Testimonials />
       <SocialProof />
