@@ -22,7 +22,7 @@ export default function Navigation() {
         <div className="flex justify-between items-center h-20">
           <div className="flex items-center">
             <div className="flex-shrink-0">
-              <h1 className="text-3xl font-bold text-primary">ArquitectoChile</h1>
+              <h1 className="text-3xl font-bold text-primary">ArquitectoChile.com</h1>
             </div>
           </div>
           
