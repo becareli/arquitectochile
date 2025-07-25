@@ -19,79 +19,79 @@ export default function Navigation() {
   return (
     <nav className="bg-white shadow-sm sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+        <div className="flex justify-between items-center h-20">
           <div className="flex items-center">
             <div className="flex-shrink-0">
-              <h1 className="text-2xl font-bold text-primary">ArquitectoChile</h1>
+              <h1 className="text-3xl font-bold text-primary">ArquitectoChile</h1>
             </div>
           </div>
           
           {/* Desktop Navigation */}
           <div className="hidden md:block">
-            <div className="ml-10 flex items-baseline space-x-8">
+            <div className="ml-10 flex items-center space-x-6">
               <button 
                 onClick={() => scrollToSection('inicio')}
-                className="text-dark hover:text-primary transition-colors"
+                className="text-dark hover:text-primary transition-colors text-sm font-medium"
               >
                 Inicio
               </button>
               <button 
                 onClick={() => scrollToSection('servicios')}
-                className="text-dark hover:text-primary transition-colors"
+                className="text-dark hover:text-primary transition-colors text-sm font-medium"
               >
                 Servicios
               </button>
               <a
                 href="/servicios-a-domicilio"
-                className="text-dark hover:text-primary transition-colors font-semibold"
+                className="text-dark hover:text-primary transition-colors text-sm font-semibold"
               >
                 Asesoría a Domicilio
               </a>
               <button 
                 onClick={() => scrollToSection('arquitecto')}
-                className="text-dark hover:text-primary transition-colors"
+                className="text-dark hover:text-primary transition-colors text-sm font-medium"
               >
                 Arquitecto
               </button>
               <button 
                 onClick={() => scrollToSection('ebook')}
-                className="text-dark hover:text-primary transition-colors"
+                className="text-dark hover:text-primary transition-colors text-sm font-medium"
               >
                 Ebook Gratis
               </button>
               <button 
                 onClick={() => scrollToSection('calculadoras')}
-                className="text-dark hover:text-primary transition-colors"
+                className="text-dark hover:text-primary transition-colors text-sm font-medium"
               >
                 Calculadoras
               </button>
               <button 
                 onClick={() => scrollToSection('proyectos')}
-                className="text-dark hover:text-primary transition-colors"
+                className="text-dark hover:text-primary transition-colors text-sm font-medium"
               >
                 Proyectos
               </button>
               <button 
                 onClick={() => scrollToSection('testimonios')}
-                className="text-dark hover:text-primary transition-colors"
+                className="text-dark hover:text-primary transition-colors text-sm font-medium"
               >
                 Testimonios
               </button>
               <button 
                 onClick={() => scrollToSection('blog')}
-                className="text-dark hover:text-primary transition-colors"
+                className="text-dark hover:text-primary transition-colors text-sm font-medium"
               >
                 Blog
               </button>
               <a
                 href="/portal-cliente"
-                className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors font-semibold"
+                className="bg-blue-600 text-white px-4 py-2.5 rounded-md hover:bg-blue-700 transition-colors font-semibold text-sm"
               >
                 Portal Cliente
               </a>
               <button 
                 onClick={() => scrollToSection('contacto')}
-                className="bg-accent text-white px-4 py-2 rounded-md hover:bg-yellow-500 transition-colors"
+                className="bg-accent text-white px-4 py-2.5 rounded-md hover:bg-yellow-500 transition-colors font-semibold text-sm"
               >
                 Contacto
               </button>
