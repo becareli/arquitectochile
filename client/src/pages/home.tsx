@@ -13,6 +13,9 @@ import SocialProof from "@/components/social-proof";
 import SalesMechanism from "@/components/sales-mechanism";
 import LeadMagnetsVilma from "@/components/lead-magnets-vilma";
 import FunnelOptimizationVilma from "@/components/funnel-optimization-vilma";
+import ProspectMagnetSystem from "@/components/prospect-magnet-system";
+import ConversionOptimization from "@/components/conversion-optimization";
+import AdvancedNurturing from "@/components/advanced-nurturing";
 import ObjectionHandling from "@/components/objection-handling";
 import Guarantees from "@/components/guarantees";
 import Blog from "@/components/blog";
@@ -55,7 +58,10 @@ export default function Home() {
       <SocialProof />
       <SalesMechanism />
       <LeadMagnetsVilma />
+      <ProspectMagnetSystem />
       <FunnelOptimizationVilma />
+      <ConversionOptimization />
+      <AdvancedNurturing />
       <ObjectionHandling />
       <Guarantees />
       <Blog />
