@@ -16,6 +16,8 @@ import FunnelOptimizationVilma from "@/components/funnel-optimization-vilma";
 import ProspectMagnetSystem from "@/components/prospect-magnet-system";
 import ConversionOptimization from "@/components/conversion-optimization";
 import AdvancedNurturing from "@/components/advanced-nurturing";
+import WebinarSystem from "@/components/webinar-system";
+import WebinarIntegration from "@/components/webinar-integration";
 import ObjectionHandling from "@/components/objection-handling";
 import Guarantees from "@/components/guarantees";
 import Blog from "@/components/blog";
@@ -62,6 +64,8 @@ export default function Home() {
       <FunnelOptimizationVilma />
       <ConversionOptimization />
       <AdvancedNurturing />
+      <WebinarSystem />
+      <WebinarIntegration />
       <ObjectionHandling />
       <Guarantees />
       <Blog />
