@@ -1,0 +1,22 @@
+Aquí tienes una propuesta de prompt para "vibe coding" que puedes usar para explicar tu plataforma de arquitectura, incorporando los elementos clave para un prompt eficaz:
+
+**Prompt Propuesto:**
+
+[cite_start]"Eres un experto en marketing y comunicación digital, con un profundo conocimiento en el desarrollo de aplicaciones web y la industria de la arquitectura. Tu tarea es generar un texto persuasivo y atractivo (vibe coding) para describir una plataforma de arquitectura innovadora. [cite: 22, 23, 24]
+
+[cite_start]El objetivo principal de esta plataforma es diferenciar a nuestra empresa de arquitectura de la competencia, ofreciendo a los futuros propietarios y clientes una herramienta potente y transparente para la gestión de sus proyectos. [cite: 9, 10]
+
+Considera los siguientes detalles clave:
+
+* [cite_start]**Acceso Controlado:** Los clientes accederán a la plataforma de forma segura mediante un sistema de acceso controlado (vía Gmail u otros métodos). [cite: 12]
+* [cite_start]**Documentación de Proyectos:** Dentro de la plataforma, los clientes encontrarán todos sus planos en formato PDF, listos para construir. [cite: 12] [cite_start]También estarán publicados todos los documentos que componen sus proyectos de arquitectura, como las especificaciones técnicas. [cite: 12]
+* **Perfil del Cliente:** En su perfil personalizado, el cliente podrá acceder a toda la información relevante de su proyecto, incluyendo:
+    * [cite_start]El presupuesto o contrato de los servicios profesionales. [cite: 12]
+    * [cite_start]Un listado de pagos pendientes y de los pagos efectuados, con sus respectivas fechas. [cite: 12]
+    * [cite_start]Un 'timeline' o línea de tiempo que mostrará el progreso del proyecto desde la contratación de los servicios hasta su finalización. [cite: 12]
+
+[cite_start]El tono debe ser: profesional, innovador, confiable y que transmita la sensación de control y facilidad para el cliente. [cite: 16, 17]
+
+[cite_start]La respuesta debe ser un texto conciso, ideal para una descripción en una página web o presentación, con una longitud máxima de 250 palabras. [cite: 18, 19, 20] Utiliza un lenguaje que resuene con el 'vibe coding', enfocado en la experiencia del usuario y la tecnología intuitiva. Evita la jerga excesivamente técnica y enfócate en los beneficios para el cliente.
+
+Por favor, destaca cómo esta plataforma empodera al cliente y simplifica el proceso de construcción."

@@ -77,6 +77,12 @@ export default function Navigation() {
               >
                 Blog
               </button>
+              <a
+                href="/portal-cliente"
+                className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors font-semibold"
+              >
+                Portal Cliente
+              </a>
               <button 
                 onClick={() => scrollToSection('contacto')}
                 className="bg-accent text-white px-4 py-2 rounded-md hover:bg-yellow-500 transition-colors"

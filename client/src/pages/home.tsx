@@ -5,6 +5,7 @@ import ConstructionCalculator from "@/components/calculators/construction-calcul
 import EnergyCalculator from "@/components/calculators/energy-calculator";
 import Services from "@/components/services";
 import RegularizacionInmuebles from "@/components/regularizacion-inmuebles";
+import ClientPortalCTA from "@/components/client-portal-cta";
 import AboutArchitect from "@/components/about-architect";
 import VideoCallWidget from "@/components/video-call-widget";
 import HomeownerVideoCallWidget from "@/components/homeowner-video-call-widget";
@@ -54,6 +55,7 @@ export default function Home() {
 
       <Services />
       <RegularizacionInmuebles />
+      <ClientPortalCTA />
       <AboutArchitect />
       <VideoCallWidget />
       <HomeownerVideoCallWidget />

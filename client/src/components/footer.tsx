@@ -50,11 +50,11 @@ export default function Footer() {
             <h4 className="text-lg font-semibold mb-4">Recursos</h4>
             <ul className="space-y-2 text-gray-300">
               <li><a href="#ebook" className="hover:text-white transition-colors">Ebook Gratis</a></li>
+              <li><a href="/portal-cliente" className="hover:text-white transition-colors">Portal del Cliente</a></li>
               <li><a href="#calculadoras" className="hover:text-white transition-colors">Calculadora de Costos</a></li>
               <li><a href="#calculadoras" className="hover:text-white transition-colors">Calculadora Energética</a></li>
               <li><a href="#blog" className="hover:text-white transition-colors">Blog</a></li>
               <li><a href="#proyectos" className="hover:text-white transition-colors">Proyectos</a></li>
-              <li><a href="#testimonios" className="hover:text-white transition-colors">Testimonios</a></li>
             </ul>
           </div>
           

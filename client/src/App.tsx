@@ -5,6 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import Home from "@/pages/home";
 import AdminDashboard from "@/pages/admin-dashboard";
+import ClientPortal from "@/pages/client-portal";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -12,6 +13,7 @@ function Router() {
     <Switch>
       <Route path="/" component={Home} />
       <Route path="/admin" component={AdminDashboard} />
+      <Route path="/portal-cliente" component={ClientPortal} />
       <Route component={NotFound} />
     </Switch>
   );
