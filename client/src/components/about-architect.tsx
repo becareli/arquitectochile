@@ -83,8 +83,8 @@ export default function AboutArchitect() {
                   <div className="flex items-start space-x-3">
                     <Building2 className="w-5 h-5 text-orange-500 mt-1" />
                     <div>
-                      <p className="font-semibold text-dark">Experto en Regularizaciones</p>
-                      <p className="text-gray-600">Especialista en resolver construcciones sin permisos</p>
+                      <p className="font-semibold text-dark">Experto en Regularización de Inmuebles</p>
+                      <p className="text-gray-600">Especialista en Ley del Mono - Permiso + Recepción simultáneos</p>
                     </div>
                   </div>
                 </div>
@@ -110,7 +110,7 @@ export default function AboutArchitect() {
                   </div>
                   <div className="flex items-center space-x-2">
                     <div className="w-2 h-2 bg-primary rounded-full"></div>
-                    <span className="text-gray-700">Regularizaciones DOM</span>
+                    <span className="text-gray-700">Regularización de Inmuebles (Ley del Mono)</span>
                   </div>
                   <div className="flex items-center space-x-2">
                     <div className="w-2 h-2 bg-primary rounded-full"></div>

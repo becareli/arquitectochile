@@ -39,10 +39,10 @@ export default function Footer() {
             <h4 className="text-lg font-semibold mb-4">Servicios</h4>
             <ul className="space-y-2 text-gray-300">
               <li><a href="#servicios" className="hover:text-white transition-colors">Arquitecto a Domicilio</a></li>
+              <li><a href="#servicios" className="hover:text-white transition-colors">Regularización de Inmuebles</a></li>
               <li><a href="#servicios" className="hover:text-white transition-colors">Revisor Independiente</a></li>
               <li><a href="#servicios" className="hover:text-white transition-colors">Sistema EIFS</a></li>
               <li><a href="#servicios" className="hover:text-white transition-colors">Diseño de Espacios</a></li>
-              <li><a href="#servicios" className="hover:text-white transition-colors">Construcción</a></li>
             </ul>
           </div>
           

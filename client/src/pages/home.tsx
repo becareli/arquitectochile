@@ -4,6 +4,7 @@ import LeadMagnet from "@/components/lead-magnet";
 import ConstructionCalculator from "@/components/calculators/construction-calculator";
 import EnergyCalculator from "@/components/calculators/energy-calculator";
 import Services from "@/components/services";
+import RegularizacionInmuebles from "@/components/regularizacion-inmuebles";
 import AboutArchitect from "@/components/about-architect";
 import VideoCallWidget from "@/components/video-call-widget";
 import HomeownerVideoCallWidget from "@/components/homeowner-video-call-widget";
@@ -52,6 +53,7 @@ export default function Home() {
       </section>
 
       <Services />
+      <RegularizacionInmuebles />
       <AboutArchitect />
       <VideoCallWidget />
       <HomeownerVideoCallWidget />

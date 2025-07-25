@@ -1,4 +1,4 @@
-import { Home, Shield, Snowflake, Compass, Thermometer, Tags, Box, FileText, CheckCircle } from "lucide-react";
+import { Home, Shield, Snowflake, Compass, Thermometer, Tags, Box, FileText, CheckCircle, BadgeCheck } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
@@ -18,6 +18,21 @@ export default function Services() {
       ],
       featured: true,
       bgColor: "bg-gradient-to-br from-accent to-yellow-500"
+    },
+    {
+      id: "regularizacion-inmuebles",
+      title: "Regularización de Inmuebles",
+      price: "Consultar",
+      description: "Solución integral para propiedades sin permisos (Ley del Mono)",
+      icon: BadgeCheck,
+      features: [
+        "Permiso de Edificación + Recepción Final simultáneos",
+        "Ideal para venta con mejor valor comercial",
+        "Cumplimiento normativo completo",
+        "Gestión integral del proceso"
+      ],
+      featured: true,
+      bgColor: "bg-gradient-to-br from-green-600 to-emerald-500"
     },
     {
       id: "revisor-independiente",

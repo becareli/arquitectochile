@@ -29,6 +29,7 @@ The platform architecture must support AI agents via N8N or MAKE for automated b
 
 ## Recent Changes
 
+✓ **Regularización de Inmuebles Service (Jul 25, 2025)**: Added specialized "Ley del Mono" service with dedicated landing section
 ✓ **Client Dashboard System (Jul 25, 2025)**: Comprehensive admin panel with lead and quote management
 ✓ **Quote Dashboard**: Interactive dashboard for viewing and managing generated quotes with lead data
 ✓ **Lead Management**: Advanced filtering, status updates, and lead tracking system  
@@ -66,6 +67,7 @@ The platform architecture must support AI agents via N8N or MAKE for automated b
 ✓ **Enhanced Navigation**: Added "Ebook Gratis" to main navigation and hero CTA
 ✓ **Lead Generation**: Integrated ebook download form with database lead capture
 ✓ **Google Maps Reviews Integration**: Added authentic customer reviews from Google Maps business profile (4.9 stars, 29 reviews)
+✓ **Regularización de Inmuebles Integration (Jul 25, 2025)**: Comprehensive service implementation with dedicated section and WhatsApp integration
 ✓ **Additional Services**: Added Estudio de Cabidas, Permiso de Edificación, and Recepción Final services
 
 ## System Architecture
