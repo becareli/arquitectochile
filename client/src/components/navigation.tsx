@@ -41,6 +41,12 @@ export default function Navigation() {
               >
                 Servicios
               </button>
+              <a
+                href="/servicios-a-domicilio"
+                className="text-dark hover:text-primary transition-colors font-semibold"
+              >
+                Asesoría a Domicilio
+              </a>
               <button 
                 onClick={() => scrollToSection('arquitecto')}
                 className="text-dark hover:text-primary transition-colors"

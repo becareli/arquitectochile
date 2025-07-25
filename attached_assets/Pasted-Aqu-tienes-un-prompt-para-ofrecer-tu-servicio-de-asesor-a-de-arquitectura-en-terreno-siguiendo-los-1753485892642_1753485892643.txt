@@ -1,0 +1,24 @@
+Aquí tienes un prompt para ofrecer tu servicio de asesoría de arquitectura en terreno, siguiendo los principios de un prompt eficaz y considerando tu objetivo de "tripwire" para generar confianza:
+
+"Eres un experto en copywriting persuasivo para servicios profesionales, con experiencia específica en el sector de la arquitectura en Chile. Tu objetivo es redactar un texto de "vibe coding" para una página web (similar a [https://arquitectochile.com/servicios-a-domicilio/](https://arquitectochile.com/servicios-a-domicilio/)) que ofrezca un servicio de asesoría arquitectónica en terreno.
+
+El propósito principal de este texto es atraer a potenciales clientes que buscan realizar ampliaciones, remodelaciones o nuevas construcciones, y convertirlos en leads calificados para tus servicios completos de arquitectura. El servicio de asesoría en terreno debe ser presentado como una oferta de bajo costo y alto valor, funcionando como un 'tripwire' para establecer confianza, permitir que el cliente te conozca directamente y resolver objeciones iniciales.
+
+Considera los siguientes elementos clave del servicio y sus beneficios:
+
+* **Servicio de Asesoría en Terreno:** El arquitecto (tú mismo) se desplaza a la propiedad del cliente.
+* **Costo Módico:** La asesoría tiene un valor de CLP $45.000.
+* **Análisis Profesional en Situ:**
+    * Revisión de la situación actual de la edificación desde el punto de vista de las normas de edificación.
+    * Estudio de la información aportada por el propietario (deseos, certificado de informes previos, etc.) para evaluar el potencial de ampliación, remodelación o construcción de obra nueva en el terreno.
+* **Formato de Asesoría:** Es una asesoría verbal en el momento de la visita.
+* **Entrega Posterior:** Al finalizar, se envía un presupuesto detallado de los servicios de arquitectura.
+* **Beneficios Estratégicos ('Tripwire'):** Destaca cómo este servicio:
+    * Genera confianza en el cliente.
+    * Permite al cliente conocer al arquitecto y su metodología de trabajo.
+    * Ofrece la oportunidad de eliminar objeciones o dudas en terreno sobre tus servicios profesionales.
+    * Proporciona una visión clara de las posibilidades de su proyecto.
+
+El tono debe ser: **profesional, accesible, transparente y orientado a la solución.** Utiliza un lenguaje que resuene con el 'vibe coding', es decir, que sea moderno, claro, y que transmita la idea de una solución práctica y empoderadora para el cliente. Enfócate en la facilidad, la seguridad de la inversión inicial y el valor que obtendrán por el precio.
+
+La longitud del texto debe ser suficiente para describir el servicio de forma atractiva sin ser excesivamente largo, idealmente entre 150 y 250 palabras, estructurado con un título atractivo, una breve descripción, los beneficios y una clara llamada a la acción."
