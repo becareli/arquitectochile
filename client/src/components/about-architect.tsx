@@ -9,7 +9,40 @@ export default function AboutArchitect() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold text-dark mb-4">Sobre el Arquitecto</h2>
-          <p className="text-xl text-gray-600">Experiencia y credenciales profesionales que avalan nuestro trabajo</p>
+          <p className="text-xl text-gray-600 mb-8">Experiencia y credenciales profesionales que avalan nuestro trabajo</p>
+          
+          {/* Personal Message */}
+          <div className="max-w-4xl mx-auto bg-gradient-to-r from-blue-50 to-green-50 rounded-2xl p-8 mb-8">
+            <div className="text-left">
+              <div className="flex items-start space-x-4">
+                <div className="flex-shrink-0">
+                  <div className="w-2 h-16 bg-primary rounded-full"></div>
+                </div>
+                <div>
+                  <blockquote className="text-lg text-gray-700 italic mb-4">
+                    "Después de 26 años diseñando y construyendo sueños, he aprendido que cada proyecto 
+                    es único, pero la tranquilidad del cliente es siempre la prioridad. Mi compromiso va 
+                    más allá de los planos: te acompaño desde la primera idea hasta que tengas las llaves 
+                    en tu mano. Porque construir tu hogar no debería ser una fuente de estrés, sino la 
+                    materialización de tus sueños."
+                  </blockquote>
+                  <div className="flex items-center space-x-3">
+                    <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-primary">
+                      <img 
+                        src={arquitectoPhoto} 
+                        alt="Patricio Becar Elissegaray"
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <div>
+                      <p className="font-bold text-primary">Patricio Becar Elissegaray</p>
+                      <p className="text-sm text-gray-600">Arquitecto Universidad de Chile</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
