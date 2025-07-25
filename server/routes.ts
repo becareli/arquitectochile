@@ -38,6 +38,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  app.patch("/api/leads/:id/status", async (req, res) => {
+    try {
+      const { status } = req.body;
+      const lead = await storage.updateLeadStatus(parseInt(req.params.id), status);
+      res.json({ success: true, lead });
+    } catch (error) {
+      res.status(500).json({ error: "Failed to update lead status" });
+    }
+  });
+
   // Calculator result creation endpoint
   app.post("/api/calculator-results", async (req, res) => {
     try {
@@ -161,6 +171,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
       } else {
         res.status(500).json({ error: "Internal server error" });
       }
+    }
+  });
+
+  app.get("/api/quotes", async (req, res) => {
+    try {
+      const quotes = await storage.getAllQuotesWithLeads();
+      res.json(quotes);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch quotes" });
     }
   });
 

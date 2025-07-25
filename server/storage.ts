@@ -246,6 +246,16 @@ export class DatabaseStorage implements IStorage {
     return await db.select().from(generatedQuotes).orderBy(desc(generatedQuotes.createdAt));
   }
 
+  async getAllQuotesWithLeads(): Promise<(GeneratedQuote & { lead?: Lead })[]> {
+    const allQuotes = await this.getGeneratedQuotes();
+    const allLeads = await this.getLeads();
+    
+    return allQuotes.map(quote => ({
+      ...quote,
+      lead: allLeads.find(lead => lead.id === quote.leadId)
+    }));
+  }
+
   async getGeneratedQuotesByLeadId(leadId: number): Promise<GeneratedQuote[]> {
     return await db.select().from(generatedQuotes).where(eq(generatedQuotes.leadId, leadId)).orderBy(desc(generatedQuotes.createdAt));
   }
@@ -253,6 +263,11 @@ export class DatabaseStorage implements IStorage {
   async getGeneratedQuoteById(id: number): Promise<GeneratedQuote | undefined> {
     const [quote] = await db.select().from(generatedQuotes).where(eq(generatedQuotes.id, id));
     return quote || undefined;
+  }
+
+  async updateLeadStatus(id: number, status: string): Promise<Lead> {
+    const [updatedLead] = await db.update(leads).set({ status }).where(eq(leads.id, id)).returning();
+    return updatedLead;
   }
 
   async updateQuoteStatus(id: number, status: string): Promise<GeneratedQuote> {
