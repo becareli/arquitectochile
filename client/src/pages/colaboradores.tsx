@@ -9,6 +9,7 @@ import { Separator } from "@/components/ui/separator";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import FileUploadDropzone from "@/components/file-upload-dropzone";
 import { 
   Building2, 
   MapPin, 
@@ -322,11 +323,27 @@ export default function Colaboradores() {
                         </div>
                       </div>
 
+                      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                        <FileUploadDropzone
+                          title="Documentos y Planos"
+                          description="Sube los planos, documentos técnicos y entregables del proyecto"
+                          acceptedTypes={["application/pdf", "image/jpeg", "image/png", "application/vnd.ms-excel", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"]}
+                          maxFiles={20}
+                          maxSize={50}
+                          onFilesUploaded={(files) => console.log('Documentos subidos:', files)}
+                        />
+                        
+                        <FileUploadDropzone
+                          title="Boletas y Facturas"
+                          description="Sube tus boletas de honorarios y facturas para el seguimiento de pagos"
+                          acceptedTypes={["application/pdf", "image/jpeg", "image/png"]}
+                          maxFiles={10}
+                          maxSize={10}
+                          onFilesUploaded={(files) => console.log('Boletas subidas:', files)}
+                        />
+                      </div>
+
                       <div className="flex space-x-3">
-                        <Button size="sm" variant="outline">
-                          <Upload className="w-4 h-4 mr-2" />
-                          Subir Entregables
-                        </Button>
                         <Button size="sm" variant="outline">
                           <MessageSquare className="w-4 h-4 mr-2" />
                           Mensajes
@@ -403,6 +420,20 @@ export default function Colaboradores() {
                             className="min-h-[80px]"
                           />
                         </div>
+                        
+                        <div className="space-y-2">
+                          <Label>Documentos de Respaldo (Opcional)</Label>
+                          <FileUploadDropzone
+                            title="Adjuntar Documentos"
+                            description="Portfolio, certificaciones, referencias, etc."
+                            acceptedTypes={["application/pdf", "image/jpeg", "image/png", "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"]}
+                            maxFiles={5}
+                            maxSize={10}
+                            onFilesUploaded={(files) => console.log('Documentos de propuesta:', files)}
+                            className="border-none shadow-none"
+                          />
+                        </div>
+                        
                         <Button className="w-full">
                           <FileText className="w-4 h-4 mr-2" />
                           Enviar Propuesta
@@ -417,6 +448,58 @@ export default function Colaboradores() {
 
           {/* Payments Tab */}
           <TabsContent value="payments" className="space-y-6">
+            {/* File Upload Section for Invoices */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <FileUploadDropzone
+                title="Boletas de Honorarios"
+                description="Sube tus boletas de honorarios para el control de pagos"
+                acceptedTypes={["application/pdf", "image/jpeg", "image/png"]}
+                maxFiles={20}
+                maxSize={10}
+                onFilesUploaded={(files) => console.log('Boletas subidas:', files)}
+                existingFiles={[
+                  {
+                    id: "1",
+                    name: "Boleta_Enero_2025.pdf",
+                    size: 245760,
+                    type: "application/pdf",
+                    uploadDate: "2025-01-15T10:30:00Z",
+                    status: "completed",
+                    url: "#boleta-1"
+                  },
+                  {
+                    id: "2", 
+                    name: "Boleta_Diciembre_2024.pdf",
+                    size: 198432,
+                    type: "application/pdf",
+                    uploadDate: "2024-12-20T14:15:00Z",
+                    status: "completed",
+                    url: "#boleta-2"
+                  }
+                ]}
+              />
+              
+              <FileUploadDropzone
+                title="Facturas y Comprobantes"
+                description="Facturas, comprobantes de gastos y documentos de respaldo"
+                acceptedTypes={["application/pdf", "image/jpeg", "image/png", "application/vnd.ms-excel", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"]}
+                maxFiles={15}
+                maxSize={10}
+                onFilesUploaded={(files) => console.log('Facturas subidas:', files)}
+                existingFiles={[
+                  {
+                    id: "3",
+                    name: "Factura_Materiales_Proyecto_LC.pdf",
+                    size: 189234,
+                    type: "application/pdf", 
+                    uploadDate: "2025-01-10T09:20:00Z",
+                    status: "completed",
+                    url: "#factura-1"
+                  }
+                ]}
+              />
+            </div>
+
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
               <Card className="lg:col-span-2">
                 <CardHeader>
