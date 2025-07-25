@@ -76,13 +76,21 @@ export default function Contact() {
     <section id="contacto" className="py-20 bg-white">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-dark mb-4">Cotizar Ahora</h2>
-          <p className="text-xl text-gray-600">Cuéntanos sobre tu proyecto y te ayudaremos a hacerlo realidad</p>
+          <h2 className="text-4xl font-bold text-dark mb-4">Agenda tu Consulta Gratuita</h2>
+          <p className="text-xl text-gray-600">El primer paso para construir la casa que siempre soñaste</p>
+          <div className="mt-6 inline-block bg-primary/10 rounded-lg p-4">
+            <p className="text-lg font-semibold text-primary">
+              ✓ Consulta sin compromiso ✓ Evaluación de tu terreno ✓ Presupuesto inicial
+            </p>
+          </div>
         </div>
         
         <Card className="bg-neutral rounded-2xl">
           <CardHeader>
-            <CardTitle className="text-center text-2xl">Formulario de Contacto</CardTitle>
+            <CardTitle className="text-center text-2xl">Solicita tu Consulta Arquitectónica</CardTitle>
+            <p className="text-center text-gray-600 mt-2">
+              Responde estas preguntas para diseñar una solución personalizada para tu proyecto
+            </p>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-6">
@@ -121,50 +129,74 @@ export default function Contact() {
               </div>
               
               <div>
-                <Label>¿Cómo podemos ayudarte? *</Label>
+                <Label>¿Qué tipo de proyecto necesitas? *</Label>
                 <RadioGroup 
                   value={formData.helpType} 
                   onValueChange={(value) => setFormData({...formData, helpType: value})}
                   className="mt-2"
                 >
                   <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="trabajo" id="trabajo" />
-                    <Label htmlFor="trabajo" className="text-sm">
-                      Sólo busco trabajo y/o no tengo interés en contratar servicios de Arquitectura o Construcción
+                    <RadioGroupItem value="ampliacion" id="ampliacion" />
+                    <Label htmlFor="ampliacion" className="text-sm">
+                      Ampliación de vivienda (habitaciones, segundo piso, etc.)
                     </Label>
                   </div>
                   <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="contratar" id="contratar" />
-                    <Label htmlFor="contratar" className="text-sm">
-                      Deseo contratar un Arquitecto o Empresa constructora para diseñar y/o construir
+                    <RadioGroupItem value="remodelacion" id="remodelacion" />
+                    <Label htmlFor="remodelacion" className="text-sm">
+                      Remodelación completa (baños, cocina, distribución)
+                    </Label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="casa_nueva" id="casa_nueva" />
+                    <Label htmlFor="casa_nueva" className="text-sm">
+                      Casa nueva desde cero
+                    </Label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="permisos" id="permisos" />
+                    <Label htmlFor="permisos" className="text-sm">
+                      Solo necesito permisos y trámites legales
+                    </Label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="consulta" id="consulta" />
+                    <Label htmlFor="consulta" className="text-sm">
+                      Consulta arquitectónica (evaluar factibilidad)
                     </Label>
                   </div>
                 </RadioGroup>
               </div>
               
               <div>
-                <Label>¿Cuándo quieres comenzar con tu proyecto? *</Label>
+                <Label>¿Cuándo quieres comenzar tu proyecto? *</Label>
                 <RadioGroup 
                   value={formData.timeline} 
                   onValueChange={(value) => setFormData({...formData, timeline: value})}
                   className="mt-2"
                 >
                   <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="despues" id="despues" />
-                    <Label htmlFor="despues" className="text-sm">
-                      No deseo iniciar ahora. Será luego de 6 meses
-                    </Label>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="pronto" id="pronto" />
-                    <Label htmlFor="pronto" className="text-sm">
-                      Deseo iniciar pronto (1 a 3 Meses)
-                    </Label>
-                  </div>
-                  <div className="flex items-center space-x-2">
                     <RadioGroupItem value="inmediato" id="inmediato" />
-                    <Label htmlFor="inmediato" className="text-sm">
-                      Deseo iniciar de inmediato. Este mes.
+                    <Label htmlFor="inmediato" className="text-sm font-semibold text-primary">
+                      🔥 Inmediato - Este mes (prioridad alta)
+                    </Label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="3_meses" id="3_meses" />
+                    <Label htmlFor="3_meses" className="text-sm">
+                      En los próximos 1-3 meses
+                    </Label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="6_meses" id="6_meses" />
+                    <Label htmlFor="6_meses" className="text-sm">
+                      En 3-6 meses (planifico con tiempo)
+                    </Label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="mas_6_meses" id="mas_6_meses" />
+                    <Label htmlFor="mas_6_meses" className="text-sm text-gray-500">
+                      Más de 6 meses (solo información inicial)
                     </Label>
                   </div>
                 </RadioGroup>

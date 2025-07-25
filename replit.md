@@ -8,6 +8,16 @@ ArquitectoChile is a full-stack web application for an architecture services com
 
 Preferred communication style: Simple, everyday language.
 
+## Business Intelligence Integration (Jul 25, 2025)
+
+Based on detailed business analysis documents, the platform architecture now incorporates:
+- **Target Avatar**: Juan Carlos (45 años, padre de familia, Santiago, buena situación económica)
+- **3-Stage Sales Process**: Calificación → Presentación/Cierre → Seguimiento
+- **Lead Sources**: Entrante (anuncios, contenido) y Saliente (contacto directo, base de datos)
+- **Current SEO Position**: 5.22% visibility, 1 keyword in top 3 (improvement opportunities identified)
+- **Service Portfolio**: Diseño 3D personalizado, permisos legales, servicios técnicos completos
+- **Value Proposition**: Casa única + paz mental legal + visualización 3D + acompañamiento integral
+
 ## AI Agent Integration Requirements
 
 The platform architecture must support AI agents via N8N or MAKE for automated business processes:
@@ -25,6 +35,11 @@ The platform architecture must support AI agents via N8N or MAKE for automated b
 ✓ **Real-time Analytics**: Performance metrics, conversion tracking, and status distribution charts
 ✓ **Multi-tab Admin Interface**: Overview, leads, quotes, and analytics in unified dashboard
 ✓ **Status Management**: Lead and quote status updates via API with optimistic UI updates
+✓ **VSL-Optimized Messaging (Jul 25, 2025)**: Hero section optimized with VSL structure (problem-solution-authority)
+✓ **Advanced Lead Qualification**: Contact form redesigned based on 3-stage sales process (calificación-presentación-cierre)
+✓ **SEO Optimization**: Meta tags and structured data targeting main keywords for ranking improvement
+✓ **Social Proof Integration**: VSL testimonials + guarantee section reflecting 15+ years experience
+✓ **Business Intelligence Architecture**: Platform now incorporates target avatar (Juan Carlos, 45, Santiago) and lead scoring
 ✓ **Automated Budgeting System (Jul 15, 2025)**: AI agent-driven quote generation system
 ✓ **Budget Templates**: Created standardized pricing templates for common architectural services
 ✓ **Quote Generation Webhook**: AI agents can now generate quotes automatically via /api/webhooks/generate-quote

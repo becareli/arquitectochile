@@ -11,37 +11,58 @@ export default function Hero() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div>
-            <h1 className="text-4xl lg:text-6xl font-bold mb-6">DISEÑAMOS y CONSTRUIMOS TUS SUEÑOS</h1>
+            <h1 className="text-4xl lg:text-6xl font-bold mb-6">¿Quieres construir una casa hermosa y única para tu familia, sin preocuparte por trámites o problemas legales?</h1>
             <p className="text-xl mb-8 opacity-90">
-              Con Pasión nos dedicamos para que Tú y tu Familia tengan una mejor Calidad de Vida en los espacios en tu hogar o en tu negocio.
+              Para padres de familia de Santiago que buscan diseño personalizado con visualización 3D, gestión completa de permisos y acompañamiento especializado hasta la entrega final.
             </p>
             
-            {/* Destacar servicio de $40,000 */}
+            {/* Beneficios clave basados en VSL */}
             <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 mb-8">
-              <div className="flex items-center mb-4">
-                <div className="w-8 h-8 bg-accent rounded-full flex items-center justify-center mr-3">
-                  <span className="text-white font-bold">🏠</span>
+              <div className="space-y-3">
+                <div className="flex items-center">
+                  <span className="text-accent text-xl mr-3">✓</span>
+                  <p className="text-lg font-semibold">Diseño único que refleja tus sueños</p>
                 </div>
-                <h3 className="text-2xl font-semibold">Arquitecto a Domicilio</h3>
+                <div className="flex items-center">
+                  <span className="text-accent text-xl mr-3">✓</span>
+                  <p className="text-lg font-semibold">Visualización 3D antes de construir</p>
+                </div>
+                <div className="flex items-center">
+                  <span className="text-accent text-xl mr-3">✓</span>
+                  <p className="text-lg font-semibold">Paz mental con trámites legales completos</p>
+                </div>
+                <div className="flex items-center">
+                  <span className="text-accent text-xl mr-3">✓</span>
+                  <p className="text-lg font-semibold">Acompañamiento integral hasta la entrega</p>
+                </div>
               </div>
-              <p className="text-lg mb-4">
-                Asesoría profesional en tu terreno por solo <span className="font-bold text-accent">$40,000</span>
-              </p>
-              <p className="opacity-90">Ahorra tiempo y dinero con nuestro servicio de consultoría personalizada</p>
+              
+              <div className="mt-6 pt-4 border-t border-white/20">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-lg font-semibold">Arquitecto a Domicilio</p>
+                    <p className="opacity-90">Consulta inicial en tu terreno</p>
+                  </div>
+                  <div className="text-right">
+                    <p className="text-2xl font-bold text-accent">$40,000</p>
+                    <p className="text-sm opacity-75">Primera consulta</p>
+                  </div>
+                </div>
+              </div>
             </div>
             
             <div className="flex flex-col sm:flex-row gap-4">
               <button 
                 onClick={() => scrollToSection('contacto')}
-                className="bg-accent text-white px-8 py-4 rounded-md text-lg font-semibold hover:bg-yellow-500 transition-colors text-center"
+                className="bg-accent text-primary px-8 py-4 rounded-md text-lg font-semibold hover:bg-yellow-500 transition-colors text-center shadow-lg"
               >
-                Cotizar Ahora
+                Consulta Gratuita Ahora
               </button>
               <button 
                 onClick={() => scrollToSection('ebook')}
-                className="bg-white/10 backdrop-blur-sm text-white px-8 py-4 rounded-md text-lg font-semibold hover:bg-white/20 transition-colors text-center"
+                className="bg-white/10 backdrop-blur-sm text-white px-8 py-4 rounded-md text-lg font-semibold hover:bg-white/20 transition-colors text-center border border-white/30"
               >
-                📖 Ebook Gratis
+                📖 Descarga Ebook Gratis
               </button>
             </div>
           </div>

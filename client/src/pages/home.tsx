@@ -9,6 +9,8 @@ import VideoCallWidget from "@/components/video-call-widget";
 import HomeownerVideoCallWidget from "@/components/homeowner-video-call-widget";
 import Projects from "@/components/projects";
 import Testimonials from "@/components/testimonials";
+import SocialProof from "@/components/social-proof";
+import Guarantees from "@/components/guarantees";
 import Blog from "@/components/blog";
 import Contact from "@/components/contact";
 import Footer from "@/components/footer";
@@ -46,6 +48,8 @@ export default function Home() {
       <HomeownerVideoCallWidget />
       <Projects />
       <Testimonials />
+      <SocialProof />
+      <Guarantees />
       <Blog />
       <Contact />
       <Footer />
