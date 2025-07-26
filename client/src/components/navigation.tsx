@@ -24,7 +24,7 @@ export default function Navigation() {
           <h1 className="text-4xl font-bold text-primary">ArquitectoChile.com</h1>
         </div>
         
-        {/* Main Navigation Section */}
+        {/* Primera Línea - Navegación Principal */}
         <div className="flex justify-center items-center h-16">
           {/* Desktop Navigation */}
           <div className="hidden md:block">
@@ -97,30 +97,36 @@ export default function Navigation() {
           </div>
         </div>
         
-        {/* Access Links Section */}
-        <div className="hidden md:flex justify-center items-center py-3 border-t border-gray-100 bg-gray-50">
-          <div className="flex items-center space-x-6">
+        {/* Segunda Línea - Servicio Principal Destacado */}
+        <div className="hidden md:flex justify-center items-center py-4 bg-white">
+          <div className="flex items-center space-x-3">
+            <span className="text-black text-lg">★★★</span>
             <a
               href="/servicios-a-domicilio"
-              className="bg-accent text-white px-4 py-2 rounded-md hover:bg-yellow-500 transition-colors font-semibold text-sm whitespace-nowrap"
+              className="bg-accent text-white px-6 py-3 rounded-md hover:bg-yellow-500 transition-colors font-bold text-base whitespace-nowrap"
             >
               Asesoría de Arquitectura a Domicilio
             </a>
-            <div className="flex items-center space-x-3">
-              <span className="text-xs font-medium text-gray-600">Acceso:</span>
-              <a
-                href="/colaboradores"
-                className="bg-green-600 text-white px-3 py-1.5 rounded-md hover:bg-green-700 transition-colors font-semibold text-xs"
-              >
-                Colaboradores
-              </a>
-              <a
-                href="/portal-cliente"
-                className="bg-blue-600 text-white px-3 py-1.5 rounded-md hover:bg-blue-700 transition-colors font-semibold text-xs"
-              >
-                Portal de Clientes
-              </a>
-            </div>
+            <span className="text-black text-lg">★★★</span>
+          </div>
+        </div>
+        
+        {/* Tercera Línea - Accesos */}
+        <div className="hidden md:flex justify-center items-center py-2 border-t border-gray-100 bg-gray-50">
+          <div className="flex items-center space-x-4">
+            <span className="text-xs font-medium text-gray-600">Acceso:</span>
+            <a
+              href="/colaboradores"
+              className="bg-green-600 text-white px-3 py-1.5 rounded-md hover:bg-green-700 transition-colors font-medium text-xs"
+            >
+              Colaboradores
+            </a>
+            <a
+              href="/portal-cliente"
+              className="bg-blue-600 text-white px-3 py-1.5 rounded-md hover:bg-blue-700 transition-colors font-medium text-xs"
+            >
+              Portal de Clientes
+            </a>
           </div>
         </div>
       </div>
@@ -141,12 +147,7 @@ export default function Navigation() {
             >
               Servicios
             </button>
-            <a
-              href="/servicios-a-domicilio"
-              className="block w-full text-left px-3 py-2 text-dark hover:text-primary font-semibold whitespace-nowrap"
-            >
-              Asesoría en Terreno
-            </a>
+
             <button 
               onClick={() => scrollToSection('arquitecto')}
               className="block w-full text-left px-3 py-2 text-dark hover:text-primary"
@@ -183,27 +184,41 @@ export default function Navigation() {
             >
               Blog
             </button>
+            <button 
+              onClick={() => scrollToSection('contacto')}
+              className="block w-full text-left px-3 py-2 text-dark hover:text-primary"
+            >
+              Contacto
+            </button>
             
-            {/* Mobile Action Buttons */}
-            <div className="pt-4 border-t border-gray-200 space-y-2">
+            {/* Servicio Destacado en Mobile */}
+            <div className="pt-4 border-t border-gray-200 bg-gray-50 rounded-lg mx-2">
+              <div className="text-center mb-2">
+                <span className="text-black text-sm">★★★</span>
+              </div>
+              <a
+                href="/servicios-a-domicilio"
+                className="block w-full text-center px-3 py-3 bg-accent text-white font-bold rounded-md mx-2 mb-3"
+              >
+                Asesoría de Arquitectura a Domicilio
+              </a>
+            </div>
+            
+            {/* Mobile Access Buttons */}
+            <div className="pt-3 space-y-2">
+              <div className="text-center text-xs font-medium text-gray-600 mb-2">Acceso:</div>
               <a
                 href="/colaboradores"
-                className="block w-full bg-green-600 text-white px-3 py-2 rounded-md hover:bg-green-700 transition-colors font-semibold text-center"
+                className="block w-full bg-green-600 text-white px-3 py-2 rounded-md hover:bg-green-700 transition-colors font-medium text-center text-xs"
               >
                 Colaboradores
               </a>
               <a
                 href="/portal-cliente"
-                className="block w-full bg-blue-600 text-white px-3 py-2 rounded-md hover:bg-blue-700 transition-colors font-semibold text-center"
+                className="block w-full bg-blue-600 text-white px-3 py-2 rounded-md hover:bg-blue-700 transition-colors font-medium text-center text-xs"
               >
-                Portal Cliente
+                Portal de Clientes
               </a>
-              <button 
-                onClick={() => scrollToSection('contacto')}
-                className="block w-full bg-accent text-white px-3 py-2 rounded-md hover:bg-yellow-500 transition-colors font-semibold"
-              >
-                Contacto
-              </button>
             </div>
           </div>
         </div>
