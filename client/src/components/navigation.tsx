@@ -25,7 +25,7 @@ export default function Navigation() {
         </div>
         
         {/* Primera Línea - Navegación Principal */}
-        <div className="flex justify-center items-center h-16">
+        <div className="flex justify-center items-center h-12">
           {/* Desktop Navigation */}
           <div className="hidden md:block">
             <div className="flex items-center space-x-6 justify-center">
@@ -98,12 +98,12 @@ export default function Navigation() {
         </div>
         
         {/* Segunda Línea - Servicio Principal Destacado */}
-        <div className="hidden md:flex justify-center items-center py-4 bg-white">
+        <div className="hidden md:flex justify-center items-center py-2 bg-white">
           <div className="flex items-center space-x-3">
             <span className="text-black text-lg">★★★</span>
             <a
               href="/servicios-a-domicilio"
-              className="bg-accent text-white px-6 py-3 rounded-md hover:bg-yellow-500 transition-colors font-bold text-base whitespace-nowrap"
+              className="bg-accent text-white px-5 py-2 rounded-md hover:bg-yellow-500 transition-colors font-bold text-sm whitespace-nowrap"
             >
               Asesoría de Arquitectura a Domicilio
             </a>
@@ -112,7 +112,7 @@ export default function Navigation() {
         </div>
         
         {/* Tercera Línea - Accesos */}
-        <div className="hidden md:flex justify-center items-center py-2 border-t border-gray-100 bg-gray-50">
+        <div className="hidden md:flex justify-center items-center py-1.5 border-t border-gray-100 bg-gray-50">
           <div className="flex items-center space-x-4">
             <span className="text-xs font-medium text-gray-600">Acceso:</span>
             <a
