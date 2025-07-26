@@ -14,6 +14,7 @@ import {
   Eye,
   Star
 } from "lucide-react";
+import arquitectoPhoto from "@assets/image_1753490557729.png";
 
 export default function ColaboradoresSection() {
   return (
@@ -41,7 +42,7 @@ export default function ColaboradoresSection() {
                   <div className="flex items-center space-x-3">
                     <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-green-600">
                       <img 
-                        src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face" 
+                        src={arquitectoPhoto} 
                         alt="Patricio Becar Elissegaray"
                         className="w-full h-full object-cover"
                       />

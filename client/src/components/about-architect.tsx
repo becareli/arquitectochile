@@ -1,7 +1,7 @@
 import { ExternalLink, Award, Building2, Users, Calendar, Shield, CheckCircle } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import arquitectoPhoto from "@assets/arquitecto_1752611474737.png";
+import arquitectoPhoto from "@assets/image_1753490557729.png";
 
 export default function AboutArchitect() {
   return (
