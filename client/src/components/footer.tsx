@@ -1,5 +1,4 @@
 import { Facebook, Instagram, Linkedin, Mail, Phone, MapPin } from "lucide-react";
-import Logo from "./logo";
 
 export default function Footer() {
   return (
@@ -7,9 +6,7 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
-            <div className="mb-4">
-              <Logo size="small" />
-            </div>
+            <h3 className="text-xl font-bold mb-4">ArquitectoChile</h3>
             <p className="text-gray-300 mb-4">
               Diseñamos y construimos tus sueños con pasión y profesionalismo.
             </p>

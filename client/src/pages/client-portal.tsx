@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
-import Logo from "@/components/logo";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -242,7 +241,7 @@ export default function ClientPortal() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center space-x-4">
-              <Logo size="small" />
+              <Home className="w-8 h-8 text-primary" />
               <div>
                 <h1 className="text-xl font-bold text-gray-900">ArquitectoChile</h1>
                 <p className="text-sm text-gray-500">Portal del Cliente</p>
