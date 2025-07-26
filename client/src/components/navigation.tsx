@@ -20,8 +20,21 @@ export default function Navigation() {
     <nav className="bg-white shadow-sm sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Logo Section */}
-        <div className="text-center py-4 border-b border-gray-100">
+        <div className="flex justify-between items-center py-4 border-b border-gray-100">
+          <div className="flex-1"></div>
           <h1 className="text-4xl font-bold text-primary">ArquitectoChile.com</h1>
+          <div className="flex-1 flex justify-end">
+            <div className="hidden md:flex items-center space-x-2">
+              <span className="text-black text-sm">★★★</span>
+              <a
+                href="/servicios-a-domicilio"
+                className="bg-accent text-white px-4 py-2 rounded-md hover:bg-yellow-500 transition-colors font-bold text-xs whitespace-nowrap"
+              >
+                Asesoría de Arquitectura a Domicilio
+              </a>
+              <span className="text-black text-sm">★★★</span>
+            </div>
+          </div>
         </div>
         
         {/* Primera Línea - Navegación Principal */}
@@ -97,21 +110,8 @@ export default function Navigation() {
           </div>
         </div>
         
-        {/* Segunda Línea - Servicio Principal Destacado */}
-        <div className="hidden md:flex justify-center items-center py-2 bg-white">
-          <div className="flex items-center space-x-3">
-            <span className="text-black text-lg">★★★</span>
-            <a
-              href="/servicios-a-domicilio"
-              className="bg-accent text-white px-5 py-2 rounded-md hover:bg-yellow-500 transition-colors font-bold text-sm whitespace-nowrap"
-            >
-              Asesoría de Arquitectura a Domicilio
-            </a>
-            <span className="text-black text-lg">★★★</span>
-          </div>
-        </div>
         
-        {/* Tercera Línea - Accesos */}
+        {/* Segunda Línea - Accesos */}
         <div className="hidden md:flex justify-center items-center py-1.5 border-t border-gray-100 bg-gray-50">
           <div className="flex items-center space-x-4">
             <span className="text-xs font-medium text-gray-600">Acceso:</span>
@@ -191,21 +191,23 @@ export default function Navigation() {
               Contacto
             </button>
             
-            {/* Servicio Destacado en Mobile */}
-            <div className="pt-4 border-t border-gray-200 bg-gray-50 rounded-lg mx-2">
-              <div className="text-center mb-2">
-                <span className="text-black text-sm">★★★</span>
-              </div>
-              <a
-                href="/servicios-a-domicilio"
-                className="block w-full text-center px-3 py-3 bg-accent text-white font-bold rounded-md mx-2 mb-3"
-              >
-                Asesoría de Arquitectura a Domicilio
-              </a>
-            </div>
+
             
             {/* Mobile Access Buttons */}
-            <div className="pt-3 space-y-2">
+            <div className="pt-4 border-t border-gray-200 space-y-2">
+              <div className="text-center mb-3">
+                <div className="flex items-center justify-center space-x-2 mb-2">
+                  <span className="text-black text-sm">★★★</span>
+                  <span className="text-xs font-medium text-gray-600">Servicio Principal</span>
+                  <span className="text-black text-sm">★★★</span>
+                </div>
+                <a
+                  href="/servicios-a-domicilio"
+                  className="block w-full text-center px-3 py-3 bg-accent text-white font-bold rounded-md"
+                >
+                  Asesoría de Arquitectura a Domicilio
+                </a>
+              </div>
               <div className="text-center text-xs font-medium text-gray-600 mb-2">Acceso:</div>
               <a
                 href="/colaboradores"
