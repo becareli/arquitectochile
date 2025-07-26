@@ -24,10 +24,8 @@ export default function Navigation() {
           <h1 className="text-4xl font-bold text-primary">ArquitectoChile.com</h1>
         </div>
         
-        {/* Navigation Section */}
-        <div className="flex justify-between items-center h-16">
-          <div className="flex-1"></div>
-          
+        {/* Main Navigation Section */}
+        <div className="flex justify-center items-center h-16">
           {/* Desktop Navigation */}
           <div className="hidden md:block">
             <div className="flex items-center space-x-6 justify-center">
@@ -85,39 +83,42 @@ export default function Navigation() {
               >
                 Blog
               </button>
+              <button 
+                onClick={() => scrollToSection('contacto')}
+                className="text-dark hover:text-primary transition-colors text-sm font-medium"
+              >
+                Contacto
+              </button>
             </div>
           </div>
           
-          {/* Action Buttons */}
-          <div className="hidden md:flex items-center space-x-3">
-            <a
-              href="/colaboradores"
-              className="bg-green-600 text-white px-4 py-2.5 rounded-md hover:bg-green-700 transition-colors font-semibold text-sm"
-            >
-              Colaboradores
-            </a>
-            <a
-              href="/portal-cliente"
-              className="bg-blue-600 text-white px-4 py-2.5 rounded-md hover:bg-blue-700 transition-colors font-semibold text-sm"
-            >
-              Portal Cliente
-            </a>
-            <button 
-              onClick={() => scrollToSection('contacto')}
-              className="bg-accent text-white px-4 py-2.5 rounded-md hover:bg-yellow-500 transition-colors font-semibold text-sm"
-            >
-              Contacto
-            </button>
-          </div>
-          
           {/* Mobile menu button */}
-          <div className="md:hidden">
+          <div className="md:hidden absolute right-4">
             <button 
               onClick={toggleMenu}
               className="text-dark hover:text-primary"
             >
               {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
+          </div>
+        </div>
+        
+        {/* Access Links Section */}
+        <div className="hidden md:flex justify-center items-center py-3 border-t border-gray-100 bg-gray-50">
+          <div className="flex items-center space-x-4">
+            <span className="text-xs font-medium text-gray-600">Acceso:</span>
+            <a
+              href="/colaboradores"
+              className="bg-green-600 text-white px-3 py-1.5 rounded-md hover:bg-green-700 transition-colors font-semibold text-xs"
+            >
+              Colaboradores
+            </a>
+            <a
+              href="/portal-cliente"
+              className="bg-blue-600 text-white px-3 py-1.5 rounded-md hover:bg-blue-700 transition-colors font-semibold text-xs"
+            >
+              Portal de Clientes
+            </a>
           </div>
         </div>
       </div>
