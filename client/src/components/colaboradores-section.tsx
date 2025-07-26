@@ -14,7 +14,7 @@ import {
   Eye,
   Star
 } from "lucide-react";
-import arquitectoPhoto from "@assets/image_1753490557729.png";
+import arquitectoPhoto from "@assets/1651766771115_1753490676082.jpeg";
 
 export default function ColaboradoresSection() {
   return (
