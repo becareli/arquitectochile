@@ -47,7 +47,7 @@ export default function Navigation() {
                 href="/servicios-a-domicilio"
                 className="text-dark hover:text-primary transition-colors text-sm font-semibold"
               >
-                Asesoría
+                Asesoría en Terreno
               </a>
               <button 
                 onClick={() => scrollToSection('arquitecto')}
@@ -142,7 +142,7 @@ export default function Navigation() {
               href="/servicios-a-domicilio"
               className="block w-full text-left px-3 py-2 text-dark hover:text-primary font-semibold"
             >
-              Asesoría
+              Asesoría en Terreno
             </a>
             <button 
               onClick={() => scrollToSection('arquitecto')}
