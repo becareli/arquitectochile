@@ -41,12 +41,6 @@ export default function Navigation() {
               >
                 Servicios
               </button>
-              <a
-                href="/servicios-a-domicilio"
-                className="text-dark hover:text-primary transition-colors text-sm font-semibold whitespace-nowrap"
-              >
-                Asesoría en Terreno
-              </a>
               <button 
                 onClick={() => scrollToSection('arquitecto')}
                 className="text-dark hover:text-primary transition-colors text-sm font-medium"
@@ -105,20 +99,28 @@ export default function Navigation() {
         
         {/* Access Links Section */}
         <div className="hidden md:flex justify-center items-center py-3 border-t border-gray-100 bg-gray-50">
-          <div className="flex items-center space-x-4">
-            <span className="text-xs font-medium text-gray-600">Acceso:</span>
+          <div className="flex items-center space-x-6">
             <a
-              href="/colaboradores"
-              className="bg-green-600 text-white px-3 py-1.5 rounded-md hover:bg-green-700 transition-colors font-semibold text-xs"
+              href="/servicios-a-domicilio"
+              className="bg-accent text-white px-4 py-2 rounded-md hover:bg-yellow-500 transition-colors font-semibold text-sm whitespace-nowrap"
             >
-              Colaboradores
+              Asesoría de Arquitectura a Domicilio
             </a>
-            <a
-              href="/portal-cliente"
-              className="bg-blue-600 text-white px-3 py-1.5 rounded-md hover:bg-blue-700 transition-colors font-semibold text-xs"
-            >
-              Portal de Clientes
-            </a>
+            <div className="flex items-center space-x-3">
+              <span className="text-xs font-medium text-gray-600">Acceso:</span>
+              <a
+                href="/colaboradores"
+                className="bg-green-600 text-white px-3 py-1.5 rounded-md hover:bg-green-700 transition-colors font-semibold text-xs"
+              >
+                Colaboradores
+              </a>
+              <a
+                href="/portal-cliente"
+                className="bg-blue-600 text-white px-3 py-1.5 rounded-md hover:bg-blue-700 transition-colors font-semibold text-xs"
+              >
+                Portal de Clientes
+              </a>
+            </div>
           </div>
         </div>
       </div>
