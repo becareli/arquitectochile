@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
+import Logo from "./logo";
 
 export default function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -22,11 +23,7 @@ export default function Navigation() {
         {/* Logo Section */}
         <div className="text-center py-6 border-b border-gray-100">
           <div className="flex items-center justify-center">
-            <img 
-              src="/attached_assets/Logo_ArquitectoChile_Transparente-removebg-preview_1753488103136.png" 
-              alt="ArquitectoChile.com"
-              className="h-16 w-auto"
-            />
+            <Logo size="large" />
           </div>
         </div>
         

@@ -1,4 +1,5 @@
 import { Facebook, Instagram, Linkedin, Mail, Phone, MapPin } from "lucide-react";
+import Logo from "./logo";
 
 export default function Footer() {
   return (
@@ -7,11 +8,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
             <div className="mb-4">
-              <img 
-                src="/attached_assets/Logo_ArquitectoChile_Transparente-removebg-preview_1753488103136.png" 
-                alt="ArquitectoChile.com"
-                className="h-10 w-auto"
-              />
+              <Logo size="small" />
             </div>
             <p className="text-gray-300 mb-4">
               Diseñamos y construimos tus sueños con pasión y profesionalismo.

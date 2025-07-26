@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
+import Logo from "@/components/logo";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -99,11 +100,7 @@ export default function Colaboradores() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex items-center justify-between">
             <div className="mb-4">
-              <img 
-                src="/attached_assets/Logo_ArquitectoChile_Transparente-removebg-preview_1753488103136.png" 
-                alt="ArquitectoChile.com"
-                className="h-12 w-auto"
-              />
+              <Logo size="medium" />
             </div>
             <div className="flex items-center space-x-4">
               <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-primary">
