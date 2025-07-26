@@ -21,19 +21,16 @@ export default function Navigation() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Logo Section */}
         <div className="flex justify-between items-center py-4 border-b border-gray-100">
-          <div className="flex-1"></div>
-          <h1 className="text-4xl font-bold text-primary">ArquitectoChile.com</h1>
-          <div className="flex-1 flex justify-end">
-            <div className="hidden md:flex items-center space-x-2">
-              <span className="text-black text-sm">★★★</span>
-              <a
-                href="/servicios-a-domicilio"
-                className="bg-accent text-white px-4 py-2 rounded-md hover:bg-yellow-500 transition-colors font-bold text-xs whitespace-nowrap"
-              >
-                Asesoría de Arquitectura a Domicilio
-              </a>
-              <span className="text-black text-sm">★★★</span>
-            </div>
+          <h1 className="text-2xl font-bold text-primary">ArquitectoChile.com</h1>
+          <div className="hidden md:flex items-center space-x-2">
+            <span className="text-black text-sm">★★★</span>
+            <a
+              href="/servicios-a-domicilio"
+              className="bg-accent text-white px-4 py-2 rounded-md hover:bg-yellow-500 transition-colors font-bold text-xs whitespace-nowrap"
+            >
+              Asesoría de Arquitectura a Domicilio
+            </a>
+            <span className="text-black text-sm">★★★</span>
           </div>
         </div>
         
