@@ -20,8 +20,14 @@ export default function Navigation() {
     <nav className="bg-white shadow-sm sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Logo Section */}
-        <div className="text-center py-4 border-b border-gray-100">
-          <h1 className="text-4xl font-bold text-primary">ArquitectoChile.com</h1>
+        <div className="text-center py-6 border-b border-gray-100">
+          <div className="flex items-center justify-center">
+            <img 
+              src="/attached_assets/Logo_ArquitectoChile_Transparente-removebg-preview_1753488103136.png" 
+              alt="ArquitectoChile.com"
+              className="h-16 w-auto"
+            />
+          </div>
         </div>
         
         {/* Navigation Section */}

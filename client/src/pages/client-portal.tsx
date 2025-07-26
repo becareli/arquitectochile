@@ -241,7 +241,11 @@ export default function ClientPortal() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center space-x-4">
-              <Home className="w-8 h-8 text-primary" />
+              <img 
+                src="/attached_assets/Logo_ArquitectoChile_Transparente-removebg-preview_1753488103136.png" 
+                alt="ArquitectoChile.com"
+                className="h-8 w-auto"
+              />
               <div>
                 <h1 className="text-xl font-bold text-gray-900">ArquitectoChile</h1>
                 <p className="text-sm text-gray-500">Portal del Cliente</p>
