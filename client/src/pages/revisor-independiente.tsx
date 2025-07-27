@@ -213,16 +213,21 @@ export default function RevisorIndependiente() {
           <p className="text-xl text-gray-600 mb-8">Arquitecto Patricio Becar explica el servicio de Revisor Independiente</p>
           
           <div className="bg-white rounded-xl p-6 shadow-lg">
-            <div className="aspect-video bg-gray-200 rounded-lg flex items-center justify-center mb-4">
-              <Youtube className="w-16 h-16 text-red-600" />
+            <div className="aspect-video w-full mb-4 rounded-lg overflow-hidden">
+              <iframe
+                width="100%"
+                height="100%"
+                src="https://www.youtube.com/embed/tYZlUAyxvuA?autoplay=0&rel=0&modestbranding=1"
+                title="Revisor Independiente Arquitectura en Santiago - Patricio Becar"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+                className="w-full h-full"
+              ></iframe>
             </div>
-            <Button 
-              onClick={() => window.open('https://www.youtube.com/watch?v=tYZlUAyxvuA', '_blank')}
-              className="bg-red-600 hover:bg-red-700 text-white px-6 py-3"
-            >
-              <Youtube className="w-5 h-5 mr-2" />
-              Ver Video en YouTube
-            </Button>
+            <p className="text-sm text-gray-600 mt-4">
+              Video promocional del servicio de Revisor Independiente - Sin locución, con sonido ambiente
+            </p>
           </div>
         </div>
       </section>
