@@ -232,26 +232,7 @@ export default function RevisorIndependiente() {
 
           </div>
 
-          <div className="bg-red-600 text-white rounded-xl p-8 mb-8">
-            <h3 className="text-2xl font-bold mb-4">🔥 OFERTA LIMITADA</h3>
-            <p className="text-xl mb-4">Solo 3 cupos disponibles este mes</p>
-            <p className="text-lg mb-6">Precio especial: <span className="line-through opacity-75">$200.000</span> <span className="text-3xl font-bold text-accent">$150.000</span></p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button 
-                onClick={openWhatsApp}
-                className="bg-green-600 hover:bg-green-700 text-white px-8 py-4 text-lg font-bold"
-              >
-                <Phone className="w-5 h-5 mr-2" />
-                Contratar Ahora - WhatsApp
-              </Button>
-              <Button 
-                onClick={scrollToContact}
-                className="bg-accent hover:bg-yellow-600 text-black px-8 py-4 text-lg font-bold"
-              >
-                Solicitar Cotización
-              </Button>
-            </div>
-          </div>
+
 
           <div className="bg-primary text-white rounded-xl p-6">
             <h4 className="text-xl font-bold mb-4">💡 ¿POR QUÉ CONTRATAR AHORA?</h4>
