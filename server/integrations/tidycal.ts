@@ -1,4 +1,4 @@
-import { BaseIntegration, type IntegrationConfig, type IntegrationResult, type HealthCheckResult } from './index';
+import { BaseIntegration, type IntegrationConfig } from './index';
 import { storage } from '../storage';
 
 export interface TidyCalAppointment {
@@ -25,6 +25,13 @@ export interface TidyCalAppointment {
 export interface TidyCalWebhookData {
   event: 'appointment.scheduled' | 'appointment.cancelled' | 'appointment.rescheduled' | 'appointment.completed';
   appointment: TidyCalAppointment;
+  timestamp: string;
+}
+
+interface IntegrationResult {
+  success: boolean;
+  data?: any;
+  error?: string;
   timestamp: string;
 }
 
@@ -62,7 +69,7 @@ export class TidyCalIntegration extends BaseIntegration {
 
       const appointment = data.appointment;
       
-      // Create or update lead based on appointment
+      // Process based on appointment event
       if (data.event === 'appointment.scheduled') {
         await this.handleAppointmentScheduled(appointment);
       } else if (data.event === 'appointment.cancelled') {
@@ -88,30 +95,29 @@ export class TidyCalIntegration extends BaseIntegration {
   }
 
   private async handleAppointmentScheduled(appointment: TidyCalAppointment) {
-    // Verify Google Meet link is present
-    const meetingInfo = this.extractMeetingInfo(appointment);
+    // Extract Google Meet link that TidyCal already generated
+    const meetLink = this.extractGoogleMeetLink(appointment);
     
     // Log meeting details for verification
-    console.log('TidyCal appointment scheduled with meeting info:', {
+    console.log('TidyCal appointment scheduled:', {
       appointmentId: appointment.id,
       clientName: appointment.clientName,
       scheduledAt: appointment.scheduledAt,
-      meetingLink: meetingInfo.link,
-      meetingPlatform: meetingInfo.platform,
-      hasGoogleMeet: meetingInfo.hasGoogleMeet
+      googleMeetDetected: !!meetLink,
+      meetingLink: meetLink
     });
 
     // Warn if no Google Meet link detected
-    if (!meetingInfo.hasGoogleMeet) {
-      console.warn(`⚠️  No Google Meet link detected for appointment ${appointment.id}. Check TidyCal configuration.`);
+    if (!meetLink) {
+      console.warn(`⚠️  No Google Meet link detected for appointment ${appointment.id}. Check TidyCal Google Meet configuration.`);
     }
 
     // Check if lead exists by email
     const existingLead = await storage.getLeadByEmail?.(appointment.clientEmail);
     
     const appointmentDetails = `Asesoría agendada para ${appointment.scheduledAt}. ${
-      meetingInfo.hasGoogleMeet 
-        ? `Enlace de reunión: ${meetingInfo.link}` 
+      meetLink 
+        ? `Enlace de reunión: ${meetLink}` 
         : 'Sin enlace de reunión - verificar configuración TidyCal'
     }. ${appointment.notes || ''}`;
     
@@ -134,35 +140,52 @@ export class TidyCalIntegration extends BaseIntegration {
       await storage.createLead?.(leadData);
     }
 
-    // Send confirmation if Google Meet link is present
-    if (meetingInfo.hasGoogleMeet) {
-      console.log(`✅ Google Meet link confirmed for ${appointment.clientName}: ${meetingInfo.link}`);
+    // Log success if Google Meet link is present
+    if (meetLink) {
+      console.log(`✅ Google Meet link confirmed for ${appointment.clientName}: ${meetLink}`);
     }
-  }
-
-    // Log integration event
-    console.log(`TidyCal: Appointment scheduled for ${appointment.clientName} at ${appointment.scheduledAt}`);
   }
 
   private async handleAppointmentCancelled(appointment: TidyCalAppointment) {
-    const lead = await storage.getLeadByEmail?.(appointment.clientEmail);
-    if (lead) {
-      await storage.updateLeadStatus?.(lead.id, 'appointment_cancelled');
-    }
-    
     console.log(`TidyCal: Appointment cancelled for ${appointment.clientName}`);
+    
+    // Update lead status if exists
+    const existingLead = await storage.getLeadByEmail?.(appointment.clientEmail);
+    if (existingLead) {
+      await storage.updateLeadStatus?.(existingLead.id, 'appointment_cancelled');
+    }
   }
 
   private async handleAppointmentCompleted(appointment: TidyCalAppointment) {
-    const lead = await storage.getLeadByEmail?.(appointment.clientEmail);
-    if (lead) {
-      await storage.updateLeadStatus?.(lead.id, 'consultation_completed');
-    }
-    
     console.log(`TidyCal: Appointment completed for ${appointment.clientName}`);
+    
+    // Update lead status if exists
+    const existingLead = await storage.getLeadByEmail?.(appointment.clientEmail);
+    if (existingLead) {
+      await storage.updateLeadStatus?.(existingLead.id, 'appointment_completed');
+    }
   }
 
-  // Public methods for manual scheduling
+  // Extract Google Meet link from TidyCal appointment data
+  private extractGoogleMeetLink(appointment: TidyCalAppointment): string | null {
+    // Check different possible fields for Google Meet link
+    const possibleLinks = [
+      appointment.meetingLink,
+      appointment.googleMeetLink,
+      appointment.meetingDetails?.link,
+      appointment.location
+    ].filter(Boolean);
+
+    for (const link of possibleLinks) {
+      if (link && typeof link === 'string' && link.includes('meet.google.com')) {
+        return link;
+      }
+    }
+
+    return null;
+  }
+
+  // Manual appointment scheduling (if API key is available)
   async scheduleAppointment(appointmentData: Partial<TidyCalAppointment>): Promise<IntegrationResult> {
     try {
       if (!this.config.apiKey) {
@@ -202,67 +225,7 @@ export class TidyCalIntegration extends BaseIntegration {
     }
   }
 
-  // Extract and validate meeting information from appointment
-  private extractMeetingInfo(appointment: TidyCalAppointment) {
-    const meetingInfo = {
-      link: null as string | null,
-      platform: 'unknown' as 'google_meet' | 'zoom' | 'teams' | 'presencial' | 'unknown',
-      hasGoogleMeet: false,
-      instructions: null as string | null
-    };
-
-    // Check different possible fields for meeting link
-    const possibleLinks = [
-      appointment.meetingLink,
-      appointment.googleMeetLink,
-      appointment.meetingDetails?.link,
-      appointment.location
-    ].filter(Boolean);
-
-    for (const link of possibleLinks) {
-      if (link && typeof link === 'string') {
-        // Detect Google Meet
-        if (link.includes('meet.google.com')) {
-          meetingInfo.link = link;
-          meetingInfo.platform = 'google_meet';
-          meetingInfo.hasGoogleMeet = true;
-          break;
-        }
-        // Detect Zoom
-        else if (link.includes('zoom.us') || link.includes('zoom.com')) {
-          meetingInfo.link = link;
-          meetingInfo.platform = 'zoom';
-          break;
-        }
-        // Detect Teams
-        else if (link.includes('teams.microsoft.com')) {
-          meetingInfo.link = link;
-          meetingInfo.platform = 'teams';
-          break;
-        }
-        // Generic link detection
-        else if (link.startsWith('http')) {
-          meetingInfo.link = link;
-          meetingInfo.platform = 'unknown';
-          break;
-        }
-      }
-    }
-
-    // Check for physical location
-    if (appointment.location && !meetingInfo.link) {
-      if (appointment.location.toLowerCase().includes('presencial') || 
-          appointment.location.toLowerCase().includes('domicilio') ||
-          !appointment.location.startsWith('http')) {
-        meetingInfo.platform = 'presencial';
-        meetingInfo.instructions = appointment.location;
-      }
-    }
-
-    return meetingInfo;
-  }
-
-  // Validate TidyCal configuration for Google Meet
+  // Validate TidyCal Google Meet configuration
   async validateGoogleMeetConfig(): Promise<{valid: boolean, issues: string[]}> {
     const issues: string[] = [];
     
@@ -270,7 +233,6 @@ export class TidyCalIntegration extends BaseIntegration {
       issues.push('TidyCal API key not configured - cannot verify meeting settings');
     }
 
-    // Additional validation can be added here when TidyCal provides configuration endpoints
     console.log('🔍 Validating TidyCal Google Meet configuration...');
     
     return {

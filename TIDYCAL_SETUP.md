@@ -44,15 +44,17 @@ Después de configurar todo, usa el panel de admin en:
 
 ## ¿Qué hace cada cosa?
 
-- **API Token**: Permite que tu sistema se comunique con TidyCal
-- **Google Meet**: Se genera automáticamente para cada cita
-- **Webhooks**: TidyCal notifica a tu sistema cuando pasa algo
-- **Sistema de validación**: Tu plataforma verifica que el enlace de Meet llegue correctamente
+- **TidyCal**: Crea la cita Y genera el Google Meet automáticamente
+- **API Token**: Permite comunicación entre sistemas (opcional para webhooks)
+- **Webhooks**: TidyCal te notifica cuando alguien agenda, incluyendo el enlace de Meet
+- **Tu sistema**: Recibe el enlace que TidyCal ya creó y lo guarda con los datos del cliente
 
-## Resultado esperado:
+## Flujo real:
 Cuando alguien agenda una cita:
-1. 📅 Se crea en TidyCal
-2. 🔗 Se genera enlace de Google Meet automáticamente
-3. 📨 TidyCal envía webhook a tu sistema
-4. 💾 Tu sistema registra el lead con el enlace de Meet
-5. ✅ El cliente recibe confirmación con enlace incluido
+1. 📅 Cliente agenda en TidyCal
+2. 🔗 **TidyCal genera Google Meet automáticamente**
+3. 📨 TidyCal envía webhook con todos los datos (incluyendo enlace de Meet)
+4. 💾 Tu sistema recibe y registra: cliente + fecha + enlace de Meet
+5. ✅ Tienes toda la información centralizada para la cita
+
+**Tu sistema NO crea el Google Meet - solo recibe y organiza la información que TidyCal ya procesó.**
