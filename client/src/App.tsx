@@ -8,6 +8,7 @@ import AdminDashboard from "@/pages/admin-dashboard";
 import ClientPortal from "@/pages/client-portal";
 import ServiciosADomicilio from "@/pages/servicios-a-domicilio";
 import Colaboradores from "@/pages/colaboradores";
+import RevisorIndependiente from "@/pages/revisor-independiente";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -18,6 +19,7 @@ function Router() {
       <Route path="/portal-cliente" component={ClientPortal} />
       <Route path="/servicios-a-domicilio" component={ServiciosADomicilio} />
       <Route path="/colaboradores" component={Colaboradores} />
+      <Route path="/revisor-independiente" component={RevisorIndependiente} />
       <Route component={NotFound} />
     </Switch>
   );

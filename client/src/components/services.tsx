@@ -1,8 +1,11 @@
 import { Home, Shield, Snowflake, Compass, Thermometer, Tags, Box, FileText, CheckCircle, BadgeCheck } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { useLocation } from "wouter";
 
 export default function Services() {
+  const [, setLocation] = useLocation();
+  
   const services = [
     {
       id: "arquitecto-domicilio",
@@ -93,7 +96,13 @@ export default function Services() {
   ];
 
   const handleServiceClick = (serviceId: string) => {
-    // Scroll to contact section
+    // Special handling for Revisor Independiente
+    if (serviceId === 'revisor-independiente') {
+      setLocation('/revisor-independiente');
+      return;
+    }
+    
+    // Scroll to contact section for other services
     const contactSection = document.getElementById('contacto');
     if (contactSection) {
       contactSection.scrollIntoView({ behavior: 'smooth' });

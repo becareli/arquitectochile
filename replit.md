@@ -29,6 +29,7 @@ The platform architecture must support AI agents via N8N or MAKE for automated b
 
 ## Recent Changes
 
+✓ **Revisor Independiente Sales Landing Page (Jul 27, 2025)**: Created comprehensive sales page at /revisor-independiente with complete service details, pricing, process flow, and contact integration
 ✓ **External Services Integration Architecture (Jul 27, 2025)**: Implemented comprehensive integration system with TidyCal and WhatsApp for automated booking and customer communication
 ✓ **Webhook Infrastructure (Jul 27, 2025)**: Created robust webhook system supporting TidyCal appointments, WhatsApp messaging, and AI agent integration for business process automation
 ✓ **Professional Logo Integration (Jul 26, 2025)**: Implemented custom ArquitectoChile logo across all platforms (navbar, footer, client portal, collaborators) with consistent branding and visual identity
