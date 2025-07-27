@@ -49,7 +49,7 @@ export default function ColaboradoresSection() {
                     </div>
                     <div>
                       <p className="font-bold text-green-600">Patricio Becar Elissegaray</p>
-                      <p className="text-sm text-gray-600">Fundador ArquitectoChile.com</p>
+                      <p className="text-sm text-gray-600">Fundador <span className="text-primary">ArquitectoChile</span><span className="text-gray-500">.com</span></p>
                     </div>
                   </div>
                 </div>

@@ -21,7 +21,10 @@ export default function Navigation() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Logo Section */}
         <div className="flex justify-between items-center py-4 border-b border-gray-100">
-          <h1 className="text-2xl font-bold text-primary">ArquitectoChile.com</h1>
+          <h1 className="text-2xl font-bold">
+            <span className="text-primary">ArquitectoChile</span>
+            <span className="text-gray-600">.com</span>
+          </h1>
           <div className="hidden md:flex items-center space-x-2">
             <span className="text-black text-sm">★★★</span>
             <a
