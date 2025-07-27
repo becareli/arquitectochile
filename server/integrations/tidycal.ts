@@ -112,33 +112,25 @@ export class TidyCalIntegration extends BaseIntegration {
       console.warn(`⚠️  No Google Meet link detected for appointment ${appointment.id}. Check TidyCal Google Meet configuration.`);
     }
 
-    // Check if lead exists by email
-    const existingLead = await storage.getLeadByEmail?.(appointment.clientEmail);
+    // Enhanced lead processing with business intelligence
+    const { processEnhancedTidyCalLead, triggerNurturingSequence } = await import('./tidycal-leads');
     
-    const appointmentDetails = `Asesoría agendada para ${appointment.scheduledAt}. ${
-      meetLink 
-        ? `Enlace de reunión: ${meetLink}` 
-        : 'Sin enlace de reunión - verificar configuración TidyCal'
-    }. ${appointment.notes || ''}`;
+    const tidyCalLead = {
+      name: appointment.clientName,
+      email: appointment.clientEmail,
+      phone: appointment.clientPhone,
+      appointmentId: appointment.id,
+      meetingLink: meetLink,
+      scheduledAt: appointment.scheduledAt,
+      serviceType: appointment.serviceType || 'Asesoría de Arquitectura',
+      source: 'tidycal_appointment'
+    };
     
-    if (existingLead) {
-      // Update existing lead status
-      await storage.updateLeadStatus?.(existingLead.id, 'appointment_scheduled');
-    } else {
-      // Create new lead from appointment
-      const leadData = {
-        name: appointment.clientName,
-        email: appointment.clientEmail,
-        phone: appointment.clientPhone || '',
-        helpType: appointment.serviceType || 'Asesoría de Arquitectura',
-        timeline: 'Inmediato',
-        message: appointmentDetails,
-        source: 'tidycal_appointment',
-        status: 'appointment_scheduled'
-      };
-      
-      await storage.createLead?.(leadData);
-    }
+    // Process lead with enhanced business intelligence
+    const lead = await processEnhancedTidyCalLead(tidyCalLead);
+    
+    // Trigger automated nurturing sequence
+    triggerNurturingSequence(lead);
 
     // Log success if Google Meet link is present
     if (meetLink) {

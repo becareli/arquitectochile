@@ -19,6 +19,14 @@ export const leads = pgTable("leads", {
   message: text("message").notNull(),
   source: text("source").notNull().default("contact_form"),
   status: text("status").notNull().default("new"),
+  // Advanced lead qualification fields
+  leadScore: integer("lead_score").default(0),
+  customerStage: text("customer_stage").default("awareness"), // awareness, consideration, decision
+  avatarMatch: text("avatar_match"), // juan_carlos, ana_maria, carlos_rodriguez based on target personas
+  appointmentId: text("appointment_id"), // TidyCal appointment ID when scheduled
+  meetingLink: text("meeting_link"), // Google Meet link from TidyCal
+  lastActivity: timestamp("last_activity").defaultNow(),
+  conversionData: json("conversion_data"), // Tracks funnel progression
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
@@ -64,6 +72,63 @@ export const blogPosts = pgTable("blog_posts", {
   imageUrl: text("image_url"),
   published: boolean("published").default(false),
   createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+// Client Portal Authentication
+export const clients = pgTable("clients", {
+  id: serial("id").primaryKey(),
+  name: text("name").notNull(),
+  email: text("email").notNull().unique(),
+  phone: text("phone"),
+  password: text("password").notNull(), // hashed
+  projectId: text("project_id").unique(), // unique access code for portal
+  status: text("status").notNull().default("active"), // active, inactive, completed
+  lastLogin: timestamp("last_login"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+export const clientProjects = pgTable("client_projects", {
+  id: serial("id").primaryKey(),
+  clientId: integer("client_id").references(() => clients.id).notNull(),
+  name: text("name").notNull(),
+  description: text("description"),
+  status: text("status").notNull().default("planning"), // planning, design, permits, construction, completed
+  progress: integer("progress").default(0), // 0-100
+  startDate: timestamp("start_date"),
+  estimatedCompletion: timestamp("estimated_completion"),
+  totalValue: decimal("total_value", { precision: 12, scale: 2 }),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+export const clientDocuments = pgTable("client_documents", {
+  id: serial("id").primaryKey(),
+  projectId: integer("project_id").references(() => clientProjects.id).notNull(),
+  name: text("name").notNull(),
+  type: text("type").notNull(), // plans, contracts, permits, specifications, photos
+  fileUrl: text("file_url").notNull(),
+  fileSize: integer("file_size"), // in bytes
+  uploadDate: timestamp("upload_date").defaultNow().notNull(),
+});
+
+export const clientPayments = pgTable("client_payments", {
+  id: serial("id").primaryKey(),
+  projectId: integer("project_id").references(() => clientProjects.id).notNull(),
+  description: text("description").notNull(),
+  amount: decimal("amount", { precision: 12, scale: 2 }).notNull(),
+  dueDate: timestamp("due_date").notNull(),
+  paidDate: timestamp("paid_date"),
+  status: text("status").notNull().default("pending"), // pending, paid, overdue
+  paymentMethod: text("payment_method"), // transfer, check, cash
+});
+
+export const clientTimeline = pgTable("client_timeline", {
+  id: serial("id").primaryKey(),
+  projectId: integer("project_id").references(() => clientProjects.id).notNull(),
+  title: text("title").notNull(),
+  description: text("description"),
+  date: timestamp("date").notNull(),
+  status: text("status").notNull(), // completed, current, upcoming
+  category: text("category"), // design, permits, construction, delivery
 });
 
 // AI Agent Events table for tracking automation
