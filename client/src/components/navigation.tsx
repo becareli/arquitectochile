@@ -26,7 +26,7 @@ export default function Navigation() {
             <span className="text-black text-sm">★★★</span>
             <a
               href="/servicios-a-domicilio"
-              className="bg-accent text-black px-4 py-2 rounded-md hover:bg-yellow-500 transition-colors font-bold text-xs whitespace-nowrap"
+              className="bg-accent text-black px-4 py-2 rounded-md hover:bg-yellow-500 transition-all duration-300 font-bold text-xs whitespace-nowrap shadow-md hover:shadow-lg"
             >
               Asesoría de Arquitectura a Domicilio
             </a>
@@ -114,13 +114,13 @@ export default function Navigation() {
             <span className="text-xs font-medium text-gray-600">Acceso:</span>
             <a
               href="/colaboradores"
-              className="bg-gray-400 text-white px-3 py-1.5 rounded-md hover:bg-green-600 transition-colors duration-300 font-medium text-xs"
+              className="bg-gray-400 text-white px-3 py-1.5 rounded-md hover:bg-green-600 transition-all duration-300 font-medium text-xs shadow-md hover:shadow-lg"
             >
               Colaboradores
             </a>
             <a
               href="/portal-cliente"
-              className="bg-gray-400 text-white px-3 py-1.5 rounded-md hover:bg-blue-600 transition-colors duration-300 font-medium text-xs"
+              className="bg-gray-400 text-white px-3 py-1.5 rounded-md hover:bg-blue-600 transition-all duration-300 font-medium text-xs shadow-md hover:shadow-lg"
             >
               Portal de Clientes
             </a>
@@ -200,7 +200,7 @@ export default function Navigation() {
                 </div>
                 <a
                   href="/servicios-a-domicilio"
-                  className="block w-full text-center px-3 py-3 bg-accent text-black font-bold rounded-md"
+                  className="block w-full text-center px-3 py-3 bg-accent text-black font-bold rounded-md shadow-md hover:shadow-lg transition-all duration-300"
                 >
                   Asesoría de Arquitectura a Domicilio
                 </a>
@@ -208,13 +208,13 @@ export default function Navigation() {
               <div className="text-center text-xs font-medium text-gray-600 mb-2">Acceso:</div>
               <a
                 href="/colaboradores"
-                className="block w-full bg-gray-400 text-white px-3 py-2 rounded-md hover:bg-green-600 transition-colors duration-300 font-medium text-center text-xs"
+                className="block w-full bg-gray-400 text-white px-3 py-2 rounded-md hover:bg-green-600 transition-all duration-300 font-medium text-center text-xs shadow-md hover:shadow-lg"
               >
                 Colaboradores
               </a>
               <a
                 href="/portal-cliente"
-                className="block w-full bg-gray-400 text-white px-3 py-2 rounded-md hover:bg-blue-600 transition-colors duration-300 font-medium text-center text-xs"
+                className="block w-full bg-gray-400 text-white px-3 py-2 rounded-md hover:bg-blue-600 transition-all duration-300 font-medium text-center text-xs shadow-md hover:shadow-lg"
               >
                 Portal de Clientes
               </a>
