@@ -25,6 +25,47 @@ export default function ServiciosADomicilio() {
 
       <AsesoriaTerreno />
       
+      {/* Video Testimonial Section */}
+      <section className="py-16 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+              Ve un ejemplo real de nuestro trabajo
+            </h2>
+            <p className="text-lg text-gray-600 mb-8">
+              Conoce cómo realizamos la asesoría arquitectónica en terreno
+            </p>
+          </div>
+          
+          <div className="max-w-4xl mx-auto">
+            <div className="relative bg-gray-900 rounded-lg overflow-hidden shadow-2xl">
+              <div className="aspect-video">
+                <iframe
+                  width="100%"
+                  height="100%"
+                  src="https://www.youtube.com/embed/URJ0rRVLBU0?start=1"
+                  title="Asesoría de Arquitectura a Domicilio - ArquitectoChile.com"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                  className="w-full h-full"
+                ></iframe>
+              </div>
+            </div>
+            
+            <div className="text-center mt-8">
+              <div className="inline-flex items-center px-6 py-3 bg-green-100 text-green-800 rounded-full text-sm font-semibold mb-4">
+                📹 Video Testimonial Real
+              </div>
+              <p className="text-gray-600 max-w-2xl mx-auto">
+                Este video muestra el proceso completo de asesoría en terreno que realizamos para nuestros clientes. 
+                Desde el análisis inicial hasta las recomendaciones finales.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+      
       {/* Additional Services Preview */}
       <section className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
