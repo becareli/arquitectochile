@@ -11,7 +11,15 @@ export interface TidyCalAppointment {
   duration: number;
   status: 'scheduled' | 'completed' | 'cancelled' | 'rescheduled';
   meetingLink?: string;
+  googleMeetLink?: string;
+  location?: string;
   notes?: string;
+  meetingDetails?: {
+    platform: 'google_meet' | 'zoom' | 'teams' | 'presencial';
+    link?: string;
+    address?: string;
+    instructions?: string;
+  };
 }
 
 export interface TidyCalWebhookData {
@@ -80,8 +88,32 @@ export class TidyCalIntegration extends BaseIntegration {
   }
 
   private async handleAppointmentScheduled(appointment: TidyCalAppointment) {
+    // Verify Google Meet link is present
+    const meetingInfo = this.extractMeetingInfo(appointment);
+    
+    // Log meeting details for verification
+    console.log('TidyCal appointment scheduled with meeting info:', {
+      appointmentId: appointment.id,
+      clientName: appointment.clientName,
+      scheduledAt: appointment.scheduledAt,
+      meetingLink: meetingInfo.link,
+      meetingPlatform: meetingInfo.platform,
+      hasGoogleMeet: meetingInfo.hasGoogleMeet
+    });
+
+    // Warn if no Google Meet link detected
+    if (!meetingInfo.hasGoogleMeet) {
+      console.warn(`⚠️  No Google Meet link detected for appointment ${appointment.id}. Check TidyCal configuration.`);
+    }
+
     // Check if lead exists by email
     const existingLead = await storage.getLeadByEmail?.(appointment.clientEmail);
+    
+    const appointmentDetails = `Asesoría agendada para ${appointment.scheduledAt}. ${
+      meetingInfo.hasGoogleMeet 
+        ? `Enlace de reunión: ${meetingInfo.link}` 
+        : 'Sin enlace de reunión - verificar configuración TidyCal'
+    }. ${appointment.notes || ''}`;
     
     if (existingLead) {
       // Update existing lead status
@@ -94,13 +126,19 @@ export class TidyCalIntegration extends BaseIntegration {
         phone: appointment.clientPhone || '',
         helpType: appointment.serviceType || 'Asesoría de Arquitectura',
         timeline: 'Inmediato',
-        message: `Asesoría agendada para ${appointment.scheduledAt}. ${appointment.notes || ''}`,
+        message: appointmentDetails,
         source: 'tidycal_appointment',
         status: 'appointment_scheduled'
       };
       
       await storage.createLead?.(leadData);
     }
+
+    // Send confirmation if Google Meet link is present
+    if (meetingInfo.hasGoogleMeet) {
+      console.log(`✅ Google Meet link confirmed for ${appointment.clientName}: ${meetingInfo.link}`);
+    }
+  }
 
     // Log integration event
     console.log(`TidyCal: Appointment scheduled for ${appointment.clientName} at ${appointment.scheduledAt}`);
@@ -162,6 +200,83 @@ export class TidyCalIntegration extends BaseIntegration {
         timestamp: new Date().toISOString()
       };
     }
+  }
+
+  // Extract and validate meeting information from appointment
+  private extractMeetingInfo(appointment: TidyCalAppointment) {
+    const meetingInfo = {
+      link: null as string | null,
+      platform: 'unknown' as 'google_meet' | 'zoom' | 'teams' | 'presencial' | 'unknown',
+      hasGoogleMeet: false,
+      instructions: null as string | null
+    };
+
+    // Check different possible fields for meeting link
+    const possibleLinks = [
+      appointment.meetingLink,
+      appointment.googleMeetLink,
+      appointment.meetingDetails?.link,
+      appointment.location
+    ].filter(Boolean);
+
+    for (const link of possibleLinks) {
+      if (link && typeof link === 'string') {
+        // Detect Google Meet
+        if (link.includes('meet.google.com')) {
+          meetingInfo.link = link;
+          meetingInfo.platform = 'google_meet';
+          meetingInfo.hasGoogleMeet = true;
+          break;
+        }
+        // Detect Zoom
+        else if (link.includes('zoom.us') || link.includes('zoom.com')) {
+          meetingInfo.link = link;
+          meetingInfo.platform = 'zoom';
+          break;
+        }
+        // Detect Teams
+        else if (link.includes('teams.microsoft.com')) {
+          meetingInfo.link = link;
+          meetingInfo.platform = 'teams';
+          break;
+        }
+        // Generic link detection
+        else if (link.startsWith('http')) {
+          meetingInfo.link = link;
+          meetingInfo.platform = 'unknown';
+          break;
+        }
+      }
+    }
+
+    // Check for physical location
+    if (appointment.location && !meetingInfo.link) {
+      if (appointment.location.toLowerCase().includes('presencial') || 
+          appointment.location.toLowerCase().includes('domicilio') ||
+          !appointment.location.startsWith('http')) {
+        meetingInfo.platform = 'presencial';
+        meetingInfo.instructions = appointment.location;
+      }
+    }
+
+    return meetingInfo;
+  }
+
+  // Validate TidyCal configuration for Google Meet
+  async validateGoogleMeetConfig(): Promise<{valid: boolean, issues: string[]}> {
+    const issues: string[] = [];
+    
+    if (!this.config.apiKey) {
+      issues.push('TidyCal API key not configured - cannot verify meeting settings');
+    }
+
+    // Additional validation can be added here when TidyCal provides configuration endpoints
+    console.log('🔍 Validating TidyCal Google Meet configuration...');
+    
+    return {
+      valid: issues.length === 0,
+      issues
+    };
   }
 
   getBookingUrl(serviceType = 'asesoria-arquitectura'): string {

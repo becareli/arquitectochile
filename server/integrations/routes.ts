@@ -2,8 +2,12 @@ import { Express } from "express";
 import { getIntegration, healthCheckAll } from "./index";
 import { TidyCalIntegration, TidyCalWebhookData } from "./tidycal";
 import { WhatsAppIntegration, WhatsAppWebhookData } from "./whatsapp";
+import { setupConfigurationRoutes } from "./routes-config";
 
 export function setupIntegrationRoutes(app: Express) {
+  
+  // Setup configuration and validation routes
+  setupConfigurationRoutes(app);
   
   // Health check endpoint for all integrations
   app.get("/api/integrations/health", async (req, res) => {
