@@ -54,7 +54,7 @@ export default function Footer() {
               <li><a href="#calculadoras" className="hover:text-white transition-colors">Calculadora de Costos</a></li>
               <li><a href="#calculadoras" className="hover:text-white transition-colors">Calculadora Energética</a></li>
               <li><a href="#blog" className="hover:text-white transition-colors">Blog</a></li>
-              <li><a href="#proyectos" className="hover:text-white transition-colors">Proyectos</a></li>
+              <li><a href="#proyectos" className="hover:text-white transition-colors">Modelos de Casas</a></li>
             </ul>
           </div>
           
