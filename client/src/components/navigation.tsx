@@ -114,13 +114,13 @@ export default function Navigation() {
             <span className="text-xs font-medium text-gray-600">Acceso:</span>
             <a
               href="/colaboradores"
-              className="bg-green-600 text-white px-3 py-1.5 rounded-md hover:bg-green-700 transition-colors font-medium text-xs"
+              className="bg-gray-600 text-white px-3 py-1.5 rounded-md hover:bg-green-600 transition-colors duration-300 font-medium text-xs"
             >
               Colaboradores
             </a>
             <a
               href="/portal-cliente"
-              className="bg-blue-600 text-white px-3 py-1.5 rounded-md hover:bg-blue-700 transition-colors font-medium text-xs"
+              className="bg-gray-600 text-white px-3 py-1.5 rounded-md hover:bg-blue-600 transition-colors duration-300 font-medium text-xs"
             >
               Portal de Clientes
             </a>
@@ -208,13 +208,13 @@ export default function Navigation() {
               <div className="text-center text-xs font-medium text-gray-600 mb-2">Acceso:</div>
               <a
                 href="/colaboradores"
-                className="block w-full bg-green-600 text-white px-3 py-2 rounded-md hover:bg-green-700 transition-colors font-medium text-center text-xs"
+                className="block w-full bg-gray-600 text-white px-3 py-2 rounded-md hover:bg-green-600 transition-colors duration-300 font-medium text-center text-xs"
               >
                 Colaboradores
               </a>
               <a
                 href="/portal-cliente"
-                className="block w-full bg-blue-600 text-white px-3 py-2 rounded-md hover:bg-blue-700 transition-colors font-medium text-center text-xs"
+                className="block w-full bg-gray-600 text-white px-3 py-2 rounded-md hover:bg-blue-600 transition-colors duration-300 font-medium text-center text-xs"
               >
                 Portal de Clientes
               </a>
