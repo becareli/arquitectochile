@@ -30,10 +30,10 @@ export default function ServiciosADomicilio() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">
-              Ve un ejemplo real de nuestro trabajo
+              Reserva tu Visita a Domicilio
             </h2>
             <p className="text-lg text-gray-600 mb-8">
-              Conoce cómo realizamos la asesoría arquitectónica en terreno
+              Descubre por qué cada vez más personas eligen nuestro servicio de arquitectura a domicilio
             </p>
           </div>
           
@@ -55,12 +55,28 @@ export default function ServiciosADomicilio() {
             
             <div className="text-center mt-8">
               <div className="inline-flex items-center px-6 py-3 bg-green-100 text-green-800 rounded-full text-sm font-semibold mb-4">
-                📹 Video Testimonial Real
+                🏠 Video Promocional
               </div>
-              <p className="text-gray-600 max-w-2xl mx-auto">
-                Este video muestra el proceso completo de asesoría en terreno que realizamos para nuestros clientes. 
-                Desde el análisis inicial hasta las recomendaciones finales.
+              <p className="text-gray-600 max-w-2xl mx-auto mb-6">
+                Conoce las ventajas de contar con un arquitecto profesional que va directamente a tu hogar. 
+                Análisis experto, presupuesto detallado y eliminación de todas tus dudas.
               </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <a
+                  href="https://wa.me/56979316827?text=Hola%20Patricio,%20quiero%20reservar%20una%20asesoría%20de%20arquitectura%20a%20domicilio"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center px-8 py-4 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-semibold"
+                >
+                  💬 Reservar Visita por WhatsApp
+                </a>
+                <a
+                  href="tel:+56979316827"
+                  className="inline-flex items-center px-8 py-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-semibold"
+                >
+                  📞 Llamar +56979316827
+                </a>
+              </div>
             </div>
           </div>
         </div>
