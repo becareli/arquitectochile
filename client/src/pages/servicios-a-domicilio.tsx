@@ -66,13 +66,13 @@ export default function ServiciosADomicilio() {
                   href="https://wa.me/56979316827?text=Hola%20Patricio,%20quiero%20reservar%20una%20asesoría%20de%20arquitectura%20a%20domicilio"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center px-8 py-4 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-semibold"
+                  className="inline-flex items-center px-8 py-4 bg-gray-600 text-white rounded-lg hover:bg-green-600 transition-colors duration-300 font-semibold"
                 >
                   💬 Reservar Visita por WhatsApp
                 </a>
                 <a
                   href="tel:+56979316827"
-                  className="inline-flex items-center px-8 py-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-semibold"
+                  className="inline-flex items-center px-8 py-4 bg-gray-600 text-white rounded-lg hover:bg-blue-600 transition-colors duration-300 font-semibold"
                 >
                   📞 Llamar +56979316827
                 </a>
