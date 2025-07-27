@@ -40,6 +40,8 @@ export interface IStorage {
   createLead(lead: InsertLead): Promise<Lead>;
   getLeads(): Promise<Lead[]>;
   getLeadById(id: number): Promise<Lead | undefined>;
+  getLeadByEmail(email: string): Promise<Lead | undefined>;
+  updateLeadStatus(id: number, status: string): Promise<Lead | undefined>;
   
   // Calculator Results
   createCalculatorResult(result: InsertCalculatorResult): Promise<CalculatorResult>;
@@ -115,6 +117,20 @@ export class DatabaseStorage implements IStorage {
 
   async getLeadById(id: number): Promise<Lead | undefined> {
     const [lead] = await db.select().from(leads).where(eq(leads.id, id));
+    return lead || undefined;
+  }
+
+  async getLeadByEmail(email: string): Promise<Lead | undefined> {
+    const [lead] = await db.select().from(leads).where(eq(leads.email, email));
+    return lead || undefined;
+  }
+
+  async updateLeadStatus(id: number, status: string): Promise<Lead | undefined> {
+    const [lead] = await db
+      .update(leads)
+      .set({ status })
+      .where(eq(leads.id, id))
+      .returning();
     return lead || undefined;
   }
 
@@ -265,10 +281,7 @@ export class DatabaseStorage implements IStorage {
     return quote || undefined;
   }
 
-  async updateLeadStatus(id: number, status: string): Promise<Lead> {
-    const [updatedLead] = await db.update(leads).set({ status }).where(eq(leads.id, id)).returning();
-    return updatedLead;
-  }
+
 
   async updateQuoteStatus(id: number, status: string): Promise<GeneratedQuote> {
     const [updatedQuote] = await db.update(generatedQuotes).set({ status }).where(eq(generatedQuotes.id, id)).returning();

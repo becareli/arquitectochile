@@ -29,6 +29,8 @@ The platform architecture must support AI agents via N8N or MAKE for automated b
 
 ## Recent Changes
 
+✓ **External Services Integration Architecture (Jul 27, 2025)**: Implemented comprehensive integration system with TidyCal and WhatsApp for automated booking and customer communication
+✓ **Webhook Infrastructure (Jul 27, 2025)**: Created robust webhook system supporting TidyCal appointments, WhatsApp messaging, and AI agent integration for business process automation
 ✓ **Professional Logo Integration (Jul 26, 2025)**: Implemented custom ArquitectoChile logo across all platforms (navbar, footer, client portal, collaborators) with consistent branding and visual identity
 ✓ **Navbar Structure Optimization (Jul 26, 2025)**: Reorganized navigation with prominent logo header, centered navigation links, and grouped action buttons for improved user experience
 ✓ **Colaboradores Platform (Jul 25, 2025)**: Implemented comprehensive B2B collaborator platform with project bidding, payment tracking, and integrated communication

@@ -3,6 +3,7 @@ import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { insertLeadSchema, insertCalculatorResultSchema, insertBudgetTemplateSchema, insertGeneratedQuoteSchema } from "@shared/schema";
 import { z } from "zod";
+import { setupIntegrationRoutes } from "./integrations/routes";
 
 // Webhook schema for AI agent integration
 const webhookSchema = z.object({
@@ -370,6 +371,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
       ]
     });
   });
+
+  // Setup integration routes
+  setupIntegrationRoutes(app);
 
   const httpServer = createServer(app);
   return httpServer;

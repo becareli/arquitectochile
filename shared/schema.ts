@@ -73,9 +73,31 @@ export const aiAgentEvents = pgTable("ai_agent_events", {
   leadId: integer("lead_id").references(() => leads.id),
   source: text("source").notNull(), // 'n8n', 'make', 'manual', etc.
   data: json("data").notNull(), // Event-specific data
-  status: text("status").notNull().default("processed"), // 'processed', 'failed', 'pending'
-  response: json("response"), // Response data from processing
   createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+// External Integrations Events
+export const integrationEvents = pgTable("integration_events", {
+  id: serial("id").primaryKey(),
+  integration: text("integration").notNull(), // 'tidycal', 'whatsapp', 'make', 'n8n'
+  eventType: text("event_type").notNull(), // 'webhook_received', 'message_sent', 'appointment_scheduled'
+  status: text("status").notNull(), // 'success', 'failed', 'pending'
+  data: json("data").notNull(),
+  error: text("error"),
+  leadId: integer("lead_id").references(() => leads.id),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+// Integration Configurations
+export const integrationConfigs = pgTable("integration_configs", {
+  id: serial("id").primaryKey(),
+  name: text("name").notNull().unique(), // 'tidycal', 'whatsapp', 'make'
+  enabled: boolean("enabled").default(true),
+  settings: json("settings").notNull().default({}),
+  lastHealthCheck: timestamp("last_health_check"),
+  healthStatus: boolean("health_status").default(false),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
 
 // Budget Templates for automated quote generation
@@ -398,3 +420,9 @@ export type ActiveProject = typeof activeProjects.$inferSelect;
 export type InsertActiveProject = z.infer<typeof insertActiveProjectSchema>;
 export type CollaboratorPayment = typeof collaboratorPayments.$inferSelect;
 export type InsertCollaboratorPayment = z.infer<typeof insertCollaboratorPaymentSchema>;
+
+// Integration types
+export type IntegrationEvent = typeof integrationEvents.$inferSelect;
+export type InsertIntegrationEvent = typeof integrationEvents.$inferInsert;
+export type IntegrationConfig = typeof integrationConfigs.$inferSelect;
+export type InsertIntegrationConfig = typeof integrationConfigs.$inferInsert;
