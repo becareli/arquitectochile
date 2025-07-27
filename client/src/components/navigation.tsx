@@ -26,7 +26,7 @@ export default function Navigation() {
             <span className="text-black text-sm">★★★</span>
             <a
               href="/servicios-a-domicilio"
-              className="bg-accent text-white px-4 py-2 rounded-md hover:bg-yellow-500 transition-colors font-bold text-xs whitespace-nowrap"
+              className="bg-accent text-black px-4 py-2 rounded-md hover:bg-yellow-500 transition-colors font-bold text-xs whitespace-nowrap"
             >
               Asesoría de Arquitectura a Domicilio
             </a>
@@ -200,7 +200,7 @@ export default function Navigation() {
                 </div>
                 <a
                   href="/servicios-a-domicilio"
-                  className="block w-full text-center px-3 py-3 bg-accent text-white font-bold rounded-md"
+                  className="block w-full text-center px-3 py-3 bg-accent text-black font-bold rounded-md"
                 >
                   Asesoría de Arquitectura a Domicilio
                 </a>
