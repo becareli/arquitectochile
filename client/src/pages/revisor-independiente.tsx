@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { CheckCircle, Shield, Clock, Phone, Mail, MapPin, Youtube, Award, FileCheck, Users, Zap } from "lucide-react";
+import { CheckCircle, Shield, Clock, Phone, Mail, MapPin, Youtube, Award, FileCheck, Users, Zap, Star } from "lucide-react";
 
 export default function RevisorIndependiente() {
   const scrollToContact = () => {
@@ -20,7 +20,10 @@ export default function RevisorIndependiente() {
       <section className="text-white py-20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="mb-8">
-            <Shield className="w-20 h-20 mx-auto mb-6 text-accent" />
+            <div className="relative w-20 h-20 mx-auto mb-6">
+              <Shield className="w-20 h-20 text-accent" />
+              <Star className="w-8 h-8 text-yellow-400 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 fill-current" />
+            </div>
             <h1 className="text-4xl lg:text-6xl font-bold mb-6">
               REVISOR INDEPENDIENTE DE OBRAS DE CONSTRUCCIÓN
             </h1>
