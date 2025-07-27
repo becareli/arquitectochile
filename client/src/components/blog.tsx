@@ -36,15 +36,15 @@ export default function Blog() {
     }
   ];
 
-  const displayPosts = posts && posts.length > 0 ? posts : fallbackPosts;
+  const displayPosts = Array.isArray(posts) && posts.length > 0 ? posts : fallbackPosts;
 
   if (isLoading) {
     return (
       <section id="blog" className="py-20 bg-neutral">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-dark mb-4">Blog</h2>
-            <p className="text-xl text-gray-600">Consejos y tendencias en arquitectura</p>
+            <h2 className="text-4xl font-bold text-dark mb-4">Revista ArquitectoChile</h2>
+            <p className="text-xl text-gray-600">Artículos especializados y tendencias en arquitectura</p>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -77,8 +77,8 @@ export default function Blog() {
     <section id="blog" className="py-20 bg-neutral">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-dark mb-4">Blog</h2>
-          <p className="text-xl text-gray-600">Consejos y tendencias en arquitectura</p>
+          <h2 className="text-4xl font-bold text-dark mb-4">Revista ArquitectoChile</h2>
+          <p className="text-xl text-gray-600">Artículos especializados y tendencias en arquitectura</p>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -107,7 +107,7 @@ export default function Blog() {
                   href={`#blog/${post.slug}`} 
                   className="text-primary font-medium hover:text-secondary transition-colors"
                 >
-                  Leer más →
+                  Leer artículo →
                 </a>
               </CardContent>
             </Card>
@@ -116,7 +116,7 @@ export default function Blog() {
         
         <div className="text-center mt-12">
           <Button className="bg-primary text-white px-8 py-3 rounded-md font-semibold hover:bg-secondary transition-colors">
-            Ver Todos los Artículos
+            Ver Toda la Revista
           </Button>
         </div>
       </div>

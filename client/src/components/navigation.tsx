@@ -85,7 +85,7 @@ export default function Navigation() {
                 onClick={() => scrollToSection('blog')}
                 className="text-dark hover:text-primary transition-colors text-sm font-medium"
               >
-                Blog
+                Revista
               </button>
               <button 
                 onClick={() => scrollToSection('contacto')}
@@ -179,7 +179,7 @@ export default function Navigation() {
               onClick={() => scrollToSection('blog')}
               className="block w-full text-left px-3 py-2 text-dark hover:text-primary"
             >
-              Blog
+              Revista
             </button>
             <button 
               onClick={() => scrollToSection('contacto')}
