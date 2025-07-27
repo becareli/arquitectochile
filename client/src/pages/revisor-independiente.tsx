@@ -226,9 +226,7 @@ export default function RevisorIndependiente() {
                 className="w-full h-full"
               ></iframe>
             </div>
-            <p className="text-sm text-gray-600 mt-4">
-              Video promocional: "MI PERMISO DE EDIFICACIÓN" - Conoce el proceso completo
-            </p>
+
           </div>
 
           <div className="bg-red-600 text-white rounded-xl p-8 mb-8">
