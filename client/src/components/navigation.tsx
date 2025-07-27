@@ -20,7 +20,7 @@ export default function Navigation() {
     <nav className="bg-white shadow-sm sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Logo Section */}
-        <div className="flex justify-between items-center py-4 border-b border-gray-100">
+        <div className="flex justify-between items-center py-2 border-b border-gray-100">
           <h1 className="text-2xl font-bold">
             <span className="text-primary">ArquitectoChile</span>
             <span className="text-gray-600">.com</span>
@@ -38,7 +38,7 @@ export default function Navigation() {
         </div>
         
         {/* Primera Línea - Navegación Principal */}
-        <div className="flex justify-center items-center h-12">
+        <div className="flex justify-center items-center h-10">
           {/* Desktop Navigation */}
           <div className="hidden md:block">
             <div className="flex items-center space-x-6 justify-center">
@@ -112,7 +112,7 @@ export default function Navigation() {
         
         
         {/* Segunda Línea - Accesos */}
-        <div className="hidden md:flex justify-center items-center py-1.5 border-t border-gray-100 bg-gray-50">
+        <div className="hidden md:flex justify-center items-center py-1 border-t border-gray-100 bg-gray-50">
           <div className="flex items-center space-x-4">
             <span className="text-xs font-medium text-gray-600">Acceso:</span>
             <a
