@@ -209,10 +209,11 @@ export default function RevisorIndependiente() {
       {/* Video */}
       <section className="py-16 bg-gray-50">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl font-bold text-dark mb-6">VE MI EXPLICACIÓN EN VIDEO</h2>
-          <p className="text-xl text-gray-600 mb-8">Arquitecto Patricio Becar explica el servicio de Revisor Independiente</p>
+          <h2 className="text-4xl font-bold text-dark mb-6">🎬 CONTRATA MI SERVICIO DE REVISOR INDEPENDIENTE</h2>
+          <p className="text-xl text-gray-600 mb-4">Mira cómo trabajo y por qué soy tu mejor opción</p>
+          <p className="text-lg font-bold text-primary mb-8">⚡ Evita rechazos costosos - Aprobación garantizada</p>
           
-          <div className="bg-white rounded-xl p-6 shadow-lg">
+          <div className="bg-white rounded-xl p-6 shadow-lg mb-8">
             <div className="aspect-video w-full mb-4 rounded-lg overflow-hidden">
               <iframe
                 width="100%"
@@ -226,8 +227,47 @@ export default function RevisorIndependiente() {
               ></iframe>
             </div>
             <p className="text-sm text-gray-600 mt-4">
-              Video promocional del servicio de Revisor Independiente - Sin locución, con sonido ambiente
+              Video promocional: "MI PERMISO DE EDIFICACIÓN" - Conoce el proceso completo
             </p>
+          </div>
+
+          <div className="bg-red-600 text-white rounded-xl p-8 mb-8">
+            <h3 className="text-2xl font-bold mb-4">🔥 OFERTA LIMITADA</h3>
+            <p className="text-xl mb-4">Solo 3 cupos disponibles este mes</p>
+            <p className="text-lg mb-6">Precio especial: <span className="line-through opacity-75">$200.000</span> <span className="text-3xl font-bold text-accent">$150.000</span></p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button 
+                onClick={openWhatsApp}
+                className="bg-green-600 hover:bg-green-700 text-white px-8 py-4 text-lg font-bold"
+              >
+                <Phone className="w-5 h-5 mr-2" />
+                Contratar Ahora - WhatsApp
+              </Button>
+              <Button 
+                onClick={scrollToContact}
+                className="bg-accent hover:bg-yellow-600 text-black px-8 py-4 text-lg font-bold"
+              >
+                Solicitar Cotización
+              </Button>
+            </div>
+          </div>
+
+          <div className="bg-primary text-white rounded-xl p-6">
+            <h4 className="text-xl font-bold mb-4">💡 ¿POR QUÉ CONTRATAR AHORA?</h4>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
+              <div>
+                <div className="text-2xl font-bold text-accent">26+</div>
+                <div className="text-sm">Años de Experiencia</div>
+              </div>
+              <div>
+                <div className="text-2xl font-bold text-accent">ROL 00237-13</div>
+                <div className="text-sm">Certificación MINVU</div>
+              </div>
+              <div>
+                <div className="text-2xl font-bold text-accent">100%</div>
+                <div className="text-sm">Proyectos Aprobados</div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
