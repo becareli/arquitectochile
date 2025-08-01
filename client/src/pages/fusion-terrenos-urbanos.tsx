@@ -272,20 +272,20 @@ export default function FusionTerrenosUrbanos() {
             </Card>
           </div>
 
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div>
+          <div className="space-y-8">
+            <div className="max-w-5xl mx-auto">
               <img 
                 src={fusionPredialImg} 
                 alt="Proceso de Fusión Predial" 
-                className="w-full rounded-lg shadow-lg"
+                className="w-full rounded-lg shadow-xl"
               />
             </div>
             
-            <div>
+            <div className="max-w-6xl mx-auto">
               <img 
                 src={comoHacerFusionImg} 
-                alt="Cómo hacer Fusión de Terrenos" 
-                className="w-full rounded-lg shadow-lg"
+                alt="Cómo hacer Fusión de Terrenos - Diagrama completo del proceso" 
+                className="w-full rounded-lg shadow-xl"
               />
             </div>
           </div>
