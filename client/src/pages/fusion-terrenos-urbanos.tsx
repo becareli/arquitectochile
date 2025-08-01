@@ -22,22 +22,48 @@ export default function FusionTerrenosUrbanos() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section con Video */}
-      <section className="bg-gradient-to-br from-emerald-900 via-emerald-800 to-green-900 text-white py-20">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+      <section className="bg-gradient-to-br from-emerald-900 via-emerald-800 to-green-900 text-white py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Header con badge */}
+          <div className="text-center mb-8">
+            <Badge className="bg-red-600 text-white mb-4 text-sm font-bold px-4 py-2">
+              🔥 BENEFICIO EXCLUSIVO LEY ART. 63
+            </Badge>
+            
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 leading-tight">
+              Aumenta <span className="text-emerald-300">INSTANTÁNEAMENTE</span> el Valor de tu Propiedad
+            </h1>
+            
+            <h2 className="text-xl md:text-2xl lg:text-3xl mb-8 text-emerald-100">
+              Hasta <strong>30% más</strong> capacidad de construcción <em>garantizado por ley</em>
+            </h2>
+          </div>
+
+          {/* Video Principal - Centrado y Prominente */}
+          <div className="mb-12">
+            <div className="max-w-4xl mx-auto">
+              <div className="relative bg-black rounded-2xl shadow-2xl overflow-hidden">
+                <div className="aspect-video">
+                  <iframe
+                    src="https://www.youtube.com/embed/TLbEa1Tcrw8?autoplay=0&rel=0&modestbranding=1"
+                    title="Fusión de Terrenos: Cómo aumentar el valor de tu propiedad"
+                    className="w-full h-full"
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowFullScreen
+                  />
+                </div>
+                <div className="absolute bottom-4 left-4 bg-emerald-600/90 text-white px-3 py-1 rounded text-sm font-semibold">
+                  ▶ Patricio Becar explica el proceso completo
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Grid de beneficios y pricing */}
+          <div className="grid lg:grid-cols-2 gap-12 items-start">
             <div>
-              <Badge className="bg-red-600 text-white mb-6 text-sm font-bold px-4 py-2">
-                🔥 BENEFICIO EXCLUSIVO LEY ART. 63
-              </Badge>
-              
-              <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">
-                Aumenta <span className="text-emerald-300">INSTANTÁNEAMENTE</span> el Valor de tu Propiedad
-              </h1>
-              
-              <h2 className="text-2xl md:text-3xl mb-8 text-emerald-100">
-                Hasta <strong>30% más</strong> capacidad de construcción <em>garantizado por ley</em>
-              </h2>
-              
+              <h3 className="text-2xl font-bold mb-6 text-center lg:text-left">¿Por qué la Fusión de Terrenos?</h3>
               <div className="space-y-4 mb-8">
                 <div className="flex items-center gap-3">
                   <CheckCircle className="h-6 w-6 text-emerald-300 flex-shrink-0" />
@@ -48,29 +74,17 @@ export default function FusionTerrenosUrbanos() {
                   <span className="text-lg">Aumento <strong>automático</strong> del valor comercial</span>
                 </div>
                 <div className="flex items-center gap-3">
+                  <Building2 className="h-6 w-6 text-emerald-300 flex-shrink-0" />
+                  <span className="text-lg">Permite proyectos de <strong>mayor envergadura</strong></span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <MapPin className="h-6 w-6 text-emerald-300 flex-shrink-0" />
+                  <span className="text-lg">Acceso desde <strong>múltiples calles</strong></span>
+                </div>
+                <div className="flex items-center gap-3">
                   <Shield className="h-6 w-6 text-emerald-300 flex-shrink-0" />
                   <span className="text-lg">26+ años de experiencia en fusiones exitosas</span>
                 </div>
-              </div>
-              
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Button 
-                  onClick={handleContactClick}
-                  size="lg" 
-                  className="bg-emerald-500 text-white hover:bg-emerald-400 text-xl px-8 py-4"
-                >
-                  <DollarSign className="mr-2 h-6 w-6" />
-                  Evaluar Mi Terreno GRATIS
-                </Button>
-                <Button 
-                  onClick={handleVideoClick}
-                  variant="outline" 
-                  size="lg" 
-                  className="border-2 border-white text-white hover:bg-white hover:text-emerald-900 text-xl px-8 py-4"
-                >
-                  <Play className="mr-2 h-6 w-6" />
-                  Ver Video Explicativo
-                </Button>
               </div>
             </div>
             
@@ -82,7 +96,7 @@ export default function FusionTerrenosUrbanos() {
                   <div className="text-sm text-emerald-200">Retorno promedio: 300%-500%</div>
                 </div>
                 
-                <div className="space-y-4">
+                <div className="space-y-4 mb-6">
                   <div className="flex justify-between items-center py-3 border-b border-white/20">
                     <span>Evaluación inicial</span>
                     <span className="text-emerald-300 font-semibold">GRATIS</span>
@@ -100,6 +114,15 @@ export default function FusionTerrenosUrbanos() {
                     <span className="text-emerald-300 font-semibold">45-60 días</span>
                   </div>
                 </div>
+
+                <Button 
+                  onClick={handleContactClick}
+                  size="lg" 
+                  className="w-full bg-emerald-500 text-white hover:bg-emerald-400 text-xl py-4"
+                >
+                  <DollarSign className="mr-2 h-6 w-6" />
+                  Evaluar Mi Terreno GRATIS
+                </Button>
               </div>
             </div>
           </div>
