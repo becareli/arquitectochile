@@ -7,6 +7,7 @@ import {
   ArrowRight, Clock, DollarSign, Users, Award, Eye,
   AlertTriangle, Target, Lightbulb, Compass, Camera
 } from "lucide-react";
+import Chatbot from "@/components/chatbot";
 
 export default function DisenemosNuevosEspacios() {
   const [, setLocation] = useLocation();
@@ -483,6 +484,7 @@ export default function DisenemosNuevosEspacios() {
           </div>
         </div>
       </section>
+      <Chatbot />
     </div>
   );
 }
