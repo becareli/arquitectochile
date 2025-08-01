@@ -11,7 +11,8 @@ export default function PoliticaPrivacidad() {
             <CardTitle>1. Responsable del Tratamiento</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
-            <p><strong>Responsable:</strong> Patricio Eduardo Becar Elissegaray</p>
+            <p><strong>Responsable:</strong> Constructora Patricio Becar Elissegaray EIRL</p>
+            <p><strong>RUT:</strong> 76.550.413-9</p>
             <p><strong>Sitio web:</strong> ArquitectoChile.com</p>
             <p><strong>Email de contacto:</strong> contacto@arquitectochile.com</p>
             <p><strong>Teléfono:</strong> +56 9 7931 6827</p>

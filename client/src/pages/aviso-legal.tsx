@@ -12,9 +12,9 @@ export default function AvisoLegal() {
           </CardHeader>
           <CardContent className="space-y-4">
             <p><strong>Razón Social:</strong> ArquitectoChile.com</p>
-            <p><strong>Propietario:</strong> Patricio Eduardo Becar Elissegaray</p>
+            <p><strong>Propietario:</strong> Constructora Patricio Becar Elissegaray EIRL</p>
             <p><strong>Profesión:</strong> Arquitecto Universidad de Chile</p>
-            <p><strong>RUT:</strong> [Número de RUT]</p>
+            <p><strong>RUT:</strong> 76.550.413-9</p>
             <p><strong>Domicilio:</strong> Santiago, Chile</p>
             <p><strong>Email:</strong> contacto@arquitectochile.com</p>
             <p><strong>Teléfono:</strong> +56 9 7931 6827</p>
