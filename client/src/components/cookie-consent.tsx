@@ -89,59 +89,48 @@ export default function CookieConsent() {
   return (
     <>
       {/* Cookie Banner */}
-      <div className="fixed bottom-0 left-0 right-0 z-50 p-4">
-        <Card className="mx-auto max-w-4xl shadow-xl border-2">
-          <CardContent className="p-6">
-            <div className="flex items-start gap-4">
-              <div className="flex-shrink-0 mt-1">
-                <Cookie className="h-6 w-6 text-primary" />
+      <div className="fixed bottom-0 left-0 right-0 z-50 p-2">
+        <div className="bg-white border-t shadow-lg">
+          <div className="max-w-7xl mx-auto px-4 py-3">
+            <div className="flex items-center justify-between gap-4">
+              <div className="flex items-center gap-3 flex-1">
+                <Cookie className="h-4 w-4 text-primary flex-shrink-0" />
+                <p className="text-sm text-gray-700">
+                  Utilizamos cookies para mejorar su experiencia. 
+                  <a href="/politica-cookies" className="text-primary hover:underline ml-1">
+                    Más información
+                  </a>
+                </p>
               </div>
               
-              <div className="flex-1">
-                <h3 className="text-lg font-semibold mb-2">
-                  Este sitio web utiliza cookies
-                </h3>
-                <p className="text-sm text-gray-600 mb-4">
-                  Utilizamos cookies para mejorar su experiencia, analizar el tráfico del sitio y personalizar el contenido. 
-                  Al hacer clic en "Aceptar todas", acepta el uso de todas las cookies. También puede personalizar sus 
-                  preferencias o rechazar las cookies opcionales.
-                </p>
-                <p className="text-xs text-gray-500 mb-4">
-                  Para más información, consulte nuestra{" "}
-                  <a href="/politica-cookies" className="text-primary hover:underline">
-                    Política de Cookies
-                  </a>{" "}
-                  y{" "}
-                  <a href="/politica-privacidad" className="text-primary hover:underline">
-                    Política de Privacidad
-                  </a>.
-                </p>
-                
-                <div className="flex flex-wrap gap-3">
-                  <Button onClick={acceptAll} className="bg-primary text-white hover:bg-primary/90">
-                    Aceptar Todas
-                  </Button>
-                  <Button onClick={acceptNecessaryOnly} variant="outline">
-                    Solo Necesarias
-                  </Button>
-                  <Button onClick={openSettings} variant="outline" className="flex items-center gap-2">
-                    <Settings className="h-4 w-4" />
-                    Personalizar
-                  </Button>
-                </div>
+              <div className="flex items-center gap-2">
+                <Button 
+                  onClick={acceptAll} 
+                  size="sm"
+                  className="bg-primary text-white hover:bg-primary/90 text-xs px-3 py-1"
+                >
+                  Aceptar Todas
+                </Button>
+                <Button 
+                  onClick={openSettings} 
+                  variant="outline" 
+                  size="sm"
+                  className="text-xs px-3 py-1"
+                >
+                  Personalizar
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={acceptNecessaryOnly}
+                  className="p-1"
+                >
+                  <X className="h-4 w-4" />
+                </Button>
               </div>
-              
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={acceptNecessaryOnly}
-                className="flex-shrink-0"
-              >
-                <X className="h-4 w-4" />
-              </Button>
             </div>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
       </div>
 
       {/* Cookie Settings Dialog */}
