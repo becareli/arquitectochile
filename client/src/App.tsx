@@ -14,6 +14,7 @@ import AvisoLegal from "@/pages/aviso-legal";
 import PoliticaPrivacidad from "@/pages/politica-privacidad";
 import PoliticaCookies from "@/pages/politica-cookies";
 import NotFound from "@/pages/not-found";
+import CookieConsent from "@/components/cookie-consent";
 
 function Router() {
   return (
@@ -39,6 +40,7 @@ function App() {
       <TooltipProvider>
         <Toaster />
         <Router />
+        <CookieConsent />
       </TooltipProvider>
     </QueryClientProvider>
   );
