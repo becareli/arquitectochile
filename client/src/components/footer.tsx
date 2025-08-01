@@ -11,7 +11,7 @@ export default function Footer() {
               <img 
                 src={logoImg} 
                 alt="ArquitectoChile.com" 
-                className="h-16 w-auto"
+                className="h-24 w-auto md:h-28"
               />
             </div>
             <p className="text-gray-300 mb-4">
