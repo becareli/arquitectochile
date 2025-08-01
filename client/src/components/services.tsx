@@ -40,9 +40,21 @@ export default function Services() {
     {
       id: "revisor-independiente-de-arquitectura",
       title: "Revisor Independiente",
-      description: "Informe favorable para tu proyecto",
+      price: "Desde $150,000",
+      description: "Garantiza aprobación de tu permiso - Certificación MINVU ROL 00237-13",
       icon: Shield,
-      bgColor: "bg-white"
+      features: [
+        "🚫 IMPOSIBLE que rechacen tu solicitud",
+        "⚡ Aprobación en solo 15 días (vs 60 días)",
+        "💰 30% descuento en derechos municipales",
+        "⚖️ Respaldo legal garantizado por ley",
+        "✅ 26+ años experiencia Universidad Chile",
+        "📋 Informe Favorable - documento oficial"
+      ],
+      featured: true,
+      bgColor: "bg-gradient-to-br from-blue-600 to-purple-600",
+      urgency: "🔥 EVITA RECHAZOS COSTOSOS",
+      legalBacking: "Certificación MINVU N° 369500 Vigente"
     },
     {
       id: "eifs",
@@ -123,29 +135,53 @@ export default function Services() {
             
             if (service.featured) {
               return (
-                <Card key={service.id} className={`${service.bgColor} text-white md:col-span-2 lg:col-span-1 transform hover:scale-105 transition-transform duration-300`}>
+                <Card key={service.id} className={`${service.bgColor} text-white md:col-span-2 lg:col-span-1 transform hover:scale-105 transition-transform duration-300 relative overflow-hidden`}>
+                  {/* Urgency Banner for Revisor Independiente */}
+                  {service.urgency && (
+                    <div className="bg-red-600 text-white text-center py-2 px-4 text-sm font-bold animate-pulse">
+                      {service.urgency}
+                    </div>
+                  )}
+                  
                   <CardHeader className="text-center">
                     <div className="bg-white/20 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                       <IconComponent className="text-white text-2xl" />
                     </div>
                     <CardTitle className="text-2xl font-bold mb-2">{service.title}</CardTitle>
-                    <div className="text-3xl font-bold mb-2">{service.price}</div>
-                    <p className="opacity-90">{service.description}</p>
+                    {service.price && (
+                      <div className="text-3xl font-bold mb-2">{service.price}</div>
+                    )}
+                    <p className="opacity-90 text-lg">{service.description}</p>
+                    
+                    {/* Legal backing for Revisor Independiente */}
+                    {service.legalBacking && (
+                      <div className="bg-white/20 backdrop-blur-sm rounded-lg p-3 mt-4">
+                        <p className="text-sm font-medium opacity-95">{service.legalBacking}</p>
+                      </div>
+                    )}
                   </CardHeader>
                   <CardContent>
-                    <ul className="space-y-2 mb-6">
+                    <ul className="space-y-3 mb-6">
                       {service.features?.map((feature, index) => (
-                        <li key={index} className="flex items-center">
-                          <CheckCircle className="w-4 h-4 mr-2" />
-                          {feature}
+                        <li key={index} className="flex items-start text-sm">
+                          <CheckCircle className="w-4 h-4 mr-2 mt-0.5 flex-shrink-0" />
+                          <span className="leading-tight">{feature}</span>
                         </li>
                       ))}
                     </ul>
+                    
                     <Button 
                       onClick={() => handleServiceClick(service.id)}
-                      className="w-full bg-white text-accent font-semibold hover:bg-gray-50"
+                      className={`w-full font-semibold text-lg py-3 ${
+                        service.id === 'revisor-independiente-de-arquitectura' 
+                          ? 'bg-white text-blue-600 hover:bg-gray-50 border-2 border-white' 
+                          : 'bg-white text-accent hover:bg-gray-50'
+                      }`}
                     >
-                      Agendar Visita
+                      {service.id === 'revisor-independiente-de-arquitectura' 
+                        ? 'Más Información' 
+                        : 'Agendar Visita'
+                      }
                     </Button>
                   </CardContent>
                 </Card>
