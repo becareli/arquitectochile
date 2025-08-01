@@ -38,7 +38,7 @@ export default function Services() {
       bgColor: "bg-gradient-to-br from-green-600 to-emerald-500"
     },
     {
-      id: "revisor-independiente",
+      id: "revisor-independiente-de-arquitectura",
       title: "Revisor Independiente",
       description: "Informe favorable para tu proyecto",
       icon: Shield,
@@ -97,8 +97,8 @@ export default function Services() {
 
   const handleServiceClick = (serviceId: string) => {
     // Special handling for Revisor Independiente
-    if (serviceId === 'revisor-independiente') {
-      setLocation('/revisor-independiente');
+    if (serviceId === 'revisor-independiente-de-arquitectura') {
+      setLocation('/revisor-independiente-de-arquitectura');
       return;
     }
     
