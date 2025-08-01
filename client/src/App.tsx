@@ -9,6 +9,7 @@ import ClientPortal from "@/pages/client-portal";
 import ServiciosADomicilio from "@/pages/servicios-a-domicilio";
 import Colaboradores from "@/pages/colaboradores";
 import RevisorIndependienteDeArquitectura from "@/pages/revisor-independiente-de-arquitectura";
+import DisenemosNuevosEspacios from "@/pages/disenemos-tus-nuevos-espacios";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -20,6 +21,7 @@ function Router() {
       <Route path="/servicios-a-domicilio" component={ServiciosADomicilio} />
       <Route path="/colaboradores" component={Colaboradores} />
       <Route path="/revisor-independiente-de-arquitectura" component={RevisorIndependienteDeArquitectura} />
+      <Route path="/disenemos-tus-nuevos-espacios" component={DisenemosNuevosEspacios} />
       <Route component={NotFound} />
     </Switch>
   );

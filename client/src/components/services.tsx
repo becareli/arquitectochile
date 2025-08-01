@@ -66,9 +66,21 @@ export default function Services() {
     {
       id: "disena-espacio",
       title: "Diseñemos tus Nuevos Espacios",
-      description: "Diseño arquitectónico profesional colaborativo",
+      price: "Desde $2.490.000",
+      description: "Transformamos tu hogar en el espacio de tus sueños - 26+ años creando hogares únicos",
       icon: Compass,
-      bgColor: "bg-white"
+      features: [
+        "🎨 Diseño 100% personalizado para TU familia",
+        "📐 Planos completos listos para construir",
+        "🏠 Optimización de espacios y funcionalidad",
+        "💡 Asesoría en materiales y acabados",
+        "📱 Visualización 3D de tu futuro hogar",
+        "⚡ Proceso colaborativo paso a paso"
+      ],
+      featured: true,
+      bgColor: "bg-gradient-to-br from-purple-600 to-pink-600",
+      urgency: "🔥 SOLO 3 PROYECTOS POR MES",
+      valueProposition: "El hogar que siempre imaginaste, diseñado específicamente para tu estilo de vida"
     },
     {
       id: "acondicionamiento-termico",
@@ -108,9 +120,14 @@ export default function Services() {
   ];
 
   const handleServiceClick = (serviceId: string) => {
-    // Special handling for Revisor Independiente
+    // Special handling for services with dedicated pages
     if (serviceId === 'revisor-independiente-de-arquitectura') {
       setLocation('/revisor-independiente-de-arquitectura');
+      return;
+    }
+    
+    if (serviceId === 'disena-espacio') {
+      setLocation('/disenemos-tus-nuevos-espacios');
       return;
     }
     
