@@ -1,4 +1,5 @@
 import { Facebook, Instagram, Linkedin, Mail, Phone, MapPin } from "lucide-react";
+import logoImg from "@assets/ArquitectoChile.com Logo_1754020481868.png";
 
 export default function Footer() {
   return (
@@ -6,7 +7,13 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
           <div>
-            <h3 className="text-xl font-bold mb-4">ArquitectoChile</h3>
+            <div className="mb-4">
+              <img 
+                src={logoImg} 
+                alt="ArquitectoChile.com" 
+                className="h-16 w-auto"
+              />
+            </div>
             <p className="text-gray-300 mb-4">
               Diseñamos y construimos tus sueños con pasión y profesionalismo.
             </p>
@@ -40,9 +47,10 @@ export default function Footer() {
             <ul className="space-y-2 text-gray-300">
               <li><a href="#servicios" className="hover:text-white transition-colors">Arquitecto a Domicilio</a></li>
               <li><a href="#servicios" className="hover:text-white transition-colors">Regularización de Inmuebles</a></li>
-              <li><a href="#servicios" className="hover:text-white transition-colors">Revisor Independiente</a></li>
+              <li><a href="/revisor-independiente-de-arquitectura" className="hover:text-white transition-colors">Revisor Independiente</a></li>
+              <li><a href="/fusion-terrenos-urbanos" className="hover:text-white transition-colors">Fusión de Terrenos</a></li>
               <li><a href="#servicios" className="hover:text-white transition-colors">Sistema EIFS</a></li>
-              <li><a href="#servicios" className="hover:text-white transition-colors">Diseño de Espacios</a></li>
+              <li><a href="/disenemos-tus-nuevos-espacios" className="hover:text-white transition-colors">Diseño de Espacios</a></li>
             </ul>
           </div>
           
