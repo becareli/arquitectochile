@@ -193,7 +193,7 @@ export default function Services() {
                         service.id === 'revisor-independiente-de-arquitectura' 
                           ? 'bg-white text-blue-600 hover:bg-gray-50 border-2 border-white' 
                           : service.id === 'disena-espacio'
-                          ? 'bg-white text-purple-600 hover:bg-gray-50 border-2 border-white'
+                          ? 'bg-blue-600 text-white hover:bg-blue-700'
                           : 'bg-white text-accent hover:bg-gray-50'
                       }`}
                     >
