@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { CheckCircle, TrendingUp, Building2, MapPin, Clock, Shield, ArrowRight, Play, DollarSign, Calculator, FileText, Star } from "lucide-react";
 import WhatsAppChat from "@/components/whatsapp-chat";
 import Footer from "@/components/footer";
+import Chatbot from "@/components/chatbot";
 import fusionTerrenosImg from "@assets/fusion-terrenos2.png";
 import leyFusionImg from "@assets/ley-fusion.png";
 import fusionPredialImg from "@assets/fusion-predial2.png";
@@ -373,6 +374,7 @@ export default function FusionTerrenosUrbanos() {
       </section>
 
       <WhatsAppChat />
+      <Chatbot />
       <Footer />
     </div>
   );
