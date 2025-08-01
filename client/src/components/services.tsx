@@ -68,7 +68,7 @@ export default function Services() {
       title: "Diseñemos tus Nuevos Espacios",
       price: "Desde $2.490.000",
       description: "Transformamos tu hogar en el espacio de tus sueños - 26+ años creando hogares únicos",
-      icon: Compass,
+      icon: Home,
       features: [
         "🎨 Diseño 100% personalizado para TU familia",
         "📐 Planos completos listos para construir",
@@ -192,10 +192,12 @@ export default function Services() {
                       className={`w-full font-semibold text-lg py-3 ${
                         service.id === 'revisor-independiente-de-arquitectura' 
                           ? 'bg-white text-blue-600 hover:bg-gray-50 border-2 border-white' 
+                          : service.id === 'disena-espacio'
+                          ? 'bg-white text-purple-600 hover:bg-gray-50 border-2 border-white'
                           : 'bg-white text-accent hover:bg-gray-50'
                       }`}
                     >
-                      {service.id === 'revisor-independiente-de-arquitectura' 
+                      {service.id === 'revisor-independiente-de-arquitectura' || service.id === 'disena-espacio' 
                         ? 'Más Información' 
                         : 'Agendar Visita'
                       }
