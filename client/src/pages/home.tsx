@@ -30,7 +30,6 @@ import Guarantees from "@/components/guarantees";
 import Blog from "@/components/blog";
 import Contact from "@/components/contact";
 import Footer from "@/components/footer";
-import WhatsAppChat from "@/components/whatsapp-chat";
 import Chatbot from "@/components/chatbot";
 import CookieConsent from "@/components/cookie-consent";
 
@@ -87,7 +86,6 @@ export default function Home() {
       <Blog />
       <Contact />
       <Footer />
-      <WhatsAppChat />
       <Chatbot />
       <CookieConsent />
     </div>
