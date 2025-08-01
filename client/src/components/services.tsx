@@ -40,7 +40,7 @@ export default function Services() {
     {
       id: "revisor-independiente-de-arquitectura",
       title: "Revisor Independiente",
-      price: "Desde $150,000",
+      price: "Desde $497,000",
       description: "Garantiza aprobación de tu permiso - Certificación MINVU ROL 00237-13",
       icon: Shield,
       features: [
