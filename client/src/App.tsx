@@ -10,6 +10,7 @@ import ServiciosADomicilio from "@/pages/servicios-a-domicilio";
 import Colaboradores from "@/pages/colaboradores";
 import RevisorIndependienteDeArquitectura from "@/pages/revisor-independiente-de-arquitectura";
 import DisenemosNuevosEspacios from "@/pages/disenemos-tus-nuevos-espacios";
+import FusionTerrenosUrbanos from "@/pages/fusion-terrenos-urbanos";
 import AvisoLegal from "@/pages/aviso-legal";
 import PoliticaPrivacidad from "@/pages/politica-privacidad";
 import PoliticaCookies from "@/pages/politica-cookies";
@@ -26,6 +27,7 @@ function Router() {
       <Route path="/colaboradores" component={Colaboradores} />
       <Route path="/revisor-independiente-de-arquitectura" component={RevisorIndependienteDeArquitectura} />
       <Route path="/disenemos-tus-nuevos-espacios" component={DisenemosNuevosEspacios} />
+      <Route path="/fusion-terrenos-urbanos" component={FusionTerrenosUrbanos} />
       <Route path="/aviso-legal" component={AvisoLegal} />
       <Route path="/politica-privacidad" component={PoliticaPrivacidad} />
       <Route path="/politica-cookies" component={PoliticaCookies} />

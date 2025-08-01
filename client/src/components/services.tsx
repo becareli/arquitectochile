@@ -1,4 +1,4 @@
-import { Home, Shield, Snowflake, Compass, Thermometer, Tags, Box, FileText, CheckCircle, BadgeCheck } from "lucide-react";
+import { Home, Shield, Snowflake, Compass, Thermometer, Tags, Box, FileText, CheckCircle, BadgeCheck, Merge } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useLocation } from "wouter";
@@ -83,6 +83,25 @@ export default function Services() {
       valueProposition: "El hogar que siempre imaginaste, diseñado específicamente para tu estilo de vida"
     },
     {
+      id: "fusion-terrenos-urbanos",
+      title: "Fusión de Terrenos Urbanos",
+      price: "Desde $890.000",
+      description: "Aumenta INSTANTÁNEAMENTE el valor de tu propiedad hasta 30% - Proceso garantizado por ley",
+      icon: Merge,
+      features: [
+        "💰 Aumenta el valor comercial automáticamente",
+        "📈 30% más capacidad de construcción por LEY",
+        "🏗️ Permite proyectos de mayor envergadura", 
+        "🎯 Acceso desde múltiples calles/avenidas",
+        "⚡ Proceso completo en 45-60 días",
+        "✅ Gestión integral: DOM→SII→CBR"
+      ],
+      featured: true,
+      bgColor: "bg-gradient-to-br from-emerald-600 to-green-700",
+      urgency: "🔥 BENEFICIO LEY ART. 63 LIMITADO",
+      valueProposition: "La única forma LEGAL de aumentar instantáneamente el valor y capacidad de tu terreno"
+    },
+    {
       id: "acondicionamiento-termico",
       title: "Acondicionamiento Térmico",
       description: "Mejora el confort de tu hogar",
@@ -128,6 +147,11 @@ export default function Services() {
     
     if (serviceId === 'disena-espacio') {
       setLocation('/disenemos-tus-nuevos-espacios');
+      return;
+    }
+    
+    if (serviceId === 'fusion-terrenos-urbanos') {
+      setLocation('/fusion-terrenos-urbanos');
       return;
     }
     
@@ -194,10 +218,12 @@ export default function Services() {
                           ? 'bg-white text-blue-600 hover:bg-gray-50 border-2 border-white' 
                           : service.id === 'disena-espacio'
                           ? 'bg-blue-600 text-white hover:bg-blue-700'
+                          : service.id === 'fusion-terrenos-urbanos'
+                          ? 'bg-emerald-600 text-white hover:bg-emerald-700'
                           : 'bg-white text-accent hover:bg-gray-50'
                       }`}
                     >
-                      {service.id === 'revisor-independiente-de-arquitectura' || service.id === 'disena-espacio' 
+                      {service.id === 'revisor-independiente-de-arquitectura' || service.id === 'disena-espacio' || service.id === 'fusion-terrenos-urbanos'
                         ? 'Más Información' 
                         : 'Agendar Visita'
                       }

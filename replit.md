@@ -3,6 +3,11 @@
 ## Overview
 ArquitectoChile is a full-stack web application for an architecture services company in Chile. It provides a comprehensive digital presence, serving as both a marketing tool and a business management system. The platform features interactive calculators, project showcases, client testimonials, and lead generation capabilities. Its business vision centers on becoming a comprehensive lead generation machine, leveraging advanced lead magnets and conversion optimization techniques based on methodologies from Alex Hormozi, Russell Brunson, and Vilma Núñez. The platform offers a value proposition of unique home design, legal peace of mind, 3D visualization, and comprehensive support, targeting individuals like "Juan Carlos" (45-year-old family man in Santiago with good economic standing). It aims to support a 3-stage sales process (Qualification → Presentation/Closing → Follow-up) and integrate AI agents for automated business processes, enhancing user experience and scalability.
 
+## Recent Changes (August 2025)
+- ✅ **Fusión de Terrenos Urbanos Service**: New premium service added with dedicated landing page applying Gary Halbert copywriting style combined with Hormozi value equations, Russell Brunson storytelling, and Vilma Núñez urgency tactics. Features legal authority positioning, benefit-driven messaging, and strong calls-to-action.
+- ✅ **GDPR Cookie Consent**: Implemented compliant cookie consent popup for Meta and Google advertising requirements.
+- ✅ **Legal Pages**: Created comprehensive Aviso Legal, Política de Privacidad, and Política de Cookies with correct company information (Constructora Patricio Becar Elissegaray EIRL, RUT: 76.550.413-9).
+
 ## User Preferences
 Preferred communication style: Simple, everyday language.
 
