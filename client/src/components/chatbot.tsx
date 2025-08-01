@@ -17,7 +17,7 @@ export default function Chatbot() {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
-      text: '¡Hola! Soy el asistente virtual de ArquitectoChile. ¿En qué puedo ayudarte hoy? Puedes preguntarme sobre fusión de terrenos, permisos, o cualquier servicio de arquitectura.',
+      text: '¡Hola! Soy el asistente virtual de ArquitectoChile. ¿En qué puedo ayudarte? Ofrezco información sobre: Fusión de Terrenos, Diseño de Espacios, Revisor Independiente, Regularización, Sistema EIFS, Permisos, Tasaciones, Portal Cliente y más.',
       sender: 'bot',
       timestamp: new Date()
     }
@@ -38,32 +38,90 @@ export default function Chatbot() {
   const getBotResponse = (userMessage: string): string => {
     const message = userMessage.toLowerCase();
     
+    // Servicios específicos
     if (message.includes('fusión') || message.includes('fusion') || message.includes('terreno')) {
       return 'La fusión de terrenos permite aumentar hasta 30% la capacidad de construcción según el Art. 63 de la Ley General de Urbanismo. El proceso completo toma 45-60 días y cuesta desde $890.000. ¿Te gustaría una evaluación gratuita?';
     }
     
-    if (message.includes('precio') || message.includes('costo') || message.includes('cuanto')) {
-      return 'Nuestros servicios tienen diferentes precios: Fusión de Terrenos desde $890.000, Diseño de Espacios desde $2.490.000, Revisor Independiente desde $290.000. ¿Sobre qué servicio específico te gustaría saber más?';
+    if (message.includes('revisor') || message.includes('independiente') || message.includes('rechaz')) {
+      return 'El Revisor Independiente de Arquitectura evita rechazos costosos en permisos municipales. Tenemos certificación MINVU N° 369500 vigente. El servicio cuesta desde $290.000 y toma 15-20 días. ¿Necesitas revisar algún proyecto?';
     }
     
-    if (message.includes('tiempo') || message.includes('demora') || message.includes('cuánto')) {
-      return 'Los tiempos varían según el servicio: Fusión de Terrenos 45-60 días, Revisor Independiente 15-20 días, Diseño de Espacios 30-45 días. ¿Qué servicio te interesa?';
+    if (message.includes('diseño') || message.includes('espacio') || message.includes('casa') || message.includes('hogar')) {
+      return 'Nuestro servicio "Diseñemos tus Nuevos Espacios" incluye diseño 100% personalizado, planos completos, visualización 3D y asesoría en materiales. Desde $2.490.000, solo 3 proyectos por mes. ¿Te interesa transformar tu hogar?';
+    }
+    
+    if (message.includes('regulariz') || message.includes('ley del mono') || message.includes('ampliaci')) {
+      return 'La regularización de inmuebles (Ley del Mono) permite legalizar ampliaciones y construcciones sin permisos. Cubrimos todo el proceso legal y técnico. ¿Tienes alguna construcción que necesite regularizar?';
+    }
+    
+    if (message.includes('eifs') || message.includes('aislaci') || message.includes('térmic') || message.includes('energía')) {
+      return 'El Sistema EIFS proporciona aislación térmica de alta eficiencia para reducir costos energéticos hasta 40%. Ideal para mejorar el confort y valor de tu propiedad. ¿Te interesa una evaluación energética?';
+    }
+    
+    if (message.includes('tasación') || message.includes('avalúo') || message.includes('valor') || message.includes('precio propiedad')) {
+      return 'Realizamos tasaciones profesionales de propiedades con informes técnicos detallados. Útil para ventas, seguros, herencias o créditos hipotecarios. ¿Necesitas conocer el valor de tu propiedad?';
+    }
+    
+    if (message.includes('cabida') || message.includes('edificabilidad') || message.includes('construir')) {
+      return 'El estudio de cabidas determina la capacidad máxima de edificación de tu terreno según normativas municipales. Te ayudamos a maximizar el potencial constructivo. ¿Quieres saber cuánto puedes construir?';
+    }
+    
+    if (message.includes('permiso') || message.includes('edificación') || message.includes('municipal')) {
+      return 'Gestionamos permisos de edificación completos ante la municipalidad, desde la documentación hasta la aprobación final. Evitamos rechazos y agilizamos el proceso. ¿Tienes un proyecto por presentar?';
+    }
+    
+    if (message.includes('recepción') || message.includes('final') || message.includes('legalizar')) {
+      return 'La recepción final legaliza tu proyecto ante la municipalidad para obtener el certificado de recepción definitiva. Necesario para habitar y vender legalmente. ¿Tu obra está lista para recepción?';
+    }
+    
+    if (message.includes('domicilio') || message.includes('visita') || message.includes('terreno')) {
+      return 'Ofrecemos servicios de arquitecto a domicilio con visitas técnicas especializadas. Evaluamos tu proyecto directamente en terreno y proporcionamos asesoría personalizada. ¿Necesitas una visita técnica?';
+    }
+    
+    // Portal y colaboradores
+    if (message.includes('portal') || message.includes('cliente') || message.includes('seguimiento')) {
+      return 'El Portal del Cliente te permite hacer seguimiento de tu proyecto, ver documentos, cronograma y pagos en tiempo real. Acceso exclusivo para clientes activos. ¿Ya tienes un proyecto con nosotros?';
+    }
+    
+    if (message.includes('colaborador') || message.includes('trabajar') || message.includes('unirse')) {
+      return 'Buscamos colaboradores profesionales para nuestra red de servicios. Ofrecemos oportunidades para arquitectos, ingenieros y constructores. ¿Te interesa formar parte de nuestro equipo?';
+    }
+    
+    // Precios generales
+    if (message.includes('precio') || message.includes('costo') || message.includes('cuanto')) {
+      return 'Precios de nuestros servicios principales: Fusión de Terrenos $890.000, Diseño de Espacios $2.490.000, Revisor Independiente $290.000, Regularización según proyecto, Tasaciones desde $150.000. ¿Qué servicio específico te interesa?';
+    }
+    
+    // Tiempos
+    if (message.includes('tiempo') || message.includes('demora') || message.includes('cuánto tarda')) {
+      return 'Tiempos estimados: Fusión de Terrenos 45-60 días, Revisor Independiente 15-20 días, Diseño de Espacios 30-45 días, Permisos 30-60 días, Tasaciones 7-10 días. Los tiempos pueden variar según complejidad. ¿Qué servicio necesitas?';
+    }
+    
+    // Calculadoras
+    if (message.includes('calculadora') || message.includes('calcular') || message.includes('costo construcción')) {
+      return 'Tenemos calculadoras gratuitas para estimar costos de construcción y eficiencia energética. Son herramientas orientativas basadas en nuestros 26 años de experiencia. ¿Te gustaría usar alguna calculadora?';
+    }
+    
+    // Información general
+    if (message.includes('servicios') || message.includes('qué hacen') || message.includes('especialidad')) {
+      return 'Somos especialistas en: Fusión de Terrenos, Diseño de Espacios, Revisor Independiente, Regularización de Inmuebles, Sistema EIFS, Permisos y Recepciones, Tasaciones, Estudios de Cabida. ¿Cuál te interesa más?';
     }
     
     if (message.includes('contacto') || message.includes('telefono') || message.includes('whatsapp')) {
-      return 'Puedes contactarnos por WhatsApp al +56979316827 o email a contacto@arquitectochile.com. También puedes solicitar una consulta directamente desde la página. ¿Prefieres que te conecte por WhatsApp?';
+      return 'Contactos: WhatsApp +56979316827, Email contacto@arquitectochile.com, Oficina en Santiago. Atención personalizada de Patricio Becar. ¿Prefieres que te conecte por WhatsApp?';
     }
     
-    if (message.includes('patricio') || message.includes('arquitecto')) {
-      return 'Patricio Becar Elissegaray es Arquitecto de la Universidad de Chile con 26+ años de experiencia. Tiene un Magister en Gestión y Master in Management de Australia. Ha trabajado en municipalidades y empresas inmobiliarias.';
+    if (message.includes('patricio') || message.includes('arquitecto') || message.includes('experiencia')) {
+      return 'Patricio Becar Elissegaray: Arquitecto Universidad de Chile, 26+ años de experiencia, Magister en Gestión, Master in Management (Australia), ex-funcionario municipal. Especialista en fusiones y permisos complejos.';
     }
     
     if (message.includes('hola') || message.includes('buenas') || message.includes('buenos dias')) {
-      return '¡Hola! Es un gusto poder ayudarte. Soy el asistente de ArquitectoChile. ¿En qué servicio de arquitectura estás interesado? Puedo ayudarte con fusión de terrenos, diseño de espacios, permisos, y más.';
+      return '¡Hola! Soy el asistente de ArquitectoChile. Puedo ayudarte con: Fusión de Terrenos, Diseño de Espacios, Revisor Independiente, Regularización, EIFS, Permisos, Tasaciones y más. ¿Qué necesitas?';
     }
     
     // Respuesta por defecto
-    return 'Gracias por tu consulta. Para darte la mejor respuesta, puedes contactar directamente a Patricio por WhatsApp al +56979316827 o contarme más detalles sobre lo que necesitas. ¿Te ayudo a conectarte?';
+    return 'Gracias por tu consulta. Ofrecemos servicios completos de arquitectura: fusión de terrenos, diseño, permisos, regularización y más. Para información específica, contacta a Patricio por WhatsApp +56979316827. ¿Te ayudo a conectarte?';
   };
 
   const handleSendMessage = async () => {
