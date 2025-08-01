@@ -4,7 +4,7 @@ import { storage } from "./storage";
 import { insertLeadSchema, insertCalculatorResultSchema, insertBudgetTemplateSchema, insertGeneratedQuoteSchema } from "@shared/schema";
 import { z } from "zod";
 import { setupIntegrationRoutes } from "./integrations/routes";
-import enhancedAnalyticsRoutes from './routes/enhanced-analytics';
+// Enhanced analytics will be loaded separately to avoid circular imports
 
 // Webhook schema for AI agent integration
 const webhookSchema = z.object({
@@ -320,7 +320,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           totalPrice: totalPrice,
           ...webhook.data
         },
-        createdAt: new Date()
+
       });
       
       res.json({ 
@@ -376,8 +376,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Setup integration routes
   setupIntegrationRoutes(app);
 
-  // Enhanced analytics routes
-  app.use('/api/analytics', enhancedAnalyticsRoutes);
+  // Enhanced Analytics Routes (load dynamically)
+  try {
+    const enhancedAnalytics = await import('./routes/enhanced-analytics');
+    app.use('/api/analytics', enhancedAnalytics.default);
+  } catch (error) {
+    console.error('Failed to load enhanced analytics routes:', error);
+  }
 
   const httpServer = createServer(app);
   return httpServer;
