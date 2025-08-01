@@ -65,8 +65,8 @@ export default function Services() {
     },
     {
       id: "disena-espacio",
-      title: "Diseña tu Espacio",
-      description: "Diseño arquitectónico profesional",
+      title: "Diseñemos tus Nuevos Espacios",
+      description: "Diseño arquitectónico profesional colaborativo",
       icon: Compass,
       bgColor: "bg-white"
     },
