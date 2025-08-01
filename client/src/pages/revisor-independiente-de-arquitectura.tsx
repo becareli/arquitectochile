@@ -43,6 +43,26 @@ export default function RevisorIndependienteDeArquitectura() {
             Arquitecto Patricio Eduardo Becar Elissegaray - Universidad de Chile 1999 | 26+ años de experiencia
           </p>
 
+          {/* Video Section */}
+          <div className="mb-8">
+            <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 max-w-4xl mx-auto">
+              <h3 className="text-2xl font-bold mb-4">🎥 Conoce el Proceso Completo</h3>
+              <div className="relative aspect-video rounded-lg overflow-hidden bg-black">
+                <iframe
+                  src="https://www.youtube.com/embed/tYZlUAyxvuA?start=1"
+                  title="Revisor Independiente de Arquitectura - Proceso Completo"
+                  className="w-full h-full"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                ></iframe>
+              </div>
+              <p className="text-center mt-4 text-lg opacity-90">
+                Arquitecto Patricio Becar explica el proceso y beneficios del Informe Favorable
+              </p>
+            </div>
+          </div>
+
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button 
               onClick={openWhatsApp}
@@ -111,6 +131,88 @@ export default function RevisorIndependienteDeArquitectura() {
                 <p className="text-gray-600">Universidad de Chile 1999</p>
               </CardContent>
             </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* ¿Por qué es CRÍTICO contratar un Revisor Independiente? */}
+      <section className="py-16 bg-gradient-to-br from-red-50 to-orange-50">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold text-dark mb-6">
+              ⚠️ ANTES de Ingresar tu Permiso de Edificación...
+            </h2>
+            <p className="text-xl text-gray-700 max-w-4xl mx-auto leading-relaxed">
+              <strong>¿Sabías que 7 de cada 10 solicitudes de permisos son rechazadas</strong> por errores que podrían haberse evitado? 
+              <span className="text-red-600 font-bold"> No arriesgues tu inversión</span> al azar.
+            </p>
+          </div>
+
+          <div className="bg-white rounded-lg shadow-xl p-8 mb-8">
+            <h3 className="text-2xl font-bold text-dark mb-6 text-center">
+              🎯 La ÚNICA Forma de Garantizar Aprobación al 100%
+            </h3>
+            
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              <div>
+                <h4 className="text-xl font-bold text-primary mb-4">❌ SIN Revisor Independiente:</h4>
+                <ul className="space-y-3 text-gray-700">
+                  <li className="flex items-start">
+                    <span className="text-red-500 font-bold mr-2">•</span>
+                    <span>Revisión puede tomar hasta <strong>60 días</strong></span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-red-500 font-bold mr-2">•</span>
+                    <span>Alto riesgo de <strong>rechazo por errores</strong></span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-red-500 font-bold mr-2">•</span>
+                    <span>Pagas el <strong>100% de derechos municipales</strong></span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-red-500 font-bold mr-2">•</span>
+                    <span>Estrés e incertidumbre constante</span>
+                  </li>
+                </ul>
+              </div>
+              
+              <div>
+                <h4 className="text-xl font-bold text-green-600 mb-4">✅ CON Revisor Independiente:</h4>
+                <ul className="space-y-3 text-gray-700">
+                  <li className="flex items-start">
+                    <span className="text-green-500 font-bold mr-2">•</span>
+                    <span>Revisión garantizada en solo <strong>15 días</strong></span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-green-500 font-bold mr-2">•</span>
+                    <span><strong>IMPOSIBLE que rechacen</strong> tu solicitud</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-green-500 font-bold mr-2">•</span>
+                    <span><strong>30% de descuento</strong> en derechos municipales</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-green-500 font-bold mr-2">•</span>
+                    <span>Tranquilidad total y proceso expedito</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-gradient-to-r from-yellow-400 to-orange-500 rounded-lg p-8 text-center">
+            <h3 className="text-2xl font-bold text-black mb-4">
+              💡 RESPALDO LEGAL GARANTIZADO
+            </h3>
+            <p className="text-lg text-black font-medium mb-6">
+              "No podrá rechazarse el ingreso de una solicitud, si ésta cuenta con informe favorable 
+              de un Revisor Independiente de Arquitectura" - <strong>Ley General de Urbanismo y Construcciones</strong>
+            </p>
+            <div className="bg-black/20 rounded-lg p-4">
+              <p className="text-sm font-bold text-black">
+                📋 ARTÍCULO 5.1.8. OGUC | 🏛️ DECRETO SUPREMO N° 177 | ⚖️ LEY N° 20.071
+              </p>
+            </div>
           </div>
         </div>
       </section>
@@ -204,6 +306,106 @@ export default function RevisorIndependienteDeArquitectura() {
                 <p className="text-lg">✅ Especificaciones técnicas</p>
                 <p className="text-lg">✅ Cumplimiento OGUC</p>
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* BENEFICIOS ECONÓMICOS ESPECÍFICOS */}
+      <section className="py-16 bg-gradient-to-br from-green-50 to-blue-50">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold text-dark mb-6">
+              💰 BENEFICIOS ECONÓMICOS REALES
+            </h2>
+            <p className="text-xl text-gray-700 max-w-4xl mx-auto">
+              <strong>Tu inversión en Revisor Independiente se recupera automáticamente</strong> con estos beneficios garantizados por ley
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
+            <div className="bg-white rounded-lg shadow-lg p-8 text-center border-t-4 border-green-500">
+              <div className="text-4xl font-bold text-green-600 mb-4">30%</div>
+              <h3 className="text-xl font-bold mb-4">DESCUENTO AUTOMÁTICO</h3>
+              <p className="text-gray-700">
+                <strong>30% de descuento</strong> en derechos municipales garantizado por OGUC Art. 5.1.14
+              </p>
+            </div>
+
+            <div className="bg-white rounded-lg shadow-lg p-8 text-center border-t-4 border-blue-500">
+              <div className="text-4xl font-bold text-blue-600 mb-4">15</div>
+              <h3 className="text-xl font-bold mb-4">DÍAS MÁXIMO</h3>
+              <p className="text-gray-700">
+                <strong>15 días máximo</strong> de revisión vs 30-60 días normales. <strong>4x más rápido</strong>
+              </p>
+            </div>
+
+            <div className="bg-white rounded-lg shadow-lg p-8 text-center border-t-4 border-yellow-500">
+              <div className="text-4xl font-bold text-yellow-600 mb-4">0%</div>
+              <h3 className="text-xl font-bold mb-4">RIESGO DE RECHAZO</h3>
+              <p className="text-gray-700">
+                <strong>Imposible rechazar</strong> solicitud con Informe Favorable por ley
+              </p>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-lg shadow-xl p-8 mb-8">
+            <h3 className="text-2xl font-bold text-center mb-6">
+              💡 ¿POR QUÉ NECESITAS un REVISOR INDEPENDIENTE DE ARQUITECTURA?
+            </h3>
+            
+            <div className="bg-gradient-to-r from-blue-100 to-green-100 rounded-lg p-6 mb-6">
+              <p className="text-lg leading-relaxed text-gray-800">
+                <strong>Antes de conseguir un Permiso de Edificación en Chile</strong>, es recomendable revisar con calma cada componente 
+                de tu solicitud. <span className="text-primary font-bold">Lo ideal es ingresar un expediente al Municipio con la CERTEZA 
+                de que será aprobado</span> por la Dirección de Obras.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div>
+                <h4 className="text-xl font-bold text-primary mb-4">📋 MI APORTE TÉCNICO:</h4>
+                <ul className="space-y-3 text-gray-700">
+                  <li>• <strong>Confecciono Informe Favorable</strong> - documento legal que respalda tu expediente</li>
+                  <li>• <strong>Hago más ágil la revisión</strong> de tu Permiso de Edificación en la Municipalidad</li>
+                  <li>• <strong>Optimizo documentos e implantación</strong> para que se ingresen con información correcta</li>
+                  <li>• <strong>Garantizo cumplimiento normativo</strong> con 26+ años de experiencia</li>
+                </ul>
+              </div>
+              
+              <div>
+                <h4 className="text-xl font-bold text-green-600 mb-4">⚖️ BENEFICIOS LEGALES GARANTIZADOS:</h4>
+                <ul className="space-y-3 text-gray-700">
+                  <li>• <strong>NO PUEDE rechazarse</strong> el ingreso si cuenta con Informe Favorable</li>
+                  <li>• <strong>Plazo reducido a 15 días</strong> para pronunciarse (vs 30 días normales)</li>
+                  <li>• <strong>30% de rebaja</strong> en derechos municipales automática</li>
+                  <li>• <strong>Respaldo legal total</strong> durante todo el proceso</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-gradient-to-r from-red-500 to-orange-500 rounded-lg p-8 text-center text-white">
+            <h3 className="text-2xl font-bold mb-4">
+              🚨 Si deseas que tu Permiso de Edificación tenga ÉXITO...
+            </h3>
+            <p className="text-xl font-medium mb-6">
+              <strong>CONTRATA los servicios para confeccionar tu Informe Favorable de REVISOR INDEPENDIENTE DE ARQUITECTURA</strong>
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button 
+                onClick={openWhatsApp}
+                className="bg-green-600 hover:bg-green-700 text-white px-8 py-4 text-lg font-bold"
+              >
+                <Phone className="w-5 h-5 mr-2" />
+                WhatsApp +56 9 7931 6827
+              </Button>
+              <Button 
+                onClick={scrollToContact}
+                className="bg-white hover:bg-gray-100 text-black px-8 py-4 text-lg font-bold"
+              >
+                Cotizar Mi Proyecto
+              </Button>
             </div>
           </div>
         </div>
