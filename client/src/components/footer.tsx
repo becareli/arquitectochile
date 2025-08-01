@@ -4,7 +4,7 @@ export default function Footer() {
   return (
     <footer className="bg-dark text-white py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
           <div>
             <h3 className="text-xl font-bold mb-4">ArquitectoChile</h3>
             <p className="text-gray-300 mb-4">
@@ -80,10 +80,23 @@ export default function Footer() {
               </p>
             </div>
           </div>
+          
+          <div>
+            <h4 className="text-lg font-semibold mb-4">Legal</h4>
+            <ul className="space-y-2 text-gray-300">
+              <li><a href="/aviso-legal" className="hover:text-white transition-colors">Aviso Legal</a></li>
+              <li><a href="/politica-privacidad" className="hover:text-white transition-colors">Política de Privacidad</a></li>
+              <li><a href="/politica-cookies" className="hover:text-white transition-colors">Política de Cookies</a></li>
+              <li><a href="#" className="hover:text-white transition-colors">Personalizar Cookies</a></li>
+            </ul>
+          </div>
         </div>
         
         <div className="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
-          <p>&copy; 2024 ArquitectoChile. Todos los derechos reservados.</p>
+          <p>&copy; 2025 ArquitectoChile. Todos los derechos reservados.</p>
+          <p className="mt-2 text-sm">
+            Diseñado para cumplir con estándares de Meta, Google y regulaciones de privacidad chilenas
+          </p>
         </div>
       </div>
     </footer>
