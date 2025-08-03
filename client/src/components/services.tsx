@@ -247,7 +247,7 @@ export default function Services() {
                           : 'bg-white text-accent hover:bg-gray-50'
                       }`}
                     >
-                      {service.id === 'revisor-independiente-de-arquitectura' || service.id === 'disena-espacio' || service.id === 'fusion-terrenos-urbanos'
+                      {service.id === 'revisor-independiente-de-arquitectura' || service.id === 'disena-espacio' || service.id === 'fusion-terrenos-urbanos' || service.id === 'inspeccion-tecnica-viviendas'
                         ? 'Más Información' 
                         : 'Agendar Visita'
                       }
