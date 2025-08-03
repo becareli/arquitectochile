@@ -1,4 +1,4 @@
-import { Home, Shield, Snowflake, Compass, Thermometer, Tags, Box, FileText, CheckCircle, BadgeCheck, Merge } from "lucide-react";
+import { Home, Shield, Snowflake, Compass, Thermometer, Tags, Box, FileText, CheckCircle, BadgeCheck, Merge, Search } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useLocation } from "wouter";
@@ -102,6 +102,25 @@ export default function Services() {
       valueProposition: "La única forma LEGAL de aumentar instantáneamente el valor y capacidad de tu terreno"
     },
     {
+      id: "inspeccion-tecnica-viviendas",
+      title: "Inspección Técnica de Viviendas",
+      price: "Desde $180.000",
+      description: "La única forma científica de comprar seguro - Evita reparaciones millonarias ocultas",
+      icon: Search,
+      features: [
+        "🔍 Inspección visual completa por arquitecto",
+        "📋 Informe técnico con fotografías y diagnóstico",
+        "⚡ Revisión instalaciones, estructura y terminaciones",
+        "🌡️ Análisis térmico y eficiencia energética", 
+        "💰 Evita costos ocultos de $2-8 millones",
+        "⚖️ Respaldo para negociar mejor precio"
+      ],
+      featured: true,
+      bgColor: "bg-gradient-to-br from-blue-800 to-indigo-900",
+      urgency: "🔥 SOLO 15 INSPECCIONES POR MES",
+      valueProposition: "Transforme la compra más grande de su vida en una decisión científica"
+    },
+    {
       id: "acondicionamiento-termico",
       title: "Acondicionamiento Térmico",
       description: "Mejora el confort de tu hogar",
@@ -152,6 +171,11 @@ export default function Services() {
     
     if (serviceId === 'fusion-terrenos-urbanos') {
       setLocation('/fusion-terrenos-urbanos');
+      return;
+    }
+    
+    if (serviceId === 'inspeccion-tecnica-viviendas') {
+      setLocation('/inspeccion-tecnica-viviendas');
       return;
     }
     

@@ -1,0 +1,55 @@
+Prompt Optimizado para tu Servicio de Inspección Técnica de Viviendas
+Puedes copiar y pegar directamente este texto en una IA de lenguaje.
+
+Inicio del Prompt
+
+Rol: Actúa como un experto consultor de marketing y estratega de negocios, especializado en el lanzamiento de servicios profesionales para el sector de la construcción y bienes raíces en Chile. Tu objetivo es ayudarme a estructurar la comunicación de mi nuevo emprendimiento.
+
+Contexto: Voy a lanzar un nuevo servicio de "Inspección Técnica de Viviendas" en Santiago, Chile. Mi público objetivo son los futuros propietarios de viviendas nuevas y usadas (casas o departamentos) que están en proceso de compra y quieren tener seguridad y certeza sobre el estado de la propiedad.
+
+El servicio consiste en:
+
+Una visita a terreno para realizar una inspección visual detallada.
+
+Áreas a revisar:
+
+Estructura y terminaciones (foco especial en la calidad de las terminaciones).
+
+Instalaciones (sanitarias, eléctricas, gas).
+
+Chequeo funcional de todos los enchufes eléctricos de la vivienda.
+
+Análisis del acondicionamiento térmico de la propiedad para identificar posibles deficiencias.
+
+Entregable al cliente: Un informe técnico completo y por escrito, enviado por correo electrónico, con el diagnóstico de la propiedad, incluyendo fotografías y recomendaciones.
+
+Propuesta de valor principal: Ofrecer seguridad, tranquilidad e información clave al comprador para que tome una decisión informada. El cliente debe sentir que está realizando una compra segura.
+
+Modelo de negocio secundario: Si se detectan deficiencias (por ejemplo, en el acondicionamiento térmico), se podrán ofrecer servicios adicionales de reparación o mejora en una segunda fase.
+
+Plan de expansión: El servicio comenzará en la ciudad de Santiago, con la visión de expandirse a otras ciudades y contratar a más profesionales en el futuro.
+
+Acción y Estructura de la Respuesta:
+Desarrolla un plan de marketing y comunicación integral para el lanzamiento de este servicio. Quiero que la respuesta esté estructurada exactamente con los siguientes puntos y en este orden:
+
+Nombre Sugerido y Slogan: Propón 3 nombres comerciales para el servicio y un slogan para cada uno que transmita seguridad y profesionalismo.
+
+Propuesta de Valor Detallada: En un párrafo de no más de 100 palabras, redacta el texto que define el valor principal del servicio, enfocado en los beneficios directos para el comprador.
+
+Descripción del Servicio (para página web o folleto): Crea una descripción detallada del servicio. Utiliza viñetas para explicar claramente qué incluye la inspección, el proceso desde que el cliente contacta hasta que recibe el informe, y el tipo de información que encontrará en el reporte final.
+
+Perfil del Cliente Ideal: Describe en 3 puntos clave a nuestro cliente ideal en Santiago, incluyendo sus miedos y necesidades que nuestro servicio resuelve.
+
+Argumentos de Venta Clave: Genera una lista de 5 argumentos de venta cortos y potentes para usar en conversaciones con clientes o en publicidad. Deben centrarse en conceptos como "inversión segura", "evitar costos ocultos" y "tranquilidad".
+
+Ideas para Contenido en Redes Sociales (LinkedIn e Instagram):
+
+Para LinkedIn: Propón 3 ideas de artículos breves para posicionarme como experto (ej: "Los 5 problemas más comunes en viviendas nuevas que nadie ve").
+
+Para Instagram: Propón 5 ideas de publicaciones visuales (Reels o Carruseles) que muestren la importancia de una inspección (ej: "Antes y Después de una reparación que detectamos", "Checklist rápido para tu visita a una propiedad piloto").
+
+Texto para Email de Prospección: Redacta un borrador de correo electrónico corto para enviar a corredores de propiedades, ofreciendo una alianza estratégica para que recomienden mi servicio a sus clientes.
+
+Tono y Voz: El tono de toda la comunicación debe ser profesional, experto, confiable y pedagógico. Debe generar calma y seguridad, no alarma. Utiliza un español claro y adaptado a Chile.
+
+Fin del Prompt

@@ -17,7 +17,7 @@ export default function Chatbot() {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
-      text: '¡Hola! Soy el asistente virtual de ArquitectoChile. ¿En qué puedo ayudarte? Ofrezco información sobre: Fusión de Terrenos, Diseño de Espacios, Revisor Independiente, Regularización, Sistema EIFS, Permisos, Tasaciones, Portal Cliente y más.',
+      text: '¡Hola! Soy el asistente virtual de ArquitectoChile. ¿En qué puedo ayudarte? Ofrezco información sobre: Inspección de Viviendas, Fusión de Terrenos, Diseño de Espacios, Revisor Independiente, Regularización, Sistema EIFS, Permisos, Tasaciones, Portal Cliente y más.',
       sender: 'bot',
       timestamp: new Date()
     }
@@ -39,6 +39,10 @@ export default function Chatbot() {
     const message = userMessage.toLowerCase();
     
     // Servicios específicos
+    if (message.includes('inspección') || message.includes('inspeccion') || message.includes('comprar') || message.includes('casa') || message.includes('vivienda') || message.includes('defecto')) {
+      return 'La Inspección Técnica de Viviendas es la única forma científica de comprar seguro. Por solo $180.000 evitas reparaciones millonarias ocultas. Revisamos estructura, instalaciones, terminaciones y eficiencia térmica. ¿Estás por comprar una propiedad?';
+    }
+    
     if (message.includes('fusión') || message.includes('fusion') || message.includes('terreno')) {
       return 'La fusión de terrenos permite aumentar hasta 30% la capacidad de construcción según el Art. 63 de la Ley General de Urbanismo. El proceso completo toma 45-60 días y cuesta desde $890.000. ¿Te gustaría una evaluación gratuita?';
     }
