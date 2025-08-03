@@ -1,4 +1,4 @@
-import { Home, Shield, Snowflake, Compass, Thermometer, Tags, Box, FileText, CheckCircle, BadgeCheck, Merge, Search, Calculator } from "lucide-react";
+import { Home, Shield, Snowflake, Compass, Thermometer, Tags, Box, FileText, CheckCircle, BadgeCheck, Merge, Search, Calculator, MapPin } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useLocation } from "wouter";
@@ -140,6 +140,25 @@ export default function Services() {
       valueProposition: "No deje que la duda le cueste millones - Conozca el valor exacto de su propiedad"
     },
     {
+      id: "subdivision-terrenos-urbanos",
+      title: "Subdivisión de Terrenos Urbanos",
+      price: "Consultar",
+      description: "Multiplique su patrimonio: Convierta 1 terreno en 2+ propiedades independientes",
+      icon: MapPin,
+      features: [
+        "🏡➡️🏡🏡 De 1 terreno a múltiples propiedades",
+        "💰 Multiplique el valor patrimonial automáticamente",
+        "📋 Gestión completa: Proyecto→DOM→CBR",
+        "⚖️ Soluciones especiales para herencias familiares",
+        "🎯 Análisis de superficie predial mínima",
+        "✅ 26+ años experiencia en subdivisiones"
+      ],
+      featured: true,
+      bgColor: "bg-gradient-to-br from-blue-800 to-indigo-900",
+      urgency: "🔥 CAPITAL DORMIDO PIERDE VALOR CADA DÍA",
+      valueProposition: "Desbloquee el potencial oculto de su terreno sin invertir un peso adicional"
+    },
+    {
       id: "acondicionamiento-termico",
       title: "Acondicionamiento Térmico",
       description: "Mejora el confort de tu hogar",
@@ -194,6 +213,11 @@ export default function Services() {
     
     if (serviceId === 'tasacion-viviendas-urbanas') {
       setLocation('/tasacion-viviendas-urbanas');
+      return;
+    }
+    
+    if (serviceId === 'subdivision-terrenos-urbanos') {
+      setLocation('/subdivision-terrenos-urbanos');
       return;
     }
     

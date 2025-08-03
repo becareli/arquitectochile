@@ -67,6 +67,10 @@ export default function Chatbot() {
       return 'NUEVO SERVICIO: Tasación de Viviendas Urbanas por arquitecto con Diplomado de la Universidad de Chile. Recibe un "Dossier de Inteligencia Inmobiliaria" completo con análisis de mercado, evaluación constructiva y valor comercial fundamentado. Válido para bancos y tribunales. No deje que la incertidumbre le cueste millones. ¿Va a vender o comprar una propiedad?';
     }
     
+    if (message.includes('subdivisión') || message.includes('subdivision') || message.includes('dividir terreno') || message.includes('lotes') || message.includes('terreno grande') || message.includes('herencia') || message.includes('múltiples propiedades')) {
+      return 'NUEVO SERVICIO: Subdivisión de Terrenos Urbanos - Convierta 1 terreno en 2+ propiedades independientes y multiplique su patrimonio. Manejamos tanto subdivisiones normales como afectas a utilidad pública. Soluciones especiales para herencias familiares. 26+ años de experiencia. ¿Tiene un terreno que quiere subdividir?';
+    }
+    
     if (message.includes('cabida') || message.includes('edificabilidad') || message.includes('construir')) {
       return 'El estudio de cabidas determina la capacidad máxima de edificación de tu terreno según normativas municipales. Te ayudamos a maximizar el potencial constructivo. ¿Quieres saber cuánto puedes construir?';
     }
@@ -94,12 +98,12 @@ export default function Chatbot() {
     
     // Precios generales
     if (message.includes('precio') || message.includes('costo') || message.includes('cuanto')) {
-      return 'Precios de nuestros servicios principales: Tasación de Viviendas (consultar), Inspección Técnica $180.000, Fusión de Terrenos $890.000, Diseño de Espacios $2.490.000, Revisor Independiente $497.000, Regularización según proyecto. ¿Qué servicio específico te interesa?';
+      return 'Precios de nuestros servicios principales: Tasación de Viviendas (consultar), Inspección Técnica $180.000, Fusión de Terrenos $890.000, Diseño de Espacios $2.490.000, Revisor Independiente $497.000, Subdivisión de Terrenos (consultar), Regularización según proyecto. ¿Qué servicio específico te interesa?';
     }
     
     // Tiempos
     if (message.includes('tiempo') || message.includes('demora') || message.includes('cuánto tarda')) {
-      return 'Tiempos estimados: Tasación de Viviendas 7 días hábiles, Inspección Técnica 2-3 días, Fusión de Terrenos 45-60 días, Revisor Independiente 15 días, Diseño de Espacios 30-45 días, Permisos 30-60 días. Para casos urgentes ofrecemos servicio express. ¿Qué servicio necesitas?';
+      return 'Tiempos estimados: Tasación de Viviendas 7 días hábiles, Inspección Técnica 2-3 días, Fusión de Terrenos 45-60 días, Revisor Independiente 15 días, Diseño de Espacios 30-45 días, Subdivisión Normal 3-4 meses, Subdivisión Afecta a Utilidad Pública 6-8 meses, Permisos 30-60 días. ¿Qué servicio necesitas?';
     }
     
     // Calculadoras
@@ -109,7 +113,7 @@ export default function Chatbot() {
     
     // Información general
     if (message.includes('servicios') || message.includes('qué hacen') || message.includes('especialidad')) {
-      return 'Somos especialistas en: Fusión de Terrenos, Diseño de Espacios, Revisor Independiente, Regularización de Inmuebles, Sistema EIFS, Permisos y Recepciones, Tasaciones, Estudios de Cabida. ¿Cuál te interesa más?';
+      return 'Somos especialistas en: Subdivisión de Terrenos, Fusión de Terrenos, Diseño de Espacios, Revisor Independiente, Regularización de Inmuebles, Tasaciones, Inspección Técnica, Sistema EIFS, Permisos y Recepciones, Estudios de Cabida. ¿Cuál te interesa más?';
     }
     
     if (message.includes('contacto') || message.includes('telefono') || message.includes('whatsapp')) {
@@ -121,11 +125,11 @@ export default function Chatbot() {
     }
     
     if (message.includes('hola') || message.includes('buenas') || message.includes('buenos dias')) {
-      return '¡Hola! Soy el asistente de ArquitectoChile. Puedo ayudarte con: Fusión de Terrenos, Diseño de Espacios, Revisor Independiente, Regularización, EIFS, Permisos, Tasaciones y más. ¿Qué necesitas?';
+      return '¡Hola! Soy el asistente de ArquitectoChile. Puedo ayudarte con: Subdivisión de Terrenos, Fusión de Terrenos, Diseño de Espacios, Revisor Independiente, Regularización, Tasaciones, Inspección Técnica, EIFS, Permisos y más. ¿Qué necesitas?';
     }
     
     // Respuesta por defecto
-    return 'Gracias por tu consulta. Ofrecemos servicios completos de arquitectura: fusión de terrenos, diseño, permisos, regularización y más. Para información específica, contacta a Patricio por WhatsApp +56979316827. ¿Te ayudo a conectarte?';
+    return 'Gracias por tu consulta. Ofrecemos servicios completos de arquitectura: subdivisión de terrenos, fusión de terrenos, diseño, permisos, tasaciones, regularización y más. Para información específica, contacta a Patricio por WhatsApp +56979316827. ¿Te ayudo a conectarte?';
   };
 
   const handleSendMessage = async () => {

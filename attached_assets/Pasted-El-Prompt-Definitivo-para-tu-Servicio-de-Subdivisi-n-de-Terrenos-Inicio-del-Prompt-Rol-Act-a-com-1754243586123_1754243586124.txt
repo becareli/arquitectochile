@@ -1,0 +1,55 @@
+El Prompt Definitivo para tu Servicio de Subdivisión de Terrenos
+Inicio del Prompt
+Rol:
+Actúa como mi "Dream Team" de consultores en marketing y estrategia de ventas. Eres una fusión de las mentes y estilos de Alex Hormozi, Russell Brunson, Vilma Núñez y Gary Halbert. Tu misión es crear la página de ventas más efectiva para un servicio técnico y de alto valor en el sector inmobiliario.
+Contexto:
+El servicio a promocionar es "Subdivisión de Terrenos Urbanos".
+El público: Son propietarios de terrenos (familias, herederos, inversionistas) que tienen una propiedad de gran tamaño y desean dividirla en dos o más lotes (roles) independientes para venderlos, construir o gestionar una herencia.
+El problema del cliente: Tienen un activo valioso (el terreno) pero su potencial está bloqueado. No conocen el proceso legal, temen la burocracia municipal y no saben cómo maximizar el valor de su propiedad sin cometer errores costosos.
+Información técnica clave:
+Existen dos tipos de subdivisiones: las normales y las afectas a utilidad pública, que son más complejas y obligan al propietario a urbanizar.
+Es fundamental cumplir con la "superficie predial mínima" establecida en el Certificado de Informes Previos (CIP) de la municipalidad.
+Para iniciar, el cliente debe aportar el plano del terreno y el CIP.
+El proceso completo implica: Proyecto > Aprobación en la Dirección de Obras > Pago de Derechos Municipales > Inscripción en el Conservador de Bienes Raíces.
+El resultado final es la creación de nuevas propiedades (roles) con nuevos números municipales. Subdividir es el acto de dar a luz a una nueva propiedad.
+Se debe manejar el caso especial de las herencias, donde los herederos deben designar un representante legal.
+Acción y Estructura de la Respuesta:
+Diseña y redacta el contenido completo para una página de ventas que posicione mi servicio como la solución experta para desbloquear el potencial económico de un terreno. Sigue estrictamente esta estructura, aplicando la filosofía del experto indicado y colocando las imágenes estratégicamente.
+
+1. Titular Principal (Estilo: Gary Halbert / Alex Hormozi)
+Crea 3 opciones de titulares que enfoquen el resultado y el beneficio final. Deben hablar de multiplicar valor, no del proceso.
+Concepto: "Cómo Convertir Su Terreno en Dos o Más Propiedades y Multiplicar Su Patrimonio (Incluso si el Trámite le Parece Imposible)".
+2. Sección de Héroe (Estilo: Russell Brunson)
+Inicia con una pregunta que conecte con la situación del propietario. "Usted tiene un terreno. Pero, ¿sabe que podría tener dos, tres o más propiedades en ese mismo lugar?". Describe el escenario de tener un gran activo lleno de potencial sin explotar.
+``
+3. Problema y Agitación (Estilo: Alex Hormozi)
+Enfatiza que un terreno sin subdividir es "capital dormido". Agita el problema usando viñetas que resalten los riesgos de hacerlo solo o con la asesoría incorrecta:
+Perder meses en trámites rechazados por la Dirección de Obras.
+Diseñar una subdivisión que no maximiza el valor de los nuevos lotes.
+Enfrentar los costos inesperados de una "subdivisión afecta a utilidad pública" sin estar preparado.
+Conflictos familiares en el caso de herencias por falta de un plan claro.
+4. La Solución: El Arquitecto como Guía Experto (Estilo: Vilma Núñez)
+Presenta el servicio como el puente entre el estado actual (potencial bloqueado) y el estado deseado (patrimonio multiplicado). Traduce la jerga legal a beneficios. No vendes "trámites", vendes "un proyecto de inversión guiado por un experto".
+``
+5. Los Dos Caminos de la Subdivisión (Estilo: Russell Brunson)
+Educa al cliente de forma simple sobre los dos tipos de subdivisión. Usa un lenguaje claro para explicar la diferencia entre la subdivisión normal y la afecta a utilidad pública. Esto te posiciona como una autoridad que domina todos los escenarios.
+``
+6. Nuestro Proceso Paso a Paso (Estilo: Vilma Núñez)
+Describe el viaje del cliente en 4 o 5 pasos claros y numerados, desde la primera consulta hasta la inscripción final. Esto reduce la ansiedad y hace que el proceso parezca manejable.
+Paso 1: Diagnóstico y Estudio de Cabida (Análisis del CIP y el terreno).
+Paso 2: Diseño del Proyecto de Subdivisión.
+Paso 3: Gestión Municipal (Ingreso y seguimiento en la Dirección de Obras).
+Paso 4: Aprobación y Trámites Finales (Guía para el pago de derechos e inscripción).
+7. Mención Especial: Soluciones para Herencias (Estilo: Vilma Núñez)
+Dedica un párrafo a este caso. Muestra empatía: "Sabemos que gestionar una herencia es complejo. Nos encargamos de la parte técnica para facilitar el acuerdo entre los herederos, asesorándolos para designar un representante y que el proceso avance sin conflictos."
+8. Llamada a la Acción (CTA) (Estilo: Todos)
+Crea un CTA claro y potente, enfocado en el primer paso sin fricción.
+Botón Principal: "SOLICITAR ESTUDIO DE SUBDIVISIÓN"
+Texto de apoyo: "Descubra el potencial real de su terreno. Reciba un análisis preliminar sin compromiso."
+9. Preguntas Frecuentes (FAQ) (Estilo: Hormozi / Núñez)
+Responde a las dudas más comunes para eliminar las últimas barreras:
+¿Qué es la "superficie predial mínima" y por qué es tan importante?
+¿Cuánto tiempo tarda todo el proceso de subdivisión?
+¿Qué costos debo considerar además de sus honorarios? (Derechos municipales, inscripción, etc.).
+¿Puedo subdividir si tengo una construcción en el terreno?
+Fin del Prompt
