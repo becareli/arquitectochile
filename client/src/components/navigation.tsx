@@ -1,18 +1,32 @@
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
+import { useLocation } from "wouter";
 
 export default function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [, setLocation] = useLocation();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+  const handleNavigation = (sectionId: string) => {
+    // If we're not on the home page, navigate to home first
+    const currentPath = window.location.pathname;
+    if (currentPath !== '/') {
+      setLocation(`/#${sectionId}`);
+    } else {
+      // If we're on home page, scroll to section
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
     }
+    setIsMenuOpen(false);
+  };
+
+  const navigateToHome = () => {
+    setLocation('/');
     setIsMenuOpen(false);
   };
 
@@ -21,10 +35,10 @@ export default function Navigation() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Logo Section */}
         <div className="flex justify-between items-center py-2 border-b border-gray-100">
-          <h1 className="text-2xl font-bold">
+          <button onClick={navigateToHome} className="text-2xl font-bold hover:opacity-80 transition-opacity">
             <span className="text-primary">ArquitectoChile</span>
             <span className="text-gray-600">.com</span>
-          </h1>
+          </button>
           <div className="hidden md:flex items-center space-x-2">
             <span className="text-black text-sm">★★★</span>
             <a
@@ -43,55 +57,55 @@ export default function Navigation() {
           <div className="hidden md:block">
             <div className="flex items-center space-x-6 justify-center">
               <button 
-                onClick={() => scrollToSection('inicio')}
+                onClick={() => handleNavigation('inicio')}
                 className="text-dark hover:text-primary transition-colors text-sm font-medium"
               >
                 Inicio
               </button>
               <button 
-                onClick={() => scrollToSection('servicios')}
+                onClick={() => handleNavigation('servicios')}
                 className="text-dark hover:text-primary transition-colors text-sm font-medium"
               >
                 Servicios
               </button>
               <button 
-                onClick={() => scrollToSection('arquitecto')}
+                onClick={() => handleNavigation('arquitecto')}
                 className="text-dark hover:text-primary transition-colors text-sm font-medium"
               >
                 Arquitecto
               </button>
               <button 
-                onClick={() => scrollToSection('ebook')}
+                onClick={() => handleNavigation('ebook')}
                 className="text-dark hover:text-primary transition-colors text-sm font-medium"
               >
                 Ebook Gratis
               </button>
               <button 
-                onClick={() => scrollToSection('calculadoras')}
+                onClick={() => handleNavigation('calculadoras')}
                 className="text-dark hover:text-primary transition-colors text-sm font-medium"
               >
                 Calculadoras
               </button>
               <button 
-                onClick={() => scrollToSection('proyectos')}
+                onClick={() => handleNavigation('proyectos')}
                 className="text-dark hover:text-primary transition-colors text-sm font-medium"
               >
                 Modelos de Casas
               </button>
               <button 
-                onClick={() => scrollToSection('testimonios')}
+                onClick={() => handleNavigation('testimonios')}
                 className="text-dark hover:text-primary transition-colors text-sm font-medium"
               >
                 Testimonios
               </button>
               <button 
-                onClick={() => scrollToSection('blog')}
+                onClick={() => handleNavigation('blog')}
                 className="text-dark hover:text-primary transition-colors text-sm font-medium"
               >
                 Revista
               </button>
               <button 
-                onClick={() => scrollToSection('contacto')}
+                onClick={() => handleNavigation('contacto')}
                 className="text-dark hover:text-primary transition-colors text-sm font-medium"
               >
                 Contacto
@@ -136,56 +150,56 @@ export default function Navigation() {
         <div className="md:hidden bg-white border-t">
           <div className="px-2 pt-2 pb-3 space-y-1">
             <button 
-              onClick={() => scrollToSection('inicio')}
+              onClick={() => handleNavigation('inicio')}
               className="block w-full text-left px-3 py-2 text-dark hover:text-primary"
             >
               Inicio
             </button>
             <button 
-              onClick={() => scrollToSection('servicios')}
+              onClick={() => handleNavigation('servicios')}
               className="block w-full text-left px-3 py-2 text-dark hover:text-primary"
             >
               Servicios
             </button>
 
             <button 
-              onClick={() => scrollToSection('arquitecto')}
+              onClick={() => handleNavigation('arquitecto')}
               className="block w-full text-left px-3 py-2 text-dark hover:text-primary"
             >
               Arquitecto
             </button>
             <button 
-              onClick={() => scrollToSection('ebook')}
+              onClick={() => handleNavigation('ebook')}
               className="block w-full text-left px-3 py-2 text-dark hover:text-primary"
             >
               Ebook Gratis
             </button>
             <button 
-              onClick={() => scrollToSection('calculadoras')}
+              onClick={() => handleNavigation('calculadoras')}
               className="block w-full text-left px-3 py-2 text-dark hover:text-primary"
             >
               Calculadoras
             </button>
             <button 
-              onClick={() => scrollToSection('proyectos')}
+              onClick={() => handleNavigation('proyectos')}
               className="block w-full text-left px-3 py-2 text-dark hover:text-primary"
             >
               Modelos de Casas
             </button>
             <button 
-              onClick={() => scrollToSection('testimonios')}
+              onClick={() => handleNavigation('testimonios')}
               className="block w-full text-left px-3 py-2 text-dark hover:text-primary"
             >
               Testimonios
             </button>
             <button 
-              onClick={() => scrollToSection('blog')}
+              onClick={() => handleNavigation('blog')}
               className="block w-full text-left px-3 py-2 text-dark hover:text-primary"
             >
               Revista
             </button>
             <button 
-              onClick={() => scrollToSection('contacto')}
+              onClick={() => handleNavigation('contacto')}
               className="block w-full text-left px-3 py-2 text-dark hover:text-primary"
             >
               Contacto
