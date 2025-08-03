@@ -116,7 +116,10 @@ export default function Navigation() {
               </button>
               <div className="relative" ref={dropdownRef}>
                 <button 
-                  onClick={() => setIsServicesDropdownOpen(!isServicesDropdownOpen)}
+                  onClick={() => {
+                    handleNavigation('servicios');
+                    setIsServicesDropdownOpen(!isServicesDropdownOpen);
+                  }}
                   className="text-dark hover:text-primary transition-colors text-sm font-medium flex items-center gap-1"
                 >
                   Servicios
@@ -244,7 +247,10 @@ export default function Navigation() {
             </button>
             <div>
               <button 
-                onClick={() => setIsMobileServicesOpen(!isMobileServicesOpen)}
+                onClick={() => {
+                  handleNavigation('servicios');
+                  setIsMobileServicesOpen(!isMobileServicesOpen);
+                }}
                 className="flex items-center justify-between w-full text-left px-3 py-2 text-dark hover:text-primary"
               >
                 Servicios
