@@ -13,6 +13,14 @@ import {
 import Chatbot from "@/components/chatbot";
 import Footer from "@/components/footer";
 
+// Import generated images
+import confusedFamilyImg from "@assets/generated_images/Confused_family_property_anxiety_64cc6752.png";
+import authorityArchitectImg from "@assets/generated_images/Authority_architect_diploma_certificate_a1d080dd.png";
+import professionalReportImg from "@assets/generated_images/Professional_appraisal_report_document_7522a297.png";
+import workflowInfographicImg from "@assets/generated_images/Appraisal_process_workflow_infographic_4c8810d1.png";
+import successComparisonImg from "@assets/generated_images/Property_valuation_success_comparison_df77c676.png";
+import happyFamilyImg from "@assets/generated_images/Happy_family_property_success_aaa72930.png";
+
 export default function TasacionViviendasUrbanas() {
   const [, setLocation] = useLocation();
 
@@ -134,7 +142,7 @@ export default function TasacionViviendasUrbanas() {
             {/* Imagen 1: Problema - Familia Confundida */}
             <div className="flex justify-center mb-8">
               <img 
-                src="/attached_assets/generated_images/Confused_family_property_anxiety_64cc6752.png"
+                src={confusedFamilyImg}
                 alt="Familia chilena preocupada por el valor de su propiedad, revisando documentos con incertidumbre sobre tasación inmobiliaria"
                 className="rounded-lg shadow-xl max-w-full h-auto"
               />
@@ -265,7 +273,7 @@ export default function TasacionViviendasUrbanas() {
           {/* Imagen 2: Autoridad - Arquitecto con Diploma */}
           <div className="flex justify-center mb-8">
             <img 
-              src="/attached_assets/generated_images/Authority_architect_diploma_certificate_a1d080dd.png"
+              src={authorityArchitectImg}
               alt="Arquitecto profesional con Diplomado Universidad de Chile en Tasación de Inmuebles Urbanos, autoridad certificada MINVU"
               className="rounded-lg shadow-xl max-w-md h-auto"
             />
@@ -312,7 +320,7 @@ export default function TasacionViviendasUrbanas() {
           {/* Imagen 3: Valor - Informe Profesional */}
           <div className="flex justify-center mb-8">
             <img 
-              src="/attached_assets/generated_images/Professional_appraisal_report_document_7522a297.png"
+              src={professionalReportImg}
               alt="Informe de tasación profesional detallado con análisis de mercado, evaluación técnica y valor comercial fundamentado"
               className="rounded-lg shadow-xl max-w-lg h-auto"
             />
@@ -393,7 +401,7 @@ export default function TasacionViviendasUrbanas() {
           {/* Imagen 4: Proceso - Infografía Workflow */}
           <div className="flex justify-center mb-12">
             <img 
-              src="/attached_assets/generated_images/Appraisal_process_workflow_infographic_4c8810d1.png"
+              src={workflowInfographicImg}
               alt="Proceso de tasación paso a paso: contacto, documentos, análisis profesional y entrega de informe detallado"
               className="rounded-lg shadow-xl max-w-full h-auto"
             />
@@ -601,7 +609,7 @@ export default function TasacionViviendasUrbanas() {
           {/* Imagen 5: Comparación de Éxito - Valores de Propiedades */}
           <div className="flex justify-center mb-8">
             <img 
-              src="/attached_assets/generated_images/Property_valuation_success_comparison_df77c676.png"
+              src={successComparisonImg}
               alt="Comparación exitosa de valores de propiedades chilenas, mostrando beneficios de tasación profesional en negociación inmobiliaria"
               className="rounded-lg shadow-xl max-w-full h-auto"
             />
@@ -622,7 +630,7 @@ export default function TasacionViviendasUrbanas() {
           {/* Imagen 6: Resultado Final - Familia Feliz */}
           <div className="flex justify-center mt-8">
             <img 
-              src="/attached_assets/generated_images/Happy_family_property_success_aaa72930.png"
+              src={happyFamilyImg}
               alt="Familia chilena feliz celebrando éxito en transacción inmobiliaria gracias a tasación profesional arquitecto"
               className="rounded-lg shadow-xl max-w-md h-auto"
             />
