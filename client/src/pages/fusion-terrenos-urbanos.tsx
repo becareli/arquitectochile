@@ -4,12 +4,18 @@ import { Badge } from "@/components/ui/badge";
 import { CheckCircle, TrendingUp, Building2, MapPin, Clock, Shield, ArrowRight, Play, DollarSign, Calculator, FileText, Star } from "lucide-react";
 import Footer from "@/components/footer";
 import Chatbot from "@/components/chatbot";
+import { useEffect } from "react";
 import fusionTerrenosImg from "@assets/fusion-terrenos2.png";
 import leyFusionImg from "@assets/ley-fusion.png";
 import fusionPredialImg from "@assets/fusion-predial2.png";
 import comoHacerFusionImg from "@assets/como-hacer-fusion-terreno2.png";
 
 export default function FusionTerrenosUrbanos() {
+  // Scroll to top when component mounts
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const handleContactClick = () => {
     const message = "Hola Patricio, me interesa el servicio de Fusión de Terrenos Urbanos. ¿Podrías darme más información sobre cómo aumentar el valor de mi propiedad?";
     const whatsappUrl = `https://wa.me/56979316827?text=${encodeURIComponent(message)}`;

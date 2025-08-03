@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -11,6 +11,11 @@ import Chatbot from "@/components/chatbot";
 
 export default function DisenemosNuevosEspacios() {
   const [, setLocation] = useLocation();
+
+  // Scroll to top when component mounts
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const openWhatsApp = () => {
     window.open('https://wa.me/56979316827?text=Hola,%20quiero%20información%20sobre%20el%20servicio%20de%20Diseño%20de%20Nuevos%20Espacios', '_blank');

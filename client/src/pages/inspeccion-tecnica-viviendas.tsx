@@ -21,8 +21,11 @@ import expensiveRepairsImg from "@assets/generated_images/Expensive_repair_bills
 export default function InspeccionTecnicaViviendas() {
   const [, setLocation] = useLocation();
 
-  // SEO Meta tags optimization
+  // SEO Meta tags optimization and scroll to top
   useEffect(() => {
+    // Scroll to top when component mounts
+    window.scrollTo(0, 0);
+    
     document.title = "Inspección Técnica de Viviendas Chile - Arquitecto Certificado MINVU | $180.000";
     
     // Meta description

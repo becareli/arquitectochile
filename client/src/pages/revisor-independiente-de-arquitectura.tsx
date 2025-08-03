@@ -2,8 +2,14 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { CheckCircle, Shield, Clock, Phone, Mail, MapPin, Youtube, Award, FileCheck, Users, Zap, Star } from "lucide-react";
 import Chatbot from "@/components/chatbot";
+import { useEffect } from "react";
 
 export default function RevisorIndependienteDeArquitectura() {
+  // Scroll to top when component mounts
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const scrollToContact = () => {
     const element = document.getElementById('contacto-revisor');
     if (element) {

@@ -26,8 +26,11 @@ import certificadoTasacionesImg from "@assets/Certificado Tasaciones_17542408691
 export default function TasacionViviendasUrbanas() {
   const [, setLocation] = useLocation();
 
-  // SEO Meta tags optimization
+  // SEO Meta tags optimization and scroll to top
   useEffect(() => {
+    // Scroll to top when component mounts
+    window.scrollTo(0, 0);
+    
     document.title = "Tasación de Viviendas Urbanas Chile - Arquitecto Tasador Universidad de Chile";
     
     const setMetaTag = (name: string, content: string, isProperty = false) => {
