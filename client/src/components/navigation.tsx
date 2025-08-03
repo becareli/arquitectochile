@@ -1,10 +1,41 @@
-import { useState } from "react";
-import { Menu, X } from "lucide-react";
+import { useState, useRef, useEffect } from "react";
+import { Menu, X, ChevronDown } from "lucide-react";
 import { useLocation } from "wouter";
 
 export default function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isServicesDropdownOpen, setIsServicesDropdownOpen] = useState(false);
+  const [isMobileServicesOpen, setIsMobileServicesOpen] = useState(false);
   const [, setLocation] = useLocation();
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  // Services list
+  const services = [
+    { name: "Subdivisión de Terrenos Urbanos", path: "/subdivision-terrenos-urbanos" },
+    { name: "Tasación de Viviendas Urbanas", path: "/tasacion-viviendas-urbanas" },
+    { name: "Inspección Técnica de Viviendas", path: "/inspeccion-tecnica-viviendas" },
+    { name: "Fusión de Terrenos Urbanos", path: "/fusion-terrenos-urbanos" },
+    { name: "Diseño de Espacios", path: "/#servicios" },
+    { name: "Revisor Independiente", path: "/#servicios" },
+    { name: "Regularización de Inmuebles", path: "/#servicios" },
+    { name: "Sistema EIFS", path: "/#servicios" },
+    { name: "Permisos y Recepciones", path: "/#servicios" },
+    { name: "Estudios de Cabida", path: "/#servicios" }
+  ];
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsServicesDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -27,6 +58,27 @@ export default function Navigation() {
 
   const navigateToHome = () => {
     setLocation('/');
+    setIsMenuOpen(false);
+  };
+
+  const navigateToService = (path: string) => {
+    if (path.startsWith('/#')) {
+      // Handle anchor links
+      const currentPath = window.location.pathname;
+      if (currentPath !== '/') {
+        setLocation(path);
+      } else {
+        const sectionId = path.substring(2);
+        const element = document.getElementById(sectionId);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+    } else {
+      // Navigate to specific service page
+      setLocation(path);
+    }
+    setIsServicesDropdownOpen(false);
     setIsMenuOpen(false);
   };
 
@@ -62,12 +114,47 @@ export default function Navigation() {
               >
                 Inicio
               </button>
-              <button 
-                onClick={() => handleNavigation('servicios')}
-                className="text-dark hover:text-primary transition-colors text-sm font-medium"
-              >
-                Servicios
-              </button>
+              <div className="relative" ref={dropdownRef}>
+                <button 
+                  onClick={() => setIsServicesDropdownOpen(!isServicesDropdownOpen)}
+                  className="text-dark hover:text-primary transition-colors text-sm font-medium flex items-center gap-1"
+                >
+                  Servicios
+                  <ChevronDown size={16} className={`transition-transform ${isServicesDropdownOpen ? 'rotate-180' : ''}`} />
+                </button>
+                
+                {/* Services Dropdown */}
+                {isServicesDropdownOpen && (
+                  <div className="absolute top-full left-0 mt-2 w-80 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
+                    <div className="py-2">
+                      <div className="px-4 py-2 text-xs font-bold text-gray-500 uppercase tracking-wide border-b border-gray-100">
+                        Servicios Especializados
+                      </div>
+                      {services.slice(0, 4).map((service, index) => (
+                        <button
+                          key={index}
+                          onClick={() => navigateToService(service.path)}
+                          className="w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors"
+                        >
+                          {service.name}
+                        </button>
+                      ))}
+                      <div className="px-4 py-2 text-xs font-bold text-gray-500 uppercase tracking-wide border-b border-gray-100 border-t border-gray-100 mt-2">
+                        Servicios Tradicionales
+                      </div>
+                      {services.slice(4).map((service, index) => (
+                        <button
+                          key={index + 4}
+                          onClick={() => navigateToService(service.path)}
+                          className="w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors"
+                        >
+                          {service.name}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
               <button 
                 onClick={() => handleNavigation('arquitecto')}
                 className="text-dark hover:text-primary transition-colors text-sm font-medium"
@@ -155,12 +242,45 @@ export default function Navigation() {
             >
               Inicio
             </button>
-            <button 
-              onClick={() => handleNavigation('servicios')}
-              className="block w-full text-left px-3 py-2 text-dark hover:text-primary"
-            >
-              Servicios
-            </button>
+            <div>
+              <button 
+                onClick={() => setIsMobileServicesOpen(!isMobileServicesOpen)}
+                className="flex items-center justify-between w-full text-left px-3 py-2 text-dark hover:text-primary"
+              >
+                Servicios
+                <ChevronDown size={16} className={`transition-transform ${isMobileServicesOpen ? 'rotate-180' : ''}`} />
+              </button>
+              
+              {/* Mobile Services Dropdown */}
+              {isMobileServicesOpen && (
+                <div className="ml-4 border-l-2 border-gray-200 pl-4 space-y-1">
+                  <div className="text-xs font-bold text-gray-500 uppercase tracking-wide py-1">
+                    Especializados
+                  </div>
+                  {services.slice(0, 4).map((service, index) => (
+                    <button
+                      key={index}
+                      onClick={() => navigateToService(service.path)}
+                      className="block w-full text-left px-2 py-2 text-sm text-gray-600 hover:text-blue-600"
+                    >
+                      {service.name}
+                    </button>
+                  ))}
+                  <div className="text-xs font-bold text-gray-500 uppercase tracking-wide py-1 pt-3">
+                    Tradicionales
+                  </div>
+                  {services.slice(4).map((service, index) => (
+                    <button
+                      key={index + 4}
+                      onClick={() => navigateToService(service.path)}
+                      className="block w-full text-left px-2 py-2 text-sm text-gray-600 hover:text-blue-600"
+                    >
+                      {service.name}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
 
             <button 
               onClick={() => handleNavigation('arquitecto')}
