@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -20,6 +20,72 @@ import expensiveRepairsImg from "@assets/generated_images/Expensive_repair_bills
 
 export default function InspeccionTecnicaViviendas() {
   const [, setLocation] = useLocation();
+
+  // SEO Meta tags optimization
+  useEffect(() => {
+    document.title = "Inspección Técnica de Viviendas Chile - Arquitecto Certificado MINVU | $180.000";
+    
+    // Meta description
+    const setMetaTag = (name: string, content: string, isProperty = false) => {
+      const selector = isProperty ? `meta[property="${name}"]` : `meta[name="${name}"]`;
+      let meta = document.querySelector(selector) as HTMLMetaElement;
+      if (meta) {
+        meta.content = content;
+      } else {
+        meta = document.createElement('meta');
+        if (isProperty) {
+          meta.setAttribute('property', name);
+        } else {
+          meta.name = name;
+        }
+        meta.content = content;
+        document.head.appendChild(meta);
+      }
+    };
+
+    setMetaTag('description', 'Inspección técnica profesional de viviendas en Chile por arquitecto certificado MINVU. Detecta defectos ocultos, filtraciones, problemas eléctricos antes de comprar. Evita reparaciones millonarias por solo $180.000.');
+    setMetaTag('keywords', 'inspección técnica vivienda chile, inspector certificado MINVU, defectos ocultos casa, arquitecto inspección santiago, informe técnico vivienda, evaluación estructural chile, revisor independiente');
+    setMetaTag('og:title', 'Inspección Técnica de Viviendas Chile - Evita Reparaciones Millonarias', true);
+    setMetaTag('og:description', 'Arquitecto certificado MINVU realiza inspección técnica completa de viviendas. Detecta defectos ocultos y previene reparaciones millonarias. Informe completo en 48 horas.', true);
+    setMetaTag('og:type', 'website', true);
+
+    // JSON-LD Schema for better SEO
+    const schema = {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "name": "Inspección Técnica de Viviendas",
+      "description": "Inspección técnica profesional de viviendas por arquitecto certificado MINVU. Detecta defectos ocultos, filtraciones, problemas eléctricos antes de comprar.",
+      "provider": {
+        "@type": "Person",
+        "name": "Patricio Becar Elissegaray",
+        "jobTitle": "Arquitecto",
+        "url": "https://arquitectochile.com",
+        "telephone": "+56979316827"
+      },
+      "areaServed": {
+        "@type": "Country",
+        "name": "Chile"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "180000",
+        "priceCurrency": "CLP",
+        "description": "Inspección técnica completa con informe detallado en 48 horas"
+      }
+    };
+
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.textContent = JSON.stringify(schema);
+    
+    // Remove existing schema if present
+    const existingSchema = document.querySelector('script[type="application/ld+json"]');
+    if (existingSchema) {
+      existingSchema.remove();
+    }
+    
+    document.head.appendChild(script);
+  }, []);
 
   const openWhatsApp = () => {
     const message = "Hola Patricio, me interesa el servicio de Inspección Técnica de Viviendas. Necesito seguridad antes de comprar mi propiedad.";
@@ -65,7 +131,7 @@ export default function InspeccionTecnicaViviendas() {
               <div className="mb-4">
                 <img 
                   src={hiddenDamageImg} 
-                  alt="Daños ocultos en vivienda" 
+                  alt="Daños ocultos filtraciones humedad vivienda inspección técnica Chile" 
                   className="w-full h-32 object-cover rounded-lg mb-4"
                 />
               </div>
@@ -77,7 +143,7 @@ export default function InspeccionTecnicaViviendas() {
               <div className="mb-4">
                 <img 
                   src={expensiveRepairsImg} 
-                  alt="Costos de reparaciones millonarias" 
+                  alt="Reparaciones millonarias casa defectos constructivos Santiago Chile" 
                   className="w-full h-32 object-cover rounded-lg mb-4"
                 />
               </div>
@@ -89,7 +155,7 @@ export default function InspeccionTecnicaViviendas() {
               <div className="mb-4">
                 <img 
                   src={professionalInspectionImg} 
-                  alt="Inspección técnica profesional" 
+                  alt="Arquitecto profesional inspección técnica vivienda Chile certificado" 
                   className="w-full h-32 object-cover rounded-lg mb-4"
                 />
               </div>
@@ -161,7 +227,7 @@ export default function InspeccionTecnicaViviendas() {
               <div className="flex flex-col gap-4">
                 <img 
                   src={hiddenDamageImg} 
-                  alt="Daños ocultos que solo un inspector profesional puede detectar" 
+                  alt="Inspección técnica detecta daños ocultos vivienda antes compra Chile" 
                   className="w-full rounded-lg shadow-lg"
                 />
                 <div className="bg-yellow-100 border border-yellow-400 rounded-lg p-4">
@@ -312,7 +378,7 @@ export default function InspeccionTecnicaViviendas() {
             <div className="mb-8">
               <img 
                 src={professionalInspectionImg} 
-                alt="Arquitecto realizando inspección técnica profesional" 
+                alt="Proceso inspección técnica profesional arquitecto certificado MINVU Chile" 
                 className="w-full h-64 object-cover rounded-lg shadow-lg"
               />
             </div>
@@ -488,7 +554,7 @@ export default function InspeccionTecnicaViviendas() {
             <div className="flex flex-col justify-center">
               <img 
                 src={inspectorElectricalImg} 
-                alt="Inspector profesional revisando instalaciones eléctricas" 
+                alt="Inspector técnico revisando instalaciones eléctricas SEC normativa Chile" 
                 className="w-full rounded-lg shadow-lg mb-4"
               />
               <div className="bg-yellow-100 border border-yellow-400 rounded-lg p-4 text-center">
@@ -544,7 +610,7 @@ export default function InspeccionTecnicaViviendas() {
             <div>
               <img 
                 src={technicalReportImg} 
-                alt="Ejemplo de informe técnico detallado con fotografías" 
+                alt="Informe técnico inspección vivienda fotografías diagnóstico Chile ejemplo" 
                 className="w-full rounded-lg shadow-lg"
               />
             </div>
@@ -614,7 +680,7 @@ export default function InspeccionTecnicaViviendas() {
             <div>
               <img 
                 src={happyFamilyImg} 
-                alt="Familia feliz con su nueva casa después de inspección exitosa" 
+                alt="Familia chilena feliz compra casa segura inspección técnica exitosa Santiago" 
                 className="w-full rounded-lg shadow-lg"
               />
               <div className="bg-green-100 border border-green-400 rounded-lg p-4 mt-4 text-center">
