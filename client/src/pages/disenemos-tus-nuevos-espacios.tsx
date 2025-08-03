@@ -8,6 +8,7 @@ import {
   AlertTriangle, Target, Lightbulb, Compass, Camera
 } from "lucide-react";
 import Chatbot from "@/components/chatbot";
+import Navigation from "@/components/navigation";
 
 export default function DisenemosNuevosEspacios() {
   const [, setLocation] = useLocation();
@@ -27,6 +28,8 @@ export default function DisenemosNuevosEspacios() {
 
   return (
     <div className="min-h-screen bg-white">
+      <Navigation />
+      
       {/* Hero Section - Gary Halbert Style Opening */}
       <section className="bg-gradient-to-br from-purple-600 to-pink-600 text-white py-20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">

@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { CheckCircle, TrendingUp, Building2, MapPin, Clock, Shield, ArrowRight, Play, DollarSign, Calculator, FileText, Star } from "lucide-react";
 import Footer from "@/components/footer";
 import Chatbot from "@/components/chatbot";
+import Navigation from "@/components/navigation";
 import { useEffect } from "react";
 import fusionTerrenosImg from "@assets/fusion-terrenos2.png";
 import leyFusionImg from "@assets/ley-fusion.png";
@@ -28,6 +29,8 @@ export default function FusionTerrenosUrbanos() {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      <Navigation />
+      
       {/* Hero Section con Video */}
       <section className="bg-gradient-to-br from-emerald-900 via-emerald-800 to-green-900 text-white py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

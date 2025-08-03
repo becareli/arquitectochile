@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import Chatbot from "@/components/chatbot";
 import Footer from "@/components/footer";
+import Navigation from "@/components/navigation";
 import inspectorElectricalImg from "@assets/generated_images/Inspector_reviewing_electrical_panel_35e9d965.png";
 import hiddenDamageImg from "@assets/generated_images/Hidden_damage_discovery_comparison_eb88f290.png";
 import happyFamilyImg from "@assets/generated_images/Happy_family_with_inspection_report_99ef68f1.png";
@@ -101,6 +102,8 @@ export default function InspeccionTecnicaViviendas() {
 
   return (
     <div className="min-h-screen bg-white">
+      <Navigation />
+      
       {/* Hero Section - Gary Halbert Style Opening */}
       <section className="bg-gradient-to-br from-blue-900 to-indigo-900 text-white py-20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">

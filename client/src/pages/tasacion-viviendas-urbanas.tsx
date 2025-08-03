@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import Chatbot from "@/components/chatbot";
 import Footer from "@/components/footer";
+import Navigation from "@/components/navigation";
 
 // Import generated images
 import confusedFamilyImg from "@assets/generated_images/Confused_family_property_anxiety_64cc6752.png";
@@ -100,6 +101,8 @@ export default function TasacionViviendasUrbanas() {
 
   return (
     <div className="min-h-screen bg-white">
+      <Navigation />
+      
       {/* Hero Section - Gary Halbert Style */}
       <section className="bg-gradient-to-br from-emerald-900 to-teal-900 text-white py-20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
