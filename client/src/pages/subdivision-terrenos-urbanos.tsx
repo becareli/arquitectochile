@@ -3,6 +3,12 @@ import { useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { 
   MapPin, Building2, DollarSign, Clock, Shield, CheckCircle, ArrowRight, 
   Calculator, FileText, Users, AlertTriangle, Target, TrendingUp, Star,
@@ -591,80 +597,100 @@ export default function SubdivisionTerrenosUrbanos() {
       {/* 9. Preguntas Frecuentes - Hormozi/Núñez Style */}
       <section className="py-16 bg-gray-50">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-center text-gray-800 mb-12">
-            ❓ PREGUNTAS FRECUENTES
-          </h2>
-
-          <div className="space-y-6">
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-lg text-blue-800">
-                  ¿Qué es la "superficie predial mínima" y por qué es tan importante?
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-gray-600">
-                  La superficie predial mínima es el tamaño mínimo que debe tener cada lote según la normativa municipal. 
-                  Está definida en el CIP y determina cuántos lotes se pueden crear. <strong>Es crucial respetarla</strong> 
-                  porque una subdivisión que no la cumpla será rechazada automáticamente por la Dirección de Obras.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-lg text-blue-800">
-                  ¿Cuánto tiempo tarda todo el proceso de subdivisión?
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-gray-600">
-                  <strong>Subdivisión Normal:</strong> 3-4 meses desde el diseño hasta la inscripción final.
-                  <br/>
-                  <strong>Subdivisión Afecta a Utilidad Pública:</strong> 6-8 meses debido a la complejidad del proyecto de urbanización.
-                  <br/><br/>
-                  Los tiempos pueden variar según la carga de trabajo de la municipalidad y la complejidad específica del terreno.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-lg text-blue-800">
-                  ¿Qué costos debo considerar además de sus honorarios?
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-gray-600">
-                  <strong>Costos adicionales típicos:</strong>
-                  <br/>• Derechos municipales (variable según la comuna)
-                  <br/>• Inscripción en el Conservador de Bienes Raíces
-                  <br/>• Topografía actualizada (si es necesaria)
-                  <br/>• En subdivisiones afectas a utilidad pública: costos de urbanización
-                  <br/><br/>
-                  Le proporcionamos un presupuesto detallado en la consulta inicial.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-lg text-blue-800">
-                  ¿Puedo subdividir si tengo una construcción en el terreno?
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-gray-600">
-                  <strong>Sí, es posible</strong>, pero requiere consideraciones especiales:
-                  <br/>• La construcción debe quedar completamente dentro de uno de los lotes resultantes
-                  <br/>• Debe cumplir con las distanciamientos mínimos a los nuevos deslindes
-                  <br/>• Puede requerir modificaciones menores o regularizaciones
-                  <br/><br/>
-                  Evaluamos cada caso específicamente para encontrar la mejor solución técnica.
-                </p>
-              </CardContent>
-            </Card>
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold text-gray-800 mb-4">
+              ❓ PREGUNTAS FRECUENTES
+            </h2>
+            <p className="text-xl text-gray-600">
+              Eliminamos todas sus dudas sobre el proceso de subdivisión
+            </p>
           </div>
+
+          <Accordion type="single" collapsible className="w-full space-y-4">
+            <AccordionItem value="item-1" className="bg-white rounded-lg border border-gray-200 px-6">
+              <AccordionTrigger className="text-left font-bold text-blue-800 hover:text-blue-600 py-6">
+                ¿Qué es la "superficie predial mínima" y por qué es tan importante?
+              </AccordionTrigger>
+              <AccordionContent className="text-gray-600 pb-6">
+                La superficie predial mínima es el tamaño mínimo que debe tener cada lote según la normativa municipal. 
+                Está definida en el CIP y determina cuántos lotes se pueden crear. <strong>Es crucial respetarla</strong> 
+                porque una subdivisión que no la cumpla será rechazada automáticamente por la Dirección de Obras.
+              </AccordionContent>
+            </AccordionItem>
+
+            <AccordionItem value="item-2" className="bg-white rounded-lg border border-gray-200 px-6">
+              <AccordionTrigger className="text-left font-bold text-blue-800 hover:text-blue-600 py-6">
+                ¿Cuánto tiempo tarda todo el proceso de subdivisión?
+              </AccordionTrigger>
+              <AccordionContent className="text-gray-600 pb-6">
+                <strong>Subdivisión Normal:</strong> 3-4 meses desde el diseño hasta la inscripción final.
+                <br/>
+                <strong>Subdivisión Afecta a Utilidad Pública:</strong> 6-8 meses debido a la complejidad del proyecto de urbanización.
+                <br/><br/>
+                Los tiempos pueden variar según la carga de trabajo de la municipalidad y la complejidad específica del terreno.
+              </AccordionContent>
+            </AccordionItem>
+
+            <AccordionItem value="item-3" className="bg-white rounded-lg border border-gray-200 px-6">
+              <AccordionTrigger className="text-left font-bold text-blue-800 hover:text-blue-600 py-6">
+                ¿Qué costos debo considerar además de sus honorarios?
+              </AccordionTrigger>
+              <AccordionContent className="text-gray-600 pb-6">
+                <strong>Costos adicionales típicos:</strong>
+                <br/>• Derechos municipales (variable según la comuna)
+                <br/>• Inscripción en el Conservador de Bienes Raíces
+                <br/>• Topografía actualizada (si es necesaria)
+                <br/>• En subdivisiones afectas a utilidad pública: costos de urbanización
+                <br/><br/>
+                Le proporcionamos un presupuesto detallado en la consulta inicial.
+              </AccordionContent>
+            </AccordionItem>
+
+            <AccordionItem value="item-4" className="bg-white rounded-lg border border-gray-200 px-6">
+              <AccordionTrigger className="text-left font-bold text-blue-800 hover:text-blue-600 py-6">
+                ¿Puedo subdividir si tengo una construcción en el terreno?
+              </AccordionTrigger>
+              <AccordionContent className="text-gray-600 pb-6">
+                <strong>Sí, es posible</strong>, pero requiere consideraciones especiales:
+                <br/>• La construcción debe quedar completamente dentro de uno de los lotes resultantes
+                <br/>• Debe cumplir con las distanciamientos mínimos a los nuevos deslindes
+                <br/>• Puede requerir modificaciones menores o regularizaciones
+                <br/><br/>
+                Evaluamos cada caso específicamente para encontrar la mejor solución técnica.
+              </AccordionContent>
+            </AccordionItem>
+
+            <AccordionItem value="item-5" className="bg-white rounded-lg border border-gray-200 px-6">
+              <AccordionTrigger className="text-left font-bold text-blue-800 hover:text-blue-600 py-6">
+                ¿Necesito contratar un topógrafo por separado?
+              </AccordionTrigger>
+              <AccordionContent className="text-gray-600 pb-6">
+                No necesariamente. En muchos casos, <strong>el plano existente es suficiente</strong> para iniciar el proceso. 
+                Solo recomendamos topografía nueva cuando:
+                <br/>• El plano tiene más de 5 años de antigüedad
+                <br/>• Existen diferencias significativas con la realidad actual
+                <br/>• La municipalidad lo exige específicamente
+                <br/><br/>
+                Le indicamos en la consulta inicial si necesita topografía actualizada.
+              </AccordionContent>
+            </AccordionItem>
+
+            <AccordionItem value="item-6" className="bg-white rounded-lg border border-gray-200 px-6">
+              <AccordionTrigger className="text-left font-bold text-blue-800 hover:text-blue-600 py-6">
+                ¿Qué documentos necesito para comenzar el proceso?
+              </AccordionTrigger>
+              <AccordionContent className="text-gray-600 pb-6">
+                <strong>Documentos esenciales:</strong>
+                <br/>• Plano del terreno (preferiblemente actualizado)
+                <br/>• Certificado de Informes Previos (CIP) vigente
+                <br/>• Escritura de propiedad
+                <br/>• Certificado de avalúo fiscal
+                <br/>• Para herencias: Posesión efectiva al día
+                <br/><br/>
+                Si no tiene algún documento, le ayudamos a obtenerlo como parte del servicio.
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
         </div>
       </section>
 
