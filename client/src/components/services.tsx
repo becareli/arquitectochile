@@ -146,13 +146,7 @@ export default function Services() {
       icon: Thermometer,
       bgColor: "bg-white"
     },
-    {
-      id: "tasacion-propiedades",
-      title: "Tasación de Propiedades",
-      description: "Conoce el valor real de tu propiedad",
-      icon: Tags,
-      bgColor: "bg-white"
-    },
+
     {
       id: "estudio-cabidas",
       title: "Estudio de Cabidas",
