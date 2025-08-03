@@ -49,6 +49,7 @@ export default function Footer() {
               <li><a href="#servicios" className="hover:text-white transition-colors">Regularización de Inmuebles</a></li>
               <li><a href="/revisor-independiente-de-arquitectura" className="hover:text-white transition-colors">Revisor Independiente</a></li>
               <li><a href="/fusion-terrenos-urbanos" className="hover:text-white transition-colors">Fusión de Terrenos</a></li>
+              <li><a href="/inspeccion-tecnica-viviendas" className="hover:text-white transition-colors">Inspección de Viviendas</a></li>
               <li><a href="#servicios" className="hover:text-white transition-colors">Sistema EIFS</a></li>
               <li><a href="/disenemos-tus-nuevos-espacios" className="hover:text-white transition-colors">Diseño de Espacios</a></li>
             </ul>
