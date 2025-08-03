@@ -638,7 +638,7 @@ export default function InspeccionTecnicaViviendas() {
               className="bg-white hover:bg-gray-100 text-green-900 px-8 py-4 text-xl font-bold"
             >
               <Mail className="w-6 h-6 mr-2" />
-              Solicitar Información
+              Más Información
             </Button>
           </div>
 
