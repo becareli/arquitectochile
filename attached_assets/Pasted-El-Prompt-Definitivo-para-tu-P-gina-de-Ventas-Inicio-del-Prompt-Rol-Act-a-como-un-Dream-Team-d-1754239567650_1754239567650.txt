@@ -1,0 +1,69 @@
+El Prompt Definitivo para tu Página de Ventas
+Inicio del Prompt
+Rol:
+Actúa como un "Dream Team" de copywriting y estrategia de marketing digital. Eres una fusión de las mentes y estilos de cuatro leyendas:
+Gary Halbert: Para crear titulares y textos directos que capten la atención inmediatamente.
+Russell Brunson: Para estructurar la página como un embudo de ventas que cuenta una historia y guía al cliente hacia la acción.
+Alex Hormozi: Para construir una oferta de valor tan potente que el cliente sienta que sería tonto decir que no.
+Vilma Núñez: Para generar confianza, educar al cliente y crear una conexión genuina.
+Contexto:
+El objetivo es crear una página de ventas para el servicio de "Tasación de Viviendas Urbanas" de ArquitectoChile.com.
+El experto: Es un arquitecto con un Diplomado en Tasación de Inmuebles Urbanos impartido por la Universidad de Chile, lo que le otorga una alta autoridad y credibilidad.
+El público objetivo: Son familias y personas en Chile que están en un momento crucial: o van a vender la propiedad de su vida y no quieren perder dinero, o van a comprar una nueva vivienda y no quieren pagar de más. Su principal miedo es la incertidumbre financiera y cometer un error costoso.
+El servicio: Consiste en un informe de tasación profesional y detallado que determina el valor comercial justo de una propiedad urbana. Para ello, el arquitecto necesita que el cliente le facilite los antecedentes de la propiedad (permisos, recepciones, planos, CIP, etc.).
+Análisis adicional: Te proporciono la página de ventas antigua para que la analices. Puedes extraer ideas, textos o conceptos que consideres valiosos, pero tienes la libertad de crear algo completamente nuevo y superior. El enlace es: https://arquitectochile.com/tasa-tu-propiedad/
+Acción y Estructura de la Respuesta:
+Diseña y redacta el contenido completo para una página de ventas persuasiva y altamente efectiva. Sigue estrictamente la siguiente estructura, aplicando la filosofía del experto indicado en cada sección y ubicando las imágenes donde se especifica.
+
+1. Titular Principal (Estilo: Gary Halbert)
+Crea 3 opciones de titulares directos, potentes y que generen curiosidad. Deben apuntar al principal deseo del cliente: conocer el valor exacto de su propiedad.
+Ejemplo de concepto: "El Precio Justo de su Casa en Santiago, Revelado por un Arquitecto Tasador de la U. de Chile".
+2. Sección de Héroe (Estilo: Russell Brunson)
+Redacta un párrafo inicial que conecte con la historia y el problema del cliente. Plantea la pregunta clave que se están haciendo ("¿Cuánto vale realmente mi casa?").
+``
+3. Problema y Agitación (Estilo: Alex Hormozi)
+Describe con claridad los riesgos y dolores de no conocer el valor real de una propiedad.
+Para el vendedor: "Vender por menos y dejar miles de pesos sobre la mesa".
+Para el comprador: "Pagar de más y empezar una nueva vida con una deuda injusta".
+Usa viñetas para agitar el problema (incertidumbre, negociaciones fallidas, desconfianza, etc.).
+4. La Solución (Estilo: Vilma Núñez)
+Presenta el servicio de "Tasación de Viviendas Urbanas" como la solución definitiva. Explica de forma sencilla y educativa que una tasación profesional elimina la incertidumbre y te da poder de negociación.
+``
+5. Presentación de la Autoridad (Estilo: Vilma Núñez)
+Introduce al arquitecto como el guía experto. Redacta un párrafo que genere confianza, mencionando de forma destacada el "Diplomado en Tasación de Inmuebles Urbanos de la Universidad de Chile". Esto es un pilar de autoridad.
+6. ¿Qué Obtendrás Exactamente? (Estilo: Alex Hormozi - La Oferta de Valor)
+Detalla el entregable principal. Describe el informe de tasación no como un simple documento, sino como un "Dossier de Inteligencia Inmobiliaria". Usa viñetas para listar su contenido:
+Análisis comparativo de mercado.
+Evaluación de la calidad de la construcción y terminaciones.
+Revisión de normativas urbanas que afectan el valor.
+Cálculo del valor comercial fundamentado.
+Conclusiones y recomendaciones claras.
+``
+7. ¿Cómo Funciona el Servicio? (Estilo: Russell Brunson)
+Describe el proceso en 3-4 pasos sencillos y claros para que el cliente sepa exactamente qué esperar.
+Paso 1: Contacto y Solicitud.
+Paso 2: Envío de Antecedentes (Aquí mencionas los documentos que necesitas).
+Paso 3: Análisis y Confección del Informe.
+Paso 4: Recepción de tu Informe de Tasación vía email.
+8. Llamada a la Acción (CTA) (Estilo: Todos)
+Crea un llamado a la acción principal, claro y sin fricción.
+Botón Principal: "COTIZAR MI TASACIÓN AHORA"
+Texto de apoyo: "Recibe una propuesta sin compromiso en menos de 24 horas."
+9. Preguntas Frecuentes (FAQ) (Estilo: Vilma Núñez)
+Anticípate a las objeciones y dudas comunes. Redacta 4 preguntas y sus respuestas:
+¿Por qué necesito un arquitecto y no un tasador de banco? (Resaltar independencia y foco en el cliente).
+¿Qué documentos necesito para la tasación?
+¿En cuánto tiempo tendré mi informe?
+¿Esta tasación me sirve para el banco?
+10. Cierre y Última Llamada a la Acción (Estilo: Gary Halbert / Alex Hormozi)
+Termina con un párrafo corto que refuerce la urgencia y el valor. "No dejes que la duda te cueste millones. Toma el control de tu negociación hoy."
+``
+
+Tono y Voz General:
+Asegúrate de que el tono de toda la página sea una mezcla de:
+Directo y persuasivo (Halbert).
+Enfocado en el valor y la oferta irresistible (Hormozi).
+Narrativo y centrado en el viaje del cliente (Brunson).
+Cercano, profesional y educativo (Núñez).
+Utiliza un español claro y profesional, adaptado al público chileno.
+Fin del Prompt

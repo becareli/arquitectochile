@@ -17,7 +17,7 @@ export default function Chatbot() {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
-      text: '¡Hola! Soy el asistente virtual de ArquitectoChile. ¿En qué puedo ayudarte? Ofrezco información sobre: Inspección de Viviendas, Fusión de Terrenos, Diseño de Espacios, Revisor Independiente, Regularización, Sistema EIFS, Permisos, Tasaciones, Portal Cliente y más.',
+      text: '¡Hola! Soy el asistente virtual de ArquitectoChile. ¿En qué puedo ayudarte? Ofrezco información sobre: Tasación de Viviendas, Inspección de Viviendas, Fusión de Terrenos, Diseño de Espacios, Revisor Independiente, Regularización, Sistema EIFS, Permisos, Portal Cliente y más.',
       sender: 'bot',
       timestamp: new Date()
     }
@@ -63,8 +63,8 @@ export default function Chatbot() {
       return 'El Sistema EIFS proporciona aislación térmica de alta eficiencia para reducir costos energéticos hasta 40%. Ideal para mejorar el confort y valor de tu propiedad. ¿Te interesa una evaluación energética?';
     }
     
-    if (message.includes('tasación') || message.includes('avalúo') || message.includes('valor') || message.includes('precio propiedad')) {
-      return 'Realizamos tasaciones profesionales de propiedades con informes técnicos detallados. Útil para ventas, seguros, herencias o créditos hipotecarios. ¿Necesitas conocer el valor de tu propiedad?';
+    if (message.includes('tasación') || message.includes('tasacion') || message.includes('avalúo') || message.includes('valor') || message.includes('precio propiedad') || message.includes('cuanto vale') || message.includes('vender') || message.includes('comprar propiedad')) {
+      return 'NUEVO SERVICIO: Tasación de Viviendas Urbanas por arquitecto con Diplomado de la Universidad de Chile. Recibe un "Dossier de Inteligencia Inmobiliaria" completo con análisis de mercado, evaluación constructiva y valor comercial fundamentado. Válido para bancos y tribunales. No deje que la incertidumbre le cueste millones. ¿Va a vender o comprar una propiedad?';
     }
     
     if (message.includes('cabida') || message.includes('edificabilidad') || message.includes('construir')) {
@@ -94,12 +94,12 @@ export default function Chatbot() {
     
     // Precios generales
     if (message.includes('precio') || message.includes('costo') || message.includes('cuanto')) {
-      return 'Precios de nuestros servicios principales: Fusión de Terrenos $890.000, Diseño de Espacios $2.490.000, Revisor Independiente $290.000, Regularización según proyecto, Tasaciones desde $150.000. ¿Qué servicio específico te interesa?';
+      return 'Precios de nuestros servicios principales: Tasación de Viviendas (consultar), Inspección Técnica $180.000, Fusión de Terrenos $890.000, Diseño de Espacios $2.490.000, Revisor Independiente $497.000, Regularización según proyecto. ¿Qué servicio específico te interesa?';
     }
     
     // Tiempos
     if (message.includes('tiempo') || message.includes('demora') || message.includes('cuánto tarda')) {
-      return 'Tiempos estimados: Fusión de Terrenos 45-60 días, Revisor Independiente 15-20 días, Diseño de Espacios 30-45 días, Permisos 30-60 días, Tasaciones 7-10 días. Los tiempos pueden variar según complejidad. ¿Qué servicio necesitas?';
+      return 'Tiempos estimados: Tasación de Viviendas 7 días hábiles, Inspección Técnica 2-3 días, Fusión de Terrenos 45-60 días, Revisor Independiente 15 días, Diseño de Espacios 30-45 días, Permisos 30-60 días. Para casos urgentes ofrecemos servicio express. ¿Qué servicio necesitas?';
     }
     
     // Calculadoras

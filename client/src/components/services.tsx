@@ -1,4 +1,4 @@
-import { Home, Shield, Snowflake, Compass, Thermometer, Tags, Box, FileText, CheckCircle, BadgeCheck, Merge, Search } from "lucide-react";
+import { Home, Shield, Snowflake, Compass, Thermometer, Tags, Box, FileText, CheckCircle, BadgeCheck, Merge, Search, Calculator } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useLocation } from "wouter";
@@ -121,6 +121,25 @@ export default function Services() {
       valueProposition: "Transforme la compra más grande de su vida en una decisión científica"
     },
     {
+      id: "tasacion-viviendas-urbanas",
+      title: "Tasación de Viviendas Urbanas",
+      price: "Consultar",
+      description: "Conoce el valor REAL de tu propiedad - Arquitecto con Diplomado U. de Chile",
+      icon: Calculator,
+      features: [
+        "🎓 Arquitecto con Diplomado U. de Chile en Tasación",
+        "📊 Dossier de Inteligencia Inmobiliaria completo",
+        "🏘️ Análisis comparativo de mercado actualizado",
+        "🔍 Evaluación técnica de calidad constructiva",
+        "⚖️ Válido para bancos, notarías y tribunales",
+        "💰 Evita perder millones en tu negociación"
+      ],
+      featured: true,
+      bgColor: "bg-gradient-to-br from-indigo-600 to-purple-700",
+      urgency: "🔥 DECISIÓN MILLONARIA REQUIERE CERTEZA",
+      valueProposition: "No deje que la duda le cueste millones - Conozca el valor exacto de su propiedad"
+    },
+    {
       id: "acondicionamiento-termico",
       title: "Acondicionamiento Térmico",
       description: "Mejora el confort de tu hogar",
@@ -176,6 +195,11 @@ export default function Services() {
     
     if (serviceId === 'inspeccion-tecnica-viviendas') {
       setLocation('/inspeccion-tecnica-viviendas');
+      return;
+    }
+    
+    if (serviceId === 'tasacion-viviendas-urbanas') {
+      setLocation('/tasacion-viviendas-urbanas');
       return;
     }
     
@@ -247,7 +271,7 @@ export default function Services() {
                           : 'bg-white text-accent hover:bg-gray-50'
                       }`}
                     >
-                      {service.id === 'revisor-independiente-de-arquitectura' || service.id === 'disena-espacio' || service.id === 'fusion-terrenos-urbanos' || service.id === 'inspeccion-tecnica-viviendas'
+                      {service.id === 'revisor-independiente-de-arquitectura' || service.id === 'disena-espacio' || service.id === 'fusion-terrenos-urbanos' || service.id === 'inspeccion-tecnica-viviendas' || service.id === 'tasacion-viviendas-urbanas'
                         ? 'Más Información' 
                         : 'Agendar Visita'
                       }

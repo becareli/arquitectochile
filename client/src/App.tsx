@@ -12,6 +12,7 @@ import RevisorIndependienteDeArquitectura from "@/pages/revisor-independiente-de
 import DisenemosNuevosEspacios from "@/pages/disenemos-tus-nuevos-espacios";
 import FusionTerrenosUrbanos from "@/pages/fusion-terrenos-urbanos";
 import InspeccionTecnicaViviendas from "@/pages/inspeccion-tecnica-viviendas";
+import TasacionViviendasUrbanas from "@/pages/tasacion-viviendas-urbanas";
 import AvisoLegal from "@/pages/aviso-legal";
 import PoliticaPrivacidad from "@/pages/politica-privacidad";
 import PoliticaCookies from "@/pages/politica-cookies";
@@ -30,6 +31,7 @@ function Router() {
       <Route path="/disenemos-tus-nuevos-espacios" component={DisenemosNuevosEspacios} />
       <Route path="/fusion-terrenos-urbanos" component={FusionTerrenosUrbanos} />
       <Route path="/inspeccion-tecnica-viviendas" component={InspeccionTecnicaViviendas} />
+      <Route path="/tasacion-viviendas-urbanas" component={TasacionViviendasUrbanas} />
       <Route path="/aviso-legal" component={AvisoLegal} />
       <Route path="/politica-privacidad" component={PoliticaPrivacidad} />
       <Route path="/politica-cookies" component={PoliticaCookies} />
