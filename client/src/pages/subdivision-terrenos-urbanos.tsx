@@ -105,14 +105,26 @@ export default function SubdivisionTerrenosUrbanos() {
             </div>
             
             {/* 2. Sección de Héroe - Russell Brunson Style */}
-            <div className="bg-white/10 backdrop-blur-sm rounded-lg p-8 mb-8">
-              <p className="text-2xl leading-relaxed">
-                <strong>Usted tiene un terreno.</strong> Pero, ¿sabe que podría tener <em>dos, tres o más propiedades</em> 
-                en ese mismo lugar?
-                <br/><br/>
-                Su terreno actual es como un cofre del tesoro <strong>cerrado con llave</strong>. 
-                Adentro hay millones esperando ser liberados a través de una <em>subdivisión estratégica</em>.
-              </p>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center mb-8">
+              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-8">
+                <p className="text-2xl leading-relaxed">
+                  <strong>Usted tiene un terreno.</strong> Pero, ¿sabe que podría tener <em>dos, tres o más propiedades</em> 
+                  en ese mismo lugar?
+                  <br/><br/>
+                  Su terreno actual es como un cofre del tesoro <strong>cerrado con llave</strong>. 
+                  Adentro hay millones esperando ser liberados a través de una <em>subdivisión estratégica</em>.
+                </p>
+              </div>
+              <div className="relative">
+                <img 
+                  src="/attached_assets/generated_images/Subdivision_aerial_view_technical_de94368c.png" 
+                  alt="Vista aérea de subdivisión de terreno urbano"
+                  className="rounded-lg shadow-xl"
+                />
+                <div className="absolute -bottom-4 -right-4 bg-green-600 text-white p-3 rounded-lg font-bold text-sm">
+                  💰 MULTIPLIQUE SU PATRIMONIO
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -233,7 +245,7 @@ export default function SubdivisionTerrenosUrbanos() {
 
           <div className="bg-white rounded-lg p-8 shadow-lg">
             <h3 className="text-2xl font-bold text-center mb-6">🏆 26 Años de Experiencia Garantizan Su Éxito</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div>
                 <h4 className="font-bold text-lg mb-3">✅ Lo Que SÍ Obtiene Con Nosotros:</h4>
                 <ul className="space-y-2">
@@ -251,6 +263,16 @@ export default function SubdivisionTerrenosUrbanos() {
                   <li className="flex items-center"><Star className="w-5 h-5 text-yellow-500 mr-2" />Soluciones especializadas para herencias</li>
                   <li className="flex items-center"><Star className="w-5 h-5 text-yellow-500 mr-2" />Optimización de costos municipales</li>
                 </ul>
+              </div>
+              <div className="flex flex-col items-center">
+                <img 
+                  src="/attached_assets/generated_images/Architect_consultation_subdivision_process_35d30a54.png" 
+                  alt="Consulta profesional de arquitecto para subdivisión"
+                  className="rounded-lg shadow-md mb-3 w-full"
+                />
+                <p className="text-sm text-center text-gray-600 font-medium">
+                  Consulta personalizada en su terreno
+                </p>
               </div>
             </div>
           </div>
@@ -332,14 +354,26 @@ export default function SubdivisionTerrenosUrbanos() {
           </div>
 
           <div className="text-center mt-8">
-            <div className="bg-yellow-100 border border-yellow-300 rounded-lg p-6">
-              <h3 className="font-bold text-lg text-yellow-800 mb-2">
-                🎯 Nuestra Ventaja Competitiva
-              </h3>
-              <p className="text-yellow-700">
-                <strong>Evaluamos su terreno</strong> y le recomendamos el camino más rentable. 
-                No todos los arquitectos manejan ambos tipos de subdivisión.
-              </p>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-center">
+              <div className="bg-yellow-100 border border-yellow-300 rounded-lg p-6">
+                <h3 className="font-bold text-lg text-yellow-800 mb-2">
+                  🎯 Nuestra Ventaja Competitiva
+                </h3>
+                <p className="text-yellow-700">
+                  <strong>Evaluamos su terreno</strong> y le recomendamos el camino más rentable. 
+                  No todos los arquitectos manejan ambos tipos de subdivisión.
+                </p>
+              </div>
+              <div className="relative">
+                <img 
+                  src="/attached_assets/generated_images/Before_after_subdivision_comparison_3d231415.png" 
+                  alt="Comparación antes y después de subdivisión"
+                  className="rounded-lg shadow-lg"
+                />
+                <div className="absolute -top-3 -left-3 bg-blue-600 text-white p-2 rounded-lg font-bold text-xs">
+                  ANTES ➡️ DESPUÉS
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -444,18 +478,30 @@ export default function SubdivisionTerrenosUrbanos() {
           </div>
 
           <div className="text-center mt-12">
-            <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg p-8">
-              <h3 className="text-2xl font-bold mb-4">
-                ⏰ Tiempo Total del Proceso
-              </h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <h4 className="font-bold mb-2">Subdivisión Normal:</h4>
-                  <p className="text-xl">3-4 meses</p>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+              <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg p-8">
+                <h3 className="text-2xl font-bold mb-4">
+                  ⏰ Tiempo Total del Proceso
+                </h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <h4 className="font-bold mb-2">Subdivisión Normal:</h4>
+                    <p className="text-xl">3-4 meses</p>
+                  </div>
+                  <div>
+                    <h4 className="font-bold mb-2">Afecta a Utilidad Pública:</h4>
+                    <p className="text-xl">6-8 meses</p>
+                  </div>
                 </div>
-                <div>
-                  <h4 className="font-bold mb-2">Afecta a Utilidad Pública:</h4>
-                  <p className="text-xl">6-8 meses</p>
+              </div>
+              <div className="relative">
+                <img 
+                  src="/attached_assets/generated_images/Municipal_permits_approval_process_94199078.png" 
+                  alt="Proceso de aprobación municipal de permisos"
+                  className="rounded-lg shadow-lg"
+                />
+                <div className="absolute -bottom-3 -right-3 bg-green-600 text-white p-2 rounded-lg font-bold text-xs">
+                  ✅ GESTIÓN MUNICIPAL
                 </div>
               </div>
             </div>
@@ -474,17 +520,29 @@ export default function SubdivisionTerrenosUrbanos() {
 
           <Card className="border-amber-200 bg-white">
             <CardContent className="p-8">
-              <div className="flex items-start mb-6">
-                <Users className="w-12 h-12 text-amber-600 mr-4 flex-shrink-0" />
-                <div>
-                  <h3 className="text-xl font-bold text-amber-800 mb-3">
-                    Entendemos que Gestionar una Herencia es Complejo
-                  </h3>
-                  <p className="text-gray-700 text-lg leading-relaxed">
-                    Sabemos que gestionar una herencia familiar es emocionalmente complejo y técnicamente desafiante. 
-                    <strong>Nos encargamos de la parte técnica</strong> para facilitar el acuerdo entre los herederos, 
-                    asesorándolos para designar un representante legal y que el proceso avance sin conflictos.
-                  </p>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start mb-6">
+                <div className="flex items-start">
+                  <Users className="w-12 h-12 text-amber-600 mr-4 flex-shrink-0" />
+                  <div>
+                    <h3 className="text-xl font-bold text-amber-800 mb-3">
+                      Entendemos que Gestionar una Herencia es Complejo
+                    </h3>
+                    <p className="text-gray-700 text-lg leading-relaxed">
+                      Sabemos que gestionar una herencia familiar es emocionalmente complejo y técnicamente desafiante. 
+                      <strong>Nos encargamos de la parte técnica</strong> para facilitar el acuerdo entre los herederos, 
+                      asesorándolos para designar un representante legal y que el proceso avance sin conflictos.
+                    </p>
+                  </div>
+                </div>
+                <div className="relative">
+                  <img 
+                    src="/attached_assets/generated_images/Family_inheritance_subdivision_meeting_9b154685.png" 
+                    alt="Reunión familiar para subdivisión de herencia"
+                    className="rounded-lg shadow-lg w-full"
+                  />
+                  <div className="absolute -top-3 -left-3 bg-amber-600 text-white p-2 rounded-lg font-bold text-xs">
+                    👨‍👩‍👧‍👦 SOLUCIONES FAMILIARES
+                  </div>
                 </div>
               </div>
 
@@ -572,22 +630,34 @@ export default function SubdivisionTerrenosUrbanos() {
             </Card>
           </div>
 
-          <div className="bg-white/20 backdrop-blur-sm rounded-lg p-6">
-            <h3 className="text-xl font-bold mb-4">
-              ⚡ ¿Qué Incluye Su Consulta Inicial?
-            </h3>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
-              <div className="flex items-center">
-                <CheckCircle className="w-5 h-5 mr-2" />
-                Análisis preliminar del CIP
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+            <div className="bg-white/20 backdrop-blur-sm rounded-lg p-6">
+              <h3 className="text-xl font-bold mb-4">
+                ⚡ ¿Qué Incluye Su Consulta Inicial?
+              </h3>
+              <div className="grid grid-cols-1 gap-4 text-sm">
+                <div className="flex items-center">
+                  <CheckCircle className="w-5 h-5 mr-2" />
+                  Análisis preliminar del CIP
+                </div>
+                <div className="flex items-center">
+                  <CheckCircle className="w-5 h-5 mr-2" />
+                  Estimación de lotes posibles
+                </div>
+                <div className="flex items-center">
+                  <CheckCircle className="w-5 h-5 mr-2" />
+                  Presupuesto personalizado
+                </div>
               </div>
-              <div className="flex items-center">
-                <CheckCircle className="w-5 h-5 mr-2" />
-                Estimación de lotes posibles
-              </div>
-              <div className="flex items-center">
-                <CheckCircle className="w-5 h-5 mr-2" />
-                Presupuesto personalizado
+            </div>
+            <div className="relative">
+              <img 
+                src="/attached_assets/generated_images/Happy_family_subdivision_success_5003b1c0.png" 
+                alt="Familia feliz con proyecto de subdivisión exitoso"
+                className="rounded-lg shadow-lg"
+              />
+              <div className="absolute -bottom-3 -right-3 bg-yellow-500 text-black p-2 rounded-lg font-bold text-xs">
+                ✨ SU FUTURO EXITOSO
               </div>
             </div>
           </div>
