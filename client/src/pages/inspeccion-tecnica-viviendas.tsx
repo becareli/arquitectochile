@@ -11,6 +11,12 @@ import {
 } from "lucide-react";
 import Chatbot from "@/components/chatbot";
 import Footer from "@/components/footer";
+import inspectorElectricalImg from "@assets/generated_images/Inspector_reviewing_electrical_panel_35e9d965.png";
+import hiddenDamageImg from "@assets/generated_images/Hidden_damage_discovery_comparison_eb88f290.png";
+import happyFamilyImg from "@assets/generated_images/Happy_family_with_inspection_report_99ef68f1.png";
+import technicalReportImg from "@assets/generated_images/Technical_inspection_report_sample_e4f41b17.png";
+import professionalInspectionImg from "@assets/generated_images/Professional_architect_conducting_inspection_30fd92ae.png";
+import expensiveRepairsImg from "@assets/generated_images/Expensive_repair_bills_scenario_08b1d6ae.png";
 
 export default function InspeccionTecnicaViviendas() {
   const [, setLocation] = useLocation();
@@ -56,16 +62,37 @@ export default function InspeccionTecnicaViviendas() {
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
             <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6">
+              <div className="mb-4">
+                <img 
+                  src={hiddenDamageImg} 
+                  alt="Daños ocultos en vivienda" 
+                  className="w-full h-32 object-cover rounded-lg mb-4"
+                />
+              </div>
               <AlertTriangle className="w-12 h-12 text-red-400 mx-auto mb-4" />
               <h3 className="text-xl font-bold mb-2">EL PROBLEMA</h3>
               <p>El 73% de las viviendas nuevas y usadas tienen defectos ocultos que solo un experto puede detectar</p>
             </div>
             <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6">
+              <div className="mb-4">
+                <img 
+                  src={expensiveRepairsImg} 
+                  alt="Costos de reparaciones millonarias" 
+                  className="w-full h-32 object-cover rounded-lg mb-4"
+                />
+              </div>
               <DollarSign className="w-12 h-12 text-green-400 mx-auto mb-4" />
               <h3 className="text-xl font-bold mb-2">EL COSTO</h3>
               <p>Reparaciones posteriores pueden costar entre $2-8 millones que nadie le advertirá</p>
             </div>
             <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6">
+              <div className="mb-4">
+                <img 
+                  src={professionalInspectionImg} 
+                  alt="Inspección técnica profesional" 
+                  className="w-full h-32 object-cover rounded-lg mb-4"
+                />
+              </div>
               <Shield className="w-12 h-12 text-blue-400 mx-auto mb-4" />
               <h3 className="text-xl font-bold mb-2">LA SOLUCIÓN</h3>
               <p>Inspección técnica profesional por solo $180.000 que puede ahorrarle millones</p>
@@ -103,31 +130,45 @@ export default function InspeccionTecnicaViviendas() {
 
       {/* Problema Amplificado - Russell Brunson Story */}
       <section className="py-16 bg-gray-50">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold text-gray-900 mb-6">
               LA HISTORIA QUE CAMBIÓ TODO...
             </h2>
-            <div className="bg-white p-8 rounded-lg shadow-lg">
-              <p className="text-lg text-gray-700 mb-6">
-                <strong>Enero 2023:</strong> La familia Rodríguez compra su casa soñada en Las Condes por $250 millones. 
-                Todo se veía perfecto en la visita...
-              </p>
-              <p className="text-lg text-gray-700 mb-6">
-                <strong>Marzo 2023:</strong> Primeras lluvias. Descubren filtraciones en 3 habitaciones. 
-                Costo de reparación: $4.5 millones.
-              </p>
-              <p className="text-lg text-gray-700 mb-6">
-                <strong>Julio 2023:</strong> Problemas eléctricos graves. El tablero no cumple normas SEC. 
-                Cambio completo: $3.2 millones.
-              </p>
-              <div className="bg-red-50 border-l-4 border-red-500 p-6">
-                <p className="text-xl font-bold text-red-800">
-                  TOTAL GASTADO EN REPARACIONES: $7.7 MILLONES
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+              <div className="bg-white p-8 rounded-lg shadow-lg">
+                <p className="text-lg text-gray-700 mb-6">
+                  <strong>Enero 2023:</strong> La familia Rodríguez compra su casa soñada en Las Condes por $250 millones. 
+                  Todo se veía perfecto en la visita...
                 </p>
-                <p className="text-lg text-red-700 mt-2">
-                  Una inspección técnica de $180.000 habría detectado todo esto ANTES de la compra.
+                <p className="text-lg text-gray-700 mb-6">
+                  <strong>Marzo 2023:</strong> Primeras lluvias. Descubren filtraciones en 3 habitaciones. 
+                  Costo de reparación: $4.5 millones.
                 </p>
+                <p className="text-lg text-gray-700 mb-6">
+                  <strong>Julio 2023:</strong> Problemas eléctricos graves. El tablero no cumple normas SEC. 
+                  Cambio completo: $3.2 millones.
+                </p>
+                <div className="bg-red-50 border-l-4 border-red-500 p-6">
+                  <p className="text-xl font-bold text-red-800">
+                    TOTAL GASTADO EN REPARACIONES: $7.7 MILLONES
+                  </p>
+                  <p className="text-lg text-red-700 mt-2">
+                    Una inspección técnica de $180.000 habría detectado todo esto ANTES de la compra.
+                  </p>
+                </div>
+              </div>
+              <div className="flex flex-col gap-4">
+                <img 
+                  src={hiddenDamageImg} 
+                  alt="Daños ocultos que solo un inspector profesional puede detectar" 
+                  className="w-full rounded-lg shadow-lg"
+                />
+                <div className="bg-yellow-100 border border-yellow-400 rounded-lg p-4">
+                  <p className="text-sm font-bold text-yellow-800">
+                    ⚠️ ESTO PUDO HABERSE EVITADO CON UNA INSPECCIÓN PROFESIONAL
+                  </p>
+                </div>
               </div>
             </div>
           </div>
@@ -267,6 +308,15 @@ export default function InspeccionTecnicaViviendas() {
           
           <div className="bg-gray-50 rounded-lg p-8">
             <h3 className="text-2xl font-bold text-center mb-6">📋 PROCESO DE INSPECCIÓN PROFESIONAL</h3>
+            
+            <div className="mb-8">
+              <img 
+                src={professionalInspectionImg} 
+                alt="Arquitecto realizando inspección técnica profesional" 
+                className="w-full h-64 object-cover rounded-lg shadow-lg"
+              />
+            </div>
+            
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
               <div className="text-center">
                 <div className="bg-blue-600 text-white w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">1</div>
@@ -399,14 +449,14 @@ export default function InspeccionTecnicaViviendas() {
 
       {/* Garantías y Credibilidad */}
       <section className="py-16 bg-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold text-gray-900 mb-6">
               🏆 RESPALDO PROFESIONAL CERTIFICADO
             </h2>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
             <Card className="bg-blue-50">
               <CardHeader className="text-center">
                 <Award className="w-16 h-16 text-blue-600 mx-auto mb-4" />
@@ -435,6 +485,19 @@ export default function InspeccionTecnicaViviendas() {
               </CardContent>
             </Card>
             
+            <div className="flex flex-col justify-center">
+              <img 
+                src={inspectorElectricalImg} 
+                alt="Inspector profesional revisando instalaciones eléctricas" 
+                className="w-full rounded-lg shadow-lg mb-4"
+              />
+              <div className="bg-yellow-100 border border-yellow-400 rounded-lg p-4 text-center">
+                <p className="text-sm font-bold text-yellow-800">
+                  INSPECCIÓN REAL EN TERRENO
+                </p>
+              </div>
+            </div>
+            
             <Card className="bg-green-50">
               <CardHeader className="text-center">
                 <Shield className="w-16 h-16 text-green-600 mx-auto mb-4" />
@@ -461,6 +524,30 @@ export default function InspeccionTecnicaViviendas() {
                 </ul>
               </CardContent>
             </Card>
+          </div>
+          
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+            <div>
+              <h3 className="text-2xl font-bold mb-4">EJEMPLO DE INFORME TÉCNICO</h3>
+              <p className="text-lg text-gray-700 mb-4">
+                Reciba un informe técnico completo y detallado con fotografías, 
+                diagnósticos precisos y recomendaciones profesionales para cada área inspeccionada.
+              </p>
+              <ul className="space-y-2 text-gray-700">
+                <li>✓ Fotografías de alta resolución de cada defecto</li>
+                <li>✓ Clasificación de problemas por nivel de urgencia</li>
+                <li>✓ Estimación de costos de reparación</li>
+                <li>✓ Recomendaciones técnicas específicas</li>
+                <li>✓ Respaldo para negociación de precio</li>
+              </ul>
+            </div>
+            <div>
+              <img 
+                src={technicalReportImg} 
+                alt="Ejemplo de informe técnico detallado con fotografías" 
+                className="w-full rounded-lg shadow-lg"
+              />
+            </div>
           </div>
         </div>
       </section>
@@ -513,15 +600,29 @@ export default function InspeccionTecnicaViviendas() {
             No permita que el miedo a lo desconocido arruine la inversión más importante de su vida
           </p>
           
-          <div className="bg-white text-green-900 p-8 rounded-lg mb-8">
-            <h3 className="text-3xl font-bold mb-4">PRECIO ESPECIAL LANZAMIENTO</h3>
-            <div className="flex items-center justify-center mb-4">
-              <span className="text-2xl line-through text-gray-500 mr-4">$250.000</span>
-              <span className="text-4xl font-bold text-green-600">$180.000</span>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center mb-8">
+            <div className="bg-white text-green-900 p-8 rounded-lg">
+              <h3 className="text-3xl font-bold mb-4">PRECIO ESPECIAL LANZAMIENTO</h3>
+              <div className="flex items-center justify-center mb-4">
+                <span className="text-2xl line-through text-gray-500 mr-4">$250.000</span>
+                <span className="text-4xl font-bold text-green-600">$180.000</span>
+              </div>
+              <p className="text-lg">
+                <strong>AHORRO: $70.000</strong> | Válido solo hasta fin de mes
+              </p>
             </div>
-            <p className="text-lg">
-              <strong>AHORRO: $70.000</strong> | Válido solo hasta fin de mes
-            </p>
+            <div>
+              <img 
+                src={happyFamilyImg} 
+                alt="Familia feliz con su nueva casa después de inspección exitosa" 
+                className="w-full rounded-lg shadow-lg"
+              />
+              <div className="bg-green-100 border border-green-400 rounded-lg p-4 mt-4 text-center">
+                <p className="text-sm font-bold text-green-800">
+                  ✅ ASÍ SE SIENTE COMPRAR CON SEGURIDAD Y TRANQUILIDAD
+                </p>
+              </div>
+            </div>
           </div>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
