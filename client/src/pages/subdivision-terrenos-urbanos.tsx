@@ -18,6 +18,14 @@ import Chatbot from "@/components/chatbot";
 import Footer from "@/components/footer";
 import Navigation from "@/components/navigation";
 
+// Import generated images for subdivision service
+import subdivisionAerialImg from "@assets/generated_images/Subdivision_aerial_view_technical_de94368c.png";
+import architectConsultationImg from "@assets/generated_images/Architect_consultation_subdivision_process_35d30a54.png";
+import beforeAfterComparisonImg from "@assets/generated_images/Before_after_subdivision_comparison_3d231415.png";
+import municipalPermitsImg from "@assets/generated_images/Municipal_permits_approval_process_94199078.png";
+import familyInheritanceImg from "@assets/generated_images/Family_inheritance_subdivision_meeting_9b154685.png";
+import happyFamilySuccessImg from "@assets/generated_images/Happy_family_subdivision_success_5003b1c0.png";
+
 export default function SubdivisionTerrenosUrbanos() {
   const [, setLocation] = useLocation();
 
@@ -117,7 +125,7 @@ export default function SubdivisionTerrenosUrbanos() {
               </div>
               <div className="relative">
                 <img 
-                  src="/attached_assets/generated_images/Subdivision_aerial_view_technical_de94368c.png" 
+                  src={subdivisionAerialImg} 
                   alt="Vista aérea de subdivisión de terreno urbano"
                   className="rounded-lg shadow-xl"
                 />
@@ -266,7 +274,7 @@ export default function SubdivisionTerrenosUrbanos() {
               </div>
               <div className="flex flex-col items-center">
                 <img 
-                  src="/attached_assets/generated_images/Architect_consultation_subdivision_process_35d30a54.png" 
+                  src={architectConsultationImg} 
                   alt="Consulta profesional de arquitecto para subdivisión"
                   className="rounded-lg shadow-md mb-3 w-full"
                 />
@@ -366,7 +374,7 @@ export default function SubdivisionTerrenosUrbanos() {
               </div>
               <div className="relative">
                 <img 
-                  src="/attached_assets/generated_images/Before_after_subdivision_comparison_3d231415.png" 
+                  src={beforeAfterComparisonImg} 
                   alt="Comparación antes y después de subdivisión"
                   className="rounded-lg shadow-lg"
                 />
@@ -496,7 +504,7 @@ export default function SubdivisionTerrenosUrbanos() {
               </div>
               <div className="relative">
                 <img 
-                  src="/attached_assets/generated_images/Municipal_permits_approval_process_94199078.png" 
+                  src={municipalPermitsImg} 
                   alt="Proceso de aprobación municipal de permisos"
                   className="rounded-lg shadow-lg"
                 />
@@ -536,7 +544,7 @@ export default function SubdivisionTerrenosUrbanos() {
                 </div>
                 <div className="relative">
                   <img 
-                    src="/attached_assets/generated_images/Family_inheritance_subdivision_meeting_9b154685.png" 
+                    src={familyInheritanceImg} 
                     alt="Reunión familiar para subdivisión de herencia"
                     className="rounded-lg shadow-lg w-full"
                   />
@@ -652,7 +660,7 @@ export default function SubdivisionTerrenosUrbanos() {
             </div>
             <div className="relative">
               <img 
-                src="/attached_assets/generated_images/Happy_family_subdivision_success_5003b1c0.png" 
+                src={happyFamilySuccessImg} 
                 alt="Familia feliz con proyecto de subdivisión exitoso"
                 className="rounded-lg shadow-lg"
               />
