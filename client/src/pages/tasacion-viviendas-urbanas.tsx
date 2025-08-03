@@ -15,11 +15,13 @@ import Footer from "@/components/footer";
 
 // Import generated images
 import confusedFamilyImg from "@assets/generated_images/Confused_family_property_anxiety_64cc6752.png";
-import authorityArchitectImg from "@assets/generated_images/Authority_architect_diploma_certificate_a1d080dd.png";
 import professionalReportImg from "@assets/generated_images/Professional_appraisal_report_document_7522a297.png";
 import workflowInfographicImg from "@assets/generated_images/Appraisal_process_workflow_infographic_4c8810d1.png";
 import successComparisonImg from "@assets/generated_images/Property_valuation_success_comparison_df77c676.png";
 import happyFamilyImg from "@assets/generated_images/Happy_family_property_success_aaa72930.png";
+
+// Import official certificate
+import certificadoTasacionesImg from "@assets/Certificado Tasaciones_1754240869171.jpg";
 
 export default function TasacionViviendasUrbanas() {
   const [, setLocation] = useLocation();
@@ -270,12 +272,12 @@ export default function TasacionViviendasUrbanas() {
             </h2>
           </div>
           
-          {/* Imagen 2: Autoridad - Arquitecto con Diploma */}
+          {/* Imagen 2: Certificado Oficial Universidad de Chile */}
           <div className="flex justify-center mb-8">
             <img 
-              src={authorityArchitectImg}
-              alt="Arquitecto profesional con Diplomado Universidad de Chile en Tasación de Inmuebles Urbanos, autoridad certificada MINVU"
-              className="rounded-lg shadow-xl max-w-md h-auto"
+              src={certificadoTasacionesImg}
+              alt="Certificado oficial Universidad de Chile - Curso de Tasación de Inmuebles Urbanos - Patricio Becar Elissegaray"
+              className="rounded-lg shadow-2xl max-w-lg h-auto border-4 border-yellow-400"
             />
           </div>
           
@@ -291,14 +293,26 @@ export default function TasacionViviendasUrbanas() {
               </Badge>
             </CardHeader>
             <CardContent className="text-center">
+              <div className="bg-yellow-50 border-l-4 border-yellow-400 p-6 mb-6">
+                <p className="text-sm font-semibold text-yellow-800 mb-2">
+                  ✅ CERTIFICACIÓN OFICIAL VERIFICABLE
+                </p>
+                <p className="text-gray-700 text-sm">
+                  <strong>Curso de Tasación de Inmuebles Urbanos</strong><br/>
+                  Universidad de Chile - Facultad de Arquitectura y Urbanismo<br/>
+                  Escuela de Postgrado • Marzo-Junio 2000<br/>
+                  Director: Rubén Sepúlveda Ocampo
+                </p>
+              </div>
+              
               <p className="text-lg text-gray-700 leading-relaxed">
-                Con más de <strong>15 años de experiencia</strong> en el mercado inmobiliario chileno y un 
-                <strong> Diplomado especializado en Tasación de Inmuebles Urbanos</strong> otorgado por la prestigiosa 
-                Universidad de Chile, Patricio no es solo un arquitecto: es su <strong>aliado estratégico</strong> para 
+                Con más de <strong>24 años de experiencia certificada</strong> en el mercado inmobiliario chileno y 
+                <strong> Certificación oficial en Tasación de Inmuebles Urbanos</strong> otorgada por la prestigiosa 
+                Universidad de Chile, Patricio Becar Elissegaray no es solo un arquitecto: es su <strong>aliado estratégico certificado</strong> para 
                 tomar la decisión inmobiliaria más importante de su vida.
                 <br/><br/>
-                Su formación académica especializada y experiencia práctica le permiten entregar tasaciones 
-                <strong> precisas, fundamentadas y respaldadas</strong> que los bancos, notarios y tribunales reconocen y respetan.
+                Su <strong>certificación universitaria oficial</strong> y experiencia práctica de más de dos décadas le permiten entregar tasaciones 
+                <strong> precisas, fundamentadas y respaldadas académicamente</strong> que los bancos, notarios y tribunales reconocen y respetan.
               </p>
             </CardContent>
           </Card>
