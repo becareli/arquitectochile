@@ -509,14 +509,26 @@ export default function ReacondicionamientoTermicoViviendas() {
             </Card>
           </div>
 
-          <div className="bg-green-100 border border-green-300 rounded-lg p-6 text-green-800">
-            <h3 className="text-xl font-bold mb-3">
-              🛡️ GARANTÍA DE ASESORÍA PROFESIONAL
-            </h3>
-            <p className="text-green-700">
-              Respaldamos nuestro diagnóstico con más de 26 años de experiencia en arquitectura. 
-              Su inversión está protegida por nuestro compromiso profesional.
-            </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center mb-8">
+            <div className="bg-green-100 border border-green-300 rounded-lg p-6">
+              <h3 className="text-xl font-bold text-green-800 mb-2">
+                🛡️ GARANTÍA DE ASESORÍA PROFESIONAL
+              </h3>
+              <p className="text-green-700">
+                Respaldamos nuestro diagnóstico con más de 26 años de experiencia en arquitectura. 
+                Su inversión está protegida por nuestro compromiso profesional.
+              </p>
+            </div>
+            <div className="relative">
+              <img 
+                src={pasosAislacionImg} 
+                alt="Pasos detallados del proceso de aislación térmica"
+                className="rounded-lg shadow-lg w-full"
+              />
+              <div className="absolute -top-2 -right-2 bg-blue-600 text-white p-2 rounded-lg font-bold text-xs">
+                🔧 PROCESO TÉCNICO
+              </div>
+            </div>
           </div>
         </div>
       </section>
