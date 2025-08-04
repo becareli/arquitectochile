@@ -19,23 +19,29 @@ export default function Footer() {
             </p>
             <div className="flex space-x-4">
               <a 
-                href="#" 
+                href="https://www.facebook.com/arquitectoconstructor" 
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-gray-300 hover:text-white transition-colors"
-                aria-label="Facebook"
+                aria-label="Facebook - ArquitectoChile"
               >
                 <Facebook size={20} />
               </a>
               <a 
-                href="#" 
+                href="https://www.instagram.com/patricio.becar.elissegaray/" 
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-gray-300 hover:text-white transition-colors"
-                aria-label="Instagram"
+                aria-label="Instagram - Patricio Becar"
               >
                 <Instagram size={20} />
               </a>
               <a 
-                href="#" 
+                href="https://www.linkedin.com/in/patriciobecar/" 
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-gray-300 hover:text-white transition-colors"
-                aria-label="LinkedIn"
+                aria-label="LinkedIn - Patricio Becar"
               >
                 <Linkedin size={20} />
               </a>
