@@ -94,25 +94,25 @@ export default function Footer() {
                 <Phone size={16} className="mr-2" />
                 +56 9 7931 6827
               </a>
-              <a 
-                href="https://maps.app.goo.gl/2xs5GE5gcr3R5ouf9"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center hover:text-white transition-colors"
-              >
-                <MapPin size={16} className="mr-2" />
-                Av. Vicuña Mackenna Poniente 7735, La Florida
-              </a>
-              <div className="mt-3">
-                <a 
-                  href="https://maps.app.goo.gl/2xs5GE5gcr3R5ouf9"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center px-3 py-1 bg-blue-600 text-white text-sm rounded-md hover:bg-blue-700 transition-colors"
-                >
-                  <MapPin size={14} className="mr-1" />
-                  Ver en Google Maps
-                </a>
+              <div className="space-y-1">
+                <div className="flex items-start">
+                  <MapPin size={16} className="mr-2 mt-0.5 flex-shrink-0" />
+                  <div className="text-sm">
+                    <div>Av. Vicuña Mackenna Poniente 7735</div>
+                    <div>La Florida, Santiago</div>
+                  </div>
+                </div>
+                <div className="ml-6">
+                  <a 
+                    href="https://maps.app.goo.gl/2xs5GE5gcr3R5ouf9"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center px-2 py-1 bg-blue-600 text-white text-xs rounded hover:bg-blue-700 transition-colors"
+                  >
+                    <MapPin size={12} className="mr-1" />
+                    Ver en Google Maps
+                  </a>
+                </div>
               </div>
             </div>
           </div>
