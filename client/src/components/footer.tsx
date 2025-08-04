@@ -44,13 +44,15 @@ export default function Footer() {
           
           <div>
             <h4 className="text-lg font-semibold mb-4">Servicios</h4>
-            <ul className="space-y-2 text-gray-300">
+            <ul className="space-y-1 text-gray-300 text-sm">
               <li><a href="#servicios" className="hover:text-white transition-colors">Arquitecto a Domicilio</a></li>
               <li><a href="#servicios" className="hover:text-white transition-colors">Regularización de Inmuebles</a></li>
               <li><a href="/revisor-independiente-de-arquitectura" className="hover:text-white transition-colors">Revisor Independiente</a></li>
               <li><a href="/fusion-terrenos-urbanos" className="hover:text-white transition-colors">Fusión de Terrenos</a></li>
               <li><a href="/inspeccion-tecnica-viviendas" className="hover:text-white transition-colors">Inspección de Viviendas</a></li>
               <li><a href="/tasacion-viviendas-urbanas" className="hover:text-white transition-colors">Tasación de Viviendas</a></li>
+              <li><a href="/subdivision-terrenos-urbanos" className="hover:text-white transition-colors">Subdivisión de Terrenos</a></li>
+              <li><a href="/reacondicionamiento-termico-viviendas" className="hover:text-white transition-colors">Reacondicionamiento Térmico</a></li>
               <li><a href="#servicios" className="hover:text-white transition-colors">Sistema EIFS</a></li>
               <li><a href="/disenemos-tus-nuevos-espacios" className="hover:text-white transition-colors">Diseño de Espacios</a></li>
             </ul>
