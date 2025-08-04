@@ -78,10 +78,13 @@ export default function Footer() {
           <div>
             <h4 className="text-lg font-semibold mb-4">Contacto</h4>
             <div className="space-y-2 text-gray-300">
-              <p className="flex items-center">
+              <a 
+                href="mailto:contacto@arquitectochile.com"
+                className="flex items-center hover:text-white transition-colors"
+              >
                 <Mail size={16} className="mr-2" />
-                info@arquitectochile.com
-              </p>
+                contacto@arquitectochile.com
+              </a>
               <a 
                 href="https://wa.me/56979316827?text=Hola%20Patricio,%20me%20interesa%20conocer%20más%20sobre%20tus%20servicios%20de%20arquitectura"
                 target="_blank"
@@ -89,12 +92,28 @@ export default function Footer() {
                 className="flex items-center hover:text-white transition-colors cursor-pointer"
               >
                 <Phone size={16} className="mr-2" />
-                +56979316827
+                +56 9 7931 6827
               </a>
-              <p className="flex items-center">
+              <a 
+                href="https://www.google.cl/maps/place/Arquitecto+en+Chile-+Arquitecto+Patricio+Becar+Elissegaray/@-33.5253021,-70.5977888,140m/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center hover:text-white transition-colors"
+              >
                 <MapPin size={16} className="mr-2" />
-                Santiago, Chile
-              </p>
+                Av. Vicuña Mackenna Poniente 7735, La Florida
+              </a>
+              <div className="mt-3">
+                <a 
+                  href="https://www.google.cl/maps/place/Arquitecto+en+Chile-+Arquitecto+Patricio+Becar+Elissegaray/@-33.5253021,-70.5977888,140m/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center px-3 py-1 bg-blue-600 text-white text-sm rounded-md hover:bg-blue-700 transition-colors"
+                >
+                  <MapPin size={14} className="mr-1" />
+                  Ver en Google Maps
+                </a>
+              </div>
             </div>
           </div>
           

@@ -29,6 +29,7 @@ import ObjectionHandling from "@/components/objection-handling";
 import Guarantees from "@/components/guarantees";
 import Blog from "@/components/blog";
 import Contact from "@/components/contact";
+import GoogleBusinessIntegration from "@/components/google-business-integration";
 import Footer from "@/components/footer";
 import Chatbot from "@/components/chatbot";
 import CookieConsent from "@/components/cookie-consent";
@@ -84,6 +85,14 @@ export default function Home() {
       <ObjectionHandling />
       <Guarantees />
       <Blog />
+      
+      {/* Google My Business Integration */}
+      <section className="py-8 bg-gray-50">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <GoogleBusinessIntegration />
+        </div>
+      </section>
+      
       <Contact />
       <Footer />
       <Chatbot />
