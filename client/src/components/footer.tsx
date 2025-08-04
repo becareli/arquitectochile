@@ -95,7 +95,7 @@ export default function Footer() {
                 +56 9 7931 6827
               </a>
               <a 
-                href="https://www.google.cl/maps/place/Arquitecto+en+Chile-+Arquitecto+Patricio+Becar+Elissegaray/@-33.5253021,-70.5977888,140m/"
+                href="https://maps.app.goo.gl/2xs5GE5gcr3R5ouf9"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center hover:text-white transition-colors"
@@ -105,7 +105,7 @@ export default function Footer() {
               </a>
               <div className="mt-3">
                 <a 
-                  href="https://www.google.cl/maps/place/Arquitecto+en+Chile-+Arquitecto+Patricio+Becar+Elissegaray/@-33.5253021,-70.5977888,140m/"
+                  href="https://maps.app.goo.gl/2xs5GE5gcr3R5ouf9"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center px-3 py-1 bg-blue-600 text-white text-sm rounded-md hover:bg-blue-700 transition-colors"

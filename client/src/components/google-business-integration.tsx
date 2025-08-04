@@ -23,7 +23,7 @@ export default function GoogleBusinessIntegration() {
           </div>
           
           <a 
-            href="https://www.google.cl/maps/place/Arquitecto+en+Chile-+Arquitecto+Patricio+Becar+Elissegaray/@-33.5253021,-70.5977888,140m/"
+            href="https://maps.app.goo.gl/2xs5GE5gcr3R5ouf9"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center space-x-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
