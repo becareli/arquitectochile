@@ -57,6 +57,25 @@ export default function Services() {
       legalBacking: "Certificación MINVU N° 369500 Vigente"
     },
     {
+      id: "reacondicionamiento-termico",
+      title: "Reacondicionamiento Térmico de Viviendas",
+      price: "Desde $100.000",
+      description: "Diagnóstico térmico profesional para reducir hasta 70% gastos calefacción",
+      icon: Thermometer,
+      features: [
+        "🏠 Diagnóstico térmico completo por arquitecto",
+        "📊 Informe detallado con recomendaciones",
+        "💰 Ahorre hasta 70% en gastos energéticos",
+        "🏗️ Soluciones de aislación profesional",
+        "📋 Cumplimiento normativa térmica OGUC",
+        "🛡️ Garantía de asesoría especializada"
+      ],
+      featured: true,
+      bgColor: "bg-gradient-to-br from-red-600 to-orange-500",
+      urgency: "🔥 PARE DE QUEMAR DINERO EN CALEFACCIÓN",
+      path: "/reacondicionamiento-termico-viviendas"
+    },
+    {
       id: "eifs",
       title: "Sistema EIFS",
       description: "Aislación térmica para reducir costos energéticos",
@@ -158,13 +177,7 @@ export default function Services() {
       urgency: "🔥 CAPITAL DORMIDO PIERDE VALOR CADA DÍA",
       valueProposition: "Desbloquee el potencial oculto de su terreno sin invertir un peso adicional"
     },
-    {
-      id: "acondicionamiento-termico",
-      title: "Acondicionamiento Térmico",
-      description: "Mejora el confort de tu hogar",
-      icon: Thermometer,
-      bgColor: "bg-white"
-    },
+
 
     {
       id: "estudio-cabidas",
@@ -218,6 +231,11 @@ export default function Services() {
     
     if (serviceId === 'subdivision-terrenos-urbanos') {
       setLocation('/subdivision-terrenos-urbanos');
+      return;
+    }
+    
+    if (serviceId === 'reacondicionamiento-termico') {
+      setLocation('/reacondicionamiento-termico-viviendas');
       return;
     }
     

@@ -17,7 +17,7 @@ export default function Chatbot() {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
-      text: '¡Hola! Soy el asistente virtual de ArquitectoChile. ¿En qué puedo ayudarte? Ofrezco información sobre: Tasación de Viviendas, Inspección de Viviendas, Fusión de Terrenos, Diseño de Espacios, Revisor Independiente, Regularización, Sistema EIFS, Permisos, Portal Cliente y más.',
+      text: '¡Hola! Soy el asistente virtual de ArquitectoChile. ¿En qué puedo ayudarte? Ofrezco información sobre: Reacondicionamiento Térmico, Subdivisión de Terrenos, Tasación de Viviendas, Inspección de Viviendas, Fusión de Terrenos, Diseño de Espacios, Revisor Independiente, Regularización, Sistema EIFS, Permisos, Portal Cliente y más.',
       sender: 'bot',
       timestamp: new Date()
     }
@@ -59,7 +59,11 @@ export default function Chatbot() {
       return 'La regularización de inmuebles (Ley del Mono) permite legalizar ampliaciones y construcciones sin permisos. Cubrimos todo el proceso legal y técnico. ¿Tienes alguna construcción que necesite regularizar?';
     }
     
-    if (message.includes('eifs') || message.includes('aislaci') || message.includes('térmic') || message.includes('energía')) {
+    if (message.includes('reacondicionamiento') || message.includes('térmico') || message.includes('termico') || message.includes('aislación') || message.includes('aislacion') || message.includes('calefacción') || message.includes('calefaccion') || message.includes('frío') || message.includes('frio') || message.includes('calor') || message.includes('energía') || message.includes('energia') || message.includes('diagnóstico térmico')) {
+      return 'NUEVO SERVICIO: Reacondicionamiento Térmico de Viviendas - ¿Su casa es un horno en verano y un congelador en invierno? Ofrecemos diagnóstico térmico completo por $100,000 que puede ahorrarle hasta 70% en gastos de calefacción. Incluye visita de arquitecto, análisis técnico completo, informe detallado y recomendaciones para cumplir normativa OGUC. ¿Le interesa dejar de quemar dinero en calefacción?';
+    }
+    
+    if (message.includes('eifs') || message.includes('aislaci') && !message.includes('reacondicionamiento')) {
       return 'El Sistema EIFS proporciona aislación térmica de alta eficiencia para reducir costos energéticos hasta 40%. Ideal para mejorar el confort y valor de tu propiedad. ¿Te interesa una evaluación energética?';
     }
     

@@ -11,6 +11,7 @@ export default function Navigation() {
 
   // Services list
   const services = [
+    { name: "Reacondicionamiento Térmico de Viviendas", path: "/reacondicionamiento-termico-viviendas" },
     { name: "Subdivisión de Terrenos Urbanos", path: "/subdivision-terrenos-urbanos" },
     { name: "Tasación de Viviendas Urbanas", path: "/tasacion-viviendas-urbanas" },
     { name: "Inspección Técnica de Viviendas", path: "/inspeccion-tecnica-viviendas" },

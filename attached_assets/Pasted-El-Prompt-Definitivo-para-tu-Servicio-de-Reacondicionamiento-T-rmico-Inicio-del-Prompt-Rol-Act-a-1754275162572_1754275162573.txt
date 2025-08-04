@@ -1,0 +1,68 @@
+El Prompt Definitivo para tu Servicio de Reacondicionamiento Térmico
+Inicio del Prompt
+Rol:
+Actúa como mi "Dream Team" de marketing y ventas, compuesto por las mentes estratégicas de Gary Halbert, Russell Brunson, Alex Hormozi y Vilma Núñez. Tu misión es crear una página de ventas para un servicio técnico de mejora de viviendas, abordando tanto el aspecto emocional del cliente como la lógica de la inversión.
+Contexto:
+El servicio es "Reacondicionamiento Térmico de Viviendas" en Santiago de Chile.
+El Problema del Cliente: Muchas personas viven en casas construidas con normativas térmicas antiguas. Sufren de un frío insoportable en invierno y un calor agobiante en verano. Esto se traduce en una pésima calidad de vida y cuentas de calefacción y aire acondicionado altísimas. Se sienten incómodos en su propio hogar.
+El Modelo de Negocio (2 Fases):
+Fase 1 - El Diagnóstico (Oferta Principal Inicial): Se ofrece un "Informe de Diagnóstico Térmico". Por un valor cercano a los $100.000, incluye: una visita técnica de un arquitecto, análisis de la envolvente de la vivienda (techumbre, muros, ventanas), y la entrega de un informe por email con recomendaciones personalizadas para cumplir la norma actual (art. 4.1.10 OGUC) y mejorar drásticamente el confort.
+Fase 2 - La Solución (Oferta Secundaria): Junto con el informe, o posteriormente, se le entrega al cliente una cotización para ejecutar las mejoras recomendadas. Estas pueden ser: aislación de entretecho (lana mineral, celulosa proyectada), instalación de sistema EIFS en muros exteriores, o reemplazo por ventanas termopanel.
+Recursos a Utilizar:
+Video a Incrustar: https://www.youtube.com/watch?v=LxbHRbNXCh4&t=2s
+Página Antigua para Análisis: https://arquitectochile.com/termico/ (Extrae conceptos, textos o ideas que consideres potentes).
+Imágenes a Rescatar y Utilizar:
+https://arquitectochile.com/wp-content/uploads/2021/04/pasos-aislacion-termica2.jpeg
+https://arquitectochile.com/wp-content/uploads/2021/04/pasos-reacondicionamiento-termico2.jpeg
+https://arquitectochile.com/wp-content/uploads/2021/04/pilares_presupuesto2.png
+https://arquitectochile.com/wp-content/uploads/2021/04/garantia_construccion2.png
+Acción y Estructura de la Respuesta:
+Diseña y redacta el contenido completo para una página de ventas que guíe al cliente a través de un viaje de transformación para su hogar. Sigue esta estructura, aplicando la filosofía del experto indicado y colocando los recursos visuales en puntos estratégicos. Además, crea y describe nuevas imágenes donde sea necesario para potenciar el mensaje.
+
+1. Titular Principal (Estilo: Gary Halbert)
+Crea 3 opciones de titulares que ataquen directamente el dolor y prometan un beneficio tangible.
+Concepto: "Deje de Gastar Fortunas en Calefacción. Transforme su Casa en un Hogar Confortable Todo el Año".
+2. Sección de Héroe y Empatía (Estilo: Russell Brunson)
+Redacta un párrafo inicial que refleje la frustración del cliente. "¿Su casa es un horno en verano y un congelador en invierno? ¿Las cuentas de luz o gas se disparan cada temporada? No es su culpa, es un problema de construcción que tiene solución."
+3. El Video Explicativo (Punto de Conexión)
+Incrusta aquí el video proporcionado.
+[VIDEO: https://www.youtube.com/watch?v=LxbHRbNXCh4&t=2s]
+Texto de introducción al video: "En este video, nuestro arquitecto te explica en 2 minutos por qué tu casa pierde tanto calor (y dinero) y cómo puedes solucionarlo."
+4. Agitación del Problema (Estilo: Alex Hormozi)
+Usa viñetas para listar las consecuencias de no actuar. No vendas aislación, vende la eliminación de estos problemas.
+Gastos que nunca terminan en calefacción y aire acondicionado.
+Incomodidad constante en tu propio hogar.
+Problemas de humedad y condensación por los cambios de temperatura.
+Bajo valor de reventa de tu propiedad por su ineficiencia energética.
+[IMAGEN (Creación Propia): Una infografía impactante que muestre una casa "partida por la mitad". Un lado azul (invierno) con flechas de calor escapando por el techo y muros. El otro lado rojo (verano) con flechas de calor entrando. Debe ser visualmente muy clara.]
+5. La Solución Inteligente: Diagnosticar Antes de Actuar (Estilo: Vilma Núñez)
+Presenta la Fase 1: El Informe de Diagnóstico Térmico. Posiciónalo como el primer paso inteligente y de bajo riesgo. "Antes de invertir en soluciones costosas, necesita un mapa. Nuestro informe es ese mapa: una evaluación experta que le dice exactamente dónde está el problema y cuál es la solución más rentable para usted".
+[IMAGEN (Rescatada y Reutilizada): Utiliza la imagen "pasos-reacondicionamiento-termico2.jpeg" o "pasos-aislacion-termica2.jpeg" aquí para ilustrar el proceso de análisis.]
+6. ¿Qué Incluye Nuestro Diagnóstico? (Oferta Irresistible - Estilo: Hormozi)
+Detalla la oferta del informe (valor $100.000). Usa viñetas claras y enfocadas en el valor.
+Visita a Terreno de un Arquitecto Experto.
+Análisis Técnico de techumbre, muros perimetrales y ventanas.
+Informe Digital Detallado con el diagnóstico y las recomendaciones específicas para su hogar.
+Asesoría Personalizada para resolver todas sus dudas.
+BONUS: Referencia directa al artículo 4.1.10 de la OGUC para que sepa que la solución cumple con la normativa vigente.
+7. Llamada a la Acción Principal (CTA para el Informe)
+Crea un CTA claro para comprar el informe.
+Botón Principal: "QUIERO MI DIAGNÓSTICO TÉRMICO AHORA"
+Texto de apoyo: "Invierta en certeza. Deje de adivinar y empiece a solucionar."
+[IMAGEN (Rescatada y Reutilizada): Utiliza la imagen "garantia_construccion2.png" adaptándola como "Garantía de Asesoría Profesional".]
+8. La Transformación Completa (Presentación Fase 2 - Estilo: Brunson)
+Introduce la segunda fase como el paso lógico siguiente. "Una vez que tenga su diagnóstico, si lo desea, podemos convertir esas recomendaciones en realidad." Lista las posibles soluciones de instalación:
+Aislación de Techumbre (Lana Mineral / Celulosa Proyectada).
+Sistema de Aislación Exterior (EIFS).
+Ventanas Termopanel de Alta Eficiencia.
+[IMAGEN (Creación Propia): Un carrusel de 3 imágenes de alta calidad. 1: Un trabajador instalando cuidadosamente lana mineral en un entretecho. 2: El acabado limpio y moderno de un muro con sistema EIFS. 3: Un primer plano de una ventana termopanel mostrando su doble vidrio.]
+9. Transparencia en la Inversión (Estilo: Vilma Núñez)
+Explica que junto al informe, o cuando el cliente lo pida, se entregará una cotización transparente y detallada.
+[IMAGEN (Rescatada y Reutilizada): Utiliza la imagen "pilares_presupuesto2.png" para reforzar la idea de un presupuesto claro y sin sorpresas.]
+10. Preguntas Frecuentes (FAQ)
+Responde a las dudas clave:
+¿Realmente vale la pena invertir en reacondicionamiento térmico? (Enfocar en el ahorro a largo plazo y la mejora en calidad de vida).
+Mi casa es muy antigua, ¿se puede mejorar igualmente?
+¿Cuánto tiempo toman los trabajos de instalación?
+¿El informe de $100.000 se descuenta si contrato la instalación con ustedes? (Aquí puedes definir tu estrategia comercial).
+Fin del Prompt
