@@ -24,6 +24,11 @@ import thermopaneWindowImg from "@assets/generated_images/Thermopane_window_doub
 import architectInspectionImg from "@assets/generated_images/Architect_thermal_inspection_service_fdd26f97.png";
 import happyFamilyComfortImg from "@assets/generated_images/Happy_family_comfortable_home_40405dcd.png";
 
+// Import original ArquitectoChile thermal images
+import pasosAislacionImg from "@assets/pasos-aislacion-termica2.jpeg";
+import pasosReacondicionamientoImg from "@assets/pasos-reacondicionamiento-termico2.jpeg";
+import pilaresPresupuestoImg from "@assets/pilares_presupuesto2.png";
+
 export default function ReacondicionamientoTermicoViviendas() {
   const [, setLocation] = useLocation();
 
@@ -313,12 +318,12 @@ export default function ReacondicionamientoTermicoViviendas() {
             
             <div className="relative">
               <img 
-                src={architectInspectionImg} 
-                alt="Arquitecto realizando inspección térmica profesional"
+                src={pasosReacondicionamientoImg} 
+                alt="Pasos del proceso de reacondicionamiento térmico profesional"
                 className="rounded-lg shadow-xl"
               />
               <div className="absolute -bottom-3 -right-3 bg-yellow-500 text-black p-2 rounded-lg font-bold text-xs">
-                👨‍💼 EVALUACIÓN EXPERTA
+                📋 PROCESO EXPERTO
               </div>
             </div>
           </div>
@@ -675,11 +680,22 @@ export default function ReacondicionamientoTermicoViviendas() {
                 </ul>
               </div>
               
-              <div className="bg-blue-50 border border-blue-300 rounded-lg p-4">
+              <div className="bg-blue-50 border border-blue-300 rounded-lg p-4 mb-6">
                 <p className="text-blue-800 font-bold">
                   💡 El costo del diagnóstico ($100.000) se descuenta completamente 
                   si decide ejecutar las mejoras con nosotros.
                 </p>
+              </div>
+              
+              <div className="relative">
+                <img 
+                  src={pilaresPresupuestoImg} 
+                  alt="Pilares del presupuesto transparente y garantizado"
+                  className="rounded-lg shadow-lg w-full"
+                />
+                <div className="absolute -top-2 -left-2 bg-green-600 text-white p-2 rounded-lg font-bold text-xs">
+                  💰 PRESUPUESTO CLARO
+                </div>
               </div>
             </div>
             
