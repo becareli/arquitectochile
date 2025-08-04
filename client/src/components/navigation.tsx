@@ -183,7 +183,8 @@ export default function Navigation() {
                     <div className="py-4">
                       <div className="px-4 pb-3 border-b border-gray-100">
                         <h3 className="font-bold text-lg text-gray-800">Patricio Eduardo Becar Elissegaray</h3>
-                        <p className="text-sm text-gray-600">Arquitecto MBA - Revisor Independiente MINVU 3° Categoría</p>
+                        <p className="text-sm text-gray-600">Arquitecto Universidad de Chile desde 1999</p>
+                        <p className="text-sm text-gray-600">MBA - Revisor Independiente MINVU 3° Categoría</p>
                       </div>
                       
                       <div className="px-4 py-3 space-y-3">
