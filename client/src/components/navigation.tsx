@@ -5,9 +5,11 @@ import { useLocation } from "wouter";
 export default function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isServicesDropdownOpen, setIsServicesDropdownOpen] = useState(false);
+  const [isArquitectoDropdownOpen, setIsArquitectoDropdownOpen] = useState(false);
   const [isMobileServicesOpen, setIsMobileServicesOpen] = useState(false);
   const [, setLocation] = useLocation();
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const arquitectoDropdownRef = useRef<HTMLDivElement>(null);
 
   // Services list
   const services = [
@@ -29,6 +31,9 @@ export default function Navigation() {
     const handleClickOutside = (event: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setIsServicesDropdownOpen(false);
+      }
+      if (arquitectoDropdownRef.current && !arquitectoDropdownRef.current.contains(event.target as Node)) {
+        setIsArquitectoDropdownOpen(false);
       }
     };
 
@@ -80,6 +85,7 @@ export default function Navigation() {
       setLocation(path);
     }
     setIsServicesDropdownOpen(false);
+    setIsArquitectoDropdownOpen(false);
     setIsMenuOpen(false);
   };
 
@@ -159,12 +165,69 @@ export default function Navigation() {
                   </div>
                 )}
               </div>
-              <button 
-                onClick={() => handleNavigation('arquitecto')}
-                className="text-dark hover:text-primary transition-colors text-sm font-medium"
-              >
-                Arquitecto
-              </button>
+              <div className="relative" ref={arquitectoDropdownRef}>
+                <button 
+                  onClick={() => {
+                    setIsArquitectoDropdownOpen(!isArquitectoDropdownOpen);
+                    setIsServicesDropdownOpen(false);
+                  }}
+                  className="text-dark hover:text-primary transition-colors text-sm font-medium flex items-center gap-1"
+                >
+                  Sobre el Arquitecto
+                  <ChevronDown size={16} className={`transition-transform ${isArquitectoDropdownOpen ? 'rotate-180' : ''}`} />
+                </button>
+                
+                {/* Arquitecto Dropdown */}
+                {isArquitectoDropdownOpen && (
+                  <div className="absolute top-full left-0 mt-2 w-96 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
+                    <div className="py-4">
+                      <div className="px-4 pb-3 border-b border-gray-100">
+                        <h3 className="font-bold text-lg text-gray-800">Patricio Eduardo Becar Elissegaray</h3>
+                        <p className="text-sm text-gray-600">Arquitecto MBA - Revisor Independiente MINVU 3° Categoría</p>
+                      </div>
+                      
+                      <div className="px-4 py-3 space-y-3">
+                        <div>
+                          <h4 className="font-semibold text-sm text-gray-700 mb-2">Experiencia Clave</h4>
+                          <ul className="text-xs text-gray-600 space-y-1">
+                            <li>• MBA Universidad de Chile</li>
+                            <li>• Revisor Independiente MINVU (3° Categoría)</li>
+                            <li>• 15+ años experiencia municipal</li>
+                            <li>• Especialista en normativa de edificación</li>
+                            <li>• Experto en ascensores y montacargas</li>
+                          </ul>
+                        </div>
+                        
+                        <div>
+                          <h4 className="font-semibold text-sm text-gray-700 mb-2">Contacto Profesional</h4>
+                          <div className="text-xs text-gray-600 space-y-1">
+                            <div>📧 patricio.becar@gmail.com</div>
+                            <div>📱 +56 9 7931 6827</div>
+                            <div>💼 LinkedIn: patriciobecar</div>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div className="px-4 pt-3 border-t border-gray-100">
+                        <a 
+                          href="/CV_PBE_2025.pdf"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="block w-full text-center bg-primary text-white py-2 rounded-md hover:bg-blue-700 transition-colors text-sm font-medium"
+                        >
+                          📄 Descargar CV Completo
+                        </a>
+                        <button 
+                          onClick={() => handleNavigation('arquitecto')}
+                          className="block w-full text-center mt-2 text-primary hover:text-blue-700 transition-colors text-xs"
+                        >
+                          Ver perfil en sitio
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
               <button 
                 onClick={() => handleNavigation('ebook')}
                 className="text-dark hover:text-primary transition-colors text-sm font-medium"
