@@ -76,48 +76,6 @@ export default function Footer() {
           </div>
           
           <div>
-            <h4 className="text-lg font-semibold mb-4">Contacto</h4>
-            <div className="space-y-2 text-gray-300">
-              <a 
-                href="mailto:contacto@arquitectochile.com"
-                className="flex items-center hover:text-white transition-colors"
-              >
-                <Mail size={16} className="mr-2" />
-                contacto@arquitectochile.com
-              </a>
-              <a 
-                href="https://wa.me/56979316827?text=Hola%20Patricio,%20me%20interesa%20conocer%20más%20sobre%20tus%20servicios%20de%20arquitectura"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center hover:text-white transition-colors cursor-pointer"
-              >
-                <Phone size={16} className="mr-2" />
-                +56 9 7931 6827
-              </a>
-              <div className="space-y-1">
-                <div className="flex items-start">
-                  <MapPin size={16} className="mr-2 mt-0.5 flex-shrink-0" />
-                  <div className="text-sm">
-                    <div>Av. Vicuña Mackenna Poniente 7735</div>
-                    <div>La Florida, Santiago</div>
-                  </div>
-                </div>
-                <div className="ml-6">
-                  <a 
-                    href="https://maps.app.goo.gl/2xs5GE5gcr3R5ouf9"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center px-2 py-1 bg-blue-600 text-white text-xs rounded hover:bg-blue-700 transition-colors"
-                  >
-                    <MapPin size={12} className="mr-1" />
-                    Ver en Google Maps
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <div>
             <h4 className="text-lg font-semibold mb-4">Legal</h4>
             <ul className="space-y-2 text-gray-300">
               <li><a href="/aviso-legal" className="hover:text-white transition-colors">Aviso Legal</a></li>
@@ -125,6 +83,39 @@ export default function Footer() {
               <li><a href="/politica-cookies" className="hover:text-white transition-colors">Política de Cookies</a></li>
               <li><a href="#" className="hover:text-white transition-colors">Personalizar Cookies</a></li>
             </ul>
+          </div>
+          
+          <div>
+            <h4 className="text-lg font-semibold mb-4">Contacto</h4>
+            <div className="space-y-3 text-gray-300">
+              <a 
+                href="mailto:contacto@arquitectochile.com"
+                className="block text-sm hover:text-white transition-colors"
+              >
+                contacto@arquitectochile.com
+              </a>
+              <a 
+                href="https://wa.me/56979316827?text=Hola%20Patricio,%20me%20interesa%20conocer%20más%20sobre%20tus%20servicios%20de%20arquitectura"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block text-sm hover:text-white transition-colors"
+              >
+                +56 9 7931 6827
+              </a>
+              <div className="text-sm">
+                <div>Av. Vicuña Mackenna Poniente 7735</div>
+                <div>La Florida, Santiago</div>
+                <a 
+                  href="https://maps.app.goo.gl/2xs5GE5gcr3R5ouf9"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center mt-2 px-2 py-1 bg-blue-600 text-white text-xs rounded hover:bg-blue-700 transition-colors"
+                >
+                  <MapPin size={12} className="mr-1" />
+                  Ver en Google Maps
+                </a>
+              </div>
+            </div>
           </div>
         </div>
         
