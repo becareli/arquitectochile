@@ -103,6 +103,12 @@ export default function Footer() {
                 contacto@arquitectochile.com
               </a>
               <a 
+                href="mailto:arquitectopatriciobecar@gmail.com"
+                className="block text-sm hover:text-white transition-colors"
+              >
+                arquitectopatriciobecar@gmail.com
+              </a>
+              <a 
                 href="https://wa.me/56979316827?text=Hola%20Patricio,%20me%20interesa%20conocer%20más%20sobre%20tus%20servicios%20de%20arquitectura"
                 target="_blank"
                 rel="noopener noreferrer"
