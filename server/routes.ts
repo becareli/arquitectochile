@@ -62,6 +62,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       const enrichedLeadData = {
         ...leadData,
+        helpType: null,
+        timeline: null, 
+        message: null,
         leadScore,
         customerStage: "consideration" as const,
       };
