@@ -34,6 +34,7 @@ import {
   MapPin
 } from "lucide-react";
 import { Link } from "wouter";
+import KpiDashboard from "@/components/crm/KpiDashboard";
 
 interface DashboardData {
   totalCustomers: number;
@@ -201,6 +202,10 @@ export default function CRMAdminDashboard() {
             <TabsTrigger value="interactions" className="data-[state=active]:bg-blue-500 data-[state=active]:text-white">
               <MessageSquare className="w-4 h-4 mr-2" />
               Interacciones
+            </TabsTrigger>
+            <TabsTrigger value="kpis" className="data-[state=active]:bg-blue-500 data-[state=active]:text-white">
+              <Target className="w-4 h-4 mr-2" />
+              KPIs de Ventas
             </TabsTrigger>
           </TabsList>
 
@@ -497,6 +502,22 @@ export default function CRMAdminDashboard() {
                 <CardDescription>Próximamente disponible</CardDescription>
               </CardHeader>
             </Card>
+          </TabsContent>
+
+          <TabsContent value="kpis">
+            <div className="space-y-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <h2 className="text-2xl font-bold text-gray-900 dark:text-white">KPIs de Ventas ArquitectoChile</h2>
+                  <p className="text-gray-600 dark:text-gray-400">Métricas de rendimiento basadas en la metodología de seguimiento de leads</p>
+                </div>
+                <Button>
+                  <Settings className="w-4 h-4 mr-2" />
+                  Configurar KPIs
+                </Button>
+              </div>
+              <KpiDashboard />
+            </div>
           </TabsContent>
         </Tabs>
       </div>
