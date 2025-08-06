@@ -13,6 +13,9 @@ export default function Contact() {
     name: "",
     email: "",
     phone: "",
+    calle: "",
+    numero: "",
+    comuna: "",
     helpType: "",
     timeline: "",
     message: ""
@@ -24,10 +27,10 @@ export default function Contact() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!formData.name || !formData.email || !formData.phone || !formData.helpType || !formData.timeline || !formData.message) {
+    if (!formData.name || !formData.email || !formData.phone || !formData.calle || !formData.numero || !formData.comuna || !formData.helpType || !formData.timeline || !formData.message) {
       toast({
         title: "Error",
-        description: "Por favor completa todos los campos",
+        description: "Por favor completa todos los campos incluyendo la dirección completa",
         variant: "destructive"
       });
       return;
@@ -52,6 +55,9 @@ export default function Contact() {
         name: "",
         email: "",
         phone: "",
+        calle: "",
+        numero: "",
+        comuna: "",
         helpType: "",
         timeline: "",
         message: ""
@@ -126,6 +132,76 @@ export default function Contact() {
                   value={formData.phone}
                   onChange={(e) => setFormData({...formData, phone: e.target.value})}
                 />
+              </div>
+              
+              {/* Address Section */}
+              <div className="space-y-4">
+                <h4 className="text-lg font-semibold text-gray-900 border-b pb-2">Dirección del Proyecto *</h4>
+                
+                <div>
+                  <Label htmlFor="calle">Calle *</Label>
+                  <Input 
+                    id="calle"
+                    type="text" 
+                    required 
+                    placeholder="Ej: Av. Providencia, Los Aromos, etc."
+                    value={formData.calle}
+                    onChange={(e) => setFormData({...formData, calle: e.target.value})}
+                  />
+                </div>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <Label htmlFor="numero">Número *</Label>
+                    <Input 
+                      id="numero"
+                      type="text" 
+                      required 
+                      placeholder="1234"
+                      value={formData.numero}
+                      onChange={(e) => setFormData({...formData, numero: e.target.value})}
+                    />
+                  </div>
+                  
+                  <div>
+                    <Label htmlFor="comuna">Comuna *</Label>
+                    <select 
+                      id="comuna"
+                      required 
+                      value={formData.comuna}
+                      onChange={(e) => setFormData({...formData, comuna: e.target.value})}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                    >
+                      <option value="">Selecciona tu comuna</option>
+                      <option value="las-condes">Las Condes</option>
+                      <option value="providencia">Providencia</option>
+                      <option value="vitacura">Vitacura</option>
+                      <option value="santiago">Santiago</option>
+                      <option value="nuñoa">Ñuñoa</option>
+                      <option value="la-reina">La Reina</option>
+                      <option value="lo-barnechea">Lo Barnechea</option>
+                      <option value="la-florida">La Florida</option>
+                      <option value="puente-alto">Puente Alto</option>
+                      <option value="san-miguel">San Miguel</option>
+                      <option value="maipú">Maipú</option>
+                      <option value="peñalolén">Peñalolén</option>
+                      <option value="macul">Macul</option>
+                      <option value="san-joaquín">San Joaquín</option>
+                      <option value="la-granja">La Granja</option>
+                      <option value="independencia">Independencia</option>
+                      <option value="quinta-normal">Quinta Normal</option>
+                      <option value="recoleta">Recoleta</option>
+                      <option value="estacion-central">Estación Central</option>
+                      <option value="cerrillos">Cerrillos</option>
+                      <option value="pudahuel">Pudahuel</option>
+                      <option value="renca">Renca</option>
+                      <option value="quilicura">Quilicura</option>
+                      <option value="huechuraba">Huechuraba</option>
+                      <option value="conchalí">Conchalí</option>
+                      <option value="otro">Otra comuna</option>
+                    </select>
+                  </div>
+                </div>
               </div>
               
               <div>
