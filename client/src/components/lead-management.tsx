@@ -83,7 +83,7 @@ export default function LeadManagement() {
     }
   };
 
-  const filteredLeads = leads?.filter((lead: Lead) => {
+  const filteredLeads = Array.isArray(leads) ? leads.filter((lead: Lead) => {
     const matchesSearch = !searchTerm || 
       lead.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       lead.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -93,7 +93,7 @@ export default function LeadManagement() {
     const matchesSource = sourceFilter === 'all' || lead.source === sourceFilter;
     
     return matchesSearch && matchesStatus && matchesSource;
-  }) || [];
+  }) : [];
 
   if (isLoading) {
     return (
@@ -178,8 +178,8 @@ export default function LeadManagement() {
         <div className="flex items-center gap-4 text-sm text-gray-600">
           <span>Total: {filteredLeads.length} leads</span>
           <Separator orientation="vertical" className="h-4" />
-          <span>Nuevos: {filteredLeads.filter(l => l.status === 'new').length}</span>
-          <span>Calificados: {filteredLeads.filter(l => l.status === 'qualified').length}</span>
+          <span>Nuevos: {filteredLeads.filter((l: Lead) => l.status === 'new').length}</span>
+          <span>Calificados: {filteredLeads.filter((l: Lead) => l.status === 'qualified').length}</span>
         </div>
       </div>
 
@@ -218,15 +218,34 @@ export default function LeadManagement() {
                   </div>
                 </div>
 
-                <div>
-                  <p className="text-sm text-gray-600 mb-1">Tipo de ayuda</p>
-                  <p className="font-medium capitalize">{lead.helpType.replace('_', ' ')}</p>
-                </div>
+                {lead.helpType && (
+                  <div>
+                    <p className="text-sm text-gray-600 mb-1">Tipo de ayuda</p>
+                    <p className="font-medium capitalize">{lead.helpType.replace('_', ' ')}</p>
+                  </div>
+                )}
 
-                <div>
-                  <p className="text-sm text-gray-600 mb-1">Timeline</p>
-                  <p className="text-sm">{lead.timeline.replace('_', ' ')}</p>
-                </div>
+                {lead.timeline && (
+                  <div>
+                    <p className="text-sm text-gray-600 mb-1">Timeline</p>
+                    <p className="text-sm">{lead.timeline.replace('_', ' ')}</p>
+                  </div>
+                )}
+
+                {/* Información específica de calculadora */}
+                {lead.projectType && (
+                  <div>
+                    <p className="text-sm text-gray-600 mb-1">Tipo de Proyecto</p>
+                    <p className="font-medium capitalize">{lead.projectType.replace('_', ' ')}</p>
+                  </div>
+                )}
+
+                {lead.budget && (
+                  <div>
+                    <p className="text-sm text-gray-600 mb-1">Presupuesto</p>
+                    <p className="text-sm">{lead.budget}</p>
+                  </div>
+                )}
 
                 <div>
                   <Badge className={getSourceColor(lead.source)} variant="outline">
@@ -334,14 +353,30 @@ export default function LeadManagement() {
               <div>
                 <h3 className="font-semibold mb-3">Detalles del Proyecto</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <p className="text-sm text-gray-600">Tipo de ayuda</p>
-                    <p className="font-medium capitalize">{selectedLead.helpType.replace('_', ' ')}</p>
-                  </div>
-                  <div>
-                    <p className="text-sm text-gray-600">Timeline esperado</p>
-                    <p className="font-medium">{selectedLead.timeline.replace('_', ' ')}</p>
-                  </div>
+                  {selectedLead.helpType && (
+                    <div>
+                      <p className="text-sm text-gray-600">Tipo de ayuda</p>
+                      <p className="font-medium capitalize">{selectedLead.helpType.replace('_', ' ')}</p>
+                    </div>
+                  )}
+                  {selectedLead.timeline && (
+                    <div>
+                      <p className="text-sm text-gray-600">Timeline esperado</p>
+                      <p className="font-medium">{selectedLead.timeline.replace('_', ' ')}</p>
+                    </div>
+                  )}
+                  {selectedLead.projectType && (
+                    <div>
+                      <p className="text-sm text-gray-600">Tipo de proyecto</p>
+                      <p className="font-medium capitalize">{selectedLead.projectType.replace('_', ' ')}</p>
+                    </div>
+                  )}
+                  {selectedLead.budget && (
+                    <div>
+                      <p className="text-sm text-gray-600">Presupuesto estimado</p>
+                      <p className="font-medium">{selectedLead.budget}</p>
+                    </div>
+                  )}
                 </div>
               </div>
 
