@@ -277,7 +277,7 @@ export default function AdminEnhancedAnalytics() {
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
                     <div className={`w-4 h-4 rounded ${getQualityColor('low')}`}></div>
-                    <span>Baja Calidad (<40 puntos)</span>
+                    <span>Baja Calidad (&lt;40 puntos)</span>
                   </div>
                   <div className="text-right">
                     <div className="font-bold">{qualityData?.lowQuality || 0}</div>

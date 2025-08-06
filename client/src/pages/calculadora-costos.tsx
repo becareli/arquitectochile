@@ -11,7 +11,6 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useMutation } from '@tanstack/react-query';
-import { apiRequest } from '@/lib/queryClient';
 import { useToast } from '@/hooks/use-toast';
 import type { InsertCalculatorLead } from '@shared/schema';
 
@@ -59,11 +58,21 @@ export default function CalculadoraCostos() {
   });
 
   const submitLeadMutation = useMutation({
-    mutationFn: (leadData: InsertCalculatorLead) => 
-      apiRequest('/api/leads/calculator', {
+    mutationFn: async (leadData: InsertCalculatorLead) => {
+      const response = await fetch('/api/leads/calculator', {
         method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
         body: JSON.stringify(leadData),
-      }),
+      });
+      
+      if (!response.ok) {
+        throw new Error('Error al enviar la solicitud');
+      }
+      
+      return response.json();
+    },
     onSuccess: (data) => {
       toast({
         title: "¡Solicitud enviada!",
