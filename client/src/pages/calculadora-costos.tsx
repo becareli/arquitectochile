@@ -22,6 +22,9 @@ const leadFormSchema = z.object({
   name: z.string().min(2, "Nombre debe tener al menos 2 caracteres"),
   email: z.string().email("Email inválido"),
   phone: z.string().min(8, "Teléfono debe tener al menos 8 dígitos"),
+  calle: z.string().min(3, "Ingresa el nombre de la calle"),
+  numero: z.string().min(1, "Ingresa el número de la propiedad"),
+  comuna: z.string().min(1, "Selecciona la comuna"),
   projectType: z.string().min(1, "Selecciona el tipo de proyecto"),
   budget: z.string().min(1, "Selecciona tu presupuesto"),
 });
@@ -55,6 +58,9 @@ export default function CalculadoraCostos() {
       name: "",
       email: "",
       phone: "",
+      calle: "",
+      numero: "",
+      comuna: "",
       projectType: "",
       budget: "",
     },
@@ -142,6 +148,9 @@ export default function CalculadoraCostos() {
       name: data.name,
       email: data.email,
       phone: data.phone,
+      calle: data.calle,
+      numero: data.numero,
+      comuna: data.comuna,
       projectType: data.projectType,
       budget: data.budget,
       source: 'calculadora-costos',
@@ -415,6 +424,77 @@ export default function CalculadoraCostos() {
                       </FormItem>
                     )}
                   />
+
+                  {/* Address Section */}
+                  <div className="space-y-3 pt-2">
+                    <h4 className="text-sm font-medium text-gray-900">Dirección del Proyecto</h4>
+                    
+                    <FormField
+                      control={form.control}
+                      name="calle"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Calle</FormLabel>
+                          <FormControl>
+                            <Input placeholder="Ej: Av. Providencia" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    
+                    <div className="grid grid-cols-2 gap-3">
+                      <FormField
+                        control={form.control}
+                        name="numero"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Número</FormLabel>
+                            <FormControl>
+                              <Input placeholder="1234" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      
+                      <FormField
+                        control={form.control}
+                        name="comuna"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Comuna</FormLabel>
+                            <Select onValueChange={field.onChange} defaultValue={field.value}>
+                              <FormControl>
+                                <SelectTrigger>
+                                  <SelectValue placeholder="Selecciona" />
+                                </SelectTrigger>
+                              </FormControl>
+                              <SelectContent>
+                                <SelectItem value="las-condes">Las Condes</SelectItem>
+                                <SelectItem value="providencia">Providencia</SelectItem>
+                                <SelectItem value="vitacura">Vitacura</SelectItem>
+                                <SelectItem value="santiago">Santiago</SelectItem>
+                                <SelectItem value="nuñoa">Ñuñoa</SelectItem>
+                                <SelectItem value="la-reina">La Reina</SelectItem>
+                                <SelectItem value="lo-barnechea">Lo Barnechea</SelectItem>
+                                <SelectItem value="la-florida">La Florida</SelectItem>
+                                <SelectItem value="puente-alto">Puente Alto</SelectItem>
+                                <SelectItem value="san-miguel">San Miguel</SelectItem>
+                                <SelectItem value="maipú">Maipú</SelectItem>
+                                <SelectItem value="peñalolén">Peñalolén</SelectItem>
+                                <SelectItem value="macul">Macul</SelectItem>
+                                <SelectItem value="san-joaquín">San Joaquín</SelectItem>
+                                <SelectItem value="la-granja">La Granja</SelectItem>
+                                <SelectItem value="otro">Otra</SelectItem>
+                              </SelectContent>
+                            </Select>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                  </div>
                   
                   <FormField
                     control={form.control}

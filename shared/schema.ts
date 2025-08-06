@@ -14,6 +14,10 @@ export const leads = pgTable("leads", {
   name: text("name").notNull(),
   email: text("email").notNull(),
   phone: text("phone").notNull(),
+  // Address fields for precise property location
+  calle: text("calle"), // Street name
+  numero: text("numero"), // Property number
+  comuna: text("comuna"), // Municipality
   helpType: text("help_type"),
   timeline: text("timeline"),
   message: text("message"),
@@ -488,6 +492,9 @@ export const insertLeadSchema = createInsertSchema(leads).omit({
 });
 
 export const insertCalculatorLeadSchema = insertLeadSchema.extend({
+  calle: z.string().min(3, "Ingresa el nombre de la calle"),
+  numero: z.string().min(1, "Ingresa el número de la propiedad"),
+  comuna: z.string().min(1, "Selecciona la comuna"),
   projectType: z.string().min(1, "Tipo de proyecto es requerido"),
   budget: z.string().min(1, "Presupuesto es requerido"),
   source: z.literal("calculadora-costos"),
