@@ -15,6 +15,7 @@ import InspeccionTecnicaViviendas from "@/pages/inspeccion-tecnica-viviendas";
 import TasacionViviendasUrbanas from "@/pages/tasacion-viviendas-urbanas";
 import SubdivisionTerrenosUrbanos from "@/pages/subdivision-terrenos-urbanos";
 import ReacondicionamientoTermicoViviendas from "@/pages/reacondicionamiento-termico-viviendas";
+import CalculadoraCostos from "@/pages/calculadora-costos";
 import AvisoLegal from "@/pages/aviso-legal";
 import PoliticaPrivacidad from "@/pages/politica-privacidad";
 import PoliticaCookies from "@/pages/politica-cookies";
@@ -36,6 +37,7 @@ function Router() {
       <Route path="/tasacion-viviendas-urbanas" component={TasacionViviendasUrbanas} />
       <Route path="/subdivision-terrenos-urbanos" component={SubdivisionTerrenosUrbanos} />
       <Route path="/reacondicionamiento-termico-viviendas" component={ReacondicionamientoTermicoViviendas} />
+      <Route path="/calculadora-costos" component={CalculadoraCostos} />
       <Route path="/aviso-legal" component={AvisoLegal} />
       <Route path="/politica-privacidad" component={PoliticaPrivacidad} />
       <Route path="/politica-cookies" component={PoliticaCookies} />

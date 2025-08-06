@@ -14,11 +14,14 @@ export const leads = pgTable("leads", {
   name: text("name").notNull(),
   email: text("email").notNull(),
   phone: text("phone").notNull(),
-  helpType: text("help_type").notNull(),
-  timeline: text("timeline").notNull(),
-  message: text("message").notNull(),
+  helpType: text("help_type"),
+  timeline: text("timeline"),
+  message: text("message"),
   source: text("source").notNull().default("contact_form"),
   status: text("status").notNull().default("new"),
+  // Calculator-specific fields
+  projectType: text("project_type"),
+  budget: text("budget"),
   // Advanced lead qualification fields
   leadScore: integer("lead_score").default(0),
   customerStage: text("customer_stage").default("awareness"), // awareness, consideration, decision
@@ -396,6 +399,12 @@ export const insertLeadSchema = createInsertSchema(leads).omit({
   createdAt: true,
 });
 
+export const insertCalculatorLeadSchema = insertLeadSchema.extend({
+  projectType: z.string().min(1, "Tipo de proyecto es requerido"),
+  budget: z.string().min(1, "Presupuesto es requerido"),
+  source: z.literal("calculadora-costos"),
+}).omit({ helpType: true, timeline: true, message: true });
+
 export const insertCalculatorResultSchema = createInsertSchema(calculatorResults).omit({
   id: true,
   createdAt: true,
@@ -461,6 +470,7 @@ export type User = typeof users.$inferSelect;
 export type InsertUser = z.infer<typeof insertUserSchema>;
 export type Lead = typeof leads.$inferSelect;
 export type InsertLead = z.infer<typeof insertLeadSchema>;
+export type InsertCalculatorLead = z.infer<typeof insertCalculatorLeadSchema>;
 export type CalculatorResult = typeof calculatorResults.$inferSelect;
 export type InsertCalculatorResult = z.infer<typeof insertCalculatorResultSchema>;
 export type Project = typeof projects.$inferSelect;

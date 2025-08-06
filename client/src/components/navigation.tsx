@@ -237,7 +237,7 @@ export default function Navigation() {
                 Ebook Gratis
               </button>
               <button 
-                onClick={() => handleNavigation('calculadoras')}
+                onClick={() => navigateToService('/calculadora-costos')}
                 className="text-dark hover:text-primary transition-colors text-sm font-medium"
               >
                 Calculadoras

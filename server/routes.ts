@@ -1,7 +1,7 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { insertLeadSchema, insertCalculatorResultSchema, insertBudgetTemplateSchema, insertGeneratedQuoteSchema } from "@shared/schema";
+import { insertLeadSchema, insertCalculatorLeadSchema, insertCalculatorResultSchema, insertBudgetTemplateSchema, insertGeneratedQuoteSchema } from "@shared/schema";
 import { z } from "zod";
 import { setupIntegrationRoutes } from "./integrations/routes";
 // Enhanced analytics will be loaded separately to avoid circular imports
@@ -47,6 +47,39 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.json({ success: true, lead });
     } catch (error) {
       res.status(500).json({ error: "Failed to update lead status" });
+    }
+  });
+
+  // Create calculator lead (captures lead from cost calculator)
+  app.post("/api/leads/calculator", async (req, res) => {
+    try {
+      const leadData = insertCalculatorLeadSchema.parse(req.body);
+      
+      // Calculate lead score based on project type and budget
+      let leadScore = 50; // Base score
+      if (leadData.budget && leadData.budget !== "menos-50mil") leadScore += 30;
+      if (leadData.projectType === "ampliacion" || leadData.projectType === "casa-nueva") leadScore += 20;
+      
+      const enrichedLeadData = {
+        ...leadData,
+        leadScore,
+        customerStage: "consideration" as const,
+      };
+
+      const lead = await storage.createLead(enrichedLeadData);
+      
+      res.json({ 
+        success: true, 
+        lead, 
+        message: "¡Gracias! Te contactaremos pronto con tu presupuesto personalizado." 
+      });
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        res.status(400).json({ error: "Invalid input", details: error.errors });
+      } else {
+        console.error("Calculator lead creation error:", error);
+        res.status(500).json({ error: "Internal server error" });
+      }
     }
   });
 
