@@ -287,7 +287,7 @@ export default function Navigation() {
             <span className="text-xs font-medium text-gray-600">Acceso:</span>
             <a
               href="/crm-admin-dashboard"
-              className="bg-primary text-white px-3 py-1.5 rounded-md hover:bg-blue-700 transition-all duration-300 font-medium text-xs shadow-md hover:shadow-lg"
+              className="bg-gray-400 text-white px-3 py-1.5 rounded-md hover:bg-gray-600 transition-all duration-300 font-medium text-xs shadow-md hover:shadow-lg"
             >
               📊 CRM Admin
             </a>
@@ -423,7 +423,7 @@ export default function Navigation() {
               <div className="text-center text-xs font-medium text-gray-600 mb-2">Acceso:</div>
               <a
                 href="/crm-admin-dashboard"
-                className="block w-full bg-primary text-white px-3 py-2 rounded-md hover:bg-blue-700 transition-all duration-300 font-medium text-center text-xs shadow-md hover:shadow-lg"
+                className="block w-full bg-gray-400 text-white px-3 py-2 rounded-md hover:bg-gray-600 transition-all duration-300 font-medium text-center text-xs shadow-md hover:shadow-lg"
               >
                 📊 CRM Admin
               </a>
