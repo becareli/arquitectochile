@@ -16,6 +16,7 @@ import {
 import { z } from "zod";
 import { setupIntegrationRoutes } from "./integrations/routes";
 import { ObjectStorageService, ObjectNotFoundError } from "./objectStorage";
+import { setupAuth, isAuthenticated, isCrmAdmin } from "./replitAuth";
 // Enhanced analytics will be loaded separately to avoid circular imports
 
 // Webhook schema for AI agent integration
@@ -27,6 +28,21 @@ const webhookSchema = z.object({
 });
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Auth middleware
+  await setupAuth(app);
+
+  // Auth routes
+  app.get('/api/auth/user', isAuthenticated, async (req: any, res) => {
+    try {
+      const userId = req.user.claims.sub;
+      const user = await storage.getUser(userId);
+      res.json(user);
+    } catch (error) {
+      console.error("Error fetching user:", error);
+      res.status(500).json({ message: "Failed to fetch user" });
+    }
+  });
+
   // Object Storage endpoints
   app.post("/api/objects/upload", async (req, res) => {
     try {
@@ -447,10 +463,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
     });
   });
 
-  // ========== CRM ROUTES ==========
+  // ========== CRM ROUTES (PROTECTED) ==========
   
   // CRM Customers
-  app.get("/api/crm/customers", async (req, res) => {
+  app.get("/api/crm/customers", isCrmAdmin, async (req, res) => {
     try {
       const customers = await storage.getCrmCustomers();
       res.json(customers);
@@ -459,7 +475,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.post("/api/crm/customers", async (req, res) => {
+  app.post("/api/crm/customers", isCrmAdmin, async (req, res) => {
     try {
       const customerData = insertCrmCustomerSchema.parse(req.body);
       
@@ -480,7 +496,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.get("/api/crm/customers/:id", async (req, res) => {
+  app.get("/api/crm/customers/:id", isCrmAdmin, async (req, res) => {
     try {
       const customer = await storage.getCrmCustomer(parseInt(req.params.id));
       res.json(customer);
@@ -489,7 +505,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.patch("/api/crm/customers/:id", async (req, res) => {
+  app.patch("/api/crm/customers/:id", isCrmAdmin, async (req, res) => {
     try {
       const customer = await storage.updateCrmCustomer(parseInt(req.params.id), req.body);
       res.json({ success: true, customer });
@@ -499,7 +515,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Convert lead to customer
-  app.post("/api/crm/customers/convert/:leadId", async (req, res) => {
+  app.post("/api/crm/customers/convert/:leadId", isCrmAdmin, async (req, res) => {
     try {
       const leadId = parseInt(req.params.leadId);
       const lead = await storage.getLead(leadId);
@@ -534,7 +550,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // CRM Projects
-  app.get("/api/crm/projects", async (req, res) => {
+  app.get("/api/crm/projects", isCrmAdmin, async (req, res) => {
     try {
       const projects = await storage.getCrmProjects();
       res.json(projects);
@@ -543,7 +559,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.post("/api/crm/projects", async (req, res) => {
+  app.post("/api/crm/projects", isCrmAdmin, async (req, res) => {
     try {
       const projectData = insertCrmProjectSchema.parse(req.body);
       
@@ -561,7 +577,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.get("/api/crm/projects/:id", async (req, res) => {
+  app.get("/api/crm/projects/:id", isCrmAdmin, async (req, res) => {
     try {
       const project = await storage.getCrmProject(parseInt(req.params.id));
       res.json(project);
@@ -570,7 +586,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.patch("/api/crm/projects/:id", async (req, res) => {
+  app.patch("/api/crm/projects/:id", isCrmAdmin, async (req, res) => {
     try {
       const project = await storage.updateCrmProject(parseInt(req.params.id), req.body);
       res.json({ success: true, project });
@@ -580,7 +596,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // CRM Interactions
-  app.get("/api/crm/interactions", async (req, res) => {
+  app.get("/api/crm/interactions", isCrmAdmin, async (req, res) => {
     try {
       const { customerId, projectId } = req.query;
       const interactions = await storage.getCrmInteractions({
@@ -593,7 +609,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.post("/api/crm/interactions", async (req, res) => {
+  app.post("/api/crm/interactions", isCrmAdmin, async (req, res) => {
     try {
       const interactionData = insertCrmInteractionSchema.parse(req.body);
       const interaction = await storage.createCrmInteraction(interactionData);
@@ -608,7 +624,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // CRM Documents
-  app.get("/api/crm/documents", async (req, res) => {
+  app.get("/api/crm/documents", isCrmAdmin, async (req, res) => {
     try {
       const { customerId, projectId } = req.query;
       const documents = await storage.getCrmDocuments({
@@ -621,7 +637,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.post("/api/crm/documents", async (req, res) => {
+  app.post("/api/crm/documents", isCrmAdmin, async (req, res) => {
     try {
       const documentData = insertCrmDocumentSchema.parse(req.body);
       const document = await storage.createCrmDocument(documentData);
@@ -636,7 +652,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // CRM Tasks
-  app.get("/api/crm/tasks", async (req, res) => {
+  app.get("/api/crm/tasks", isCrmAdmin, async (req, res) => {
     try {
       const { assignedTo, status } = req.query;
       const tasks = await storage.getCrmTasks({
@@ -649,7 +665,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.post("/api/crm/tasks", async (req, res) => {
+  app.post("/api/crm/tasks", isCrmAdmin, async (req, res) => {
     try {
       const taskData = insertCrmTaskSchema.parse(req.body);
       const task = await storage.createCrmTask(taskData);
@@ -663,7 +679,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.patch("/api/crm/tasks/:id", async (req, res) => {
+  app.patch("/api/crm/tasks/:id", isCrmAdmin, async (req, res) => {
     try {
       const task = await storage.updateCrmTask(parseInt(req.params.id), req.body);
       res.json({ success: true, task });
@@ -673,7 +689,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // CRM Reports and Analytics
-  app.get("/api/crm/reports/dashboard", async (req, res) => {
+  app.get("/api/crm/reports/dashboard", isCrmAdmin, async (req, res) => {
     try {
       const dashboardData = await storage.getCrmDashboardData();
       res.json(dashboardData);
@@ -682,7 +698,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.get("/api/crm/reports/conversion", async (req, res) => {
+  app.get("/api/crm/reports/conversion", isCrmAdmin, async (req, res) => {
     try {
       const { period = 'monthly' } = req.query;
       const conversionData = await storage.getCrmConversionReport(period as string);
@@ -692,7 +708,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.get("/api/crm/reports/projects", async (req, res) => {
+  app.get("/api/crm/reports/projects", isCrmAdmin, async (req, res) => {
     try {
       const { period = 'monthly' } = req.query;
       const projectsData = await storage.getCrmProjectsReport(period as string);

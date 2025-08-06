@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -31,9 +31,13 @@ import {
   Settings,
   Home,
   Building,
-  MapPin
+  MapPin,
+  LogOut
 } from "lucide-react";
 import { Link } from "wouter";
+import { useAuth } from "@/hooks/useAuth";
+import { useToast } from "@/hooks/use-toast";
+import { isUnauthorizedError } from "@/lib/authUtils";
 import KpiDashboard from "@/components/crm/KpiDashboard";
 
 interface DashboardData {
@@ -83,19 +87,80 @@ interface Project {
 export default function CRMAdminDashboard() {
   const [searchTerm, setSearchTerm] = useState("");
   const [activeTab, setActiveTab] = useState("overview");
+  const { toast } = useToast();
+  const { isAuthenticated, isLoading, user } = useAuth();
 
-  // Queries para datos del CRM
+  // Redirect to login if not authenticated
+  useEffect(() => {
+    if (!isLoading && !isAuthenticated) {
+      toast({
+        title: "Acceso requerido",
+        description: "Debe iniciar sesión para acceder al CRM. Redirigiendo...",
+        variant: "destructive",
+      });
+      setTimeout(() => {
+        window.location.href = "/api/login";
+      }, 1500);
+      return;
+    }
+  }, [isAuthenticated, isLoading, toast]);
+
+  // Queries para datos del CRM con manejo de errores de autenticación
   const { data: dashboardData } = useQuery<DashboardData>({
     queryKey: ['/api/crm/reports/dashboard'],
+    enabled: isAuthenticated,
+    retry: (failureCount, error) => {
+      if (isUnauthorizedError(error as Error)) {
+        toast({
+          title: "Sesión expirada",
+          description: "Su sesión ha expirado. Redirigiendo al login...",
+          variant: "destructive",
+        });
+        setTimeout(() => {
+          window.location.href = "/api/login";
+        }, 1500);
+        return false;
+      }
+      return failureCount < 3;
+    }
   });
 
   const { data: customers = [] } = useQuery<Customer[]>({
     queryKey: ['/api/crm/customers'],
+    enabled: isAuthenticated,
+    retry: (failureCount, error) => {
+      if (isUnauthorizedError(error as Error)) return false;
+      return failureCount < 3;
+    }
   });
 
   const { data: projects = [] } = useQuery<Project[]>({
     queryKey: ['/api/crm/projects'],
+    enabled: isAuthenticated,
+    retry: (failureCount, error) => {
+      if (isUnauthorizedError(error as Error)) return false;
+      return failureCount < 3;
+    }
   });
+
+  // Mostrar loading mientras se verifica autenticación
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
+        <Card className="w-96">
+          <CardContent className="p-8 text-center">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900 mx-auto mb-4"></div>
+            <p className="text-gray-600">Verificando acceso...</p>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
+
+  // No mostrar nada si no está autenticado (se redirige)
+  if (!isAuthenticated) {
+    return null;
+  }
 
   // Filtros y cálculos
   const filteredCustomers = customers.filter(customer =>
@@ -175,6 +240,32 @@ export default function CRMAdminDashboard() {
                 <Plus className="w-4 h-4 mr-2" />
                 Nuevo Cliente
               </Button>
+              {user && (
+                <div className="flex items-center space-x-3 pl-4 border-l border-gray-200 dark:border-gray-700">
+                  <div className="flex items-center space-x-2">
+                    <Avatar className="h-8 w-8">
+                      <AvatarImage src={user.profileImageUrl || undefined} />
+                      <AvatarFallback>
+                        {user.firstName?.charAt(0) || user.email?.charAt(0) || 'A'}
+                      </AvatarFallback>
+                    </Avatar>
+                    <div className="text-sm">
+                      <p className="font-medium text-gray-900 dark:text-white">
+                        {user.firstName ? `${user.firstName} ${user.lastName || ''}`.trim() : user.email}
+                      </p>
+                      <p className="text-gray-500 dark:text-gray-400">Administrador</p>
+                    </div>
+                  </div>
+                  <Button 
+                    variant="outline" 
+                    size="sm"
+                    onClick={() => window.location.href = "/api/logout"}
+                  >
+                    <LogOut className="w-4 h-4 mr-2" />
+                    Salir
+                  </Button>
+                </div>
+              )}
             </div>
           </div>
         </div>
