@@ -34,6 +34,7 @@ export const leads = pgTable("leads", {
   meetingLink: text("meeting_link"), // Google Meet link from TidyCal
   lastActivity: timestamp("last_activity").defaultNow(),
   conversionData: json("conversion_data"), // Tracks funnel progression
+  attachments: json("attachments"), // Array of uploaded file URLs
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 

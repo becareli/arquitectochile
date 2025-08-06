@@ -15,6 +15,7 @@ import {
 } from "@shared/schema";
 import { z } from "zod";
 import { setupIntegrationRoutes } from "./integrations/routes";
+import { ObjectStorageService, ObjectNotFoundError } from "./objectStorage";
 // Enhanced analytics will be loaded separately to avoid circular imports
 
 // Webhook schema for AI agent integration
@@ -26,6 +27,32 @@ const webhookSchema = z.object({
 });
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Object Storage endpoints
+  app.post("/api/objects/upload", async (req, res) => {
+    try {
+      const objectStorageService = new ObjectStorageService();
+      const uploadURL = await objectStorageService.getObjectEntityUploadURL();
+      res.json({ uploadURL });
+    } catch (error) {
+      console.error("Error getting upload URL:", error);
+      res.status(500).json({ error: "Failed to get upload URL" });
+    }
+  });
+
+  app.get("/objects/:objectPath(*)", async (req, res) => {
+    try {
+      const objectStorageService = new ObjectStorageService();
+      const objectFile = await objectStorageService.getObjectEntityFile(req.path);
+      objectStorageService.downloadObject(objectFile, res);
+    } catch (error) {
+      console.error("Error downloading object:", error);
+      if (error instanceof ObjectNotFoundError) {
+        return res.sendStatus(404);
+      }
+      return res.sendStatus(500);
+    }
+  });
+
   // Lead creation endpoint
   app.post("/api/leads", async (req, res) => {
     try {
@@ -523,10 +550,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Generate unique project number
       const projectNumber = `PR-${Date.now().toString().slice(-6)}`;
       
-      const project = await storage.createCrmProject({
-        ...projectData,
-        projectNumber
-      });
+      const project = await storage.createCrmProject(projectData);
       res.json({ success: true, project });
     } catch (error) {
       if (error instanceof z.ZodError) {

@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Upload, FileText, AlertCircle } from "lucide-react";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 
@@ -21,8 +23,92 @@ export default function Contact() {
     message: ""
   });
   
+  const [uploadedFiles, setUploadedFiles] = useState<string[]>([]);
+  const [isUploading, setIsUploading] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [antiSpamVerified, setAntiSpamVerified] = useState(false);
+  const [mathCaptcha, setMathCaptcha] = useState({ question: "", answer: 0 });
+  const [userAnswer, setUserAnswer] = useState("");
+  
   const { toast } = useToast();
+
+  // Generate math captcha
+  const generateMathCaptcha = () => {
+    const num1 = Math.floor(Math.random() * 10) + 1;
+    const num2 = Math.floor(Math.random() * 10) + 1;
+    const answer = num1 + num2;
+    setMathCaptcha({ question: `¿Cuánto es ${num1} + ${num2}?`, answer });
+  };
+
+  // Initialize captcha on component mount
+  useEffect(() => {
+    generateMathCaptcha();
+  }, []);
+
+  // Handle file upload
+  const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files;
+    if (!files || files.length === 0) return;
+
+    setIsUploading(true);
+    const newUploadedFiles: string[] = [];
+
+    try {
+      for (const file of Array.from(files)) {
+        // Validate file type (PDFs, images, docs)
+        const allowedTypes = ['application/pdf', 'image/jpeg', 'image/png', 'image/webp', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+        if (!allowedTypes.includes(file.type)) {
+          toast({
+            title: "Tipo de archivo no válido",
+            description: "Solo se permiten archivos PDF, imágenes (JPG, PNG, WEBP) y documentos de Word",
+            variant: "destructive"
+          });
+          continue;
+        }
+
+        // Validate file size (max 10MB)
+        if (file.size > 10 * 1024 * 1024) {
+          toast({
+            title: "Archivo muy grande",
+            description: `${file.name} es muy grande. Máximo 10MB por archivo.`,
+            variant: "destructive"
+          });
+          continue;
+        }
+
+        // Get upload URL from server
+        const uploadResponse = await apiRequest("POST", "/api/objects/upload", {});
+        const { uploadURL } = uploadResponse;
+
+        // Upload file to object storage
+        const uploadResult = await fetch(uploadURL, {
+          method: 'PUT',
+          body: file,
+          headers: {
+            'Content-Type': file.type,
+          },
+        });
+
+        if (uploadResult.ok) {
+          newUploadedFiles.push(uploadURL.split('?')[0]); // Remove query params
+          toast({
+            title: "Archivo subido",
+            description: `${file.name} se subió correctamente`,
+          });
+        }
+      }
+
+      setUploadedFiles(prev => [...prev, ...newUploadedFiles]);
+    } catch (error) {
+      toast({
+        title: "Error al subir archivo",
+        description: "Hubo un problema al subir los archivos. Intenta de nuevo.",
+        variant: "destructive"
+      });
+    } finally {
+      setIsUploading(false);
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -36,13 +122,34 @@ export default function Contact() {
       return;
     }
 
+    // Validate math captcha
+    if (parseInt(userAnswer) !== mathCaptcha.answer) {
+      toast({
+        title: "Error de verificación",
+        description: "La respuesta al captcha matemático es incorrecta",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    // Validate anti-spam checkbox
+    if (!antiSpamVerified) {
+      toast({
+        title: "Error de verificación",
+        description: "Por favor confirma que no eres un robot",
+        variant: "destructive"
+      });
+      return;
+    }
+
     setIsSubmitting(true);
     
     try {
       await apiRequest("POST", "/api/leads", {
         ...formData,
         source: "contact_form",
-        status: "new"
+        status: "new",
+        attachments: uploadedFiles
       });
 
       toast({
@@ -260,6 +367,113 @@ export default function Contact() {
                   value={formData.message}
                   onChange={(e) => setFormData({...formData, message: e.target.value})}
                 />
+              </div>
+
+              {/* File Upload Section */}
+              <div className="space-y-4">
+                <h4 className="text-lg font-semibold text-gray-900 border-b pb-2">Documentos de Apoyo (Opcional)</h4>
+                <p className="text-sm text-gray-600">
+                  Puedes subir documentos como: Certificado de Informes Previos, planos existentes, fotografías del terreno, etc.
+                </p>
+                
+                <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
+                  <Upload className="mx-auto h-12 w-12 text-gray-400 mb-3" />
+                  <Label htmlFor="file-upload" className="cursor-pointer">
+                    <span className="mt-2 block text-sm font-medium text-gray-900">
+                      Haz clic para subir archivos
+                    </span>
+                    <span className="mt-1 block text-xs text-gray-500">
+                      PDF, JPG, PNG, WEBP, DOC, DOCX hasta 10MB
+                    </span>
+                  </Label>
+                  <Input
+                    id="file-upload"
+                    type="file"
+                    multiple
+                    accept=".pdf,.jpg,.jpeg,.png,.webp,.doc,.docx"
+                    onChange={handleFileUpload}
+                    className="hidden"
+                    disabled={isUploading}
+                  />
+                </div>
+
+                {uploadedFiles.length > 0 && (
+                  <div className="space-y-2">
+                    <Label className="text-sm font-medium">Archivos subidos:</Label>
+                    {uploadedFiles.map((file, index) => (
+                      <div key={index} className="flex items-center gap-2 text-sm bg-green-50 p-2 rounded">
+                        <FileText className="h-4 w-4 text-green-600" />
+                        <span className="text-green-700">Archivo {index + 1} subido correctamente</span>
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => setUploadedFiles(prev => prev.filter((_, i) => i !== index))}
+                          className="ml-auto h-6 w-6 p-0 text-red-500 hover:text-red-700"
+                        >
+                          ×
+                        </Button>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {isUploading && (
+                  <div className="text-center">
+                    <div className="inline-flex items-center gap-2 text-blue-600">
+                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-600"></div>
+                      <span className="text-sm">Subiendo archivo...</span>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* Anti-Spam Section */}
+              <div className="space-y-4 border-t pt-4">
+                <h4 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
+                  <AlertCircle className="h-5 w-5 text-orange-500" />
+                  Verificación Anti-Spam
+                </h4>
+                
+                {/* Math Captcha */}
+                <div className="bg-gray-50 p-4 rounded-lg">
+                  <Label htmlFor="math-captcha" className="text-sm font-medium">
+                    {mathCaptcha.question} *
+                  </Label>
+                  <Input
+                    id="math-captcha"
+                    type="number"
+                    required
+                    placeholder="Ingresa tu respuesta"
+                    value={userAnswer}
+                    onChange={(e) => setUserAnswer(e.target.value)}
+                    className="mt-2 w-32"
+                  />
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    onClick={generateMathCaptcha}
+                    className="ml-3 mt-2"
+                  >
+                    Nueva pregunta
+                  </Button>
+                </div>
+
+                {/* Human Verification Checkbox */}
+                <div className="flex items-center space-x-2">
+                  <Checkbox
+                    id="anti-spam"
+                    checked={antiSpamVerified}
+                    onCheckedChange={(checked) => setAntiSpamVerified(checked as boolean)}
+                  />
+                  <Label
+                    htmlFor="anti-spam"
+                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                  >
+                    Confirmo que soy una persona real y no un robot *
+                  </Label>
+                </div>
               </div>
               
               <div className="flex flex-col sm:flex-row gap-4">
