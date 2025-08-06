@@ -296,6 +296,244 @@ export const collaboratorPayments = pgTable("collaborator_payments", {
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
+// ========== CRM SYSTEM TABLES ==========
+
+// CRM Customers (evolución de leads convertidos)
+export const crmCustomers = pgTable("crm_customers", {
+  id: serial("id").primaryKey(),
+  leadId: integer("lead_id").references(() => leads.id), // Referencia al lead original
+  customerNumber: text("customer_number").notNull().unique(), // Número de cliente único
+  name: text("name").notNull(),
+  email: text("email").notNull(),
+  phone: text("phone").notNull(),
+  address: text("address"),
+  city: text("city"),
+  region: text("region"),
+  rut: text("rut"), // RUT chileno
+  customerType: text("customer_type").notNull().default("particular"), // particular, empresa
+  businessName: text("business_name"), // Razón social si es empresa
+  businessRut: text("business_rut"), // RUT empresa
+  salesExecutive: text("sales_executive").notNull(), // Ejecutivo asignado
+  customerValue: text("customer_value").notNull().default("standard"), // standard, premium, vip
+  loyaltyLevel: integer("loyalty_level").default(1), // 1-5 nivel de lealtad
+  lastContactDate: timestamp("last_contact_date"),
+  nextFollowUpDate: timestamp("next_follow_up_date"),
+  preferredContactMethod: text("preferred_contact_method").default("email"), // email, phone, whatsapp
+  status: text("status").notNull().default("active"), // active, inactive, suspended
+  notes: text("notes"),
+  tags: text("tags").array(), // Tags personalizables
+  referralSource: text("referral_source"), // De dónde viene el cliente
+  totalProjectsValue: decimal("total_projects_value", { precision: 12, scale: 2 }).default("0.00"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
+// CRM Projects (gestión completa del ciclo de proyecto)
+export const crmProjects = pgTable("crm_projects", {
+  id: serial("id").primaryKey(),
+  customerId: integer("customer_id").references(() => crmCustomers.id).notNull(),
+  projectNumber: text("project_number").notNull().unique(), // Número de proyecto único
+  name: text("name").notNull(),
+  description: text("description"),
+  projectType: text("project_type").notNull(), // ampliacion, remodelacion, casa_nueva, permiso, etc.
+  serviceType: text("service_type").notNull(), // diseno_conceptual, anteproyecto, proyecto_arquitectura, permisos, construccion
+  
+  // Etapas del proyecto
+  currentStage: text("current_stage").notNull().default("design_conceptual"), 
+  // Etapas: design_conceptual, anteproyecto, proyecto_arquitectura, permisos, construccion, post_venta
+  
+  stageProgress: json("stage_progress"), // Progreso detallado por etapa
+  
+  // Información financiera
+  budgetEstimated: decimal("budget_estimated", { precision: 12, scale: 2 }),
+  budgetApproved: decimal("budget_approved", { precision: 12, scale: 2 }),
+  totalPaid: decimal("total_paid", { precision: 12, scale: 2 }).default("0.00"),
+  
+  // Fechas y plazos
+  startDate: timestamp("start_date"),
+  estimatedEndDate: timestamp("estimated_end_date"),
+  actualEndDate: timestamp("actual_end_date"),
+  
+  // Ubicación del proyecto
+  projectAddress: text("project_address"),
+  city: text("city"),
+  region: text("region"),
+  
+  // Equipo asignado
+  projectManager: text("project_manager").notNull(),
+  architect: text("architect"),
+  engineer: text("engineer"),
+  constructor: text("constructor"),
+  
+  // Estado y prioridad
+  status: text("status").notNull().default("planning"), // planning, active, on_hold, completed, cancelled
+  priority: text("priority").notNull().default("medium"), // low, medium, high, urgent
+  
+  // Hitos importantes
+  milestones: json("milestones"), // Array de hitos con fechas
+  
+  // Documentos y archivos
+  documentsFolder: text("documents_folder"), // Ruta a carpeta de documentos
+  
+  // Notas y observaciones
+  notes: text("notes"),
+  internalNotes: text("internal_notes"), // Notas internas del equipo
+  
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
+// CRM Interactions (registro completo de interacciones)
+export const crmInteractions = pgTable("crm_interactions", {
+  id: serial("id").primaryKey(),
+  customerId: integer("customer_id").references(() => crmCustomers.id),
+  projectId: integer("project_id").references(() => crmProjects.id),
+  leadId: integer("lead_id").references(() => leads.id), // Para interacciones pre-conversión
+  
+  // Tipo y canal de interacción
+  interactionType: text("interaction_type").notNull(), // call, email, meeting, whatsapp, video_call
+  direction: text("direction").notNull(), // inbound, outbound
+  channel: text("channel").notNull(), // phone, email, whatsapp, in_person, video
+  
+  // Contenido de la interacción
+  subject: text("subject").notNull(),
+  description: text("description").notNull(),
+  outcome: text("outcome"), // Resultado de la interacción
+  nextAction: text("next_action"), // Siguiente acción requerida
+  
+  // Participantes
+  contactedBy: text("contacted_by").notNull(), // Quién realizó la interacción
+  attendees: text("attendees").array(), // Otros participantes
+  
+  // Datos específicos por tipo
+  callDuration: integer("call_duration"), // Duración en minutos
+  emailSubject: text("email_subject"),
+  meetingLocation: text("meeting_location"),
+  
+  // Seguimiento
+  followUpRequired: boolean("follow_up_required").default(false),
+  followUpDate: timestamp("follow_up_date"),
+  completed: boolean("completed").default(true),
+  
+  // Categorización
+  category: text("category"), // sales, support, technical, admin
+  priority: text("priority").default("medium"), // low, medium, high
+  tags: text("tags").array(),
+  
+  // Archivos adjuntos
+  attachments: json("attachments"), // URLs de archivos adjuntos
+  
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
+// CRM Documents (gestión centralizada de documentos)
+export const crmDocuments = pgTable("crm_documents", {
+  id: serial("id").primaryKey(),
+  customerId: integer("customer_id").references(() => crmCustomers.id),
+  projectId: integer("project_id").references(() => crmProjects.id),
+  
+  // Información del documento
+  fileName: text("file_name").notNull(),
+  originalName: text("original_name").notNull(),
+  fileType: text("file_type").notNull(), // pdf, dwg, jpg, docx, etc.
+  fileSize: integer("file_size"), // Tamaño en bytes
+  filePath: text("file_path").notNull(), // Ruta en el sistema de archivos
+  
+  // Categorización
+  category: text("category").notNull(), // planos, contratos, permisos, facturas, fotos, especificaciones
+  subCategory: text("sub_category"), // subcategorías específicas
+  stage: text("stage"), // Etapa del proyecto asociada
+  
+  // Metadatos
+  description: text("description"),
+  version: text("version").default("1.0"),
+  status: text("status").default("active"), // active, archived, deleted
+  
+  // Control de acceso
+  uploadedBy: text("uploaded_by").notNull(),
+  isPublic: boolean("is_public").default(false), // Visible para el cliente
+  requiresApproval: boolean("requires_approval").default(false),
+  approved: boolean("approved").default(true),
+  approvedBy: text("approved_by"),
+  approvedDate: timestamp("approved_date"),
+  
+  // Fechas importantes
+  documentDate: timestamp("document_date"), // Fecha del documento
+  expirationDate: timestamp("expiration_date"), // Para documentos que expiran
+  
+  tags: text("tags").array(),
+  
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
+// CRM Reports Data (datos para reportes y métricas)
+export const crmReportsData = pgTable("crm_reports_data", {
+  id: serial("id").primaryKey(),
+  reportType: text("report_type").notNull(), // sales, projects, interactions, conversion
+  periodType: text("period_type").notNull(), // daily, weekly, monthly, quarterly, yearly
+  periodDate: timestamp("period_date").notNull(), // Fecha del período
+  
+  // Métricas de ventas
+  totalLeads: integer("total_leads").default(0),
+  convertedLeads: integer("converted_leads").default(0),
+  conversionRate: decimal("conversion_rate", { precision: 5, scale: 2 }).default("0.00"),
+  totalRevenue: decimal("total_revenue", { precision: 12, scale: 2 }).default("0.00"),
+  averageProjectValue: decimal("average_project_value", { precision: 10, scale: 2 }).default("0.00"),
+  
+  // Métricas de proyectos
+  activeProjects: integer("active_projects").default(0),
+  completedProjects: integer("completed_projects").default(0),
+  onTimeCompletion: decimal("on_time_completion", { precision: 5, scale: 2 }).default("0.00"),
+  averageProjectDuration: integer("average_project_duration").default(0), // días
+  
+  // Métricas de interacciones
+  totalInteractions: integer("total_interactions").default(0),
+  callsCount: integer("calls_count").default(0),
+  emailsCount: integer("emails_count").default(0),
+  meetingsCount: integer("meetings_count").default(0),
+  
+  // Datos adicionales en JSON
+  additionalMetrics: json("additional_metrics"),
+  
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+// CRM Tasks (gestión de tareas y seguimientos)
+export const crmTasks = pgTable("crm_tasks", {
+  id: serial("id").primaryKey(),
+  customerId: integer("customer_id").references(() => crmCustomers.id),
+  projectId: integer("project_id").references(() => crmProjects.id),
+  leadId: integer("lead_id").references(() => leads.id),
+  
+  title: text("title").notNull(),
+  description: text("description"),
+  taskType: text("task_type").notNull(), // follow_up, meeting, call, email, document_review
+  priority: text("priority").notNull().default("medium"), // low, medium, high, urgent
+  
+  // Asignación
+  assignedTo: text("assigned_to").notNull(),
+  assignedBy: text("assigned_by").notNull(),
+  
+  // Fechas
+  dueDate: timestamp("due_date").notNull(),
+  reminderDate: timestamp("reminder_date"),
+  completedDate: timestamp("completed_date"),
+  
+  // Estado
+  status: text("status").notNull().default("pending"), // pending, in_progress, completed, cancelled
+  
+  // Resultado
+  result: text("result"),
+  completedBy: text("completed_by"),
+  
+  tags: text("tags").array(),
+  
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
 // Relations
 export const leadsRelations = relations(leads, ({ many }) => ({
   calculatorResults: many(calculatorResults),
@@ -501,3 +739,116 @@ export type IntegrationEvent = typeof integrationEvents.$inferSelect;
 export type InsertIntegrationEvent = typeof integrationEvents.$inferInsert;
 export type IntegrationConfig = typeof integrationConfigs.$inferSelect;
 export type InsertIntegrationConfig = typeof integrationConfigs.$inferInsert;
+
+// ========== CRM RELATIONS ==========
+
+export const crmCustomersRelations = relations(crmCustomers, ({ one, many }) => ({
+  lead: one(leads, {
+    fields: [crmCustomers.leadId],
+    references: [leads.id],
+  }),
+  projects: many(crmProjects),
+  interactions: many(crmInteractions),
+  documents: many(crmDocuments),
+  tasks: many(crmTasks),
+}));
+
+export const crmProjectsRelations = relations(crmProjects, ({ one, many }) => ({
+  customer: one(crmCustomers, {
+    fields: [crmProjects.customerId],
+    references: [crmCustomers.id],
+  }),
+  interactions: many(crmInteractions),
+  documents: many(crmDocuments),
+  tasks: many(crmTasks),
+}));
+
+export const crmInteractionsRelations = relations(crmInteractions, ({ one }) => ({
+  customer: one(crmCustomers, {
+    fields: [crmInteractions.customerId],
+    references: [crmCustomers.id],
+  }),
+  project: one(crmProjects, {
+    fields: [crmInteractions.projectId],
+    references: [crmProjects.id],
+  }),
+  lead: one(leads, {
+    fields: [crmInteractions.leadId],
+    references: [leads.id],
+  }),
+}));
+
+export const crmDocumentsRelations = relations(crmDocuments, ({ one }) => ({
+  customer: one(crmCustomers, {
+    fields: [crmDocuments.customerId],
+    references: [crmCustomers.id],
+  }),
+  project: one(crmProjects, {
+    fields: [crmDocuments.projectId],
+    references: [crmProjects.id],
+  }),
+}));
+
+export const crmTasksRelations = relations(crmTasks, ({ one }) => ({
+  customer: one(crmCustomers, {
+    fields: [crmTasks.customerId],
+    references: [crmCustomers.id],
+  }),
+  project: one(crmProjects, {
+    fields: [crmTasks.projectId],
+    references: [crmProjects.id],
+  }),
+  lead: one(leads, {
+    fields: [crmTasks.leadId],
+    references: [leads.id],
+  }),
+}));
+
+// ========== CRM SCHEMAS ==========
+
+export const insertCrmCustomerSchema = createInsertSchema(crmCustomers).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+  customerNumber: true, // Auto-generated
+  totalProjectsValue: true // Calculated
+});
+
+export const insertCrmProjectSchema = createInsertSchema(crmProjects).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+  projectNumber: true // Auto-generated
+});
+
+export const insertCrmInteractionSchema = createInsertSchema(crmInteractions).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true
+});
+
+export const insertCrmDocumentSchema = createInsertSchema(crmDocuments).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true
+});
+
+export const insertCrmTaskSchema = createInsertSchema(crmTasks).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true
+});
+
+// ========== CRM TYPES ==========
+
+export type CrmCustomer = typeof crmCustomers.$inferSelect;
+export type InsertCrmCustomer = z.infer<typeof insertCrmCustomerSchema>;
+export type CrmProject = typeof crmProjects.$inferSelect;
+export type InsertCrmProject = z.infer<typeof insertCrmProjectSchema>;
+export type CrmInteraction = typeof crmInteractions.$inferSelect;
+export type InsertCrmInteraction = z.infer<typeof insertCrmInteractionSchema>;
+export type CrmDocument = typeof crmDocuments.$inferSelect;
+export type InsertCrmDocument = z.infer<typeof insertCrmDocumentSchema>;
+export type CrmReportsData = typeof crmReportsData.$inferSelect;
+export type CrmTask = typeof crmTasks.$inferSelect;
+export type InsertCrmTask = z.infer<typeof insertCrmTaskSchema>;

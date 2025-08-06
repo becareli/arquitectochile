@@ -8,6 +8,12 @@ import {
   aiAgentEvents,
   budgetTemplates,
   generatedQuotes,
+  crmCustomers,
+  crmProjects,
+  crmInteractions,
+  crmDocuments,
+  crmTasks,
+  crmReportsData,
   type User, 
   type InsertUser, 
   type Lead, 
@@ -25,7 +31,18 @@ import {
   type BudgetTemplate,
   type InsertBudgetTemplate,
   type GeneratedQuote,
-  type InsertGeneratedQuote
+  type InsertGeneratedQuote,
+  type CrmCustomer,
+  type InsertCrmCustomer,
+  type CrmProject,
+  type InsertCrmProject,
+  type CrmInteraction,
+  type InsertCrmInteraction,
+  type CrmDocument,
+  type InsertCrmDocument,
+  type CrmTask,
+  type InsertCrmTask,
+  type CrmReportsData
 } from "@shared/schema";
 import { db } from "./db";
 import { eq, desc } from "drizzle-orm";
@@ -86,6 +103,66 @@ export interface IStorage {
   getGeneratedQuotesByLeadId(leadId: number): Promise<GeneratedQuote[]>;
   getGeneratedQuoteById(id: number): Promise<GeneratedQuote | undefined>;
   updateQuoteStatus(id: number, status: string): Promise<GeneratedQuote>;
+
+  // ========== CRM METHODS ==========
+  
+  // CRM Customers
+  createCrmCustomer(customer: Omit<InsertCrmCustomer, 'customerNumber'> & { customerNumber: string }): Promise<CrmCustomer>;
+  getCrmCustomers(): Promise<CrmCustomer[]>;
+  getCrmCustomer(id: number): Promise<CrmCustomer | undefined>;
+  updateCrmCustomer(id: number, updates: Partial<CrmCustomer>): Promise<CrmCustomer>;
+  getCrmCustomersByExecutive(executive: string): Promise<CrmCustomer[]>;
+
+  // CRM Projects
+  createCrmProject(project: Omit<InsertCrmProject, 'projectNumber'> & { projectNumber: string }): Promise<CrmProject>;
+  getCrmProjects(): Promise<CrmProject[]>;
+  getCrmProject(id: number): Promise<CrmProject | undefined>;
+  updateCrmProject(id: number, updates: Partial<CrmProject>): Promise<CrmProject>;
+  getCrmProjectsByCustomer(customerId: number): Promise<CrmProject[]>;
+  getCrmProjectsByStage(stage: string): Promise<CrmProject[]>;
+
+  // CRM Interactions
+  createCrmInteraction(interaction: InsertCrmInteraction): Promise<CrmInteraction>;
+  getCrmInteractions(filters?: { customerId?: number; projectId?: number }): Promise<CrmInteraction[]>;
+  getCrmInteractionsByCustomer(customerId: number): Promise<CrmInteraction[]>;
+  getCrmInteractionsByProject(projectId: number): Promise<CrmInteraction[]>;
+
+  // CRM Documents
+  createCrmDocument(document: InsertCrmDocument): Promise<CrmDocument>;
+  getCrmDocuments(filters?: { customerId?: number; projectId?: number }): Promise<CrmDocument[]>;
+  getCrmDocumentsByCustomer(customerId: number): Promise<CrmDocument[]>;
+  getCrmDocumentsByProject(projectId: number): Promise<CrmDocument[]>;
+
+  // CRM Tasks
+  createCrmTask(task: InsertCrmTask): Promise<CrmTask>;
+  getCrmTasks(filters?: { assignedTo?: string; status?: string }): Promise<CrmTask[]>;
+  updateCrmTask(id: number, updates: Partial<CrmTask>): Promise<CrmTask>;
+  getCrmTasksByAssignee(assignedTo: string): Promise<CrmTask[]>;
+
+  // CRM Analytics and Reports
+  getCrmDashboardData(): Promise<{
+    totalCustomers: number;
+    activeProjects: number;
+    pendingTasks: number;
+    monthlyRevenue: number;
+    conversionRate: number;
+    recentInteractions: CrmInteraction[];
+  }>;
+  getCrmConversionReport(period: string): Promise<{
+    leadsGenerated: number;
+    leadsConverted: number;
+    conversionRate: number;
+    averageConversionTime: number;
+  }>;
+  getCrmProjectsReport(period: string): Promise<{
+    totalProjects: number;
+    completedProjects: number;
+    onTimeCompletion: number;
+    averageProjectValue: number;
+  }>;
+
+  // Helper methods for CRM
+  getLead(id: number): Promise<Lead | undefined>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -286,6 +363,254 @@ export class DatabaseStorage implements IStorage {
   async updateQuoteStatus(id: number, status: string): Promise<GeneratedQuote> {
     const [updatedQuote] = await db.update(generatedQuotes).set({ status }).where(eq(generatedQuotes.id, id)).returning();
     return updatedQuote;
+  }
+
+  // ========== CRM IMPLEMENTATIONS ==========
+
+  // CRM Customers
+  async createCrmCustomer(customer: Omit<InsertCrmCustomer, 'customerNumber'> & { customerNumber: string }): Promise<CrmCustomer> {
+    const [newCustomer] = await db.insert(crmCustomers).values(customer).returning();
+    return newCustomer;
+  }
+
+  async getCrmCustomers(): Promise<CrmCustomer[]> {
+    return await db.select().from(crmCustomers).orderBy(desc(crmCustomers.createdAt));
+  }
+
+  async getCrmCustomer(id: number): Promise<CrmCustomer | undefined> {
+    const [customer] = await db.select().from(crmCustomers).where(eq(crmCustomers.id, id));
+    return customer || undefined;
+  }
+
+  async updateCrmCustomer(id: number, updates: Partial<CrmCustomer>): Promise<CrmCustomer> {
+    const [updatedCustomer] = await db.update(crmCustomers).set(updates).where(eq(crmCustomers.id, id)).returning();
+    return updatedCustomer;
+  }
+
+  async getCrmCustomersByExecutive(executive: string): Promise<CrmCustomer[]> {
+    return await db.select().from(crmCustomers).where(eq(crmCustomers.salesExecutive, executive));
+  }
+
+  // CRM Projects
+  async createCrmProject(project: Omit<InsertCrmProject, 'projectNumber'> & { projectNumber: string }): Promise<CrmProject> {
+    const [newProject] = await db.insert(crmProjects).values(project).returning();
+    return newProject;
+  }
+
+  async getCrmProjects(): Promise<CrmProject[]> {
+    return await db.select().from(crmProjects).orderBy(desc(crmProjects.createdAt));
+  }
+
+  async getCrmProject(id: number): Promise<CrmProject | undefined> {
+    const [project] = await db.select().from(crmProjects).where(eq(crmProjects.id, id));
+    return project || undefined;
+  }
+
+  async updateCrmProject(id: number, updates: Partial<CrmProject>): Promise<CrmProject> {
+    const [updatedProject] = await db.update(crmProjects).set(updates).where(eq(crmProjects.id, id)).returning();
+    return updatedProject;
+  }
+
+  async getCrmProjectsByCustomer(customerId: number): Promise<CrmProject[]> {
+    return await db.select().from(crmProjects).where(eq(crmProjects.customerId, customerId));
+  }
+
+  async getCrmProjectsByStage(stage: string): Promise<CrmProject[]> {
+    return await db.select().from(crmProjects).where(eq(crmProjects.stage, stage));
+  }
+
+  // CRM Interactions
+  async createCrmInteraction(interaction: InsertCrmInteraction): Promise<CrmInteraction> {
+    const [newInteraction] = await db.insert(crmInteractions).values(interaction).returning();
+    return newInteraction;
+  }
+
+  async getCrmInteractions(filters?: { customerId?: number; projectId?: number }): Promise<CrmInteraction[]> {
+    let query = db.select().from(crmInteractions);
+    
+    if (filters?.customerId) {
+      query = query.where(eq(crmInteractions.customerId, filters.customerId));
+    }
+    if (filters?.projectId) {
+      query = query.where(eq(crmInteractions.projectId, filters.projectId));
+    }
+    
+    return await query.orderBy(desc(crmInteractions.createdAt));
+  }
+
+  async getCrmInteractionsByCustomer(customerId: number): Promise<CrmInteraction[]> {
+    return await db.select().from(crmInteractions).where(eq(crmInteractions.customerId, customerId)).orderBy(desc(crmInteractions.createdAt));
+  }
+
+  async getCrmInteractionsByProject(projectId: number): Promise<CrmInteraction[]> {
+    return await db.select().from(crmInteractions).where(eq(crmInteractions.projectId, projectId)).orderBy(desc(crmInteractions.createdAt));
+  }
+
+  // CRM Documents
+  async createCrmDocument(document: InsertCrmDocument): Promise<CrmDocument> {
+    const [newDocument] = await db.insert(crmDocuments).values(document).returning();
+    return newDocument;
+  }
+
+  async getCrmDocuments(filters?: { customerId?: number; projectId?: number }): Promise<CrmDocument[]> {
+    let query = db.select().from(crmDocuments);
+    
+    if (filters?.customerId) {
+      query = query.where(eq(crmDocuments.customerId, filters.customerId));
+    }
+    if (filters?.projectId) {
+      query = query.where(eq(crmDocuments.projectId, filters.projectId));
+    }
+    
+    return await query.orderBy(desc(crmDocuments.createdAt));
+  }
+
+  async getCrmDocumentsByCustomer(customerId: number): Promise<CrmDocument[]> {
+    return await db.select().from(crmDocuments).where(eq(crmDocuments.customerId, customerId)).orderBy(desc(crmDocuments.createdAt));
+  }
+
+  async getCrmDocumentsByProject(projectId: number): Promise<CrmDocument[]> {
+    return await db.select().from(crmDocuments).where(eq(crmDocuments.projectId, projectId)).orderBy(desc(crmDocuments.createdAt));
+  }
+
+  // CRM Tasks
+  async createCrmTask(task: InsertCrmTask): Promise<CrmTask> {
+    const [newTask] = await db.insert(crmTasks).values(task).returning();
+    return newTask;
+  }
+
+  async getCrmTasks(filters?: { assignedTo?: string; status?: string }): Promise<CrmTask[]> {
+    let query = db.select().from(crmTasks);
+    
+    if (filters?.assignedTo) {
+      query = query.where(eq(crmTasks.assignedTo, filters.assignedTo));
+    }
+    if (filters?.status) {
+      query = query.where(eq(crmTasks.status, filters.status));
+    }
+    
+    return await query.orderBy(desc(crmTasks.createdAt));
+  }
+
+  async updateCrmTask(id: number, updates: Partial<CrmTask>): Promise<CrmTask> {
+    const [updatedTask] = await db.update(crmTasks).set(updates).where(eq(crmTasks.id, id)).returning();
+    return updatedTask;
+  }
+
+  async getCrmTasksByAssignee(assignedTo: string): Promise<CrmTask[]> {
+    return await db.select().from(crmTasks).where(eq(crmTasks.assignedTo, assignedTo)).orderBy(desc(crmTasks.createdAt));
+  }
+
+  // CRM Analytics and Reports
+  async getCrmDashboardData(): Promise<{
+    totalCustomers: number;
+    activeProjects: number;
+    pendingTasks: number;
+    monthlyRevenue: number;
+    conversionRate: number;
+    recentInteractions: CrmInteraction[];
+  }> {
+    const customers = await this.getCrmCustomers();
+    const projects = await this.getCrmProjects();
+    const tasks = await this.getCrmTasks({ status: 'pending' });
+    const interactions = await this.getCrmInteractions();
+    const leads = await this.getLeads();
+
+    // Calculate monthly revenue from completed projects
+    const currentMonth = new Date().getMonth();
+    const currentYear = new Date().getFullYear();
+    const monthlyProjects = projects.filter(p => {
+      const projectDate = new Date(p.createdAt);
+      return p.stage === 'completed' && 
+             projectDate.getMonth() === currentMonth && 
+             projectDate.getFullYear() === currentYear;
+    });
+
+    const monthlyRevenue = monthlyProjects.reduce((sum, p) => sum + (parseFloat(p.contractValue || '0')), 0);
+
+    // Calculate conversion rate
+    const convertedLeads = leads.filter(l => l.status === 'converted').length;
+    const totalLeads = leads.length;
+    const conversionRate = totalLeads > 0 ? (convertedLeads / totalLeads) * 100 : 0;
+
+    // Get recent interactions (last 10)
+    const recentInteractions = interactions.slice(0, 10);
+
+    return {
+      totalCustomers: customers.length,
+      activeProjects: projects.filter(p => ['planning', 'in_progress', 'under_review'].includes(p.stage)).length,
+      pendingTasks: tasks.length,
+      monthlyRevenue,
+      conversionRate,
+      recentInteractions
+    };
+  }
+
+  async getCrmConversionReport(period: string): Promise<{
+    leadsGenerated: number;
+    leadsConverted: number;
+    conversionRate: number;
+    averageConversionTime: number;
+  }> {
+    const leads = await this.getLeads();
+    
+    // Filter by period (for now, just use all data)
+    const leadsGenerated = leads.length;
+    const leadsConverted = leads.filter(l => l.status === 'converted').length;
+    const conversionRate = leadsGenerated > 0 ? (leadsConverted / leadsGenerated) * 100 : 0;
+    
+    // Calculate average conversion time (simplified)
+    const convertedLeads = leads.filter(l => l.status === 'converted');
+    const totalConversionTime = convertedLeads.reduce((sum, lead) => {
+      const createdAt = new Date(lead.createdAt);
+      const now = new Date();
+      return sum + (now.getTime() - createdAt.getTime());
+    }, 0);
+    
+    const averageConversionTime = convertedLeads.length > 0 
+      ? totalConversionTime / convertedLeads.length / (1000 * 60 * 60 * 24) // days
+      : 0;
+
+    return {
+      leadsGenerated,
+      leadsConverted,
+      conversionRate,
+      averageConversionTime
+    };
+  }
+
+  async getCrmProjectsReport(period: string): Promise<{
+    totalProjects: number;
+    completedProjects: number;
+    onTimeCompletion: number;
+    averageProjectValue: number;
+  }> {
+    const projects = await this.getCrmProjects();
+    
+    const totalProjects = projects.length;
+    const completedProjects = projects.filter(p => p.stage === 'completed').length;
+    const onTimeProjects = projects.filter(p => 
+      p.stage === 'completed' && 
+      p.scheduledEndDate && 
+      new Date(p.actualEndDate || new Date()) <= new Date(p.scheduledEndDate)
+    ).length;
+    
+    const onTimeCompletion = completedProjects > 0 ? (onTimeProjects / completedProjects) * 100 : 0;
+    
+    const totalValue = projects.reduce((sum, p) => sum + (parseFloat(p.contractValue || '0')), 0);
+    const averageProjectValue = totalProjects > 0 ? totalValue / totalProjects : 0;
+
+    return {
+      totalProjects,
+      completedProjects,
+      onTimeCompletion,
+      averageProjectValue
+    };
+  }
+
+  // Helper method for getLead
+  async getLead(id: number): Promise<Lead | undefined> {
+    return await this.getLeadById(id);
   }
 }
 

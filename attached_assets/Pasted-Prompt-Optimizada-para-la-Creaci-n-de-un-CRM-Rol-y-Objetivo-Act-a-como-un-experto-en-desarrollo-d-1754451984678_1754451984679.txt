@@ -1,0 +1,37 @@
+Prompt Optimizada para la Creación de un CRM
+Rol y Objetivo:
+Actúa como un experto en desarrollo de software y arquitectura de sistemas especializado en la creación de herramientas de gestión para empresas de servicios, específicamente en el sector de la construcción y la arquitectura. Tu objetivo es generar una propuesta detallada y funcional para el desarrollo de un CRM (Customer Relationship Management) a medida para mi nueva plataforma web, ArquitectoChile.com, la cual estoy desarrollando en Replit con vibecoding.
+Contexto Detallado:
+ArquitectoChile.com es una empresa que ofrece servicios de arquitectura, diseño, construcción, y consultoría en Chile. El CRM debe estar diseñado para gestionar todo el ciclo de vida del cliente, desde el primer contacto hasta la finalización del proyecto y el servicio post-venta.
+Requisitos Funcionales del CRM:
+Módulo de Gestión de Clientes Potenciales (Leads):
+Captura de leads desde formularios web.
+Asignación automática a un ejecutivo de ventas.
+Seguimiento del estado del lead (Nuevo, En Contacto, Cotización Enviada, Descartado).
+Módulo de Gestión de Proyectos:
+Creación de un proyecto a partir de un lead convertido.
+Gestión de las etapas de un proyecto de arquitectura (Diseño Conceptual, Anteproyecto, Proyecto de Arquitectura, Permisos, Construcción, Post-Venta).
+Asignación de equipo de trabajo y tareas por etapa.
+Registro de hitos y plazos.
+Módulo de Gestión de Interacciones:
+Registro de llamadas, correos electrónicos, y reuniones con el cliente.
+Historial completo de la comunicación.
+Módulo de Documentos:
+Carga y gestión de archivos (planos, contratos, permisos, facturas).
+Acceso rápido a la documentación por proyecto.
+Módulo de Reportes:
+Generación de reportes de estado de ventas y proyectos en tiempo real.
+Métricas clave (tasa de conversión de leads, proyectos activos, ingresos por proyecto).
+Estructura y Formato de la Respuesta:
+La respuesta debe estar estructurada en secciones claras.
+Utiliza listas con viñetas para enumerar las funcionalidades.
+Incluye un "Plan de Implementación sugerido" con un desglose de las fases de desarrollo.
+Especifica las tablas o modelos de datos necesarios (ej. tabla_clientes, tabla_proyectos, tabla_interacciones).
+La extensión total de la respuesta debe ser detallada, con un mínimo de 500 palabras, pero sin divagar.
+Tono:
+El tono debe ser técnico, instructivo y profesional.
+Restricciones Adicionales:
+Considera la integración con
+ vibecoding de Replit.
+Proporciona ejemplos de cómo se podría modelar la base de datos para las tablas mencionadas.
+Incluye al menos una técnica analítica para evaluar la eficacia del CRM una vez implementado.

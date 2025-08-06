@@ -5,6 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import Home from "@/pages/home";
 import AdminDashboard from "@/pages/admin-dashboard";
+import CRMDashboard from "@/pages/crm-dashboard";
 import ClientPortal from "@/pages/client-portal";
 import ServiciosADomicilio from "@/pages/servicios-a-domicilio";
 import Colaboradores from "@/pages/colaboradores";
@@ -27,6 +28,7 @@ function Router() {
     <Switch>
       <Route path="/" component={Home} />
       <Route path="/admin" component={AdminDashboard} />
+      <Route path="/crm" component={CRMDashboard} />
       <Route path="/portal-cliente" component={ClientPortal} />
       <Route path="/servicios-a-domicilio" component={ServiciosADomicilio} />
       <Route path="/colaboradores" component={Colaboradores} />

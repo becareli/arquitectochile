@@ -1,7 +1,18 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { insertLeadSchema, insertCalculatorLeadSchema, insertCalculatorResultSchema, insertBudgetTemplateSchema, insertGeneratedQuoteSchema } from "@shared/schema";
+import { 
+  insertLeadSchema, 
+  insertCalculatorLeadSchema, 
+  insertCalculatorResultSchema, 
+  insertBudgetTemplateSchema, 
+  insertGeneratedQuoteSchema,
+  insertCrmCustomerSchema,
+  insertCrmProjectSchema,
+  insertCrmInteractionSchema,
+  insertCrmDocumentSchema,
+  insertCrmTaskSchema
+} from "@shared/schema";
 import { z } from "zod";
 import { setupIntegrationRoutes } from "./integrations/routes";
 // Enhanced analytics will be loaded separately to avoid circular imports
@@ -407,6 +418,264 @@ export async function registerRoutes(app: Express): Promise<Server> {
         "/api/webhooks/ai-agent"
       ]
     });
+  });
+
+  // ========== CRM ROUTES ==========
+  
+  // CRM Customers
+  app.get("/api/crm/customers", async (req, res) => {
+    try {
+      const customers = await storage.getCrmCustomers();
+      res.json(customers);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch customers" });
+    }
+  });
+
+  app.post("/api/crm/customers", async (req, res) => {
+    try {
+      const customerData = insertCrmCustomerSchema.parse(req.body);
+      
+      // Generate unique customer number
+      const customerNumber = `CL-${Date.now().toString().slice(-6)}`;
+      
+      const customer = await storage.createCrmCustomer({
+        ...customerData,
+        customerNumber
+      });
+      res.json({ success: true, customer });
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        res.status(400).json({ error: "Invalid input", details: error.errors });
+      } else {
+        res.status(500).json({ error: "Internal server error" });
+      }
+    }
+  });
+
+  app.get("/api/crm/customers/:id", async (req, res) => {
+    try {
+      const customer = await storage.getCrmCustomer(parseInt(req.params.id));
+      res.json(customer);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch customer" });
+    }
+  });
+
+  app.patch("/api/crm/customers/:id", async (req, res) => {
+    try {
+      const customer = await storage.updateCrmCustomer(parseInt(req.params.id), req.body);
+      res.json({ success: true, customer });
+    } catch (error) {
+      res.status(500).json({ error: "Failed to update customer" });
+    }
+  });
+
+  // Convert lead to customer
+  app.post("/api/crm/customers/convert/:leadId", async (req, res) => {
+    try {
+      const leadId = parseInt(req.params.leadId);
+      const lead = await storage.getLead(leadId);
+      
+      if (!lead) {
+        return res.status(404).json({ error: "Lead not found" });
+      }
+
+      // Generate unique customer number
+      const customerNumber = `CL-${Date.now().toString().slice(-6)}`;
+      
+      const customerData = {
+        leadId,
+        customerNumber,
+        name: lead.name,
+        email: lead.email,
+        phone: lead.phone,
+        salesExecutive: req.body.salesExecutive || "Patricio Becar",
+        ...req.body
+      };
+
+      const customer = await storage.createCrmCustomer(customerData);
+      
+      // Update lead status
+      await storage.updateLeadStatus(leadId, "converted");
+      
+      res.json({ success: true, customer });
+    } catch (error) {
+      console.error("Convert lead error:", error);
+      res.status(500).json({ error: "Failed to convert lead to customer" });
+    }
+  });
+
+  // CRM Projects
+  app.get("/api/crm/projects", async (req, res) => {
+    try {
+      const projects = await storage.getCrmProjects();
+      res.json(projects);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch projects" });
+    }
+  });
+
+  app.post("/api/crm/projects", async (req, res) => {
+    try {
+      const projectData = insertCrmProjectSchema.parse(req.body);
+      
+      // Generate unique project number
+      const projectNumber = `PR-${Date.now().toString().slice(-6)}`;
+      
+      const project = await storage.createCrmProject({
+        ...projectData,
+        projectNumber
+      });
+      res.json({ success: true, project });
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        res.status(400).json({ error: "Invalid input", details: error.errors });
+      } else {
+        res.status(500).json({ error: "Internal server error" });
+      }
+    }
+  });
+
+  app.get("/api/crm/projects/:id", async (req, res) => {
+    try {
+      const project = await storage.getCrmProject(parseInt(req.params.id));
+      res.json(project);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch project" });
+    }
+  });
+
+  app.patch("/api/crm/projects/:id", async (req, res) => {
+    try {
+      const project = await storage.updateCrmProject(parseInt(req.params.id), req.body);
+      res.json({ success: true, project });
+    } catch (error) {
+      res.status(500).json({ error: "Failed to update project" });
+    }
+  });
+
+  // CRM Interactions
+  app.get("/api/crm/interactions", async (req, res) => {
+    try {
+      const { customerId, projectId } = req.query;
+      const interactions = await storage.getCrmInteractions({
+        customerId: customerId ? parseInt(customerId as string) : undefined,
+        projectId: projectId ? parseInt(projectId as string) : undefined
+      });
+      res.json(interactions);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch interactions" });
+    }
+  });
+
+  app.post("/api/crm/interactions", async (req, res) => {
+    try {
+      const interactionData = insertCrmInteractionSchema.parse(req.body);
+      const interaction = await storage.createCrmInteraction(interactionData);
+      res.json({ success: true, interaction });
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        res.status(400).json({ error: "Invalid input", details: error.errors });
+      } else {
+        res.status(500).json({ error: "Internal server error" });
+      }
+    }
+  });
+
+  // CRM Documents
+  app.get("/api/crm/documents", async (req, res) => {
+    try {
+      const { customerId, projectId } = req.query;
+      const documents = await storage.getCrmDocuments({
+        customerId: customerId ? parseInt(customerId as string) : undefined,
+        projectId: projectId ? parseInt(projectId as string) : undefined
+      });
+      res.json(documents);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch documents" });
+    }
+  });
+
+  app.post("/api/crm/documents", async (req, res) => {
+    try {
+      const documentData = insertCrmDocumentSchema.parse(req.body);
+      const document = await storage.createCrmDocument(documentData);
+      res.json({ success: true, document });
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        res.status(400).json({ error: "Invalid input", details: error.errors });
+      } else {
+        res.status(500).json({ error: "Internal server error" });
+      }
+    }
+  });
+
+  // CRM Tasks
+  app.get("/api/crm/tasks", async (req, res) => {
+    try {
+      const { assignedTo, status } = req.query;
+      const tasks = await storage.getCrmTasks({
+        assignedTo: assignedTo as string,
+        status: status as string
+      });
+      res.json(tasks);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch tasks" });
+    }
+  });
+
+  app.post("/api/crm/tasks", async (req, res) => {
+    try {
+      const taskData = insertCrmTaskSchema.parse(req.body);
+      const task = await storage.createCrmTask(taskData);
+      res.json({ success: true, task });
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        res.status(400).json({ error: "Invalid input", details: error.errors });
+      } else {
+        res.status(500).json({ error: "Internal server error" });
+      }
+    }
+  });
+
+  app.patch("/api/crm/tasks/:id", async (req, res) => {
+    try {
+      const task = await storage.updateCrmTask(parseInt(req.params.id), req.body);
+      res.json({ success: true, task });
+    } catch (error) {
+      res.status(500).json({ error: "Failed to update task" });
+    }
+  });
+
+  // CRM Reports and Analytics
+  app.get("/api/crm/reports/dashboard", async (req, res) => {
+    try {
+      const dashboardData = await storage.getCrmDashboardData();
+      res.json(dashboardData);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch dashboard data" });
+    }
+  });
+
+  app.get("/api/crm/reports/conversion", async (req, res) => {
+    try {
+      const { period = 'monthly' } = req.query;
+      const conversionData = await storage.getCrmConversionReport(period as string);
+      res.json(conversionData);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch conversion report" });
+    }
+  });
+
+  app.get("/api/crm/reports/projects", async (req, res) => {
+    try {
+      const { period = 'monthly' } = req.query;
+      const projectsData = await storage.getCrmProjectsReport(period as string);
+      res.json(projectsData);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch projects report" });
+    }
   });
 
   // Setup integration routes
