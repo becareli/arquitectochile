@@ -165,41 +165,14 @@ export default function Contact() {
                   
                   <div>
                     <Label htmlFor="comuna">Comuna *</Label>
-                    <select 
+                    <Input 
                       id="comuna"
+                      type="text" 
                       required 
+                      placeholder="Ej: Las Condes, Valparaíso, Concepción, etc."
                       value={formData.comuna}
                       onChange={(e) => setFormData({...formData, comuna: e.target.value})}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                    >
-                      <option value="">Selecciona tu comuna</option>
-                      <option value="las-condes">Las Condes</option>
-                      <option value="providencia">Providencia</option>
-                      <option value="vitacura">Vitacura</option>
-                      <option value="santiago">Santiago</option>
-                      <option value="nuñoa">Ñuñoa</option>
-                      <option value="la-reina">La Reina</option>
-                      <option value="lo-barnechea">Lo Barnechea</option>
-                      <option value="la-florida">La Florida</option>
-                      <option value="puente-alto">Puente Alto</option>
-                      <option value="san-miguel">San Miguel</option>
-                      <option value="maipú">Maipú</option>
-                      <option value="peñalolén">Peñalolén</option>
-                      <option value="macul">Macul</option>
-                      <option value="san-joaquín">San Joaquín</option>
-                      <option value="la-granja">La Granja</option>
-                      <option value="independencia">Independencia</option>
-                      <option value="quinta-normal">Quinta Normal</option>
-                      <option value="recoleta">Recoleta</option>
-                      <option value="estacion-central">Estación Central</option>
-                      <option value="cerrillos">Cerrillos</option>
-                      <option value="pudahuel">Pudahuel</option>
-                      <option value="renca">Renca</option>
-                      <option value="quilicura">Quilicura</option>
-                      <option value="huechuraba">Huechuraba</option>
-                      <option value="conchalí">Conchalí</option>
-                      <option value="otro">Otra comuna</option>
-                    </select>
+                    />
                   </div>
                 </div>
               </div>
