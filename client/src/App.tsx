@@ -31,6 +31,7 @@ function Router() {
       <Route path="/admin" component={AdminDashboard} />
       <Route path="/crm" component={CRMDashboard} />
       <Route path="/crm-admin" component={CRMAdminDashboard} />
+      <Route path="/crm-admin-dashboard" component={CRMAdminDashboard} />
       <Route path="/portal-cliente" component={ClientPortal} />
       <Route path="/servicios-a-domicilio" component={ServiciosADomicilio} />
       <Route path="/colaboradores" component={Colaboradores} />
