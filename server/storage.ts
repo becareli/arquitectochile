@@ -373,6 +373,7 @@ export class DatabaseStorage implements IStorage {
     return newCustomer;
   }
 
+  // CRM Customers - Simplified
   async getCrmCustomers(): Promise<CrmCustomer[]> {
     return await db.select().from(crmCustomers).orderBy(desc(crmCustomers.createdAt));
   }
@@ -382,17 +383,18 @@ export class DatabaseStorage implements IStorage {
     return customer || undefined;
   }
 
+  async createCrmCustomer(customer: InsertCrmCustomer): Promise<CrmCustomer> {
+    const [newCustomer] = await db.insert(crmCustomers).values(customer).returning();
+    return newCustomer;
+  }
+
   async updateCrmCustomer(id: number, updates: Partial<CrmCustomer>): Promise<CrmCustomer> {
     const [updatedCustomer] = await db.update(crmCustomers).set(updates).where(eq(crmCustomers.id, id)).returning();
     return updatedCustomer;
   }
 
-  async getCrmCustomersByExecutive(executive: string): Promise<CrmCustomer[]> {
-    return await db.select().from(crmCustomers).where(eq(crmCustomers.salesExecutive, executive));
-  }
-
-  // CRM Projects
-  async createCrmProject(project: Omit<InsertCrmProject, 'projectNumber'> & { projectNumber: string }): Promise<CrmProject> {
+  // CRM Projects - Simplified
+  async createCrmProject(project: InsertCrmProject): Promise<CrmProject> {
     const [newProject] = await db.insert(crmProjects).values(project).returning();
     return newProject;
   }
@@ -415,11 +417,7 @@ export class DatabaseStorage implements IStorage {
     return await db.select().from(crmProjects).where(eq(crmProjects.customerId, customerId));
   }
 
-  async getCrmProjectsByStage(stage: string): Promise<CrmProject[]> {
-    return await db.select().from(crmProjects).where(eq(crmProjects.stage, stage));
-  }
-
-  // CRM Interactions
+  // CRM Interactions - Simplified
   async createCrmInteraction(interaction: InsertCrmInteraction): Promise<CrmInteraction> {
     const [newInteraction] = await db.insert(crmInteractions).values(interaction).returning();
     return newInteraction;
@@ -438,15 +436,7 @@ export class DatabaseStorage implements IStorage {
     return await query.orderBy(desc(crmInteractions.createdAt));
   }
 
-  async getCrmInteractionsByCustomer(customerId: number): Promise<CrmInteraction[]> {
-    return await db.select().from(crmInteractions).where(eq(crmInteractions.customerId, customerId)).orderBy(desc(crmInteractions.createdAt));
-  }
-
-  async getCrmInteractionsByProject(projectId: number): Promise<CrmInteraction[]> {
-    return await db.select().from(crmInteractions).where(eq(crmInteractions.projectId, projectId)).orderBy(desc(crmInteractions.createdAt));
-  }
-
-  // CRM Documents
+  // CRM Documents - Simplified
   async createCrmDocument(document: InsertCrmDocument): Promise<CrmDocument> {
     const [newDocument] = await db.insert(crmDocuments).values(document).returning();
     return newDocument;
@@ -465,15 +455,7 @@ export class DatabaseStorage implements IStorage {
     return await query.orderBy(desc(crmDocuments.createdAt));
   }
 
-  async getCrmDocumentsByCustomer(customerId: number): Promise<CrmDocument[]> {
-    return await db.select().from(crmDocuments).where(eq(crmDocuments.customerId, customerId)).orderBy(desc(crmDocuments.createdAt));
-  }
-
-  async getCrmDocumentsByProject(projectId: number): Promise<CrmDocument[]> {
-    return await db.select().from(crmDocuments).where(eq(crmDocuments.projectId, projectId)).orderBy(desc(crmDocuments.createdAt));
-  }
-
-  // CRM Tasks
+  // CRM Tasks - Simplified
   async createCrmTask(task: InsertCrmTask): Promise<CrmTask> {
     const [newTask] = await db.insert(crmTasks).values(task).returning();
     return newTask;
@@ -497,10 +479,6 @@ export class DatabaseStorage implements IStorage {
     return updatedTask;
   }
 
-  async getCrmTasksByAssignee(assignedTo: string): Promise<CrmTask[]> {
-    return await db.select().from(crmTasks).where(eq(crmTasks.assignedTo, assignedTo)).orderBy(desc(crmTasks.createdAt));
-  }
-
   // CRM Analytics and Reports
   async getCrmDashboardData(): Promise<{
     totalCustomers: number;
@@ -521,7 +499,7 @@ export class DatabaseStorage implements IStorage {
     const currentYear = new Date().getFullYear();
     const monthlyProjects = projects.filter(p => {
       const projectDate = new Date(p.createdAt);
-      return p.stage === 'completed' && 
+      return p.status === 'completed' && 
              projectDate.getMonth() === currentMonth && 
              projectDate.getFullYear() === currentYear;
     });
