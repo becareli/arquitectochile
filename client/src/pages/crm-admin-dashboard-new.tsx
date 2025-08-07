@@ -258,12 +258,28 @@ export default function CRMAdminDashboardNew() {
           <p className="text-gray-600 dark:text-gray-400 mb-6">
             Solo el administrador tiene acceso al panel CRM.
           </p>
-          <Link href="/">
-            <Button>
-              <Home className="w-4 h-4 mr-2" />
-              Volver al Inicio
+          <div className="space-y-3">
+            <Button 
+              className="w-full"
+              onClick={() => { window.location.href = "/api/logout"; }}
+            >
+              <LogOut className="w-4 h-4 mr-2" />
+              Cerrar Sesión Actual
             </Button>
-          </Link>
+            <Button 
+              variant="outline"
+              className="w-full"
+              onClick={() => { window.location.href = "/api/login"; }}
+            >
+              Iniciar Sesión como Admin
+            </Button>
+            <Link href="/">
+              <Button variant="secondary" className="w-full">
+                <Home className="w-4 h-4 mr-2" />
+                Volver al Inicio
+              </Button>
+            </Link>
+          </div>
         </div>
       </div>
     );
