@@ -20,11 +20,11 @@ export default function AboutArchitect() {
                 </div>
                 <div>
                   <blockquote className="text-lg text-gray-700 italic mb-4">
-                    "Después de 26 años diseñando y construyendo sueños, he aprendido que cada proyecto 
-                    es único, pero la tranquilidad del cliente es siempre la prioridad. Mi compromiso va 
-                    más allá de los planos: te acompaño desde la primera idea hasta que tengas las llaves 
-                    en tu mano. Porque construir tu hogar no debería ser una fuente de estrés, sino la 
-                    materialización de tus sueños."
+                    "Con más de 25 años de experiencia como Arquitecto MBA y Revisor Independiente de 
+                    Arquitectura acreditado por el MINVU (3° Categoría), he desarrollado una visión 
+                    integral de la industria de la construcción. Mi objetivo es ofrecer un enfoque de 
+                    revisión exhaustivo y eficiente, garantizando el cumplimiento normativo y la 
+                    excelencia en cada proyecto arquitectónico."
                   </blockquote>
                   <div className="flex items-center space-x-3">
                     <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-primary">
@@ -35,8 +35,8 @@ export default function AboutArchitect() {
                       />
                     </div>
                     <div>
-                      <p className="font-bold text-primary">Patricio Becar Elissegaray</p>
-                      <p className="text-sm text-gray-600">Arquitecto Universidad de Chile</p>
+                      <p className="font-bold text-primary">Patricio Eduardo Becar Elissegaray</p>
+                      <p className="text-sm text-gray-600">Arquitecto MBA Universidad de Chile desde 1999</p>
                     </div>
                   </div>
                 </div>
@@ -56,9 +56,9 @@ export default function AboutArchitect() {
               />
             </div>
             
-            <h3 className="text-2xl font-bold text-dark mb-2">Patricio Becar Elissegaray</h3>
-            <p className="text-lg text-gray-600 mb-2">Arquitecto Universidad de Chile</p>
-            <p className="text-sm text-gray-500 mb-6">Titulado en 1999 • +26 años de experiencia</p>
+            <h3 className="text-2xl font-bold text-dark mb-2">Patricio Eduardo Becar Elissegaray</h3>
+            <p className="text-lg text-gray-600 mb-2">Arquitecto Revisor Independiente de Arquitectura</p>
+            <p className="text-sm text-gray-500 mb-6">Universidad de Chile desde 1999 • MBA • +25 años de experiencia</p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
               <Button 
@@ -93,7 +93,7 @@ export default function AboutArchitect() {
                     <CheckCircle className="w-5 h-5 text-green-500 mt-1" />
                     <div>
                       <p className="font-semibold text-dark">Arquitecto Universidad de Chile</p>
-                      <p className="text-gray-600">Titulado en 1999 • Colegio de Arquitectos de Chile</p>
+                      <p className="text-gray-600">Titulado con distinción en 1999 • MBA Universidad de Chile (2008-2009) • Global MBA University of Macquarie, Australia (2009)</p>
                     </div>
                   </div>
                   
@@ -108,8 +108,8 @@ export default function AboutArchitect() {
                   <div className="flex items-start space-x-3">
                     <Users className="w-5 h-5 text-purple-500 mt-1" />
                     <div>
-                      <p className="font-semibold text-dark">Creador Metodología MDAC</p>
-                      <p className="text-gray-600">Sistema innovador para ampliaciones y remodelaciones sin estrés</p>
+                      <p className="font-semibold text-dark">Especialista en Inteligencia Artificial y Automatizaciones</p>
+                      <p className="text-gray-600">Experto en software N8N/MAKE • Automatización de procesos • Vibecoding: Lovable-Replit</p>
                     </div>
                   </div>
                   
@@ -157,6 +157,22 @@ export default function AboutArchitect() {
                     <div className="w-2 h-2 bg-primary rounded-full"></div>
                     <span className="text-gray-700">Recepción Final</span>
                   </div>
+                  <div className="flex items-center space-x-2">
+                    <div className="w-2 h-2 bg-primary rounded-full"></div>
+                    <span className="text-gray-700">Tasación de Inmuebles Urbanos</span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <div className="w-2 h-2 bg-primary rounded-full"></div>
+                    <span className="text-gray-700">Reacondicionamiento Térmico de Viviendas</span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <div className="w-2 h-2 bg-primary rounded-full"></div>
+                    <span className="text-gray-700">Automatizaciones con IA</span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <div className="w-2 h-2 bg-primary rounded-full"></div>
+                    <span className="text-gray-700">Software BIM (ARCHICAD, NAVISWORK)</span>
+                  </div>
                 </div>
               </CardContent>
             </Card>
@@ -165,7 +181,7 @@ export default function AboutArchitect() {
               <CardContent className="pt-6">
                 <div className="grid grid-cols-3 gap-4 text-center">
                   <div>
-                    <div className="text-2xl font-bold">26+</div>
+                    <div className="text-2xl font-bold">25+</div>
                     <div className="text-sm opacity-90">Años de Experiencia</div>
                   </div>
                   <div>

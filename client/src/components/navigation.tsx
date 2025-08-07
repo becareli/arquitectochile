@@ -183,28 +183,29 @@ export default function Navigation() {
                     <div className="py-4">
                       <div className="px-4 pb-3 border-b border-gray-100">
                         <h3 className="font-bold text-lg text-gray-800">Patricio Eduardo Becar Elissegaray</h3>
-                        <p className="text-sm text-gray-600">Arquitecto Universidad de Chile desde 1999</p>
-                        <p className="text-sm text-gray-600">MBA - Revisor Independiente MINVU 3° Categoría</p>
+                        <p className="text-sm text-gray-600">Arquitecto Revisor Independiente de Arquitectura</p>
+                        <p className="text-sm text-gray-600">Universidad de Chile desde 1999 • MBA • MINVU 3° Categoría</p>
                       </div>
                       
                       <div className="px-4 py-3 space-y-3">
                         <div>
                           <h4 className="font-semibold text-sm text-gray-700 mb-2">Experiencia Clave</h4>
                           <ul className="text-xs text-gray-600 space-y-1">
-                            <li>• MBA Universidad de Chile</li>
+                            <li>• MBA Universidad de Chile (2008-2009)</li>
+                            <li>• Global MBA University of Macquarie, Australia (2009)</li>
                             <li>• Revisor Independiente MINVU (3° Categoría)</li>
-                            <li>• 15+ años experiencia municipal</li>
-                            <li>• Especialista en normativa de edificación</li>
-                            <li>• Experto en ascensores y montacargas</li>
+                            <li>• ArquitectoChile.com (2010-Presente)</li>
+                            <li>• Especialista en Inteligencia Artificial y Automatizaciones</li>
+                            <li>• Experto en normativa de edificación y ascensores</li>
                           </ul>
                         </div>
                         
                         <div>
                           <h4 className="font-semibold text-sm text-gray-700 mb-2">Contacto Profesional</h4>
                           <div className="text-xs text-gray-600 space-y-1">
-                            <div>📧 aibecareli@gmail.com</div>
+                            <div>📧 arquitectopatricio.becar@gmail.com</div>
                             <div>📧 contacto@arquitectochile.com</div>
-                            <div>📱 +56 9 7931 6827</div>
+                            <div>📱 +56 979316827</div>
                             <div>💼 <a href="https://www.linkedin.com/in/patriciobecar/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800">LinkedIn</a></div>
                           </div>
                         </div>
@@ -212,7 +213,7 @@ export default function Navigation() {
                       
                       <div className="px-4 pt-3 border-t border-gray-100">
                         <a 
-                          href="/CV_PBE_2025.pdf"
+                          href="/CV_Arquitecto_Patricio_Becar_2025.pdf"
                           target="_blank"
                           rel="noopener noreferrer"
                           className="block w-full text-center bg-primary text-white py-2 rounded-md hover:bg-blue-700 transition-colors text-sm font-medium"
