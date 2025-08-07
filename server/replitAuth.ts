@@ -179,7 +179,7 @@ export const isCrmAdmin: RequestHandler = async (req, res, next) => {
   }
 
   // Solo permite acceso al propietario del sitio
-  const adminEmail = "arquitectopatriciobecar@gmail.com";
+  const adminEmail = "aibecareli@gmail.com";
   if (user.claims.email !== adminEmail) {
     return res.status(403).json({ message: "Access denied. Admin only." });
   }

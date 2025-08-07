@@ -249,7 +249,7 @@ export default function CRMAdminDashboardNew() {
   }
 
   // Verificar acceso de administrador
-  if (user && (user as any).email !== "arquitectopatriciobecar@gmail.com") {
+  if (user && (user as any).email !== "aibecareli@gmail.com") {
     return (
       <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
         <div className="max-w-md mx-auto text-center bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg">

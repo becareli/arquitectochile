@@ -202,7 +202,7 @@ export default function Navigation() {
                         <div>
                           <h4 className="font-semibold text-sm text-gray-700 mb-2">Contacto Profesional</h4>
                           <div className="text-xs text-gray-600 space-y-1">
-                            <div>📧 arquitectopatriciobecar@gmail.com</div>
+                            <div>📧 aibecareli@gmail.com</div>
                             <div>📧 contacto@arquitectochile.com</div>
                             <div>📱 +56 9 7931 6827</div>
                             <div>💼 <a href="https://www.linkedin.com/in/patriciobecar/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800">LinkedIn</a></div>
