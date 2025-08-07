@@ -14,8 +14,13 @@ if (!process.env.REPLIT_DOMAINS) {
 
 const getOidcConfig = memoize(
   async () => {
+    // Use correct URL regardless of environment variable value
+    const issuerUrl = process.env.ISSUER_URL && process.env.ISSUER_URL.startsWith('http') 
+      ? process.env.ISSUER_URL 
+      : "https://replit.com/oidc";
+    
     return await client.discovery(
-      new URL(process.env.ISSUER_URL ?? "https://replit.com/oidc"),
+      new URL(issuerUrl),
       process.env.REPL_ID!
     );
   },
@@ -84,14 +89,23 @@ export async function setupAuth(app: Express) {
     verified(null, user);
   };
 
-  for (const domain of process.env
-    .REPLIT_DOMAINS!.split(",")) {
+  // Register strategies for all domains
+  const domains = process.env.REPLIT_DOMAINS!.split(",");
+  
+  // Add localhost for development
+  const allDomains = [...domains, "localhost", "127.0.0.1"];
+  
+  for (const domain of allDomains) {
+    const isLocalhost = domain === "localhost" || domain === "127.0.0.1";
+    const protocol = isLocalhost ? "http" : "https";
+    const port = isLocalhost ? ":5000" : "";
+    
     const strategy = new Strategy(
       {
         name: `replitauth:${domain}`,
         config,
         scope: "openid email profile offline_access",
-        callbackURL: `https://${domain}/api/callback`,
+        callbackURL: `${protocol}://${domain}${port}/api/callback`,
       },
       verify,
     );

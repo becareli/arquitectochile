@@ -6,7 +6,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import Home from "@/pages/home";
 import AdminDashboard from "@/pages/admin-dashboard";
 import CRMDashboard from "@/pages/crm-dashboard";
-import CRMAdminDashboard from "@/pages/crm-admin-dashboard";
+import CRMAdminDashboardNew from "@/pages/crm-admin-dashboard-new";
 import ClientPortal from "@/pages/client-portal";
 import ServiciosADomicilio from "@/pages/servicios-a-domicilio";
 import Colaboradores from "@/pages/colaboradores";
@@ -30,8 +30,8 @@ function Router() {
       <Route path="/" component={Home} />
       <Route path="/admin" component={AdminDashboard} />
       <Route path="/crm" component={CRMDashboard} />
-      <Route path="/crm-admin" component={CRMAdminDashboard} />
-      <Route path="/crm-admin-dashboard" component={CRMAdminDashboard} />
+      <Route path="/crm-admin" component={CRMAdminDashboardNew} />
+      <Route path="/crm-admin-dashboard" component={CRMAdminDashboardNew} />
       <Route path="/portal-cliente" component={ClientPortal} />
       <Route path="/servicios-a-domicilio" component={ServiciosADomicilio} />
       <Route path="/colaboradores" component={Colaboradores} />

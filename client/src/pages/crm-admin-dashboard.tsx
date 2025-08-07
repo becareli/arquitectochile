@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation } from "@tanstack/react-query";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -8,6 +8,16 @@ import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Progress } from "@/components/ui/progress";
+import { 
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { Textarea } from "@/components/ui/textarea";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { 
   Users, 
   FolderOpen, 
@@ -32,12 +42,14 @@ import {
   Home,
   Building,
   MapPin,
-  LogOut
+  LogOut,
+  X
 } from "lucide-react";
 import { Link } from "wouter";
 import { useAuth } from "@/hooks/useAuth";
 import { useToast } from "@/hooks/use-toast";
 import { isUnauthorizedError } from "@/lib/authUtils";
+import { apiRequest, queryClient } from "@/lib/queryClient";
 import KpiDashboard from "@/components/crm/KpiDashboard";
 
 interface DashboardData {
@@ -87,6 +99,17 @@ interface Project {
 export default function CRMAdminDashboard() {
   const [searchTerm, setSearchTerm] = useState("");
   const [activeTab, setActiveTab] = useState("overview");
+  const [isNewClientModalOpen, setIsNewClientModalOpen] = useState(false);
+  const [newClientForm, setNewClientForm] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    company: "",
+    rut: "",
+    address: "",
+    source: "manual",
+    notes: ""
+  });
   const { toast } = useToast();
   const { isAuthenticated, isLoading, user } = useAuth();
 
@@ -162,6 +185,80 @@ export default function CRMAdminDashboard() {
     return null;
   }
 
+  // Mutación para crear nuevo cliente
+  const createCustomerMutation = useMutation({
+    mutationFn: async (customerData: typeof newClientForm) => {
+      return await apiRequest("/api/crm/customers", {
+        method: "POST",
+        body: JSON.stringify(customerData),
+      });
+    },
+    onSuccess: () => {
+      toast({
+        title: "Cliente creado",
+        description: "El cliente ha sido creado exitosamente.",
+      });
+      setIsNewClientModalOpen(false);
+      setNewClientForm({
+        name: "",
+        email: "",
+        phone: "",
+        company: "",
+        rut: "",
+        address: "",
+        source: "manual",
+        notes: ""
+      });
+      // Invalidar las queries para actualizar la lista
+      queryClient.invalidateQueries({ queryKey: ['/api/crm/customers'] });
+      queryClient.invalidateQueries({ queryKey: ['/api/crm/reports/dashboard'] });
+    },
+    onError: (error) => {
+      if (isUnauthorizedError(error as Error)) {
+        toast({
+          title: "Sesión expirada",
+          description: "Su sesión ha expirado. Redirigiendo al login...",
+          variant: "destructive",
+        });
+        setTimeout(() => {
+          window.location.href = "/api/login";
+        }, 1500);
+        return;
+      }
+      toast({
+        title: "Error al crear cliente",
+        description: "Ha ocurrido un error al crear el cliente. Inténtelo nuevamente.",
+        variant: "destructive",
+      });
+    },
+  });
+
+  const handleCreateCustomer = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newClientForm.name.trim()) {
+      toast({
+        title: "Nombre requerido",
+        description: "Por favor ingrese el nombre del cliente.",
+        variant: "destructive",
+      });
+      return;
+    }
+    createCustomerMutation.mutate(newClientForm);
+  };
+
+  const resetForm = () => {
+    setNewClientForm({
+      name: "",
+      email: "",
+      phone: "",
+      company: "",
+      rut: "",
+      address: "",
+      source: "manual",
+      notes: ""
+    });
+  };
+
   // Filtros y cálculos
   const filteredCustomers = customers.filter(customer =>
     customer.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -236,7 +333,7 @@ export default function CRMAdminDashboard() {
                 <Filter className="w-4 h-4 mr-2" />
                 Filtros
               </Button>
-              <Button size="sm">
+              <Button size="sm" onClick={() => setIsNewClientModalOpen(true)}>
                 <Plus className="w-4 h-4 mr-2" />
                 Nuevo Cliente
               </Button>
@@ -612,6 +709,134 @@ export default function CRMAdminDashboard() {
           </TabsContent>
         </Tabs>
       </div>
+
+      {/* Modal para nuevo cliente */}
+      <Dialog open={isNewClientModalOpen} onOpenChange={setIsNewClientModalOpen}>
+        <DialogContent className="sm:max-w-[425px]">
+          <DialogHeader>
+            <DialogTitle>Crear Nuevo Cliente</DialogTitle>
+            <DialogDescription>
+              Complete la información del cliente para agregarlo al CRM.
+            </DialogDescription>
+          </DialogHeader>
+          <form onSubmit={handleCreateCustomer} className="space-y-4">
+            <div className="grid gap-4">
+              <div className="grid grid-cols-2 gap-2">
+                <div>
+                  <Label htmlFor="name">Nombre *</Label>
+                  <Input
+                    id="name"
+                    value={newClientForm.name}
+                    onChange={(e) => setNewClientForm(prev => ({...prev, name: e.target.value}))}
+                    placeholder="Nombre completo"
+                    required
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="rut">RUT</Label>
+                  <Input
+                    id="rut"
+                    value={newClientForm.rut}
+                    onChange={(e) => setNewClientForm(prev => ({...prev, rut: e.target.value}))}
+                    placeholder="12.345.678-9"
+                  />
+                </div>
+              </div>
+              
+              <div className="grid grid-cols-2 gap-2">
+                <div>
+                  <Label htmlFor="email">Email</Label>
+                  <Input
+                    id="email"
+                    type="email"
+                    value={newClientForm.email}
+                    onChange={(e) => setNewClientForm(prev => ({...prev, email: e.target.value}))}
+                    placeholder="cliente@email.com"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="phone">Teléfono</Label>
+                  <Input
+                    id="phone"
+                    value={newClientForm.phone}
+                    onChange={(e) => setNewClientForm(prev => ({...prev, phone: e.target.value}))}
+                    placeholder="+56 9 1234 5678"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <Label htmlFor="company">Empresa</Label>
+                <Input
+                  id="company"
+                  value={newClientForm.company}
+                  onChange={(e) => setNewClientForm(prev => ({...prev, company: e.target.value}))}
+                  placeholder="Nombre de la empresa"
+                />
+              </div>
+
+              <div>
+                <Label htmlFor="address">Dirección</Label>
+                <Input
+                  id="address"
+                  value={newClientForm.address}
+                  onChange={(e) => setNewClientForm(prev => ({...prev, address: e.target.value}))}
+                  placeholder="Dirección completa"
+                />
+              </div>
+
+              <div>
+                <Label htmlFor="source">Fuente de Lead</Label>
+                <Select value={newClientForm.source} onValueChange={(value) => setNewClientForm(prev => ({...prev, source: value}))}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Seleccione la fuente" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="manual">Ingreso Manual</SelectItem>
+                    <SelectItem value="website">Sitio Web</SelectItem>
+                    <SelectItem value="referral">Referido</SelectItem>
+                    <SelectItem value="social_media">Redes Sociales</SelectItem>
+                    <SelectItem value="google_ads">Google Ads</SelectItem>
+                    <SelectItem value="whatsapp">WhatsApp</SelectItem>
+                    <SelectItem value="phone">Llamada Telefónica</SelectItem>
+                    <SelectItem value="email">Email</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div>
+                <Label htmlFor="notes">Notas</Label>
+                <Textarea
+                  id="notes"
+                  value={newClientForm.notes}
+                  onChange={(e) => setNewClientForm(prev => ({...prev, notes: e.target.value}))}
+                  placeholder="Información adicional del cliente..."
+                  rows={3}
+                />
+              </div>
+            </div>
+
+            <DialogFooter>
+              <Button 
+                type="button" 
+                variant="outline" 
+                onClick={() => {
+                  setIsNewClientModalOpen(false);
+                  resetForm();
+                }}
+              >
+                Cancelar
+              </Button>
+              <Button 
+                type="submit" 
+                disabled={createCustomerMutation.isPending}
+              >
+                {createCustomerMutation.isPending ? "Creando..." : "Crear Cliente"}
+              </Button>
+            </DialogFooter>
+          </form>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
