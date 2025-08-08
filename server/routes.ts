@@ -27,6 +27,15 @@ const webhookSchema = z.object({
   source: z.string().optional(),
 });
 
+// Google My Business review webhook schema
+const googleReviewSchema = z.object({
+  reviewerName: z.string(),
+  rating: z.number().min(1).max(5),
+  reviewText: z.string(),
+  reviewTime: z.string(),
+  reviewUrl: z.string().optional(),
+});
+
 export async function registerRoutes(app: Express): Promise<Server> {
   // Auth middleware
   await setupAuth(app);
@@ -662,6 +671,56 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.json(tasks);
     } catch (error) {
       res.status(500).json({ error: "Failed to fetch tasks" });
+    }
+  });
+
+  // Google My Business Review Webhook (for automation)
+  app.post("/api/webhook/google-reviews", async (req, res) => {
+    try {
+      const reviewData = googleReviewSchema.parse(req.body);
+      
+      // Add testimonial to database
+      const testimonial = await storage.createTestimonial({
+        clientName: reviewData.reviewerName,
+        clientTitle: `Reseña Google Maps · ${reviewData.reviewTime}`,
+        content: reviewData.reviewText,
+        rating: reviewData.rating,
+        gender: "unknown",
+        isGoogleReview: true,
+        featured: true
+      });
+
+      console.log(`New Google review added: ${reviewData.reviewerName} - ${reviewData.rating} stars`);
+      
+      res.json({ success: true, testimonial });
+    } catch (error) {
+      console.error("Google review webhook error:", error);
+      if (error instanceof z.ZodError) {
+        res.status(400).json({ error: "Invalid review data", details: error.errors });
+      } else {
+        res.status(500).json({ error: "Failed to process review" });
+      }
+    }
+  });
+
+  // CRM Testimonial Management
+  app.post("/api/crm/testimonials", isCrmAdmin, async (req, res) => {
+    try {
+      const testimonialData = {
+        clientName: req.body.clientName,
+        clientTitle: req.body.clientTitle || "Cliente",
+        content: req.body.content,
+        rating: req.body.rating || 5,
+        gender: req.body.gender || "unknown",
+        isGoogleReview: req.body.isGoogleReview || true,
+        featured: req.body.featured !== false
+      };
+
+      const testimonial = await storage.createTestimonial(testimonialData);
+      res.json({ success: true, testimonial });
+    } catch (error) {
+      console.error("Create testimonial error:", error);
+      res.status(500).json({ error: "Failed to create testimonial" });
     }
   });
 
