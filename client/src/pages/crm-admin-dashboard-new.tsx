@@ -42,7 +42,9 @@ import {
   Home,
   Building,
   MapPin,
-  LogOut
+  LogOut,
+  Star,
+  ThumbsUp
 } from "lucide-react";
 import { Link } from "wouter";
 import { useAuth } from "@/hooks/useAuth";
@@ -93,6 +95,7 @@ export default function CRMAdminDashboardNew() {
   const [searchTerm, setSearchTerm] = useState("");
   const [activeTab, setActiveTab] = useState("overview");
   const [isNewClientModalOpen, setIsNewClientModalOpen] = useState(false);
+  const [isNewTestimonialModalOpen, setIsNewTestimonialModalOpen] = useState(false);
   const [newClientForm, setNewClientForm] = useState({
     name: "",
     email: "",
@@ -102,6 +105,12 @@ export default function CRMAdminDashboardNew() {
     address: "",
     source: "manual",
     notes: ""
+  });
+  const [newTestimonialForm, setNewTestimonialForm] = useState({
+    clientName: "",
+    clientTitle: "",
+    content: "",
+    rating: 5
   });
 
   // Hooks de React Query y Auth (deben ir al inicio)
@@ -203,6 +212,39 @@ export default function CRMAdminDashboardNew() {
     createCustomerMutation.mutate(newClientForm);
   };
 
+  // Mutación para crear testimonial
+  const createTestimonialMutation = useMutation({
+    mutationFn: async (testimonialData: typeof newTestimonialForm) => {
+      return await apiRequest("/api/crm/testimonials", "POST", testimonialData);
+    },
+    onSuccess: () => {
+      toast({
+        title: "Reseña agregada",
+        description: "La reseña ha sido agregada exitosamente al sitio web.",
+      });
+      setIsNewTestimonialModalOpen(false);
+      resetTestimonialForm();
+    },
+    onError: (error) => {
+      if (isUnauthorizedError(error as Error)) {
+        toast({
+          title: "Sesión expirada",
+          description: "Su sesión ha expirado. Redirigiendo al login...",
+          variant: "destructive",
+        });
+        setTimeout(() => {
+          window.location.href = "/api/login";
+        }, 1500);
+        return;
+      }
+      toast({
+        title: "Error al agregar reseña",
+        description: "Ha ocurrido un error al agregar la reseña. Inténtelo nuevamente.",
+        variant: "destructive",
+      });
+    },
+  });
+
   const resetForm = () => {
     setNewClientForm({
       name: "",
@@ -214,6 +256,28 @@ export default function CRMAdminDashboardNew() {
       source: "manual",
       notes: ""
     });
+  };
+
+  const resetTestimonialForm = () => {
+    setNewTestimonialForm({
+      clientName: "",
+      clientTitle: "",
+      content: "",
+      rating: 5
+    });
+  };
+
+  const handleCreateTestimonial = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newTestimonialForm.clientName.trim() || !newTestimonialForm.content.trim()) {
+      toast({
+        title: "Campos requeridos",
+        description: "Por favor complete el nombre del cliente y el contenido de la reseña.",
+        variant: "destructive",
+      });
+      return;
+    }
+    createTestimonialMutation.mutate(newTestimonialForm);
   };
 
   // Effect para redireccionar si no está autenticado
@@ -303,6 +367,10 @@ export default function CRMAdminDashboardNew() {
                 <Plus className="w-4 h-4 mr-2" />
                 Nuevo Cliente
               </Button>
+              <Button size="sm" variant="outline" onClick={() => setIsNewTestimonialModalOpen(true)}>
+                <Star className="w-4 h-4 mr-2" />
+                Nueva Reseña
+              </Button>
               {user && (
                 <div className="flex items-center space-x-3">
                   <div className="flex items-center space-x-2">
@@ -339,11 +407,12 @@ export default function CRMAdminDashboardNew() {
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-5">
+          <TabsList className="grid w-full grid-cols-6">
             <TabsTrigger value="overview">Dashboard</TabsTrigger>
             <TabsTrigger value="customers">Clientes</TabsTrigger>
             <TabsTrigger value="projects">Proyectos</TabsTrigger>
             <TabsTrigger value="tasks">Tareas</TabsTrigger>
+            <TabsTrigger value="testimonials">Reseñas</TabsTrigger>
             <TabsTrigger value="kpis">KPIs</TabsTrigger>
           </TabsList>
 
@@ -591,6 +660,60 @@ export default function CRMAdminDashboardNew() {
               <KpiDashboard />
             </div>
           </TabsContent>
+
+          <TabsContent value="testimonials">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <ThumbsUp className="w-5 h-5" />
+                  Gestión de Reseñas de Google Maps
+                </CardTitle>
+                <CardDescription>
+                  Agrega manualmente reseñas de Google My Business para mostrar en el sitio web.
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                <div className="flex items-center justify-between">
+                  <div className="text-sm text-gray-600">
+                    Las reseñas se agregarán automáticamente a la sección de testimonios del sitio web.
+                  </div>
+                  <Button onClick={() => setIsNewTestimonialModalOpen(true)}>
+                    <Plus className="w-4 h-4 mr-2" />
+                    Nueva Reseña
+                  </Button>
+                </div>
+                
+                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                  <div className="flex items-start space-x-3">
+                    <div className="flex-shrink-0">
+                      <Star className="w-5 h-5 text-blue-500" />
+                    </div>
+                    <div className="flex-1">
+                      <h4 className="text-sm font-medium text-blue-900 mb-1">
+                        Sistema de Reseñas Automatizado
+                      </h4>
+                      <p className="text-sm text-blue-700 mb-2">
+                        Este sistema te permite agregar reseñas rápidamente al sitio web. También tienes estas opciones:
+                      </p>
+                      <ul className="text-sm text-blue-700 space-y-1">
+                        <li>• <strong>Webhook automático:</strong> <code className="bg-blue-100 px-1 rounded text-xs">POST /api/webhook/google-reviews</code></li>
+                        <li>• <strong>Integración con Zapier/Make.com</strong> para automatización total</li>
+                        <li>• <strong>Formulario manual</strong> para agregar reseñas desde este panel</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="text-center py-12 text-gray-500">
+                  <Star className="w-12 h-12 mx-auto mb-4 text-gray-300" />
+                  <h3 className="text-lg font-medium text-gray-900 mb-2">Listo para Agregar Reseñas</h3>
+                  <p className="text-sm">
+                    Haz clic en "Nueva Reseña" para agregar manualmente una reseña de Google My Business.
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
         </Tabs>
       </div>
 
@@ -716,6 +839,96 @@ export default function CRMAdminDashboardNew() {
                 disabled={createCustomerMutation.isPending}
               >
                 {createCustomerMutation.isPending ? "Creando..." : "Crear Cliente"}
+              </Button>
+            </DialogFooter>
+          </form>
+        </DialogContent>
+      </Dialog>
+
+      {/* Modal para Nueva Reseña */}
+      <Dialog open={isNewTestimonialModalOpen} onOpenChange={setIsNewTestimonialModalOpen}>
+        <DialogContent className="sm:max-w-md">
+          <form onSubmit={handleCreateTestimonial}>
+            <DialogHeader>
+              <DialogTitle className="flex items-center gap-2">
+                <Star className="w-5 h-5" />
+                Agregar Nueva Reseña
+              </DialogTitle>
+              <DialogDescription>
+                Agrega una nueva reseña de Google My Business al sitio web.
+              </DialogDescription>
+            </DialogHeader>
+
+            <div className="grid gap-4 py-4">
+              <div>
+                <Label htmlFor="clientName">Nombre del Cliente *</Label>
+                <Input
+                  id="clientName"
+                  value={newTestimonialForm.clientName}
+                  onChange={(e) => setNewTestimonialForm(prev => ({...prev, clientName: e.target.value}))}
+                  placeholder="Nombre completo del cliente"
+                  required
+                />
+              </div>
+
+              <div>
+                <Label htmlFor="clientTitle">Información Adicional</Label>
+                <Input
+                  id="clientTitle"
+                  value={newTestimonialForm.clientTitle}
+                  onChange={(e) => setNewTestimonialForm(prev => ({...prev, clientTitle: e.target.value}))}
+                  placeholder="ej: Cliente · hace 2 semanas"
+                />
+              </div>
+
+              <div>
+                <Label htmlFor="rating">Calificación</Label>
+                <Select 
+                  value={newTestimonialForm.rating.toString()} 
+                  onValueChange={(value) => setNewTestimonialForm(prev => ({...prev, rating: parseInt(value)}))}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Selecciona calificación" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="5">⭐⭐⭐⭐⭐ (5 estrellas)</SelectItem>
+                    <SelectItem value="4">⭐⭐⭐⭐ (4 estrellas)</SelectItem>
+                    <SelectItem value="3">⭐⭐⭐ (3 estrellas)</SelectItem>
+                    <SelectItem value="2">⭐⭐ (2 estrellas)</SelectItem>
+                    <SelectItem value="1">⭐ (1 estrella)</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div>
+                <Label htmlFor="content">Contenido de la Reseña *</Label>
+                <Textarea
+                  id="content"
+                  value={newTestimonialForm.content}
+                  onChange={(e) => setNewTestimonialForm(prev => ({...prev, content: e.target.value}))}
+                  placeholder="Escribe aquí el texto completo de la reseña..."
+                  rows={4}
+                  required
+                />
+              </div>
+            </div>
+
+            <DialogFooter>
+              <Button 
+                type="button" 
+                variant="outline" 
+                onClick={() => {
+                  setIsNewTestimonialModalOpen(false);
+                  resetTestimonialForm();
+                }}
+              >
+                Cancelar
+              </Button>
+              <Button 
+                type="submit" 
+                disabled={createTestimonialMutation.isPending}
+              >
+                {createTestimonialMutation.isPending ? "Agregando..." : "Agregar Reseña"}
               </Button>
             </DialogFooter>
           </form>

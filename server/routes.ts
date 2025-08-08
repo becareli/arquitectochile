@@ -685,8 +685,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
         clientTitle: `Reseña Google Maps · ${reviewData.reviewTime}`,
         content: reviewData.reviewText,
         rating: reviewData.rating,
-        gender: "unknown",
-        isGoogleReview: true,
         featured: true
       });
 
@@ -711,8 +709,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
         clientTitle: req.body.clientTitle || "Cliente",
         content: req.body.content,
         rating: req.body.rating || 5,
-        gender: req.body.gender || "unknown",
-        isGoogleReview: req.body.isGoogleReview || true,
         featured: req.body.featured !== false
       };
 
