@@ -12,6 +12,15 @@ export default function Testimonials() {
   // All authentic Google Maps reviews and testimonials
   const fallbackTestimonials = [
     {
+      id: 21,
+      clientName: "Ivan Romaratti",
+      clientTitle: "Reseña Google Maps · 1 día",
+      content: "He delivers on what he promised in the Home Consulting service description. Cumple con lo que promete en la descripción del servicio de Consultoría en el Hogar.",
+      rating: 5,
+      gender: "male",
+      isGoogleReview: true
+    },
+    {
       id: 1,
       clientName: "Gabriela Casanova",
       clientTitle: "Reseña Google Maps · 2 meses",
