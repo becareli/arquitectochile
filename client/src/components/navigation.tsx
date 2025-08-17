@@ -13,6 +13,7 @@ export default function Navigation() {
 
   // Services list
   const services = [
+    { name: "Regularización de Viviendas La Florida", path: "/regularizacion-viviendas-la-florida" },
     { name: "Reacondicionamiento Térmico de Viviendas", path: "/reacondicionamiento-termico-viviendas" },
     { name: "Subdivisión de Terrenos Urbanos", path: "/subdivision-terrenos-urbanos" },
     { name: "Tasación de Viviendas Urbanas", path: "/tasacion-viviendas-urbanas" },
@@ -140,7 +141,7 @@ export default function Navigation() {
                       <div className="px-4 py-2 text-xs font-bold text-gray-500 uppercase tracking-wide border-b border-gray-100">
                         Servicios Especializados
                       </div>
-                      {services.slice(0, 4).map((service, index) => (
+                      {services.slice(0, 5).map((service, index) => (
                         <button
                           key={index}
                           onClick={() => navigateToService(service.path)}
@@ -152,9 +153,9 @@ export default function Navigation() {
                       <div className="px-4 py-2 text-xs font-bold text-gray-500 uppercase tracking-wide border-b border-gray-100 border-t border-gray-100 mt-2">
                         Servicios Tradicionales
                       </div>
-                      {services.slice(4).map((service, index) => (
+                      {services.slice(5).map((service, index) => (
                         <button
-                          key={index + 4}
+                          key={index + 5}
                           onClick={() => navigateToService(service.path)}
                           className="w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors"
                         >

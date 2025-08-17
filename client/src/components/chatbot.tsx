@@ -17,7 +17,7 @@ export default function Chatbot() {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
-      text: '¡Hola! Soy el asistente virtual de ArquitectoChile. ¿En qué puedo ayudarte? Ofrezco información sobre: Reacondicionamiento Térmico, Subdivisión de Terrenos, Tasación de Viviendas, Inspección de Viviendas, Fusión de Terrenos, Diseño de Espacios, Revisor Independiente, Regularización, Sistema EIFS, Permisos, Portal Cliente y más.',
+      text: '¡Hola! Soy el asistente virtual de ArquitectoChile. ¿En qué puedo ayudarte? Ofrezco información sobre: Regularización de Viviendas La Florida, Reacondicionamiento Térmico, Subdivisión de Terrenos, Tasación de Viviendas, Inspección de Viviendas, Fusión de Terrenos, Diseño de Espacios, Revisor Independiente, Sistema EIFS, Permisos, Portal Cliente y más.',
       sender: 'bot',
       timestamp: new Date()
     }
@@ -55,8 +55,8 @@ export default function Chatbot() {
       return 'Nuestro servicio "Diseñemos tus Nuevos Espacios" incluye diseño 100% personalizado, planos completos, visualización 3D y asesoría en materiales. Desde $2.490.000, solo 3 proyectos por mes. ¿Te interesa transformar tu hogar?';
     }
     
-    if (message.includes('regulariz') || message.includes('ley del mono') || message.includes('ampliaci')) {
-      return 'La regularización de inmuebles (Ley del Mono) permite legalizar ampliaciones y construcciones sin permisos. Cubrimos todo el proceso legal y técnico. ¿Tienes alguna construcción que necesite regularizar?';
+    if (message.includes('regulariz') || message.includes('ley del mono') || message.includes('ampliaci') || message.includes('la florida') || message.includes('legalizar vivienda')) {
+      return 'NUEVO SERVICIO: Regularización de Viviendas en La Florida bajo la Ley N° 20.898 "Ley del Mono". Plazo extendido hasta diciembre 2027. Servicio integral: diagnóstico GRATUITO, levantamiento de planos, informe técnico, tramitación completa DOM y Conservador. Paquetes desde $1.890.000. Evita multas, aumenta el valor de tu propiedad y obtén seguridad jurídica total. ¿Tienes una vivienda en La Florida que necesite regularizar?';
     }
     
     if (message.includes('reacondicionamiento') || message.includes('térmico') || message.includes('termico') || message.includes('aislación') || message.includes('aislacion') || message.includes('calefacción') || message.includes('calefaccion') || message.includes('frío') || message.includes('frio') || message.includes('calor') || message.includes('energía') || message.includes('energia') || message.includes('diagnóstico térmico')) {
@@ -117,7 +117,7 @@ export default function Chatbot() {
     
     // Información general
     if (message.includes('servicios') || message.includes('qué hacen') || message.includes('especialidad')) {
-      return 'Somos especialistas en: Subdivisión de Terrenos, Fusión de Terrenos, Diseño de Espacios, Revisor Independiente, Regularización de Inmuebles, Tasaciones, Inspección Técnica, Sistema EIFS, Permisos y Recepciones, Estudios de Cabida. ¿Cuál te interesa más?';
+      return 'Somos especialistas en: Regularización de Viviendas La Florida, Subdivisión de Terrenos, Fusión de Terrenos, Reacondicionamiento Térmico, Tasaciones, Inspección Técnica, Diseño de Espacios, Revisor Independiente, Sistema EIFS, Permisos y Recepciones, Estudios de Cabida. ¿Cuál te interesa más?';
     }
     
     if (message.includes('contacto') || message.includes('telefono') || message.includes('whatsapp')) {
@@ -129,11 +129,11 @@ export default function Chatbot() {
     }
     
     if (message.includes('hola') || message.includes('buenas') || message.includes('buenos dias')) {
-      return '¡Hola! Soy el asistente de ArquitectoChile. Puedo ayudarte con: Subdivisión de Terrenos, Fusión de Terrenos, Diseño de Espacios, Revisor Independiente, Regularización, Tasaciones, Inspección Técnica, EIFS, Permisos y más. ¿Qué necesitas?';
+      return '¡Hola! Soy el asistente de ArquitectoChile. Puedo ayudarte con: Regularización de Viviendas La Florida, Subdivisión de Terrenos, Fusión de Terrenos, Reacondicionamiento Térmico, Diseño de Espacios, Revisor Independiente, Tasaciones, Inspección Técnica, EIFS, Permisos y más. ¿Qué necesitas?';
     }
     
     // Respuesta por defecto
-    return 'Gracias por tu consulta. Ofrecemos servicios completos de arquitectura: subdivisión de terrenos, fusión de terrenos, diseño, permisos, tasaciones, regularización y más. Para información específica, contacta a Patricio por WhatsApp +56979316827. ¿Te ayudo a conectarte?';
+    return 'Gracias por tu consulta. Ofrecemos servicios completos de arquitectura: regularización de viviendas La Florida, subdivisión de terrenos, fusión de terrenos, reacondicionamiento térmico, diseño, permisos, tasaciones y más. Para información específica, contacta a Patricio por WhatsApp +56979316827. ¿Te ayudo a conectarte?';
   };
 
   const handleSendMessage = async () => {

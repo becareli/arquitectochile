@@ -1,0 +1,94 @@
+Prompt para Replit: Página de Ventas para Regularización de Viviendas en La Florida
+Rol:
+Actúa como un equipo de marketing digital de élite, fusionando la esencia de cuatro genios: Alex Hormozi para la propuesta de valor irresistible, Russell Brunson para la estructura del embudo, Vilma Núñez para la estrategia de contenido y SEO, y Gary Halbert para el copywriting persuasivo y directo. Tu misión es generar el código completo de una página de ventas de alto rendimiento.
+
+Acción:
+Crea el código HTML, CSS y JavaScript para una landing page de ventas completa y responsiva. La página debe estar diseñada para persuadir a propietarios de viviendas de autoconstrucción en La Florida, Chile, a agendar una visita de diagnóstico gratuita.
+
+Contexto:
+El cliente es el Arquitecto Patricio Becar, quien ofrece un servicio de regularización de propiedades bajo la Ley N.º 20.898 ("Ley del Mono"). La ley, con vigencia extendida hasta el 31 de diciembre de 2027, presenta una oportunidad con un sentido de urgencia. El público objetivo es un propietario individual o una familia, no un inversor, que siente ansiedad e incertidumbre por la situación de su propiedad. La competencia local tiene precios dispersos y ofertas poco claras, lo que permite diferenciarse por la transparencia y confianza.
+
+Estructura y Contenido (Constraints):
+
+Título y Gancho (Sección Hero):
+
+Titular: Utiliza el titular sugerido: "Regulariza tu Hogar en La Florida con la Ley del Mono: Protege tu Inversión y duerme tranquilo".
+
+Imagen: Implementa la imagen del "Uncle Sam" del documento, con la figura apuntando y la "Money Back Guarantee" visible, para captar la atención y validar los miedos del cliente.
+
+Botón CTA: Un botón llamativo con el texto "Agenda tu Visita Gratuita Ahora".
+
+Sección de Problema y Miedos:
+
+Enumera los problemas que resuenan con el cliente: riesgo de multas, imposibilidad de vender o acceder a créditos, devaluación de la propiedad y la amenaza de demolición o reclamos de vecinos.
+
+Utiliza un lenguaje empático para conectar con la "ansiedad e incertidumbre" que sienten los propietarios.
+
+Sección de Solución y Oportunidad:
+
+Presenta la Ley N.º 20.898 como la "oportunidad única" para resolver estos problemas, resaltando que el plazo se extiende hasta 2027.
+
+Destaca los beneficios emocionales (tranquilidad, seguridad jurídica, valorización) y funcionales (acceso a subsidios de mejoramiento habitacional y descuentos de hasta el 75% en derechos municipales).
+
+Sección del Proceso Integral:
+
+Desglosa el servicio del Arquitecto Patricio Becar en pasos claros y sencillos.
+
+Menciona los componentes del servicio integral: diagnóstico inicial gratuito, levantamiento de planos, informe técnico, y toda la tramitación ante la Dirección de Obras Municipales (DOM) y el Conservador de Bienes Raíces.
+
+Sección de Precios y Paquetes:
+
+Propón precios transparentes y fijos para eliminar la incertidumbre del cliente.
+
+Presenta dos paquetes: uno para viviendas de ≤90 m 
+2
+  y otro para ampliaciones de hasta 140 m 
+2
+  y hasta 2.000 UF de avalúo.
+
+Comunica que el valor del servicio es una inversión que se traduce en plusvalía y ahorro a largo plazo.
+
+Sección de Autoridad y Pruebas Sociales:
+
+Incluye una sección para testimonios y casos de éxito, destacando la experiencia local en La Florida.
+
+Los testimonios deben contar una historia de "antes" (miedo, duda) y "después" (tranquilidad, seguridad).
+
+Menciona la experiencia del arquitecto Patricio Becar para establecer autoridad.
+
+Llamado a la Acción Final:
+
+Reitera el CTA con un sentido de urgencia: "Asegura tu regularización antes del 31 de diciembre de 2027".
+
+Incluye un formulario de contacto simple (Nombre, Email, Teléfono) y un código QR, como se muestra en la imagen, para facilitar la conexión.
+
+Requisitos Técnicos:
+
+El código debe ser un solo archivo index.html.
+
+El CSS debe estar incrustado en la etiqueta <style>.
+
+El JavaScript, para la funcionalidad del formulario o efectos visuales, debe estar al final de la etiqueta <body>.
+
+La página debe ser totalmente responsive, adaptándose a pantallas de escritorio y móviles.
+
+Tu respuesta debe ser el código completo para la página web, seguido de una breve justificación de cómo cada sección aplica los principios de los "Cuatro Fantásticos" del marketing.
+
+Notas y Justificación de la Estrategia
+Alex Hormozi (Propuesta de Valor Irresistible): La página se centra en ofrecer un "servicio integral" que elimina la "ansiedad e incertidumbre" del cliente, un problema de alto valor. Se ofrece un diagnóstico gratuito para eliminar el riesgo percibido y se propone una "Money Back Guarantee" como un diferenciador clave que elimina cualquier objeción de riesgo por parte del cliente.
+
+Russell Brunson (Estructura de Embudo de Ventas): La página sigue una estructura lógica de embudo:
+
+Gancho: Título emocional y la imagen de "Uncle Sam" que detiene al cliente.
+
+Problema: Se valida el miedo del cliente para generar empatía.
+
+Solución: Se presenta la Ley del Mono como la solución única a su problema.
+
+Oferta: Se detallan el servicio integral y los precios transparentes para construir confianza y facilitar la decisión de compra.
+
+Llamado a la Acción: El CTA de bajo riesgo ("visita gratuita") facilita la primera conversión.
+
+Vilma Núñez (Estrategia de Contenido y SEO): La página está optimizada para el SEO local en "La Florida" y para palabras clave relacionadas como "regularizar vivienda" y "Ley del Mono". El contenido responde a las preguntas y objeciones comunes del cliente, posicionando al Arquitecto Becar como una "fuente de conocimiento confiable" y una autoridad en el nicho.
+
+Gary Halbert (Copywriting Persuasivo y Directo): El lenguaje se enfoca en los beneficios emocionales ("duerme tranquilo", "protege tu inversión") y se aleja de la jerga técnica. El mensaje es directo, con una urgencia clara (el plazo de 2027). La página habla directamente al "miedo, duda y meta" del cliente, creando una conexión personal y persuasiva.
