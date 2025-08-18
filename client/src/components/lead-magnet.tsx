@@ -6,7 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
-import ebookCover from "@assets/PortadaEbook_1752612398787.png";
+import ebookCover from "@assets/generated_images/3D_ebook_with_visible_pages_e9b729c0.png";
 
 export default function LeadMagnet() {
   const [email, setEmail] = useState("");
@@ -69,16 +69,23 @@ export default function LeadMagnet() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Left side - Ebook presentation */}
           <div className="text-white">
+            {/* Imagen del Ebook separada */}
+            <div className="text-center mb-8">
+              <div className="w-48 h-64 mx-auto flex items-center justify-center transform rotate-3 hover:rotate-0 transition-transform duration-300">
+                <img 
+                  src={ebookCover} 
+                  alt="Ebook: ¿Cómo Ampliar o Remodelar Mi Casa? en Santiago de Chile"
+                  className="w-full h-auto object-contain"
+                  style={{ 
+                    filter: 'drop-shadow(8px 8px 20px rgba(0,0,0,0.4))',
+                    maxHeight: '250px'
+                  }}
+                />
+              </div>
+            </div>
+
             <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 mb-8">
               <div className="text-center mb-6">
-                <div className="w-64 h-80 mx-auto mb-4 flex items-center justify-center transform rotate-3 hover:rotate-0 transition-transform duration-300">
-                  <img 
-                    src={ebookCover} 
-                    alt="Ebook: ¿Cómo Ampliar o Remodelar Mi Casa? en Santiago de Chile"
-                    className="w-full h-auto object-contain rounded-lg shadow-2xl bg-transparent"
-                    style={{ filter: 'drop-shadow(8px 8px 20px rgba(0,0,0,0.3))' }}
-                  />
-                </div>
                 <h2 className="text-3xl font-bold mb-2">NUEVO EBOOK GRATUITO</h2>
                 <h3 className="text-xl font-semibold mb-4">
                   <span className="text-accent">¿Cómo Ampliar o Remodelar Mi Casa?</span> en Santiago de Chile
