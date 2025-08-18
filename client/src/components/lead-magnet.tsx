@@ -69,28 +69,27 @@ export default function LeadMagnet() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Left side - Ebook presentation */}
           <div className="text-white">
-            {/* Imagen del Ebook separada */}
-            <div className="text-center mb-8">
-              <div className="w-48 h-64 mx-auto flex items-center justify-center transform rotate-3 hover:rotate-0 transition-transform duration-300">
-                <img 
-                  src={ebookCover} 
-                  alt="Ebook: ¿Cómo Ampliar o Remodelar Mi Casa? en Santiago de Chile"
-                  className="w-full h-auto object-contain"
-                  style={{ 
-                    filter: 'drop-shadow(8px 8px 20px rgba(0,0,0,0.4))',
-                    maxHeight: '250px'
-                  }}
-                />
-              </div>
-            </div>
-
-            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 mb-8">
-              <div className="text-center mb-6">
-                <h2 className="text-3xl font-bold mb-2">NUEVO EBOOK GRATUITO</h2>
-                <h3 className="text-xl font-semibold mb-4">
-                  <span className="text-accent">¿Cómo Ampliar o Remodelar Mi Casa?</span> en Santiago de Chile
+            <div className="bg-gradient-to-br from-blue-600/20 via-blue-700/15 to-purple-600/20 backdrop-blur-sm rounded-2xl p-8 mb-8 border border-white/20">
+              <div className="text-center mb-8">
+                {/* Imagen del Ebook grande dentro de la caja */}
+                <div className="w-full max-w-sm mx-auto mb-8 flex items-center justify-center transform rotate-2 hover:rotate-0 transition-transform duration-300">
+                  <img 
+                    src={ebookCover} 
+                    alt="Ebook: ¿Cómo Ampliar o Remodelar Mi Casa? en Santiago de Chile"
+                    className="w-full h-auto object-contain"
+                    style={{ 
+                      filter: 'drop-shadow(12px 12px 30px rgba(0,0,0,0.5))',
+                      maxHeight: '400px',
+                      minHeight: '300px'
+                    }}
+                  />
+                </div>
+                
+                <h2 className="text-4xl font-bold mb-3 text-white">NUEVO EBOOK GRATUITO</h2>
+                <h3 className="text-2xl font-semibold mb-4 text-white">
+                  <span className="text-yellow-300">¿Cómo Ampliar o Remodelar Mi Casa?</span> en Santiago de Chile
                 </h3>
-                <p className="text-lg text-accent font-bold">
+                <p className="text-xl text-yellow-300 font-bold">
                   ...y no morir en el intento!!
                 </p>
               </div>
