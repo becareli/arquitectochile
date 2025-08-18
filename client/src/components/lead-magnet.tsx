@@ -249,9 +249,6 @@ export default function LeadMagnet() {
             
             <Card className="bg-white rounded-2xl shadow-2xl border-4 border-yellow-400">
               <CardHeader className="text-center bg-gradient-to-r from-yellow-400 to-orange-400 rounded-t-2xl">
-                <div className="flex items-center justify-center gap-2 mb-2">
-                  <Download className="w-8 h-8 text-white" />
-                </div>
                 <CardTitle className="text-xl font-bold text-white mb-2">
                   Completa tus datos:
                 </CardTitle>
