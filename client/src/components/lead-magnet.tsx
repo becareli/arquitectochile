@@ -158,19 +158,92 @@ export default function LeadMagnet() {
           
           {/* Right side - Download form */}
           <div className="relative -mt-16">
-            {/* Beneficios destacados - Iconos grandes */}
-            <div className="flex justify-center gap-6 mb-6">
-              <div className="flex flex-col items-center text-white">
-                <Gift className="w-10 h-10 mb-1 text-yellow-300" />
-                <p className="text-xs font-semibold">Sin costo</p>
+            {/* Título principal fuera de la caja, sobre el fondo azul */}
+            <div className="text-center mb-4 relative">
+              <h2 className="text-5xl font-black text-white drop-shadow-2xl relative z-10 mb-4">
+                DESCARGA AQUÍ TU GUÍA GRATIS
+              </h2>
+              
+              {/* Tres flechas 3D apuntando hacia abajo debajo del título */}
+              <div className="flex justify-center space-x-8 mt-2 mb-4">
+                {/* Flecha izquierda */}
+                <div>
+                  <svg width="40" height="50" viewBox="0 0 40 50" className="drop-shadow-2xl">
+                    <defs>
+                      <linearGradient id="arrowGradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style={{stopColor:"#EF4444", stopOpacity:1}} />
+                        <stop offset="50%" style={{stopColor:"#DC2626", stopOpacity:1}} />
+                        <stop offset="100%" style={{stopColor:"#B91C1C", stopOpacity:1}} />
+                      </linearGradient>
+                    </defs>
+                    <path
+                      d="M10 5 L30 5 L30 18 L37 18 L20 42 L3 18 L10 18 Z"
+                      fill="url(#arrowGradient1)"
+                    />
+                    <path
+                      d="M12 7 L28 7 L28 16 L32 16 L20 36 L8 16 L12 16 Z"
+                      fill="rgba(255,255,255,0.3)"
+                    />
+                  </svg>
+                </div>
+                
+                {/* Flecha centro */}
+                <div>
+                  <svg width="40" height="50" viewBox="0 0 40 50" className="drop-shadow-2xl">
+                    <defs>
+                      <linearGradient id="arrowGradient2" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style={{stopColor:"#EF4444", stopOpacity:1}} />
+                        <stop offset="50%" style={{stopColor:"#DC2626", stopOpacity:1}} />
+                        <stop offset="100%" style={{stopColor:"#B91C1C", stopOpacity:1}} />
+                      </linearGradient>
+                    </defs>
+                    <path
+                      d="M10 5 L30 5 L30 18 L37 18 L20 42 L3 18 L10 18 Z"
+                      fill="url(#arrowGradient2)"
+                    />
+                    <path
+                      d="M12 7 L28 7 L28 16 L32 16 L20 36 L8 16 L12 16 Z"
+                      fill="rgba(255,255,255,0.3)"
+                    />
+                  </svg>
+                </div>
+                
+                {/* Flecha derecha */}
+                <div>
+                  <svg width="40" height="50" viewBox="0 0 40 50" className="drop-shadow-2xl">
+                    <defs>
+                      <linearGradient id="arrowGradient3" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style={{stopColor:"#EF4444", stopOpacity:1}} />
+                        <stop offset="50%" style={{stopColor:"#DC2626", stopOpacity:1}} />
+                        <stop offset="100%" style={{stopColor:"#B91C1C", stopOpacity:1}} />
+                      </linearGradient>
+                    </defs>
+                    <path
+                      d="M10 5 L30 5 L30 18 L37 18 L20 42 L3 18 L10 18 Z"
+                      fill="url(#arrowGradient3)"
+                    />
+                    <path
+                      d="M12 7 L28 7 L28 16 L32 16 L20 36 L8 16 L12 16 Z"
+                      fill="rgba(255,255,255,0.3)"
+                    />
+                  </svg>
+                </div>
               </div>
-              <div className="flex flex-col items-center text-white">
-                <CheckCircle className="w-10 h-10 mb-1 text-yellow-300" />
-                <p className="text-xs font-semibold">Envío instantáneo</p>
-              </div>
-              <div className="flex flex-col items-center text-white">
-                <Shield className="w-10 h-10 mb-1 text-yellow-300" />
-                <p className="text-xs font-semibold">100% seguro</p>
+              
+              {/* Beneficios destacados - Iconos grandes */}
+              <div className="flex justify-center gap-6 mb-6">
+                <div className="flex flex-col items-center text-white">
+                  <Gift className="w-10 h-10 mb-1 text-yellow-300" />
+                  <p className="text-xs font-semibold">Sin costo</p>
+                </div>
+                <div className="flex flex-col items-center text-white">
+                  <CheckCircle className="w-10 h-10 mb-1 text-yellow-300" />
+                  <p className="text-xs font-semibold">Envío instantáneo</p>
+                </div>
+                <div className="flex flex-col items-center text-white">
+                  <Shield className="w-10 h-10 mb-1 text-yellow-300" />
+                  <p className="text-xs font-semibold">100% seguro</p>
+                </div>
               </div>
             </div>
             
