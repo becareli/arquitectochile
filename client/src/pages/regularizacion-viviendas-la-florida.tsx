@@ -101,12 +101,12 @@ export default function RegularizacionViviendasLaFloridaPage() {
             </Badge>
           </div>
           
-          <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+          <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
             Regulariza tu Hogar en La Florida
             <span className="block text-yellow-300">con la Ley del Mono</span>
           </h1>
           
-          <h2 className="text-xl md:text-2xl mb-8 text-red-100 max-w-4xl mx-auto">
+          <h2 className="text-2xl md:text-3xl mb-8 text-red-100 max-w-4xl mx-auto">
             Protege tu Inversión y Duerme Tranquilo - Servicio Integral de Regularización bajo Ley N° 20.898
           </h2>
 
@@ -155,10 +155,10 @@ export default function RegularizacionViviendasLaFloridaPage() {
       <section className="py-16 px-4 bg-gray-50">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
               ¿Vives con la Angustia de una Vivienda Sin Regularizar?
             </h2>
-            <p className="text-xl text-gray-600 max-w-4xl mx-auto">
+            <p className="text-2xl text-gray-600 max-w-4xl mx-auto">
               Sabemos que tienes miedo. La incertidumbre no te deja dormir tranquilo. 
               Estos son los problemas REALES que enfrentas cada día:
             </p>
@@ -190,8 +190,8 @@ export default function RegularizacionViviendasLaFloridaPage() {
               <Card key={index} className="border-red-200 hover:shadow-lg transition-shadow">
                 <CardContent className="p-6 text-center">
                   <div className="mb-4">{problem.icon}</div>
-                  <h3 className="font-bold text-lg mb-2 text-gray-900">{problem.title}</h3>
-                  <p className="text-gray-600 text-sm">{problem.description}</p>
+                  <h3 className="font-bold text-xl mb-2 text-gray-900">{problem.title}</h3>
+                  <p className="text-gray-600 text-base">{problem.description}</p>
                 </CardContent>
               </Card>
             ))}
@@ -240,11 +240,11 @@ export default function RegularizacionViviendasLaFloridaPage() {
             <Badge variant="outline" className="bg-green-500 text-white border-green-600 mb-4">
               ✅ LA SOLUCIÓN EXISTE
             </Badge>
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
               La Ley N° 20.898 "Ley del Mono" es tu
               <span className="text-green-600"> Oportunidad Única</span>
             </h2>
-            <p className="text-xl text-gray-600 max-w-4xl mx-auto">
+            <p className="text-2xl text-gray-600 max-w-4xl mx-auto">
               El gobierno chileno creó esta ley especialmente para resolver TU problema. 
               Y ahora tienes hasta <strong className="text-green-600">diciembre de 2027</strong> para aprovechar esta oportunidad.
             </p>
@@ -255,8 +255,8 @@ export default function RegularizacionViviendasLaFloridaPage() {
               <div className="flex items-start space-x-4">
                 <CheckCircle className="w-6 h-6 text-green-500 mt-1 flex-shrink-0" />
                 <div>
-                  <h3 className="font-bold text-lg mb-2">Tranquilidad Total</h3>
-                  <p className="text-gray-600">Tu vivienda quedará completamente legal y protegida ante cualquier reclamo.</p>
+                  <h3 className="font-bold text-xl mb-2">Tranquilidad Total</h3>
+                  <p className="text-gray-600 text-lg">Tu vivienda quedará completamente legal y protegida ante cualquier reclamo.</p>
                 </div>
               </div>
 
@@ -316,10 +316,10 @@ export default function RegularizacionViviendasLaFloridaPage() {
       <section className="py-16 px-4 bg-white">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
               Servicio Integral de Regularización
             </h2>
-            <p className="text-xl text-gray-600 max-w-4xl mx-auto">
+            <p className="text-2xl text-gray-600 max-w-4xl mx-auto">
               Te acompañamos en <strong>cada paso del proceso</strong>. Desde el diagnóstico inicial hasta la inscripción final. 
               <strong>Todo incluido, sin sorpresas.</strong>
             </p>
@@ -365,8 +365,8 @@ export default function RegularizacionViviendasLaFloridaPage() {
                 <CardContent className="p-6">
                   <div className="mb-4 flex justify-center">{process.icon}</div>
                   <Badge variant="outline" className="mb-3">Paso {process.step}</Badge>
-                  <h3 className="font-bold text-lg mb-3">{process.title}</h3>
-                  <p className="text-gray-600 text-sm">{process.description}</p>
+                  <h3 className="font-bold text-xl mb-3">{process.title}</h3>
+                  <p className="text-gray-600 text-base">{process.description}</p>
                 </CardContent>
               </Card>
             ))}
@@ -402,10 +402,10 @@ export default function RegularizacionViviendasLaFloridaPage() {
       <section className="py-16 px-4 bg-gray-50">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
               Precios Transparentes y Fijos
             </h2>
-            <p className="text-xl text-gray-600 max-w-4xl mx-auto">
+            <p className="text-2xl text-gray-600 max-w-4xl mx-auto">
               <strong>Sin sorpresas, sin costos ocultos.</strong> Conoce exactamente lo que pagarás desde el primer día.
               Esta inversión se traduce en plusvalía y tranquilidad para toda la vida.
             </p>
@@ -419,6 +419,7 @@ export default function RegularizacionViviendasLaFloridaPage() {
                 <CardTitle className="text-2xl">Viviendas ≤ 90 m²</CardTitle>
                 <div className="text-3xl font-bold text-blue-600">Desde $1.890.000</div>
                 <p className="text-gray-600">Ideal para viviendas pequeñas y ampliaciones menores</p>
+                <p className="text-sm text-blue-600 font-medium mt-2">💳 Pago en 3 hitos cómodos</p>
               </CardHeader>
               <CardContent className="p-6">
                 <ul className="space-y-3">
@@ -433,7 +434,7 @@ export default function RegularizacionViviendasLaFloridaPage() {
                     "✅ Garantía de satisfacción"
                   ].map((feature, index) => (
                     <li key={index} className="flex items-center space-x-2">
-                      <span className="text-sm">{feature}</span>
+                      <span className="text-base">{feature}</span>
                     </li>
                   ))}
                 </ul>
@@ -450,6 +451,7 @@ export default function RegularizacionViviendasLaFloridaPage() {
                 <CardTitle className="text-2xl">Ampliaciones hasta 140 m²</CardTitle>
                 <div className="text-3xl font-bold text-green-600">Desde $2.590.000</div>
                 <p className="text-gray-600">Para viviendas grandes y proyectos complejos (hasta 2.000 UF)</p>
+                <p className="text-sm text-green-600 font-medium mt-2">💳 Pago en 3 hitos cómodos</p>
               </CardHeader>
               <CardContent className="p-6">
                 <ul className="space-y-3">
@@ -464,7 +466,7 @@ export default function RegularizacionViviendasLaFloridaPage() {
                     "✅ Garantía extendida"
                   ].map((feature, index) => (
                     <li key={index} className="flex items-center space-x-2">
-                      <span className="text-sm">{feature}</span>
+                      <span className="text-base">{feature}</span>
                     </li>
                   ))}
                 </ul>
@@ -480,18 +482,50 @@ export default function RegularizacionViviendasLaFloridaPage() {
               <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
                 <div className="text-center">
                   <TrendingUp className="w-12 h-12 text-green-500 mx-auto mb-3" />
-                  <h4 className="font-bold mb-2">Aumenta el Valor</h4>
-                  <p className="text-sm text-gray-600">Una vivienda regularizada vale 15-25% más en el mercado</p>
+                  <h4 className="font-bold mb-2 text-xl">Aumenta el Valor</h4>
+                  <p className="text-lg text-gray-600">Una vivienda regularizada vale 15-25% más en el mercado</p>
                 </div>
                 <div className="text-center">
                   <Shield className="w-12 h-12 text-blue-500 mx-auto mb-3" />
-                  <h4 className="font-bold mb-2">Evita Multas</h4>
-                  <p className="text-sm text-gray-600">Las multas pueden ser de $500.000 a $2.000.000 o más</p>
+                  <h4 className="font-bold mb-2 text-xl">Evita Multas</h4>
+                  <p className="text-lg text-gray-600">Las multas pueden ser de $500.000 a $2.000.000 o más</p>
                 </div>
                 <div className="text-center">
                   <CheckCircle className="w-12 h-12 text-purple-500 mx-auto mb-3" />
-                  <h4 className="font-bold mb-2">Acceso a Créditos</h4>
-                  <p className="text-sm text-gray-600">Podrás acceder a hipotecas y créditos sobre tu propiedad</p>
+                  <h4 className="font-bold mb-2 text-xl">Acceso a Créditos</h4>
+                  <p className="text-lg text-gray-600">Podrás acceder a hipotecas y créditos sobre tu propiedad</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Payment Schedule Information */}
+          <div className="mt-12 bg-gray-100 p-8 rounded-lg">
+            <div className="text-center">
+              <h3 className="text-3xl font-bold text-gray-900 mb-6">
+                💳 Sistema de Pago por Hitos
+              </h3>
+              <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
+                No pagas todo de una vez. El pago se distribuye en 3 hitos según el avance del proceso:
+              </p>
+              
+              <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+                <div className="bg-white p-6 rounded-lg shadow-lg">
+                  <div className="text-blue-600 font-bold text-lg mb-2">HITO 1</div>
+                  <h4 className="font-bold text-xl mb-3">Al Contratar los Servicios</h4>
+                  <p className="text-gray-600 text-lg">Primera cuota al firmar el contrato y comenzar el proceso</p>
+                </div>
+                
+                <div className="bg-white p-6 rounded-lg shadow-lg">
+                  <div className="text-green-600 font-bold text-lg mb-2">HITO 2</div>
+                  <h4 className="font-bold text-xl mb-3">Al Ingreso del Expediente</h4>
+                  <p className="text-gray-600 text-lg">Segunda cuota cuando ingresamos tu expediente a la municipalidad</p>
+                </div>
+                
+                <div className="bg-white p-6 rounded-lg shadow-lg">
+                  <div className="text-purple-600 font-bold text-lg mb-2">HITO 3</div>
+                  <h4 className="font-bold text-xl mb-3">Al Obtener Certificado</h4>
+                  <p className="text-gray-600 text-lg">Última cuota cuando obtienes tu certificado de regularización</p>
                 </div>
               </div>
             </div>
@@ -500,10 +534,10 @@ export default function RegularizacionViviendasLaFloridaPage() {
           {/* Strategic CTA after pricing */}
           <div className="mt-12 text-center">
             <div className="bg-gradient-to-r from-yellow-400 to-orange-500 p-8 rounded-lg shadow-2xl">
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">
+              <h3 className="text-3xl font-bold text-gray-900 mb-4">
                 💡 ¡Tu Vivienda Vale Más Regularizada!
               </h3>
-              <p className="text-gray-800 mb-6 max-w-2xl mx-auto">
+              <p className="text-xl text-gray-800 mb-6 max-w-2xl mx-auto">
                 No pierdas más tiempo preocupándote. Una inversión de $1.890.000 puede aumentar el valor de tu propiedad en $15-25 millones o más.
               </p>
               <Button 
@@ -522,10 +556,10 @@ export default function RegularizacionViviendasLaFloridaPage() {
       <section className="py-16 px-4 bg-white">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
               Experiencia Comprobada en La Florida
             </h2>
-            <p className="text-xl text-gray-600 max-w-4xl mx-auto">
+            <p className="text-2xl text-gray-600 max-w-4xl mx-auto">
               El <strong>Arquitecto Patricio Becar</strong> tiene más de 25 años de experiencia y conoce perfectamente 
               los procesos municipales de La Florida. Miles de familias ya regularizaron sus viviendas con nosotros.
             </p>
@@ -540,7 +574,7 @@ export default function RegularizacionViviendasLaFloridaPage() {
                     {[...Array(5)].map((_, i) => <Star key={i} className="w-4 h-4 fill-current" />)}
                   </div>
                 </div>
-                <p className="text-gray-600 mb-4 italic">
+                <p className="text-gray-600 mb-4 italic text-lg">
                   "Antes vivía con miedo constante de que me multaran por mi ampliación. 
                   No podía dormir tranquila. Patricio me solucionó todo en 4 meses. 
                   Ahora mi casa vale mucho más y tengo la tranquilidad total."
@@ -613,101 +647,37 @@ export default function RegularizacionViviendasLaFloridaPage() {
       {/* Llamado a la Acción Final */}
       <section className="py-20 px-4 bg-gradient-to-r from-green-600 to-green-700 text-white">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl md:text-5xl font-bold mb-6">
+          <h2 className="text-4xl md:text-6xl font-bold mb-6">
             ¡No Dejes que el Tiempo se Agote!
           </h2>
-          <p className="text-xl mb-8 text-green-100">
+          <p className="text-2xl mb-8 text-green-100">
             Asegura tu regularización antes del <strong>31 de diciembre de 2027</strong>.
             Cada día que esperas, aumenta el riesgo y la incertidumbre.
           </p>
 
-          <div className="bg-white p-8 rounded-lg shadow-2xl text-gray-900 max-w-2xl mx-auto" id="contact-form">
-            <h3 className="text-2xl font-bold mb-6">
+          <div className="bg-white p-8 rounded-lg shadow-2xl text-gray-900 max-w-4xl mx-auto" id="contact-form">
+            <h3 className="text-3xl font-bold mb-6 text-center">
               📞 Agenda tu Visita de Diagnóstico GRATUITA
             </h3>
             
-            <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-4">
-              <div className="grid md:grid-cols-2 gap-4">
-                <div>
-                  <Input
-                    {...form.register('name')}
-                    placeholder="Tu nombre completo *"
-                    className="border-gray-300 focus:border-green-500"
-                  />
-                  {form.formState.errors.name && (
-                    <p className="text-red-500 text-sm mt-1">{form.formState.errors.name.message}</p>
-                  )}
-                </div>
-                <div>
-                  <Input
-                    {...form.register('phone')}
-                    placeholder="Tu teléfono *"
-                    className="border-gray-300 focus:border-green-500"
-                  />
-                  {form.formState.errors.phone && (
-                    <p className="text-red-500 text-sm mt-1">{form.formState.errors.phone.message}</p>
-                  )}
-                </div>
-              </div>
-              
-              <div>
-                <Input
-                  {...form.register('email')}
-                  type="email"
-                  placeholder="Tu email *"
-                  className="border-gray-300 focus:border-green-500"
-                />
-                {form.formState.errors.email && (
-                  <p className="text-red-500 text-sm mt-1">{form.formState.errors.email.message}</p>
-                )}
-              </div>
-              
-              <div>
-                <Input
-                  {...form.register('propertyAddress')}
-                  placeholder="Dirección de tu propiedad en La Florida *"
-                  className="border-gray-300 focus:border-green-500"
-                />
-                {form.formState.errors.propertyAddress && (
-                  <p className="text-red-500 text-sm mt-1">{form.formState.errors.propertyAddress.message}</p>
-                )}
-              </div>
-              
-              <div>
-                <Input
-                  {...form.register('propertySize')}
-                  placeholder="Tamaño aproximado de la construcción (m²)"
-                  className="border-gray-300 focus:border-green-500"
-                />
-              </div>
-              
-              <div>
-                <Textarea
-                  {...form.register('message')}
-                  placeholder="Cuéntanos brevemente sobre tu situación (opcional)"
-                  className="border-gray-300 focus:border-green-500"
-                  rows={3}
-                />
-              </div>
-              
-              <Button
-                type="submit"
-                disabled={contactMutation.isPending}
-                className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-4 text-lg rounded-full"
-              >
-                {contactMutation.isPending ? (
-                  "Enviando..."
-                ) : (
-                  "🎯 SÍ, QUIERO MI DIAGNÓSTICO GRATUITO"
-                )}
-              </Button>
-              
-              <div className="text-sm text-gray-600 text-center mt-4 space-y-2">
-                <p>✅ Respuesta garantizada en menos de 2 horas</p>
-                <p>✅ Visita completamente gratuita y sin compromiso</p>
-                <p>✅ Asesoría personalizada para tu caso específico</p>
-              </div>
-            </form>
+            {/* Formulario Externo Embebido */}
+            <div className="w-full">
+              <iframe 
+                src="https://qv3ysdfj.forms.app/formulario-de-contacto"
+                width="100%"
+                height="600"
+                frameBorder="0"
+                className="rounded-lg shadow-lg"
+                title="Formulario de Contacto - Regularización de Viviendas"
+              />
+            </div>
+            
+            <div className="text-lg text-gray-600 text-center mt-6 space-y-3">
+              <p>✅ Respuesta garantizada en menos de 2 horas</p>
+              <p>✅ Visita completamente gratuita y sin compromiso</p>
+              <p>✅ Asesoría personalizada para tu caso específico</p>
+              <p>✅ Pago fraccionado en 3 hitos según avance del proceso</p>
+            </div>
 
             {/* QR Code Placeholder */}
             <div className="mt-8 pt-8 border-t border-gray-200">
