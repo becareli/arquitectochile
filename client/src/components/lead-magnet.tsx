@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Download, Shield, Users, Award } from "lucide-react";
+import { Download, Shield, Users, Award, ArrowDown, ArrowRight, Gift, CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -135,18 +135,67 @@ export default function LeadMagnet() {
                 <p className="text-sm font-semibold">- María José Gómez, 38 años, Providencia</p>
               </div>
             </div>
+            
+            {/* Call to Action Visual Elements */}
+            <div className="text-center mb-8">
+              {/* Flechas animadas apuntando al formulario */}
+              <div className="flex justify-center items-center gap-4 mb-6">
+                <ArrowRight className="w-8 h-8 text-yellow-300 animate-bounce" />
+                <ArrowRight className="w-10 h-10 text-yellow-400 animate-bounce" style={{ animationDelay: '0.2s' }} />
+                <ArrowRight className="w-12 h-12 text-yellow-500 animate-bounce" style={{ animationDelay: '0.4s' }} />
+              </div>
+              
+              {/* Call to Action Text */}
+              <div className="bg-yellow-400 text-black px-6 py-4 rounded-xl font-bold text-xl mb-4 transform rotate-1 hover:rotate-0 transition-transform">
+                🎁 ¡DESCARGA GRATIS AQUÍ! 🎁
+              </div>
+              
+              <p className="text-yellow-300 font-semibold text-lg animate-pulse">
+                ⚡ ¡Solo toma 30 segundos! ⚡
+              </p>
+            </div>
           </div>
           
           {/* Right side - Download form */}
-          <div>
-            <Card className="bg-white rounded-2xl shadow-2xl">
-              <CardHeader className="text-center">
-                <CardTitle className="text-2xl font-bold text-dark mb-2">
-                  <Download className="w-8 h-8 mx-auto mb-2 text-primary" />
+          <div className="relative">
+            {/* Flechas apuntando al formulario desde arriba */}
+            <div className="absolute -top-12 left-1/2 transform -translate-x-1/2 z-10">
+              <ArrowDown className="w-12 h-12 text-yellow-400 animate-bounce" />
+            </div>
+            
+            {/* Badge de urgencia */}
+            <div className="absolute -top-6 -right-6 bg-red-500 text-white px-4 py-2 rounded-full font-bold text-sm z-20 animate-pulse">
+              ¡GRATIS!
+            </div>
+            
+            <Card className="bg-white rounded-2xl shadow-2xl border-4 border-yellow-400">
+              <CardHeader className="text-center bg-gradient-to-r from-yellow-400 to-orange-400 rounded-t-2xl">
+                <div className="flex items-center justify-center gap-2 mb-2">
+                  <Gift className="w-8 h-8 text-white" />
+                  <Download className="w-8 h-8 text-white" />
+                </div>
+                <CardTitle className="text-2xl font-bold text-white mb-2">
                   Descarga Aquí tu Guía GRATIS
                 </CardTitle>
-                <p className="text-gray-600">y desbloquea el potencial oculto de tu hogar...</p>
-                <p className="text-sm text-gray-500 mt-2">🔒 Y no hacemos Spam</p>
+                <p className="text-white font-semibold">
+                  y desbloquea el potencial oculto de tu hogar...
+                </p>
+                
+                {/* Beneficios rápidos */}
+                <div className="flex justify-center gap-4 mt-4">
+                  <div className="flex items-center text-white text-sm">
+                    <CheckCircle className="w-4 h-4 mr-1" />
+                    Sin costo
+                  </div>
+                  <div className="flex items-center text-white text-sm">
+                    <CheckCircle className="w-4 h-4 mr-1" />
+                    Envío instantáneo
+                  </div>
+                  <div className="flex items-center text-white text-sm">
+                    <CheckCircle className="w-4 h-4 mr-1" />
+                    100% seguro
+                  </div>
+                </div>
               </CardHeader>
               
               <CardContent>
