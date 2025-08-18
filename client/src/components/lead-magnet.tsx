@@ -137,7 +137,7 @@ export default function LeadMagnet() {
             </div>
             
             {/* Call to Action Visual Elements */}
-            <div className="text-center mb-8">
+            <div className="text-center mb-8 mt-12">
               {/* Call to Action Text */}
               <div className="bg-yellow-400 text-black px-6 py-4 rounded-xl font-bold text-xl mb-4 transform rotate-1 hover:rotate-0 transition-transform">
                 🎁 ¡DESCARGA GRATIS AQUÍ! 🎁
