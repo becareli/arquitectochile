@@ -138,20 +138,14 @@ export default function LeadMagnet() {
             
             {/* Call to Action Visual Elements */}
             <div className="text-center mb-8">
-              {/* Flechas animadas apuntando al formulario */}
-              <div className="flex justify-center items-center gap-4 mb-6">
-                <ArrowRight className="w-8 h-8 text-yellow-300 animate-bounce" />
-                <ArrowRight className="w-10 h-10 text-yellow-400 animate-bounce" style={{ animationDelay: '0.2s' }} />
-                <ArrowRight className="w-12 h-12 text-yellow-500 animate-bounce" style={{ animationDelay: '0.4s' }} />
-              </div>
-              
               {/* Call to Action Text */}
               <div className="bg-yellow-400 text-black px-6 py-4 rounded-xl font-bold text-xl mb-4 transform rotate-1 hover:rotate-0 transition-transform">
                 🎁 ¡DESCARGA GRATIS AQUÍ! 🎁
               </div>
               
-              <p className="text-yellow-300 font-semibold text-lg animate-pulse">
-                ⚡ ¡Solo toma 30 segundos! ⚡
+              <p className="text-black font-medium text-sm leading-relaxed max-w-md mx-auto">
+                ® ArquitectoChile es marca registrada. <br />
+                Metodología respaldada por más de 25 años de experiencia profesional y cientos de proyectos exitosos en Chile.
               </p>
             </div>
           </div>
