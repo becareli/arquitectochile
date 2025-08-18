@@ -158,13 +158,26 @@ export default function LeadMagnet() {
           
           {/* Right side - Download form */}
           <div className="relative">
+            {/* Título principal fuera de la caja, sobre el fondo azul */}
+            <div className="text-center mb-8">
+              <h2 className="text-5xl font-black text-white mb-4 drop-shadow-2xl">
+                🎁 DESCARGA AQUÍ TU GUÍA GRATIS 🎁
+              </h2>
+              <div className="bg-yellow-400 text-black px-8 py-4 rounded-2xl font-bold text-2xl mb-4 transform rotate-1 hover:rotate-0 transition-transform inline-block shadow-2xl">
+                ¡Y desbloquea el potencial oculto de tu hogar!
+              </div>
+              <p className="text-yellow-300 font-bold text-xl animate-pulse drop-shadow-lg">
+                ⚡ ¡Solo toma 30 segundos! ⚡
+              </p>
+            </div>
+            
             {/* Flechas apuntando al formulario desde arriba */}
-            <div className="absolute -top-12 left-1/2 transform -translate-x-1/2 z-10">
+            <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-10">
               <ArrowDown className="w-12 h-12 text-yellow-400 animate-bounce" />
             </div>
             
             {/* Badge de urgencia */}
-            <div className="absolute -top-6 -right-6 bg-red-500 text-white px-4 py-2 rounded-full font-bold text-sm z-20 animate-pulse">
+            <div className="absolute -top-2 -right-6 bg-red-500 text-white px-4 py-2 rounded-full font-bold text-sm z-20 animate-pulse">
               ¡GRATIS!
             </div>
             
@@ -174,11 +187,11 @@ export default function LeadMagnet() {
                   <Gift className="w-8 h-8 text-white" />
                   <Download className="w-8 h-8 text-white" />
                 </div>
-                <CardTitle className="text-2xl font-bold text-white mb-2">
-                  Descarga Aquí tu Guía GRATIS
+                <CardTitle className="text-xl font-bold text-white mb-2">
+                  Completa tus datos:
                 </CardTitle>
-                <p className="text-white font-semibold">
-                  y desbloquea el potencial oculto de tu hogar...
+                <p className="text-white font-semibold text-sm">
+                  Recíbela instantáneamente en tu email
                 </p>
                 
                 {/* Beneficios rápidos */}
