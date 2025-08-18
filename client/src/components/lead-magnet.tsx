@@ -6,7 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
-import ebookCover from "@assets/generated_images/Tilted_ebook_cover_mockup_13df3ca8.png";
+import ebookCover from "@assets/PortadaEbook_1752612398787.png";
 
 export default function LeadMagnet() {
   const [email, setEmail] = useState("");
@@ -71,11 +71,12 @@ export default function LeadMagnet() {
           <div className="text-white">
             <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 mb-8">
               <div className="text-center mb-6">
-                <div className="w-64 h-80 mx-auto mb-4 flex items-center justify-center">
+                <div className="w-64 h-80 mx-auto mb-4 flex items-center justify-center transform rotate-3 hover:rotate-0 transition-transform duration-300">
                   <img 
                     src={ebookCover} 
                     alt="Ebook: ¿Cómo Ampliar o Remodelar Mi Casa? en Santiago de Chile"
-                    className="w-full h-auto object-contain drop-shadow-2xl"
+                    className="w-full h-auto object-contain rounded-lg shadow-2xl bg-transparent"
+                    style={{ filter: 'drop-shadow(8px 8px 20px rgba(0,0,0,0.3))' }}
                   />
                 </div>
                 <h2 className="text-3xl font-bold mb-2">NUEVO EBOOK GRATUITO</h2>
