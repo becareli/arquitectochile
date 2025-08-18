@@ -102,10 +102,13 @@ export default function RegularizacionViviendasLaFloridaPage() {
         container.appendChild(formDiv);
         
         if ((window as any).formsapp) {
-          new (window as any).formsapp('6732688de47f9dc4f751b212', 'standard', {
+          new (window as any).formsapp('6732688de47f9dc4f751b212', 'inline', {
             'opacity': 1,
             'autoResize': true,
-            'height': 'auto'
+            'width': '100%',
+            'height': '600px',
+            'scrolling': 'no',
+            'borderless': true
           }, 'https://qv3ysdfj.forms.app');
         }
       }
@@ -695,8 +698,8 @@ export default function RegularizacionViviendasLaFloridaPage() {
             </h3>
             
             {/* Formulario Externo Embebido */}
-            <div className="w-full">
-              <div id="forms-app-container"></div>
+            <div className="w-full min-h-[600px] overflow-hidden">
+              <div id="forms-app-container" className="w-full h-full"></div>
             </div>
             
             <div className="text-lg text-gray-600 text-center mt-6 space-y-3">
