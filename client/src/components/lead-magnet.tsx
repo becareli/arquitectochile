@@ -160,11 +160,11 @@ export default function LeadMagnet() {
           <div className="relative">
             {/* Título principal fuera de la caja, sobre el fondo azul */}
             <div className="text-center mb-8 relative">
-              {/* Flechas rojas dibujadas a mano apuntando al título */}
-              <div className="absolute -top-8 left-1/4 transform -rotate-12">
-                <svg width="120" height="80" viewBox="0 0 120 80" className="drop-shadow-lg">
+              {/* Flechas rojas dibujadas a mano apuntando hacia abajo al título */}
+              <div className="absolute -top-20 left-1/4 transform rotate-12">
+                <svg width="120" height="100" viewBox="0 0 120 100" className="drop-shadow-lg">
                   <path
-                    d="M10 50 Q30 20, 60 35 Q90 50, 110 40"
+                    d="M10 10 Q30 30, 60 45 Q90 60, 110 80"
                     stroke="#DC2626"
                     strokeWidth="4"
                     fill="none"
@@ -172,16 +172,16 @@ export default function LeadMagnet() {
                     strokeLinejoin="round"
                   />
                   <path
-                    d="M100 35 L110 40 L105 50 Z"
+                    d="M105 70 L110 80 L100 75 Z"
                     fill="#DC2626"
                   />
                 </svg>
               </div>
               
-              <div className="absolute -top-6 right-1/4 transform rotate-6">
-                <svg width="100" height="70" viewBox="0 0 100 70" className="drop-shadow-lg">
+              <div className="absolute -top-24 left-1/2 transform -translate-x-1/2">
+                <svg width="100" height="90" viewBox="0 0 100 90" className="drop-shadow-lg">
                   <path
-                    d="M90 15 Q70 25, 50 30 Q30 35, 10 45"
+                    d="M50 5 Q45 25, 50 45 Q55 65, 50 85"
                     stroke="#DC2626"
                     strokeWidth="4"
                     fill="none"
@@ -189,30 +189,30 @@ export default function LeadMagnet() {
                     strokeLinejoin="round"
                   />
                   <path
-                    d="M5 40 L10 45 L15 35 Z"
+                    d="M45 75 L50 85 L55 75 Z"
                     fill="#DC2626"
                   />
                 </svg>
               </div>
               
-              <div className="absolute -top-12 right-1/3 transform rotate-45">
-                <svg width="90" height="60" viewBox="0 0 90 60" className="drop-shadow-lg">
+              <div className="absolute -top-18 right-1/4 transform -rotate-12">
+                <svg width="110" height="90" viewBox="0 0 110 90" className="drop-shadow-lg">
                   <path
-                    d="M80 10 Q60 20, 40 25 Q20 30, 5 40"
+                    d="M100 15 Q80 30, 60 45 Q40 60, 10 75"
                     stroke="#DC2626"
-                    strokeWidth="3"
+                    strokeWidth="4"
                     fill="none"
                     strokeLinecap="round"
                     strokeLinejoin="round"
                   />
                   <path
-                    d="M2 35 L5 40 L10 32 Z"
+                    d="M15 65 L10 75 L20 70 Z"
                     fill="#DC2626"
                   />
                 </svg>
               </div>
               
-              <h2 className="text-5xl font-black text-white drop-shadow-2xl relative z-10">
+              <h2 className="text-5xl font-black text-white drop-shadow-2xl relative z-10 pt-16">
                 DESCARGA AQUÍ TU GUÍA GRATIS
               </h2>
             </div>
