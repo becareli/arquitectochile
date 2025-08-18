@@ -220,7 +220,7 @@ export default function Testimonials() {
     }
   ];
 
-  const displayTestimonials = testimonials && testimonials.length > 0 ? testimonials : fallbackTestimonials;
+  const displayTestimonials = testimonials && Array.isArray(testimonials) && testimonials.length > 0 ? testimonials : fallbackTestimonials;
 
   if (isLoading) {
     return (
@@ -258,7 +258,7 @@ export default function Testimonials() {
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {displayTestimonials.map((testimonial: any) => (
+          {(displayTestimonials || []).map((testimonial: any) => (
             <Card key={testimonial.id} className="bg-gray-50 rounded-xl p-6">
               <div className="flex items-start space-x-4">
                 <div className={`relative w-12 h-12 rounded-full flex-shrink-0 overflow-hidden ${
