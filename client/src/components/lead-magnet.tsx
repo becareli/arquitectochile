@@ -157,18 +157,18 @@ export default function LeadMagnet() {
           </div>
           
           {/* Right side - Download form */}
-          <div className="relative">
+          <div className="relative -mt-16">
             {/* Título principal fuera de la caja, sobre el fondo azul */}
-            <div className="text-center mb-8 relative">
-              <h2 className="text-5xl font-black text-white drop-shadow-2xl relative z-10 mb-6">
+            <div className="text-center mb-4 relative">
+              <h2 className="text-5xl font-black text-white drop-shadow-2xl relative z-10 mb-4">
                 DESCARGA AQUÍ TU GUÍA GRATIS
               </h2>
               
               {/* Tres flechas 3D apuntando hacia abajo debajo del título */}
-              <div className="flex justify-center space-x-8 mt-4">
+              <div className="flex justify-center space-x-8 mt-2 mb-4">
                 {/* Flecha izquierda */}
                 <div>
-                  <svg width="50" height="70" viewBox="0 0 50 70" className="drop-shadow-2xl">
+                  <svg width="40" height="50" viewBox="0 0 40 50" className="drop-shadow-2xl">
                     <defs>
                       <linearGradient id="arrowGradient1" x1="0%" y1="0%" x2="100%" y2="100%">
                         <stop offset="0%" style={{stopColor:"#EF4444", stopOpacity:1}} />
@@ -177,11 +177,11 @@ export default function LeadMagnet() {
                       </linearGradient>
                     </defs>
                     <path
-                      d="M12 5 L38 5 L38 22 L47 22 L25 55 L3 22 L12 22 Z"
+                      d="M10 5 L30 5 L30 18 L37 18 L20 42 L3 18 L10 18 Z"
                       fill="url(#arrowGradient1)"
                     />
                     <path
-                      d="M14 7 L36 7 L36 20 L42 20 L25 48 L8 20 L14 20 Z"
+                      d="M12 7 L28 7 L28 16 L32 16 L20 36 L8 16 L12 16 Z"
                       fill="rgba(255,255,255,0.3)"
                     />
                   </svg>
@@ -189,7 +189,7 @@ export default function LeadMagnet() {
                 
                 {/* Flecha centro */}
                 <div>
-                  <svg width="50" height="70" viewBox="0 0 50 70" className="drop-shadow-2xl">
+                  <svg width="40" height="50" viewBox="0 0 40 50" className="drop-shadow-2xl">
                     <defs>
                       <linearGradient id="arrowGradient2" x1="0%" y1="0%" x2="100%" y2="100%">
                         <stop offset="0%" style={{stopColor:"#EF4444", stopOpacity:1}} />
@@ -198,11 +198,11 @@ export default function LeadMagnet() {
                       </linearGradient>
                     </defs>
                     <path
-                      d="M12 5 L38 5 L38 22 L47 22 L25 55 L3 22 L12 22 Z"
+                      d="M10 5 L30 5 L30 18 L37 18 L20 42 L3 18 L10 18 Z"
                       fill="url(#arrowGradient2)"
                     />
                     <path
-                      d="M14 7 L36 7 L36 20 L42 20 L25 48 L8 20 L14 20 Z"
+                      d="M12 7 L28 7 L28 16 L32 16 L20 36 L8 16 L12 16 Z"
                       fill="rgba(255,255,255,0.3)"
                     />
                   </svg>
@@ -210,7 +210,7 @@ export default function LeadMagnet() {
                 
                 {/* Flecha derecha */}
                 <div>
-                  <svg width="50" height="70" viewBox="0 0 50 70" className="drop-shadow-2xl">
+                  <svg width="40" height="50" viewBox="0 0 40 50" className="drop-shadow-2xl">
                     <defs>
                       <linearGradient id="arrowGradient3" x1="0%" y1="0%" x2="100%" y2="100%">
                         <stop offset="0%" style={{stopColor:"#EF4444", stopOpacity:1}} />
@@ -219,35 +219,35 @@ export default function LeadMagnet() {
                       </linearGradient>
                     </defs>
                     <path
-                      d="M12 5 L38 5 L38 22 L47 22 L25 55 L3 22 L12 22 Z"
+                      d="M10 5 L30 5 L30 18 L37 18 L20 42 L3 18 L10 18 Z"
                       fill="url(#arrowGradient3)"
                     />
                     <path
-                      d="M14 7 L36 7 L36 20 L42 20 L25 48 L8 20 L14 20 Z"
+                      d="M12 7 L28 7 L28 16 L32 16 L20 36 L8 16 L12 16 Z"
                       fill="rgba(255,255,255,0.3)"
                     />
                   </svg>
                 </div>
               </div>
+              
+              {/* Beneficios destacados - Iconos grandes */}
+              <div className="flex justify-center gap-6 mb-6">
+                <div className="flex flex-col items-center text-white">
+                  <Gift className="w-10 h-10 mb-1 text-yellow-300" />
+                  <p className="text-xs font-semibold">Sin costo</p>
+                </div>
+                <div className="flex flex-col items-center text-white">
+                  <CheckCircle className="w-10 h-10 mb-1 text-yellow-300" />
+                  <p className="text-xs font-semibold">Envío instantáneo</p>
+                </div>
+                <div className="flex flex-col items-center text-white">
+                  <Shield className="w-10 h-10 mb-1 text-yellow-300" />
+                  <p className="text-xs font-semibold">100% seguro</p>
+                </div>
+              </div>
             </div>
             
-            {/* Beneficios destacados - Iconos grandes */}
-            <div className="flex justify-center gap-8 mb-6">
-              <div className="flex flex-col items-center text-white">
-                <Gift className="w-12 h-12 mb-2 text-yellow-300" />
-                <p className="text-sm font-semibold">Sin costo</p>
-              </div>
-              <div className="flex flex-col items-center text-white">
-                <CheckCircle className="w-12 h-12 mb-2 text-yellow-300" />
-                <p className="text-sm font-semibold">Envío instantáneo</p>
-              </div>
-              <div className="flex flex-col items-center text-white">
-                <Shield className="w-12 h-12 mb-2 text-yellow-300" />
-                <p className="text-sm font-semibold">100% seguro</p>
-              </div>
-            </div>
-            
-            <Card className="bg-white rounded-2xl shadow-2xl border-4 border-yellow-400 -mt-8">
+            <Card className="bg-white rounded-2xl shadow-2xl border-4 border-yellow-400">
               <CardHeader className="text-center bg-gradient-to-r from-yellow-400 to-orange-400 rounded-t-2xl">
                 <div className="flex items-center justify-center gap-2 mb-2">
                   <Download className="w-8 h-8 text-white" />
