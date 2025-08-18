@@ -75,7 +75,7 @@ export default function RegularizacionViviendasLaFloridaPage() {
   };
 
   // Floating CTA scroll effect
-  useState(() => {
+  useEffect(() => {
     const handleScroll = () => {
       const scrolled = window.scrollY;
       const shouldShow = scrolled > 800;
@@ -84,7 +84,37 @@ export default function RegularizacionViviendasLaFloridaPage() {
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  });
+  }, []);
+
+  // Cargar formulario de forms.app
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.src = 'https://forms.app/cdn/embed.js';
+    script.type = 'text/javascript';
+    script.async = true;
+    script.defer = true;
+    
+    script.onload = () => {
+      const container = document.getElementById('forms-app-container');
+      if (container && !container.hasChildNodes()) {
+        const formDiv = document.createElement('div');
+        formDiv.setAttribute('formsappid', '6732688de47f9dc4f751b212');
+        container.appendChild(formDiv);
+        
+        if ((window as any).formsapp) {
+          new (window as any).formsapp('6732688de47f9dc4f751b212', 'fullscreen', {'opacity':1}, 'https://qv3ysdfj.forms.app');
+        }
+      }
+    };
+
+    document.head.appendChild(script);
+
+    return () => {
+      if (document.head.contains(script)) {
+        document.head.removeChild(script);
+      }
+    };
+  }, []);
 
   return (
     <div className="min-h-screen bg-white">
@@ -662,8 +692,7 @@ export default function RegularizacionViviendasLaFloridaPage() {
             
             {/* Formulario Externo Embebido */}
             <div className="w-full">
-              <div formsappId="6732688de47f9dc4f751b212"></div>
-              <script src="https://forms.app/cdn/embed.js" type="text/javascript" async defer onload="new formsapp('6732688de47f9dc4f751b212', 'fullscreen', {'opacity':1}, 'https://qv3ysdfj.forms.app');"></script>
+              <div id="forms-app-container"></div>
             </div>
             
             <div className="text-lg text-gray-600 text-center mt-6 space-y-3">
