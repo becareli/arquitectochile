@@ -160,99 +160,51 @@ export default function LeadMagnet() {
           <div className="relative">
             {/* Título principal fuera de la caja, sobre el fondo azul */}
             <div className="text-center mb-8 relative">
-              {/* Flechas rojas múltiples apuntando al título - basadas en imagen de referencia */}
-              
-              {/* Flecha 1 - desde la izquierda, ligeramente inclinada */}
-              <div className="absolute -top-16 left-8 transform rotate-[25deg]">
-                <svg width="160" height="60" viewBox="0 0 160 60" className="drop-shadow-xl">
+              {/* Flecha 3D única apuntando hacia abajo al título */}
+              <div className="absolute -top-20 left-1/2 transform -translate-x-1/2 rotate-90">
+                <svg width="80" height="120" viewBox="0 0 80 120" className="drop-shadow-2xl">
+                  {/* Cuerpo de la flecha 3D */}
+                  <defs>
+                    <linearGradient id="arrowGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" style={{stopColor:"#EF4444", stopOpacity:1}} />
+                      <stop offset="50%" style={{stopColor:"#DC2626", stopOpacity:1}} />
+                      <stop offset="100%" style={{stopColor:"#B91C1C", stopOpacity:1}} />
+                    </linearGradient>
+                    <linearGradient id="arrowShadow" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" style={{stopColor:"#991B1B", stopOpacity:1}} />
+                      <stop offset="100%" style={{stopColor:"#7F1D1D", stopOpacity:1}} />
+                    </linearGradient>
+                  </defs>
+                  
+                  {/* Sombra de la flecha */}
                   <path
-                    d="M10 30 L130 30"
-                    stroke="#DC2626"
-                    strokeWidth="8"
-                    fill="none"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
+                    d="M18 25 Q20 20, 25 20 L55 20 Q60 20, 62 25 L62 50 L75 50 L40 90 L5 50 L18 50 Z"
+                    fill="url(#arrowShadow)"
+                    transform="translate(2, 2)"
+                    opacity="0.3"
                   />
+                  
+                  {/* Cuerpo principal de la flecha */}
                   <path
-                    d="M110 15 L130 30 L110 45 Z"
-                    fill="#DC2626"
+                    d="M20 25 Q22 20, 27 20 L53 20 Q58 20, 60 25 L60 50 L73 50 L40 88 L7 50 L20 50 Z"
+                    fill="url(#arrowGradient)"
                   />
-                </svg>
-              </div>
-              
-              {/* Flecha 2 - desde arriba centro, apuntando hacia abajo */}
-              <div className="absolute -top-20 left-1/2 transform -translate-x-1/2 rotate-[35deg]">
-                <svg width="140" height="50" viewBox="0 0 140 50" className="drop-shadow-xl">
+                  
+                  {/* Highlights para efecto 3D */}
                   <path
-                    d="M15 25 L115 25"
-                    stroke="#DC2626"
-                    strokeWidth="7"
-                    fill="none"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
+                    d="M22 22 L56 22 Q58 22, 58 24 L58 48 L70 48 L40 80 L10 48 L22 48 Z"
+                    fill="rgba(255,255,255,0.3)"
                   />
+                  
+                  {/* Línea de brillo */}
                   <path
-                    d="M100 12 L115 25 L100 38 Z"
-                    fill="#DC2626"
-                  />
-                </svg>
-              </div>
-              
-              {/* Flecha 3 - desde la derecha, inclinada hacia el centro */}
-              <div className="absolute -top-14 right-8 transform rotate-[155deg]">
-                <svg width="150" height="55" viewBox="0 0 150 55" className="drop-shadow-xl">
-                  <path
-                    d="M15 27 L125 27"
-                    stroke="#DC2626"
-                    strokeWidth="7"
-                    fill="none"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                  <path
-                    d="M110 14 L125 27 L110 40 Z"
-                    fill="#DC2626"
+                    d="M25 24 L53 24 L53 46 L65 46 L40 75 L15 46 L25 46 Z"
+                    fill="rgba(255,255,255,0.2)"
                   />
                 </svg>
               </div>
               
-              {/* Flecha 4 - desde arriba izquierda, más vertical */}
-              <div className="absolute -top-18 left-16 transform rotate-[45deg]">
-                <svg width="120" height="45" viewBox="0 0 120 45" className="drop-shadow-xl">
-                  <path
-                    d="M10 22 L100 22"
-                    stroke="#DC2626"
-                    strokeWidth="6"
-                    fill="none"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                  <path
-                    d="M88 10 L100 22 L88 34 Z"
-                    fill="#DC2626"
-                  />
-                </svg>
-              </div>
-              
-              {/* Flecha 5 - desde arriba derecha, más vertical */}
-              <div className="absolute -top-18 right-16 transform rotate-[135deg]">
-                <svg width="120" height="45" viewBox="0 0 120 45" className="drop-shadow-xl">
-                  <path
-                    d="M10 22 L100 22"
-                    stroke="#DC2626"
-                    strokeWidth="6"
-                    fill="none"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                  <path
-                    d="M88 10 L100 22 L88 34 Z"
-                    fill="#DC2626"
-                  />
-                </svg>
-              </div>
-              
-              <h2 className="text-5xl font-black text-white drop-shadow-2xl relative z-10 pt-20">
+              <h2 className="text-5xl font-black text-white drop-shadow-2xl relative z-10 pt-12">
                 DESCARGA AQUÍ TU GUÍA GRATIS
               </h2>
             </div>
