@@ -665,9 +665,9 @@ export default function RegularizacionViviendasLaFloridaPage() {
               <iframe 
                 src="https://qv3ysdfj.forms.app/formulario-de-contacto"
                 width="100%"
-                height="600"
+                height="800"
                 frameBorder="0"
-                scrolling="no"
+                scrolling="auto"
                 className="rounded-lg shadow-lg"
                 title="Formulario de Contacto - Regularización de Viviendas"
               />
