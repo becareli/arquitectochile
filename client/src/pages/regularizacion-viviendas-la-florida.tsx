@@ -667,6 +667,7 @@ export default function RegularizacionViviendasLaFloridaPage() {
                 width="100%"
                 height="600"
                 frameBorder="0"
+                scrolling="no"
                 className="rounded-lg shadow-lg"
                 title="Formulario de Contacto - Regularización de Viviendas"
               />
