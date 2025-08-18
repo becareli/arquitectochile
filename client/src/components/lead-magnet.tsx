@@ -160,53 +160,75 @@ export default function LeadMagnet() {
           <div className="relative">
             {/* Título principal fuera de la caja, sobre el fondo azul */}
             <div className="text-center mb-8 relative">
-              {/* Flecha 3D única apuntando hacia abajo al título */}
-              <div className="absolute -top-16 left-1/2 transform -translate-x-1/2">
-                <svg width="60" height="80" viewBox="0 0 60 80" className="drop-shadow-2xl">
-                  {/* Cuerpo de la flecha 3D */}
-                  <defs>
-                    <linearGradient id="arrowGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" style={{stopColor:"#EF4444", stopOpacity:1}} />
-                      <stop offset="50%" style={{stopColor:"#DC2626", stopOpacity:1}} />
-                      <stop offset="100%" style={{stopColor:"#B91C1C", stopOpacity:1}} />
-                    </linearGradient>
-                    <linearGradient id="arrowShadow" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" style={{stopColor:"#991B1B", stopOpacity:1}} />
-                      <stop offset="100%" style={{stopColor:"#7F1D1D", stopOpacity:1}} />
-                    </linearGradient>
-                  </defs>
-                  
-                  {/* Sombra de la flecha */}
-                  <path
-                    d="M15 5 L45 5 L45 25 L55 25 L30 60 L5 25 L15 25 Z"
-                    fill="url(#arrowShadow)"
-                    transform="translate(1, 1)"
-                    opacity="0.3"
-                  />
-                  
-                  {/* Cuerpo principal de la flecha */}
-                  <path
-                    d="M15 5 L45 5 L45 25 L55 25 L30 60 L5 25 L15 25 Z"
-                    fill="url(#arrowGradient)"
-                  />
-                  
-                  {/* Highlights para efecto 3D */}
-                  <path
-                    d="M17 7 L43 7 L43 23 L50 23 L30 52 L10 23 L17 23 Z"
-                    fill="rgba(255,255,255,0.3)"
-                  />
-                  
-                  {/* Línea de brillo */}
-                  <path
-                    d="M19 9 L41 9 L41 21 L47 21 L30 48 L13 21 L19 21 Z"
-                    fill="rgba(255,255,255,0.2)"
-                  />
-                </svg>
-              </div>
-              
-              <h2 className="text-5xl font-black text-white drop-shadow-2xl relative z-10 pt-8">
+              <h2 className="text-5xl font-black text-white drop-shadow-2xl relative z-10 mb-6">
                 DESCARGA AQUÍ TU GUÍA GRATIS
               </h2>
+              
+              {/* Tres flechas 3D apuntando hacia abajo debajo del título */}
+              <div className="flex justify-center space-x-8 mt-4">
+                {/* Flecha izquierda */}
+                <div>
+                  <svg width="50" height="70" viewBox="0 0 50 70" className="drop-shadow-2xl">
+                    <defs>
+                      <linearGradient id="arrowGradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style={{stopColor:"#EF4444", stopOpacity:1}} />
+                        <stop offset="50%" style={{stopColor:"#DC2626", stopOpacity:1}} />
+                        <stop offset="100%" style={{stopColor:"#B91C1C", stopOpacity:1}} />
+                      </linearGradient>
+                    </defs>
+                    <path
+                      d="M12 5 L38 5 L38 22 L47 22 L25 55 L3 22 L12 22 Z"
+                      fill="url(#arrowGradient1)"
+                    />
+                    <path
+                      d="M14 7 L36 7 L36 20 L42 20 L25 48 L8 20 L14 20 Z"
+                      fill="rgba(255,255,255,0.3)"
+                    />
+                  </svg>
+                </div>
+                
+                {/* Flecha centro */}
+                <div>
+                  <svg width="50" height="70" viewBox="0 0 50 70" className="drop-shadow-2xl">
+                    <defs>
+                      <linearGradient id="arrowGradient2" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style={{stopColor:"#EF4444", stopOpacity:1}} />
+                        <stop offset="50%" style={{stopColor:"#DC2626", stopOpacity:1}} />
+                        <stop offset="100%" style={{stopColor:"#B91C1C", stopOpacity:1}} />
+                      </linearGradient>
+                    </defs>
+                    <path
+                      d="M12 5 L38 5 L38 22 L47 22 L25 55 L3 22 L12 22 Z"
+                      fill="url(#arrowGradient2)"
+                    />
+                    <path
+                      d="M14 7 L36 7 L36 20 L42 20 L25 48 L8 20 L14 20 Z"
+                      fill="rgba(255,255,255,0.3)"
+                    />
+                  </svg>
+                </div>
+                
+                {/* Flecha derecha */}
+                <div>
+                  <svg width="50" height="70" viewBox="0 0 50 70" className="drop-shadow-2xl">
+                    <defs>
+                      <linearGradient id="arrowGradient3" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style={{stopColor:"#EF4444", stopOpacity:1}} />
+                        <stop offset="50%" style={{stopColor:"#DC2626", stopOpacity:1}} />
+                        <stop offset="100%" style={{stopColor:"#B91C1C", stopOpacity:1}} />
+                      </linearGradient>
+                    </defs>
+                    <path
+                      d="M12 5 L38 5 L38 22 L47 22 L25 55 L3 22 L12 22 Z"
+                      fill="url(#arrowGradient3)"
+                    />
+                    <path
+                      d="M14 7 L36 7 L36 20 L42 20 L25 48 L8 20 L14 20 Z"
+                      fill="rgba(255,255,255,0.3)"
+                    />
+                  </svg>
+                </div>
+              </div>
             </div>
             
             {/* Beneficios destacados - Iconos grandes */}
