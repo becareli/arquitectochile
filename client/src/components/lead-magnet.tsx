@@ -161,8 +161,8 @@ export default function LeadMagnet() {
             {/* Título principal fuera de la caja, sobre el fondo azul */}
             <div className="text-center mb-8 relative">
               {/* Flecha 3D única apuntando hacia abajo al título */}
-              <div className="absolute -top-20 left-1/2 transform -translate-x-1/2 rotate-90">
-                <svg width="80" height="120" viewBox="0 0 80 120" className="drop-shadow-2xl">
+              <div className="absolute -top-16 left-1/2 transform -translate-x-1/2">
+                <svg width="60" height="80" viewBox="0 0 60 80" className="drop-shadow-2xl">
                   {/* Cuerpo de la flecha 3D */}
                   <defs>
                     <linearGradient id="arrowGradient" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -178,33 +178,33 @@ export default function LeadMagnet() {
                   
                   {/* Sombra de la flecha */}
                   <path
-                    d="M18 25 Q20 20, 25 20 L55 20 Q60 20, 62 25 L62 50 L75 50 L40 90 L5 50 L18 50 Z"
+                    d="M15 5 L45 5 L45 25 L55 25 L30 60 L5 25 L15 25 Z"
                     fill="url(#arrowShadow)"
-                    transform="translate(2, 2)"
+                    transform="translate(1, 1)"
                     opacity="0.3"
                   />
                   
                   {/* Cuerpo principal de la flecha */}
                   <path
-                    d="M20 25 Q22 20, 27 20 L53 20 Q58 20, 60 25 L60 50 L73 50 L40 88 L7 50 L20 50 Z"
+                    d="M15 5 L45 5 L45 25 L55 25 L30 60 L5 25 L15 25 Z"
                     fill="url(#arrowGradient)"
                   />
                   
                   {/* Highlights para efecto 3D */}
                   <path
-                    d="M22 22 L56 22 Q58 22, 58 24 L58 48 L70 48 L40 80 L10 48 L22 48 Z"
+                    d="M17 7 L43 7 L43 23 L50 23 L30 52 L10 23 L17 23 Z"
                     fill="rgba(255,255,255,0.3)"
                   />
                   
                   {/* Línea de brillo */}
                   <path
-                    d="M25 24 L53 24 L53 46 L65 46 L40 75 L15 46 L25 46 Z"
+                    d="M19 9 L41 9 L41 21 L47 21 L30 48 L13 21 L19 21 Z"
                     fill="rgba(255,255,255,0.2)"
                   />
                 </svg>
               </div>
               
-              <h2 className="text-5xl font-black text-white drop-shadow-2xl relative z-10 pt-12">
+              <h2 className="text-5xl font-black text-white drop-shadow-2xl relative z-10 pt-8">
                 DESCARGA AQUÍ TU GUÍA GRATIS
               </h2>
             </div>
