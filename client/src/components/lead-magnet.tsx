@@ -6,7 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
-import ebookCover from "@assets/generated_images/3D_ebook_with_visible_pages_e9b729c0.png";
+import ebookCover from "@assets/PortadaEbook_1752612398787.png";
 
 export default function LeadMagnet() {
   const [email, setEmail] = useState("");
@@ -64,23 +64,24 @@ export default function LeadMagnet() {
   };
 
   return (
-    <section className="py-20 bg-gradient-to-br from-primary to-secondary">
+    <section className="py-20 bg-gradient-to-b from-primary via-blue-600 to-white">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Left side - Ebook presentation */}
           <div className="text-white">
-            <div className="bg-gradient-to-br from-blue-600/20 via-blue-700/15 to-purple-600/20 backdrop-blur-sm rounded-2xl p-8 mb-8 border border-white/20">
+            <div className="bg-gradient-to-b from-blue-600/30 via-blue-700/20 to-white/10 backdrop-blur-sm rounded-2xl p-8 mb-8 border border-white/20">
               <div className="text-center mb-8">
-                {/* Imagen del Ebook grande dentro de la caja */}
-                <div className="w-full max-w-sm mx-auto mb-8 flex items-center justify-center transform rotate-2 hover:rotate-0 transition-transform duration-300">
+                {/* Imagen del Ebook original más grande */}
+                <div className="w-full max-w-md mx-auto mb-8 flex items-center justify-center transform rotate-2 hover:rotate-0 transition-transform duration-300">
                   <img 
                     src={ebookCover} 
                     alt="Ebook: ¿Cómo Ampliar o Remodelar Mi Casa? en Santiago de Chile"
                     className="w-full h-auto object-contain"
                     style={{ 
-                      filter: 'drop-shadow(12px 12px 30px rgba(0,0,0,0.5))',
-                      maxHeight: '400px',
-                      minHeight: '300px'
+                      filter: 'drop-shadow(16px 16px 40px rgba(0,0,0,0.6))',
+                      maxHeight: '500px',
+                      minHeight: '400px',
+                      width: 'auto'
                     }}
                   />
                 </div>
