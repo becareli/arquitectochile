@@ -6,6 +6,10 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { CheckCircle, AlertTriangle, Shield, Clock, Phone, Mail, MapPin, Star, Users, FileText, Calendar, TrendingUp } from 'lucide-react';
+import uncleSamRegularizacionImage from "@assets/Regularizar tus ampliaciones es Inteligente_1755480443189.png";
+import processInfographicImage from "@assets/generated_images/Housing_regularization_process_infographic_b6f85788.png";
+import beforeAfterImage from "@assets/generated_images/Before_after_regularization_transformation_5eab5567.png";
+import architectInspectionImage from "@assets/generated_images/Professional_architectural_house_inspection_051db6f4.png";
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -106,19 +110,27 @@ export default function RegularizacionViviendasLaFloridaPage() {
             Protege tu Inversión y Duerme Tranquilo - Servicio Integral de Regularización bajo Ley N° 20.898
           </h2>
 
-          {/* Uncle Sam Style Image Placeholder */}
+          {/* Uncle Sam Image - Modified without phone number */}
           <div className="mb-8 flex justify-center">
             <div className="relative bg-white p-4 rounded-lg shadow-2xl max-w-md">
-              <div className="text-center">
-                <div className="w-32 h-32 mx-auto mb-4 bg-red-100 rounded-full flex items-center justify-center">
-                  <AlertTriangle className="w-16 h-16 text-red-600" />
+              <img 
+                src={uncleSamRegularizacionImage} 
+                alt="Regulariza tus Ampliaciones Ahora - Uncle Sam Style" 
+                className="w-full h-auto rounded-lg shadow-lg"
+                style={{
+                  filter: 'brightness(1.1) contrast(1.05)'
+                }}
+              />
+              {/* Overlay to hide phone number */}
+              <div className="absolute bottom-0 left-0 right-0 bg-white p-3 rounded-b-lg">
+                <div className="text-center">
+                  <div className="text-red-800 font-bold text-lg mb-2">
+                    ¡Completa el Formulario Abajo!
+                  </div>
+                  <Badge variant="outline" className="bg-green-500 text-white border-green-600">
+                    💯 GARANTÍA DE SATISFACCIÓN
+                  </Badge>
                 </div>
-                <div className="text-red-800 font-bold text-lg mb-2">
-                  ¡TU HOGAR NECESITA REGULARIZACIÓN!
-                </div>
-                <Badge variant="outline" className="bg-green-500 text-white border-green-600">
-                  💯 GARANTÍA DE SATISFACCIÓN
-                </Badge>
               </div>
             </div>
           </div>
@@ -185,7 +197,16 @@ export default function RegularizacionViviendasLaFloridaPage() {
             ))}
           </div>
 
-          <div className="mt-12 bg-red-50 border-l-4 border-red-500 p-6 rounded">
+          {/* Before/After Transformation Image */}
+          <div className="mt-12 text-center">
+            <img 
+              src={beforeAfterImage} 
+              alt="Antes y Después de la Regularización - Transformación de tu Hogar" 
+              className="w-full max-w-4xl mx-auto rounded-lg shadow-2xl"
+            />
+          </div>
+
+          <div className="mt-8 bg-red-50 border-l-4 border-red-500 p-6 rounded">
             <div className="flex items-center mb-3">
               <AlertTriangle className="w-6 h-6 text-red-500 mr-3" />
               <h3 className="font-bold text-red-800">La Realidad es Dura...</h3>
@@ -193,6 +214,20 @@ export default function RegularizacionViviendasLaFloridaPage() {
             <p className="text-red-700">
               Cada día que pasa sin regularizar tu vivienda, <strong>aumenta el riesgo de multas, devaluación y problemas legales</strong>. 
               La ansiedad crece, la incertidumbre no te deja en paz, y sabes que esto no se va a resolver solo.
+            </p>
+          </div>
+
+          {/* Call-to-Action after problems section */}
+          <div className="mt-8 text-center">
+            <Button 
+              size="lg" 
+              className="bg-red-600 hover:bg-red-700 text-white font-bold text-xl py-4 px-8 rounded-full shadow-2xl transform hover:scale-105 transition-all"
+              onClick={() => document.getElementById('contact-form')?.scrollIntoView({ behavior: 'smooth' })}
+            >
+              📝 OBTÉN TU DIAGNÓSTICO GRATUITO AHORA
+            </Button>
+            <p className="text-red-600 text-sm mt-2 font-medium">
+              ⚡ Sin compromiso • ⚡ Arquitecto especialista • ⚡ Respuesta en 24 horas
             </p>
           </div>
         </div>
@@ -288,6 +323,15 @@ export default function RegularizacionViviendasLaFloridaPage() {
               Te acompañamos en <strong>cada paso del proceso</strong>. Desde el diagnóstico inicial hasta la inscripción final. 
               <strong>Todo incluido, sin sorpresas.</strong>
             </p>
+          </div>
+
+          {/* Process Infographic Image */}
+          <div className="mb-8 text-center">
+            <img 
+              src={processInfographicImage} 
+              alt="Proceso de Regularización en 4 Pasos - Infografía Profesional" 
+              className="w-full max-w-5xl mx-auto rounded-lg shadow-2xl"
+            />
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -452,6 +496,25 @@ export default function RegularizacionViviendasLaFloridaPage() {
               </div>
             </div>
           </div>
+
+          {/* Strategic CTA after pricing */}
+          <div className="mt-12 text-center">
+            <div className="bg-gradient-to-r from-yellow-400 to-orange-500 p-8 rounded-lg shadow-2xl">
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">
+                💡 ¡Tu Vivienda Vale Más Regularizada!
+              </h3>
+              <p className="text-gray-800 mb-6 max-w-2xl mx-auto">
+                No pierdas más tiempo preocupándote. Una inversión de $1.890.000 puede aumentar el valor de tu propiedad en $15-25 millones o más.
+              </p>
+              <Button 
+                size="lg" 
+                className="bg-gray-900 hover:bg-gray-800 text-white font-bold text-xl py-4 px-8 rounded-full shadow-2xl transform hover:scale-105 transition-all"
+                onClick={() => document.getElementById('contact-form')?.scrollIntoView({ behavior: 'smooth' })}
+              >
+                📋 COMPLETAR FORMULARIO AHORA
+              </Button>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -513,13 +576,15 @@ export default function RegularizacionViviendasLaFloridaPage() {
             </Card>
           </div>
 
-          {/* Autoridad del Arquitecto */}
+          {/* Autoridad del Arquitecto con Imagen Profesional */}
           <div className="bg-blue-50 p-8 rounded-lg">
             <div className="flex items-center md:flex-row flex-col gap-8">
               <div className="md:w-1/3 text-center">
-                <div className="w-32 h-32 bg-blue-200 rounded-full mx-auto mb-4 flex items-center justify-center">
-                  <Users className="w-16 h-16 text-blue-600" />
-                </div>
+                <img 
+                  src={architectInspectionImage} 
+                  alt="Arquitecto Patricio Becar realizando inspección profesional" 
+                  className="w-48 h-36 object-cover rounded-lg shadow-lg mx-auto mb-4"
+                />
                 <h3 className="font-bold text-xl mb-2">Arq. Patricio Becar</h3>
                 <p className="text-blue-600 font-semibold">Especialista en Regularización</p>
               </div>
