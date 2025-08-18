@@ -102,7 +102,11 @@ export default function RegularizacionViviendasLaFloridaPage() {
         container.appendChild(formDiv);
         
         if ((window as any).formsapp) {
-          new (window as any).formsapp('6732688de47f9dc4f751b212', 'fullscreen', {'opacity':1}, 'https://qv3ysdfj.forms.app');
+          new (window as any).formsapp('6732688de47f9dc4f751b212', 'standard', {
+            'opacity': 1,
+            'autoResize': true,
+            'height': 'auto'
+          }, 'https://qv3ysdfj.forms.app');
         }
       }
     };
