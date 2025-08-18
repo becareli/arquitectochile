@@ -252,7 +252,7 @@ export default function LeadMagnet() {
                 <CardTitle className="text-xl font-bold text-white mb-2">
                   Completa tus datos:
                 </CardTitle>
-                <p className="text-white font-semibold text-sm">
+                <p className="text-white font-black text-sm drop-shadow-lg">
                   Recíbela instantáneamente en tu email
                 </p>
               </CardHeader>
