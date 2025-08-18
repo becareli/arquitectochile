@@ -662,15 +662,8 @@ export default function RegularizacionViviendasLaFloridaPage() {
             
             {/* Formulario Externo Embebido */}
             <div className="w-full">
-              <iframe 
-                src="https://qv3ysdfj.forms.app/formulario-de-contacto"
-                width="100%"
-                height="800"
-                frameBorder="0"
-                scrolling="auto"
-                className="rounded-lg shadow-lg"
-                title="Formulario de Contacto - Regularización de Viviendas"
-              />
+              <div formsappId="6732688de47f9dc4f751b212"></div>
+              <script src="https://forms.app/cdn/embed.js" type="text/javascript" async defer onload="new formsapp('6732688de47f9dc4f751b212', 'fullscreen', {'opacity':1}, 'https://qv3ysdfj.forms.app');"></script>
             </div>
             
             <div className="text-lg text-gray-600 text-center mt-6 space-y-3">
