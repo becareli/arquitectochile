@@ -286,8 +286,8 @@ export default function LeadMagnet() {
                   </div>
                   
                   <div className="text-xs text-gray-500 space-y-1">
-                    <p className="font-semibold">Cómo serán tratados sus datos y Odiamos el Spam</p>
-                    <p>Sus datos están protegidos y solo los usaremos para enviarle el ebook y contenido valioso. Nunca compartiremos su información.</p>
+                    <p className="font-semibold">🔒 Protección de Datos - Sin Spam</p>
+                    <p>Información 100% segura. Solo enviaremos contenido valioso. Nunca compartimos tus datos.</p>
                   </div>
                 </div>
               </CardContent>
