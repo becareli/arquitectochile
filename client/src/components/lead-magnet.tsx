@@ -165,10 +165,25 @@ export default function LeadMagnet() {
               </h2>
             </div>
             
+            {/* Beneficios destacados - Iconos grandes */}
+            <div className="flex justify-center gap-8 mb-6">
+              <div className="flex flex-col items-center text-white">
+                <Gift className="w-12 h-12 mb-2 text-yellow-300" />
+                <p className="text-sm font-semibold">Sin costo</p>
+              </div>
+              <div className="flex flex-col items-center text-white">
+                <CheckCircle className="w-12 h-12 mb-2 text-yellow-300" />
+                <p className="text-sm font-semibold">Envío instantáneo</p>
+              </div>
+              <div className="flex flex-col items-center text-white">
+                <Shield className="w-12 h-12 mb-2 text-yellow-300" />
+                <p className="text-sm font-semibold">100% seguro</p>
+              </div>
+            </div>
+            
             <Card className="bg-white rounded-2xl shadow-2xl border-4 border-yellow-400">
               <CardHeader className="text-center bg-gradient-to-r from-yellow-400 to-orange-400 rounded-t-2xl">
                 <div className="flex items-center justify-center gap-2 mb-2">
-                  <Gift className="w-8 h-8 text-white" />
                   <Download className="w-8 h-8 text-white" />
                 </div>
                 <CardTitle className="text-xl font-bold text-white mb-2">
@@ -177,22 +192,6 @@ export default function LeadMagnet() {
                 <p className="text-white font-semibold text-sm">
                   Recíbela instantáneamente en tu email
                 </p>
-                
-                {/* Beneficios rápidos */}
-                <div className="flex justify-center gap-4 mt-4">
-                  <div className="flex items-center text-white text-sm">
-                    <CheckCircle className="w-4 h-4 mr-1" />
-                    Sin costo
-                  </div>
-                  <div className="flex items-center text-white text-sm">
-                    <CheckCircle className="w-4 h-4 mr-1" />
-                    Envío instantáneo
-                  </div>
-                  <div className="flex items-center text-white text-sm">
-                    <CheckCircle className="w-4 h-4 mr-1" />
-                    100% seguro
-                  </div>
-                </div>
               </CardHeader>
               
               <CardContent>
@@ -230,8 +229,9 @@ export default function LeadMagnet() {
                   </Button>
                 </form>
                 
+                {/* Información sobre tratamiento de datos */}
                 <div className="mt-6 text-center">
-                  <div className="bg-gray-50 rounded-lg p-4">
+                  <div className="bg-gray-50 rounded-lg p-4 mb-4">
                     <h4 className="font-semibold text-dark mb-2">Acerca del Autor</h4>
                     <div className="text-sm text-gray-600 space-y-1">
                       <p>• Arquitecto Universidad de Chile desde 1999</p>
@@ -239,6 +239,11 @@ export default function LeadMagnet() {
                       <p>• Creador de la Metodología MDAC</p>
                       <p>• Arquitecto Revisor independiente MINVU</p>
                     </div>
+                  </div>
+                  
+                  <div className="text-xs text-gray-500 space-y-1">
+                    <p className="font-semibold">Cómo serán tratados sus datos y Odiamos el Spam</p>
+                    <p>Sus datos están protegidos y solo los usaremos para enviarle el ebook y contenido valioso. Nunca compartiremos su información.</p>
                   </div>
                 </div>
               </CardContent>
