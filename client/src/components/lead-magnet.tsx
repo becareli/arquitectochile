@@ -160,25 +160,9 @@ export default function LeadMagnet() {
           <div className="relative">
             {/* Título principal fuera de la caja, sobre el fondo azul */}
             <div className="text-center mb-8">
-              <h2 className="text-5xl font-black text-white mb-4 drop-shadow-2xl">
-                🎁 DESCARGA AQUÍ TU GUÍA GRATIS 🎁
+              <h2 className="text-5xl font-black text-white drop-shadow-2xl">
+                DESCARGA AQUÍ TU GUÍA GRATIS
               </h2>
-              <div className="bg-yellow-400 text-black px-8 py-4 rounded-2xl font-bold text-2xl mb-4 transform rotate-1 hover:rotate-0 transition-transform inline-block shadow-2xl">
-                ¡Y desbloquea el potencial oculto de tu hogar!
-              </div>
-              <p className="text-yellow-300 font-bold text-xl animate-pulse drop-shadow-lg">
-                ⚡ ¡Solo toma 30 segundos! ⚡
-              </p>
-            </div>
-            
-            {/* Flechas apuntando al formulario desde arriba */}
-            <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-10">
-              <ArrowDown className="w-12 h-12 text-yellow-400 animate-bounce" />
-            </div>
-            
-            {/* Badge de urgencia */}
-            <div className="absolute -top-2 -right-6 bg-red-500 text-white px-4 py-2 rounded-full font-bold text-sm z-20 animate-pulse">
-              ¡GRATIS!
             </div>
             
             <Card className="bg-white rounded-2xl shadow-2xl border-4 border-yellow-400">
