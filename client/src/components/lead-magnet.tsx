@@ -160,59 +160,99 @@ export default function LeadMagnet() {
           <div className="relative">
             {/* Título principal fuera de la caja, sobre el fondo azul */}
             <div className="text-center mb-8 relative">
-              {/* Flechas rojas dibujadas a mano apuntando hacia abajo al título */}
-              <div className="absolute -top-20 left-1/4 transform rotate-12">
-                <svg width="120" height="100" viewBox="0 0 120 100" className="drop-shadow-lg">
+              {/* Flechas rojas múltiples apuntando al título - basadas en imagen de referencia */}
+              
+              {/* Flecha 1 - desde la izquierda, ligeramente inclinada */}
+              <div className="absolute -top-16 left-8 transform rotate-[25deg]">
+                <svg width="160" height="60" viewBox="0 0 160 60" className="drop-shadow-xl">
                   <path
-                    d="M10 10 Q30 30, 60 45 Q90 60, 110 80"
+                    d="M10 30 L130 30"
                     stroke="#DC2626"
-                    strokeWidth="4"
+                    strokeWidth="8"
                     fill="none"
                     strokeLinecap="round"
                     strokeLinejoin="round"
                   />
                   <path
-                    d="M105 70 L110 80 L100 75 Z"
+                    d="M110 15 L130 30 L110 45 Z"
                     fill="#DC2626"
                   />
                 </svg>
               </div>
               
-              <div className="absolute -top-24 left-1/2 transform -translate-x-1/2">
-                <svg width="100" height="90" viewBox="0 0 100 90" className="drop-shadow-lg">
+              {/* Flecha 2 - desde arriba centro, apuntando hacia abajo */}
+              <div className="absolute -top-20 left-1/2 transform -translate-x-1/2 rotate-[35deg]">
+                <svg width="140" height="50" viewBox="0 0 140 50" className="drop-shadow-xl">
                   <path
-                    d="M50 5 Q45 25, 50 45 Q55 65, 50 85"
+                    d="M15 25 L115 25"
                     stroke="#DC2626"
-                    strokeWidth="4"
+                    strokeWidth="7"
                     fill="none"
                     strokeLinecap="round"
                     strokeLinejoin="round"
                   />
                   <path
-                    d="M45 75 L50 85 L55 75 Z"
+                    d="M100 12 L115 25 L100 38 Z"
                     fill="#DC2626"
                   />
                 </svg>
               </div>
               
-              <div className="absolute -top-18 right-1/4 transform -rotate-12">
-                <svg width="110" height="90" viewBox="0 0 110 90" className="drop-shadow-lg">
+              {/* Flecha 3 - desde la derecha, inclinada hacia el centro */}
+              <div className="absolute -top-14 right-8 transform rotate-[155deg]">
+                <svg width="150" height="55" viewBox="0 0 150 55" className="drop-shadow-xl">
                   <path
-                    d="M100 15 Q80 30, 60 45 Q40 60, 10 75"
+                    d="M15 27 L125 27"
                     stroke="#DC2626"
-                    strokeWidth="4"
+                    strokeWidth="7"
                     fill="none"
                     strokeLinecap="round"
                     strokeLinejoin="round"
                   />
                   <path
-                    d="M15 65 L10 75 L20 70 Z"
+                    d="M110 14 L125 27 L110 40 Z"
                     fill="#DC2626"
                   />
                 </svg>
               </div>
               
-              <h2 className="text-5xl font-black text-white drop-shadow-2xl relative z-10 pt-16">
+              {/* Flecha 4 - desde arriba izquierda, más vertical */}
+              <div className="absolute -top-18 left-16 transform rotate-[45deg]">
+                <svg width="120" height="45" viewBox="0 0 120 45" className="drop-shadow-xl">
+                  <path
+                    d="M10 22 L100 22"
+                    stroke="#DC2626"
+                    strokeWidth="6"
+                    fill="none"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M88 10 L100 22 L88 34 Z"
+                    fill="#DC2626"
+                  />
+                </svg>
+              </div>
+              
+              {/* Flecha 5 - desde arriba derecha, más vertical */}
+              <div className="absolute -top-18 right-16 transform rotate-[135deg]">
+                <svg width="120" height="45" viewBox="0 0 120 45" className="drop-shadow-xl">
+                  <path
+                    d="M10 22 L100 22"
+                    stroke="#DC2626"
+                    strokeWidth="6"
+                    fill="none"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M88 10 L100 22 L88 34 Z"
+                    fill="#DC2626"
+                  />
+                </svg>
+              </div>
+              
+              <h2 className="text-5xl font-black text-white drop-shadow-2xl relative z-10 pt-20">
                 DESCARGA AQUÍ TU GUÍA GRATIS
               </h2>
             </div>
