@@ -29,12 +29,16 @@ export default function ServiciosADomicilio() {
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
-              Reserva tu Visita a Domicilio
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">
+              🎯 ¿Tienes un Proyecto en Mente?
             </h2>
-            <p className="text-lg text-gray-600 mb-8">
-              Descubre por qué cada vez más personas eligen nuestro servicio de arquitectura a domicilio
+            <p className="text-xl text-gray-600 mb-4">
+              <strong>Mira este video de 3 minutos</strong> y descubre cómo el Arquitecto Patricio Becar 
+              puede ayudarte desde la comodidad de tu hogar
             </p>
+            <div className="inline-flex items-center px-4 py-2 bg-red-100 text-red-800 rounded-full text-sm font-semibold">
+              ⏱️ Solo 3 minutos que pueden cambiar tu proyecto
+            </div>
           </div>
           
           <div className="max-w-4xl mx-auto">
@@ -43,8 +47,8 @@ export default function ServiciosADomicilio() {
                 <iframe
                   width="100%"
                   height="100%"
-                  src="https://www.youtube.com/embed/URJ0rRVLBU0?start=1"
-                  title="Asesoría de Arquitectura a Domicilio - ArquitectoChile.com"
+                  src="https://www.youtube.com/embed/N-tYdckEG5Y?start=4"
+                  title="VSL Asesoría de Arquitectura a Domicilio - ArquitectoChile.com"
                   frameBorder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                   allowFullScreen
@@ -53,29 +57,63 @@ export default function ServiciosADomicilio() {
               </div>
             </div>
             
+            {/* Call to Action después del VSL */}
             <div className="text-center mt-8">
-              <div className="inline-flex items-center px-6 py-3 bg-green-100 text-green-800 rounded-full text-sm font-semibold mb-4">
-                🏠 Video Promocional
+              <div className="bg-gradient-to-r from-green-50 to-blue-50 rounded-xl p-8 mb-6">
+                <div className="inline-flex items-center px-4 py-2 bg-green-500 text-white rounded-full text-sm font-semibold mb-4">
+                  ✅ VSL: Video Sales Letter Oficial
+                </div>
+                <h3 className="text-2xl font-bold text-gray-900 mb-3">
+                  ¿Te Convenció lo que Viste?
+                </h3>
+                <p className="text-gray-700 max-w-3xl mx-auto mb-6 text-lg">
+                  Como acabas de ver en el video, la <strong>asesoría a domicilio</strong> te permite recibir un análisis 
+                  profesional sin moverte de casa. El Arquitecto Patricio Becar va directamente a tu terreno, 
+                  evalúa las posibilidades reales y te entrega un presupuesto detallado.
+                </p>
+                
+                {/* Beneficios clave destacados */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                  <div className="bg-white p-4 rounded-lg shadow-sm">
+                    <div className="text-2xl mb-2">🏠</div>
+                    <div className="font-semibold text-gray-800">Comodidad Total</div>
+                    <div className="text-sm text-gray-600">El arquitecto va a tu casa</div>
+                  </div>
+                  <div className="bg-white p-4 rounded-lg shadow-sm">
+                    <div className="text-2xl mb-2">📊</div>
+                    <div className="font-semibold text-gray-800">Análisis Experto</div>
+                    <div className="text-sm text-gray-600">25+ años de experiencia</div>
+                  </div>
+                  <div className="bg-white p-4 rounded-lg shadow-sm">
+                    <div className="text-2xl mb-2">💰</div>
+                    <div className="font-semibold text-gray-800">Presupuesto Real</div>
+                    <div className="text-sm text-gray-600">Sin sorpresas posteriores</div>
+                  </div>
+                </div>
               </div>
-              <p className="text-gray-600 max-w-2xl mx-auto mb-6">
-                Conoce las ventajas de contar con un arquitecto profesional que va directamente a tu hogar. 
-                Análisis experto, presupuesto detallado y eliminación de todas tus dudas.
-              </p>
+
+              {/* Botones de acción prominentes */}
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <a
-                  href="https://wa.me/56979316827?text=Hola%20Patricio,%20quiero%20reservar%20una%20asesoría%20de%20arquitectura%20a%20domicilio"
+                  href="https://wa.me/56979316827?text=Hola%20Patricio,%20vi%20tu%20VSL%20y%20quiero%20reservar%20una%20asesoría%20de%20arquitectura%20a%20domicilio"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center px-8 py-4 bg-gray-600 text-white rounded-lg hover:bg-green-600 transition-colors duration-300 font-semibold"
+                  className="inline-flex items-center px-8 py-4 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors duration-300 font-bold text-lg shadow-lg hover:shadow-xl transform hover:scale-105"
                 >
-                  💬 Reservar Visita por WhatsApp
+                  💬 RESERVAR VISITA AHORA
                 </a>
                 <a
                   href="tel:+56979316827"
-                  className="inline-flex items-center px-8 py-4 bg-gray-600 text-white rounded-lg hover:bg-blue-600 transition-colors duration-300 font-semibold"
+                  className="inline-flex items-center px-8 py-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-300 font-bold text-lg shadow-lg hover:shadow-xl transform hover:scale-105"
                 >
-                  📞 Llamar +56979316827
+                  📞 LLAMAR +56979316827
                 </a>
+              </div>
+              
+              {/* Credibilidad y urgencia */}
+              <div className="mt-6 text-sm text-gray-600">
+                <p className="mb-2">⭐ Más de 500 asesorías realizadas | 🏆 Arquitecto Universidad de Chile desde 1999</p>
+                <p className="font-medium text-gray-800">📍 Cobertura: Santiago y alrededores</p>
               </div>
             </div>
           </div>
