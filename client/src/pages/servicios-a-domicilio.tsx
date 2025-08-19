@@ -60,9 +60,7 @@ export default function ServiciosADomicilio() {
             {/* Call to Action después del VSL */}
             <div className="text-center mt-8">
               <div className="bg-gradient-to-r from-green-50 to-blue-50 rounded-xl p-8 mb-6">
-                <div className="inline-flex items-center px-4 py-2 bg-green-500 text-white rounded-full text-sm font-semibold mb-4">
-                  ✅ VSL: Video Sales Letter Oficial
-                </div>
+
                 <h3 className="text-2xl font-bold text-gray-900 mb-3">
                   ¿Te Convenció lo que Viste?
                 </h3>
