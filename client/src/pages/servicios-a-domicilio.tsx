@@ -23,9 +23,7 @@ export default function ServiciosADomicilio() {
         </div>
       </section>
 
-      <AsesoriaTerreno />
-      
-      {/* Video Testimonial Section */}
+      {/* VSL Section - Posicionado prominentemente */}
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
@@ -117,6 +115,10 @@ export default function ServiciosADomicilio() {
           </div>
         </div>
       </section>
+
+      <AsesoriaTerreno />
+      
+
       
       {/* Additional Services Preview */}
       <section className="py-16 bg-gray-50">
