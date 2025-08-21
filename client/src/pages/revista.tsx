@@ -28,35 +28,35 @@ function YouTubeThumbnail({ videoId, alt, className }: { videoId: string; alt: s
 }
 
 const videos = [
-  { url: 'https://youtu.be/Icqa3D3myqQ', title: 'Proyecto Residencial - Casa Moderna', description: 'Diseño contemporáneo con espacios amplios' },
-  { url: 'https://youtu.be/nfb18xuS3-Y', title: 'Ampliación de Vivienda', description: 'Proceso completo de expansión habitacional' },
-  { url: 'https://youtu.be/URJ0rRVLBU0', title: 'Asesoría de Arquitectura a Domicilio', description: 'Servicio profesional en tu hogar' },
-  { url: 'https://youtu.be/Jugr5k4z-Eg', title: 'Regularización de Construcciones', description: 'Legalización de ampliaciones existentes' },
-  { url: 'https://youtu.be/OpBr5j4cxZA', title: 'Diseño de Cocinas Modernas', description: 'Optimización de espacios culinarios' },
-  { url: 'https://youtu.be/9N1Y3LGqRq8', title: 'Proyecto de Segundo Piso', description: 'Ampliación vertical profesional' },
-  { url: 'https://youtu.be/EnHBFo6UOS8', title: 'Remodelación Integral', description: 'Transformación completa de vivienda' },
-  { url: 'https://youtu.be/LxbHRbNXCh4', title: 'Subdivisión de Terrenos', description: 'Proceso legal y técnico de división' },
-  { url: 'https://youtu.be/bh7eZ8X9mxU', title: 'Casa Sustentable', description: 'Arquitectura eco-friendly y eficiente' },
-  { url: 'https://youtu.be/NcLDm5RbJT8', title: 'Inspección Técnica de Viviendas', description: 'Evaluación profesional de estructuras' },
-  { url: 'https://youtu.be/Ne661ndvL8g', title: 'Diseño de Baños Modernos', description: 'Espacios funcionales y elegantes' },
-  { url: 'https://youtu.be/-SIHxp1c_Ig', title: 'Fusión de Predios', description: 'Unificación legal de terrenos' },
-  { url: 'https://youtu.be/spAhkKnNjts', title: 'Casa de Campo', description: 'Diseño rural con estilo contemporáneo' },
-  { url: 'https://youtu.be/xK3fsZvJhx0', title: 'Reacondicionamiento Térmico', description: 'Mejora del aislamiento y eficiencia' },
-  { url: 'https://youtu.be/wJUwbeAwkY4', title: 'Quincho y Terraza', description: 'Espacios exteriores para el disfrute' },
-  { url: 'https://youtu.be/BcGIoUDLNWg', title: 'Casa Unifamiliar', description: 'Proyecto residencial completo' },
-  { url: 'https://youtu.be/zXAk4mk_154', title: 'Ático Moderno', description: 'Aprovechamiento de espacios superiores' },
-  { url: 'https://youtu.be/ApmGCWHk9Jw', title: 'Tasación de Viviendas', description: 'Evaluación comercial profesional' },
-  { url: 'https://youtu.be/fDFaPcjqY1k', title: 'Proyecto Minimalista', description: 'Diseño limpio y funcional' },
-  { url: 'https://youtu.be/nrsek_GtvBg', title: 'Ampliación de Dormitorios', description: 'Expansión de espacios privados' },
-  { url: 'https://youtu.be/MfjLf2Ax7tc', title: 'Casa Mediterránea', description: 'Estilo clásico con toques modernos' },
-  { url: 'https://youtu.be/BRIS-vT2Kvg', title: 'Oficina en Casa', description: 'Espacios de trabajo profesional' },
-  { url: 'https://youtu.be/N-tYdckEG5Y', title: 'Consultoría Arquitectónica', description: 'Asesoría especializada para tu proyecto' },
-  { url: 'https://youtu.be/1bx78RgH2hE', title: 'Proyecto Duplex', description: 'Vivienda de dos niveles optimizada' },
-  { url: 'https://youtu.be/tYZlUAyxvuA', title: 'Diseño de Fachadas', description: 'Mejora estética y funcional exterior' },
-  { url: 'https://youtu.be/gXKl4efGwRY', title: 'Casa Esquina', description: 'Aprovechamiento de ubicación privilegiada' },
-  { url: 'https://youtu.be/3cJ4BvlqG6o', title: 'Proyecto Familiar', description: 'Espacios pensados para la familia' },
-  { url: 'https://youtu.be/QsowaE8w0Fg', title: 'Remodelación de Cocina', description: 'Modernización del corazón del hogar' },
-  { url: 'https://youtu.be/xqHWNpyHJXk', title: 'Casa con Piscina', description: 'Integración de área recreativa' }
+  { url: 'https://youtu.be/Icqa3D3myqQ', title: 'Casa 140m² con Oficina Incluida', description: 'Proyecto residencial moderno con espacios de trabajo integrados' },
+  { url: 'https://youtu.be/nfb18xuS3-Y', title: 'Ampliación 25m² - Dormitorio y Baño', description: 'Expansión inteligente de vivienda familiar' },
+  { url: 'https://youtu.be/URJ0rRVLBU0', title: 'Servicio a Domicilio del Arquitecto', description: 'Asesoría profesional en tu propia casa' },
+  { url: 'https://youtu.be/Jugr5k4z-Eg', title: 'Regularización de Construcciones Ilegales', description: 'Legalización de ampliaciones no autorizadas' },
+  { url: 'https://youtu.be/OpBr5j4cxZA', title: 'Cocina Moderna con Isla Central', description: 'Diseño funcional y elegante para cocinas contemporáneas' },
+  { url: 'https://youtu.be/9N1Y3LGqRq8', title: 'Segundo Piso - 45m² Adicionales', description: 'Duplica el espacio de tu casa con un segundo nivel' },
+  { url: 'https://youtu.be/EnHBFo6UOS8', title: 'Remodelación Total Casa 80m²', description: 'Transformación completa con distribución optimizada' },
+  { url: 'https://youtu.be/LxbHRbNXCh4', title: 'Subdivisión Predial - Dos Casas', description: 'División legal para maximizar valor del terreno' },
+  { url: 'https://youtu.be/bh7eZ8X9mxU', title: 'Casa Ecológica con Paneles Solares', description: 'Arquitectura sustentable y eficiencia energética' },
+  { url: 'https://youtu.be/NcLDm5RbJT8', title: 'Inspección Técnica Completa', description: 'Evaluación estructural y estado de la vivienda' },
+  { url: 'https://youtu.be/Ne661ndvL8g', title: 'Baño Principal Suite con Tina', description: 'Diseño luxury para baños principales' },
+  { url: 'https://youtu.be/-SIHxp1c_Ig', title: 'Fusión de Dos Terrenos Colindantes', description: 'Unificación legal para proyecto más grande' },
+  { url: 'https://youtu.be/spAhkKnNjts', title: 'Casa de Campo 120m² con Quincho', description: 'Diseño rural con espacios de recreación' },
+  { url: 'https://youtu.be/xK3fsZvJhx0', title: 'Reacondicionamiento Térmico Integral', description: 'Aislación completa para reducir gastos de calefacción' },
+  { url: 'https://youtu.be/wJUwbeAwkY4', title: 'Quincho 30m² con Parrilla Integrada', description: 'Espacio exterior cubierto para asados familiares' },
+  { url: 'https://youtu.be/BcGIoUDLNWg', title: 'Casa Unifamiliar 95m² - 3 Dormitorios', description: 'Proyecto completo para familia tipo' },
+  { url: 'https://youtu.be/zXAk4mk_154', title: 'Conversión de Ático en Departamento', description: 'Aprovechamiento del último piso para vivienda' },
+  { url: 'https://youtu.be/ApmGCWHk9Jw', title: 'Tasación Comercial de Propiedades', description: 'Avalúo profesional para venta o compra' },
+  { url: 'https://youtu.be/fDFaPcjqY1k', title: 'Casa Minimalista 70m² Líneas Puras', description: 'Diseño contemporáneo con espacios despejados' },
+  { url: 'https://youtu.be/nrsek_GtvBg', title: 'Ampliación Dormitorio Principal 20m²', description: 'Expansión del dormitorio con walk-in closet' },
+  { url: 'https://youtu.be/MfjLf2Ax7tc', title: 'Casa Estilo Mediterráneo con Patio', description: 'Arquitectura clásica con patio central' },
+  { url: 'https://youtu.be/BRIS-vT2Kvg', title: 'Home Office Independiente 15m²', description: 'Oficina separada en el patio trasero' },
+  { url: 'https://youtu.be/N-tYdckEG5Y', title: 'Consultoría Arquitectónica Personalizada', description: 'Asesoría especializada para tu proyecto específico' },
+  { url: 'https://youtu.be/1bx78RgH2hE', title: 'Casa Duplex 160m² - Dos Familias', description: 'Vivienda de dos pisos para generar renta' },
+  { url: 'https://youtu.be/tYZlUAyxvuA', title: 'Renovación de Fachada con Siding', description: 'Mejora estética exterior con materiales modernos' },
+  { url: 'https://youtu.be/gXKl4efGwRY', title: 'Casa Esquina - Doble Acceso', description: 'Aprovechamiento estratégico de ubicación privilegiada' },
+  { url: 'https://youtu.be/3cJ4BvlqG6o', title: 'Casa Familiar 110m² - 4 Dormitorios', description: 'Distribución optimizada para familias numerosas' },
+  { url: 'https://youtu.be/QsowaE8w0Fg', title: 'Remodelación Cocina con Comedor Diario', description: 'Integración de espacios sociales de la casa' },
+  { url: 'https://youtu.be/xqHWNpyHJXk', title: 'Casa con Piscina y Deck de Madera', description: 'Proyecto integral con área recreativa acuática' }
 ];
 
 // Convertir URL de YouTube a ID de video - versión mejorada
@@ -125,13 +125,6 @@ export default function Revista() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {videos.map((video, index) => {
               const videoId = getYouTubeVideoId(video.url);
-              
-              // Debug en consola para URLs problemáticas
-              if (!videoId) {
-                console.warn(`❌ Video ID no encontrado para "${video.title}": ${video.url}`);
-              } else {
-                console.log(`✅ Video ID encontrado para "${video.title}": ${videoId}`);
-              }
               
               return (
                 <div
