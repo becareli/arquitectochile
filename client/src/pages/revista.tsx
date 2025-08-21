@@ -1,62 +1,29 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
-// Componente para manejar imágenes con fallback
+// Componente simplificado para miniaturas de YouTube
 function YouTubeThumbnail({ videoId, alt, className }: { videoId: string; alt: string; className?: string }) {
-  const [imageError, setImageError] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
-  const [fallbackLevel, setFallbackLevel] = useState(0);
+  const [hasError, setHasError] = useState(false);
   
-  const thumbnailOptions = [
-    `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`,
-    `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`,
-    `https://img.youtube.com/vi/${videoId}/mqdefault.jpg`,
-    `https://img.youtube.com/vi/${videoId}/default.jpg`
-  ];
-
-  const handleImageError = () => {
-    if (fallbackLevel < thumbnailOptions.length - 1) {
-      setFallbackLevel(prev => prev + 1);
-      setImageError(false);
-      setIsLoading(true);
-    } else {
-      setImageError(true);
-      setIsLoading(false);
-    }
-  };
-
-  const handleImageLoad = () => {
-    setIsLoading(false);
-  };
-
-  if (imageError) {
+  if (!videoId || hasError) {
     return (
-      <div className={`${className} bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center`}>
-        <div className="text-center text-gray-600">
-          <div className="text-3xl mb-2">🎬</div>
-          <div className="text-sm font-medium">Video Disponible</div>
-          <div className="text-xs mt-1">Click para reproducir</div>
+      <div className={`${className} bg-gradient-to-br from-blue-50 to-blue-100 flex items-center justify-center border border-blue-200`}>
+        <div className="text-center text-blue-700">
+          <div className="text-2xl mb-1">🎬</div>
+          <div className="text-xs font-semibold">Video Disponible</div>
+          <div className="text-xs opacity-75 mt-1">Click para ver</div>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="relative">
-      {isLoading && (
-        <div className={`${className} bg-gray-200 flex items-center justify-center absolute inset-0`}>
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
-        </div>
-      )}
-      <img
-        src={thumbnailOptions[fallbackLevel]}
-        alt={alt}
-        className={className}
-        onError={handleImageError}
-        onLoad={handleImageLoad}
-        loading="lazy"
-        style={{ display: isLoading ? 'none' : 'block' }}
-      />
-    </div>
+    <img
+      src={`https://img.youtube.com/vi/${videoId}/hqdefault.jpg`}
+      alt={alt}
+      className={className}
+      onError={() => setHasError(true)}
+      loading="lazy"
+    />
   );
 }
 
@@ -92,12 +59,30 @@ const videos = [
   { url: 'https://youtu.be/xqHWNpyHJXk', title: 'Casa con Piscina', description: 'Integración de área recreativa' }
 ];
 
-// Convertir URL de YouTube a ID de video
+// Convertir URL de YouTube a ID de video - versión mejorada
 function getYouTubeVideoId(url: string): string {
   if (!url || typeof url !== 'string') return '';
-  const regex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
-  const match = url.match(regex);
-  return match ? match[1] : '';
+  
+  // Limpiar URL y extraer diferentes formatos
+  url = url.trim();
+  
+  // Patrón para youtu.be/VIDEO_ID
+  let match = url.match(/youtu\.be\/([a-zA-Z0-9_-]{11})/);
+  if (match) return match[1];
+  
+  // Patrón para youtube.com/watch?v=VIDEO_ID
+  match = url.match(/youtube\.com\/watch\?v=([a-zA-Z0-9_-]{11})/);
+  if (match) return match[1];
+  
+  // Patrón para youtube.com/embed/VIDEO_ID
+  match = url.match(/youtube\.com\/embed\/([a-zA-Z0-9_-]{11})/);
+  if (match) return match[1];
+  
+  // Patrón general como fallback
+  match = url.match(/([a-zA-Z0-9_-]{11})/);
+  if (match) return match[1];
+  
+  return '';
 }
 
 // Obtener thumbnail de YouTube con fallback
@@ -140,6 +125,13 @@ export default function Revista() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {videos.map((video, index) => {
               const videoId = getYouTubeVideoId(video.url);
+              
+              // Debug en consola para URLs problemáticas
+              if (!videoId) {
+                console.warn(`❌ Video ID no encontrado para "${video.title}": ${video.url}`);
+              } else {
+                console.log(`✅ Video ID encontrado para "${video.title}": ${videoId}`);
+              }
               
               return (
                 <div
