@@ -257,7 +257,7 @@ export default function Navigation() {
                 Testimonios
               </button>
               <button 
-                onClick={() => handleNavigation('blog')}
+                onClick={() => navigateToService('/revista')}
                 className="text-dark hover:text-primary transition-colors text-sm font-medium"
               >
                 Revista
@@ -393,7 +393,7 @@ export default function Navigation() {
               Testimonios
             </button>
             <button 
-              onClick={() => handleNavigation('blog')}
+              onClick={() => navigateToService('/revista')}
               className="block w-full text-left px-3 py-2 text-dark hover:text-primary"
             >
               Revista

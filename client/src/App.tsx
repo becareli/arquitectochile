@@ -19,6 +19,7 @@ import SubdivisionTerrenosUrbanos from "@/pages/subdivision-terrenos-urbanos";
 import ReacondicionamientoTermicoViviendas from "@/pages/reacondicionamiento-termico-viviendas";
 import RegularizacionViviendasLaFlorida from "@/pages/regularizacion-viviendas-la-florida";
 import CalculadoraCostos from "@/pages/calculadora-costos";
+import Revista from "@/pages/revista";
 import AvisoLegal from "@/pages/aviso-legal";
 import PoliticaPrivacidad from "@/pages/politica-privacidad";
 import PoliticaCookies from "@/pages/politica-cookies";
@@ -45,6 +46,7 @@ function Router() {
       <Route path="/reacondicionamiento-termico-viviendas" component={ReacondicionamientoTermicoViviendas} />
       <Route path="/regularizacion-viviendas-la-florida" component={RegularizacionViviendasLaFlorida} />
       <Route path="/calculadora-costos" component={CalculadoraCostos} />
+      <Route path="/revista" component={Revista} />
       <Route path="/aviso-legal" component={AvisoLegal} />
       <Route path="/politica-privacidad" component={PoliticaPrivacidad} />
       <Route path="/politica-cookies" component={PoliticaCookies} />
