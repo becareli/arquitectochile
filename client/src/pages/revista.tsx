@@ -28,7 +28,7 @@ function YouTubeThumbnail({ videoId, alt, className }: { videoId: string; alt: s
 }
 
 const videos = [
-  { url: 'https://youtu.be/Icqa3D3myqQ', title: 'Diseño de Equipamiento Deportivo-Canchas Techadas para el Deporte y Recreación', description: 'Diseño y construcción de espacios deportivos cubiertos' },
+  { url: 'https://youtu.be/qXySVvF6FcM', title: 'Mapa para sus Construcciones, Ampliaciones y Remodelaciones', description: 'Guía completa para planificar proyectos de construcción' },
   { url: 'https://youtu.be/nfb18xuS3-Y', title: 'Diseño de Ágora en Plaza de Polpaico', description: 'Proyecto de espacio público comunitario' },
   { url: 'https://youtu.be/URJ0rRVLBU0', title: 'Arquitecto a Domicilio en Santiago de Chile', description: 'Servicio profesional de consultoría a domicilio' },
   { url: 'https://youtu.be/Jugr5k4z-Eg', title: 'EIFS Aislacion Termica de Casas | Reacondicionamiento Termico de Casas', description: 'Sistema de aislación térmica exterior para viviendas' },
@@ -59,7 +59,8 @@ const videos = [
   { url: 'https://youtu.be/xqHWNpyHJXk', title: 'construir una casa estilo mediterranea', description: 'Proyecto de construcción con diseño mediterráneo' },
   { url: 'https://youtu.be/LYVzV8gB0YQ', title: 'Constructora de Casas : construcciones de casas modernas', description: 'Desarrollo de proyectos habitacionales modernos' },
   { url: 'https://youtu.be/3SO-hrtBVFg', title: 'Parcelas de Agrado: 7 preguntas para organizar tu Parcela de Agrado', description: 'Guía completa para planificar y organizar parcelas de agrado' },
-  { url: 'https://youtu.be/8UGM6Fl-nhs', title: 'Remodelacion de Oficinas y Ampliaciones de Oficinas en Santiago', description: 'Servicios de remodelación y ampliación para espacios comerciales' }
+  { url: 'https://youtu.be/8UGM6Fl-nhs', title: 'Remodelacion de Oficinas y Ampliaciones de Oficinas en Santiago', description: 'Servicios de remodelación y ampliación para espacios comerciales' },
+  { url: 'https://youtu.be/Icqa3D3myqQ', title: 'Diseño de Equipamiento Deportivo-Canchas Techadas para el Deporte y Recreación', description: 'Diseño y construcción de espacios deportivos cubiertos' }
 ];
 
 // Convertir URL de YouTube a ID de video - versión mejorada
