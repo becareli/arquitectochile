@@ -27,11 +27,10 @@ function YouTubeThumbnail({ videoId, alt, className }: { videoId: string; alt: s
   );
 }
 
-// Necesito usar títulos genéricos pero profesionales hasta tener la correspondencia exacta
 const videos = [
-  { url: 'https://youtu.be/Icqa3D3myqQ', title: 'Proyecto Casa Mediterránea', description: 'Diseño y construcción de vivienda estilo mediterráneo' },
-  { url: 'https://youtu.be/nfb18xuS3-Y', title: 'Ampliaciones con Mansarda', description: 'Técnicas de construcción para ampliar viviendas' },
-  { url: 'https://youtu.be/URJ0rRVLBU0', title: 'Asesoría Arquitectónica', description: 'Servicio profesional de consultoría' },
+  { url: 'https://youtu.be/Icqa3D3myqQ', title: 'Diseño de Equipamiento Deportivo-Canchas Techadas para el Deporte y Recreación', description: 'Diseño y construcción de espacios deportivos cubiertos' },
+  { url: 'https://youtu.be/nfb18xuS3-Y', title: 'Diseño de Ágora en Plaza de Polpaico', description: 'Proyecto de espacio público comunitario' },
+  { url: 'https://youtu.be/URJ0rRVLBU0', title: 'Arquitecto a Domicilio en Santiago de Chile', description: 'Servicio profesional de consultoría a domicilio' },
   { url: 'https://youtu.be/Jugr5k4z-Eg', title: 'Revisión Técnica de Obras', description: 'Inspección profesional de construcciones' },
   { url: 'https://youtu.be/OpBr5j4cxZA', title: 'Construcción en Hormigón', description: 'Técnicas de construcción estructural' },
   { url: 'https://youtu.be/9N1Y3LGqRq8', title: 'Proceso Constructivo', description: 'Avances en proyecto habitacional' },
