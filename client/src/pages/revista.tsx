@@ -29,7 +29,7 @@ function YouTubeThumbnail({ videoId, alt, className }: { videoId: string; alt: s
 
 const videos = [
   { url: 'https://youtu.be/qXySVvF6FcM', title: 'Mapa para sus Construcciones, Ampliaciones y Remodelaciones', description: 'Guía completa para planificar proyectos de construcción' },
-  { url: 'https://youtu.be/nfb18xuS3-Y', title: 'Diseño de Ágora en Plaza de Polpaico', description: 'Proyecto de espacio público comunitario' },
+  { url: 'https://youtu.be/N-tYdckEG5Y', title: 'Evita este Error al construir una casa | Asesoria de Arquitectura', description: 'Consejos para evitar errores costosos en construcción' },
   { url: 'https://youtu.be/URJ0rRVLBU0', title: 'Arquitecto a Domicilio en Santiago de Chile', description: 'Servicio profesional de consultoría a domicilio' },
   { url: 'https://youtu.be/Jugr5k4z-Eg', title: 'EIFS Aislacion Termica de Casas | Reacondicionamiento Termico de Casas', description: 'Sistema de aislación térmica exterior para viviendas' },
   { url: 'https://youtu.be/OpBr5j4cxZA', title: 'EIFS: Aislacion Termica para Casas -Testimonio de Cliente', description: 'Experiencia real de cliente con sistema EIFS' },
@@ -50,7 +50,6 @@ const videos = [
   { url: 'https://youtu.be/nrsek_GtvBg', title: 'Construcción de Mansardas de Casas en Steelframe', description: 'Técnica steelframe para mansardas habitables' },
   { url: 'https://youtu.be/MfjLf2Ax7tc', title: '5 Aspectos Claves para elegir a su Arquitecto en Chile', description: 'Guía para seleccionar el arquitecto correcto' },
   { url: 'https://youtu.be/BRIS-vT2Kvg', title: 'Testimonio Cliente | Ampliaciones de Casas | Planos de Casas', description: 'Experiencia real de cliente con ampliaciones habitacionales' },
-  { url: 'https://youtu.be/N-tYdckEG5Y', title: 'Evita este Error al construir una casa | Asesoria de Arquitectura', description: 'Consejos para evitar errores costosos en construcción' },
   { url: 'https://youtu.be/1bx78RgH2hE', title: 'Planos Casa Mediterranea | Casas Modernas | Testimonio Cliente', description: 'Proyecto de casa mediterránea con testimonio de cliente' },
   { url: 'https://youtu.be/tYZlUAyxvuA', title: 'Revisor Independiente Arquitectura en Santiago +56979316827', description: 'Servicio de revisión técnica independiente en Santiago' },
   { url: 'https://youtu.be/gXKl4efGwRY', title: 'Casas de hormigon armado y enfierradura de losas', description: 'Construcción estructural con hormigón armado' },
@@ -60,7 +59,8 @@ const videos = [
   { url: 'https://youtu.be/LYVzV8gB0YQ', title: 'Constructora de Casas : construcciones de casas modernas', description: 'Desarrollo de proyectos habitacionales modernos' },
   { url: 'https://youtu.be/3SO-hrtBVFg', title: 'Parcelas de Agrado: 7 preguntas para organizar tu Parcela de Agrado', description: 'Guía completa para planificar y organizar parcelas de agrado' },
   { url: 'https://youtu.be/8UGM6Fl-nhs', title: 'Remodelacion de Oficinas y Ampliaciones de Oficinas en Santiago', description: 'Servicios de remodelación y ampliación para espacios comerciales' },
-  { url: 'https://youtu.be/Icqa3D3myqQ', title: 'Diseño de Equipamiento Deportivo-Canchas Techadas para el Deporte y Recreación', description: 'Diseño y construcción de espacios deportivos cubiertos' }
+  { url: 'https://youtu.be/Icqa3D3myqQ', title: 'Diseño de Equipamiento Deportivo-Canchas Techadas para el Deporte y Recreación', description: 'Diseño y construcción de espacios deportivos cubiertos' },
+  { url: 'https://youtu.be/nfb18xuS3-Y', title: 'Diseño de Ágora en Plaza de Polpaico', description: 'Proyecto de espacio público comunitario' }
 ];
 
 // Convertir URL de YouTube a ID de video - versión mejorada
