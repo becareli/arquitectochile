@@ -1,6 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { CheckCircle, TrendingUp, Building2, MapPin, Clock, Shield, ArrowRight, Play, DollarSign, Calculator, FileText, Star } from "lucide-react";
 import Footer from "@/components/footer";
 import Chatbot from "@/components/chatbot";
@@ -558,72 +559,62 @@ export default function FusionTerrenosUrbanos() {
             <p className="text-xl text-gray-600">Resolvemos las dudas más comunes sobre fusión de terrenos</p>
           </div>
 
-          <div className="space-y-6">
-            <Card className="border-l-4 border-emerald-500">
-              <CardContent className="p-6">
-                <h3 className="text-xl font-bold text-emerald-800 mb-3">
-                  ¿Se pueden fusionar terrenos de distintos propietarios?
-                </h3>
-                <p className="text-gray-700">
-                  <strong>No.</strong> La ley señala con claridad que debe ser un solo propietario, 
-                  el cual puede ser una persona natural o jurídica, o bien una sucesión 
-                  (esta última se entiende como un solo dueño).
-                </p>
-              </CardContent>
-            </Card>
+          <Accordion type="single" collapsible className="w-full space-y-4">
+            <AccordionItem value="item-1" className="bg-emerald-50 border-emerald-200 rounded-lg px-6">
+              <AccordionTrigger className="text-left font-bold text-emerald-800 hover:text-emerald-700">
+                ¿Se pueden fusionar terrenos de distintos propietarios?
+              </AccordionTrigger>
+              <AccordionContent className="text-gray-700 pt-2">
+                <strong>No.</strong> La ley señala con claridad que debe ser un solo propietario, 
+                el cual puede ser una persona natural o jurídica, o bien una sucesión 
+                (esta última se entiende como un solo dueño).
+              </AccordionContent>
+            </AccordionItem>
 
-            <Card className="border-l-4 border-emerald-500">
-              <CardContent className="p-6">
-                <h3 className="text-xl font-bold text-emerald-800 mb-3">
-                  ¿Es posible la Fusión si los predios están afectos a utilidad pública?
-                </h3>
-                <p className="text-gray-700">
-                  <strong>Sí</strong>, es posible efectuar la fusión si los predios están afectos a utilidad pública 
-                  (por ejemplo, por un ensanche de caminos). Esto difiere del caso de subdivisión, 
-                  donde sí se requiere realizar la urbanización exterior.
-                </p>
-              </CardContent>
-            </Card>
+            <AccordionItem value="item-2" className="bg-emerald-50 border-emerald-200 rounded-lg px-6">
+              <AccordionTrigger className="text-left font-bold text-emerald-800 hover:text-emerald-700">
+                ¿Es posible la Fusión si los predios están afectos a utilidad pública?
+              </AccordionTrigger>
+              <AccordionContent className="text-gray-700 pt-2">
+                <strong>Sí</strong>, es posible efectuar la fusión si los predios están afectos a utilidad pública 
+                (por ejemplo, por un ensanche de caminos). Esto difiere del caso de subdivisión, 
+                donde sí se requiere realizar la urbanización exterior.
+              </AccordionContent>
+            </AccordionItem>
 
-            <Card className="border-l-4 border-emerald-500">
-              <CardContent className="p-6">
-                <h3 className="text-xl font-bold text-emerald-800 mb-3">
-                  ¿Cuánto tiempo demora el proceso completo?
-                </h3>
-                <p className="text-gray-700">
-                  El proceso completo demora entre <strong>45 a 60 días</strong> aproximadamente, 
-                  dependiendo de la complejidad del caso y la agilidad de las instituciones. 
-                  Nosotros nos encargamos de acelerar cada etapa.
-                </p>
-              </CardContent>
-            </Card>
+            <AccordionItem value="item-3" className="bg-emerald-50 border-emerald-200 rounded-lg px-6">
+              <AccordionTrigger className="text-left font-bold text-emerald-800 hover:text-emerald-700">
+                ¿Cuánto tiempo demora el proceso completo?
+              </AccordionTrigger>
+              <AccordionContent className="text-gray-700 pt-2">
+                El proceso completo demora entre <strong>45 a 60 días</strong> aproximadamente, 
+                dependiendo de la complejidad del caso y la agilidad de las instituciones. 
+                Nosotros nos encargamos de acelerar cada etapa.
+              </AccordionContent>
+            </AccordionItem>
 
-            <Card className="border-l-4 border-emerald-500">
-              <CardContent className="p-6">
-                <h3 className="text-xl font-bold text-emerald-800 mb-3">
-                  ¿El 30% de aumento en constructibilidad es automático?
-                </h3>
-                <p className="text-gray-700">
-                  <strong>Sí</strong>, según el Artículo 63 de la Ley General de Urbanismo y Construcción, 
-                  la fusión de dos o más terrenos en uno solo tendrá automáticamente un beneficio 
-                  del 30% mayor densidad a través del aumento del coeficiente de constructibilidad.
-                </p>
-              </CardContent>
-            </Card>
+            <AccordionItem value="item-4" className="bg-emerald-50 border-emerald-200 rounded-lg px-6">
+              <AccordionTrigger className="text-left font-bold text-emerald-800 hover:text-emerald-700">
+                ¿El 30% de aumento en constructibilidad es automático?
+              </AccordionTrigger>
+              <AccordionContent className="text-gray-700 pt-2">
+                <strong>Sí</strong>, según el Artículo 63 de la Ley General de Urbanismo y Construcción, 
+                la fusión de dos o más terrenos en uno solo tendrá automáticamente un beneficio 
+                del 30% mayor densidad a través del aumento del coeficiente de constructibilidad.
+              </AccordionContent>
+            </AccordionItem>
 
-            <Card className="border-l-4 border-emerald-500">
-              <CardContent className="p-6">
-                <h3 className="text-xl font-bold text-emerald-800 mb-3">
-                  ¿Qué pasa si cambio de opinión después de la fusión?
-                </h3>
-                <p className="text-gray-700">
-                  <strong>Importante:</strong> No existen las fusiones transitorias. Si se arrepiente, 
-                  es bastante difícil volver a subdividir en las condiciones iniciales. 
-                  Es más fácil fusionar que subdividir terrenos, pues las leyes fomentan la fusión.
-                </p>
-              </CardContent>
-            </Card>
-          </div>
+            <AccordionItem value="item-5" className="bg-emerald-50 border-emerald-200 rounded-lg px-6">
+              <AccordionTrigger className="text-left font-bold text-emerald-800 hover:text-emerald-700">
+                ¿Qué pasa si cambio de opinión después de la fusión?
+              </AccordionTrigger>
+              <AccordionContent className="text-gray-700 pt-2">
+                <strong>Importante:</strong> No existen las fusiones transitorias. Si se arrepiente, 
+                es bastante difícil volver a subdividir en las condiciones iniciales. 
+                Es más fácil fusionar que subdividir terrenos, pues las leyes fomentan la fusión.
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
         </div>
       </section>
 
