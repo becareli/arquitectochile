@@ -561,10 +561,10 @@ export default function FusionTerrenosUrbanos() {
 
           <Accordion type="single" collapsible className="w-full space-y-4">
             <AccordionItem value="item-1" className="bg-emerald-50 border-emerald-200 rounded-lg px-6">
-              <AccordionTrigger className="text-left font-bold text-emerald-800 hover:text-emerald-700">
+              <AccordionTrigger className="text-left text-lg font-bold text-emerald-800 hover:text-emerald-700">
                 ¿Se pueden fusionar terrenos de distintos propietarios?
               </AccordionTrigger>
-              <AccordionContent className="text-gray-700 pt-2">
+              <AccordionContent className="text-gray-700 pt-2 text-base leading-relaxed">
                 <strong>No.</strong> La ley señala con claridad que debe ser un solo propietario, 
                 el cual puede ser una persona natural o jurídica, o bien una sucesión 
                 (esta última se entiende como un solo dueño).
@@ -572,10 +572,10 @@ export default function FusionTerrenosUrbanos() {
             </AccordionItem>
 
             <AccordionItem value="item-2" className="bg-emerald-50 border-emerald-200 rounded-lg px-6">
-              <AccordionTrigger className="text-left font-bold text-emerald-800 hover:text-emerald-700">
+              <AccordionTrigger className="text-left text-lg font-bold text-emerald-800 hover:text-emerald-700">
                 ¿Es posible la Fusión si los predios están afectos a utilidad pública?
               </AccordionTrigger>
-              <AccordionContent className="text-gray-700 pt-2">
+              <AccordionContent className="text-gray-700 pt-2 text-base leading-relaxed">
                 <strong>Sí</strong>, es posible efectuar la fusión si los predios están afectos a utilidad pública 
                 (por ejemplo, por un ensanche de caminos). Esto difiere del caso de subdivisión, 
                 donde sí se requiere realizar la urbanización exterior.
@@ -583,10 +583,10 @@ export default function FusionTerrenosUrbanos() {
             </AccordionItem>
 
             <AccordionItem value="item-3" className="bg-emerald-50 border-emerald-200 rounded-lg px-6">
-              <AccordionTrigger className="text-left font-bold text-emerald-800 hover:text-emerald-700">
+              <AccordionTrigger className="text-left text-lg font-bold text-emerald-800 hover:text-emerald-700">
                 ¿Cuánto tiempo demora el proceso completo?
               </AccordionTrigger>
-              <AccordionContent className="text-gray-700 pt-2">
+              <AccordionContent className="text-gray-700 pt-2 text-base leading-relaxed">
                 El proceso completo demora entre <strong>45 a 60 días</strong> aproximadamente, 
                 dependiendo de la complejidad del caso y la agilidad de las instituciones. 
                 Nosotros nos encargamos de acelerar cada etapa.
@@ -594,10 +594,10 @@ export default function FusionTerrenosUrbanos() {
             </AccordionItem>
 
             <AccordionItem value="item-4" className="bg-emerald-50 border-emerald-200 rounded-lg px-6">
-              <AccordionTrigger className="text-left font-bold text-emerald-800 hover:text-emerald-700">
+              <AccordionTrigger className="text-left text-lg font-bold text-emerald-800 hover:text-emerald-700">
                 ¿El 30% de aumento en constructibilidad es automático?
               </AccordionTrigger>
-              <AccordionContent className="text-gray-700 pt-2">
+              <AccordionContent className="text-gray-700 pt-2 text-base leading-relaxed">
                 <strong>Sí</strong>, según el Artículo 63 de la Ley General de Urbanismo y Construcción, 
                 la fusión de dos o más terrenos en uno solo tendrá automáticamente un beneficio 
                 del 30% mayor densidad a través del aumento del coeficiente de constructibilidad.
@@ -605,10 +605,10 @@ export default function FusionTerrenosUrbanos() {
             </AccordionItem>
 
             <AccordionItem value="item-5" className="bg-emerald-50 border-emerald-200 rounded-lg px-6">
-              <AccordionTrigger className="text-left font-bold text-emerald-800 hover:text-emerald-700">
+              <AccordionTrigger className="text-left text-lg font-bold text-emerald-800 hover:text-emerald-700">
                 ¿Qué pasa si cambio de opinión después de la fusión?
               </AccordionTrigger>
-              <AccordionContent className="text-gray-700 pt-2">
+              <AccordionContent className="text-gray-700 pt-2 text-base leading-relaxed">
                 <strong>Importante:</strong> No existen las fusiones transitorias. Si se arrepiente, 
                 es bastante difícil volver a subdividir en las condiciones iniciales. 
                 Es más fácil fusionar que subdividir terrenos, pues las leyes fomentan la fusión.
