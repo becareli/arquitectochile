@@ -52,9 +52,9 @@ const videos = [
   { url: 'https://youtu.be/BRIS-vT2Kvg', title: 'Testimonio Cliente | Ampliaciones de Casas | Planos de Casas', description: 'Experiencia real de cliente con ampliaciones habitacionales' },
   { url: 'https://youtu.be/N-tYdckEG5Y', title: 'Evita este Error al construir una casa | Asesoria de Arquitectura', description: 'Consejos para evitar errores costosos en construcción' },
   { url: 'https://youtu.be/1bx78RgH2hE', title: 'Planos Casa Mediterranea | Casas Modernas | Testimonio Cliente', description: 'Proyecto de casa mediterránea con testimonio de cliente' },
-  { url: 'https://youtu.be/tYZlUAyxvuA', title: 'Acabados Cerámicos', description: 'Instalación profesional de revestimientos' },
-  { url: 'https://youtu.be/gXKl4efGwRY', title: 'Proyectos Comunitarios', description: 'Desarrollos de impacto social' },
-  { url: 'https://youtu.be/3cJ4BvlqG6o', title: 'Sistema EFS', description: 'Aislación térmica por el exterior' },
+  { url: 'https://youtu.be/tYZlUAyxvuA', title: 'Revisor Independiente Arquitectura en Santiago +56979316827', description: 'Servicio de revisión técnica independiente en Santiago' },
+  { url: 'https://youtu.be/gXKl4efGwRY', title: 'Casas de hormigon armado y enfierradura de losas', description: 'Construcción estructural con hormigón armado' },
+  { url: 'https://youtu.be/3cJ4BvlqG6o', title: 'Construccion Casa Mediterranea Avance de Obra Gruesa', description: 'Progreso en construcción de casa mediterránea' },
   { url: 'https://youtu.be/QsowaE8w0Fg', title: 'Termopanel Residencial', description: 'Soluciones de aislamiento térmico' },
   { url: 'https://youtu.be/xqHWNpyHJXk', title: 'Espacios Deportivos', description: 'Diseño de áreas recreativas' }
 ];
