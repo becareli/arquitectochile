@@ -55,8 +55,8 @@ const videos = [
   { url: 'https://youtu.be/tYZlUAyxvuA', title: 'Revisor Independiente Arquitectura en Santiago +56979316827', description: 'Servicio de revisión técnica independiente en Santiago' },
   { url: 'https://youtu.be/gXKl4efGwRY', title: 'Casas de hormigon armado y enfierradura de losas', description: 'Construcción estructural con hormigón armado' },
   { url: 'https://youtu.be/3cJ4BvlqG6o', title: 'Construccion Casa Mediterranea Avance de Obra Gruesa', description: 'Progreso en construcción de casa mediterránea' },
-  { url: 'https://youtu.be/QsowaE8w0Fg', title: 'Termopanel Residencial', description: 'Soluciones de aislamiento térmico' },
-  { url: 'https://youtu.be/xqHWNpyHJXk', title: 'Espacios Deportivos', description: 'Diseño de áreas recreativas' }
+  { url: 'https://youtu.be/QsowaE8w0Fg', title: 'Construir una Casa: Proyectos de Instalaciones', description: 'Planificación de instalaciones en construcción de casas' },
+  { url: 'https://youtu.be/xqHWNpyHJXk', title: 'construir una casa estilo mediterranea', description: 'Proyecto de construcción con diseño mediterráneo' }
 ];
 
 // Convertir URL de YouTube a ID de video - versión mejorada
