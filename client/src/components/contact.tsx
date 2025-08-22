@@ -291,35 +291,128 @@ export default function Contact() {
                   onValueChange={(value) => setFormData({...formData, helpType: value})}
                   className="mt-2"
                 >
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="ampliacion" id="ampliacion" />
-                    <Label htmlFor="ampliacion" className="text-sm">
-                      Ampliación de vivienda (habitaciones, segundo piso, etc.)
-                    </Label>
+                  {/* Proyectos Habitacionales */}
+                  <div className="border-l-4 border-blue-500 pl-4 py-2 bg-blue-50 rounded-r">
+                    <h5 className="font-semibold text-blue-800 text-sm mb-2">🏠 PROYECTOS HABITACIONALES</h5>
+                    <div className="space-y-2">
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="ampliacion" id="ampliacion" />
+                        <Label htmlFor="ampliacion" className="text-sm">
+                          Ampliación de vivienda (habitaciones, segundo piso, mansardas)
+                        </Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="remodelacion" id="remodelacion" />
+                        <Label htmlFor="remodelacion" className="text-sm">
+                          Remodelación completa (baños, cocina, distribución)
+                        </Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="casa_nueva" id="casa_nueva" />
+                        <Label htmlFor="casa_nueva" className="text-sm">
+                          Casa nueva desde cero (mediterránea, moderna)
+                        </Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="eifs_aislacion" id="eifs_aislacion" />
+                        <Label htmlFor="eifs_aislacion" className="text-sm">
+                          EIFS - Aislación térmica de casas
+                        </Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="steelframe" id="steelframe" />
+                        <Label htmlFor="steelframe" className="text-sm">
+                          Construcción Steelframe / Metalcon
+                        </Label>
+                      </div>
+                    </div>
                   </div>
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="remodelacion" id="remodelacion" />
-                    <Label htmlFor="remodelacion" className="text-sm">
-                      Remodelación completa (baños, cocina, distribución)
-                    </Label>
+
+                  {/* Proyectos Comerciales */}
+                  <div className="border-l-4 border-emerald-500 pl-4 py-2 bg-emerald-50 rounded-r">
+                    <h5 className="font-semibold text-emerald-800 text-sm mb-2">🏢 PROYECTOS COMERCIALES</h5>
+                    <div className="space-y-2">
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="oficinas" id="oficinas" />
+                        <Label htmlFor="oficinas" className="text-sm">
+                          Remodelación y ampliación de oficinas
+                        </Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="locales_comerciales" id="locales_comerciales" />
+                        <Label htmlFor="locales_comerciales" className="text-sm">
+                          Locales comerciales y retail
+                        </Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="equipamiento_deportivo" id="equipamiento_deportivo" />
+                        <Label htmlFor="equipamiento_deportivo" className="text-sm">
+                          Equipamiento deportivo (canchas techadas, recreación)
+                        </Label>
+                      </div>
+                    </div>
                   </div>
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="casa_nueva" id="casa_nueva" />
-                    <Label htmlFor="casa_nueva" className="text-sm">
-                      Casa nueva desde cero
-                    </Label>
+
+                  {/* Trámites y Gestión */}
+                  <div className="border-l-4 border-orange-500 pl-4 py-2 bg-orange-50 rounded-r">
+                    <h5 className="font-semibold text-orange-800 text-sm mb-2">📋 TRÁMITES Y GESTIÓN</h5>
+                    <div className="space-y-2">
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="fusion_terrenos" id="fusion_terrenos" />
+                        <Label htmlFor="fusion_terrenos" className="text-sm">
+                          Fusión de terrenos urbanos
+                        </Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="subdivision" id="subdivision" />
+                        <Label htmlFor="subdivision" className="text-sm">
+                          Subdivisión de lotes
+                        </Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="parcelas_agrado" id="parcelas_agrado" />
+                        <Label htmlFor="parcelas_agrado" className="text-sm">
+                          Parcelas de agrado (organización y planificación)
+                        </Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="permisos" id="permisos" />
+                        <Label htmlFor="permisos" className="text-sm">
+                          Solo permisos y trámites legales
+                        </Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="revisor_independiente" id="revisor_independiente" />
+                        <Label htmlFor="revisor_independiente" className="text-sm">
+                          Revisor independiente de arquitectura
+                        </Label>
+                      </div>
+                    </div>
                   </div>
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="permisos" id="permisos" />
-                    <Label htmlFor="permisos" className="text-sm">
-                      Solo necesito permisos y trámites legales
-                    </Label>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="consulta" id="consulta" />
-                    <Label htmlFor="consulta" className="text-sm">
-                      Consulta arquitectónica (evaluar factibilidad)
-                    </Label>
+
+                  {/* Asesoría y Consulta */}
+                  <div className="border-l-4 border-purple-500 pl-4 py-2 bg-purple-50 rounded-r">
+                    <h5 className="font-semibold text-purple-800 text-sm mb-2">💡 ASESORÍA Y CONSULTA</h5>
+                    <div className="space-y-2">
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="asesoria_domicilio" id="asesoria_domicilio" />
+                        <Label htmlFor="asesoria_domicilio" className="text-sm">
+                          Asesoría arquitectónica a domicilio ($45.000)
+                        </Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="consulta" id="consulta" />
+                        <Label htmlFor="consulta" className="text-sm">
+                          Consulta arquitectónica (evaluar factibilidad)
+                        </Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="planos_casas" id="planos_casas" />
+                        <Label htmlFor="planos_casas" className="text-sm">
+                          Planos de casas (mediterráneas, modernas)
+                        </Label>
+                      </div>
+                    </div>
                   </div>
                 </RadioGroup>
               </div>
