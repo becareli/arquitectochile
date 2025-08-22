@@ -56,7 +56,8 @@ const videos = [
   { url: 'https://youtu.be/gXKl4efGwRY', title: 'Casas de hormigon armado y enfierradura de losas', description: 'Construcción estructural con hormigón armado' },
   { url: 'https://youtu.be/3cJ4BvlqG6o', title: 'Construccion Casa Mediterranea Avance de Obra Gruesa', description: 'Progreso en construcción de casa mediterránea' },
   { url: 'https://youtu.be/QsowaE8w0Fg', title: 'Construir una Casa: Proyectos de Instalaciones', description: 'Planificación de instalaciones en construcción de casas' },
-  { url: 'https://youtu.be/xqHWNpyHJXk', title: 'construir una casa estilo mediterranea', description: 'Proyecto de construcción con diseño mediterráneo' }
+  { url: 'https://youtu.be/xqHWNpyHJXk', title: 'construir una casa estilo mediterranea', description: 'Proyecto de construcción con diseño mediterráneo' },
+  { url: 'https://youtu.be/LYVzV8gB0YQ', title: 'Constructora de Casas : construcciones de casas modernas', description: 'Desarrollo de proyectos habitacionales modernos' }
 ];
 
 // Convertir URL de YouTube a ID de video - versión mejorada
