@@ -166,6 +166,132 @@ export default function FusionTerrenosUrbanos() {
         </div>
       </section>
 
+      {/* Qué es la Fusión de Terrenos */}
+      <section className="py-20 bg-white">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold mb-6">¿Qué es la Fusión de Terrenos?</h2>
+            <p className="text-xl text-gray-600 max-w-4xl mx-auto">
+              La Fusión de terrenos o Fusión Predial consiste en la <strong>unión de dos o más lotes colindantes</strong> 
+              generándose un predio de mayor tamaño. El resultado es que a partir de los lotes originales 
+              se genera <strong>un solo lote, una sola propiedad</strong>.
+            </p>
+          </div>
+
+          <div className="grid lg:grid-cols-2 gap-12 items-center mb-16">
+            <div>
+              <img 
+                src={fusionTerrenosImg} 
+                alt="Ejemplo visual de Fusión de Terrenos" 
+                className="w-full rounded-lg shadow-lg"
+              />
+            </div>
+            
+            <div className="space-y-6">
+              <div className="bg-emerald-50 p-6 rounded-lg border-l-4 border-emerald-500">
+                <h3 className="text-xl font-bold text-emerald-800 mb-3">Requisito Fundamental:</h3>
+                <p className="text-emerald-700">
+                  Todas las propiedades deben ser de dominio de <strong>un mismo propietario</strong>, 
+                  o de un grupo de propietarios (personas naturales, jurídicas, o sucesiones).
+                </p>
+              </div>
+              
+              <div className="space-y-4">
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="h-6 w-6 text-emerald-600 mt-1 flex-shrink-0" />
+                  <div>
+                    <h4 className="font-semibold">Lotes Colindantes</h4>
+                    <p className="text-gray-600">Los terrenos deben estar uno al lado del otro</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="h-6 w-6 text-emerald-600 mt-1 flex-shrink-0" />
+                  <div>
+                    <h4 className="font-semibold">Mismo Propietario</h4>
+                    <p className="text-gray-600">Una persona natural, jurídica o sucesión</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="h-6 w-6 text-emerald-600 mt-1 flex-shrink-0" />
+                  <div>
+                    <h4 className="font-semibold">Resultado: Un Solo Lote</h4>
+                    <p className="text-gray-600">Mayor tamaño, más oportunidades</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Cuándo Conviene vs NO Conviene */}
+      <section className="py-20 bg-gray-50">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold mb-6">¿Cuándo Conviene Fusionar Terrenos?</h2>
+            <p className="text-xl text-gray-600">Conoce exactamente cuándo es rentable y cuándo NO debes hacerlo</p>
+          </div>
+
+          <div className="grid lg:grid-cols-2 gap-12">
+            {/* Cuándo SÍ conviene */}
+            <div className="bg-emerald-50 p-8 rounded-xl border-2 border-emerald-200">
+              <h3 className="text-2xl font-bold text-emerald-800 mb-6 text-center">✅ SÍ Conviene Fusionar</h3>
+              <div className="space-y-6">
+                <div className="flex items-start gap-4">
+                  <div className="w-8 h-8 bg-emerald-600 text-white rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">1</div>
+                  <div>
+                    <h4 className="font-bold text-emerald-800">DIMENSIÓN</h4>
+                    <p className="text-emerald-700">Si desea construir una edificación de mayor tamaño que no cabe en uno de los lotes iniciales.</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4">
+                  <div className="w-8 h-8 bg-emerald-600 text-white rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">2</div>
+                  <div>
+                    <h4 className="font-bold text-emerald-800">ACCESIBILIDAD</h4>
+                    <p className="text-emerald-700">Si desea generar un nuevo acceso al terreno desde otra avenida, calle o pasaje.</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4">
+                  <div className="w-8 h-8 bg-emerald-600 text-white rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">3</div>
+                  <div>
+                    <h4 className="font-bold text-emerald-800">VALOR DE MERCADO</h4>
+                    <p className="text-emerald-700">Si desea aumentar automáticamente el valor comercial de su terreno.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Cuándo NO conviene */}
+            <div className="bg-red-50 p-8 rounded-xl border-2 border-red-200">
+              <h3 className="text-2xl font-bold text-red-800 mb-6 text-center">❌ NO Conviene Fusionar</h3>
+              <div className="space-y-6">
+                <div className="flex items-start gap-4">
+                  <div className="w-8 h-8 bg-red-600 text-white rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">1</div>
+                  <div>
+                    <h4 className="font-bold text-red-800">DIFERENTES DESTINOS</h4>
+                    <p className="text-red-700">Terreno Comercial + Habitacional = contribuciones aumentan al destino más caro (Comercial).</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4">
+                  <div className="w-8 h-8 bg-red-600 text-white rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">2</div>
+                  <div>
+                    <h4 className="font-bold text-red-800">DISTINTA URBANIZACIÓN</h4>
+                    <p className="text-red-700">Fusionar terreno con urbanización completa + terreno con urbanización deficiente = tendrá que pagar toda la urbanización.</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4">
+                  <div className="w-8 h-8 bg-red-600 text-white rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">3</div>
+                  <div>
+                    <h4 className="font-bold text-red-800">NO HAY FUSIONES TRANSITORIAS</h4>
+                    <p className="text-red-700">Si se arrepiente, es muy difícil volver a subdividir. Es más fácil fusionar que subdividir.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Solución - El Secreto de la Ley */}
       <section className="py-20 bg-white">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -297,6 +423,206 @@ export default function FusionTerrenosUrbanos() {
                 className="w-full rounded-lg shadow-xl"
               />
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Documentos Requeridos */}
+      <section className="py-20 bg-emerald-50">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold mb-6">Documentos Requeridos por Institución</h2>
+            <p className="text-xl text-gray-600">Lista completa de requisitos para cada etapa del proceso</p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {/* Municipalidad */}
+            <Card className="border-2 border-emerald-200 shadow-lg">
+              <CardHeader className="bg-emerald-600 text-white">
+                <CardTitle className="text-center text-xl">🏛️ Municipalidad</CardTitle>
+              </CardHeader>
+              <CardContent className="p-6">
+                <div className="space-y-3">
+                  <div className="flex items-start gap-2">
+                    <FileText className="h-4 w-4 text-emerald-600 mt-1 flex-shrink-0" />
+                    <span className="text-sm">Formulario de Fusión de Terrenos</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <FileText className="h-4 w-4 text-emerald-600 mt-1 flex-shrink-0" />
+                    <span className="text-sm">Plano de Fusión patrocinado por Arquitecto</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <FileText className="h-4 w-4 text-emerald-600 mt-1 flex-shrink-0" />
+                    <span className="text-sm">Escrituras de los lotes</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <FileText className="h-4 w-4 text-emerald-600 mt-1 flex-shrink-0" />
+                    <span className="text-sm">Certificado de Dominio Vigente</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <FileText className="h-4 w-4 text-emerald-600 mt-1 flex-shrink-0" />
+                    <span className="text-sm">Certificado de Informes Previos</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <FileText className="h-4 w-4 text-emerald-600 mt-1 flex-shrink-0" />
+                    <span className="text-sm">Certificado de Avalúo Desglosado</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <FileText className="h-4 w-4 text-emerald-600 mt-1 flex-shrink-0" />
+                    <span className="text-sm">Patente al día del Arquitecto</span>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* SII */}
+            <Card className="border-2 border-emerald-200 shadow-lg">
+              <CardHeader className="bg-emerald-600 text-white">
+                <CardTitle className="text-center text-xl">🏢 Servicio SII</CardTitle>
+              </CardHeader>
+              <CardContent className="p-6">
+                <div className="space-y-3">
+                  <div className="flex items-start gap-2">
+                    <FileText className="h-4 w-4 text-emerald-600 mt-1 flex-shrink-0" />
+                    <span className="text-sm">Formulario 2118</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <FileText className="h-4 w-4 text-emerald-600 mt-1 flex-shrink-0" />
+                    <span className="text-sm">Certificado de Deuda de Contribuciones al día</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <FileText className="h-4 w-4 text-emerald-600 mt-1 flex-shrink-0" />
+                    <span className="text-sm">Resolución de Fusión y Plano aprobado</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <FileText className="h-4 w-4 text-emerald-600 mt-1 flex-shrink-0" />
+                    <span className="text-sm">Certificados de Número</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <FileText className="h-4 w-4 text-emerald-600 mt-1 flex-shrink-0" />
+                    <span className="text-sm">Escrituras de los lotes</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <FileText className="h-4 w-4 text-emerald-600 mt-1 flex-shrink-0" />
+                    <span className="text-sm">Certificado de Dominio Vigente</span>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* CBR */}
+            <Card className="border-2 border-emerald-200 shadow-lg">
+              <CardHeader className="bg-emerald-600 text-white">
+                <CardTitle className="text-center text-xl">📋 Conservador CBR</CardTitle>
+              </CardHeader>
+              <CardContent className="p-6">
+                <div className="space-y-3">
+                  <div className="flex items-start gap-2">
+                    <FileText className="h-4 w-4 text-emerald-600 mt-1 flex-shrink-0" />
+                    <span className="text-sm">Título de Dominio de la Propiedad</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <FileText className="h-4 w-4 text-emerald-600 mt-1 flex-shrink-0" />
+                    <span className="text-sm">Certificado de Deuda de Contribuciones al día</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <FileText className="h-4 w-4 text-emerald-600 mt-1 flex-shrink-0" />
+                    <span className="text-sm">Resolución de Fusión y Plano aprobado</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <FileText className="h-4 w-4 text-emerald-600 mt-1 flex-shrink-0" />
+                    <span className="text-sm">Certificados de Número Municipal</span>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
+          <div className="mt-12 text-center">
+            <div className="bg-emerald-100 p-6 rounded-lg max-w-3xl mx-auto">
+              <h3 className="text-xl font-bold text-emerald-800 mb-3">📝 Nosotros Gestionamos Todo</h3>
+              <p className="text-emerald-700">
+                No te preocupes por estos trámites. Nosotros nos encargamos de reunir, preparar y 
+                presentar todos los documentos necesarios en cada institución.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Preguntas Frecuentes */}
+      <section className="py-20 bg-white">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold mb-6">Preguntas Frecuentes</h2>
+            <p className="text-xl text-gray-600">Resolvemos las dudas más comunes sobre fusión de terrenos</p>
+          </div>
+
+          <div className="space-y-6">
+            <Card className="border-l-4 border-emerald-500">
+              <CardContent className="p-6">
+                <h3 className="text-xl font-bold text-emerald-800 mb-3">
+                  ¿Se pueden fusionar terrenos de distintos propietarios?
+                </h3>
+                <p className="text-gray-700">
+                  <strong>No.</strong> La ley señala con claridad que debe ser un solo propietario, 
+                  el cual puede ser una persona natural o jurídica, o bien una sucesión 
+                  (esta última se entiende como un solo dueño).
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="border-l-4 border-emerald-500">
+              <CardContent className="p-6">
+                <h3 className="text-xl font-bold text-emerald-800 mb-3">
+                  ¿Es posible la Fusión si los predios están afectos a utilidad pública?
+                </h3>
+                <p className="text-gray-700">
+                  <strong>Sí</strong>, es posible efectuar la fusión si los predios están afectos a utilidad pública 
+                  (por ejemplo, por un ensanche de caminos). Esto difiere del caso de subdivisión, 
+                  donde sí se requiere realizar la urbanización exterior.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="border-l-4 border-emerald-500">
+              <CardContent className="p-6">
+                <h3 className="text-xl font-bold text-emerald-800 mb-3">
+                  ¿Cuánto tiempo demora el proceso completo?
+                </h3>
+                <p className="text-gray-700">
+                  El proceso completo demora entre <strong>45 a 60 días</strong> aproximadamente, 
+                  dependiendo de la complejidad del caso y la agilidad de las instituciones. 
+                  Nosotros nos encargamos de acelerar cada etapa.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="border-l-4 border-emerald-500">
+              <CardContent className="p-6">
+                <h3 className="text-xl font-bold text-emerald-800 mb-3">
+                  ¿El 30% de aumento en constructibilidad es automático?
+                </h3>
+                <p className="text-gray-700">
+                  <strong>Sí</strong>, según el Artículo 63 de la Ley General de Urbanismo y Construcción, 
+                  la fusión de dos o más terrenos en uno solo tendrá automáticamente un beneficio 
+                  del 30% mayor densidad a través del aumento del coeficiente de constructibilidad.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="border-l-4 border-emerald-500">
+              <CardContent className="p-6">
+                <h3 className="text-xl font-bold text-emerald-800 mb-3">
+                  ¿Qué pasa si cambio de opinión después de la fusión?
+                </h3>
+                <p className="text-gray-700">
+                  <strong>Importante:</strong> No existen las fusiones transitorias. Si se arrepiente, 
+                  es bastante difícil volver a subdividir en las condiciones iniciales. 
+                  Es más fácil fusionar que subdividir terrenos, pues las leyes fomentan la fusión.
+                </p>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </section>
