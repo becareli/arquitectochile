@@ -201,7 +201,7 @@ export default function Testimonials() {
       isGoogleReview: true
     },
     {
-      id: 21,
+      id: 23,
       clientName: "Roberto Fuentes",
       clientTitle: "Cliente del Ebook · Ñuñoa",
       content: "Pensé que remodelar mi casa en Ñuñoa sería una pesadilla, pero este libro lo hizo sorprendentemente fácil. Los consejos sobre permisos municipales fueron oro puro. ¡Altamente recomendado!",
