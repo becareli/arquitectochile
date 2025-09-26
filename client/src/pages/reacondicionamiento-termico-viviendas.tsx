@@ -290,6 +290,59 @@ export default function ReacondicionamientoTermicoViviendas() {
             </p>
           </div>
 
+          {/* Información Educativa Técnica */}
+          <div className="bg-white/10 backdrop-blur-sm rounded-lg p-8 mb-12">
+            <h3 className="text-2xl font-bold mb-6 text-center">📚 GUÍA TÉCNICA: TIPOS DE AISLACIÓN TÉRMICA</h3>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+              <div className="bg-white/20 rounded-lg p-4">
+                <h4 className="font-bold text-yellow-300 mb-2">🧱 EIFS (Sistema EXTERIOR)</h4>
+                <p className="text-sm mb-2"><strong>Conductividad:</strong> 0.038 W/mK</p>
+                <p className="text-sm mb-2"><strong>Espesor:</strong> 50-100mm</p>
+                <p className="text-sm"><strong>Vida útil:</strong> 50+ años</p>
+                <p className="text-xs mt-2 text-blue-200">Ideal para fachadas completas</p>
+              </div>
+              
+              <div className="bg-white/20 rounded-lg p-4">
+                <h4 className="font-bold text-yellow-300 mb-2">🏠 LANA MINERAL</h4>
+                <p className="text-sm mb-2"><strong>Conductividad:</strong> 0.035 W/mK</p>
+                <p className="text-sm mb-2"><strong>Espesor:</strong> 80-150mm</p>
+                <p className="text-sm"><strong>Vida útil:</strong> 30+ años</p>
+                <p className="text-xs mt-2 text-blue-200">Excelente para techumbres</p>
+              </div>
+              
+              <div className="bg-white/20 rounded-lg p-4">
+                <h4 className="font-bold text-yellow-300 mb-2">🪟 TERMOPANEL</h4>
+                <p className="text-sm mb-2"><strong>Transmitancia:</strong> 1.8-2.8 W/m²K</p>
+                <p className="text-sm mb-2"><strong>Aislamiento:</strong> Doble/Triple vidrio</p>
+                <p className="text-sm"><strong>Vida útil:</strong> 25+ años</p>
+                <p className="text-xs mt-2 text-blue-200">Reduce pérdidas por ventanas</p>
+              </div>
+            </div>
+            
+            <div className="border-t border-white/30 pt-6">
+              <h4 className="text-lg font-bold mb-4 text-center">📐 NORMATIVA CHILENA VIGENTE</h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                <div>
+                  <p><strong>Zona Térmica 3 (Santiago):</strong></p>
+                  <ul className="list-disc ml-4 space-y-1">
+                    <li>Muros: R ≥ 1.9 m²K/W</li>
+                    <li>Techumbre: R ≥ 4.6 m²K/W</li>
+                    <li>Ventanas: U ≤ 2.8 W/m²K</li>
+                  </ul>
+                </div>
+                <div>
+                  <p><strong>Zona Térmica 4 (Temuco):</strong></p>
+                  <ul className="list-disc ml-4 space-y-1">
+                    <li>Muros: R ≥ 2.2 m²K/W</li>
+                    <li>Techumbre: R ≥ 5.0 m²K/W</li>
+                    <li>Ventanas: U ≤ 2.4 W/m²K</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
               <h3 className="text-2xl font-bold mb-6">
