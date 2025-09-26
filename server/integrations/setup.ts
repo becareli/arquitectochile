@@ -25,7 +25,7 @@ export function initializeIntegrations() {
   // WhatsApp Integration
   const whatsAppConfig = {
     name: 'whatsapp',
-    enabled: process.env.WHATSAPP_ENABLED === 'true' || false,
+    enabled: process.env.WHATSAPP_ENABLED === 'true' || process.env.NODE_ENV === 'development',
     apiKey: process.env.WHATSAPP_ACCESS_TOKEN,
     webhookUrl: process.env.WHATSAPP_WEBHOOK_URL,
     settings: {
