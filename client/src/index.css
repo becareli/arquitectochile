@@ -57,6 +57,30 @@
 
   body {
     @apply font-sans antialiased bg-background text-foreground;
+    /* Better font rendering */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Improved responsive typography */
+  h1, h2, h3, h4, h5, h6 {
+    @apply leading-tight;
+  }
+
+  /* Better line height for paragraphs */
+  p {
+    @apply leading-relaxed;
+  }
+
+  /* Smooth scrolling for anchor links */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Focus styles for accessibility */
+  button:focus,
+  a:focus {
+    @apply outline-none ring-2 ring-primary ring-offset-2;
   }
 }
 
@@ -75,6 +99,36 @@
   
   .text-dark {
     color: var(--dark);
+  }
+
+  /* Custom spacing utilities for better consistency */
+  .section-padding {
+    @apply py-16 sm:py-20 lg:py-24;
+  }
+
+  .container-padding {
+    @apply px-4 sm:px-6 lg:px-8;
+  }
+
+  /* Better responsive text sizes */
+  .text-responsive-sm {
+    @apply text-sm sm:text-base;
+  }
+
+  .text-responsive-base {
+    @apply text-base sm:text-lg;
+  }
+
+  .text-responsive-lg {
+    @apply text-lg sm:text-xl lg:text-2xl;
+  }
+
+  .text-responsive-xl {
+    @apply text-xl sm:text-2xl lg:text-3xl;
+  }
+
+  .text-responsive-2xl {
+    @apply text-2xl sm:text-3xl lg:text-4xl;
   }
   
   .bg-primary {

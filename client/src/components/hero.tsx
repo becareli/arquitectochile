@@ -18,38 +18,38 @@ export default function Hero() {
               </p>
             </div>
             
-            <h1 className="text-4xl lg:text-6xl font-bold mb-6">¿Quieres construir una casa hermosa y única para tu familia, sin preocuparte por trámites o problemas legales?</h1>
-            <p className="text-xl mb-6 opacity-90">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">¿Quieres construir una casa hermosa y única para tu familia, sin preocuparte por trámites o problemas legales?</h1>
+            <p className="text-lg sm:text-xl mb-6 opacity-90 leading-relaxed">
               Para padres de familia de Santiago que buscan diseño personalizado con visualización 3D, gestión completa de permisos y acompañamiento especializado hasta la entrega final.
             </p>
             
             {/* Value Stack Preview */}
-            <div className="bg-white/20 backdrop-blur-sm rounded-lg p-4 mb-6">
-              <h3 className="text-lg font-bold mb-2">OFERTA ESPECIAL HOY:</h3>
-              <p className="text-2xl font-bold text-accent">
-                <span className="line-through text-white/70 text-lg">$3.200.000</span> → $1.800.000
+            <div className="bg-white/20 backdrop-blur-sm rounded-lg p-4 sm:p-6 mb-6">
+              <h3 className="text-lg sm:text-xl font-bold mb-3">OFERTA ESPECIAL HOY:</h3>
+              <p className="text-xl sm:text-2xl font-bold text-accent">
+                <span className="line-through text-white/70 text-base sm:text-lg">$3.200.000</span> → $1.800.000
               </p>
-              <p className="text-sm opacity-90">Ahorras $1.400.000 si decides hoy</p>
+              <p className="text-sm sm:text-base opacity-90 mt-2">Ahorras $1.400.000 si decides hoy</p>
             </div>
             
             {/* Beneficios clave basados en VSL */}
-            <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 mb-8">
-              <div className="space-y-3">
-                <div className="flex items-center">
-                  <span className="text-accent text-xl mr-3">✓</span>
-                  <p className="text-lg font-semibold">Diseño único que refleja tus sueños</p>
+            <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 sm:p-6 mb-8">
+              <div className="space-y-3 sm:space-y-4">
+                <div className="flex items-start">
+                  <span className="text-accent text-xl sm:text-2xl mr-3 sm:mr-4 flex-shrink-0 mt-0.5">✓</span>
+                  <p className="text-base sm:text-lg font-semibold leading-snug">Diseño único que refleja tus sueños</p>
                 </div>
-                <div className="flex items-center">
-                  <span className="text-accent text-xl mr-3">✓</span>
-                  <p className="text-lg font-semibold">Visualización 3D antes de construir</p>
+                <div className="flex items-start">
+                  <span className="text-accent text-xl sm:text-2xl mr-3 sm:mr-4 flex-shrink-0 mt-0.5">✓</span>
+                  <p className="text-base sm:text-lg font-semibold leading-snug">Visualización 3D antes de construir</p>
                 </div>
-                <div className="flex items-center">
-                  <span className="text-accent text-xl mr-3">✓</span>
-                  <p className="text-lg font-semibold">Paz mental con trámites legales completos</p>
+                <div className="flex items-start">
+                  <span className="text-accent text-xl sm:text-2xl mr-3 sm:mr-4 flex-shrink-0 mt-0.5">✓</span>
+                  <p className="text-base sm:text-lg font-semibold leading-snug">Paz mental con trámites legales completos</p>
                 </div>
-                <div className="flex items-center">
-                  <span className="text-accent text-xl mr-3">✓</span>
-                  <p className="text-lg font-semibold">Acompañamiento integral hasta la entrega</p>
+                <div className="flex items-start">
+                  <span className="text-accent text-xl sm:text-2xl mr-3 sm:mr-4 flex-shrink-0 mt-0.5">✓</span>
+                  <p className="text-base sm:text-lg font-semibold leading-snug">Acompañamiento integral hasta la entrega</p>
                 </div>
               </div>
               

@@ -94,16 +94,16 @@ export default function Navigation() {
     <nav className="bg-white shadow-sm sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Logo Section */}
-        <div className="flex justify-between items-center py-2 border-b border-gray-100">
-          <button onClick={navigateToHome} className="text-2xl font-bold hover:opacity-80 transition-opacity">
+        <div className="flex justify-between items-center py-3 border-b border-gray-100">
+          <button onClick={navigateToHome} className="text-xl sm:text-2xl font-bold hover:opacity-80 transition-opacity">
             <span className="text-primary">ArquitectoChile</span>
             <span className="text-gray-600">.com</span>
           </button>
-          <div className="hidden md:flex items-center space-x-2">
+          <div className="hidden lg:flex items-center space-x-2">
             <span className="text-black text-sm">★★★</span>
             <a
               href="/servicios-a-domicilio"
-              className="bg-accent text-black px-4 py-2 rounded-md hover:bg-yellow-500 transition-all duration-300 font-bold text-xs whitespace-nowrap shadow-md hover:shadow-lg"
+              className="bg-accent text-black px-3 sm:px-4 py-2 rounded-md hover:bg-yellow-500 transition-all duration-300 font-bold text-xs sm:text-sm whitespace-nowrap shadow-md hover:shadow-lg"
             >
               Asesoría de Arquitectura a Domicilio
             </a>
@@ -112,10 +112,10 @@ export default function Navigation() {
         </div>
         
         {/* Primera Línea - Navegación Principal */}
-        <div className="flex justify-center items-center h-10">
+        <div className="flex justify-center items-center min-h-[2.5rem] py-2">
           {/* Desktop Navigation */}
           <div className="hidden md:block">
-            <div className="flex items-center space-x-6 justify-center">
+            <div className="flex items-center space-x-4 lg:space-x-6 justify-center">
               <button 
                 onClick={() => handleNavigation('inicio')}
                 className="text-dark hover:text-primary transition-colors text-sm font-medium"
