@@ -1,9 +1,84 @@
+import { useEffect } from "react";
 import Navigation from "@/components/navigation";
 import AsesoriaTerreno from "@/components/asesoria-terreno";
 import Footer from "@/components/footer";
 import WhatsAppChat from "@/components/whatsapp-chat";
 
 export default function ServiciosADomicilio() {
+  // SEO Meta tags optimization
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    
+    document.title = "Servicios de Arquitectura a Domicilio Santiago | Arquitecto en Terreno";
+    
+    const setMetaTag = (name: string, content: string, isProperty = false) => {
+      const selector = isProperty ? `meta[property="${name}"]` : `meta[name="${name}"]`;
+      let meta = document.querySelector(selector) as HTMLMetaElement;
+      if (meta) {
+        meta.content = content;
+      } else {
+        meta = document.createElement('meta');
+        if (isProperty) {
+          meta.setAttribute('property', name);
+        } else {
+          meta.name = name;
+        }
+        meta.content = content;
+        document.head.appendChild(meta);
+      }
+    };
+
+    setMetaTag('description', 'Arquitecto a domicilio en Santiago. Servicios profesionales de arquitectura en su terreno: análisis, asesoría, inspección y presupuestos. Cobertura Santiago y alrededores.');
+    setMetaTag('keywords', 'arquitecto domicilio santiago, arquitecto terreno, servicios arquitectura casa, asesoría domicilio, inspección técnica terreno, arquitecto visita');
+    setMetaTag('author', 'Patricio Becar Elissegaray - Arquitecto Universidad de Chile');
+    setMetaTag('robots', 'index, follow');
+    
+    // Open Graph tags
+    setMetaTag('og:title', 'Servicios de Arquitectura a Domicilio Santiago | El Arquitecto va a Tu Casa', true);
+    setMetaTag('og:description', 'Arquitecto profesional a domicilio en Santiago. Análisis en terreno, asesoría especializada y presupuestos detallados. Cobertura Santiago y alrededores.', true);
+    setMetaTag('og:type', 'service', true);
+    setMetaTag('og:url', 'https://arquitectochile.com/servicios-a-domicilio', true);
+    
+    // JSON-LD Schema for Service
+    const schema = {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "name": "Servicios de Arquitectura a Domicilio",
+      "description": "Servicios profesionales de arquitectura en el domicilio del cliente, incluyendo análisis, asesoría e inspección en terreno",
+      "provider": {
+        "@type": "Person",
+        "name": "Patricio Becar Elissegaray",
+        "jobTitle": "Arquitecto",
+        "url": "https://arquitectochile.com",
+        "telephone": "+56979316827",
+        "alumniOf": "Universidad de Chile"
+      },
+      "areaServed": [
+        {
+          "@type": "City",
+          "name": "Santiago"
+        },
+        {
+          "@type": "State",
+          "name": "Región Metropolitana"
+        }
+      ],
+      "serviceType": "Arquitectura a Domicilio",
+      "category": "Servicios Profesionales de Arquitectura"
+    };
+
+    // Remove existing schema if present
+    const existingSchema = document.querySelector('script[type="application/ld+json"]');
+    if (existingSchema) {
+      existingSchema.remove();
+    }
+    
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.textContent = JSON.stringify(schema);
+    document.head.appendChild(script);
+  }, []);
+
   return (
     <div className="min-h-screen bg-white">
       <Navigation />

@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import Navigation from "@/components/navigation";
 import Hero from "@/components/hero";
 import LeadMagnet from "@/components/lead-magnet";
@@ -35,6 +36,91 @@ import Chatbot from "@/components/chatbot";
 import CookieConsent from "@/components/cookie-consent";
 
 export default function Home() {
+  // SEO Meta tags optimization
+  useEffect(() => {
+    document.title = "ArquitectoChile.com | Arquitecto Especialista en Santiago - Patricio Becar";
+    
+    const setMetaTag = (name: string, content: string, isProperty = false) => {
+      const selector = isProperty ? `meta[property="${name}"]` : `meta[name="${name}"]`;
+      let meta = document.querySelector(selector) as HTMLMetaElement;
+      if (meta) {
+        meta.content = content;
+      } else {
+        meta = document.createElement('meta');
+        if (isProperty) {
+          meta.setAttribute('property', name);
+        } else {
+          meta.name = name;
+        }
+        meta.content = content;
+        document.head.appendChild(meta);
+      }
+    };
+
+    setMetaTag('description', 'Servicios profesionales de arquitectura en Santiago. Especialista en regularización de inmuebles, reacondicionamiento térmico, construcción y asesoría a domicilio. Arquitecto Universidad de Chile con 26+ años experiencia.');
+    setMetaTag('keywords', 'arquitecto santiago chile, servicios arquitectura, regularización inmuebles, reacondicionamiento térmico, construcción casa, asesoría domicilio, patricio becar, universidad chile');
+    setMetaTag('author', 'Patricio Becar Elissegaray - Arquitecto Universidad de Chile');
+    setMetaTag('robots', 'index, follow');
+    
+    // Open Graph tags
+    setMetaTag('og:title', 'ArquitectoChile.com | Arquitecto Especialista en Santiago - Patricio Becar', true);
+    setMetaTag('og:description', 'Servicios profesionales de arquitectura: regularización de inmuebles, reacondicionamiento térmico, construcción y más. 26+ años de experiencia Universidad de Chile.', true);
+    setMetaTag('og:type', 'website', true);
+    setMetaTag('og:url', 'https://arquitectochile.com', true);
+    setMetaTag('og:site_name', 'ArquitectoChile.com', true);
+    setMetaTag('og:locale', 'es_CL', true);
+    
+    // Twitter Card tags
+    setMetaTag('twitter:card', 'summary_large_image');
+    setMetaTag('twitter:title', 'ArquitectoChile.com | Arquitecto Especialista en Santiago');
+    setMetaTag('twitter:description', 'Servicios profesionales de arquitectura en Santiago. Especialista con 26+ años experiencia Universidad de Chile.');
+    
+    // JSON-LD Schema for Local Business
+    const schema = {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "ArquitectoChile.com",
+      "description": "Servicios profesionales de arquitectura en Santiago, Chile",
+      "url": "https://arquitectochile.com",
+      "telephone": "+56979316827",
+      "priceRange": "$$",
+      "areaServed": {
+        "@type": "Country",
+        "name": "Chile"
+      },
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "CL",
+        "addressRegion": "Región Metropolitana",
+        "addressLocality": "Santiago"
+      },
+      "founder": {
+        "@type": "Person",
+        "name": "Patricio Becar Elissegaray",
+        "jobTitle": "Arquitecto",
+        "alumniOf": "Universidad de Chile"
+      },
+      "serviceType": [
+        "Regularización de Inmuebles",
+        "Reacondicionamiento Térmico",
+        "Construcción",
+        "Asesoría Arquitectónica",
+        "Inspección Técnica"
+      ]
+    };
+
+    // Remove existing schema if present
+    const existingSchema = document.querySelector('script[type="application/ld+json"]');
+    if (existingSchema) {
+      existingSchema.remove();
+    }
+    
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.textContent = JSON.stringify(schema);
+    document.head.appendChild(script);
+  }, []);
+
   return (
     <div className="min-h-screen bg-white">
       <Navigation />

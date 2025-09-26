@@ -13,9 +13,72 @@ import Navigation from "@/components/navigation";
 export default function DisenemosNuevosEspacios() {
   const [, setLocation] = useLocation();
 
-  // Scroll to top when component mounts
+  // SEO Meta tags optimization and scroll to top
   useEffect(() => {
     window.scrollTo(0, 0);
+    
+    document.title = "Diseño de Nuevos Espacios - Arquitecto Santiago | ArquitectoChile.com";
+    
+    const setMetaTag = (name: string, content: string, isProperty = false) => {
+      const selector = isProperty ? `meta[property="${name}"]` : `meta[name="${name}"]`;
+      let meta = document.querySelector(selector) as HTMLMetaElement;
+      if (meta) {
+        meta.content = content;
+      } else {
+        meta = document.createElement('meta');
+        if (isProperty) {
+          meta.setAttribute('property', name);
+        } else {
+          meta.name = name;
+        }
+        meta.content = content;
+        document.head.appendChild(meta);
+      }
+    };
+
+    setMetaTag('description', 'Transforme su hogar con diseño arquitectónico profesional. Arquitecto especialista en redistribución de espacios, ampliaciones y remodelaciones. Solo 3 proyectos por mes en Santiago.');
+    setMetaTag('keywords', 'diseño arquitectónico santiago, redistribución espacios, remodelación casa, ampliación vivienda, arquitecto diseño interior, transformación hogar chile');
+    setMetaTag('author', 'Patricio Becar Elissegaray - Arquitecto Universidad de Chile');
+    setMetaTag('robots', 'index, follow');
+    
+    // Open Graph tags
+    setMetaTag('og:title', 'Diseño de Nuevos Espacios - Arquitecto Especialista Santiago', true);
+    setMetaTag('og:description', 'Transforme su hogar con diseño arquitectónico profesional. Solo 3 proyectos exclusivos por mes. Arquitecto Universidad de Chile con 26+ años experiencia.', true);
+    setMetaTag('og:type', 'service', true);
+    setMetaTag('og:url', 'https://arquitectochile.com/disenemos-tus-nuevos-espacios', true);
+    
+    // JSON-LD Schema for Service
+    const schema = {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "name": "Diseño de Nuevos Espacios",
+      "description": "Servicio especializado de diseño arquitectónico para transformación de espacios residenciales",
+      "provider": {
+        "@type": "Person",
+        "name": "Patricio Becar Elissegaray",
+        "jobTitle": "Arquitecto",
+        "url": "https://arquitectochile.com",
+        "telephone": "+56979316827",
+        "alumniOf": "Universidad de Chile"
+      },
+      "areaServed": {
+        "@type": "Country",
+        "name": "Chile"
+      },
+      "serviceType": "Diseño Arquitectónico",
+      "category": "Remodelación y Diseño Interior"
+    };
+
+    // Remove existing schema if present
+    const existingSchema = document.querySelector('script[type="application/ld+json"]');
+    if (existingSchema) {
+      existingSchema.remove();
+    }
+    
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.textContent = JSON.stringify(schema);
+    document.head.appendChild(script);
   }, []);
 
   const openWhatsApp = () => {
