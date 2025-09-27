@@ -582,7 +582,6 @@ export const insertCollaboratorPaymentSchema = createInsertSchema(collaboratorPa
 });
 
 // Types
-export type User = typeof users.$inferSelect;
 export type InsertUser = z.infer<typeof insertUserSchema>;
 export type Lead = typeof leads.$inferSelect;
 export type InsertLead = z.infer<typeof insertLeadSchema>;

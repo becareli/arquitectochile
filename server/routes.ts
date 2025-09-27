@@ -674,6 +674,212 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // AI Agent Automation Webhooks for N8N/MAKE Integration
+  
+  // Automated Quote Generation Webhook
+  app.post("/api/webhooks/generate-quote", async (req, res) => {
+    try {
+      const webhook = webhookSchema.parse(req.body);
+      console.log("Quote generation webhook received:", webhook);
+
+      if (webhook.data.lead_id && webhook.data.service_type && webhook.data.area) {
+        // Get active budget templates for the service type
+        console.log(`Searching for templates with serviceType: "${webhook.data.service_type}"`);
+        const templates = await storage.getBudgetTemplatesByServiceType(webhook.data.service_type);
+        console.log(`Found ${templates.length} templates:`, templates.map(t => ({id: t.id, serviceType: t.serviceType, name: t.name})));
+        
+        if (templates.length > 0) {
+          const baseTemplate = templates[0];
+          const area = parseFloat(webhook.data.area);
+          const complexity = webhook.data.complexity || "standard";
+          
+          // Calculate dynamic pricing
+          let basePrice = parseFloat(baseTemplate.basePrice) || 100000;
+          let totalEstimate = basePrice;
+          
+          // Area-based calculation
+          if (area > 0) {
+            const pricePerM2 = parseFloat(baseTemplate.pricePerM2 || "50000");
+            totalEstimate = basePrice + (area * pricePerM2);
+          }
+          
+          // Complexity multiplier
+          const complexityMultipliers: { [key: string]: number } = { simple: 0.8, standard: 1.0, complex: 1.5 };
+          totalEstimate *= complexityMultipliers[complexity] || 1.0;
+          
+          // Create generated quote
+          const quoteData = {
+            leadId: parseInt(webhook.data.lead_id),
+            templateId: baseTemplate.id,
+            basePrice: baseTemplate.basePrice,
+            region: webhook.data.region || "santiago",
+            complexity: complexity,
+            projectSize: area,
+            sizePrice: (area * parseFloat(baseTemplate.pricePerM2 || "50000")).toString(),
+            adjustments: { 
+              complexity_multiplier: complexityMultipliers[complexity] || 1.0,
+              auto_generated: true 
+            },
+            totalPrice: Math.round(totalEstimate).toString(),
+            validUntil: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 30 days
+            notes: `Presupuesto generado automáticamente para ${webhook.data.service_type}`,
+            status: "draft"
+          };
+          
+          const quote = await storage.createGeneratedQuote(quoteData);
+          console.log(`Auto-generated quote for lead ${webhook.data.lead_id}: $${totalEstimate}`);
+          
+          res.json({ 
+            success: true, 
+            quote, 
+            message: "Quote generated successfully",
+            automation_data: {
+              lead_id: webhook.data.lead_id,
+              quote_id: quote.id,
+              estimated_cost: Math.round(totalEstimate).toString(),
+              service_type: webhook.data.service_type
+            }
+          });
+        } else {
+          res.status(404).json({ error: "No budget template found for service type" });
+        }
+      } else {
+        res.status(400).json({ error: "Missing required fields: lead_id, service_type, area" });
+      }
+    } catch (error) {
+      console.error("Quote generation webhook error:", error);
+      res.status(500).json({ error: "Failed to generate quote" });
+    }
+  });
+
+  // Lead Nurturing Sequence Webhook
+  app.post("/api/webhooks/lead-nurturing", async (req, res) => {
+    try {
+      const webhook = webhookSchema.parse(req.body);
+      console.log("Lead nurturing webhook received:", webhook);
+
+      if (webhook.data.lead_id && webhook.data.sequence_step) {
+        // Create CRM interaction for nurturing step
+        const interaction = await storage.createCrmInteraction({
+          type: "automation",
+          subject: `Secuencia de Nurturing - Paso ${webhook.data.sequence_step}`,
+          content: webhook.data.message || `Ejecutado paso ${webhook.data.sequence_step} de secuencia de nurturing`
+        });
+
+        // Update lead status if specified
+        if (webhook.data.update_status) {
+          await storage.updateLeadStatus(parseInt(webhook.data.lead_id), webhook.data.update_status);
+        }
+
+        res.json({ 
+          success: true, 
+          interaction,
+          message: "Nurturing sequence step processed",
+          automation_data: {
+            lead_id: webhook.data.lead_id,
+            interaction_id: interaction.id,
+            sequence_step: webhook.data.sequence_step
+          }
+        });
+      } else {
+        res.status(400).json({ error: "Missing required fields: lead_id, sequence_step" });
+      }
+    } catch (error) {
+      console.error("Lead nurturing webhook error:", error);
+      res.status(500).json({ error: "Failed to process nurturing sequence" });
+    }
+  });
+
+  // Permit Tracking Update Webhook
+  app.post("/api/webhooks/permit-update", async (req, res) => {
+    try {
+      const webhook = webhookSchema.parse(req.body);
+      console.log("Permit update webhook received:", webhook);
+
+      if (webhook.data.project_id && webhook.data.permit_status) {
+        // Create CRM task for permit tracking
+        const task = await storage.createCrmTask({
+          projectId: parseInt(webhook.data.project_id),
+          title: `Actualización de Permiso: ${webhook.data.permit_type || 'General'}`,
+          description: `Estado del permiso actualizado a: ${webhook.data.permit_status}. ${webhook.data.notes || ''}`,
+          status: webhook.data.permit_status === "approved" ? "completed" : "in_progress",
+          priority: webhook.data.priority || "medium",
+          dueDate: webhook.data.due_date || undefined
+        });
+
+        // If project exists, create interaction
+        try {
+          const interaction = await storage.createCrmInteraction({
+            projectId: parseInt(webhook.data.project_id),
+            type: "permit_update",
+            subject: `Permiso ${webhook.data.permit_type || 'General'} - ${webhook.data.permit_status}`,
+            content: `Actualización automática del estado del permiso: ${webhook.data.permit_status}`
+          });
+
+          res.json({ 
+            success: true, 
+            task,
+            interaction,
+            message: "Permit update processed",
+            automation_data: {
+              project_id: webhook.data.project_id,
+              task_id: task.id,
+              interaction_id: interaction.id,
+              permit_status: webhook.data.permit_status
+            }
+          });
+        } catch (interactionError) {
+          // If interaction fails, still return success for task
+          res.json({ 
+            success: true, 
+            task,
+            message: "Permit update processed (task created)",
+            automation_data: {
+              project_id: webhook.data.project_id,
+              task_id: task.id,
+              permit_status: webhook.data.permit_status
+            }
+          });
+        }
+      } else {
+        res.status(400).json({ error: "Missing required fields: project_id, permit_status" });
+      }
+    } catch (error) {
+      console.error("Permit update webhook error:", error);
+      res.status(500).json({ error: "Failed to process permit update" });
+    }
+  });
+
+  // AI Agent Status Check Endpoint
+  app.get("/api/webhooks/status", async (req, res) => {
+    try {
+      // Get system statistics for AI agents
+      const stats = {
+        timestamp: new Date().toISOString(),
+        system_status: "operational",
+        endpoints: {
+          lead_qualification: "/api/webhooks/lead-qualification",
+          appointment_scheduling: "/api/webhooks/appointment-scheduled",
+          quote_generation: "/api/webhooks/generate-quote",
+          lead_nurturing: "/api/webhooks/lead-nurturing",
+          permit_tracking: "/api/webhooks/permit-update",
+          google_reviews: "/api/webhook/google-reviews"
+        },
+        recent_activity: {
+          total_leads: await storage.getLeads().then(leads => leads.length),
+          pending_quotes: await storage.getAllQuotesWithLeads().then(quotes => 
+            quotes.filter(q => q.status === "draft" || q.status === "pending").length
+          )
+        }
+      };
+
+      res.json(stats);
+    } catch (error) {
+      console.error("Status check error:", error);
+      res.status(500).json({ error: "Failed to get system status" });
+    }
+  });
+
   // Google My Business Review Webhook (for automation)
   app.post("/api/webhook/google-reviews", async (req, res) => {
     try {
