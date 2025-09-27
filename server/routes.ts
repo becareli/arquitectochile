@@ -366,73 +366,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Automated Quote Generation Webhook
-  app.post("/api/webhooks/generate-quote", async (req, res) => {
-    try {
-      const webhook = webhookSchema.parse(req.body);
-      console.log("Quote generation webhook received:", webhook);
-      
-      // Extract quote parameters from webhook data
-      const { leadId, serviceType, projectSize, region, complexity } = webhook.data;
-      
-      // Find appropriate budget template
-      const templates = await storage.getBudgetTemplatesByServiceType(serviceType);
-      const template = templates.find(t => 
-        t.region === region && 
-        t.complexity === complexity &&
-        (!t.maxSize || projectSize <= t.maxSize) &&
-        projectSize >= (t.minSize || 0)
-      );
-      
-      if (!template) {
-        return res.status(404).json({ error: "No matching budget template found" });
-      }
-      
-      // Calculate quote pricing
-      const basePrice = parseFloat(template.basePrice);
-      const sizePrice = template.pricePerM2 ? parseFloat(template.pricePerM2) * projectSize : 0;
-      const totalPrice = basePrice + sizePrice;
-      
-      // Create quote
-      const quote = await storage.createGeneratedQuote({
-        leadId: parseInt(leadId),
-        templateId: template.id,
-        projectSize: parseInt(projectSize),
-        region,
-        complexity,
-        basePrice: basePrice.toString(),
-        sizePrice: sizePrice.toString(),
-        adjustments: webhook.data.adjustments || {},
-        totalPrice: totalPrice.toString(),
-        validUntil: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 30 days
-        generatedBy: webhook.source || "ai_agent"
-      });
-      
-      // Log AI agent event
-      await storage.createAiAgentEvent({
-        eventType: "quote_generated",
-        leadId: parseInt(leadId),
-        source: webhook.source || "ai_agent",
-        data: {
-          quoteId: quote.id,
-          templateId: template.id,
-          totalPrice: totalPrice,
-          ...webhook.data
-        },
-
-      });
-      
-      res.json({ 
-        success: true, 
-        message: "Quote generated successfully",
-        quote,
-        processed_at: new Date().toISOString()
-      });
-    } catch (error) {
-      console.error("Quote generation error:", error);
-      res.status(400).json({ error: "Failed to generate quote" });
-    }
-  });
 
   // General AI agent webhook for business process automation
   app.post("/api/webhooks/ai-agent", async (req, res) => {
@@ -678,17 +611,27 @@ export async function registerRoutes(app: Express): Promise<Server> {
   
   // Automated Quote Generation Webhook
   app.post("/api/webhooks/generate-quote", async (req, res) => {
+    console.log("=== QUOTE WEBHOOK START ===");
     try {
+      console.log("1. Parsing webhook data...");
       const webhook = webhookSchema.parse(req.body);
-      console.log("Quote generation webhook received:", webhook);
+      console.log("2. Quote generation webhook received:", webhook);
+
+      console.log("3. Checking required fields...");
+      console.log("   lead_id:", webhook.data.lead_id);
+      console.log("   service_type:", webhook.data.service_type);
+      console.log("   area:", webhook.data.area);
 
       if (webhook.data.lead_id && webhook.data.service_type && webhook.data.area) {
+        console.log("4. All required fields present");
         // Get active budget templates for the service type
-        console.log(`Searching for templates with serviceType: "${webhook.data.service_type}"`);
-        const templates = await storage.getBudgetTemplatesByServiceType(webhook.data.service_type);
-        console.log(`Found ${templates.length} templates:`, templates.map(t => ({id: t.id, serviceType: t.serviceType, name: t.name})));
+        console.log(`5. Searching for templates with serviceType: "${webhook.data.service_type}"`);
         
-        if (templates.length > 0) {
+        try {
+          const templates = await storage.getBudgetTemplatesByServiceType(webhook.data.service_type);
+          console.log(`6. Found ${templates.length} templates:`, templates.map(t => ({id: t.id, serviceType: t.serviceType, name: t.name})));
+          
+          if (templates.length > 0) {
           const baseTemplate = templates[0];
           const area = parseFloat(webhook.data.area);
           const complexity = webhook.data.complexity || "standard";
@@ -727,7 +670,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           };
           
           const quote = await storage.createGeneratedQuote(quoteData);
-          console.log(`Auto-generated quote for lead ${webhook.data.lead_id}: $${totalEstimate}`);
+          console.log(`7. Auto-generated quote for lead ${webhook.data.lead_id}: $${totalEstimate}`);
           
           res.json({ 
             success: true, 
@@ -741,15 +684,22 @@ export async function registerRoutes(app: Express): Promise<Server> {
             }
           });
         } else {
-          res.status(404).json({ error: "No budget template found for service type" });
+          console.log("7. ERROR: No templates found!");
+          res.status(404).json({ error: "No matching budget template found" });
+        }
+        } catch (templateError) {
+          console.error("8. ERROR getting templates:", templateError);
+          res.status(500).json({ error: "Error fetching budget templates" });
         }
       } else {
-        res.status(400).json({ error: "Missing required fields: lead_id, service_type, area" });
+        console.log("9. ERROR: Missing required fields!");
+        res.status(400).json({ error: "Missing required fields: lead_id, service_type, and area" });
       }
     } catch (error) {
-      console.error("Quote generation webhook error:", error);
-      res.status(500).json({ error: "Failed to generate quote" });
+      console.error("10. WEBHOOK ERROR:", error);
+      res.status(500).json({ error: "Internal server error" });
     }
+    console.log("=== QUOTE WEBHOOK END ===");
   });
 
   // Lead Nurturing Sequence Webhook
