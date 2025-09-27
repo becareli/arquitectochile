@@ -17,15 +17,194 @@ import { z } from "zod";
 import { setupIntegrationRoutes } from "./integrations/routes";
 import { ObjectStorageService, ObjectNotFoundError } from "./objectStorage";
 import { setupAuth, isAuthenticated, isCrmAdmin } from "./replitAuth";
+import crypto from "crypto";
+import type { RequestHandler } from "express";
 // Enhanced analytics will be loaded separately to avoid circular imports
 
-// Webhook schema for AI agent integration
+// Webhook schemas for AI agent integration
 const webhookSchema = z.object({
   event: z.string(),
   data: z.record(z.any()),
   timestamp: z.string().optional(),
   source: z.string().optional(),
 });
+
+// Specific schemas for stricter validation
+const quoteGenerationWebhookSchema = z.object({
+  event: z.literal("quote_generation_request"),
+  data: z.object({
+    lead_id: z.string().refine(val => !isNaN(Number(val)), "lead_id must be a valid number"),
+    service_type: z.enum([
+      "reacondicionamiento-termico",
+      "fusion-terrenos", 
+      "construccion-nueva",
+      "ampliacion-vivienda",
+      "regularizacion-inmuebles",
+      "consultoria-arquitectonica"
+    ]),
+    area: z.string().refine(val => !isNaN(Number(val)) && Number(val) > 0, "area must be a positive number"),
+    complexity: z.enum(["simple", "standard", "complex"]).optional().default("standard"),
+    region: z.string().optional().default("santiago"),
+  }),
+  timestamp: z.string().optional(),
+  source: z.string().optional(),
+});
+
+const permitUpdateWebhookSchema = z.object({
+  event: z.literal("permit_status_update"),
+  data: z.object({
+    project_id: z.string().refine(val => !isNaN(Number(val)), "project_id must be a valid number"),
+    permit_type: z.string().min(1),
+    permit_status: z.enum(["pending", "approved", "rejected", "under_review"]),
+    notes: z.string().optional(),
+    priority: z.enum(["low", "medium", "high"]).optional().default("medium"),
+  }),
+  timestamp: z.string().optional(),
+  source: z.string().optional(),
+});
+
+// In-memory replay protection cache (for 5 minutes)
+const replayCache = new Map<string, number>();
+const REPLAY_WINDOW = 300; // 5 minutes
+
+// Clean expired entries from replay cache
+setInterval(() => {
+  const now = Math.floor(Date.now() / 1000);
+  replayCache.forEach((timestamp, key) => {
+    if (now - timestamp > REPLAY_WINDOW) {
+      replayCache.delete(key);
+    }
+  });
+}, 60000); // Clean every minute
+
+// Production security validation
+const validateProductionSecurity = () => {
+  if (process.env.NODE_ENV === "production") {
+    const requiredSecrets = [
+      'WEBHOOK_SECRET',
+      'N8N_WEBHOOK_TOKEN', 
+      'MAKE_WEBHOOK_TOKEN',
+      'WEBHOOK_AUTH_TOKEN'
+    ];
+    
+    const missing = requiredSecrets.filter(secret => !process.env[secret]);
+    if (missing.length > 0) {
+      throw new Error(`Production webhook security requires these environment variables: ${missing.join(', ')}`);
+    }
+  }
+};
+
+// Call validation at startup
+validateProductionSecurity();
+
+// Enhanced webhook authentication middleware
+const isWebhookAuthenticated: RequestHandler = async (req, res, next) => {
+  const webhookSecret = process.env.WEBHOOK_SECRET;
+  const authHeader = req.headers.authorization;
+  const signatureHeader = req.headers['x-signature'] as string;
+  const timestampHeader = req.headers['x-timestamp'] as string;
+  
+  console.log("🔒 Webhook authentication check:");
+  console.log("  Authorization header:", authHeader ? "Present" : "Missing");
+  console.log("  X-Signature header:", signatureHeader ? "Present" : "Missing");
+  console.log("  Environment:", process.env.NODE_ENV);
+  
+  // Strict production-only development bypass
+  if (process.env.NODE_ENV === "development") {
+    console.log("  ⚠️  Development mode: bypassing authentication");
+    return next();
+  }
+  
+  // Method 1: Bearer Token Authentication
+  if (authHeader && authHeader.startsWith('Bearer ')) {
+    const token = authHeader.substring(7);
+    const validTokens = [
+      process.env.N8N_WEBHOOK_TOKEN,
+      process.env.MAKE_WEBHOOK_TOKEN,
+      process.env.WEBHOOK_AUTH_TOKEN
+    ].filter(Boolean); // Remove undefined values
+    
+    if (validTokens.includes(token)) {
+      console.log("  ✅ Bearer token authenticated");
+      return next();
+    } else {
+      console.log("  ❌ Invalid bearer token");
+      return res.status(401).json({ error: "Invalid authentication token" });
+    }
+  }
+  
+  // Method 2: HMAC Signature Authentication (production recommended)
+  if (signatureHeader && timestampHeader && webhookSecret) {
+    try {
+      // Validate timestamp to prevent replay attacks
+      const timestamp = parseInt(timestampHeader);
+      const now = Math.floor(Date.now() / 1000);
+      
+      if (isNaN(timestamp) || Math.abs(now - timestamp) > REPLAY_WINDOW) {
+        console.log("  ❌ Invalid or expired timestamp");
+        return res.status(401).json({ error: "Request timestamp invalid or expired" });
+      }
+      
+      // Check replay cache
+      const cacheKey = `${signatureHeader}-${timestampHeader}`;
+      if (replayCache.has(cacheKey)) {
+        console.log("  ❌ Replay attack detected");
+        return res.status(401).json({ error: "Request already processed (replay detected)" });
+      }
+      
+      // Use raw body bytes for HMAC verification (captured by middleware)
+      const rawBody = (req as any).rawBody;
+      if (!rawBody) {
+        console.log("  ❌ Raw body not available for HMAC");
+        return res.status(401).json({ error: "Raw body required for HMAC verification" });
+      }
+      const payload = `${timestampHeader}.${rawBody}`;
+      const expectedSignature = crypto
+        .createHmac('sha256', webhookSecret)
+        .update(payload, 'utf8')
+        .digest('hex');
+      
+      // Extract signature (remove sha256= prefix if present)
+      const providedSignature = signatureHeader.replace(/^sha256=/, '');
+      
+      // Secure comparison with length check first
+      if (expectedSignature.length !== providedSignature.length) {
+        console.log("  ❌ Signature length mismatch");
+        return res.status(401).json({ error: "Invalid request signature" });
+      }
+      
+      const expectedBuffer = Buffer.from(expectedSignature, 'hex');
+      const providedBuffer = Buffer.from(providedSignature, 'hex');
+      
+      if (expectedBuffer.length !== providedBuffer.length) {
+        console.log("  ❌ Signature buffer length mismatch");
+        return res.status(401).json({ error: "Invalid request signature format" });
+      }
+      
+      const isValidSignature = crypto.timingSafeEqual(expectedBuffer, providedBuffer);
+      
+      if (isValidSignature) {
+        // Store in replay cache
+        replayCache.set(cacheKey, timestamp);
+        console.log("  ✅ HMAC signature authenticated");
+        return next();
+      } else {
+        console.log("  ❌ Invalid HMAC signature");
+        return res.status(401).json({ error: "Invalid request signature" });
+      }
+    } catch (error) {
+      console.log("  ❌ HMAC validation error:", error);
+      return res.status(401).json({ error: "Signature validation failed" });
+    }
+  }
+  
+  console.log("  ❌ No valid authentication method found");
+  return res.status(401).json({ 
+    error: "Webhook authentication required",
+    hint: "Use Bearer token in Authorization header or HMAC signature (X-Signature + X-Timestamp headers)",
+    required_env: process.env.NODE_ENV === "production" ? "WEBHOOK_SECRET and token env vars required" : undefined
+  });
+};
 
 // Google My Business review webhook schema
 const googleReviewSchema = z.object({
@@ -306,16 +485,22 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // AI Agent Webhook Endpoints for N8N/MAKE Integration
   
   // Lead qualification webhook
-  app.post("/api/webhooks/lead-qualification", async (req, res) => {
+  app.post("/api/webhooks/lead-qualification", isWebhookAuthenticated, async (req, res) => {
     try {
       const webhook = webhookSchema.parse(req.body);
-      // Process lead qualification data for AI agents
-      console.log("Lead qualification webhook received:", webhook);
+      console.log("🎯 Lead qualification webhook received:", webhook);
       
       // Update lead status if lead_id provided
       if (webhook.data.lead_id) {
-        // Here AI agents can update lead status, add notes, etc.
         console.log(`Processing lead ${webhook.data.lead_id} for qualification`);
+        
+        // Create AI agent event for tracking
+        await storage.createAiAgentEvent({
+          eventType: "lead_qualification",
+          leadId: parseInt(webhook.data.lead_id),
+          source: webhook.source || "n8n_automation",
+          data: webhook.data
+        });
       }
       
       res.json({ 
@@ -324,18 +509,30 @@ export async function registerRoutes(app: Express): Promise<Server> {
         processed_at: new Date().toISOString()
       });
     } catch (error) {
+      console.error("Lead qualification webhook error:", error);
       res.status(400).json({ error: "Invalid webhook data" });
     }
   });
 
   // Appointment scheduling webhook
-  app.post("/api/webhooks/appointment-scheduled", async (req, res) => {
+  app.post("/api/webhooks/appointment-scheduled", isWebhookAuthenticated, async (req, res) => {
     try {
       const webhook = webhookSchema.parse(req.body);
-      console.log("Appointment scheduled webhook received:", webhook);
+      console.log("📅 Appointment scheduled webhook received:", webhook);
       
       // Process appointment data for AI agents
-      // Connect with TidyCal, update lead status, send notifications
+      if (webhook.data.lead_id && webhook.data.appointment_id) {
+        // Update lead with appointment information
+        await storage.updateLeadStatus(parseInt(webhook.data.lead_id), "scheduled");
+        
+        // Create AI agent event
+        await storage.createAiAgentEvent({
+          eventType: "appointment_scheduled",
+          leadId: parseInt(webhook.data.lead_id),
+          source: webhook.source || "tidycal",
+          data: webhook.data
+        });
+      }
       
       res.json({ 
         success: true, 
@@ -343,38 +540,90 @@ export async function registerRoutes(app: Express): Promise<Server> {
         processed_at: new Date().toISOString()
       });
     } catch (error) {
+      console.error("Appointment webhook error:", error);
       res.status(400).json({ error: "Invalid webhook data" });
     }
   });
 
-  // Permit tracking webhook
-  app.post("/api/webhooks/permit-update", async (req, res) => {
+  // Permit tracking webhook - Enhanced version
+  app.post("/api/webhooks/permit-update", isWebhookAuthenticated, async (req, res) => {
     try {
-      const webhook = webhookSchema.parse(req.body);
-      console.log("Permit update webhook received:", webhook);
-      
-      // Process permit status updates for AI agents
-      // Update project status, notify clients, etc.
-      
-      res.json({ 
-        success: true, 
-        message: "Permit update webhook processed",
-        processed_at: new Date().toISOString()
-      });
+      const webhook = permitUpdateWebhookSchema.parse(req.body);
+      console.log("🏛️ Permit update webhook received:", webhook);
+
+      if (webhook.data.project_id && webhook.data.permit_status) {
+        // Create CRM task for permit tracking
+        const task = await storage.createCrmTask({
+          projectId: parseInt(webhook.data.project_id),
+          title: `Actualización de Permiso: ${webhook.data.permit_type || 'General'}`,
+          description: `Estado del permiso actualizado a: ${webhook.data.permit_status}. ${webhook.data.notes || ''}`,
+          status: webhook.data.permit_status === "approved" ? "completed" : "in_progress",
+          priority: webhook.data.priority || "medium",
+          dueDate: undefined
+        });
+
+        // Create interaction
+        try {
+          const interaction = await storage.createCrmInteraction({
+            projectId: parseInt(webhook.data.project_id),
+            type: "permit_update",
+            subject: `Permiso ${webhook.data.permit_type || 'General'} - ${webhook.data.permit_status}`,
+            content: `Actualización automática del estado del permiso: ${webhook.data.permit_status}`
+          });
+
+          res.json({ 
+            success: true, 
+            task,
+            interaction,
+            message: "Permit update processed",
+            automation_data: {
+              project_id: webhook.data.project_id,
+              task_id: task.id,
+              interaction_id: interaction.id,
+              permit_status: webhook.data.permit_status
+            }
+          });
+        } catch (interactionError) {
+          res.json({ 
+            success: true, 
+            task,
+            message: "Permit update processed (task created)",
+            automation_data: {
+              project_id: webhook.data.project_id,
+              task_id: task.id,
+              permit_status: webhook.data.permit_status
+            }
+          });
+        }
+      } else {
+        res.status(400).json({ error: "Missing required fields: project_id, permit_status" });
+      }
     } catch (error) {
-      res.status(400).json({ error: "Invalid webhook data" });
+      console.error("Permit update webhook error:", error);
+      if (error instanceof z.ZodError) {
+        res.status(400).json({ 
+          error: "Invalid permit update data", 
+          details: error.errors
+        });
+      } else {
+        res.status(500).json({ error: "Failed to process permit update" });
+      }
     }
   });
-
 
   // General AI agent webhook for business process automation
-  app.post("/api/webhooks/ai-agent", async (req, res) => {
+  app.post("/api/webhooks/ai-agent", isWebhookAuthenticated, async (req, res) => {
     try {
       const webhook = webhookSchema.parse(req.body);
-      console.log("AI Agent webhook received:", webhook);
+      console.log("🤖 AI Agent webhook received:", webhook);
       
-      // Process various AI agent events
-      // Route to appropriate business logic based on event type
+      // Create AI agent event for tracking
+      await storage.createAiAgentEvent({
+        eventType: webhook.event,
+        leadId: webhook.data.lead_id ? parseInt(webhook.data.lead_id) : undefined,
+        source: webhook.source || "ai_agent",
+        data: webhook.data
+      });
       
       const response = {
         success: true,
@@ -386,6 +635,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       res.json(response);
     } catch (error) {
+      console.error("AI agent webhook error:", error);
       res.status(400).json({ error: "Invalid webhook data" });
     }
   });
@@ -610,12 +860,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // AI Agent Automation Webhooks for N8N/MAKE Integration
   
   // Automated Quote Generation Webhook
-  app.post("/api/webhooks/generate-quote", async (req, res) => {
+  app.post("/api/webhooks/generate-quote", isWebhookAuthenticated, async (req, res) => {
     console.log("=== QUOTE WEBHOOK START ===");
     try {
       console.log("1. Parsing webhook data...");
-      const webhook = webhookSchema.parse(req.body);
-      console.log("2. Quote generation webhook received:", webhook);
+      const webhook = quoteGenerationWebhookSchema.parse(req.body);
+      console.log("2. 💰 Quote generation webhook received:", webhook);
 
       console.log("3. Checking required fields...");
       console.log("   lead_id:", webhook.data.lead_id);
@@ -697,16 +947,24 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
     } catch (error) {
       console.error("10. WEBHOOK ERROR:", error);
-      res.status(500).json({ error: "Internal server error" });
+      if (error instanceof z.ZodError) {
+        res.status(400).json({ 
+          error: "Invalid webhook data", 
+          details: error.errors,
+          hint: "Check that all required fields are present and have valid values"
+        });
+      } else {
+        res.status(500).json({ error: "Internal server error" });
+      }
     }
     console.log("=== QUOTE WEBHOOK END ===");
   });
 
   // Lead Nurturing Sequence Webhook
-  app.post("/api/webhooks/lead-nurturing", async (req, res) => {
+  app.post("/api/webhooks/lead-nurturing", isWebhookAuthenticated, async (req, res) => {
     try {
       const webhook = webhookSchema.parse(req.body);
-      console.log("Lead nurturing webhook received:", webhook);
+      console.log("📬 Lead nurturing webhook received:", webhook);
 
       if (webhook.data.lead_id && webhook.data.sequence_step) {
         // Create CRM interaction for nurturing step
@@ -740,65 +998,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Permit Tracking Update Webhook
-  app.post("/api/webhooks/permit-update", async (req, res) => {
-    try {
-      const webhook = webhookSchema.parse(req.body);
-      console.log("Permit update webhook received:", webhook);
-
-      if (webhook.data.project_id && webhook.data.permit_status) {
-        // Create CRM task for permit tracking
-        const task = await storage.createCrmTask({
-          projectId: parseInt(webhook.data.project_id),
-          title: `Actualización de Permiso: ${webhook.data.permit_type || 'General'}`,
-          description: `Estado del permiso actualizado a: ${webhook.data.permit_status}. ${webhook.data.notes || ''}`,
-          status: webhook.data.permit_status === "approved" ? "completed" : "in_progress",
-          priority: webhook.data.priority || "medium",
-          dueDate: webhook.data.due_date || undefined
-        });
-
-        // If project exists, create interaction
-        try {
-          const interaction = await storage.createCrmInteraction({
-            projectId: parseInt(webhook.data.project_id),
-            type: "permit_update",
-            subject: `Permiso ${webhook.data.permit_type || 'General'} - ${webhook.data.permit_status}`,
-            content: `Actualización automática del estado del permiso: ${webhook.data.permit_status}`
-          });
-
-          res.json({ 
-            success: true, 
-            task,
-            interaction,
-            message: "Permit update processed",
-            automation_data: {
-              project_id: webhook.data.project_id,
-              task_id: task.id,
-              interaction_id: interaction.id,
-              permit_status: webhook.data.permit_status
-            }
-          });
-        } catch (interactionError) {
-          // If interaction fails, still return success for task
-          res.json({ 
-            success: true, 
-            task,
-            message: "Permit update processed (task created)",
-            automation_data: {
-              project_id: webhook.data.project_id,
-              task_id: task.id,
-              permit_status: webhook.data.permit_status
-            }
-          });
-        }
-      } else {
-        res.status(400).json({ error: "Missing required fields: project_id, permit_status" });
-      }
-    } catch (error) {
-      console.error("Permit update webhook error:", error);
-      res.status(500).json({ error: "Failed to process permit update" });
-    }
-  });
 
   // AI Agent Status Check Endpoint
   app.get("/api/webhooks/status", async (req, res) => {

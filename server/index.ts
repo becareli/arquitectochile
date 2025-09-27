@@ -4,6 +4,19 @@ import { setupVite, serveStatic, log } from "./vite";
 import { initializeIntegrations, performHealthChecks } from "./integrations/setup";
 
 const app = express();
+
+// Raw body capture middleware for webhook HMAC verification
+app.use('/api/webhooks', express.raw({ type: 'application/json' }), (req, res, next) => {
+  // Store raw body for HMAC verification and parse JSON manually
+  (req as any).rawBody = req.body;
+  try {
+    req.body = JSON.parse(req.body.toString());
+  } catch (error) {
+    return res.status(400).json({ error: 'Invalid JSON payload' });
+  }
+  next();
+});
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
