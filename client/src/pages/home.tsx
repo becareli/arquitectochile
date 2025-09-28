@@ -73,6 +73,74 @@ export default function Home() {
     // Twitter Card tags
     setMetaTag('twitter:card', 'summary_large_image');
     setMetaTag('twitter:title', 'ArquitectoChile.com | Arquitecto Especialista en Santiago');
+
+    // LocalBusiness Schema JSON-LD for SEO
+    const createSchemaMarkup = () => {
+      const schemaData = {
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        "name": "Arquitecto en Chile - Arquitecto Patricio Becar Elissegaray - ArquitectoChile.com",
+        "alternateName": "ArquitectoChile.com",
+        "description": "Servicios profesionales de arquitectura en Santiago: regularización de inmuebles, reacondicionamiento térmico, construcción, asesoría a domicilio y más. 26+ años de experiencia.",
+        "url": "http://www.arquitectochile.com/",
+        "telephone": "+56 9 7931 6827",
+        "email": "contacto@arquitectochile.com",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Av. Vicuña Mackenna, Poniente 7735",
+          "addressLocality": "La Florida",
+          "postalCode": "8260302",
+          "addressRegion": "Región Metropolitana",
+          "addressCountry": "Chile"
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": "-33.5186",
+          "longitude": "-70.5895"
+        },
+        "hasMap": "https://maps.google.com/?cid=12123957937748651818",
+        "founder": {
+          "@type": "Person",
+          "name": "Patricio Becar Elissegaray",
+          "jobTitle": "Arquitecto",
+          "alumniOf": "Universidad de Chile"
+        },
+        "areaServed": {
+          "@type": "Country",
+          "name": "Chile"
+        },
+        "serviceType": [
+          "Regularización de inmuebles",
+          "Reacondicionamiento térmico",
+          "Construcción de viviendas",
+          "Asesoría arquitectónica a domicilio",
+          "Fusión de terrenos",
+          "Subdivisión de terrenos",
+          "Inspección técnica de viviendas",
+          "Tasación de viviendas",
+          "Revisor independiente de arquitectura"
+        ],
+        "priceRange": "$$",
+        "openingHours": "Mo-Fr 09:00-18:00",
+        "sameAs": [
+          "https://www.facebook.com/arquitectoconstructor",
+          "https://www.instagram.com/patricio.becar.elissegaray/",
+          "https://www.linkedin.com/in/patriciobecar/"
+        ]
+      };
+
+      let script = document.querySelector('script[type="application/ld+json"]');
+      if (script) {
+        script.textContent = JSON.stringify(schemaData);
+      } else {
+        script = document.createElement('script');
+        script.type = 'application/ld+json';
+        script.textContent = JSON.stringify(schemaData);
+        document.head.appendChild(script);
+      }
+    };
+
+    createSchemaMarkup();
     setMetaTag('twitter:description', 'Servicios profesionales de arquitectura en Santiago. Especialista con 26+ años experiencia Universidad de Chile.');
     
     // JSON-LD Schema for Local Business

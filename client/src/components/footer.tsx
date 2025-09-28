@@ -14,6 +14,9 @@ export default function Footer() {
                 className="h-24 w-auto md:h-28"
               />
             </div>
+            <p className="text-gray-300 text-sm mb-2 font-medium">
+              Arquitecto Patricio Becar Elissegaray
+            </p>
             <p className="text-gray-300 mb-4">
               Diseñamos y construimos tus sueños con pasión y profesionalismo.
             </p>
@@ -117,10 +120,11 @@ export default function Footer() {
                 +56 9 7931 6827
               </a>
               <div className="text-sm">
-                <div>Av. Vicuña Mackenna Poniente 7735</div>
-                <div>La Florida, Santiago</div>
+                <div>Av. Vicuña Mackenna, Poniente 7735</div>
+                <div>8260302 La Florida</div>
+                <div>Región Metropolitana, Chile</div>
                 <a 
-                  href="https://maps.app.goo.gl/2xs5GE5gcr3R5ouf9"
+                  href="https://maps.google.com/?cid=12123957937748651818"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center mt-2 px-2 py-1 bg-blue-600 text-white text-xs rounded hover:bg-blue-700 transition-colors"
