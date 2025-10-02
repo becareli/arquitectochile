@@ -2,8 +2,60 @@ import express, { type Request, Response, NextFunction } from "express";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
 import { initializeIntegrations, performHealthChecks } from "./integrations/setup";
+import helmet from "helmet";
+import rateLimit from "express-rate-limit";
 
 const app = express();
+
+// Security Headers with Helmet
+app.use(helmet({
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'", "https://cdn.jsdelivr.net", "https://unpkg.com"],
+      styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
+      fontSrc: ["'self'", "https://fonts.gstatic.com", "data:"],
+      imgSrc: ["'self'", "data:", "https:", "blob:"],
+      connectSrc: ["'self'", "https://api.unsplash.com", "wss:", "ws:"],
+      frameSrc: ["'self'", "https://www.google.com"],
+      objectSrc: ["'none'"],
+      upgradeInsecureRequests: process.env.NODE_ENV === "production" ? [] : null,
+    },
+  },
+  crossOriginEmbedderPolicy: false, // Allow embedding resources from other origins
+  crossOriginResourcePolicy: { policy: "cross-origin" }, // Allow CORS
+}));
+
+// Rate Limiting Configuration
+const generalLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // Limit each IP to 100 requests per windowMs
+  message: 'Demasiadas solicitudes desde esta IP, por favor intenta de nuevo más tarde.',
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
+const strictLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes  
+  max: 5, // Limit each IP to 5 requests per windowMs
+  message: 'Demasiadas solicitudes. Por favor espera antes de intentar nuevamente.',
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
+const formLimiter = rateLimit({
+  windowMs: 60 * 60 * 1000, // 1 hour
+  max: 10, // Limit each IP to 10 form submissions per hour
+  message: 'Has enviado demasiados formularios. Por favor intenta más tarde.',
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
+// Apply rate limiters to specific routes
+app.use('/api/', generalLimiter); // General API rate limit
+app.use('/api/leads', formLimiter); // Contact form rate limit
+app.use('/api/calculator-leads', formLimiter); // Calculator form rate limit
+app.use('/api/auth/login', strictLimiter); // Login attempts rate limit
 
 // Raw body capture middleware for webhook HMAC verification
 app.use('/api/webhooks', express.raw({ type: 'application/json' }), (req, res, next) => {
