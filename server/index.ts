@@ -4,6 +4,8 @@ import { setupVite, serveStatic, log } from "./vite";
 import { initializeIntegrations, performHealthChecks } from "./integrations/setup";
 import helmet from "helmet";
 import rateLimit from "express-rate-limit";
+import cookieParser from "cookie-parser";
+import { csrfTokenMiddleware, provideCsrfToken } from "./csrf";
 
 const app = express();
 
@@ -71,6 +73,12 @@ app.use('/api/webhooks', express.raw({ type: 'application/json' }), (req, res, n
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+
+// CSRF Protection - Provide token to all requests
+app.use(provideCsrfToken);
+// CSRF Protection - Validate token on state-changing requests  
+app.use(csrfTokenMiddleware);
 
 app.use((req, res, next) => {
   const start = Date.now();
