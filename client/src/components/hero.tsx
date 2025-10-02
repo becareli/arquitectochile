@@ -7,18 +7,18 @@ export default function Hero() {
   };
 
   return (
-    <section id="inicio" className="bg-gradient-to-br from-primary to-secondary text-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+    <section id="inicio" className="bg-gradient-to-br from-primary via-primary to-secondary text-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div>
-            {/* Urgency Banner (Alex Hormozi) */}
-            <div className="bg-red-600 text-white px-4 py-2 rounded-lg mb-6 inline-block animate-pulse">
-              <p className="font-bold text-sm">
-                🔥 ÚLTIMO CUPO ENERO 2025 - Solo 1 cupo disponible
+            {/* Urgency Banner - Refined */}
+            <div className="bg-accent text-white px-5 py-2.5 rounded-lg mb-8 inline-block">
+              <p className="font-semibold text-sm">
+                ✨ ÚLTIMO CUPO ENERO 2025 - Solo 1 cupo disponible
               </p>
             </div>
             
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">¿Quieres construir una casa hermosa y única para tu familia, sin preocuparte por trámites o problemas legales?</h1>
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-bold mb-8 leading-tight">¿Quieres construir una casa hermosa y única para tu familia, sin preocuparte por trámites o problemas legales?</h1>
             <p className="text-lg sm:text-xl mb-6 opacity-90 leading-relaxed">
               Para padres de familia de Santiago que buscan diseño personalizado con visualización 3D, gestión completa de permisos y acompañamiento especializado hasta la entrega final.
             </p>
@@ -67,27 +67,27 @@ export default function Hero() {
               </div>
             </div>
             
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-5 mt-10">
               <button 
                 onClick={() => scrollToSection('contacto')}
-                className="bg-red-600 text-white px-8 py-5 rounded-md text-xl font-bold hover:bg-red-700 transition-colors text-center shadow-xl border-4 border-red-400 transform hover:scale-105 animate-bounce"
+                className="bg-accent text-white px-10 py-5 rounded-lg text-lg font-semibold hover:opacity-90 transition-all duration-300 text-center shadow-2xl transform hover:scale-105"
               >
                 SÍ, QUIERO AGENDAR Y AHORRAR $1.400.000
               </button>
               <button 
                 onClick={() => scrollToSection('ebook')}
-                className="bg-white/10 backdrop-blur-sm text-white px-6 py-3 rounded-md text-md font-semibold hover:bg-white/20 transition-colors text-center border border-white/30"
+                className="bg-white/15 backdrop-blur-sm text-white px-8 py-4 rounded-lg text-base font-medium hover:bg-white/25 transition-all duration-300 text-center border border-white/40"
               >
                 📖 O descarga primero el Ebook Gratuito
               </button>
               
-              {/* Risk Reversal */}
-              <div className="text-center mt-4">
-                <p className="text-sm opacity-90">
+              {/* Risk Reversal - Refined */}
+              <div className="text-center mt-6 space-y-2">
+                <p className="text-sm opacity-95 font-light">
                   ✓ Consulta 100% gratuita ✓ Sin compromiso ✓ Garantía total
                 </p>
-                <p className="text-xs text-accent mt-1 font-semibold">
-                  ⚠️ Oferta válida solo por 24 horas
+                <p className="text-xs text-accent/90 font-medium">
+                  ⏰ Oferta válida solo por 24 horas
                 </p>
               </div>
             </div>
