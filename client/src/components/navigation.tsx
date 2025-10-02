@@ -91,23 +91,23 @@ export default function Navigation() {
   };
 
   return (
-    <nav className="bg-white shadow-sm sticky top-0 z-50">
+    <nav className="bg-background shadow-md sticky top-0 z-50 border-b border-border">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Logo Section */}
-        <div className="flex justify-between items-center py-3 border-b border-gray-100">
-          <button onClick={navigateToHome} className="text-xl sm:text-2xl font-bold hover:opacity-80 transition-opacity">
+        <div className="flex justify-between items-center py-4 border-b border-border">
+          <button onClick={navigateToHome} className="text-xl sm:text-2xl font-display font-semibold hover:opacity-80 transition-opacity">
             <span className="text-primary">ArquitectoChile</span>
-            <span className="text-gray-600">.com</span>
+            <span className="text-secondary">.com</span>
           </button>
-          <div className="hidden lg:flex items-center space-x-2">
-            <span className="text-black text-sm">★★★</span>
+          <div className="hidden lg:flex items-center space-x-3">
+            <span className="text-accent text-sm">★★★</span>
             <a
               href="/servicios-a-domicilio"
-              className="bg-accent text-black px-3 sm:px-4 py-2 rounded-md hover:bg-yellow-500 transition-all duration-300 font-bold text-xs sm:text-sm whitespace-nowrap shadow-md hover:shadow-lg"
+              className="bg-accent text-white px-4 sm:px-5 py-2.5 rounded-lg hover:opacity-90 transition-all duration-300 font-medium text-sm whitespace-nowrap shadow-md hover:shadow-lg"
             >
               Asesoría de Arquitectura a Domicilio
             </a>
-            <span className="text-black text-sm">★★★</span>
+            <span className="text-accent text-sm">★★★</span>
           </div>
         </div>
         
