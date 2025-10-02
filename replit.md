@@ -15,6 +15,11 @@ The platform features a full mobile-first responsive design. Branding is consist
 - **Frontend**: React 18 with TypeScript, Vite for build, TanStack Query for server state, Wouter for routing, React Hook Form with Zod for forms.
 - **Backend**: Node.js with Express.js, TypeScript with ESM modules, PostgreSQL with Neon for database, Drizzle ORM for type-safe operations.
 - **API Design**: RESTful API with JSON responses, optimized for both human and AI agent consumption.
+- **Security Stack** (Production-Ready):
+  - **CSRF Protection**: Double-submit cookie pattern with HMAC validation using server-side secret, timing-safe comparison (crypto.timingSafeEqual) to prevent timing attacks
+  - **Security Headers**: Helmet middleware with Content-Security-Policy, Strict-Transport-Security (HSTS), X-Frame-Options (SAMEORIGIN), X-Content-Type-Options (nosniff)
+  - **Rate Limiting**: Multi-tier strategy with express-rate-limit (general API: 100 req/15min, forms: 10 req/hour, auth: 5 req/15min)
+  - **Webhook Security**: HMAC verification with SHA-256, bearer token authentication, replay attack protection with timestamp validation
 - **AI Agent Integration**: Modular design supporting AI integration, with API endpoints designed for N8N/MAKE webhook consumption, enabling business process automation for lead qualification, scheduling, permit tracking, and client communication.
 - **Lead Generation System**: Comprehensive lead magnet system based on the $100M Leads methodology, integrating advanced lead magnets (AI Calculator, Permits Checklist, MasterClass, Templates), multi-step contact forms, calculator integration for lead capture, and robust lead tracking with source attribution.
 - **Conversion Optimization**: Integration of Triple Elite Methodology (Alex Hormozi, Russell Brunson, Vilma Núñez) for conversion optimization, including real-time behavioral triggers, A/B testing, exit-intent technology, automated webinar systems (WebinarKit integration), social proof integration, urgency and scarcity messaging, and advanced nurturing sequences.
