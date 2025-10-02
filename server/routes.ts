@@ -267,6 +267,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       if (error instanceof z.ZodError) {
         res.status(400).json({ error: "Invalid input", details: error.errors });
       } else {
+        console.error("Error creating lead:", error);
         res.status(500).json({ error: "Internal server error" });
       }
     }
