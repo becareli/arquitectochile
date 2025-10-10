@@ -224,16 +224,16 @@ export default function Testimonials() {
 
   if (isLoading) {
     return (
-      <section id="testimonios" className="py-20 bg-white">
+      <section id="testimonios" className="py-24 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-dark mb-4">Lo que Dicen Nuestros Clientes</h2>
-            <p className="text-xl text-gray-600">Testimonios reales de proyectos exitosos</p>
+          <div className="text-center mb-20">
+            <h2 className="font-serif text-5xl font-bold text-[hsl(210,15%,30%)] mb-6">Lo que Dicen Nuestros Clientes</h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">Testimonios reales de proyectos exitosos</p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
-            {Array.from({ length: 4 }).map((_, index) => (
-              <Card key={index} className="bg-gray-50 rounded-xl p-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {Array.from({ length: 6 }).map((_, index) => (
+              <Card key={index} className="bg-white rounded-xl p-8 shadow-lg">
                 <div className="text-center">
                   <Skeleton className="w-full h-64 rounded-lg mb-6" />
                   <Skeleton className="h-4 w-24 mx-auto mb-4" />
@@ -250,21 +250,21 @@ export default function Testimonials() {
   }
 
   return (
-    <section id="testimonios" className="py-20 bg-white">
+    <section id="testimonios" className="py-24 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-dark mb-4">Lo que Dicen Nuestros Clientes</h2>
-          <p className="text-xl text-gray-600">Testimonios reales de proyectos exitosos</p>
+        <div className="text-center mb-20">
+          <h2 className="font-serif text-5xl font-bold text-[hsl(210,15%,30%)] mb-6">Lo que Dicen Nuestros Clientes</h2>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">Testimonios reales de proyectos exitosos</p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {(displayTestimonials || []).map((testimonial: any) => (
-            <Card key={testimonial.id} className="bg-gray-50 rounded-xl p-6">
+            <Card key={testimonial.id} className="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100">
               <div className="flex items-start space-x-4">
-                <div className={`relative w-12 h-12 rounded-full flex-shrink-0 overflow-hidden ${
+                <div className={`relative w-14 h-14 rounded-full flex-shrink-0 overflow-hidden ${
                   testimonial.gender === "female" 
-                    ? "bg-gradient-to-br from-pink-400 to-pink-600" 
-                    : "bg-gradient-to-br from-blue-400 to-blue-600"
+                    ? "bg-gradient-to-br from-[hsl(14,70%,50%)] to-[hsl(14,80%,55%)]" 
+                    : "bg-gradient-to-br from-[hsl(210,15%,30%)] to-[hsl(210,15%,25%)]"
                 }`}>
                   <svg className="w-full h-full" viewBox="0 0 100 100">
                     {testimonial.gender === "female" ? (
@@ -298,9 +298,9 @@ export default function Testimonials() {
                 </div>
                 
                 <div className="flex-1">
-                  <div className="flex items-center justify-between mb-2">
+                  <div className="flex items-center justify-between mb-3">
                     <div>
-                      <h4 className="text-dark font-semibold">{testimonial.clientName}</h4>
+                      <h4 className="text-[hsl(210,15%,30%)] font-bold text-lg">{testimonial.clientName}</h4>
                       <p className="text-sm text-gray-500 flex items-center">
                         {testimonial.isGoogleReview && (
                           <span className="inline-flex items-center mr-2">
@@ -328,7 +328,7 @@ export default function Testimonials() {
                     </div>
                   </div>
                   
-                  <p className="text-gray-600 italic">"{testimonial.content}"</p>
+                  <p className="font-serif text-gray-600 italic text-base leading-relaxed">"{testimonial.content}"</p>
                   
                   {testimonial.videoUrl && testimonial.videoUrl !== "#" && (
                     <Button 
@@ -346,12 +346,12 @@ export default function Testimonials() {
         </div>
         
         {/* Google Maps Business Profile Link */}
-        <div className="text-center mt-12">
-          <div className="bg-gradient-to-r from-primary to-secondary text-white rounded-lg p-6 inline-block">
-            <h3 className="text-lg font-semibold mb-2">⭐ 4.9 estrellas en Google Maps</h3>
-            <p className="text-sm opacity-90 mb-4">29 reseñas verificadas de clientes reales</p>
+        <div className="text-center mt-16">
+          <div className="bg-gradient-to-r from-[hsl(210,15%,30%)] to-[hsl(210,15%,25%)] text-white rounded-xl p-8 inline-block shadow-xl">
+            <h3 className="font-serif text-2xl font-bold mb-3">⭐ 4.9 estrellas en Google Maps</h3>
+            <p className="text-base opacity-90 mb-6">29 reseñas verificadas de clientes reales</p>
             <Button 
-              className="bg-white text-primary hover:bg-gray-100 transition-colors"
+              className="bg-white text-[hsl(210,15%,30%)] hover:bg-gray-100 transition-colors font-semibold"
               onClick={() => window.open('https://www.google.cl/maps/place/Arquitecto+en+Chile-+Arquitecto+Patricio+Becar+Elissegaray/@-33.5252759,-70.5979196,117m/data=!3m1!1e3!4m15!1m8!3m7!1s0x9662d0f533070f1d:0x76497030b1c56d0c!2sAv.+Vicu%C3%B1a+Mackenna+Poniente+7735,+8400000+La+Florida,+Regi%C3%B3n+Metropolitana!3b1!8m2!3d-33.5253901!4d-70.5976952!16s%2Fg%2F11vhtn6405!3m5!1s0x9662d13f8fcab879:0x7da3de8ed1769aa2!8m2!3d-33.5249749!4d-70.5978066!16s%2Fg%2F1vp74_0b', '_blank')}
             >
               Ver Todas las Reseñas en Google
