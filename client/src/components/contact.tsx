@@ -78,7 +78,7 @@ export default function Contact() {
 
         // Get upload URL from server
         const uploadResponse = await apiRequest("POST", "/api/objects/upload", {});
-        const { uploadURL } = uploadResponse;
+        const { uploadURL } = await uploadResponse.json();
 
         // Upload file to object storage
         const uploadResult = await fetch(uploadURL, {
