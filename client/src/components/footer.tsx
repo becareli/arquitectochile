@@ -3,9 +3,9 @@ import logoImg from "@assets/ArquitectoChile.com Logo_1754020481868.png";
 
 export default function Footer() {
   return (
-    <footer className="bg-dark text-white py-12">
+    <footer className="bg-[hsl(210,15%,20%)] text-white py-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-6 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-6 gap-10">
           <div>
             <div className="mb-4">
               <img 
@@ -52,7 +52,7 @@ export default function Footer() {
           </div>
           
           <div>
-            <h4 className="text-lg font-semibold mb-4">Servicios</h4>
+            <h4 className="font-serif text-xl font-bold mb-5 text-white">Servicios</h4>
             <ul className="space-y-1 text-gray-300 text-sm">
               <li><a href="#servicios" className="hover:text-white transition-colors">Arquitecto a Domicilio</a></li>
               <li><a href="#servicios" className="hover:text-white transition-colors">Regularización de Inmuebles</a></li>
@@ -68,7 +68,7 @@ export default function Footer() {
           </div>
           
           <div>
-            <h4 className="text-lg font-semibold mb-4">Recursos</h4>
+            <h4 className="font-serif text-xl font-bold mb-5 text-white">Recursos</h4>
             <ul className="space-y-2 text-gray-300">
               <li><a href="#ebook" className="hover:text-white transition-colors">Ebook Gratis</a></li>
               <li><a href="/calculadora-costos" className="hover:text-white transition-colors">Calculadora de Costos</a></li>
@@ -79,7 +79,7 @@ export default function Footer() {
           </div>
           
           <div>
-            <h4 className="text-lg font-semibold mb-4">Accesos</h4>
+            <h4 className="font-serif text-xl font-bold mb-5 text-white">Accesos</h4>
             <ul className="space-y-2 text-gray-300">
               <li><a href="/portal-cliente" className="hover:text-white transition-colors">Portal del Cliente</a></li>
               <li><a href="/colaboradores" className="hover:text-white transition-colors">Portal Colaboradores</a></li>
@@ -87,7 +87,7 @@ export default function Footer() {
           </div>
           
           <div>
-            <h4 className="text-lg font-semibold mb-4">Legal</h4>
+            <h4 className="font-serif text-xl font-bold mb-5 text-white">Legal</h4>
             <ul className="space-y-2 text-gray-300">
               <li><a href="/aviso-legal" className="hover:text-white transition-colors">Aviso Legal</a></li>
               <li><a href="/politica-privacidad" className="hover:text-white transition-colors">Política de Privacidad</a></li>
@@ -97,7 +97,7 @@ export default function Footer() {
           </div>
           
           <div>
-            <h4 className="text-lg font-semibold mb-4">Contacto</h4>
+            <h4 className="font-serif text-xl font-bold mb-5 text-white">Contacto</h4>
             <div className="space-y-3 text-gray-300">
               <a 
                 href="mailto:contacto@arquitectochile.com"
@@ -127,7 +127,7 @@ export default function Footer() {
                   href="https://maps.google.com/?cid=12123957937748651818"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center mt-2 px-2 py-1 bg-blue-600 text-white text-xs rounded hover:bg-blue-700 transition-colors"
+                  className="inline-flex items-center mt-2 px-3 py-1.5 bg-[hsl(14,70%,50%)] text-white text-xs rounded-md hover:bg-[hsl(14,70%,45%)] transition-colors font-medium"
                 >
                   <MapPin size={12} className="mr-1" />
                   Ver en Google Maps
@@ -137,7 +137,7 @@ export default function Footer() {
           </div>
         </div>
         
-        <div className="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+        <div className="border-t border-gray-700 mt-12 pt-10 text-center text-gray-400">
           <p>&copy; 2025 ArquitectoChile. Todos los derechos reservados.</p>
           <p className="mt-2 text-sm">
             Diseñado para cumplir con estándares de Meta, Google y regulaciones de privacidad chilenas
