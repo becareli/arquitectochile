@@ -18,6 +18,7 @@ import TasacionViviendasUrbanas from "@/pages/tasacion-viviendas-urbanas";
 import SubdivisionTerrenosUrbanos from "@/pages/subdivision-terrenos-urbanos";
 import ReacondicionamientoTermicoViviendas from "@/pages/reacondicionamiento-termico-viviendas";
 import RegularizacionViviendasLaFlorida from "@/pages/regularizacion-viviendas-la-florida";
+import SistemaEIFS from "@/pages/sistema-eifs";
 import CalculadoraCostos from "@/pages/calculadora-costos";
 import Revista from "@/pages/revista";
 import AvisoLegal from "@/pages/aviso-legal";
@@ -45,6 +46,7 @@ function Router() {
       <Route path="/subdivision-terrenos-urbanos" component={SubdivisionTerrenosUrbanos} />
       <Route path="/reacondicionamiento-termico-viviendas" component={ReacondicionamientoTermicoViviendas} />
       <Route path="/regularizacion-viviendas-la-florida" component={RegularizacionViviendasLaFlorida} />
+      <Route path="/sistema-eifs" component={SistemaEIFS} />
       <Route path="/calculadora-costos" component={CalculadoraCostos} />
       <Route path="/revista" component={Revista} />
       <Route path="/aviso-legal" component={AvisoLegal} />
