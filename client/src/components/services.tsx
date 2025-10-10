@@ -20,7 +20,7 @@ export default function Services() {
         "Informe detallado"
       ],
       featured: true,
-      bgColor: "bg-gradient-to-br from-accent to-yellow-500"
+      bgColor: "bg-gradient-to-br from-[hsl(14,70%,50%)] to-[hsl(14,65%,45%)]"
     },
     {
       id: "regularizacion-inmuebles",
@@ -35,7 +35,7 @@ export default function Services() {
         "Gestión integral del proceso"
       ],
       featured: true,
-      bgColor: "bg-gradient-to-br from-green-600 to-emerald-500"
+      bgColor: "bg-gradient-to-br from-[hsl(210,15%,30%)] to-[hsl(210,15%,25%)]"
     },
     {
       id: "revisor-independiente-de-arquitectura",
@@ -52,7 +52,7 @@ export default function Services() {
         "📋 Informe Favorable - documento oficial"
       ],
       featured: true,
-      bgColor: "bg-gradient-to-br from-blue-600 to-purple-600",
+      bgColor: "bg-gradient-to-br from-[hsl(210,15%,30%)] to-[hsl(210,20%,35%)]",
       urgency: "🔥 EVITA RECHAZOS COSTOSOS",
       legalBacking: "Certificación MINVU N° 369500 Vigente"
     },
@@ -71,7 +71,7 @@ export default function Services() {
         "🛡️ Garantía de asesoría especializada"
       ],
       featured: true,
-      bgColor: "bg-gradient-to-br from-red-600 to-orange-500",
+      bgColor: "bg-gradient-to-br from-[hsl(14,70%,50%)] to-[hsl(25,75%,50%)]",
       urgency: "🔥 PARE DE QUEMAR DINERO EN CALEFACCIÓN",
       path: "/reacondicionamiento-termico-viviendas"
     },
@@ -97,7 +97,7 @@ export default function Services() {
         "⚡ Proceso colaborativo paso a paso"
       ],
       featured: true,
-      bgColor: "bg-gradient-to-br from-purple-600 to-pink-600",
+      bgColor: "bg-gradient-to-br from-[hsl(14,70%,50%)] to-[hsl(14,80%,55%)]",
       urgency: "🔥 SOLO 3 PROYECTOS POR MES",
       valueProposition: "El hogar que siempre imaginaste, diseñado específicamente para tu estilo de vida"
     },
@@ -116,7 +116,7 @@ export default function Services() {
         "✅ Gestión integral: DOM→SII→CBR"
       ],
       featured: true,
-      bgColor: "bg-gradient-to-br from-emerald-600 to-green-700",
+      bgColor: "bg-gradient-to-br from-[hsl(210,15%,30%)] to-[hsl(210,15%,20%)]",
       urgency: "🔥 BENEFICIO LEY ART. 63 LIMITADO",
       valueProposition: "La única forma LEGAL de aumentar instantáneamente el valor y capacidad de tu terreno"
     },
@@ -135,7 +135,7 @@ export default function Services() {
         "⚖️ Respaldo para negociar mejor precio"
       ],
       featured: true,
-      bgColor: "bg-gradient-to-br from-blue-800 to-indigo-900",
+      bgColor: "bg-gradient-to-br from-[hsl(210,15%,25%)] to-[hsl(210,20%,20%)]",
       urgency: "🔥 SOLO 15 INSPECCIONES POR MES",
       valueProposition: "Transforme la compra más grande de su vida en una decisión científica"
     },
@@ -154,7 +154,7 @@ export default function Services() {
         "💰 Evita perder millones en tu negociación"
       ],
       featured: true,
-      bgColor: "bg-gradient-to-br from-indigo-600 to-purple-700",
+      bgColor: "bg-gradient-to-br from-[hsl(210,15%,30%)] to-[hsl(210,18%,25%)]",
       urgency: "🔥 DECISIÓN MILLONARIA REQUIERE CERTEZA",
       valueProposition: "No deje que la duda le cueste millones - Conozca el valor exacto de su propiedad"
     },
@@ -173,7 +173,7 @@ export default function Services() {
         "✅ 26+ años experiencia en subdivisiones"
       ],
       featured: true,
-      bgColor: "bg-gradient-to-br from-blue-800 to-indigo-900",
+      bgColor: "bg-gradient-to-br from-[hsl(210,15%,28%)] to-[hsl(210,18%,22%)]",
       urgency: "🔥 CAPITAL DORMIDO PIERDE VALOR CADA DÍA",
       valueProposition: "Desbloquee el potencial oculto de su terreno sin invertir un peso adicional"
     },
@@ -247,32 +247,32 @@ export default function Services() {
   };
 
   return (
-    <section id="servicios" className="py-20 bg-white">
+    <section id="servicios" className="py-24 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-dark mb-4">Nuestros Servicios</h2>
-          <p className="text-xl text-gray-600">Soluciones completas para tus proyectos de arquitectura y construcción</p>
+        <div className="text-center mb-20">
+          <h2 className="font-serif text-5xl font-bold text-[hsl(210,15%,30%)] mb-6">Nuestros Servicios</h2>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">Soluciones completas para tus proyectos de arquitectura y construcción</p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
           {services.map((service) => {
             const IconComponent = service.icon;
             
             if (service.featured) {
               return (
-                <Card key={service.id} className={`${service.bgColor} text-white md:col-span-2 lg:col-span-1 transform hover:scale-105 transition-transform duration-300 relative overflow-hidden`}>
-                  {/* Urgency Banner for Revisor Independiente */}
+                <Card key={service.id} className={`${service.bgColor} text-white md:col-span-2 lg:col-span-1 transform hover:scale-105 transition-all duration-300 relative overflow-hidden shadow-xl hover:shadow-2xl`}>
+                  {/* Urgency Banner */}
                   {service.urgency && (
-                    <div className="bg-red-600 text-white text-center py-2 px-4 text-sm font-bold animate-pulse">
+                    <div className="bg-[hsl(14,70%,50%)] text-white text-center py-2.5 px-4 text-sm font-semibold">
                       {service.urgency}
                     </div>
                   )}
                   
-                  <CardHeader className="text-center">
-                    <div className="bg-white/20 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                      <IconComponent className="text-white text-2xl" />
+                  <CardHeader className="text-center pb-6">
+                    <div className="bg-white/20 backdrop-blur-sm w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
+                      <IconComponent className="text-white text-3xl" />
                     </div>
-                    <CardTitle className="text-2xl font-bold mb-2">{service.title}</CardTitle>
+                    <CardTitle className="font-serif text-3xl font-bold mb-3">{service.title}</CardTitle>
                     {service.price && (
                       <div className="text-3xl font-bold mb-2">{service.price}</div>
                     )}
@@ -318,18 +318,18 @@ export default function Services() {
             }
 
             return (
-              <Card key={service.id} className={`${service.bgColor} rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300`}>
-                <CardHeader className="text-center">
-                  <div className="bg-primary/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <IconComponent className="text-primary text-2xl" />
+              <Card key={service.id} className={`${service.bgColor} rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-200`}>
+                <CardHeader className="text-center pb-6">
+                  <div className="bg-[hsl(210,15%,30%)]/10 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-5">
+                    <IconComponent className="text-[hsl(210,15%,30%)] text-3xl" />
                   </div>
-                  <CardTitle className="text-xl font-bold text-dark mb-2">{service.title}</CardTitle>
-                  <p className="text-gray-600">{service.description}</p>
+                  <CardTitle className="font-serif text-2xl font-bold text-[hsl(210,15%,30%)] mb-3">{service.title}</CardTitle>
+                  <p className="text-gray-600 text-base">{service.description}</p>
                 </CardHeader>
                 <CardContent className="pt-0">
                   <Button 
                     onClick={() => handleServiceClick(service.id)}
-                    className="w-full bg-primary text-white hover:bg-secondary"
+                    className="w-full bg-[hsl(210,15%,30%)] text-white hover:bg-[hsl(210,15%,25%)] transition-colors"
                   >
                     Más Información
                   </Button>
