@@ -9,7 +9,16 @@ Preferred communication style: Simple, everyday language.
 ## System Architecture
 
 ### UI/UX Decisions
-The platform features a full mobile-first responsive design. Branding is consistent with a custom ArquitectoChile logo. The navigation is optimized with a prominent logo header, centered links, and grouped action buttons. The hero section is optimized with a VSL (Video Sales Letter) structure. Design leverages Tailwind CSS for styling, Radix UI primitives, and shadcn/ui for components, ensuring accessibility and a modern aesthetic.
+The platform features a full mobile-first responsive design with an **architectural elegant aesthetic** (October 2025 redesign). Branding is consistent with a custom ArquitectoChile logo. 
+
+**Design System (Architectural Elegant Style)**:
+- **Color Palette**: Steel blue primary (hsl(210,15%,30%)), terracotta accent (hsl(14,70%,50%)), architectural grays for depth
+- **Typography**: Playfair Display (serif) for headings providing elegance, Inter (sans-serif) for body text ensuring readability
+- **Spacing Philosophy**: Generous breathing room throughout (py-24, gap-10, increased margins) for sophisticated architectural feel
+- **Visual Details**: Refined shadows (shadow-xl), smooth transitions (transition-all duration-300), premium hover states
+- **Components Updated**: Navigation, hero sections, service cards, testimonials, footer all reflect the cohesive architectural design system
+
+The navigation is optimized with a prominent logo header, centered links, and grouped action buttons. The hero section is optimized with a VSL (Video Sales Letter) structure. Design leverages Tailwind CSS for styling, Radix UI primitives, and shadcn/ui for components, ensuring accessibility and a modern aesthetic.
 
 ### Technical Implementations
 - **Frontend**: React 18 with TypeScript, Vite for build, TanStack Query for server state, Wouter for routing, React Hook Form with Zod for forms.
