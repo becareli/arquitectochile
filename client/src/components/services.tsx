@@ -78,9 +78,22 @@ export default function Services() {
     {
       id: "eifs",
       title: "Sistema EIFS",
-      description: "Aislación térmica para reducir costos energéticos",
+      price: "Desde $1.800.000",
+      description: "Aislación térmica exterior que reduce hasta 60% los costos energéticos",
       icon: Snowflake,
-      bgColor: "bg-white"
+      features: [
+        "❄️ Aislación térmica exterior de última generación",
+        "🏠 Envuelve y abrига completamente su hogar",
+        "💰 Reduce 60% costos calefacción/refrigeración",
+        "🌡️ Temperatura estable todo el año",
+        "🛡️ Impermeable + resistente al clima chileno",
+        "✅ Instalación profesional con garantía"
+      ],
+      featured: true,
+      bgColor: "bg-gradient-to-br from-[hsl(210,15%,30%)] to-[hsl(210,15%,25%)]",
+      urgency: "❄️ PARE DE SUFRIR FRÍO/CALOR EXTREMO",
+      valueProposition: "El único sistema que abraza su casa completa para máximo confort térmico",
+      path: "/sistema-eifs"
     },
     {
       id: "disena-espacio",
@@ -239,6 +252,11 @@ export default function Services() {
       return;
     }
     
+    if (serviceId === 'eifs') {
+      setLocation('/sistema-eifs');
+      return;
+    }
+    
     // Scroll to contact section for other services
     const contactSection = document.getElementById('contacto');
     if (contactSection) {
@@ -304,10 +322,12 @@ export default function Services() {
                           ? 'bg-blue-600 text-white hover:bg-blue-700'
                           : service.id === 'fusion-terrenos-urbanos'
                           ? 'bg-emerald-600 text-white hover:bg-emerald-700'
+                          : service.id === 'eifs'
+                          ? 'bg-[hsl(14,70%,50%)] text-white hover:bg-[hsl(14,70%,45%)]'
                           : 'bg-white text-accent hover:bg-gray-50'
                       }`}
                     >
-                      {service.id === 'revisor-independiente-de-arquitectura' || service.id === 'disena-espacio' || service.id === 'fusion-terrenos-urbanos' || service.id === 'inspeccion-tecnica-viviendas' || service.id === 'tasacion-viviendas-urbanas' || service.id === 'subdivision-terrenos-urbanos'
+                      {service.id === 'revisor-independiente-de-arquitectura' || service.id === 'disena-espacio' || service.id === 'fusion-terrenos-urbanos' || service.id === 'inspeccion-tecnica-viviendas' || service.id === 'tasacion-viviendas-urbanas' || service.id === 'subdivision-terrenos-urbanos' || service.id === 'eifs' || service.id === 'reacondicionamiento-termico'
                         ? 'Más Información' 
                         : 'Agendar Visita'
                       }
