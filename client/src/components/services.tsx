@@ -193,24 +193,30 @@ export default function Services() {
 
 
     {
+      id: "permiso-recepcion",
+      title: "Permiso de Edificación + Recepción Final",
+      price: "Desde $497.000",
+      description: "Legalice su construcción sin rechazos - Proceso completo DOM garantizado",
+      icon: FileText,
+      features: [
+        "📋 Permiso de Edificación con Revisor Independiente MINVU",
+        "⚡ Aprobación en 15 días (vs 30-60 días normal)",
+        "💰 30% descuento derechos municipales por LEY",
+        "✅ Recepción Final sin costo adicional DOM",
+        "🛡️ Certificación MINVU ROL 00237-13 vigente",
+        "🏆 Proceso completo: desde permiso hasta legalización"
+      ],
+      featured: true,
+      bgColor: "bg-gradient-to-br from-[hsl(210,15%,30%)] to-[hsl(210,15%,25%)]",
+      urgency: "🚨 EVITA RECHAZOS Y MULTAS MILLONARIAS",
+      valueProposition: "El único servicio que garantiza aprobación 100% y legalización completa",
+      path: "/permiso-edificacion-recepcion-final"
+    },
+    {
       id: "estudio-cabidas",
       title: "Estudio de Cabidas",
       description: "Análisis de capacidad de edificación",
       icon: Box,
-      bgColor: "bg-white"
-    },
-    {
-      id: "permiso-edificacion",
-      title: "Permiso de Edificación",
-      description: "Gestión completa de permisos",
-      icon: FileText,
-      bgColor: "bg-white"
-    },
-    {
-      id: "recepcion-final",
-      title: "Recepción Final",
-      description: "Legalización de tu proyecto",
-      icon: CheckCircle,
       bgColor: "bg-white"
     }
   ];
@@ -254,6 +260,11 @@ export default function Services() {
     
     if (serviceId === 'eifs') {
       setLocation('/sistema-eifs');
+      return;
+    }
+    
+    if (serviceId === 'permiso-recepcion') {
+      setLocation('/permiso-edificacion-recepcion-final');
       return;
     }
     
@@ -327,7 +338,7 @@ export default function Services() {
                           : 'bg-white text-accent hover:bg-gray-50'
                       }`}
                     >
-                      {service.id === 'revisor-independiente-de-arquitectura' || service.id === 'disena-espacio' || service.id === 'fusion-terrenos-urbanos' || service.id === 'inspeccion-tecnica-viviendas' || service.id === 'tasacion-viviendas-urbanas' || service.id === 'subdivision-terrenos-urbanos' || service.id === 'eifs' || service.id === 'reacondicionamiento-termico'
+                      {service.id === 'revisor-independiente-de-arquitectura' || service.id === 'disena-espacio' || service.id === 'fusion-terrenos-urbanos' || service.id === 'inspeccion-tecnica-viviendas' || service.id === 'tasacion-viviendas-urbanas' || service.id === 'subdivision-terrenos-urbanos' || service.id === 'eifs' || service.id === 'reacondicionamiento-termico' || service.id === 'permiso-recepcion'
                         ? 'Más Información' 
                         : 'Agendar Visita'
                       }
