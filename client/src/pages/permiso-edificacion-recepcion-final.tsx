@@ -77,7 +77,7 @@ export default function PermisoEdificacionRecepcionFinal() {
                 ¿Necesita <span className="text-[hsl(14,70%,50%)]">LEGALIZAR</span> su Construcción sin Rechazos ni Demoras?
               </h1>
               <p className="text-xl mb-8 text-gray-200 leading-relaxed">
-                Gestión integral de <strong>Permiso de Edificación y Recepción Final</strong> con arquitecto certificado MINVU. <strong>Garantizamos aprobación</strong> y cumplimiento normativo completo.
+                Gestión integral de <strong>Permiso de Edificación y Recepción Final</strong> con arquitecto certificado MINVU.
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 mb-8">
