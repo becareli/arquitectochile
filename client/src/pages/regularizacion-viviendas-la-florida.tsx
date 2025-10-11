@@ -659,7 +659,7 @@ export default function RegularizacionViviendasLaFloridaPage() {
 
           <div className="bg-white p-8 rounded-lg shadow-2xl text-gray-900 max-w-4xl mx-auto" id="contact-form">
             <h3 className="text-3xl font-bold mb-6 text-center">
-              📞 Agenda tu Visita de Diagnóstico GRATUITA
+              📞 Agenda tu Visita de Diagnóstico
             </h3>
             
             {/* Formulario Externo Embebido */}
