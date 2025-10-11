@@ -60,7 +60,7 @@ export default function Hero() {
                     <p className="opacity-90">Consulta inicial en tu terreno</p>
                   </div>
                   <div className="text-right">
-                    <p className="text-2xl font-bold text-accent">GRATIS</p>
+                    <p className="text-2xl font-bold text-accent">$45.000</p>
                     <p className="text-sm opacity-75">Primera consulta</p>
                   </div>
                 </div>
