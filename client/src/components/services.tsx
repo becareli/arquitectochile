@@ -195,8 +195,7 @@ export default function Services() {
     {
       id: "permiso-recepcion",
       title: "Permiso de Edificación + Recepción Final",
-      price: "Desde $497.000",
-      description: "Legalice su construcción sin rechazos - Proceso completo DOM garantizado",
+      description: "Legalice su construcción sin rechazos - Proceso completo DOM",
       icon: FileText,
       features: [
         "📋 Permiso de Edificación con Revisor Independiente MINVU",
@@ -209,7 +208,7 @@ export default function Services() {
       featured: true,
       bgColor: "bg-gradient-to-br from-[hsl(210,15%,30%)] to-[hsl(210,15%,25%)]",
       urgency: "🚨 EVITA RECHAZOS Y MULTAS MILLONARIAS",
-      valueProposition: "El único servicio que garantiza aprobación 100% y legalización completa",
+      valueProposition: "Servicio integral profesional para aprobación y legalización completa",
       path: "/permiso-edificacion-recepcion-final"
     },
     {
