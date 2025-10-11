@@ -27,9 +27,9 @@ export default function Hero() {
             <div className="bg-white/20 backdrop-blur-sm rounded-lg p-4 sm:p-6 mb-6">
               <h3 className="text-lg sm:text-xl font-bold mb-3">OFERTA ESPECIAL HOY:</h3>
               <p className="text-xl sm:text-2xl font-bold text-accent">
-                <span className="line-through text-white/70 text-base sm:text-lg">$3.200.000</span> → $1.800.000
+                Descuento Exclusivo para Nuevos Clientes
               </p>
-              <p className="text-sm sm:text-base opacity-90 mt-2">Ahorras $1.400.000 si decides hoy</p>
+              <p className="text-sm sm:text-base opacity-90 mt-2">Aprovecha esta oferta especial por tiempo limitado</p>
             </div>
             
             {/* Beneficios clave basados en VSL */}
@@ -60,7 +60,7 @@ export default function Hero() {
                     <p className="opacity-90">Consulta inicial en tu terreno</p>
                   </div>
                   <div className="text-right">
-                    <p className="text-2xl font-bold text-accent">$40,000</p>
+                    <p className="text-2xl font-bold text-accent">GRATIS</p>
                     <p className="text-sm opacity-75">Primera consulta</p>
                   </div>
                 </div>
@@ -72,7 +72,7 @@ export default function Hero() {
                 onClick={() => scrollToSection('contacto')}
                 className="bg-accent text-white px-10 py-5 rounded-lg text-lg font-semibold hover:opacity-90 transition-all duration-300 text-center shadow-2xl transform hover:scale-105"
               >
-                SÍ, QUIERO AGENDAR Y AHORRAR $1.400.000
+                SÍ, QUIERO AGENDAR Y APROVECHAR LA OFERTA
               </button>
               <button 
                 onClick={() => scrollToSection('ebook')}
