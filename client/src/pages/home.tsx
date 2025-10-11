@@ -24,7 +24,6 @@ import ConversionOptimization from "@/components/conversion-optimization";
 import ConversionOptimizer from "@/components/conversion-optimizer";
 import AdvancedNurturing from "@/components/advanced-nurturing";
 import WebinarSystem from "@/components/webinar-system";
-import WebinarIntegration from "@/components/webinar-integration";
 import AutomatedWebinarSystem from "@/components/automated-webinar-system";
 import ObjectionHandling from "@/components/objection-handling";
 import Guarantees from "@/components/guarantees";
@@ -235,7 +234,6 @@ export default function Home() {
       <AdvancedNurturing />
       <WebinarSystem />
       <AutomatedWebinarSystem />
-      <WebinarIntegration />
       <ObjectionHandling />
       <Guarantees />
       <Blog />
