@@ -128,7 +128,7 @@ export default function Home() {
         ]
       };
 
-      let script = document.querySelector('script[type="application/ld+json"]');
+      let script = document.querySelector('script[type="application/ld+json"]') as HTMLScriptElement;
       if (script) {
         script.textContent = JSON.stringify(schemaData);
       } else {

@@ -163,7 +163,7 @@ export default function PermisoEdificacionRecepcionFinal() {
               "El 70% de las solicitudes son RECHAZADAS por errores evitables"
             </p>
             <p className="text-lg">
-              Cada rechazo significa <strong>60 días más de espera, costos adicionales y estrés innecesario.</strong> Pero existe una forma GARANTIZADA de aprobar a la primera.
+              Cada rechazo significa <strong>60 días más de espera, costos adicionales y estrés innecesario.</strong> Pero existe una metodología COMPROBADA para minimizar rechazos y aumentar significativamente las probabilidades de aprobación.
             </p>
           </div>
         </div>
@@ -187,7 +187,7 @@ export default function PermisoEdificacionRecepcionFinal() {
               <CardHeader className="bg-gradient-to-r from-[hsl(210,15%,30%)] to-[hsl(210,15%,25%)] text-white">
                 <FileText className="mx-auto mb-4" size={56} />
                 <CardTitle className="font-serif text-3xl text-center">Permiso de Edificación</CardTitle>
-                <p className="text-center text-lg mt-2">Aprobación DOM Garantizada</p>
+                <p className="text-center text-lg mt-2">Gestión Profesional DOM</p>
               </CardHeader>
               <CardContent className="pt-6 space-y-4">
                 {[
@@ -251,13 +251,13 @@ export default function PermisoEdificacionRecepcionFinal() {
             {[
               {
                 icon: Zap,
-                title: "Velocidad Garantizada",
+                title: "Proceso Acelerado",
                 description: "15 días de aprobación vs 30-60 días del proceso normal. Ahorre MESES de espera"
               },
               {
                 icon: Shield,
-                title: "Cero Rechazos",
-                description: "Con Revisor Independiente MINVU es IMPOSIBLE que rechacen su solicitud"
+                title: "Alta Probabilidad de Aprobación",
+                description: "Con Revisor Independiente MINVU maximizamos las probabilidades de aprobación exitosa"
               },
               {
                 icon: BanknoteIcon,
@@ -365,7 +365,7 @@ export default function PermisoEdificacionRecepcionFinal() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="font-serif text-4xl font-bold text-[hsl(210,15%,30%)] mb-6">
-              Marco Legal y Garantía de Aprobación
+              Marco Legal y Respaldo Profesional
             </h2>
           </div>
 
@@ -386,12 +386,12 @@ export default function PermisoEdificacionRecepcionFinal() {
               </div>
 
               <div className="space-y-4">
-                <h3 className="font-bold text-2xl text-[hsl(210,15%,30%)]">✅ Nuestra Garantía:</h3>
+                <h3 className="font-bold text-2xl text-[hsl(210,15%,30%)]">✅ Nuestro Compromiso:</h3>
                 <div className="flex items-start gap-4">
                   <CheckCircle className="text-[hsl(14,70%,50%)] flex-shrink-0 mt-1" size={28} />
                   <div>
-                    <h4 className="font-bold text-xl mb-2">Aprobación 100% Garantizada</h4>
-                    <p className="text-gray-700">Con Informe Favorable de Revisor Independiente, es IMPOSIBLE que rechacen su solicitud. Respaldado por LEY.</p>
+                    <h4 className="font-bold text-xl mb-2">Proceso Optimizado para Aprobación</h4>
+                    <p className="text-gray-700">Con Informe Favorable de Revisor Independiente, maximizamos significativamente las probabilidades de aprobación. Respaldado por la normativa vigente.</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
