@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { 
   Home, Phone, CheckCircle, MapPin, FileText, 
-  Lightbulb, BarChart3, DollarSign, Eye, Ruler
+  Lightbulb, BarChart3, DollarSign, Eye, Ruler, Calendar
 } from "lucide-react";
 import Navigation from "@/components/navigation";
 import Footer from "@/components/footer";
@@ -80,6 +80,10 @@ export default function AsesoriaArquitectonicaTerreno() {
   const openWhatsApp = () => {
     const message = "Hola Patricio, me interesa agendar una asesoría arquitectónica en mi terreno. Necesito ayuda con mi proyecto.";
     window.open(`https://wa.me/56979316827?text=${encodeURIComponent(message)}`, '_blank');
+  };
+
+  const openTidyCal = () => {
+    window.open('https://tidycal.com/arquitectopatriciobecar/asesoria-de-arquitectura-y-construccion-gratuita', '_blank');
   };
 
   return (
@@ -305,12 +309,12 @@ export default function AsesoriaArquitectonicaTerreno() {
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button 
-              onClick={openWhatsApp}
+              onClick={openTidyCal}
               size="lg" 
               className="bg-white text-[hsl(14,70%,50%)] hover:bg-gray-100 text-xl px-10 py-6 font-bold"
               data-testid="button-agendar-visita-final"
             >
-              <Phone className="mr-3 h-6 w-6" />
+              <Calendar className="mr-3 h-6 w-6" />
               AGENDAR MI VISITA
             </Button>
           </div>
