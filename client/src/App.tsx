@@ -26,6 +26,7 @@ import AvisoLegal from "@/pages/aviso-legal";
 import PoliticaPrivacidad from "@/pages/politica-privacidad";
 import PoliticaCookies from "@/pages/politica-cookies";
 import Gracias from "@/pages/gracias";
+import AsesoriaArquitectonicaTerreno from "@/pages/asesoria-arquitectonica-terreno";
 import NotFound from "@/pages/not-found";
 import CookieConsent from "@/components/cookie-consent";
 
@@ -39,6 +40,7 @@ function Router() {
       <Route path="/crm-admin-dashboard" component={CRMAdminDashboardNew} />
       <Route path="/portal-cliente" component={ClientPortal} />
       <Route path="/servicios-a-domicilio" component={ServiciosADomicilio} />
+      <Route path="/asesoria-arquitectonica-terreno" component={AsesoriaArquitectonicaTerreno} />
       <Route path="/colaboradores" component={Colaboradores} />
       <Route path="/revisor-independiente-de-arquitectura" component={RevisorIndependienteDeArquitectura} />
       <Route path="/disenemos-tus-nuevos-espacios" component={DisenemosNuevosEspacios} />
