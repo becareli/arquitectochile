@@ -193,11 +193,6 @@ export default function Home() {
       <Navigation />
       <Hero />
       
-      {/* Lead Magnet Section */}
-      <section id="ebook">
-        <LeadMagnet />
-      </section>
-      
       {/* Interactive Calculators Section */}
       <section id="calculadoras" className="py-20 bg-neutral">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -214,6 +209,12 @@ export default function Home() {
       </section>
 
       <Services />
+      
+      {/* Lead Magnet Section */}
+      <section id="ebook">
+        <LeadMagnet />
+      </section>
+      
       <RegularizacionInmuebles />
       <AsesoriaTerreno />
       <ClientPortalCTA />
