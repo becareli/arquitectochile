@@ -1137,7 +1137,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Newsletter subscription endpoint - systeme.io integration
-  app.post("/api/newsletter/subscribe", async (req, res) => {
+  // Rate limit: 3 requests per 15 minutes per IP to prevent spam
+  const newsletterRateLimit = (await import('express-rate-limit')).default({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 3, // 3 requests per window
+    message: { error: "Demasiados intentos. Por favor intenta nuevamente en 15 minutos." },
+    standardHeaders: true,
+    legacyHeaders: false,
+  });
+  
+  app.post("/api/newsletter/subscribe", newsletterRateLimit, async (req, res) => {
     try {
       const subscriptionData = newsletterSubscriptionSchema.parse(req.body);
       const apiKey = process.env.SYSTEME_IO_API_KEY;
