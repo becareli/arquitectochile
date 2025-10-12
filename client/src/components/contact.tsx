@@ -1,31 +1,72 @@
-import { useEffect } from "react";
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { apiRequest } from "@/lib/queryClient";
+import { useToast } from "@/hooks/use-toast";
+import { Mail, User, CheckCircle2, Loader2 } from "lucide-react";
 
 export default function Contact() {
-  useEffect(() => {
-    // Remove existing script if present
-    const existingScript = document.getElementById('form-script-tag-20884222');
-    if (existingScript) {
-      existingScript.remove();
+  const [formData, setFormData] = useState({
+    firstName: "",
+    email: ""
+  });
+  
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const { toast } = useToast();
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!formData.firstName || !formData.email) {
+      toast({
+        title: "Error",
+        description: "Por favor completa todos los campos",
+        variant: "destructive"
+      });
+      return;
     }
 
-    // Create and load the external form script
-    const script = document.createElement('script');
-    script.id = 'form-script-tag-20884222';
-    script.src = 'https://www.arquitectochile.cl/public/remote/page/33938295c0dcb9fe58761b712e8df05602099d31.js';
-    script.async = true;
+    setIsSubmitting(true);
     
-    // Append script to document
-    document.body.appendChild(script);
+    try {
+      const response = await apiRequest("POST", "/api/newsletter/subscribe", {
+        firstName: formData.firstName,
+        email: formData.email,
+        language: "es"
+      });
 
-    // Cleanup function to remove script when component unmounts
-    return () => {
-      const scriptToRemove = document.getElementById('form-script-tag-20884222');
-      if (scriptToRemove) {
-        scriptToRemove.remove();
+      const data = await response.json();
+
+      if (data.success) {
+        setIsSuccess(true);
+        toast({
+          title: "¡Suscripción exitosa!",
+          description: data.alreadySubscribed 
+            ? "Ya estás suscrito a nuestro newsletter" 
+            : "Te enviaremos el ebook a tu correo electrónico",
+        });
+
+        // Reset form after 3 seconds
+        setTimeout(() => {
+          setFormData({ firstName: "", email: "" });
+          setIsSuccess(false);
+        }, 3000);
       }
-    };
-  }, []);
+    } catch (error: any) {
+      console.error("Newsletter subscription error:", error);
+      
+      toast({
+        title: "Error",
+        description: error.message || "Hubo un problema al procesar tu suscripción. Inténtalo nuevamente.",
+        variant: "destructive"
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <section id="contacto" className="py-20 bg-white dark:bg-gray-900">
@@ -35,7 +76,7 @@ export default function Contact() {
             Descarga tu Ebook Gratuito
           </h2>
           <p className="text-xl text-gray-600 dark:text-gray-300">
-            Completa el formulario y recibe tu guía arquitectónica personalizada
+            Guía completa de arquitectura para tu proyecto de construcción o remodelación
           </p>
           <div className="mt-6 inline-block bg-primary/10 rounded-lg p-4">
             <p className="text-lg font-semibold text-primary">
@@ -44,30 +85,89 @@ export default function Contact() {
           </div>
         </div>
         
-        <Card className="bg-neutral dark:bg-gray-800 rounded-2xl">
+        <Card className="bg-neutral dark:bg-gray-800 rounded-2xl shadow-xl">
           <CardHeader>
             <CardTitle className="text-center text-2xl dark:text-white">
-              Obtén tu Ebook Gratuito
+              Recibe tu Ebook de Arquitectura
             </CardTitle>
             <p className="text-center text-gray-600 dark:text-gray-300 mt-2">
               Solo necesitamos tu nombre y correo para enviarte el material
             </p>
           </CardHeader>
           <CardContent>
-            {/* Container for external form - the script will inject the form here */}
-            <div 
-              id="external-form-container" 
-              className="min-h-[200px] flex items-center justify-center"
-              data-testid="external-form-container"
-            >
-              {/* Loading indicator while script loads */}
-              <div className="text-center text-gray-500">
-                <div className="inline-flex items-center gap-2">
-                  <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-primary"></div>
-                  <span>Cargando formulario...</span>
-                </div>
+            {isSuccess ? (
+              <div className="text-center py-12">
+                <CheckCircle2 className="w-20 h-20 text-green-500 mx-auto mb-4" />
+                <h3 className="text-2xl font-bold text-green-700 mb-2">
+                  ¡Suscripción Exitosa!
+                </h3>
+                <p className="text-gray-600 dark:text-gray-300">
+                  Revisa tu correo electrónico para acceder al ebook
+                </p>
               </div>
-            </div>
+            ) : (
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div>
+                  <Label htmlFor="firstName" className="flex items-center gap-2 text-gray-700 dark:text-gray-200">
+                    <User className="w-4 h-4" />
+                    Nombre *
+                  </Label>
+                  <Input 
+                    id="firstName"
+                    data-testid="input-firstName"
+                    type="text" 
+                    required 
+                    placeholder="Ej: Juan Pérez"
+                    value={formData.firstName}
+                    onChange={(e) => setFormData({...formData, firstName: e.target.value})}
+                    className="mt-2 dark:bg-gray-700 dark:text-white"
+                    disabled={isSubmitting}
+                  />
+                </div>
+
+                <div>
+                  <Label htmlFor="email" className="flex items-center gap-2 text-gray-700 dark:text-gray-200">
+                    <Mail className="w-4 h-4" />
+                    Correo Electrónico *
+                  </Label>
+                  <Input 
+                    id="email"
+                    data-testid="input-email"
+                    type="email" 
+                    required 
+                    placeholder="tu@email.com"
+                    value={formData.email}
+                    onChange={(e) => setFormData({...formData, email: e.target.value})}
+                    className="mt-2 dark:bg-gray-700 dark:text-white"
+                    disabled={isSubmitting}
+                  />
+                </div>
+
+                <Button 
+                  type="submit" 
+                  disabled={isSubmitting}
+                  data-testid="button-subscribe"
+                  className="w-full bg-primary text-white hover:bg-secondary transition-colors text-lg py-6"
+                >
+                  {isSubmitting ? (
+                    <>
+                      <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                      Procesando...
+                    </>
+                  ) : (
+                    <>
+                      <Mail className="mr-2 h-5 w-5" />
+                      Descargar Ebook Gratis
+                    </>
+                  )}
+                </Button>
+
+                <p className="text-xs text-center text-gray-500 dark:text-gray-400">
+                  Al suscribirte, aceptas recibir información sobre arquitectura y construcción. 
+                  Puedes darte de baja en cualquier momento.
+                </p>
+              </form>
+            )}
           </CardContent>
         </Card>
 
