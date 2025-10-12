@@ -11,16 +11,18 @@ export default function Services() {
       id: "arquitecto-domicilio",
       title: "Arquitecto a Domicilio",
       price: "$40,000",
-      description: "Asesoría profesional en tu terreno",
+      description: "El arquitecto va a tu casa por solo $40.000",
       icon: Home,
       features: [
-        "Visita al terreno",
-        "Análisis de factibilidad",
-        "Recomendaciones expertas",
-        "Informe detallado"
+        "✅ Visita profesional al terreno",
+        "📊 Análisis de factibilidad completo",
+        "💡 Recomendaciones expertas personalizadas",
+        "📋 Presupuesto de arquitectura detallado",
+        "⚠️ Precio puede variar según distancia (base: Vicuña Mackenna Pte. 7730)"
       ],
       featured: true,
-      bgColor: "bg-gradient-to-br from-[hsl(14,70%,50%)] to-[hsl(14,65%,45%)]"
+      bgColor: "bg-gradient-to-br from-[hsl(14,70%,50%)] to-[hsl(14,65%,45%)]",
+      path: "/asesoria-arquitectonica-terreno"
     },
     {
       id: "regularizacion-inmuebles",
@@ -222,6 +224,11 @@ export default function Services() {
 
   const handleServiceClick = (serviceId: string) => {
     // Special handling for services with dedicated pages
+    if (serviceId === 'arquitecto-domicilio') {
+      setLocation('/asesoria-arquitectonica-terreno');
+      return;
+    }
+    
     if (serviceId === 'revisor-independiente-de-arquitectura') {
       setLocation('/revisor-independiente-de-arquitectura');
       return;
@@ -336,8 +343,11 @@ export default function Services() {
                           ? 'bg-[hsl(14,70%,50%)] text-white hover:bg-[hsl(14,70%,45%)]'
                           : 'bg-white text-accent hover:bg-gray-50'
                       }`}
+                      data-testid={`button-${service.id}`}
                     >
-                      {service.id === 'revisor-independiente-de-arquitectura' || service.id === 'disena-espacio' || service.id === 'fusion-terrenos-urbanos' || service.id === 'inspeccion-tecnica-viviendas' || service.id === 'tasacion-viviendas-urbanas' || service.id === 'subdivision-terrenos-urbanos' || service.id === 'eifs' || service.id === 'reacondicionamiento-termico' || service.id === 'permiso-recepcion'
+                      {service.id === 'arquitecto-domicilio'
+                        ? 'Agendar Visita'
+                        : service.id === 'revisor-independiente-de-arquitectura' || service.id === 'disena-espacio' || service.id === 'fusion-terrenos-urbanos' || service.id === 'inspeccion-tecnica-viviendas' || service.id === 'tasacion-viviendas-urbanas' || service.id === 'subdivision-terrenos-urbanos' || service.id === 'eifs' || service.id === 'reacondicionamiento-termico' || service.id === 'permiso-recepcion'
                         ? 'Más Información' 
                         : 'Agendar Visita'
                       }
