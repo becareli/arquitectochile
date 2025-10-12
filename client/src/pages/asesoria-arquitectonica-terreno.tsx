@@ -124,23 +124,29 @@ export default function AsesoriaArquitectonicaTerreno() {
       </section>
 
       {/* Problema/Solución Section */}
-      <section className="py-20 bg-gradient-to-br from-[hsl(210,15%,30%)] to-[hsl(210,15%,25%)] text-white">
+      <section className="py-20 bg-white">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="font-serif text-4xl lg:text-5xl font-bold mb-6">
+          <div className="mb-12">
+            <h2 className="font-serif text-4xl lg:text-5xl font-bold mb-6 text-gray-900">
               ¿Tienes dudas sobre tu proyecto? Te las resuelvo en terreno
             </h2>
-            <p className="text-xl text-white/90 max-w-3xl mx-auto">
-              Imagínate tener al arquitecto en tu casa, analizando personalmente las posibilidades reales de tu ampliación o 
+            <p className="text-xl text-gray-700 max-w-3xl mb-8">
+              <strong>Imagínate tener al arquitecto en tu casa, analizando personalmente</strong> las posibilidades reales de tu ampliación o 
               remodelación, respondiendo todas tus preguntas y eliminando la incertidumbre por solo $40.000.
             </p>
-          </div>
-
-          <div className="bg-white/10 backdrop-blur-sm rounded-xl p-8 max-w-3xl mx-auto">
-            <p className="text-lg leading-relaxed">
-              Esta asesoría presencial te permite <strong>conocer mi metodología de trabajo</strong>, generar confianza mutua y 
-              obtener <strong>información profesional valiosa</strong> antes de tomar cualquier decisión importante.
+            <p className="text-lg text-gray-600 max-w-3xl mb-8">
+              Esta asesoría presencial te permite conocer mi metodología de trabajo, generar confianza mutua y 
+              obtener información profesional valiosa antes de tomar cualquier decisión importante.
             </p>
+            
+            <div className="bg-green-50 border-l-4 border-green-500 p-6 max-w-3xl">
+              <div className="flex items-start gap-3">
+                <CheckCircle className="text-green-600 w-6 h-6 flex-shrink-0 mt-1" />
+                <p className="text-gray-700 text-lg">
+                  <strong>Conoces al arquitecto y su metodología antes de contratar</strong>
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
