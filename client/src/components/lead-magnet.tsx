@@ -6,6 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
+import { useLocation } from "wouter";
 import ebookCover from "@assets/PortadaEbook_1752612398787.png";
 
 export default function LeadMagnet() {
@@ -13,6 +14,7 @@ export default function LeadMagnet() {
   const [name, setName] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
+  const [, navigate] = useLocation();
 
   const handleDownload = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -41,16 +43,8 @@ export default function LeadMagnet() {
       const data = await response.json();
       console.log("📦 Datos:", data);
 
-      toast({
-        title: "¡Gracias!",
-        description: data.alreadySubscribed 
-          ? "Ya estás suscrito. Revisa tu correo para el ebook." 
-          : "Te enviaremos el ebook a tu correo electrónico",
-      });
-
-      // Reset form
-      setEmail("");
-      setName("");
+      // Redirect to thank you page
+      navigate("/gracias");
       
     } catch (error: any) {
       console.error("❌ Error completo:", error);

@@ -25,6 +25,7 @@ import Revista from "@/pages/revista";
 import AvisoLegal from "@/pages/aviso-legal";
 import PoliticaPrivacidad from "@/pages/politica-privacidad";
 import PoliticaCookies from "@/pages/politica-cookies";
+import Gracias from "@/pages/gracias";
 import NotFound from "@/pages/not-found";
 import CookieConsent from "@/components/cookie-consent";
 
@@ -54,6 +55,7 @@ function Router() {
       <Route path="/aviso-legal" component={AvisoLegal} />
       <Route path="/politica-privacidad" component={PoliticaPrivacidad} />
       <Route path="/politica-cookies" component={PoliticaCookies} />
+      <Route path="/gracias" component={Gracias} />
       <Route component={NotFound} />
     </Switch>
   );

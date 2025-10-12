@@ -1158,7 +1158,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         });
       }
 
-      // Call systeme.io API to create contact
+      // Call systeme.io API to create contact with tag to trigger automation
       const response = await fetch("https://api.systeme.io/api/contacts", {
         method: "POST",
         headers: {
@@ -1168,7 +1168,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
         body: JSON.stringify({
           email: subscriptionData.email,
           firstName: subscriptionData.firstName,
-          language: subscriptionData.language || "es"
+          language: subscriptionData.language || "es",
+          tags: ["ebook-arquitectochile"] // Tag to trigger ebook automation in systeme.io
         })
       });
 
