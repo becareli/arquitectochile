@@ -29,33 +29,53 @@ export default function LeadMagnet() {
     setIsSubmitting(true);
     
     try {
-      await apiRequest("POST", "/api/leads", {
-        name,
-        email,
-        phone: "",
-        helpType: "ebook_download",
-        timeline: "informacion",
-        message: "Descarga del ebook: Cómo Ampliar o Remodelar Tu Vivienda en Santiago",
-        source: "lead_magnet",
-        status: "new"
+      console.log("🚀 Enviando suscripción al newsletter:", { firstName: name, email });
+      
+      const response = await apiRequest("POST", "/api/newsletter/subscribe", {
+        firstName: name,
+        email: email,
+        language: "es"
       });
+
+      console.log("✅ Respuesta recibida:", response.status);
+      const data = await response.json();
+      console.log("📦 Datos:", data);
 
       toast({
         title: "¡Gracias!",
-        description: "Te enviaremos el ebook a tu correo electrónico",
+        description: data.alreadySubscribed 
+          ? "Ya estás suscrito. Revisa tu correo para el ebook." 
+          : "Te enviaremos el ebook a tu correo electrónico",
       });
 
       // Reset form
       setEmail("");
       setName("");
       
-      // Simulate ebook download - in real implementation, this would trigger actual download
-      window.open("https://www.arquitectochile.cl/ebook", "_blank");
+    } catch (error: any) {
+      console.error("❌ Error completo:", error);
+      console.error("❌ Mensaje:", error.message);
       
-    } catch (error) {
+      // Parse the error message to get more details
+      let errorMessage = "Hubo un problema al procesar tu solicitud.";
+      
+      if (error.message) {
+        const match = error.message.match(/\d+:\s*(.+)/);
+        if (match) {
+          try {
+            const errorData = JSON.parse(match[1]);
+            errorMessage = errorData.error || errorData.message || errorMessage;
+          } catch {
+            errorMessage = match[1] || error.message;
+          }
+        } else {
+          errorMessage = error.message;
+        }
+      }
+      
       toast({
         title: "Error",
-        description: "Hubo un problema al procesar tu solicitud. Inténtalo nuevamente.",
+        description: errorMessage + " Inténtalo nuevamente.",
         variant: "destructive"
       });
     } finally {
