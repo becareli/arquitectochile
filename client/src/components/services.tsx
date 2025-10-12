@@ -10,7 +10,7 @@ export default function Services() {
     {
       id: "arquitecto-domicilio",
       title: "Arquitecto a Domicilio",
-      price: "$40,000",
+      price: "$40.000",
       description: "El arquitecto va a tu casa por solo $40.000",
       icon: Home,
       features: [

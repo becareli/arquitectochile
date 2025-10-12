@@ -132,7 +132,7 @@ export default function AsesoriaArquitectonicaTerreno() {
             </h2>
             <p className="text-xl text-white/90 max-w-3xl mx-auto">
               Imagínate tener al arquitecto en tu casa, analizando personalmente las posibilidades reales de tu ampliación o 
-              remodelación, respondiendo todas tus preguntas y eliminando la incertidumbre por solo $45.000.
+              remodelación, respondiendo todas tus preguntas y eliminando la incertidumbre por solo $40.000.
             </p>
           </div>
 
