@@ -21,13 +21,6 @@ import crypto from "crypto";
 import type { RequestHandler } from "express";
 // Enhanced analytics will be loaded separately to avoid circular imports
 
-// Newsletter schema for systeme.io integration
-const newsletterSubscriptionSchema = z.object({
-  email: z.string().email("Email inválido"),
-  firstName: z.string().min(1, "Nombre requerido"),
-  language: z.string().default("es")
-});
-
 // Webhook schemas for AI agent integration
 const webhookSchema = z.object({
   event: z.string(),
@@ -1136,85 +1129,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Newsletter subscription endpoint - systeme.io integration
-  // Rate limit: 3 requests per 15 minutes per IP to prevent spam
-  const newsletterRateLimit = (await import('express-rate-limit')).default({
-    windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 3, // 3 requests per window
-    message: { error: "Demasiados intentos. Por favor intenta nuevamente en 15 minutos." },
-    standardHeaders: true,
-    legacyHeaders: false,
-  });
-  
-  app.post("/api/newsletter/subscribe", newsletterRateLimit, async (req, res) => {
-    try {
-      const subscriptionData = newsletterSubscriptionSchema.parse(req.body);
-      const apiKey = process.env.SYSTEME_IO_API_KEY;
-
-      if (!apiKey) {
-        console.error("SYSTEME_IO_API_KEY not configured");
-        return res.status(500).json({ 
-          error: "Newsletter service not configured" 
-        });
-      }
-
-      // Call systeme.io API to create contact with tag to trigger automation
-      const response = await fetch("https://api.systeme.io/api/contacts", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "X-API-Key": apiKey
-        },
-        body: JSON.stringify({
-          email: subscriptionData.email,
-          firstName: subscriptionData.firstName,
-          language: subscriptionData.language || "es",
-          tags: ["ebook-arquitectochile"] // Tag to trigger ebook automation in systeme.io
-        })
-      });
-
-      const responseData = await response.json();
-
-      if (!response.ok) {
-        console.error("Systeme.io API error:", responseData);
-        
-        // Check if contact already exists
-        if (response.status === 409 || responseData.message?.includes("already exists")) {
-          return res.status(200).json({ 
-            success: true, 
-            message: "Ya estás suscrito a nuestro newsletter",
-            alreadySubscribed: true
-          });
-        }
-        
-        return res.status(response.status).json({ 
-          error: "Error al procesar la suscripción",
-          details: responseData
-        });
-      }
-
-      console.log("✅ Newsletter subscription successful:", subscriptionData.email);
-      
-      res.json({ 
-        success: true, 
-        message: "¡Suscripción exitosa! Revisa tu correo.",
-        contact: responseData
-      });
-    } catch (error) {
-      console.error("Newsletter subscription error:", error);
-      
-      if (error instanceof z.ZodError) {
-        return res.status(400).json({ 
-          error: "Datos inválidos", 
-          details: error.errors 
-        });
-      }
-      
-      res.status(500).json({ 
-        error: "Error al procesar tu solicitud" 
-      });
-    }
-  });
 
   // Setup integration routes
   setupIntegrationRoutes(app);

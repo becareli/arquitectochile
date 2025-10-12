@@ -41,11 +41,6 @@ export function csrfTokenMiddleware(req: Request, res: Response, next: NextFunct
     return next();
   }
 
-  // Skip CSRF for public newsletter subscription endpoint
-  if (req.path === '/api/newsletter/subscribe') {
-    return next();
-  }
-
   const cookieToken = req.cookies?.['csrf-token'];
   const headerToken = req.headers['x-csrf-token'] as string;
 

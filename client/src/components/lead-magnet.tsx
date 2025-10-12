@@ -1,81 +1,30 @@
-import { useState } from "react";
-import { Download, Shield, Users, Award, ArrowDown, ArrowRight, Gift, CheckCircle } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { useEffect, useRef } from "react";
+import { Shield, Users, Award, Gift, CheckCircle } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { apiRequest } from "@/lib/queryClient";
-import { useToast } from "@/hooks/use-toast";
-import { useLocation } from "wouter";
 import ebookCover from "@assets/PortadaEbook_1752612398787.png";
 
 export default function LeadMagnet() {
-  const [email, setEmail] = useState("");
-  const [name, setName] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const { toast } = useToast();
-  const [, navigate] = useLocation();
+  const formContainerRef = useRef<HTMLDivElement>(null);
 
-  const handleDownload = async (e: React.FormEvent) => {
-    e.preventDefault();
+  useEffect(() => {
+    if (!formContainerRef.current) return;
     
-    if (!email || !name) {
-      toast({
-        title: "Error",
-        description: "Por favor completa todos los campos",
-        variant: "destructive"
-      });
-      return;
-    }
-
-    setIsSubmitting(true);
+    // Load systeme.io form script inside the container
+    const script = document.createElement('script');
+    script.id = 'form-script-tag-20884222';
+    script.src = 'https://www.arquitectochile.cl/public/remote/page/33938295c0dcb9fe58761b712e8df05602099d31.js';
+    script.async = true;
     
-    try {
-      console.log("🚀 Enviando suscripción al newsletter:", { firstName: name, email });
-      
-      const response = await apiRequest("POST", "/api/newsletter/subscribe", {
-        firstName: name,
-        email: email,
-        language: "es"
-      });
-
-      console.log("✅ Respuesta recibida:", response.status);
-      const data = await response.json();
-      console.log("📦 Datos:", data);
-
-      // Redirect to thank you page
-      navigate("/gracias");
-      
-    } catch (error: any) {
-      console.error("❌ Error completo:", error);
-      console.error("❌ Mensaje:", error.message);
-      
-      // Parse the error message to get more details
-      let errorMessage = "Hubo un problema al procesar tu solicitud.";
-      
-      if (error.message) {
-        const match = error.message.match(/\d+:\s*(.+)/);
-        if (match) {
-          try {
-            const errorData = JSON.parse(match[1]);
-            errorMessage = errorData.error || errorData.message || errorMessage;
-          } catch {
-            errorMessage = match[1] || error.message;
-          }
-        } else {
-          errorMessage = error.message;
-        }
+    formContainerRef.current.appendChild(script);
+    
+    return () => {
+      // Cleanup script on unmount
+      const existingScript = document.getElementById('form-script-tag-20884222');
+      if (existingScript && existingScript.parentNode) {
+        existingScript.parentNode.removeChild(existingScript);
       }
-      
-      toast({
-        title: "Error",
-        description: errorMessage + " Inténtalo nuevamente.",
-        variant: "destructive"
-      });
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
+    };
+  }, []);
 
   return (
     <section className="py-20 bg-gradient-to-b from-primary via-blue-600 to-white">
@@ -164,7 +113,7 @@ export default function LeadMagnet() {
             </div>
           </div>
           
-          {/* Right side - Download form */}
+          {/* Right side - Systeme.io form */}
           <div className="relative -mt-16">
             {/* Título principal fuera de la caja, sobre el fondo azul */}
             <div className="text-center mb-4 relative">
@@ -255,70 +204,13 @@ export default function LeadMagnet() {
               </div>
             </div>
             
-            <Card className="bg-white rounded-2xl shadow-2xl border-4 border-yellow-400">
-              <CardHeader className="text-center bg-gradient-to-r from-yellow-400 to-orange-400 rounded-t-2xl">
-                <CardTitle className="text-xl font-bold text-white mb-2">
-                  Completa tus datos:
-                </CardTitle>
-                <p className="text-white font-black text-sm drop-shadow-lg">
-                  Recíbela instantáneamente en tu email
-                </p>
-              </CardHeader>
-              
-              <CardContent>
-                <form onSubmit={handleDownload} className="space-y-4">
-                  <div>
-                    <Label htmlFor="lead-name">Nombre Completo</Label>
-                    <Input 
-                      id="lead-name"
-                      type="text" 
-                      placeholder="Ingresa tu nombre"
-                      value={name}
-                      onChange={(e) => setName(e.target.value)}
-                      required
-                    />
-                  </div>
-                  
-                  <div>
-                    <Label htmlFor="lead-email">Email</Label>
-                    <Input 
-                      id="lead-email"
-                      type="email" 
-                      placeholder="tu@email.com"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      required
-                    />
-                  </div>
-                  
-                  <Button 
-                    type="submit" 
-                    disabled={isSubmitting}
-                    className="w-full bg-accent text-white hover:bg-yellow-500 py-3 text-lg font-semibold"
-                  >
-                    {isSubmitting ? "Procesando..." : "DESCARGAR EBOOK GRATIS"}
-                  </Button>
-                </form>
-                
-                {/* Información sobre tratamiento de datos */}
-                <div className="mt-6 text-center">
-                  <div className="bg-gray-50 rounded-lg p-4 mb-4">
-                    <h4 className="font-semibold text-dark mb-2">Acerca del Autor</h4>
-                    <div className="text-sm text-gray-600 space-y-1">
-                      <p>• Arquitecto Universidad de Chile desde 1999</p>
-                      <p>• Experto en Ampliaciones y Remodelaciones</p>
-                      <p>• Creador de la Metodología MDAC</p>
-                      <p>• Arquitecto Revisor independiente MINVU</p>
-                    </div>
-                  </div>
-                  
-                  <div className="text-xs text-gray-500 space-y-1">
-                    <p className="font-semibold">🔒 Protección de Datos - Sin Spam</p>
-                    <p>Información 100% segura. Solo enviaremos contenido valioso. Nunca compartimos tus datos.</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+            {/* Systeme.io form container - styled to match design */}
+            <div 
+              ref={formContainerRef}
+              className="bg-white rounded-2xl shadow-2xl border-4 border-yellow-400 p-6"
+            >
+              {/* Systeme.io will inject the form here */}
+            </div>
           </div>
         </div>
       </div>
