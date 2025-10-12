@@ -1,593 +1,94 @@
-import { useState, useEffect } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Upload, FileText, AlertCircle } from "lucide-react";
-import { apiRequest } from "@/lib/queryClient";
-import { useToast } from "@/hooks/use-toast";
 
 export default function Contact() {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    calle: "",
-    numero: "",
-    comuna: "",
-    helpType: "",
-    timeline: "",
-    message: ""
-  });
-  
-  const [uploadedFiles, setUploadedFiles] = useState<string[]>([]);
-  const [isUploading, setIsUploading] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [antiSpamVerified, setAntiSpamVerified] = useState(false);
-  const [mathCaptcha, setMathCaptcha] = useState({ question: "", answer: 0 });
-  const [userAnswer, setUserAnswer] = useState("");
-  
-  const { toast } = useToast();
-
-  // Generate math captcha
-  const generateMathCaptcha = () => {
-    const num1 = Math.floor(Math.random() * 10) + 1;
-    const num2 = Math.floor(Math.random() * 10) + 1;
-    const answer = num1 + num2;
-    setMathCaptcha({ question: `¿Cuánto es ${num1} + ${num2}?`, answer });
-  };
-
-  // Initialize captcha on component mount
   useEffect(() => {
-    generateMathCaptcha();
+    // Remove existing script if present
+    const existingScript = document.getElementById('form-script-tag-20884222');
+    if (existingScript) {
+      existingScript.remove();
+    }
+
+    // Create and load the external form script
+    const script = document.createElement('script');
+    script.id = 'form-script-tag-20884222';
+    script.src = 'https://www.arquitectochile.cl/public/remote/page/33938295c0dcb9fe58761b712e8df05602099d31.js';
+    script.async = true;
+    
+    // Append script to document
+    document.body.appendChild(script);
+
+    // Cleanup function to remove script when component unmounts
+    return () => {
+      const scriptToRemove = document.getElementById('form-script-tag-20884222');
+      if (scriptToRemove) {
+        scriptToRemove.remove();
+      }
+    };
   }, []);
 
-  // Handle file upload
-  const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const files = event.target.files;
-    if (!files || files.length === 0) return;
-
-    setIsUploading(true);
-    const newUploadedFiles: string[] = [];
-
-    try {
-      for (const file of Array.from(files)) {
-        // Validate file type (PDFs, images, docs)
-        const allowedTypes = ['application/pdf', 'image/jpeg', 'image/png', 'image/webp', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
-        if (!allowedTypes.includes(file.type)) {
-          toast({
-            title: "Tipo de archivo no válido",
-            description: "Solo se permiten archivos PDF, imágenes (JPG, PNG, WEBP) y documentos de Word",
-            variant: "destructive"
-          });
-          continue;
-        }
-
-        // Validate file size (max 10MB)
-        if (file.size > 10 * 1024 * 1024) {
-          toast({
-            title: "Archivo muy grande",
-            description: `${file.name} es muy grande. Máximo 10MB por archivo.`,
-            variant: "destructive"
-          });
-          continue;
-        }
-
-        // Get upload URL from server
-        const uploadResponse = await apiRequest("POST", "/api/objects/upload", {});
-        const { uploadURL } = await uploadResponse.json();
-
-        // Upload file to object storage
-        const uploadResult = await fetch(uploadURL, {
-          method: 'PUT',
-          body: file,
-          headers: {
-            'Content-Type': file.type,
-          },
-        });
-
-        if (uploadResult.ok) {
-          newUploadedFiles.push(uploadURL.split('?')[0]); // Remove query params
-          toast({
-            title: "Archivo subido",
-            description: `${file.name} se subió correctamente`,
-          });
-        }
-      }
-
-      setUploadedFiles(prev => [...prev, ...newUploadedFiles]);
-    } catch (error) {
-      toast({
-        title: "Error al subir archivo",
-        description: "Hubo un problema al subir los archivos. Intenta de nuevo.",
-        variant: "destructive"
-      });
-    } finally {
-      setIsUploading(false);
-    }
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    if (!formData.name || !formData.email || !formData.phone || !formData.calle || !formData.numero || !formData.comuna || !formData.helpType || !formData.timeline || !formData.message) {
-      toast({
-        title: "Error",
-        description: "Por favor completa todos los campos incluyendo la dirección completa",
-        variant: "destructive"
-      });
-      return;
-    }
-
-    // Validate math captcha
-    if (parseInt(userAnswer) !== mathCaptcha.answer) {
-      toast({
-        title: "Error de verificación",
-        description: "La respuesta al captcha matemático es incorrecta",
-        variant: "destructive"
-      });
-      return;
-    }
-
-    // Validate anti-spam checkbox
-    if (!antiSpamVerified) {
-      toast({
-        title: "Error de verificación",
-        description: "Por favor confirma que no eres un robot",
-        variant: "destructive"
-      });
-      return;
-    }
-
-    setIsSubmitting(true);
-    
-    try {
-      await apiRequest("POST", "/api/leads", {
-        ...formData,
-        source: "contact_form",
-        status: "new",
-        attachments: uploadedFiles
-      });
-
-      toast({
-        title: "¡Mensaje enviado!",
-        description: "Te contactaremos pronto para ayudarte con tu proyecto",
-      });
-
-      // Reset form
-      setFormData({
-        name: "",
-        email: "",
-        phone: "",
-        calle: "",
-        numero: "",
-        comuna: "",
-        helpType: "",
-        timeline: "",
-        message: ""
-      });
-    } catch (error) {
-      toast({
-        title: "Error",
-        description: "Hubo un problema al enviar tu mensaje. Inténtalo nuevamente.",
-        variant: "destructive"
-      });
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-  const handleInstantConsult = () => {
-    // This would integrate with WhatsApp or phone system
-    window.open("https://wa.me/56979316827?text=Hola%20Patricio%2C%20necesito%20una%20consulta%20inmediata%20sobre%20mi%20proyecto", '_blank');
-  };
-
   return (
-    <section id="contacto" className="py-20 bg-white">
+    <section id="contacto" className="py-20 bg-white dark:bg-gray-900">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-dark mb-4">Agenda tu Consulta Gratuita</h2>
-          <p className="text-xl text-gray-600">El primer paso para construir la casa que siempre soñaste</p>
+          <h2 className="text-4xl font-bold text-dark dark:text-white mb-4">
+            Descarga tu Ebook Gratuito
+          </h2>
+          <p className="text-xl text-gray-600 dark:text-gray-300">
+            Completa el formulario y recibe tu guía arquitectónica personalizada
+          </p>
           <div className="mt-6 inline-block bg-primary/10 rounded-lg p-4">
             <p className="text-lg font-semibold text-primary">
-              ✓ Consulta sin compromiso ✓ Evaluación de tu terreno ✓ Presupuesto inicial
+              ✓ Descarga inmediata ✓ Guía práctica ✓ Consejos de expertos
             </p>
           </div>
         </div>
         
-        <Card className="bg-neutral rounded-2xl">
+        <Card className="bg-neutral dark:bg-gray-800 rounded-2xl">
           <CardHeader>
-            <CardTitle className="text-center text-2xl">Solicita tu Consulta Arquitectónica</CardTitle>
-            <p className="text-center text-gray-600 mt-2">
-              Responde estas preguntas para diseñar una solución personalizada para tu proyecto
+            <CardTitle className="text-center text-2xl dark:text-white">
+              Obtén tu Ebook Gratuito
+            </CardTitle>
+            <p className="text-center text-gray-600 dark:text-gray-300 mt-2">
+              Solo necesitamos tu nombre y correo para enviarte el material
             </p>
           </CardHeader>
           <CardContent>
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <Label htmlFor="name">Nombre Completo *</Label>
-                  <Input 
-                    id="name"
-                    type="text" 
-                    required 
-                    value={formData.name}
-                    onChange={(e) => setFormData({...formData, name: e.target.value})}
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="email">Email *</Label>
-                  <Input 
-                    id="email"
-                    type="email" 
-                    required 
-                    value={formData.email}
-                    onChange={(e) => setFormData({...formData, email: e.target.value})}
-                  />
+            {/* Container for external form - the script will inject the form here */}
+            <div 
+              id="external-form-container" 
+              className="min-h-[200px] flex items-center justify-center"
+              data-testid="external-form-container"
+            >
+              {/* Loading indicator while script loads */}
+              <div className="text-center text-gray-500">
+                <div className="inline-flex items-center gap-2">
+                  <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-primary"></div>
+                  <span>Cargando formulario...</span>
                 </div>
               </div>
-              
-              <div>
-                <Label htmlFor="phone">Teléfono *</Label>
-                <Input 
-                  id="phone"
-                  type="tel" 
-                  required 
-                  value={formData.phone}
-                  onChange={(e) => setFormData({...formData, phone: e.target.value})}
-                />
-              </div>
-              
-              {/* Address Section */}
-              <div className="space-y-4">
-                <h4 className="text-lg font-semibold text-gray-900 border-b pb-2">Dirección del Proyecto *</h4>
-                
-                <div>
-                  <Label htmlFor="calle">Calle *</Label>
-                  <Input 
-                    id="calle"
-                    type="text" 
-                    required 
-                    placeholder="Ej: Av. Providencia, Los Aromos, etc."
-                    value={formData.calle}
-                    onChange={(e) => setFormData({...formData, calle: e.target.value})}
-                  />
-                </div>
-                
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <Label htmlFor="numero">Número *</Label>
-                    <Input 
-                      id="numero"
-                      type="text" 
-                      required 
-                      placeholder="1234"
-                      value={formData.numero}
-                      onChange={(e) => setFormData({...formData, numero: e.target.value})}
-                    />
-                  </div>
-                  
-                  <div>
-                    <Label htmlFor="comuna">Comuna *</Label>
-                    <Input 
-                      id="comuna"
-                      type="text" 
-                      required 
-                      placeholder="Ej: Las Condes, Valparaíso, Concepción, etc."
-                      value={formData.comuna}
-                      onChange={(e) => setFormData({...formData, comuna: e.target.value})}
-                    />
-                  </div>
-                </div>
-              </div>
-              
-              <div>
-                <Label>¿Qué tipo de proyecto necesitas? *</Label>
-                <RadioGroup 
-                  value={formData.helpType} 
-                  onValueChange={(value) => setFormData({...formData, helpType: value})}
-                  className="mt-2"
-                >
-                  {/* Proyectos Habitacionales */}
-                  <div className="border-l-4 border-blue-500 pl-4 py-2 bg-blue-50 rounded-r">
-                    <h5 className="font-semibold text-blue-800 text-sm mb-2">🏠 PROYECTOS HABITACIONALES</h5>
-                    <div className="space-y-2">
-                      <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="ampliacion" id="ampliacion" />
-                        <Label htmlFor="ampliacion" className="text-sm">
-                          Ampliación de vivienda (habitaciones, segundo piso, mansardas)
-                        </Label>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="remodelacion" id="remodelacion" />
-                        <Label htmlFor="remodelacion" className="text-sm">
-                          Remodelación completa (baños, cocina, distribución)
-                        </Label>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="casa_nueva" id="casa_nueva" />
-                        <Label htmlFor="casa_nueva" className="text-sm">
-                          Casa nueva desde cero (mediterránea, moderna)
-                        </Label>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="eifs_aislacion" id="eifs_aislacion" />
-                        <Label htmlFor="eifs_aislacion" className="text-sm">
-                          EIFS - Aislación térmica de casas
-                        </Label>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="steelframe" id="steelframe" />
-                        <Label htmlFor="steelframe" className="text-sm">
-                          Construcción Steelframe / Metalcon
-                        </Label>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Proyectos Comerciales */}
-                  <div className="border-l-4 border-emerald-500 pl-4 py-2 bg-emerald-50 rounded-r">
-                    <h5 className="font-semibold text-emerald-800 text-sm mb-2">🏢 PROYECTOS COMERCIALES</h5>
-                    <div className="space-y-2">
-                      <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="oficinas" id="oficinas" />
-                        <Label htmlFor="oficinas" className="text-sm">
-                          Remodelación y ampliación de oficinas
-                        </Label>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="locales_comerciales" id="locales_comerciales" />
-                        <Label htmlFor="locales_comerciales" className="text-sm">
-                          Locales comerciales y retail
-                        </Label>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="equipamiento_deportivo" id="equipamiento_deportivo" />
-                        <Label htmlFor="equipamiento_deportivo" className="text-sm">
-                          Equipamiento deportivo (canchas techadas, recreación)
-                        </Label>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Trámites y Gestión */}
-                  <div className="border-l-4 border-orange-500 pl-4 py-2 bg-orange-50 rounded-r">
-                    <h5 className="font-semibold text-orange-800 text-sm mb-2">📋 TRÁMITES Y GESTIÓN</h5>
-                    <div className="space-y-2">
-                      <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="fusion_terrenos" id="fusion_terrenos" />
-                        <Label htmlFor="fusion_terrenos" className="text-sm">
-                          Fusión de terrenos urbanos
-                        </Label>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="subdivision" id="subdivision" />
-                        <Label htmlFor="subdivision" className="text-sm">
-                          Subdivisión de lotes
-                        </Label>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="parcelas_agrado" id="parcelas_agrado" />
-                        <Label htmlFor="parcelas_agrado" className="text-sm">
-                          Parcelas de agrado (organización y planificación)
-                        </Label>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="permisos" id="permisos" />
-                        <Label htmlFor="permisos" className="text-sm">
-                          Solo permisos y trámites legales
-                        </Label>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="revisor_independiente" id="revisor_independiente" />
-                        <Label htmlFor="revisor_independiente" className="text-sm">
-                          Revisor independiente de arquitectura
-                        </Label>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Asesoría y Consulta */}
-                  <div className="border-l-4 border-purple-500 pl-4 py-2 bg-purple-50 rounded-r">
-                    <h5 className="font-semibold text-purple-800 text-sm mb-2">💡 ASESORÍA Y CONSULTA</h5>
-                    <div className="space-y-2">
-                      <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="asesoria_domicilio" id="asesoria_domicilio" />
-                        <Label htmlFor="asesoria_domicilio" className="text-sm">
-                          Asesoría arquitectónica a domicilio ($45.000)
-                        </Label>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="consulta" id="consulta" />
-                        <Label htmlFor="consulta" className="text-sm">
-                          Consulta arquitectónica (evaluar factibilidad)
-                        </Label>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="planos_casas" id="planos_casas" />
-                        <Label htmlFor="planos_casas" className="text-sm">
-                          Planos de casas (mediterráneas, modernas)
-                        </Label>
-                      </div>
-                    </div>
-                  </div>
-                </RadioGroup>
-              </div>
-              
-              <div>
-                <Label>¿Cuándo quieres comenzar tu proyecto? *</Label>
-                <RadioGroup 
-                  value={formData.timeline} 
-                  onValueChange={(value) => setFormData({...formData, timeline: value})}
-                  className="mt-2"
-                >
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="inmediato" id="inmediato" />
-                    <Label htmlFor="inmediato" className="text-sm font-semibold text-primary">
-                      🔥 Inmediato - Este mes (prioridad alta)
-                    </Label>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="3_meses" id="3_meses" />
-                    <Label htmlFor="3_meses" className="text-sm">
-                      En los próximos 1-3 meses
-                    </Label>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="6_meses" id="6_meses" />
-                    <Label htmlFor="6_meses" className="text-sm">
-                      En 3-6 meses (planifico con tiempo)
-                    </Label>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="mas_6_meses" id="mas_6_meses" />
-                    <Label htmlFor="mas_6_meses" className="text-sm text-gray-500">
-                      Más de 6 meses (solo información inicial)
-                    </Label>
-                  </div>
-                </RadioGroup>
-              </div>
-              
-              <div>
-                <Label htmlFor="message">¿Qué quieres realizar? Cuéntanos como podemos ayudarte *</Label>
-                <Textarea 
-                  id="message"
-                  rows={4} 
-                  required 
-                  value={formData.message}
-                  onChange={(e) => setFormData({...formData, message: e.target.value})}
-                />
-              </div>
-
-              {/* File Upload Section */}
-              <div className="space-y-4">
-                <h4 className="text-lg font-semibold text-gray-900 border-b pb-2">Documentos de Apoyo (Opcional)</h4>
-                <p className="text-sm text-gray-600">
-                  Puedes subir documentos como: Certificado de Informes Previos, planos existentes, fotografías del terreno, etc.
-                </p>
-                
-                <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
-                  <Upload className="mx-auto h-12 w-12 text-gray-400 mb-3" />
-                  <Label htmlFor="file-upload" className="cursor-pointer">
-                    <span className="mt-2 block text-sm font-medium text-gray-900">
-                      Haz clic para subir archivos
-                    </span>
-                    <span className="mt-1 block text-xs text-gray-500">
-                      PDF, JPG, PNG, WEBP, DOC, DOCX hasta 10MB
-                    </span>
-                  </Label>
-                  <Input
-                    id="file-upload"
-                    type="file"
-                    multiple
-                    accept=".pdf,.jpg,.jpeg,.png,.webp,.doc,.docx"
-                    onChange={handleFileUpload}
-                    className="hidden"
-                    disabled={isUploading}
-                  />
-                </div>
-
-                {uploadedFiles.length > 0 && (
-                  <div className="space-y-2">
-                    <Label className="text-sm font-medium">Archivos subidos:</Label>
-                    {uploadedFiles.map((file, index) => (
-                      <div key={index} className="flex items-center gap-2 text-sm bg-green-50 p-2 rounded">
-                        <FileText className="h-4 w-4 text-green-600" />
-                        <span className="text-green-700">Archivo {index + 1} subido correctamente</span>
-                        <Button
-                          type="button"
-                          variant="ghost"
-                          size="sm"
-                          onClick={() => setUploadedFiles(prev => prev.filter((_, i) => i !== index))}
-                          className="ml-auto h-6 w-6 p-0 text-red-500 hover:text-red-700"
-                        >
-                          ×
-                        </Button>
-                      </div>
-                    ))}
-                  </div>
-                )}
-
-                {isUploading && (
-                  <div className="text-center">
-                    <div className="inline-flex items-center gap-2 text-blue-600">
-                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-600"></div>
-                      <span className="text-sm">Subiendo archivo...</span>
-                    </div>
-                  </div>
-                )}
-              </div>
-
-              {/* Anti-Spam Section */}
-              <div className="space-y-4 border-t pt-4">
-                <h4 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
-                  <AlertCircle className="h-5 w-5 text-orange-500" />
-                  Verificación Anti-Spam
-                </h4>
-                
-                {/* Math Captcha */}
-                <div className="bg-gray-50 p-4 rounded-lg">
-                  <Label htmlFor="math-captcha" className="text-sm font-medium">
-                    {mathCaptcha.question} *
-                  </Label>
-                  <Input
-                    id="math-captcha"
-                    type="number"
-                    required
-                    placeholder="Ingresa tu respuesta"
-                    value={userAnswer}
-                    onChange={(e) => setUserAnswer(e.target.value)}
-                    className="mt-2 w-32"
-                  />
-                  <Button
-                    type="button"
-                    variant="outline"
-                    size="sm"
-                    onClick={generateMathCaptcha}
-                    className="ml-3 mt-2"
-                  >
-                    Nueva pregunta
-                  </Button>
-                </div>
-
-                {/* Human Verification Checkbox */}
-                <div className="flex items-center space-x-2">
-                  <Checkbox
-                    id="anti-spam"
-                    checked={antiSpamVerified}
-                    onCheckedChange={(checked) => setAntiSpamVerified(checked as boolean)}
-                  />
-                  <Label
-                    htmlFor="anti-spam"
-                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                  >
-                    Confirmo que soy una persona real y no un robot *
-                  </Label>
-                </div>
-              </div>
-              
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Button 
-                  type="submit" 
-                  disabled={isSubmitting}
-                  className="flex-1 bg-primary text-white hover:bg-secondary"
-                >
-                  {isSubmitting ? "Enviando..." : "Enviar Consulta"}
-                </Button>
-                <Button 
-                  type="button" 
-                  onClick={handleInstantConsult}
-                  className="flex-1 bg-accent text-white hover:bg-yellow-500"
-                >
-                  Consultar de Inmediato
-                </Button>
-              </div>
-            </form>
+            </div>
           </CardContent>
         </Card>
+
+        {/* Alternative contact method */}
+        <div className="mt-8 text-center">
+          <p className="text-gray-600 dark:text-gray-300 mb-4">
+            ¿Prefieres hablar directamente con nosotros?
+          </p>
+          <a
+            href="https://wa.me/56979316827?text=Hola%20Patricio%2C%20quiero%20información%20sobre%20el%20ebook"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-6 rounded-lg transition-colors"
+            data-testid="whatsapp-contact-button"
+          >
+            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+            </svg>
+            Contactar por WhatsApp
+          </a>
+        </div>
       </div>
     </section>
   );
