@@ -32,13 +32,17 @@ export default function Contact() {
     setIsSubmitting(true);
     
     try {
+      console.log("🚀 Enviando suscripción:", { firstName: formData.firstName, email: formData.email });
+      
       const response = await apiRequest("POST", "/api/newsletter/subscribe", {
         firstName: formData.firstName,
         email: formData.email,
         language: "es"
       });
 
+      console.log("✅ Respuesta recibida:", response.status);
       const data = await response.json();
+      console.log("📦 Datos:", data);
 
       if (data.success) {
         setIsSuccess(true);
@@ -56,11 +60,31 @@ export default function Contact() {
         }, 3000);
       }
     } catch (error: any) {
-      console.error("Newsletter subscription error:", error);
+      console.error("❌ Error completo:", error);
+      console.error("❌ Mensaje:", error.message);
+      console.error("❌ Stack:", error.stack);
+      
+      // Parse the error message to get more details
+      let errorMessage = "Hubo un problema al procesar tu suscripción.";
+      
+      if (error.message) {
+        // Check if error contains JSON response
+        const match = error.message.match(/\d+:\s*(.+)/);
+        if (match) {
+          try {
+            const errorData = JSON.parse(match[1]);
+            errorMessage = errorData.error || errorData.message || errorMessage;
+          } catch {
+            errorMessage = match[1] || error.message;
+          }
+        } else {
+          errorMessage = error.message;
+        }
+      }
       
       toast({
         title: "Error",
-        description: error.message || "Hubo un problema al procesar tu suscripción. Inténtalo nuevamente.",
+        description: errorMessage,
         variant: "destructive"
       });
     } finally {
