@@ -37,7 +37,8 @@ export default function Services() {
         "Gestión integral del proceso"
       ],
       featured: true,
-      bgColor: "bg-gradient-to-br from-[hsl(210,15%,30%)] to-[hsl(210,15%,25%)]"
+      bgColor: "bg-gradient-to-br from-[hsl(210,15%,30%)] to-[hsl(210,15%,25%)]",
+      path: "/regularizacion-inmuebles"
     },
     {
       id: "revisor-independiente-de-arquitectura",
@@ -229,6 +230,11 @@ export default function Services() {
       return;
     }
     
+    if (serviceId === 'regularizacion-inmuebles') {
+      setLocation('/regularizacion-inmuebles');
+      return;
+    }
+    
     if (serviceId === 'revisor-independiente-de-arquitectura') {
       setLocation('/revisor-independiente-de-arquitectura');
       return;
@@ -347,7 +353,7 @@ export default function Services() {
                     >
                       {service.id === 'arquitecto-domicilio'
                         ? 'Agendar Visita'
-                        : service.id === 'revisor-independiente-de-arquitectura' || service.id === 'disena-espacio' || service.id === 'fusion-terrenos-urbanos' || service.id === 'inspeccion-tecnica-viviendas' || service.id === 'tasacion-viviendas-urbanas' || service.id === 'subdivision-terrenos-urbanos' || service.id === 'eifs' || service.id === 'reacondicionamiento-termico' || service.id === 'permiso-recepcion'
+                        : service.id === 'regularizacion-inmuebles' || service.id === 'revisor-independiente-de-arquitectura' || service.id === 'disena-espacio' || service.id === 'fusion-terrenos-urbanos' || service.id === 'inspeccion-tecnica-viviendas' || service.id === 'tasacion-viviendas-urbanas' || service.id === 'subdivision-terrenos-urbanos' || service.id === 'eifs' || service.id === 'reacondicionamiento-termico' || service.id === 'permiso-recepcion'
                         ? 'Más Información' 
                         : 'Agendar Visita'
                       }
