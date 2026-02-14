@@ -1,0 +1,40 @@
+Cópiale y pégale este prompt a Replit Agent para que haga una revisión completa y deje el proyecto listo para producción (y para deploy en Vercel). El foco es detectar por qué “CRM Admin” queda en blanco, corregir rutas/build, y dejar un checklist de despliegue.
+
+## Prompt para Replit (pegar tal cual)
+
+Actúa como auditor y “release engineer” de este proyecto. Necesito llevarlo a producción en Vercel (o alternativa) lo antes posible, pero hoy hay rutas/páginas que fallan (ej: al hacer clic en “CRM Admin” la vista queda totalmente en blanco).  
+
+Objetivo: dejar la app funcionando end-to-end (frontend + backend + auth + DB) y lista para deploy sin sorpresas.
+
+Reglas de trabajo:
+1) Antes de cambiar código, haz un diagnóstico: enumera hipótesis y valida con evidencia (console errors, network, logs del server, rutas, build output).
+2) Luego propón un plan de cambios mínimo (MVP fix). No hagas refactors grandes.
+3) Implementa los fixes con commits lógicos (o cambios agrupados) y explica qué cambiaste y por qué.
+4) Después valida: entrega una lista de pruebas manuales (paso a paso) que yo pueda repetir.
+5) Si hay decisiones (Vercel como monorepo vs separar client/server), propón 2 opciones y elige una recomendada.
+
+Checklist técnico obligatorio a revisar y corregir:
+- Identificar stack real: Vite/Tailwind en client y carpeta server (Node/Express u otro). Determinar cómo se inicia en dev y cómo se sirve en producción.
+- Revisar routing del frontend (React Router/Vue Router/etc.): causas típicas de “pantalla en blanco” (errores JS en runtime, assets no encontrados, base path mal configurado en vite.config, rutas history mode sin fallback, import errors). Verificar en DevTools consola.
+- Revisar links del navbar (CRM Admin / Colaboradores / Portal Clientes): confirmar que apuntan a rutas existentes y que la app no navega a una ruta no servida.
+- Verificar build: `npm run build` y `npm run preview` (o equivalente). Asegurar que el build genera `dist/` y que se puede navegar a todas las rutas sin blanco.
+- Si hay backend: validar endpoints en local (Network tab), CORS, variables de entorno, y que el frontend sepa la URL correcta en producción (no hardcodear localhost).
+- Auth: revisar login/sesión (cookies, JWT, sameSite, secure), y que en preview/producción no se rompa por dominios.
+- Base de datos: confirmar si es Development Database o Production DB y documentar cómo se conectará en producción (usar env vars).
+- Preparar deploy a Vercel: definir Root Directory (si monorepo), build command, output directory, y cómo desplegar API (Vercel Functions / ruta /api) o separar backend en otro host. Usa la documentación oficial de Vercel para monorepos si aplica.
+- Entregar un archivo README “DEPLOY.md” con instrucciones exactas (comandos, variables de entorno requeridas, pasos en Vercel, y cómo probar).
+
+Entregables finales:
+A) Diagnóstico del “CRM Admin queda en blanco” con evidencia (mensaje exacto de error, archivo/línea si aplica).
+B) Fix aplicado y verificado.
+C) DEPLOY.md + lista de variables de entorno.
+D) Recomendación concreta: “deploy en Vercel como X” + pasos.
+
+Empieza ahora: inspecciona el proyecto, abre los archivos de rutas/menú, reproduce el bug de CRM Admin, y comparte el primer diagnóstico antes de tocar código.
+
+***
+
+## Sobre tu preocupación “solo me aparece Build y no Planning”
+Aunque no te salga “Plan mode”, puedes pedirle al Agent explícitamente que **primero diagnostique y planifique** antes de editar archivos (tal como lo fuerza el prompt). Replit documenta la diferencia entre “Build” y “Plan” y que Plan es para planificar sin tocar código, pero en Build también puede entregar un plan si se lo exiges. [docs.replit](https://docs.replit.com/replitai/agent)
+
+Si quieres, dime si tu proyecto está en un solo repo con carpetas `client/` y `server/` (como se ve en tu captura) y qué framework usa el frontend (React/Vue/Svelte). Con eso te ajusto el prompt para que también configure el despliegue “monorepo” correctamente en Vercel. [vercel](https://vercel.com/docs/monorepos)
