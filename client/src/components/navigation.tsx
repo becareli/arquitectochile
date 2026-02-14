@@ -244,12 +244,12 @@ export default function Navigation() {
               >
                 Calculadoras
               </button>
-              <button 
+              {/* <button 
                 onClick={() => handleNavigation('proyectos')}
                 className="text-dark hover:text-primary transition-colors text-sm font-medium"
               >
                 Modelos de Casas
-              </button>
+              </button> */}
               <button 
                 onClick={() => handleNavigation('testimonios')}
                 className="text-dark hover:text-primary transition-colors text-sm font-medium"
@@ -380,12 +380,12 @@ export default function Navigation() {
             >
               Calculadoras
             </button>
-            <button 
+            {/* <button 
               onClick={() => handleNavigation('proyectos')}
               className="block w-full text-left px-3 py-2 text-dark hover:text-primary"
             >
               Modelos de Casas
-            </button>
+            </button> */}
             <button 
               onClick={() => handleNavigation('testimonios')}
               className="block w-full text-left px-3 py-2 text-dark hover:text-primary"
