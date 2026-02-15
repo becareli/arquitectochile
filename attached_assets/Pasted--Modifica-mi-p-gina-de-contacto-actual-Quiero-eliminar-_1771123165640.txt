@@ -1,0 +1,113 @@
+"Modifica mi página de contacto actual. Quiero eliminar el formulario simple que tiene y reemplazarlo por un formulario de calificación técnica por pasos (Multi-step).
+
+Requerimientos técnicos:
+
+El formulario debe tener 3 pasos para no abrumar al usuario.
+
+Paso 1: Selección de categoría (Arquitectura, Inmobiliaria, Especialidades, Construcción). Al elegir una, debe mostrar los servicios específicos que te proporcionaré.
+
+Paso 2: Dirección exacta (Calle, Número, Comuna) y selección de Presupuesto (Rangos: $40k, $300k-$5m, $5m-$30m, +$30m).
+
+Paso 3: Un área de texto grande para 'Descripción del proyecto' (esto es para mi análisis de IA), Nombre y WhatsApp.
+
+Al finalizar, el formulario debe enviar un JSON mediante una petición POST a una URL de webhook que yo configuraré después.
+
+Mantén la estética del encabezado y menú de 'ArquitectoChile.com' pero usa un diseño moderno y minimalista para el formulario."
+
+3. El Código que debe ir en ese archivo
+Si prefieres pegarlo tú mismo para asegurar que la conexión con n8n sea perfecta, busca la sección de contacto en tu código y reemplázala por este bloque. He ajustado los estilos para que combine con el encabezado de tu sitio:
+
+HTML
+<div class="contact-container" style="max-width: 600px; margin: 40px auto; padding: 30px; background: #f9f9f9; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+  <h2 style="text-align: center; color: #333;">Evaluación de Proyecto</h2>
+  <p style="text-align: center; font-size: 0.9em; color: #666;">Completa los datos para validar la factibilidad técnica.</p>
+
+  <form id="n8nForm">
+    <div class="form-step" id="step-1">
+      <label><b>1. ¿En qué área necesitas ayuda?</b></label>
+      <select id="cat" onchange="updateServices()" required style="width:100%; padding:12px; margin: 15px 0; border-radius: 8px; border: 1px solid #ccc;">
+        <option value="">Seleccione...</option>
+        <option value="Arq">Arquitectura y Permisos</option>
+        <option value="Inm">Asesoría Inmobiliaria</option>
+        <option value="Esp">Especialidades (Luz, Agua, Gas)</option>
+        <option value="Cons">Construcción y Remodelación</option>
+      </select>
+      <div id="service-wrapper" style="display:none;">
+        <label>Servicio específico:</label>
+        <select id="service-detail" style="width:100%; padding:12px; margin-top:10px; border-radius: 8px;"></select>
+      </div>
+      <button type="button" onclick="next(2)" style="width:100%; background:#333; color:white; padding:12px; border:none; border-radius:8px; margin-top:20px; cursor:pointer;">Siguiente</button>
+    </div>
+
+    <div class="form-step" id="step-2" style="display:none;">
+      <label><b>2. Ubicación y Presupuesto</b></label>
+      <input type="text" id="addr" placeholder="Calle y Número Exacto" required style="width:95%; padding:12px; margin:10px 0; border-radius:8px; border:1px solid #ccc;">
+      <input type="text" id="comuna" placeholder="Comuna" required style="width:95%; padding:12px; margin-bottom:10px; border-radius:8px; border:1px solid #ccc;">
+      
+      <label>Presupuesto estimado:</label>
+      <select id="budget" style="width:100%; padding:12px; margin-top:10px; border-radius:8px;">
+        <option value="40k">Desde $40.000 (Asesoría)</option>
+        <option value="300k-5m">$300.000 - $5.000.000</option>
+        <option value="5m-30m">$5.000.000 - $30.000.000</option>
+        <option value="30m+">Más de $30.000.000</option>
+      </select>
+      <div style="display:flex; gap:10px; margin-top:20px;">
+        <button type="button" onclick="next(1)" style="flex:1; padding:12px; border-radius:8px; border:1px solid #ccc;">Atrás</button>
+        <button type="button" onclick="next(3)" style="flex:2; background:#333; color:white; padding:12px; border:none; border-radius:8px;">Siguiente</button>
+      </div>
+    </div>
+
+    <div class="form-step" id="step-3" style="display:none;">
+      <label><b>3. Cuéntanos tu caso (Para análisis de IA)</b></label>
+      <textarea id="desc" placeholder="Describe tu proyecto con detalle..." required style="width:95%; height:100px; padding:12px; margin-top:10px; border-radius:8px; border:1px solid #ccc;"></textarea>
+      
+      <input type="text" id="name" placeholder="Tu Nombre" required style="width:95%; padding:12px; margin-top:10px; border-radius:8px; border:1px solid #ccc;">
+      <input type="tel" id="tel" placeholder="WhatsApp (+569...)" required style="width:95%; padding:12px; margin-top:10px; border-radius:8px; border:1px solid #ccc;">
+      
+      <div style="display:flex; gap:10px; margin-top:20px;">
+        <button type="button" onclick="next(2)" style="flex:1; padding:12px; border-radius:8px; border:1px solid #ccc;">Atrás</button>
+        <button type="submit" style="flex:2; background:#28a745; color:white; padding:12px; border:none; border-radius:8px; font-weight:bold;">SOLICITAR EVALUACIÓN</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<script>
+  function next(s) {
+    document.querySelectorAll('.form-step').forEach(d => d.style.display = 'none');
+    document.getElementById('step-' + s).style.display = 'block';
+  }
+
+  function updateServices() {
+    const services = {
+      Arq: ["Permiso Edificación", "Obra Menor", "Recepción Final", "Anteproyecto"],
+      Inm: ["Tasación", "Subdivisión", "Estudio Cabida", "Rol Propiedad"],
+      Esp: ["Eléctrico", "Agua/Alcantarillado", "Gas TC-6", "Cálculo"],
+      Cons: ["Construcción Casa", "Ampliación", "Remodelación", "EIFS"]
+    };
+    const val = document.getElementById('cat').value;
+    const det = document.getElementById('service-detail');
+    det.innerHTML = "";
+    if(val) {
+      services[val].forEach(s => det.add(new Option(s, s)));
+      document.getElementById('service-wrapper').style.display = 'block';
+    }
+  }
+
+  document.getElementById('n8nForm').onsubmit = async (e) => {
+    e.preventDefault();
+    const data = {
+      categoria: document.getElementById('cat').value,
+      servicio: document.getElementById('service-detail').value,
+      direccion: document.getElementById('addr').value,
+      comuna: document.getElementById('comuna').value,
+      presupuesto: document.getElementById('budget').value,
+      mensaje: document.getElementById('desc').value,
+      cliente: document.getElementById('name').value,
+      telefono: document.getElementById('tel').value
+    };
+    
+    // Aquí pondrás tu URL de n8n
+    alert("Datos listos para n8n: " + JSON.stringify(data));
+  };
+</script>
