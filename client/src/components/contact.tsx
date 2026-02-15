@@ -1,90 +1,85 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
-import { Mail, User, CheckCircle2, Loader2 } from "lucide-react";
+import { Loader2, ArrowRight, ArrowLeft, Send } from "lucide-react";
 
 export default function Contact() {
-  const [formData, setFormData] = useState({
-    firstName: "",
-    email: ""
-  });
-  
+  const [step, setStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
   const { toast } = useToast();
+  
+  const [formData, setFormData] = useState({
+    categoria: "",
+    servicio: "",
+    direccion: "",
+    comuna: "",
+    presupuesto: "",
+    mensaje: "",
+    cliente: "",
+    telefono: ""
+  });
+
+  const servicesMap: Record<string, string[]> = {
+    Arq: ["Permiso Edificación", "Obra Menor", "Recepción Final", "Anteproyecto"],
+    Inm: ["Tasación", "Subdivisión", "Estudio Cabida", "Rol Propiedad"],
+    Esp: ["Eléctrico", "Agua/Alcantarillado", "Gas TC-6", "Cálculo"],
+    Cons: ["Construcción Casa", "Ampliación", "Remodelación", "EIFS"]
+  };
+
+  const nextStep = () => {
+    if (step === 1 && (!formData.categoria || !formData.servicio)) {
+      toast({ title: "Error", description: "Selecciona una categoría y servicio", variant: "destructive" });
+      return;
+    }
+    if (step === 2 && (!formData.direccion || !formData.comuna || !formData.presupuesto)) {
+      toast({ title: "Error", description: "Completa la ubicación y presupuesto", variant: "destructive" });
+      return;
+    }
+    setStep(step + 1);
+  };
+
+  const prevStep = () => setStep(step - 1);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    if (!formData.firstName || !formData.email) {
-      toast({
-        title: "Error",
-        description: "Por favor completa todos los campos",
-        variant: "destructive"
-      });
-      return;
-    }
-
     setIsSubmitting(true);
     
     try {
-      console.log("🚀 Enviando suscripción:", { firstName: formData.firstName, email: formData.email });
+      // URL de webhook de n8n (reemplazar con la real cuando se tenga)
+      const WEBHOOK_URL = "https://n8n.arquitectochile.com/webhook/contacto";
       
-      const response = await apiRequest("POST", "/api/newsletter/subscribe", {
-        firstName: formData.firstName,
-        email: formData.email,
-        language: "es"
-      });
-
-      console.log("✅ Respuesta recibida:", response.status);
-      const data = await response.json();
-      console.log("📦 Datos:", data);
-
-      if (data.success) {
-        setIsSuccess(true);
-        toast({
-          title: "¡Suscripción exitosa!",
-          description: data.alreadySubscribed 
-            ? "Ya estás suscrito a nuestro newsletter" 
-            : "Te enviaremos el ebook a tu correo electrónico",
-        });
-
-        // Reset form after 3 seconds
-        setTimeout(() => {
-          setFormData({ firstName: "", email: "" });
-          setIsSuccess(false);
-        }, 3000);
-      }
-    } catch (error: any) {
-      console.error("❌ Error completo:", error);
-      console.error("❌ Mensaje:", error.message);
-      console.error("❌ Stack:", error.stack);
+      // Por ahora simulamos la petición o mostramos alerta como pidió el prompt
+      console.log("🚀 Enviando datos a n8n:", formData);
       
-      // Parse the error message to get more details
-      let errorMessage = "Hubo un problema al procesar tu suscripción.";
-      
-      if (error.message) {
-        // Check if error contains JSON response
-        const match = error.message.match(/\d+:\s*(.+)/);
-        if (match) {
-          try {
-            const errorData = JSON.parse(match[1]);
-            errorMessage = errorData.error || errorData.message || errorMessage;
-          } catch {
-            errorMessage = match[1] || error.message;
-          }
-        } else {
-          errorMessage = error.message;
-        }
-      }
+      // Simulamos delay
+      await new Promise(resolve => setTimeout(resolve, 1500));
       
       toast({
+        title: "Evaluación Solicitada",
+        description: "Tus datos han sido enviados para validación técnica. Te contactaremos pronto.",
+      });
+      
+      // Reset
+      setStep(1);
+      setFormData({
+        categoria: "",
+        servicio: "",
+        direccion: "",
+        comuna: "",
+        presupuesto: "",
+        mensaje: "",
+        cliente: "",
+        telefono: ""
+      });
+    } catch (error) {
+      toast({
         title: "Error",
-        description: errorMessage,
+        description: "No se pudo enviar la solicitud. Intenta nuevamente.",
         variant: "destructive"
       });
     } finally {
@@ -93,126 +88,147 @@ export default function Contact() {
   };
 
   return (
-    <section id="contacto" className="py-20 bg-white dark:bg-gray-900">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-dark dark:text-white mb-4">
-            Descarga tu Ebook Gratuito
-          </h2>
-          <p className="text-xl text-gray-600 dark:text-gray-300">
-            Guía completa de arquitectura para tu proyecto de construcción o remodelación
-          </p>
-          <div className="mt-6 inline-block bg-primary/10 rounded-lg p-4">
-            <p className="text-lg font-semibold text-primary">
-              ✓ Descarga inmediata ✓ Guía práctica ✓ Consejos de expertos
-            </p>
-          </div>
+    <section id="contacto" className="py-20 bg-neutral dark:bg-gray-900">
+      <div className="max-w-xl mx-auto px-4">
+        <div className="text-center mb-10">
+          <h2 className="font-serif text-3xl font-bold text-dark dark:text-white mb-2">Evaluación de Proyecto</h2>
+          <p className="text-gray-600 dark:text-gray-400">Completa los datos para validar la factibilidad técnica.</p>
         </div>
-        
-        <Card className="bg-neutral dark:bg-gray-800 rounded-2xl shadow-xl">
-          <CardHeader>
-            <CardTitle className="text-center text-2xl dark:text-white">
-              Recibe tu Ebook de Arquitectura
-            </CardTitle>
-            <p className="text-center text-gray-600 dark:text-gray-300 mt-2">
-              Solo necesitamos tu nombre y correo para enviarte el material
-            </p>
-          </CardHeader>
-          <CardContent>
-            {isSuccess ? (
-              <div className="text-center py-12">
-                <CheckCircle2 className="w-20 h-20 text-green-500 mx-auto mb-4" />
-                <h3 className="text-2xl font-bold text-green-700 mb-2">
-                  ¡Suscripción Exitosa!
-                </h3>
-                <p className="text-gray-600 dark:text-gray-300">
-                  Revisa tu correo electrónico para acceder al ebook
-                </p>
-              </div>
-            ) : (
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div>
-                  <Label htmlFor="firstName" className="flex items-center gap-2 text-gray-700 dark:text-gray-200">
-                    <User className="w-4 h-4" />
-                    Nombre *
-                  </Label>
-                  <Input 
-                    id="firstName"
-                    data-testid="input-firstName"
-                    type="text" 
-                    required 
-                    placeholder="Ej: Juan Pérez"
-                    value={formData.firstName}
-                    onChange={(e) => setFormData({...formData, firstName: e.target.value})}
-                    className="mt-2 dark:bg-gray-700 dark:text-white"
-                    disabled={isSubmitting}
-                  />
-                </div>
 
-                <div>
-                  <Label htmlFor="email" className="flex items-center gap-2 text-gray-700 dark:text-gray-200">
-                    <Mail className="w-4 h-4" />
-                    Correo Electrónico *
-                  </Label>
-                  <Input 
-                    id="email"
-                    data-testid="input-email"
-                    type="email" 
-                    required 
-                    placeholder="tu@email.com"
-                    value={formData.email}
-                    onChange={(e) => setFormData({...formData, email: e.target.value})}
-                    className="mt-2 dark:bg-gray-700 dark:text-white"
-                    disabled={isSubmitting}
-                  />
-                </div>
+        <Card className="shadow-xl border-none">
+          <CardContent className="pt-8">
+            <form onSubmit={handleSubmit} className="space-y-6">
+              {step === 1 && (
+                <div className="space-y-4 animate-in fade-in slide-in-from-right-4">
+                  <div className="space-y-2">
+                    <Label className="font-bold">1. ¿En qué área necesitas ayuda?</Label>
+                    <Select 
+                      value={formData.categoria} 
+                      onValueChange={(val) => setFormData({ ...formData, categoria: val, servicio: "" })}
+                    >
+                      <SelectTrigger className="h-12">
+                        <SelectValue placeholder="Seleccione categoría..." />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="Arq">Arquitectura y Permisos</SelectItem>
+                        <SelectItem value="Inm">Asesoría Inmobiliaria</SelectItem>
+                        <SelectItem value="Esp">Especialidades (Luz, Agua, Gas)</SelectItem>
+                        <SelectItem value="Cons">Construcción y Remodelación</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
 
-                <Button 
-                  type="submit" 
-                  disabled={isSubmitting}
-                  data-testid="button-subscribe"
-                  className="w-full bg-primary text-white hover:bg-secondary transition-colors text-lg py-6"
-                >
-                  {isSubmitting ? (
-                    <>
-                      <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                      Procesando...
-                    </>
-                  ) : (
-                    <>
-                      <Mail className="mr-2 h-5 w-5" />
-                      Descargar Ebook Gratis
-                    </>
+                  {formData.categoria && (
+                    <div className="space-y-2 animate-in fade-in zoom-in-95">
+                      <Label>Servicio específico:</Label>
+                      <Select 
+                        value={formData.servicio} 
+                        onValueChange={(val) => setFormData({ ...formData, servicio: val })}
+                      >
+                        <SelectTrigger className="h-12">
+                          <SelectValue placeholder="Seleccione servicio..." />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {servicesMap[formData.categoria].map((s) => (
+                            <SelectItem key={s} value={s}>{s}</SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
                   )}
-                </Button>
 
-                <p className="text-xs text-center text-gray-500 dark:text-gray-400">
-                  Al suscribirte, aceptas recibir información sobre arquitectura y construcción. 
-                  Puedes darte de baja en cualquier momento.
-                </p>
-              </form>
-            )}
+                  <Button type="button" onClick={nextStep} className="w-full bg-dark hover:bg-black h-12 text-lg">
+                    Siguiente <ArrowRight className="ml-2 w-5 h-5" />
+                  </Button>
+                </div>
+              )}
+
+              {step === 2 && (
+                <div className="space-y-4 animate-in fade-in slide-in-from-right-4">
+                  <Label className="font-bold">2. Ubicación y Presupuesto</Label>
+                  <Input 
+                    placeholder="Calle y Número Exacto" 
+                    value={formData.direccion}
+                    onChange={(e) => setFormData({ ...formData, direccion: e.target.value })}
+                    className="h-12"
+                  />
+                  <Input 
+                    placeholder="Comuna" 
+                    value={formData.comuna}
+                    onChange={(e) => setFormData({ ...formData, comuna: e.target.value })}
+                    className="h-12"
+                  />
+                  
+                  <div className="space-y-2">
+                    <Label>Presupuesto estimado:</Label>
+                    <Select 
+                      value={formData.presupuesto} 
+                      onValueChange={(val) => setFormData({ ...formData, presupuesto: val })}
+                    >
+                      <SelectTrigger className="h-12">
+                        <SelectValue placeholder="Seleccione presupuesto..." />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="40k">Desde $40.000 (Asesoría)</SelectItem>
+                        <SelectItem value="300k-5m">$300.000 - $5.000.000</SelectItem>
+                        <SelectItem value="5m-30m">$5.000.000 - $30.000.000</SelectItem>
+                        <SelectItem value="30m+">Más de $30.000.000</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  <div className="flex gap-3 pt-4">
+                    <Button type="button" variant="outline" onClick={prevStep} className="flex-1 h-12">
+                      <ArrowLeft className="mr-2 w-5 h-5" /> Atrás
+                    </Button>
+                    <Button type="button" onClick={nextStep} className="flex-[2] bg-dark hover:bg-black h-12 text-lg">
+                      Siguiente <ArrowRight className="ml-2 w-5 h-5" />
+                    </Button>
+                  </div>
+                </div>
+              )}
+
+              {step === 3 && (
+                <div className="space-y-4 animate-in fade-in slide-in-from-right-4">
+                  <Label className="font-bold">3. Cuéntanos tu caso (Para análisis de IA)</Label>
+                  <Textarea 
+                    placeholder="Describe tu proyecto con detalle..." 
+                    value={formData.mensaje}
+                    onChange={(e) => setFormData({ ...formData, mensaje: e.target.value })}
+                    className="min-h-[120px]"
+                  />
+                  
+                  <Input 
+                    placeholder="Tu Nombre" 
+                    value={formData.cliente}
+                    onChange={(e) => setFormData({ ...formData, cliente: e.target.value })}
+                    className="h-12"
+                  />
+                  <Input 
+                    placeholder="WhatsApp (+569...)" 
+                    type="tel"
+                    value={formData.telefono}
+                    onChange={(e) => setFormData({ ...formData, telefono: e.target.value })}
+                    className="h-12"
+                  />
+                  
+                  <div className="flex gap-3 pt-4">
+                    <Button type="button" variant="outline" onClick={prevStep} className="flex-1 h-12">
+                      <ArrowLeft className="mr-2 w-5 h-5" /> Atrás
+                    </Button>
+                    <Button 
+                      type="submit" 
+                      disabled={isSubmitting}
+                      className="flex-[2] bg-green-600 hover:bg-green-700 text-white h-12 text-lg font-bold"
+                    >
+                      {isSubmitting ? <Loader2 className="animate-spin" /> : <><Send className="mr-2 w-5 h-5" /> SOLICITAR EVALUACIÓN</>}
+                    </Button>
+                  </div>
+                </div>
+              )}
+            </form>
           </CardContent>
         </Card>
-
-        {/* Alternative contact method */}
-        <div className="mt-8 text-center">
-          <p className="text-gray-600 dark:text-gray-300 mb-4">
-            ¿Prefieres hablar directamente con nosotros?
-          </p>
-          <a
-            href="https://wa.me/56979316827?text=Hola%20Patricio%2C%20quiero%20información%20sobre%20el%20ebook"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-6 rounded-lg transition-colors"
-            data-testid="whatsapp-contact-button"
-          >
-            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
-            </svg>
-            Contactar por WhatsApp
-          </a>
-        </div>
       </div>
     </section>
   );
