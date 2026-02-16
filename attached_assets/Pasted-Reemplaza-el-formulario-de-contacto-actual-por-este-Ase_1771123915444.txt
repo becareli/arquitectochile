@@ -1,0 +1,136 @@
+Reemplaza el formulario de contacto actual por este Asesor Virtual Conversacional. El objetivo es guiar al cliente según su necesidad real y enviar los datos a mi webhook de n8n para análisis de IA.
+
+Instrucciones Técnicas:
+
+Usa el siguiente código HTML/JS para reemplazar la sección de contacto.
+
+Asegúrate de que los estilos (CSS) combinen con el encabezado actual de ArquitectoChile.com.
+
+El formulario debe ser Multi-paso y enviar un JSON al finalizar.
+
+CÓDIGO A IMPLEMENTAR:
+
+HTML
+<div id="contact-journey" class="journey-card">
+  <div class="progress-bar"><div id="progress"></div></div>
+  
+  <form id="architectForm">
+    <div class="step" id="step1">
+      <h3>¡Bienvenido! ¿En qué etapa se encuentra tu proyecto?</h3>
+      <div class="options-grid">
+        <button type="button" class="btn-opt" onclick="setEntry('construir')">Quiero construir, ampliar o remodelar</button>
+        <button type="button" class="btn-opt" onclick="setEntry('permisos')">Necesito regularizar o sacar permisos municipales</button>
+        <button type="button" class="btn-opt" onclick="setEntry('terreno')">Tengo un trámite de terreno (Subdivisión/Fusión)</button>
+        <button type="button" class="btn-opt" onclick="setEntry('visita')">Necesito una visita técnica o informe ($40.000)</button>
+        <button type="button" class="btn-opt" onclick="setEntry('especialidad')">Busco proyectos de ingeniería (Luz, Agua, Gas, Cálculo)</button>
+      </div>
+    </div>
+
+    <div class="step" id="step2" style="display:none;">
+      <h3 id="step2-title">Cuéntanos un poco más:</h3>
+      <select id="sub-servicio" class="input-field"></select>
+      <div class="nav-btns">
+        <button type="button" onclick="go(1)">Atrás</button>
+        <button type="button" class="btn-next" onclick="go(3)">Continuar</button>
+      </div>
+    </div>
+
+    <div class="step" id="step3" style="display:none;">
+      <h3>Ubicación de la propiedad</h3>
+      <p>Requerimos la dirección exacta para revisar la normativa del Plan Regulador antes de contactarte.</p>
+      <input type="text" id="calle" placeholder="Calle y Número Exacto" required class="input-field">
+      <input type="text" id="comuna" placeholder="Comuna" required class="input-field">
+      <select id="tipo_propiedad" class="input-field">
+        <option value="Habitacional">Vivienda / Casa</option>
+        <option value="Comercial">Local Comercial / Oficina</option>
+        <option value="Industrial">Bodega / Industrial</option>
+      </select>
+      <div class="nav-btns">
+        <button type="button" onclick="go(2)">Atrás</button>
+        <button type="button" class="btn-next" onclick="go(4)">Siguiente</button>
+      </div>
+    </div>
+
+    <div class="step" id="step4" style="display:none;">
+      <h3>Tu visión y presupuesto</h3>
+      <textarea id="historia" placeholder="Cuéntanos tu caso... ¿Qué esperas lograr? ¿Tienes alguna urgencia legal o municipal?" class="input-field" style="height:120px;"></textarea>
+      <label>Inversión estimada para este trámite/obra:</label>
+      <select id="presupuesto" class="input-field">
+        <option value="40k">Desde $40.000 (Asesoría puntual)</option>
+        <option value="300k-5m">$300.000 - $5.000.000 (Permisos y Especialidades)</option>
+        <option value="5m-30m">$5.000.000 - $30.000.000 (Remodelaciones)</option>
+        <option value="30m+">Más de $30.000.000 (Obras mayores)</option>
+      </select>
+      <div class="nav-btns">
+        <button type="button" onclick="go(3)">Atrás</button>
+        <button type="button" class="btn-next" onclick="go(5)">Ya casi estamos</button>
+      </div>
+    </div>
+
+    <div class="step" id="step5" style="display:none;">
+      <h3>Datos de contacto</h3>
+      <input type="text" id="nombre" placeholder="Tu Nombre completo" required class="input-field">
+      <input type="tel" id="whatsapp" placeholder="WhatsApp (+569...)" required class="input-field">
+      <button type="submit" class="btn-submit">SOLICITAR EVALUACIÓN TÉCNICA</button>
+    </div>
+  </form>
+</div>
+
+<script>
+  const servicios = {
+    construir: ["Diseño de casa nueva", "Ampliación de vivienda", "Remodelación de oficina", "Acondicionamiento térmico (EIFS)", "Administración de obra"],
+    permisos: ["Regularización (Ley del Mono u otros)", "Permiso de Edificación", "Recepción Final", "Revisor Independiente", "Obra Menor"],
+    terreno: ["Subdivisión predial", "Fusión de terrenos", "Tasación comercial/urbana", "Copropiedad inmobiliaria", "Estudio de cabida"],
+    especialidad: ["Proyecto Eléctrico", "Agua Potable y Alcantarillado", "Gas (Declaración TC-6)", "Cálculo Estructural", "Climatización"],
+    visita: ["Visita técnica a domicilio", "Informe de factibilidad", "Inspección técnica de obra"]
+  };
+
+  let userData = {};
+
+  function setEntry(tipo) {
+    userData.categoria = tipo;
+    const select = document.getElementById('sub-servicio');
+    select.innerHTML = servicios[tipo].map(s => `<option value="${s}">${s}</option>`).join('');
+    go(2);
+  }
+
+  function go(s) {
+    document.querySelectorAll('.step').forEach(d => d.style.display = 'none');
+    document.getElementById('step' + s).style.display = 'block';
+    document.getElementById('progress').style.width = (s * 20) + '%';
+  }
+
+  document.getElementById('architectForm').onsubmit = async (e) => {
+    e.preventDefault();
+    const finalData = {
+      ...userData,
+      servicio: document.getElementById('sub-servicio').value,
+      direccion: document.getElementById('calle').value + ', ' + document.getElementById('comuna').value,
+      tipo: document.getElementById('tipo_propiedad').value,
+      analisis_sentimiento: document.getElementById('historia').value,
+      presupuesto: document.getElementById('presupuesto').value,
+      nombre: document.getElementById('nombre').value,
+      whatsapp: document.getElementById('whatsapp').value
+    };
+    
+    // Aquí se conecta con n8n
+    console.log("Enviando a n8n...", finalData);
+    alert("Recibido. Nuestro sistema analizará la factibilidad de tu dirección y te contactaremos por WhatsApp.");
+  };
+</script>
+
+<style>
+  .journey-card { background: #fff; padding: 30px; border-radius: 15px; box-shadow: 0 5px 25px rgba(0,0,0,0.08); }
+  .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; }
+  .btn-opt { padding: 15px; border: 1px solid #ddd; border-radius: 10px; background: #fff; cursor: pointer; transition: 0.2s; font-size: 14px; }
+  .btn-opt:hover { background: #f0f7ff; border-color: #007bff; }
+  .input-field { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ccc; border-radius: 8px; box-sizing: border-box; }
+  .btn-next { background: #333; color: #fff; border: none; padding: 12px 25px; border-radius: 8px; cursor: pointer; }
+  .btn-submit { width: 100%; background: #28a745; color: #fff; border: none; padding: 15px; border-radius: 8px; font-weight: bold; cursor: pointer; margin-top: 20px; }
+  .progress-bar { width: 100%; background: #eee; height: 6px; border-radius: 3px; margin-bottom: 25px; }
+  #progress { height: 100%; background: #007bff; width: 20%; transition: 0.3s; }
+  .nav-btns { display: flex; justify-content: space-between; margin-top: 20px; }
+</style>
+```"
+
+---

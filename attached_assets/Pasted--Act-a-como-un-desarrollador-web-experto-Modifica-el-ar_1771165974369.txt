@@ -1,0 +1,169 @@
+"Actúa como un desarrollador web experto. Modifica el archivo de contacto actual para integrar un Asesor Virtual de Arquitectura. Usa la técnica de 'reemplazo quirúrgico' para no afectar ni el Header ni el Footer del sitio.
+
+REQUERIMIENTOS TÉCNICOS:
+
+Lógica de Pasos: Flujo conversacional (Categoría > Servicio > Urgencia > Ubicación > Documentos > Contacto).
+
+Filtros de Negocio: Incluye selección de presupuesto y campo de 'Urgencia' para clasificar prospectos.
+
+Manejo de Archivos: Usa FormData para permitir subida opcional de CIP (Certificado de Informes Previos), fotos o planos.
+
+Estética: Estilo 'Chat Card' centrado, moderno y responsivo.
+
+CÓDIGO FINAL A IMPLEMENTAR (COPIA Y PEGA TAL CUAL):
+
+HTML
+<section id="contacto-asesor" style="padding: 40px 10px; background: #fdfdfd;">
+  <div id="virtual-advisor" style="max-width: 550px; margin: auto; background: #fff; border-radius: 24px; box-shadow: 0 10px 40px rgba(0,0,0,0.1); overflow: hidden; font-family: 'Segoe UI', Roboto, sans-serif;">
+    
+    <div style="background: #1a1a1a; color: white; padding: 25px; display: flex; align-items: center; gap: 15px;">
+      <div style="width: 50px; height: 50px; background: #e67e22; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 18px;">AC</div>
+      <div>
+        <h3 style="margin: 0; font-size: 18px;">Asesor ArquitectoChile</h3>
+        <p style="margin: 0; font-size: 13px; opacity: 0.8;">Análisis técnico de factibilidad</p>
+      </div>
+    </div>
+
+    <form id="chatForm" style="padding: 30px;">
+      <div class="chat-step" id="step1">
+        <div class="bot-bubble">¡Hola! 👋 Soy tu asesor virtual. Para orientarte con precisión, cuéntame: <b>¿Qué buscas lograr?</b></div>
+        <div class="btn-group">
+          <button type="button" class="opt-btn" onclick="setCat('Construccion')">🏠 Construir, ampliar o remodelar</button>
+          <button type="button" class="opt-btn" onclick="setCat('Regularizacion')">📜 Regularizar / Permisos (Ley del Mono)</button>
+          <button type="button" class="opt-btn" onclick="setCat('Terrenos')">🌍 Trámites de Terreno (Subdivisión/Fusión)</button>
+          <button type="button" class="opt-btn" onclick="setCat('Ingenieria')">⚡ Proyectos de Ingeniería (Luz, Agua, Gas)</button>
+          <button type="button" class="opt-btn" onclick="setCat('Visita')">👷 Visita Técnica / Informe ($40.000)</button>
+        </div>
+      </div>
+
+      <div class="chat-step" id="step2" style="display:none;">
+        <div class="bot-bubble">Entendido. ¿Qué servicio específico necesitas?</div>
+        <div id="service-options" class="btn-group"></div>
+        <button type="button" class="back-btn" onclick="go(1)">← Atrás</button>
+      </div>
+
+      <div class="chat-step" id="step3" style="display:none;">
+        <div class="bot-bubble"><b>¿Con qué urgencia necesitas este proyecto?</b> Esto me ayuda a priorizar tu atención.</div>
+        <div class="btn-group">
+          <button type="button" class="opt-btn" onclick="setUrg('URGENTE')">🔥 Ahora ya / Plazos legales</button>
+          <button type="button" class="opt-btn" onclick="setUrg('MES')">📅 Durante este mes</button>
+          <button type="button" class="opt-btn" onclick="setUrg('PLAN')">🤔 Estoy planificando / Buscando info</button>
+        </div>
+        <button type="button" class="back-btn" onclick="go(2)">← Atrás</button>
+      </div>
+
+      <div class="chat-step" id="step4" style="display:none;">
+        <div class="bot-bubble">Para saber si es legalmente viable, debo revisar el <b>Plan Regulador</b> de tu zona. ¿Dónde queda la propiedad?</div>
+        <input type="text" id="dir" placeholder="Calle y Número (Obligatorio)" class="form-in" required>
+        <input type="text" id="com" placeholder="Comuna (Obligatorio)" class="form-in" required>
+        <input type="text" id="gmaps" placeholder="Link Google Maps (Opcional)" class="form-in">
+        <div style="display:flex; justify-content: space-between; margin-top:15px;">
+          <button type="button" class="back-btn" onclick="go(3)">← Atrás</button>
+          <button type="button" class="next-btn" onclick="valStep4()">Siguiente →</button>
+        </div>
+      </div>
+
+      <div class="chat-step" id="step5" style="display:none;">
+        <div class="bot-bubble"><b>Documentación Técnica (Opcional)</b><br>Si tienes el Certificado de Informes Previos (CIP), planos o fotos de servilleta, súbelos aquí. Son los "exámenes" para el diagnóstico.</div>
+        <div style="border: 2px dashed #ddd; padding: 20px; border-radius: 12px; text-align: center; margin-bottom: 15px;">
+          <label for="files" style="cursor:pointer; color:#007bff;">📎 Adjuntar documentos o fotos</label>
+          <input type="file" id="files" multiple style="display:none;" onchange="updateFiles()">
+          <div id="file-status" style="font-size:12px; color:#777; margin-top:5px;">Sin archivos</div>
+        </div>
+        <textarea id="obs" placeholder="Describe brevemente tu idea..." class="form-in" style="height:80px;"></textarea>
+        <div style="display:flex; justify-content: space-between;">
+          <button type="button" class="back-btn" onclick="go(4)">← Atrás</button>
+          <button type="button" class="next-btn" onclick="go(6)">Finalizar →</button>
+        </div>
+      </div>
+
+      <div class="chat-step" id="step6" style="display:none;">
+        <div class="bot-bubble">¡Listo! Analizaré los antecedentes. ¿A qué presupuesto e inversión apunta tu proyecto?</div>
+        <select id="budget" class="form-in">
+          <option value="40k">Desde $40.000 (Asesoría)</option>
+          <option value="300k-5m">$300k - $5M</option>
+          <option value="5m-30m">$5M - $30M</option>
+          <option value="+30m">Más de $30M</option>
+        </select>
+        <input type="text" id="nombre" placeholder="Tu Nombre" class="form-in" required>
+        <input type="tel" id="whatsapp" placeholder="WhatsApp (+569...)" class="form-in" required>
+        <button type="submit" style="width:100%; padding:15px; background:#27ae60; color:white; border:none; border-radius:12px; font-weight:bold; cursor:pointer; margin-top:10px;">ENVIAR PARA EVALUACIÓN</button>
+      </div>
+    </form>
+  </div>
+</section>
+
+<style>
+  .bot-bubble { background: #f0f2f5; padding: 15px; border-radius: 18px 18px 18px 2px; font-size: 15px; margin-bottom: 20px; line-height: 1.4; color: #333; }
+  .btn-group { display: flex; flex-direction: column; gap: 8px; margin-bottom: 15px; }
+  .opt-btn { background: white; border: 1px solid #ddd; padding: 12px 15px; text-align: left; border-radius: 12px; cursor: pointer; transition: 0.2s; font-size: 14px; }
+  .opt-btn:hover { border-color: #e67e22; background: #fffcf9; transform: translateX(5px); }
+  .form-in { width: 100%; padding: 12px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 10px; box-sizing: border-box; }
+  .next-btn { background: #1a1a1a; color: white; padding: 10px 25px; border: none; border-radius: 20px; cursor: pointer; }
+  .back-btn { background: none; border: none; color: #999; cursor: pointer; text-decoration: underline; font-size: 13px; }
+  .chat-step { animation: fadeIn 0.4s ease; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+</style>
+
+<script>
+  const services = {
+    Construccion: ["Diseño Casa Nueva", "Ampliación", "Remodelación", "EIFS", "Administración de Obra"],
+    Regularizacion: ["Ley del Mono", "Permiso Edificación", "Recepción Final", "Revisor Independiente", "Obra Menor"],
+    Terrenos: ["Subdivisión", "Fusión", "Estudio Cabida", "Tasación", "Copropiedad"],
+    Ingenieria: ["Eléctrico", "Agua/Alcantarillado", "Gas TC-6", "Cálculo", "Climatización"],
+    Visita: ["Visita a Domicilio ($40k)", "Informe Factibilidad", "Inspección Técnica"]
+  };
+
+  let payload = new FormData();
+
+  function setCat(c) {
+    payload.set('categoria', c);
+    const div = document.getElementById('service-options');
+    div.innerHTML = '';
+    services[c].forEach(s => {
+      const b = document.createElement('button');
+      b.className = 'opt-btn';
+      b.innerText = '🔹 ' + s;
+      b.onclick = () => { payload.set('servicio', s); go(3); };
+      div.appendChild(b);
+    });
+    go(2);
+  }
+
+  function setUrg(u) { payload.set('urgencia', u); go(4); }
+  function go(n) { 
+    document.querySelectorAll('.chat-step').forEach(s => s.style.display = 'none');
+    document.getElementById('step'+n).style.display = 'block';
+  }
+
+  function valStep4() {
+    const d = document.getElementById('dir').value;
+    const c = document.getElementById('com').value;
+    if(!d || !c) return alert("Indica dirección y comuna");
+    payload.set('ubicacion', d + ", " + c);
+    payload.set('gmaps', document.getElementById('gmaps').value);
+    go(5);
+  }
+
+  function updateFiles() {
+    const f = document.getElementById('files').files;
+    document.getElementById('file-status').innerText = f.length + " archivos cargados";
+  }
+
+  document.getElementById('chatForm').onsubmit = async (e) => {
+    e.preventDefault();
+    payload.set('relato', document.getElementById('obs').value);
+    payload.set('presupuesto', document.getElementById('budget').value);
+    payload.set('nombre', document.getElementById('nombre').value);
+    payload.set('whatsapp', document.getElementById('whatsapp').value);
+    const fileInput = document.getElementById('files');
+    for (let i = 0; i < fileInput.files.length; i++) {
+      payload.append('file_' + i, fileInput.files[i]);
+    }
+    alert("¡Datos recibidos! Analizaremos la normativa de tu dirección y te contactaremos.");
+    location.reload();
+  };
+</script>
+```"
+
+---
