@@ -18,7 +18,7 @@ export default function Hero() {
               </p>
             </div>
             
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-bold mb-8 leading-tight">¿Quieres construir una casa hermosa y única para tu familia, sin preocuparte por trámites o problemas legales?</h1>
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-bold mb-8 leading-tight">¿Quieres construir una casa hermosa y única para tu familia, con alta probabilidad de éxito en trámites y un proceso optimizado?</h1>
             <p className="text-lg sm:text-xl mb-6 opacity-90 leading-relaxed">
               Para padres de familia de Santiago que buscan diseño personalizado con visualización 3D, gestión completa de permisos y acompañamiento especializado hasta la entrega final.
             </p>
