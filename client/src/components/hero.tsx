@@ -19,6 +19,9 @@ export default function Hero() {
             </div>
             
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-bold mb-8 leading-tight">¿Vas a invertir en tu casa o en un problema legal? Obtén un diseño arquitectónico premium con gestión de permisos garantizada por expertos de la Universidad de Chile.</h1>
+            <p className="text-xl sm:text-2xl font-bold text-accent mb-6 animate-pulse">
+              Tu familia merece una casa de autor. Tu patrimonio merece protección legal absoluta.
+            </p>
             <p className="text-lg sm:text-xl mb-6 opacity-90 leading-relaxed">
               Para padres de familia de Santiago que buscan diseño personalizado con visualización 3D, gestión completa de permisos y acompañamiento especializado hasta la entrega final.
             </p>
