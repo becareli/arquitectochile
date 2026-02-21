@@ -215,11 +215,12 @@ export default function Services() {
       path: "/permiso-edificacion-recepcion-final"
     },
     {
-      id: "estudio-cabidas",
-      title: "Estudio de Cabidas",
-      description: "Análisis de capacidad de edificación",
+      id: "obras-menores-empresas",
+      title: "Obras Menores Empresas",
+      description: "Gestión integral para grandes empresas y retail",
       icon: Box,
-      bgColor: "bg-white"
+      bgColor: "bg-white",
+      path: "/obras-menores-empresas"
     }
   ];
 
@@ -277,6 +278,11 @@ export default function Services() {
     
     if (serviceId === 'permiso-recepcion') {
       setLocation('/permiso-edificacion-recepcion-final');
+      return;
+    }
+    
+    if (serviceId === 'obras-menores-empresas') {
+      setLocation('/obras-menores-empresas');
       return;
     }
     

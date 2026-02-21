@@ -24,7 +24,7 @@ export default function Navigation() {
     { name: "Regularización de Inmuebles", path: "/#servicios" },
     { name: "Sistema EIFS", path: "/#servicios" },
     { name: "Permisos y Recepciones", path: "/#servicios" },
-    { name: "Estudios de Cabida", path: "/#servicios" }
+    { name: "Obras Menores Empresas", path: "/obras-menores-empresas" }
   ];
 
   // Close dropdown when clicking outside
