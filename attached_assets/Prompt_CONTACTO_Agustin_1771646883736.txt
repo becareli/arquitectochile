@@ -1,0 +1,136 @@
+Eres Agustín, el asistente virtual inteligente de Patricio Becar (ArquitectoChile.com).
+PERFIL: Joven de 18 años, chileno, pelo crespo, tez blanca. Eres técnico, proactivo y muy educado.
+MISIÓN: Calificar prospectos y derivar solo leads de alta prioridad. Tu objetivo no es ser un chatbot de charla, es ser un filtro comercial humano.
+
+REGLAS DE ORO:
+- Prioridad A (Empresas/Proyectos Técnicos): ENAER, servicentros, bodegas, edificios, Revisoría Independiente, Proyectos Eléctricos/Gas.
+- Prioridad B (Residencial VIP): Mansardas, EIFS, Regularización Ley del Mono para venta rápida.
+- Descalificación: Proyectos de bajo presupuesto o construcción de casas básicas desde cero. A estos, Agustín les dice: "Por el momento Patricio se especializa en proyectos de alta complejidad técnica y regularizaciones avanzadas".
+
+FLUJO DE CAPTACIÓN:
+1. Identificar si es Empresa o Particular.
+2. Permitir que el usuario se exprese (Texto o Audio).
+3. Solicitar datos clave: Comuna y ROL de la propiedad (vital para UrbaLEX).
+4. Análisis de Sentimiento Interno: Detectar urgencia y disposición de pago.
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agustín - ArquitectoChile</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --azul: #0056b3; --naranja: #ff851b; --verde-wa: #25D366; --fondo: #f4f7f6; }
+        body { font-family: 'Montserrat', sans-serif; background: var(--fondo); margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        
+        .agustin-card { 
+            background: white; width: 100%; max-width: 450px; border-radius: 30px; 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15); overflow: hidden; position: relative;
+        }
+
+        .header-brand { background: var(--azul); color: white; padding: 15px; text-align: center; font-size: 12px; font-weight: bold; }
+
+        .avatar-container { 
+            padding: 30px 20px; text-align: center; 
+            background: linear-gradient(180deg, #eef6ff 0%, #ffffff 100%); 
+        }
+
+        .agustin-img { 
+            width: 220px; height: 220px; border-radius: 50%; border: 6px solid white;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1); object-fit: cover; margin-bottom: 15px;
+        }
+
+        .bubble { 
+            background: #f1f3f5; padding: 15px; border-radius: 20px 20px 20px 5px;
+            margin: 0 20px 20px; font-size: 15px; line-height: 1.5; color: #333;
+        }
+
+        .selector-grid { 
+            display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 0 20px 20px; 
+        }
+
+        .btn-type { 
+            border: 2px solid #ddd; padding: 15px; border-radius: 15px; background: white;
+            cursor: pointer; transition: 0.3s; font-weight: bold; font-size: 13px;
+        }
+
+        .btn-type:hover { border-color: var(--azul); background: #f0f7ff; }
+
+        .input-box { padding: 0 20px 30px; }
+        textarea { 
+            width: 100%; height: 100px; border-radius: 15px; border: 1px solid #ddd;
+            padding: 12px; box-sizing: border-box; font-family: inherit; font-size: 14px;
+            background: #fafafa; outline: none; transition: 0.3s;
+        }
+
+        .action-bar { 
+            display: flex; justify-content: space-between; align-items: center; margin-top: 15px;
+        }
+
+        .btn-audio { 
+            background: var(--verde-wa); color: white; border: none; padding: 12px 20px;
+            border-radius: 50px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 8px;
+        }
+
+        .btn-send { 
+            background: var(--azul); color: white; border: none; width: 50px; height: 50px;
+            border-radius: 50%; cursor: pointer; font-size: 20px;
+        }
+
+        .wa-link { 
+            display: block; text-align: center; padding-bottom: 20px; 
+            color: var(--verde-wa); text-decoration: none; font-size: 13px; font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="agustin-card">
+    <div class="header-brand">ARQUITECTOCHILE.COM</div>
+    
+    <div class="avatar-container">
+        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=500&auto=format&fit=crop" class="agustin-img" alt="Agustín">
+        <h2 style="margin:0; font-size: 20px; color: var(--azul);">Soy Agustín</h2>
+        <p style="margin:5px 0 0; color: #666; font-size: 14px;">Asistente Técnico de Patricio Becar</p>
+    </div>
+
+    <div class="bubble">
+        "Hola. Para darte la mejor asesoría técnica, cuéntame: ¿Tu requerimiento es para una <strong>empresa</strong> o es un proyecto <strong>particular</strong>?"
+    </div>
+
+    <div class="selector-grid">
+        <button class="btn-type">🏢 EMPRESA / IND.</button>
+        <button class="btn-type">🏠 PARTICULAR</button>
+    </div>
+
+    <div class="input-box">
+        <textarea id="userInput" placeholder="Escribe aquí o cuéntamelo por audio para entenderte mejor..."></textarea>
+        
+        <div class="action-bar">
+            <button class="btn-audio" onclick="startRecording()">
+                <span>🎤</span> AUDIO
+            </button>
+            <button class="btn-send" onclick="sendToAnalysis()">➔</button>
+        </div>
+    </div>
+
+    <a href="https://wa.me/569XXXXXXXX" class="wa-link">HABLAR POR WHATSAPP AHORA</a>
+</div>
+
+<script>
+    function startRecording() {
+        alert("Iniciando captura de audio para análisis de sentimiento...");
+        // Aquí se conecta con la API de Web Speech o MediaRecorder
+    }
+
+    function sendToAnalysis() {
+        const text = document.getElementById('userInput').value;
+        if(text.length < 5) { alert("Por favor, cuéntame un poco más."); return; }
+        alert("Analizando prioridad del proyecto con UrbaLEX...");
+        // Lógica para enviar a Webhook de Make/Zapier y clasificar el lead
+    }
+</script>
+
+</body>
+</html>
