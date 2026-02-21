@@ -3,183 +3,624 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contacto Profesional - ArquitectoChile.com</title>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>Contacto - ArquitectoChile.com | Asistente Agustín</title>
     <meta name="description" content="Contacta al Arq. Patricio Becar Elissegaray. Asesoría técnica en arquitectura, regularización, permisos y construcción en Chile.">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        :root { --azul: #0f172a; --azul-light: #2563eb; --naranja: #ff851b; --verde: #10b981; --fondo: #f1f5f9; }
+        :root {
+            --azul: #0f172a;
+            --azul-light: #2563eb;
+            --naranja: #f97316;
+            --verde: #10b981;
+            --verde-dark: #059669;
+            --fondo: #f0f4f8;
+            --card-bg: #ffffff;
+            --border: #e2e8f0;
+        }
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Montserrat', sans-serif; background: var(--fondo); color: #1e293b; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 16px; }
 
-        .app-card { width: 100%; max-width: 540px; background: #fff; border-radius: 2rem; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.15); overflow: hidden; border: 1px solid #e2e8f0; }
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #0f172a 100%);
+            color: #1e293b;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+        }
 
-        .header { background: linear-gradient(180deg, #f8fafc 0%, #fff 100%); padding: 2rem 1.5rem 1.5rem; text-align: center; border-bottom: 1px solid #e2e8f0; }
-        .avatar-wrap { position: relative; display: inline-block; margin-bottom: 1rem; }
-        .avatar { width: 110px; height: 110px; border-radius: 50%; border: 4px solid #fff; box-shadow: 0 8px 24px rgba(0,0,0,0.12); object-fit: cover; }
-        .online-dot { position: absolute; bottom: 6px; right: 6px; width: 20px; height: 20px; background: #22c55e; border: 3px solid #fff; border-radius: 50%; }
-        .speech-bubble { position: relative; background: #f0f9ff; border: 1px solid #bae6fd; border-radius: 1.25rem; padding: 1rem 1.25rem; margin-top: 0.5rem; }
-        .speech-bubble::before { content: ''; position: absolute; top: -8px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 8px solid transparent; border-right: 8px solid transparent; border-bottom: 8px solid #bae6fd; }
-        .speech-bubble::after { content: ''; position: absolute; top: -6px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 7px solid transparent; border-right: 7px solid transparent; border-bottom: 7px solid #f0f9ff; }
-        .speech { font-size: 1.05rem; font-weight: 500; color: #334155; line-height: 1.5; }
+        .app-card {
+            width: 100%;
+            max-width: 480px;
+            background: var(--card-bg);
+            border-radius: 2rem;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
 
-        .step { display: none; padding: 1.5rem; animation: fadeIn 0.4s ease-out; }
+        /* HEADER CON AGUSTÍN GRANDE */
+        .header {
+            background: linear-gradient(180deg, #f0f9ff 0%, #ffffff 100%);
+            padding: 2rem 1.5rem 1.5rem;
+            text-align: center;
+            border-bottom: 2px solid #e0f2fe;
+        }
+
+        .avatar-wrap {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 1.25rem;
+        }
+
+        .avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 4px solid #bae6fd;
+            box-shadow: 0 8px 30px rgba(37,99,235,0.2);
+            object-fit: cover;
+        }
+
+        .online-dot {
+            position: absolute;
+            bottom: 8px;
+            right: 8px;
+            width: 22px;
+            height: 22px;
+            background: #22c55e;
+            border: 3px solid #fff;
+            border-radius: 50%;
+            animation: dotPulse 2s infinite;
+        }
+
+        @keyframes dotPulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(34,197,94,0.4); }
+            50% { box-shadow: 0 0 0 8px rgba(34,197,94,0); }
+        }
+
+        .agent-name {
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 0.75rem;
+        }
+
+        /* BURBUJA DE TEXTO PROTAGONISTA */
+        .speech-bubble {
+            position: relative;
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            border: 1.5px solid #bae6fd;
+            border-radius: 1.25rem;
+            padding: 1.15rem 1.25rem;
+            max-width: 380px;
+            margin: 0 auto;
+        }
+
+        .speech-bubble::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-bottom: 10px solid #bae6fd;
+        }
+
+        .speech-bubble::after {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 9px solid transparent;
+            border-right: 9px solid transparent;
+            border-bottom: 9px solid #f0f9ff;
+        }
+
+        .speech {
+            font-size: 1rem;
+            font-weight: 500;
+            color: #1e3a5f;
+            line-height: 1.6;
+        }
+
+        .speech b {
+            color: #2563eb;
+        }
+
+        /* STEPS */
+        .step {
+            display: none;
+            padding: 1.5rem;
+            animation: fadeSlide 0.4s ease-out;
+        }
+
         .step.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        .btn-branch { width: 100%; padding: 1.25rem 1.5rem; border: 2px solid #e2e8f0; border-radius: 1rem; background: #fff; cursor: pointer; display: flex; align-items: center; gap: 1rem; text-align: left; transition: all 0.2s; font-family: inherit; }
-        .btn-branch:hover { border-color: var(--azul-light); background: #eff6ff; transform: scale(1.02); }
-        .btn-branch .icon { font-size: 2rem; }
+        @keyframes fadeSlide {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* BOTONES EMPRESA / PARTICULAR */
+        .btn-branch {
+            width: 100%;
+            padding: 1.25rem 1.5rem;
+            border: 2px solid var(--border);
+            border-radius: 1.25rem;
+            background: #fff;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-align: left;
+            transition: all 0.25s;
+            font-family: inherit;
+        }
+
+        .btn-branch:hover {
+            border-color: var(--azul-light);
+            background: #eff6ff;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(37,99,235,0.1);
+        }
+
+        .btn-branch .icon { font-size: 2.2rem; }
         .btn-branch .title { font-size: 1.1rem; font-weight: 700; display: block; }
-        .btn-branch .sub { font-size: 0.8rem; color: #64748b; }
+        .btn-branch .sub { font-size: 0.78rem; color: #64748b; margin-top: 2px; display: block; }
         .btn-branch.empresa .title { color: #1e3a5f; }
         .btn-branch.particular .title { color: #c2410c; }
 
-        .btn-service { width: 100%; padding: 1rem 1.1rem; border: 2px solid #e2e8f0; border-radius: 0.75rem; background: #fff; cursor: pointer; display: flex; align-items: center; gap: 0.75rem; text-align: left; transition: all 0.2s; font-family: inherit; font-weight: 600; font-size: 0.85rem; color: #334155; line-height: 1.35; }
-        .btn-service:hover { border-color: var(--azul-light); background: #eff6ff; }
-        .btn-service .svc-icon { font-size: 1.4rem; flex-shrink: 0; }
+        /* BOTONES DE SERVICIO - GRANDES Y LEGIBLES */
+        .btn-service {
+            width: 100%;
+            padding: 1rem 1.15rem;
+            border: 2px solid var(--border);
+            border-radius: 1rem;
+            background: #fff;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+            text-align: left;
+            transition: all 0.2s;
+            font-family: inherit;
+            font-weight: 600;
+            font-size: 0.88rem;
+            color: #334155;
+            line-height: 1.4;
+        }
 
-        .btn-wildcard { width: 100%; padding: 0.75rem; border: 2px dashed #cbd5e1; border-radius: 0.75rem; background: #fff; cursor: pointer; font-family: inherit; font-weight: 700; font-size: 0.7rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.1em; transition: all 0.2s; margin-top: 0.5rem; }
-        .btn-wildcard:hover { background: #f8fafc; border-color: #94a3b8; }
+        .btn-service:hover {
+            border-color: var(--azul-light);
+            background: #eff6ff;
+            transform: translateX(4px);
+        }
 
-        .services-scroll { max-height: 420px; overflow-y: auto; display: flex; flex-direction: column; gap: 0.5rem; padding-right: 4px; }
+        .btn-service .svc-icon { font-size: 1.5rem; flex-shrink: 0; }
+
+        .btn-wildcard {
+            width: 100%;
+            padding: 0.85rem;
+            border: 2px dashed #cbd5e1;
+            border-radius: 1rem;
+            background: #fafafa;
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: 700;
+            font-size: 0.75rem;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: all 0.2s;
+            margin-top: 0.75rem;
+        }
+
+        .btn-wildcard:hover { background: #f1f5f9; border-color: #94a3b8; color: #64748b; }
+
+        .services-scroll {
+            max-height: 420px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            padding-right: 4px;
+        }
+
         .services-scroll::-webkit-scrollbar { width: 4px; }
         .services-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
 
-        .form-input { width: 100%; padding: 0.9rem 1rem; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 0.75rem; font-family: inherit; font-size: 0.9rem; outline: none; transition: border 0.2s; }
-        .form-input:focus { border-color: var(--azul-light); box-shadow: 0 0 0 3px rgba(37,99,235,0.1); }
+        /* FORMULARIOS */
+        .section-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--azul-light);
+            text-transform: uppercase;
+            text-align: center;
+            margin-bottom: 1.25rem;
+            letter-spacing: 0.15em;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.95rem 1.1rem;
+            background: #f8fafc;
+            border: 1.5px solid var(--border);
+            border-radius: 0.85rem;
+            font-family: inherit;
+            font-size: 0.9rem;
+            outline: none;
+            transition: all 0.2s;
+        }
+
+        .form-input:focus {
+            border-color: var(--azul-light);
+            box-shadow: 0 0 0 3px rgba(37,99,235,0.12);
+            background: #fff;
+        }
 
         .prop-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
-        .btn-prop { padding: 0.75rem; border: 2px solid #e2e8f0; border-radius: 0.75rem; background: #fff; cursor: pointer; font-family: inherit; font-weight: 700; font-size: 0.75rem; transition: all 0.2s; }
+
+        .btn-prop {
+            padding: 0.85rem 0.5rem;
+            border: 2px solid var(--border);
+            border-radius: 0.85rem;
+            background: #fff;
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: 700;
+            font-size: 0.75rem;
+            transition: all 0.2s;
+            text-align: center;
+        }
+
         .btn-prop:hover { border-color: var(--azul-light); background: #eff6ff; }
         .btn-prop.selected { background: var(--azul-light); color: #fff; border-color: var(--azul-light); }
 
-        .btn-primary { width: 100%; padding: 1rem; border: none; border-radius: 0.75rem; background: var(--azul); color: #fff; font-family: inherit; font-weight: 700; font-size: 0.9rem; cursor: pointer; transition: all 0.2s; }
-        .btn-primary:hover { background: #1e293b; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+        /* BOTÓN PRINCIPAL */
+        .btn-primary {
+            width: 100%;
+            padding: 1.1rem;
+            border: none;
+            border-radius: 1rem;
+            background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 100%);
+            color: #fff;
+            font-family: inherit;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.25s;
+            letter-spacing: 0.02em;
+        }
 
-        .btn-audio { width: 100%; padding: 1rem; border: none; border-radius: 0.75rem; background: var(--verde); color: #fff; font-family: inherit; font-weight: 700; font-size: 0.9rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 0.5rem; transition: all 0.2s; }
-        .btn-audio:hover { filter: brightness(1.1); }
-        .btn-audio.recording { background: #ef4444; animation: pulse 1.5s infinite; }
-        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(15,23,42,0.3);
+        }
 
-        .btn-send { width: 100%; padding: 1rem; border: none; border-radius: 0.75rem; background: var(--azul-light); color: #fff; font-family: inherit; font-weight: 700; font-size: 0.9rem; cursor: pointer; transition: all 0.2s; }
-        .btn-send:hover { background: #1d4ed8; }
+        /* BOTÓN DE AUDIO VERDE GRANDE */
+        .btn-audio {
+            width: 100%;
+            padding: 1.1rem;
+            border: none;
+            border-radius: 1rem;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: #fff;
+            font-family: inherit;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+            transition: all 0.25s;
+        }
 
-        .link-back { display: block; width: 100%; text-align: center; color: #94a3b8; font-size: 0.8rem; text-decoration: underline; cursor: pointer; background: none; border: none; font-family: inherit; margin-top: 1.25rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; }
+        .btn-audio:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(16,185,129,0.3); }
+        .btn-audio.recording { background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); animation: recPulse 1.5s infinite; }
+        @keyframes recPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
 
-        .thanks-section { padding: 2rem; text-align: center; }
-        .patricio-img { width: 128px; height: 128px; border-radius: 50%; border: 4px solid var(--azul-light); object-fit: cover; box-shadow: 0 20px 40px rgba(0,0,0,0.15); margin-bottom: 1rem; }
-        .thanks-quote { font-size: 1.3rem; font-weight: 700; color: #1e293b; font-style: italic; line-height: 1.4; }
-        .thanks-creds { font-size: 0.85rem; color: #475569; margin-top: 0.75rem; line-height: 1.8; }
-        .thanks-emails { margin-top: 0.75rem; font-size: 0.8rem; color: #64748b; line-height: 1.8; }
-        .thanks-emails a { color: var(--azul-light); text-decoration: none; font-weight: 600; }
-        .aviso-box { margin: 1.5rem 0; padding: 1rem; background: #fffbeb; border: 1px solid #fde68a; border-radius: 1rem; font-size: 0.75rem; color: #92400e; text-align: left; }
-        .btn-vcard { width: 100%; padding: 1rem; border: none; border-radius: 1rem; background: linear-gradient(135deg, #1e293b 0%, #334155 100%); color: #fff; font-family: inherit; font-weight: 700; font-size: 0.85rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 0.5rem; }
-        .btn-tidycal { display: block; width: 100%; padding: 1rem; border: none; border-radius: 1rem; background: var(--azul-light); color: #fff; font-family: inherit; font-weight: 700; font-size: 0.85rem; cursor: pointer; text-decoration: none; text-align: center; margin-top: 0.75rem; }
-        .btn-tidycal:hover { background: #1d4ed8; }
+        .btn-send {
+            width: 100%;
+            padding: 1.1rem;
+            border: none;
+            border-radius: 1rem;
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            color: #fff;
+            font-family: inherit;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.25s;
+        }
 
-        .audio-status { font-size: 0.75rem; color: var(--verde); font-weight: 600; margin-top: 0.5rem; }
+        .btn-send:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(37,99,235,0.3); }
 
-        .detail-prompt { font-size: 0.95rem; font-weight: 500; color: #475569; line-height: 1.5; margin-bottom: 1rem; text-align: center; }
+        .link-back {
+            display: block;
+            width: 100%;
+            text-align: center;
+            color: #94a3b8;
+            font-size: 0.78rem;
+            text-decoration: none;
+            cursor: pointer;
+            background: none;
+            border: none;
+            font-family: inherit;
+            margin-top: 1.25rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 700;
+            transition: color 0.2s;
+        }
+
+        .link-back:hover { color: #64748b; }
+
+        .audio-status { font-size: 0.8rem; color: var(--verde); font-weight: 600; margin-top: 0.5rem; text-align: center; }
+
+        /* ============================== */
+        /* PÁGINA DE GRACIAS - COMPLETA  */
+        /* ============================== */
+        .thanks-section {
+            padding: 2.5rem 1.5rem;
+            text-align: center;
+            background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
+        }
+
+        .patricio-img {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            border: 5px solid var(--azul-light);
+            object-fit: cover;
+            box-shadow: 0 20px 50px rgba(37,99,235,0.2);
+            margin-bottom: 1.25rem;
+        }
+
+        .thanks-title {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 0.25rem;
+        }
+
+        .thanks-quote {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #475569;
+            font-style: italic;
+            line-height: 1.5;
+            margin-top: 0.5rem;
+        }
+
+        .thanks-creds {
+            font-size: 0.85rem;
+            color: #64748b;
+            margin-top: 1rem;
+            line-height: 1.8;
+        }
+
+        .thanks-creds b { color: #1e293b; }
+
+        .thanks-emails {
+            margin-top: 1rem;
+            padding: 0.85rem 1rem;
+            background: #f0f9ff;
+            border: 1px solid #bae6fd;
+            border-radius: 1rem;
+            font-size: 0.82rem;
+            line-height: 2;
+        }
+
+        .thanks-emails a {
+            color: var(--azul-light);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .thanks-emails a:hover { text-decoration: underline; }
+
+        .aviso-box {
+            margin: 1.25rem 0;
+            padding: 1rem 1.15rem;
+            background: #fffbeb;
+            border: 1.5px solid #fde68a;
+            border-radius: 1rem;
+            font-size: 0.78rem;
+            color: #92400e;
+            text-align: left;
+            line-height: 1.5;
+        }
+
+        .btn-vcard {
+            width: 100%;
+            padding: 1.1rem;
+            border: none;
+            border-radius: 1rem;
+            background: linear-gradient(135deg, #0f172a 0%, #334155 100%);
+            color: #fff;
+            font-family: inherit;
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+            transition: all 0.25s;
+        }
+
+        .btn-vcard:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(15,23,42,0.3); }
+
+        .btn-tidycal {
+            display: block;
+            width: 100%;
+            padding: 1.1rem;
+            border: none;
+            border-radius: 1rem;
+            background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+            color: #fff;
+            font-family: inherit;
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+            margin-top: 0.75rem;
+            transition: all 0.25s;
+        }
+
+        .btn-tidycal:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(249,115,22,0.3); }
+
+        .detail-hint {
+            font-size: 0.75rem;
+            color: #94a3b8;
+            text-align: center;
+            margin-top: 0.5rem;
+        }
 
         @media (max-width: 480px) {
             body { padding: 8px; }
             .header { padding: 1.5rem 1rem 1.25rem; }
-            .avatar { width: 96px; height: 96px; }
-            .step { padding: 1rem; }
-            .speech { font-size: 0.95rem; }
+            .avatar { width: 100px; height: 100px; }
+            .step { padding: 1.15rem; }
+            .speech { font-size: 0.92rem; }
+            .thanks-section { padding: 2rem 1.15rem; }
+            .patricio-img { width: 120px; height: 120px; }
         }
     </style>
 </head>
 <body>
 
 <div class="app-card">
-    <div class="header">
+
+    <!-- HEADER: AGUSTÍN PROTAGONISTA -->
+    <div class="header" id="header-section">
         <div class="avatar-wrap" id="avatar-wrap">
-            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=500&auto=format&fit=crop" class="avatar" alt="Agustín">
-            <div class="online-dot"></div>
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=500&auto=format&fit=crop" class="avatar" alt="Agustín" id="avatar-img">
+            <div class="online-dot" id="online-dot"></div>
         </div>
-        <div class="speech-bubble">
+        <p class="agent-name" id="agent-label">Asistente Virtual</p>
+        <div class="speech-bubble" id="speech-wrap">
             <p class="speech" id="speech">
-                ¡Hola! Soy <b>Agustín</b>, asistente de Patricio.<br>¿Tu requerimiento es para una <b>Empresa</b> o un proyecto <b>Particular</b>?
+                ¡Hola! Soy <b>Agustín</b>, asistente del Arquitecto Patricio Becar.<br><br>¿Tu requerimiento es para una <b>Empresa</b> o un proyecto <b>Particular</b>?
             </p>
         </div>
     </div>
 
-    <!-- PASO 1: Empresa / Particular -->
+    <!-- ======================== -->
+    <!-- PASO 1: EMPRESA / PARTICULAR -->
+    <!-- ======================== -->
     <div class="step active" id="step-1">
         <div style="display:flex; flex-direction:column; gap:1rem;">
             <button class="btn-branch empresa" onclick="selectBranch('empresa')">
                 <span class="icon">🏢</span>
-                <div><span class="title">Empresa / Institución</span><span class="sub">Proyectos corporativos y técnicos</span></div>
+                <div>
+                    <span class="title">Empresa / Institución</span>
+                    <span class="sub">Proyectos corporativos, ITO y revisoría</span>
+                </div>
             </button>
             <button class="btn-branch particular" onclick="selectBranch('particular')">
                 <span class="icon">🏠</span>
-                <div><span class="title">Proyecto Particular</span><span class="sub">Casas, regularizaciones y terrenos</span></div>
+                <div>
+                    <span class="title">Proyecto Particular</span>
+                    <span class="sub">Casas, regularizaciones, terrenos y permisos</span>
+                </div>
             </button>
         </div>
     </div>
 
-    <!-- PASO 2: Servicios -->
+    <!-- ======================== -->
+    <!-- PASO 2: SERVICIOS -->
+    <!-- ======================== -->
     <div class="step" id="step-2">
         <div class="services-scroll" id="services-grid"></div>
-        <button class="link-back" onclick="goTo('step-1', defaultSpeech())">← Volver</button>
+        <button class="link-back" onclick="goBack1()">← Volver</button>
     </div>
 
-    <!-- PASO 3: Ubicación -->
+    <!-- ======================== -->
+    <!-- PASO 3: UBICACIÓN -->
+    <!-- ======================== -->
     <div class="step" id="step-3">
-        <p style="font-size:0.8rem; font-weight:700; color:#2563eb; text-transform:uppercase; text-align:center; margin-bottom:1rem; letter-spacing:0.1em;">Datos de la Propiedad</p>
+        <p class="section-label">Datos de la Propiedad</p>
         <div style="display:flex; flex-direction:column; gap:0.75rem;">
-            <input type="text" id="f-direccion" placeholder="Calle y número exacto *" class="form-input">
+            <input type="text" id="f-direccion" placeholder="Calle y número exacto *" class="form-input" autocomplete="street-address">
             <input type="text" id="f-comuna" placeholder="Comuna *" class="form-input">
-            <input type="text" id="f-rol" placeholder="ROL (Opcional)" class="form-input">
+            <input type="text" id="f-rol" placeholder="ROL de la propiedad (opcional)" class="form-input">
         </div>
-        <div style="margin-top:1rem;">
-            <label style="display:block; font-size:0.85rem; font-weight:700; margin-bottom:0.5rem;">¿Qué tipo de propiedad es?</label>
+        <div style="margin-top:1.25rem;">
+            <label style="display:block; font-size:0.85rem; font-weight:700; margin-bottom:0.6rem; color:#334155;">¿Qué tipo de propiedad es?</label>
             <div class="prop-grid">
                 <button class="btn-prop" onclick="setPropType(this,'Vivienda')">🏠 Vivienda</button>
                 <button class="btn-prop" onclick="setPropType(this,'Comercial')">🏪 Local</button>
                 <button class="btn-prop" onclick="setPropType(this,'Industrial')">🏭 Industria</button>
             </div>
         </div>
-        <button class="btn-primary" style="margin-top:1rem;" onclick="goToDetails()">Siguiente</button>
-        <button class="link-back" onclick="goTo('step-2', branchSpeech())">← Volver</button>
+        <button class="btn-primary" style="margin-top:1.25rem;" onclick="goToDetails()">Siguiente →</button>
+        <button class="link-back" onclick="goBack2()">← Volver a servicios</button>
     </div>
 
-    <!-- PASO 4: Detalle (NUEVA PANTALLA DEDICADA) -->
+    <!-- ================================= -->
+    <!-- PASO 4: DETALLE (PANTALLA NUEVA) -->
+    <!-- ================================= -->
     <div class="step" id="step-4">
-        <textarea id="f-descripcion" placeholder="Escribe aquí los detalles de tu proyecto, tu situación actual, tus plazos y cualquier dato relevante..." class="form-input" style="height:140px; resize:none;"></textarea>
+        <textarea id="f-descripcion" placeholder="Describe tu situación actual, qué quieres lograr, plazos, y cualquier detalle importante para tu proyecto..." class="form-input" style="height:150px; resize:none; line-height:1.6;"></textarea>
+        <p class="detail-hint">Mientras más detalles nos des, mejor podremos ayudarte</p>
         <div id="audio-status"></div>
         <div style="display:flex; flex-direction:column; gap:0.75rem; margin-top:1rem;">
-            <button class="btn-audio" id="btn-audio" onclick="toggleAudio()">🎤 Grabar Audio</button>
+            <button class="btn-audio" id="btn-audio" onclick="toggleAudio()">🎤 Grabar Mensaje de Audio</button>
             <button class="btn-send" onclick="submitLead()">📤 Enviar mi Solicitud</button>
         </div>
-        <button class="link-back" onclick="goTo('step-3', 'Perfecto. Necesito algunos datos para <b>entender mejor tu proyecto.</b>')">← Volver</button>
+        <button class="link-back" onclick="goBack3()">← Volver a ubicación</button>
     </div>
 
-    <!-- PASO 5: Gracias -->
+    <!-- ================================= -->
+    <!-- PASO 5: PÁGINA DE GRACIAS -->
+    <!-- ================================= -->
     <div class="step" id="step-5">
         <div class="thanks-section">
-            <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=400&auto=format&fit=crop" class="patricio-img" alt="Patricio Becar">
+            <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=400&auto=format&fit=crop" class="patricio-img" alt="Arq. Patricio Becar Elissegaray">
+
+            <p class="thanks-title">¡Solicitud Recibida!</p>
             <p class="thanks-quote">"Tu proyecto ahora está en manos expertas."</p>
-            <p class="thanks-creds">
+
+            <div class="thanks-creds">
                 <b>Patricio Becar Elissegaray</b><br>
                 Arquitecto U. de Chile desde 1999<br>
                 Revisor Independiente MINVU
-            </p>
+            </div>
+
             <div class="thanks-emails">
                 ✉️ <a href="mailto:contacto@arquitectochile.com">contacto@arquitectochile.com</a><br>
                 ✉️ <a href="mailto:arquitectopatriciobecar@gmail.com">arquitectopatriciobecar@gmail.com</a>
             </div>
+
             <div class="aviso-box">
-                ⚠️ <b>AVISO:</b> Patricio o alguien de su equipo se contactará directamente con usted. Por favor, <b>descargue su contacto</b> para que la llamada no sea bloqueada como spam.
+                ⚠️ <b>IMPORTANTE:</b> Patricio o alguien de su equipo se contactará directamente con usted por teléfono. Por favor, <b>descargue su contacto</b> para que la llamada no sea bloqueada como spam.
             </div>
+
             <div style="display:flex; flex-direction:column; gap:0.75rem;">
                 <button class="btn-vcard" onclick="downloadVCard()">💾 GUARDAR CONTACTO DE PATRICIO</button>
                 <a href="https://tidycal.com/arquitectopatriciobecar/" target="_blank" rel="noopener" class="btn-tidycal">📅 AGENDAR VIDEOLLAMADA GRATUITA</a>
             </div>
-            <button class="link-back" style="margin-top:1.5rem;" onclick="resetAll()">← Volver a la Web Principal</button>
+
+            <button class="link-back" style="margin-top:2rem;" onclick="resetAll()">← Volver a la Web Principal</button>
         </div>
     </div>
+
 </div>
 
 <script>
@@ -215,79 +656,106 @@
     };
 
     function defaultSpeech() {
-        return '¡Hola! Soy <b>Agustín</b>, asistente de Patricio.<br>¿Tu requerimiento es para una <b>Empresa</b> o un proyecto <b>Particular</b>?';
+        return '¡Hola! Soy <b>Agustín</b>, asistente del Arquitecto Patricio Becar.<br><br>¿Tu requerimiento es para una <b>Empresa</b> o un proyecto <b>Particular</b>?';
     }
 
     function branchSpeech() {
         return lead.branch === 'empresa'
-            ? 'Entendido. Los proyectos corporativos son nuestra especialidad. <b>¿En qué área necesitan apoyo?</b>'
-            : 'Excelente. Ayudamos a familias a construir sueños legalmente. <b>¿Qué necesitas hacer?</b>';
+            ? 'Perfecto, trabajamos con empresas e instituciones a diario. <b>¿En qué área necesitan apoyo técnico?</b>'
+            : 'Excelente, ayudamos a familias a construir sus sueños de forma legal y segura. <b>¿Qué necesitas hacer?</b>';
     }
 
-    function goTo(stepId, speechHTML) {
-        document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+    function goTo(stepId) {
+        document.querySelectorAll('.step').forEach(function(s) { s.classList.remove('active'); });
         document.getElementById(stepId).classList.add('active');
-        if (speechHTML) document.getElementById('speech').innerHTML = speechHTML;
+    }
+
+    function setSpeech(html) {
+        document.getElementById('speech').innerHTML = html;
+    }
+
+    function goBack1() {
+        setSpeech(defaultSpeech());
+        goTo('step-1');
+    }
+
+    function goBack2() {
+        setSpeech(branchSpeech());
+        goTo('step-2');
+    }
+
+    function goBack3() {
+        setSpeech('Perfecto. Necesito algunos datos para <b>entender mejor tu proyecto.</b>');
+        goTo('step-3');
     }
 
     function selectBranch(b) {
         lead.branch = b;
-        document.getElementById('speech').innerHTML = branchSpeech();
+        setSpeech(branchSpeech());
 
-        const grid = document.getElementById('services-grid');
-        grid.innerHTML = svcData[b].map(s =>
-            `<button class="btn-service" onclick="selectService('${s.n.replace(/'/g, "\\'")}')"><span class="svc-icon">${s.i}</span> ${s.n}</button>`
-        ).join('') + `<button class="btn-wildcard" onclick="selectService('Otro / No encuentro lo que busco')">¿No encuentras lo que buscas?</button>`;
+        var grid = document.getElementById('services-grid');
+        var html = '';
+        var services = svcData[b];
+        for (var i = 0; i < services.length; i++) {
+            var s = services[i];
+            html += '<button class="btn-service" onclick="selectService(\'' + s.n.replace(/'/g, "\\'") + '\')"><span class="svc-icon">' + s.i + '</span> ' + s.n + '</button>';
+        }
+        html += '<button class="btn-wildcard" onclick="selectService(\'Otro / No encuentro lo que busco\')">¿No encuentras lo que buscas? Escríbenos</button>';
+        grid.innerHTML = html;
 
         goTo('step-2');
     }
 
     function selectService(s) {
         lead.service = s;
-        document.getElementById('speech').innerHTML = 'Perfecto. Necesito algunos datos para <b>entender mejor tu proyecto.</b>';
+        setSpeech('Perfecto. Necesito algunos datos para <b>entender mejor tu proyecto.</b>');
         goTo('step-3');
     }
 
     function setPropType(btn, type) {
         lead.propertyType = type;
-        document.querySelectorAll('.btn-prop').forEach(b => b.classList.remove('selected'));
+        var buttons = document.querySelectorAll('.btn-prop');
+        for (var i = 0; i < buttons.length; i++) { buttons[i].classList.remove('selected'); }
         btn.classList.add('selected');
     }
 
     function goToDetails() {
-        const dir = document.getElementById('f-direccion').value.trim();
-        const com = document.getElementById('f-comuna').value.trim();
-        if (!dir || !com) { alert('Dirección y Comuna son obligatorios.'); return; }
+        var dir = document.getElementById('f-direccion').value.trim();
+        var com = document.getElementById('f-comuna').value.trim();
+        if (!dir || !com) {
+            alert('Por favor ingresa la dirección y la comuna.');
+            return;
+        }
         lead.direccion = dir;
         lead.comuna = com;
         lead.rol = document.getElementById('f-rol').value.trim();
-        document.getElementById('speech').innerHTML = 'Cuéntame un poco más acerca de esta propiedad y <b>qué es lo que realmente necesitas.</b>';
+        setSpeech('Cuéntame un poco más acerca de esta propiedad y <b>qué es lo que realmente necesitas.</b>');
         goTo('step-4');
     }
 
     function toggleAudio() {
-        const btn = document.getElementById('btn-audio');
-        const status = document.getElementById('audio-status');
+        var btn = document.getElementById('btn-audio');
+        var status = document.getElementById('audio-status');
 
         if (!isRecording) {
             navigator.mediaDevices.getUserMedia({ audio: true })
-                .then(stream => {
+                .then(function(stream) {
                     mediaRecorder = new MediaRecorder(stream);
                     audioChunks = [];
-                    mediaRecorder.ondataavailable = e => { if (e.data.size > 0) audioChunks.push(e.data); };
-                    mediaRecorder.onstop = () => {
+                    mediaRecorder.ondataavailable = function(e) { if (e.data.size > 0) audioChunks.push(e.data); };
+                    mediaRecorder.onstop = function() {
                         lead.hasAudio = true;
                         status.innerHTML = '<span class="audio-status">✅ Audio grabado correctamente</span>';
                         btn.innerHTML = '🎤 Grabar de nuevo';
                         btn.classList.remove('recording');
-                        stream.getTracks().forEach(t => t.stop());
+                        stream.getTracks().forEach(function(t) { t.stop(); });
                     };
                     mediaRecorder.start();
                     isRecording = true;
                     btn.innerHTML = '⏹️ Detener grabación';
                     btn.classList.add('recording');
                 })
-                .catch(() => alert('No se pudo acceder al micrófono.'));
+                .catch(function() { alert('No se pudo acceder al micrófono. Verifica los permisos de tu navegador.'); });
         } else {
             mediaRecorder.stop();
             isRecording = false;
@@ -297,32 +765,38 @@
     function submitLead() {
         lead.descripcion = document.getElementById('f-descripcion').value.trim();
 
-        const payload = { ...lead };
-        console.log('📤 Lead capturado:', payload);
+        var payload = {};
+        for (var key in lead) { payload[key] = lead[key]; }
+
+        console.log('📤 Lead capturado:', JSON.stringify(payload));
 
         fetch('/api/lead', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)
-        }).then(r => r.json()).then(data => {
-            console.log('✅ Backend response:', data);
-        }).catch(err => {
-            console.warn('⚠️ Backend no disponible, lead guardado localmente:', err);
+        }).then(function(r) { return r.json(); }).then(function(data) {
+            console.log('✅ Backend:', data);
+        }).catch(function(err) {
+            console.warn('⚠️ Error backend:', err);
         });
 
         document.getElementById('avatar-wrap').style.display = 'none';
-        document.getElementById('speech').innerHTML = '<b>¡Solicitud recibida!</b><br>Analizaremos tu caso de inmediato.';
+        document.getElementById('agent-label').style.display = 'none';
+        document.getElementById('online-dot').style.display = 'none';
+        setSpeech('<b>¡Solicitud recibida!</b><br>Analizaremos tu caso de inmediato.');
         goTo('step-5');
     }
 
     function downloadVCard() {
-        const vcard = `BEGIN:VCARD\nVERSION:3.0\nFN:Patricio Becar Elissegaray\nORG:ArquitectoChile.com\nTITLE:Arquitecto U. de Chile (Desde 1999)\nTEL;TYPE=CELL:+56979316827\nEMAIL:contacto@arquitectochile.com\nEMAIL:arquitectopatriciobecar@gmail.com\nURL:https://arquitectochile.com\nEND:VCARD`;
-        const blob = new Blob([vcard], { type: 'text/vcard' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
+        var vcard = 'BEGIN:VCARD\nVERSION:3.0\nFN:Patricio Becar Elissegaray\nORG:ArquitectoChile.com\nTITLE:Arquitecto U. de Chile (Desde 1999)\nTEL;TYPE=CELL:+56979316827\nEMAIL:contacto@arquitectochile.com\nEMAIL:arquitectopatriciobecar@gmail.com\nURL:https://arquitectochile.com\nEND:VCARD';
+        var blob = new Blob([vcard], { type: 'text/vcard' });
+        var url = URL.createObjectURL(blob);
+        var a = document.createElement('a');
         a.href = url;
         a.download = 'Patricio_Becar.vcf';
+        document.body.appendChild(a);
         a.click();
+        document.body.removeChild(a);
         URL.revokeObjectURL(url);
     }
 
