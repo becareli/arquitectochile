@@ -28,6 +28,7 @@ import PoliticaCookies from "@/pages/politica-cookies";
 import Gracias from "@/pages/gracias";
 import AsesoriaArquitectonicaTerreno from "@/pages/asesoria-arquitectonica-terreno";
 import RegularizacionInmuebles from "@/pages/regularizacion-inmuebles";
+import Contacto from "@/pages/contacto";
 import NotFound from "@/pages/not-found";
 import CookieConsent from "@/components/cookie-consent";
 
@@ -60,6 +61,7 @@ function Router() {
       <Route path="/politica-privacidad" component={PoliticaPrivacidad} />
       <Route path="/politica-cookies" component={PoliticaCookies} />
       <Route path="/gracias" component={Gracias} />
+      <Route path="/contacto" component={Contacto} />
       <Route component={NotFound} />
     </Switch>
   );
