@@ -1,0 +1,50 @@
+Entiendo perfectamente tu preocupación, Patricio. En el mundo de la programación con IA, a veces cuando le pides "arreglar un texto", la IA borra el diseño por error para "simplificar".
+
+El prompt que te di anteriormente es una instrucción lógica, pero para asegurar que Agustín no desaparezca y el diseño se mantenga espectacular, he preparado este Prompt de "Resguardo de Identidad Visual".
+
+Este prompt le dice a Replit Agent que mantenga la estética (la foto de Agustín, los colores, los botones grandes) pero que cambie obligatoriamente la estructura y los textos.
+
+🚀 PROMPT DE RESGUARDO VISUAL (Copia este)
+"Reconstruye la página contacto.html manteniendo la identidad visual de alta gama que ya definimos, pero aplicando los cambios de estructura técnica que faltan.
+
+1. SOBRE LA GRÁFICA (NO BORRAR):
+
+Mantén la imagen de Agustín en grande (joven, pelo crespo) y su burbuja de texto como protagonista.
+
+Usa el estilo de botones grandes, redondeados y limpios (Mobile-First) con tipografía Montserrat.
+
+2. CAMBIOS OBLIGATORIOS EN LOS TEXTOS (PASO 2):
+No uses textos cortos. Los botones de la rama Particular deben decir exactamente:
+
+'Asesoría de Arquitecto a domicilio'
+
+'Diseño de ampliaciones de casas'
+
+'Diseño de remodelación'
+
+'Permiso regularización de propiedades (Ley del Mono)'
+
+'Fusión y subdivisión de terrenos'
+
+'Permisos de edificación y recepción final'
+
+'Revisor independiente de arquitectura'
+
+'Proyectos de Agua Potable y Alcantarillado'
+
+'Proyectos de Electricidad y Gas'
+
+'Autorización SEREMI de Salud'
+
+'Proyecto desde Cero'
+
+3. LAS PÁGINAS ADICIONALES (EL FLUJO REAL):
+La IA ha estado omitiendo pasos, asegúrate de que existan estas pantallas separadas:
+
+Pantalla de Ubicación: Calle/N°, Comuna y ROL + Selector (Vivienda/Local/Industria).
+
+NUEVA PANTALLA DE DETALLE (Antes de enviar): Una página dedicada donde Agustín diga: 'Cuéntame un poco más acerca de esta propiedad y qué es lo que realmente necesitas'. Debe tener la caja de texto grande y el botón de Audio Verde.
+
+Pantalla de Gracias: Foto de Patricio Becar, texto 'Arquitecto U. de Chile desde 1999', los dos correos, el botón vCard (Tel: +56 9793 168 27) y el link a TidyCal.
+
+4. BACKEND: > Asegura que los datos viajen a /api/index.py para el envío de correos y la futura conexión a Trello (ID 1wGKEkO8)."
