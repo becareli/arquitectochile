@@ -1,0 +1,219 @@
+INSTRUCCIÓN DE INSTALACIÓN PRIORITARIA PARA REPLIT AGENT
+
+CONTEXTO: Este es el nuevo Embudo de Ventas y Diagnóstico Técnico del Arq. Patricio Vega para el sitio ArquitectoChile.com.
+OBJETIVO: Reemplazar quirúrgicamente el contenido de contacto.html con el código de alta conversión proporcionado abajo.
+
+REGLAS DE EJECUCIÓN:
+
+No inventar diseño nuevo; usar estrictamente el código adjunto.
+
+Mantener la lógica de Prioridad de Lead Magnet (1. Construcción, 2. Regularización, 3. Terrenos).
+
+Asegurar que el diseño sea responsivo y mantenga el estilo de "Interface Profesional".
+
+El sistema debe funcionar de forma autónoma (HTML/JS/CSS en el mismo archivo) para ser exportado a Vercel.
+
+CÓDIGO FINAL (INTERFACE PREMIUM):
+
+HTML
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diagnóstico Técnico | Arq. Patricio Vega</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root { --primary: #e67e22; --dark: #1a1a1a; --bg: #f8fafc; --glass: rgba(255, 255, 255, 0.98); }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--dark); margin: 0; }
+        
+        .landing-wrapper { min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 50px 20px; box-sizing: border-box; }
+        .hero { text-align: center; max-width: 750px; margin-bottom: 40px; }
+        .hero h1 { font-size: 2.5rem; font-weight: 800; margin-bottom: 15px; letter-spacing: -1px; }
+        .hero p { font-size: 1.1rem; color: #555; line-height: 1.6; }
+
+        .advisor-ui { 
+            width: 100%; max-width: 580px; background: var(--glass); border-radius: 28px; 
+            box-shadow: 0 30px 60px -12px rgba(0,0,0,0.12); border: 1px solid #eee; overflow: hidden;
+        }
+
+        .header-ui { background: var(--dark); padding: 25px; color: white; display: flex; align-items: center; gap: 15px; }
+        .avatar { width: 65px; height: 65px; border-radius: 50%; border: 2px solid var(--primary); background: url('https://via.placeholder.com/150') center/cover; }
+        .status { font-size: 12px; color: #2ecc71; display: flex; align-items: center; gap: 6px; margin-top: 5px; }
+        .pulse { width: 8px; height: 8px; background: #2ecc71; border-radius: 50%; animation: blink 2s infinite; }
+
+        .body-ui { padding: 35px; min-height: 480px; position: relative; }
+        .step { display: none; animation: fadeIn 0.5s ease forwards; }
+        .step.active { display: block; }
+
+        .bubble { background: #f1f5f9; padding: 20px; border-radius: 20px 20px 20px 5px; font-size: 15px; line-height: 1.5; margin-bottom: 25px; border: 1px solid #e2e8f0; }
+        
+        .options-grid { display: grid; gap: 10px; }
+        .choice-btn { 
+            background: white; border: 1px solid #e2e8f0; padding: 15px 20px; border-radius: 14px; 
+            text-align: left; cursor: pointer; transition: 0.2s; font-size: 14px; font-weight: 500;
+            display: flex; justify-content: space-between;
+        }
+        .choice-btn:hover { border-color: var(--primary); background: #fffaf5; }
+        .choice-btn.selected { border-color: var(--primary); background: #fffaf5; box-shadow: 0 0 0 2px var(--primary); }
+
+        .form-control { width: 100%; padding: 15px; margin-bottom: 12px; border: 1px solid #cbd5e1; border-radius: 12px; font-size: 15px; box-sizing: border-box; }
+        
+        .nav-actions { margin-top: 25px; display: flex; justify-content: space-between; align-items: center; }
+        .btn-main { background: var(--dark); color: white; border: none; padding: 16px 30px; border-radius: 14px; font-weight: 700; cursor: pointer; transition: 0.3s; }
+        .btn-main:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .btn-back { background: none; border: none; color: #94a3b8; text-decoration: underline; cursor: pointer; font-size: 13px; }
+
+        .gift-box { background: #fff7ed; border: 2px dashed #fb923c; border-radius: 20px; padding: 25px; text-align: center; margin-top: 15px; }
+        .gift-cover { width: 110px; height: 150px; background: #334155; margin: 0 auto 15px; border-radius: 4px; box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+    </style>
+</head>
+<body>
+
+<div class="landing-wrapper">
+    <div class="hero">
+        <h1>Centro de Diagnóstico Técnico</h1>
+        <p>Inicie su proyecto con el respaldo de un equipo experto. Analizamos la normativa de su propiedad antes de cualquier inversión.</p>
+    </div>
+
+    <div class="advisor-ui">
+        <div class="header-ui">
+            <div class="avatar"></div>
+            <div>
+                <h3 style="margin: 0; font-size: 17px;">Asistente de Patricio Vega</h3>
+                <div class="status"><div class="pulse"></div> Patricio está revisando nuevos casos</div>
+            </div>
+        </div>
+
+        <div class="body-ui">
+            <form id="advisorForm">
+                <div class="step active" id="step1">
+                    <div class="bubble">Hola, estoy aquí para guiarle. Patricio necesita conocer el enfoque de su consulta. <b>¿Qué área le interesa?</b></div>
+                    <div class="options-grid">
+                        <label class="choice-btn"><input type="checkbox" name="area" value="Construcción" hidden> 🏠 Construcción / Ampliación <span>+</span></label>
+                        <label class="choice-btn"><input type="checkbox" name="area" value="Regularización" hidden> 📜 Regularización / Permisos <span>+</span></label>
+                        <label class="choice-btn"><input type="checkbox" name="area" value="Terrenos" hidden> 🌍 Subdivisión / Loteos <span>+</span></label>
+                        <label class="choice-btn"><input type="checkbox" name="area" value="Ingeniería" hidden> ⚡ Especialidades Técnicas <span>+</span></label>
+                    </div>
+                    <div class="nav-actions">
+                        <span></span>
+                        <button type="button" class="btn-main" onclick="goTo2()">Siguiente</button>
+                    </div>
+                </div>
+
+                <div class="step" id="step2">
+                    <div class="bubble">Para dar un veredicto técnico, Patricio debe estudiar el <b>Plan Regulador</b> de su comuna.</div>
+                    <input type="text" id="calle" placeholder="Calle y Número" class="form-control" required>
+                    <input type="text" id="comuna" placeholder="Comuna" class="form-control" required>
+                    <select id="urgencia" class="form-control">
+                        <option value="" disabled selected>Grado de urgencia</option>
+                        <option value="Urgente">🔥 Plazos legales / Crítico</option>
+                        <option value="Plan">📅 Planificación (1-3 meses)</option>
+                        <option value="Info">👀 Recopilando información</option>
+                    </select>
+                    <div class="nav-actions">
+                        <button type="button" class="btn-back" onclick="nav(1)">Volver</button>
+                        <button type="button" class="btn-main" onclick="nav(3)">Siguiente</button>
+                    </div>
+                </div>
+
+                <div class="step" id="step3">
+                    <div class="bubble"><b>¿Tiene documentos técnicos?</b> Si adjunta su CIP, planos o fotos, Patricio podrá enviarle un diagnóstico preliminar mucho más rápido.</div>
+                    <div style="border: 2px dashed #cbd5e1; padding: 30px; border-radius: 15px; text-align: center;">
+                        <input type="file" id="archivos" multiple style="display:none;" onchange="updateFiles()">
+                        <label for="archivos" style="cursor: pointer; color: var(--primary); font-weight: 700;">📂 SUBIR ANTECEDENTES</label>
+                        <div id="file-status" style="font-size: 11px; color: #64748b; margin-top: 8px;">Opcional (Máx 10MB)</div>
+                    </div>
+                    <div class="nav-actions">
+                        <button type="button" class="btn-back" onclick="nav(2)">Volver</button>
+                        <button type="button" class="btn-main" onclick="evalGift()">Ver Regalo</button>
+                    </div>
+                </div>
+
+                <div class="step" id="step4">
+                    <div class="bubble" id="gift-text"></div>
+                    <div class="gift-box">
+                        <div class="gift-cover"></div>
+                        <h4 id="gift-title" style="margin: 0 0 10px;"></h4>
+                        <p style="font-size: 12px; color: #7c2d12;">Material exclusivo para suscriptores de ArquitectoChile.</p>
+                        <label style="display: flex; align-items: center; gap: 8px; justify-content: center; font-size: 12px; font-weight: 600;">
+                            <input type="checkbox" id="news" checked> Solicitar regalo y asesoría
+                        </label>
+                    </div>
+                    <div class="nav-actions">
+                        <button type="button" class="btn-back" onclick="nav(3)">Volver</button>
+                        <button type="button" class="btn-main" onclick="nav(5)">Finalizar</button>
+                    </div>
+                </div>
+
+                <div class="step" id="step5">
+                    <div class="bubble">¡Todo listo! Patricio recibirá su caso. Confirme dónde enviarle el diagnóstico y su regalo:</div>
+                    <input type="text" id="nombre" placeholder="Nombre completo" class="form-control" required>
+                    <input type="email" id="email" placeholder="Correo electrónico" class="form-control" required>
+                    <input type="tel" id="tel" placeholder="WhatsApp +569..." class="form-control" required>
+                    <button type="submit" class="btn-main" style="width:100%; background: #059669; margin-top: 15px;">ENVIAR A REVISIÓN</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    let areas = [];
+    let leadSvc = "";
+
+    document.querySelectorAll('.choice-btn').forEach(b => {
+        b.onclick = function() {
+            this.classList.toggle('selected');
+            const c = this.querySelector('input');
+            c.checked = !c.checked;
+        }
+    });
+
+    function nav(n) {
+        document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+        document.getElementById('step'+n).classList.add('active');
+    }
+
+    function goTo2() {
+        const checked = document.querySelectorAll('input[name="area"]:checked');
+        if(checked.length === 0) return alert("Por favor, seleccione un área.");
+        areas = Array.from(checked).map(i => i.value);
+        nav(2);
+    }
+
+    function updateFiles() {
+        const f = document.getElementById('archivos').files;
+        document.getElementById('file-status').innerText = f.length + " archivos seleccionados ✅";
+    }
+
+    function evalGift() {
+        // Lógica de Prioridad de Regalo
+        if(areas.includes("Construcción")) leadSvc = "Construcción";
+        else if(areas.includes("Regularización")) leadSvc = "Regularización";
+        else if(areas.includes("Terrenos")) leadSvc = "Terrenos";
+        else leadSvc = "Ingeniería";
+
+        const titles = {
+            "Construcción": "Manual: Construir sin Sobrecostos",
+            "Regularización": "Guía: Ley del Mono 2026",
+            "Terrenos": "Manual: Subdivisión de Terrenos",
+            "Ingeniería": "Checklist: Proyectos Eléctricos"
+        };
+
+        document.getElementById('gift-text').innerHTML = `Excelente. Como le interesa la <b>${leadSvc}</b>, Patricio le obsequiará su material:`;
+        document.getElementById('gift-title').innerText = titles[leadSvc];
+        nav(4);
+    }
+
+    document.getElementById('advisorForm').onsubmit = function(e) {
+        e.preventDefault();
+        alert("Antecedentes enviados. El sistema de Patricio Vega ha priorizado su revisión.");
+        location.reload();
+    };
+</script>
+</body>
+</html>
