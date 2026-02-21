@@ -41,6 +41,11 @@ export function csrfTokenMiddleware(req: Request, res: Response, next: NextFunct
     return next();
   }
 
+  // Skip CSRF for standalone lead capture (contacto.html)
+  if (req.path === '/api/lead') {
+    return next();
+  }
+
   const cookieToken = req.cookies?.['csrf-token'];
   const headerToken = req.headers['x-csrf-token'] as string;
 

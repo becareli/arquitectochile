@@ -231,6 +231,69 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Lead capture endpoint for contacto.html (Agustín assistant)
+  const leadSchema = z.object({
+    branch: z.enum(["empresa", "particular"]),
+    service: z.string().max(200).default("General"),
+    propertyType: z.string().max(50).default(""),
+    direccion: z.string().max(300).default(""),
+    comuna: z.string().max(100).default(""),
+    rol: z.string().max(50).default(""),
+    descripcion: z.string().max(2000).default(""),
+    hasAudio: z.boolean().default(false),
+  });
+
+  app.post("/api/lead", async (req, res) => {
+    try {
+      const parsed = leadSchema.safeParse(req.body);
+      if (!parsed.success) {
+        return res.status(400).json({ error: "Datos inválidos", details: parsed.error.flatten() });
+      }
+      const leadData = parsed.data;
+
+      const vipServices = [
+        "Revisoría Independiente de Arquitectura",
+        "Inspección Técnica de Obras (ITO)",
+        "Construcción de Obras Menores para Empresas",
+        "Diseño de Arquitectura para Empresas",
+        "Proyecto desde Cero",
+        "Autorización SEREMI de Salud",
+      ];
+
+      let classification = "NUEVO";
+      if (leadData.branch === "empresa") classification = "VIP";
+      else if (vipServices.includes(leadData.service)) classification = "VIP";
+      else if (leadData.propertyType === "Industrial") classification = "VIP";
+
+      console.log(`📋 [LEAD ${classification}] ${leadData.service} - ${leadData.comuna}`);
+      console.log(`📦 Datos:`, JSON.stringify(leadData, null, 2));
+
+      try {
+        await storage.createLead({
+          name: "Contacto Agustín",
+          email: "",
+          phone: "",
+          helpType: leadData.service || "General",
+          message: `[${classification}] ${leadData.branch?.toUpperCase()} | ROL: ${leadData.rol || '-'} | Propiedad: ${leadData.propertyType || '-'} | Descripción: ${leadData.descripcion || '-'}`,
+          source: "contacto-agustin",
+          comuna: leadData.comuna || "",
+          calle: leadData.direccion || "",
+        });
+      } catch (dbErr) {
+        console.warn("⚠️ No se pudo guardar en DB:", dbErr);
+      }
+
+      res.json({
+        success: true,
+        classification,
+        message: "Lead procesado correctamente",
+      });
+    } catch (error) {
+      console.error("❌ Error procesando lead:", error);
+      res.status(500).json({ error: "Error interno" });
+    }
+  });
+
   // Object Storage endpoints
   app.post("/api/objects/upload", async (req, res) => {
     try {
