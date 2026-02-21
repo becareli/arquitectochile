@@ -1,274 +1,433 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+
+type Route = "none" | "regularizacion" | "ampliacion" | "obra-nueva";
+
+interface StepData {
+  route: Route;
+  subChoice: string;
+  m2: string;
+  urgencia: string;
+  objetivo: string;
+  terreno: string;
+  estilo: string;
+  nombre: string;
+  email: string;
+  telefono: string;
+}
+
+const fadeSlide = {
+  initial: { opacity: 0, y: 30 },
+  animate: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
+  exit: { opacity: 0, y: -20, transition: { duration: 0.3 } },
+};
+
+function OptionCard({ icon, title, subtitle, selected, onClick }: {
+  icon: string; title: string; subtitle?: string; selected?: boolean; onClick: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={`w-full text-left p-5 sm:p-6 rounded-xl border-2 transition-all duration-300 cursor-pointer group ${
+        selected
+          ? "border-[hsl(14,70%,50%)] bg-[hsl(14,70%,50%)]/5 shadow-md"
+          : "border-gray-200 bg-white hover:border-[hsl(14,70%,50%)]/50 hover:shadow-sm"
+      }`}
+    >
+      <div className="flex items-center gap-4">
+        <span className="text-3xl flex-shrink-0">{icon}</span>
+        <div>
+          <p className="font-semibold text-[hsl(210,15%,30%)] text-base sm:text-lg tracking-wide">{title}</p>
+          {subtitle && <p className="text-sm text-gray-500 mt-1 font-light tracking-wide">{subtitle}</p>}
+        </div>
+        <span className={`ml-auto text-xl transition-colors ${selected ? "text-[hsl(14,70%,50%)]" : "text-gray-300 group-hover:text-gray-400"}`}>
+          {selected ? "✓" : "→"}
+        </span>
+      </div>
+    </button>
+  );
+}
+
+function Bubble({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="flex items-start gap-3 sm:gap-4 mb-8">
+      <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-[hsl(210,15%,30%)] flex items-center justify-center text-white font-bold text-lg flex-shrink-0 shadow-md">
+        A
+      </div>
+      <div className="bg-gray-50 border border-gray-100 rounded-2xl rounded-tl-md px-5 py-4 sm:px-6 sm:py-5 text-[15px] sm:text-base leading-relaxed text-gray-700 shadow-sm max-w-lg">
+        {children}
+      </div>
+    </div>
+  );
+}
+
+function NextButton({ onClick, label = "Continuar", color = "green" }: { onClick: () => void; label?: string; color?: string }) {
+  const bgClass = color === "green"
+    ? "bg-emerald-600 hover:bg-emerald-700"
+    : "bg-[hsl(210,15%,30%)] hover:bg-[hsl(210,15%,25%)]";
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={`${bgClass} text-white px-8 py-4 rounded-xl font-semibold text-base tracking-wide transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg`}
+    >
+      {label}
+    </button>
+  );
+}
+
+function BackButton({ onClick }: { onClick: () => void }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className="text-gray-400 hover:text-gray-600 text-sm font-medium underline underline-offset-4 transition-colors"
+    >
+      ← Volver
+    </button>
+  );
+}
 
 export default function Contact() {
-  const [step, setStep] = useState(1);
-  const [areas, setAreas] = useState<string[]>([]);
-  const [calle, setCalle] = useState("");
-  const [comuna, setComuna] = useState("");
-  const [urgencia, setUrgencia] = useState("");
-  const [fileCount, setFileCount] = useState(0);
-  const [nombre, setNombre] = useState("");
-  const [email, setEmail] = useState("");
-  const [tel, setTel] = useState("");
-  const [leadSvc, setLeadSvc] = useState("");
-  const [newsChecked, setNewsChecked] = useState(true);
-  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [step, setStep] = useState(0);
+  const [data, setData] = useState<StepData>({
+    route: "none",
+    subChoice: "",
+    m2: "",
+    urgencia: "",
+    objetivo: "",
+    terreno: "",
+    estilo: "",
+    nombre: "",
+    email: "",
+    telefono: "",
+  });
 
-  const toggleArea = (area: string) => {
-    setAreas(prev =>
-      prev.includes(area) ? prev.filter(a => a !== area) : [...prev, area]
-    );
+  const setRoute = (r: Route) => {
+    setData(prev => ({ ...prev, route: r }));
+    setStep(1);
   };
 
-  const nav = (n: number) => setStep(n);
-
-  const goTo2 = () => {
-    if (areas.length === 0) {
-      alert("Por favor, seleccione un área.");
+  const handleSubmit = () => {
+    if (!data.nombre || !data.email || !data.telefono) {
+      alert("Por favor complete todos los campos de contacto.");
       return;
     }
-    nav(2);
+    console.log("📤 Lead capturado:", data);
+    alert("¡Excelente! Patricio Becar Elissegaray recibirá su diagnóstico y le contactará a la brevedad.");
+    setStep(0);
+    setData({ route: "none", subChoice: "", m2: "", urgencia: "", objetivo: "", terreno: "", estilo: "", nombre: "", email: "", telefono: "" });
   };
 
-  const evalGift = () => {
-    let svc = "";
-    if (areas.includes("Construcción")) svc = "Construcción";
-    else if (areas.includes("Regularización")) svc = "Regularización";
-    else if (areas.includes("Terrenos")) svc = "Terrenos";
-    else svc = "Ingeniería";
-    setLeadSvc(svc);
-    nav(4);
-  };
-
-  const giftTitles: Record<string, string> = {
-    "Construcción": "Manual: Construir sin Sobrecostos",
-    "Regularización": "Guía: Ley del Mono 2026",
-    "Terrenos": "Manual: Subdivisión de Terrenos",
-    "Ingeniería": "Checklist: Proyectos Eléctricos"
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    alert("Antecedentes enviados. El sistema de Patricio Vega ha priorizado su revisión.");
-    setStep(1);
-    setAreas([]);
-    setCalle("");
-    setComuna("");
-    setUrgencia("");
-    setFileCount(0);
-    setNombre("");
-    setEmail("");
-    setTel("");
-    setLeadSvc("");
-  };
-
-  const areaOptions = [
-    { value: "Construcción", icon: "🏠", label: "Construcción / Ampliación" },
-    { value: "Regularización", icon: "📜", label: "Regularización / Permisos" },
-    { value: "Terrenos", icon: "🌍", label: "Subdivisión / Loteos" },
-    { value: "Ingeniería", icon: "⚡", label: "Especialidades Técnicas" },
-  ];
+  const totalSteps = data.route === "none" ? 1 : 4;
 
   return (
-    <section id="contacto" className="min-h-screen flex flex-col items-center py-12 sm:py-16 px-4 sm:px-5" style={{ background: "#f8fafc" }}>
-      <div className="text-center max-w-[750px] mb-8 sm:mb-10">
-        <h2 className="font-display text-3xl sm:text-4xl md:text-[2.5rem] font-extrabold mb-4 tracking-tight text-[#1a1a1a]">
-          Centro de Diagnóstico Técnico
-        </h2>
-        <p className="text-base sm:text-lg text-[#555] leading-relaxed">
-          Inicie su proyecto con el respaldo de un equipo experto. Analizamos la normativa de su propiedad antes de cualquier inversión.
-        </p>
-      </div>
+    <section id="contacto" className="min-h-screen bg-white flex flex-col items-center justify-center py-16 sm:py-20 px-4">
+      <div className="w-full max-w-2xl">
 
-      <div className="w-full max-w-[580px] rounded-[28px] overflow-hidden border border-[#eee]" style={{ background: "rgba(255,255,255,0.98)", boxShadow: "0 30px 60px -12px rgba(0,0,0,0.12)" }}>
-        <div className="flex items-center gap-4 p-5 sm:p-6 text-white" style={{ background: "#1a1a1a" }}>
-          <div className="w-[65px] h-[65px] rounded-full border-2 border-[#e67e22] bg-[#334155] flex-shrink-0" />
-          <div>
-            <h3 className="text-[17px] font-semibold m-0">Asistente de Patricio Vega</h3>
-            <div className="flex items-center gap-1.5 mt-1 text-xs text-[#2ecc71]">
-              <span className="w-2 h-2 rounded-full bg-[#2ecc71] animate-pulse" />
-              Patricio está revisando nuevos casos
-            </div>
-          </div>
+        <div className="text-center mb-10 sm:mb-14">
+          <p className="text-[hsl(14,70%,50%)] font-semibold text-sm tracking-[0.2em] uppercase mb-3">Diagnóstico de Proyecto</p>
+          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold text-[hsl(210,15%,30%)] tracking-tight mb-4">
+            Centro de Evaluación Técnica
+          </h2>
+          <p className="text-gray-500 text-base sm:text-lg font-light tracking-wide max-w-lg mx-auto">
+            Analizamos la normativa de su propiedad antes de cualquier inversión.
+          </p>
         </div>
 
-        <div className="p-6 sm:p-9 min-h-[480px]">
-          <form onSubmit={handleSubmit}>
+        {step > 0 && (
+          <div className="mb-8">
+            <div className="flex items-center justify-between text-xs text-gray-400 font-medium mb-2 tracking-widest uppercase">
+              <span>Paso {step} de {totalSteps}</span>
+              <span>{Math.round((step / totalSteps) * 100)}%</span>
+            </div>
+            <div className="w-full bg-gray-100 rounded-full h-1.5">
+              <motion.div
+                className="bg-emerald-500 h-1.5 rounded-full"
+                initial={{ width: 0 }}
+                animate={{ width: `${(step / totalSteps) * 100}%` }}
+                transition={{ duration: 0.5 }}
+              />
+            </div>
+          </div>
+        )}
 
-            {step === 1 && (
-              <div className="animate-fadeIn">
-                <div className="bg-[#f1f5f9] p-5 rounded-[20px_20px_20px_5px] text-[15px] leading-relaxed mb-6 border border-[#e2e8f0]">
-                  Hola, estoy aquí para guiarle. Patricio necesita conocer el enfoque de su consulta. <b>¿Qué área le interesa?</b>
+        <div className="bg-white rounded-2xl sm:rounded-3xl border border-gray-100 shadow-xl p-6 sm:p-10 min-h-[420px]">
+          <AnimatePresence mode="wait">
+
+            {step === 0 && (
+              <motion.div key="step0" {...fadeSlide}>
+                <Bubble>
+                  Hola, soy <b>Agustín</b>. Estoy aquí para guiarte en tu proyecto con <b>Patricio Becar Elissegaray</b>. ¿En qué etapa te encuentras hoy?
+                </Bubble>
+                <div className="space-y-3 sm:space-y-4 mt-6">
+                  <OptionCard
+                    icon="📜"
+                    title="Regularización / Ley del Mono"
+                    subtitle="Tengo una construcción existente que necesita permisos"
+                    onClick={() => setRoute("regularizacion")}
+                  />
+                  <OptionCard
+                    icon="🏗️"
+                    title="Ampliación o Remodelación"
+                    subtitle="Quiero ampliar o remodelar mi vivienda actual"
+                    onClick={() => setRoute("ampliacion")}
+                  />
+                  <OptionCard
+                    icon="🏡"
+                    title="Obra Nueva / Construcción"
+                    subtitle="Tengo un terreno y quiero construir desde cero"
+                    onClick={() => setRoute("obra-nueva")}
+                  />
                 </div>
-                <div className="grid gap-2.5">
-                  {areaOptions.map(opt => (
-                    <button
-                      key={opt.value}
-                      type="button"
-                      onClick={() => toggleArea(opt.value)}
-                      className={`flex justify-between items-center bg-white border rounded-[14px] px-5 py-4 text-left text-sm font-medium transition-all duration-200 cursor-pointer ${
-                        areas.includes(opt.value)
-                          ? "border-[#e67e22] bg-[#fffaf5] shadow-[0_0_0_2px_#e67e22]"
-                          : "border-[#e2e8f0] hover:border-[#e67e22] hover:bg-[#fffaf5]"
-                      }`}
-                    >
-                      <span>{opt.icon} {opt.label}</span>
-                      <span className="text-[#94a3b8]">{areas.includes(opt.value) ? "✓" : "+"}</span>
-                    </button>
-                  ))}
-                </div>
-                <div className="mt-6 flex justify-end">
-                  <button type="button" onClick={goTo2} className="bg-[#1a1a1a] text-white border-none px-8 py-4 rounded-[14px] font-bold cursor-pointer transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg">
-                    Siguiente
-                  </button>
-                </div>
-              </div>
+              </motion.div>
             )}
 
-            {step === 2 && (
-              <div className="animate-fadeIn">
-                <div className="bg-[#f1f5f9] p-5 rounded-[20px_20px_20px_5px] text-[15px] leading-relaxed mb-6 border border-[#e2e8f0]">
-                  Para dar un veredicto técnico, Patricio debe estudiar el <b>Plan Regulador</b> de su comuna.
+            {step === 1 && data.route === "regularizacion" && (
+              <motion.div key="reg1" {...fadeSlide}>
+                <Bubble>
+                  Entendido, necesitas regularizar. Para que Patricio evalúe tu caso, necesito algunos datos. <b>¿Cuántos m² aproximados tiene la construcción a regularizar?</b>
+                </Bubble>
+                <div className="space-y-3 mt-6">
+                  {[
+                    { val: "menos-36", icon: "📐", title: "Menos de 36 m²", sub: "Ampliación menor" },
+                    { val: "36-100", icon: "🏠", title: "Entre 36 y 100 m²", sub: "Vivienda estándar" },
+                    { val: "100-200", icon: "🏘️", title: "Entre 100 y 200 m²", sub: "Vivienda grande" },
+                    { val: "200+", icon: "🏛️", title: "Más de 200 m²", sub: "Proyecto mayor" },
+                  ].map(opt => (
+                    <OptionCard
+                      key={opt.val}
+                      icon={opt.icon}
+                      title={opt.title}
+                      subtitle={opt.sub}
+                      selected={data.m2 === opt.val}
+                      onClick={() => setData(prev => ({ ...prev, m2: opt.val }))}
+                    />
+                  ))}
                 </div>
-                <input
-                  type="text"
-                  placeholder="Calle y Número"
-                  value={calle}
-                  onChange={e => setCalle(e.target.value)}
-                  className="w-full p-4 mb-3 border border-[#cbd5e1] rounded-xl text-[15px] box-border focus:outline-none focus:border-[#e67e22]"
-                  required
-                />
-                <input
-                  type="text"
-                  placeholder="Comuna"
-                  value={comuna}
-                  onChange={e => setComuna(e.target.value)}
-                  className="w-full p-4 mb-3 border border-[#cbd5e1] rounded-xl text-[15px] box-border focus:outline-none focus:border-[#e67e22]"
-                  required
-                />
-                <select
-                  value={urgencia}
-                  onChange={e => setUrgencia(e.target.value)}
-                  className="w-full p-4 mb-3 border border-[#cbd5e1] rounded-xl text-[15px] box-border bg-white focus:outline-none focus:border-[#e67e22]"
-                >
-                  <option value="" disabled>Grado de urgencia</option>
-                  <option value="Urgente">🔥 Plazos legales / Crítico</option>
-                  <option value="Plan">📅 Planificación (1-3 meses)</option>
-                  <option value="Info">👀 Recopilando información</option>
-                </select>
-                <div className="mt-6 flex justify-between items-center">
-                  <button type="button" onClick={() => nav(1)} className="bg-transparent border-none text-[#94a3b8] underline cursor-pointer text-[13px]">
-                    Volver
-                  </button>
-                  <button type="button" onClick={() => nav(3)} className="bg-[#1a1a1a] text-white border-none px-8 py-4 rounded-[14px] font-bold cursor-pointer transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg">
-                    Siguiente
-                  </button>
+                <div className="flex justify-between items-center mt-8">
+                  <BackButton onClick={() => setStep(0)} />
+                  {data.m2 && <NextButton onClick={() => setStep(2)} />}
                 </div>
-              </div>
+              </motion.div>
+            )}
+
+            {step === 1 && data.route === "ampliacion" && (
+              <motion.div key="amp1" {...fadeSlide}>
+                <Bubble>
+                  Perfecto, una ampliación o remodelación. <b>¿Cuál es tu objetivo principal?</b>
+                </Bubble>
+                <div className="space-y-3 mt-6">
+                  {[
+                    { val: "espacio", icon: "📏", title: "Más espacio para la familia", sub: "Dormitorios, living, cocina" },
+                    { val: "plusvalia", icon: "📈", title: "Aumentar la plusvalía", sub: "Inversión inteligente en tu propiedad" },
+                    { val: "estetica", icon: "✨", title: "Mejorar la estética", sub: "Renovar fachada, interiores, acabados" },
+                    { val: "funcional", icon: "⚙️", title: "Mejora funcional", sub: "Baños, cocina, distribución" },
+                  ].map(opt => (
+                    <OptionCard
+                      key={opt.val}
+                      icon={opt.icon}
+                      title={opt.title}
+                      subtitle={opt.sub}
+                      selected={data.objetivo === opt.val}
+                      onClick={() => setData(prev => ({ ...prev, objetivo: opt.val }))}
+                    />
+                  ))}
+                </div>
+                <div className="flex justify-between items-center mt-8">
+                  <BackButton onClick={() => setStep(0)} />
+                  {data.objetivo && <NextButton onClick={() => setStep(2)} />}
+                </div>
+              </motion.div>
+            )}
+
+            {step === 1 && data.route === "obra-nueva" && (
+              <motion.div key="obra1" {...fadeSlide}>
+                <Bubble>
+                  ¡Un proyecto nuevo! Eso es emocionante. <b>¿Cómo es la situación de tu terreno?</b>
+                </Bubble>
+                <div className="space-y-3 mt-6">
+                  {[
+                    { val: "propio", icon: "✅", title: "Ya tengo terreno", sub: "Listo para comenzar el proyecto" },
+                    { val: "buscando", icon: "🔍", title: "Estoy buscando terreno", sub: "Necesito asesoría para elegir" },
+                    { val: "heredado", icon: "📋", title: "Terreno heredado / familiar", sub: "Puede requerir subdivisión" },
+                  ].map(opt => (
+                    <OptionCard
+                      key={opt.val}
+                      icon={opt.icon}
+                      title={opt.title}
+                      subtitle={opt.sub}
+                      selected={data.terreno === opt.val}
+                      onClick={() => setData(prev => ({ ...prev, terreno: opt.val }))}
+                    />
+                  ))}
+                </div>
+                <div className="flex justify-between items-center mt-8">
+                  <BackButton onClick={() => setStep(0)} />
+                  {data.terreno && <NextButton onClick={() => setStep(2)} />}
+                </div>
+              </motion.div>
+            )}
+
+            {step === 2 && data.route === "regularizacion" && (
+              <motion.div key="reg2" {...fadeSlide}>
+                <Bubble>
+                  <b>¿Cuál es tu nivel de urgencia?</b> Esto nos ayuda a priorizar tu caso correctamente.
+                </Bubble>
+                <div className="space-y-3 mt-6">
+                  {[
+                    { val: "urgente", icon: "🔥", title: "Urgente — Plazos legales activos", sub: "Necesito resolver antes de una fecha límite" },
+                    { val: "planificado", icon: "📅", title: "Planificado — 1 a 3 meses", sub: "Quiero avanzar pronto pero sin presión inmediata" },
+                    { val: "explorando", icon: "👀", title: "Explorando — Recopilando información", sub: "Aún estoy evaluando opciones" },
+                  ].map(opt => (
+                    <OptionCard
+                      key={opt.val}
+                      icon={opt.icon}
+                      title={opt.title}
+                      subtitle={opt.sub}
+                      selected={data.urgencia === opt.val}
+                      onClick={() => setData(prev => ({ ...prev, urgencia: opt.val }))}
+                    />
+                  ))}
+                </div>
+                <div className="flex justify-between items-center mt-8">
+                  <BackButton onClick={() => setStep(1)} />
+                  {data.urgencia && <NextButton onClick={() => setStep(3)} />}
+                </div>
+              </motion.div>
+            )}
+
+            {step === 2 && data.route === "ampliacion" && (
+              <motion.div key="amp2" {...fadeSlide}>
+                <Bubble>
+                  Excelente elección. <b>¿Cuántos m² aproximados deseas intervenir?</b>
+                </Bubble>
+                <div className="space-y-3 mt-6">
+                  {[
+                    { val: "menos-30", icon: "📐", title: "Menos de 30 m²", sub: "Proyecto compacto" },
+                    { val: "30-80", icon: "🏠", title: "Entre 30 y 80 m²", sub: "Ampliación mediana" },
+                    { val: "80+", icon: "🏘️", title: "Más de 80 m²", sub: "Intervención mayor" },
+                  ].map(opt => (
+                    <OptionCard
+                      key={opt.val}
+                      icon={opt.icon}
+                      title={opt.title}
+                      subtitle={opt.sub}
+                      selected={data.m2 === opt.val}
+                      onClick={() => setData(prev => ({ ...prev, m2: opt.val }))}
+                    />
+                  ))}
+                </div>
+                <div className="flex justify-between items-center mt-8">
+                  <BackButton onClick={() => setStep(1)} />
+                  {data.m2 && <NextButton onClick={() => setStep(3)} />}
+                </div>
+              </motion.div>
+            )}
+
+            {step === 2 && data.route === "obra-nueva" && (
+              <motion.div key="obra2" {...fadeSlide}>
+                <Bubble>
+                  <b>¿Qué estilo de vivienda te atrae más?</b>
+                </Bubble>
+                <div className="space-y-3 mt-6">
+                  {[
+                    { val: "moderno", icon: "🔲", title: "Moderno / Minimalista", sub: "Líneas puras, techos planos, grandes ventanales" },
+                    { val: "clasico", icon: "🏛️", title: "Clásico / Tradicional", sub: "Techos a dos aguas, materiales nobles" },
+                    { val: "mediterraneo", icon: "🌿", title: "Mediterráneo", sub: "Terrazas, colores cálidos, integración exterior" },
+                    { val: "no-se", icon: "💡", title: "Necesito asesoría de estilo", sub: "Patricio me puede guiar" },
+                  ].map(opt => (
+                    <OptionCard
+                      key={opt.val}
+                      icon={opt.icon}
+                      title={opt.title}
+                      subtitle={opt.sub}
+                      selected={data.estilo === opt.val}
+                      onClick={() => setData(prev => ({ ...prev, estilo: opt.val }))}
+                    />
+                  ))}
+                </div>
+                <div className="flex justify-between items-center mt-8">
+                  <BackButton onClick={() => setStep(1)} />
+                  {data.estilo && <NextButton onClick={() => setStep(3)} />}
+                </div>
+              </motion.div>
             )}
 
             {step === 3 && (
-              <div className="animate-fadeIn">
-                <div className="bg-[#f1f5f9] p-5 rounded-[20px_20px_20px_5px] text-[15px] leading-relaxed mb-6 border border-[#e2e8f0]">
-                  <b>¿Tiene documentos técnicos?</b> Si adjunta su CIP, planos o fotos, Patricio podrá enviarle un diagnóstico preliminar mucho más rápido.
-                </div>
-                <div className="border-2 border-dashed border-[#cbd5e1] p-8 rounded-[15px] text-center">
-                  <input
-                    type="file"
-                    ref={fileInputRef}
-                    multiple
-                    className="hidden"
-                    onChange={e => setFileCount(e.target.files?.length || 0)}
-                  />
-                  <button
-                    type="button"
-                    onClick={() => fileInputRef.current?.click()}
-                    className="bg-transparent border-none cursor-pointer text-[#e67e22] font-bold text-base"
-                  >
-                    📂 SUBIR ANTECEDENTES
-                  </button>
-                  <div className="text-[11px] text-[#64748b] mt-2">
-                    {fileCount > 0 ? `${fileCount} archivos seleccionados ✅` : "Opcional (Máx 10MB)"}
+              <motion.div key="step3-gift" {...fadeSlide}>
+                <Bubble>
+                  Ya tenemos los parámetros iniciales. Patricio ha preparado un <b>Diagnóstico de Factibilidad Preliminar</b> basado en tu caso. Es un documento personalizado que analiza la normativa aplicable a tu proyecto.
+                </Bubble>
+                <div className="bg-gradient-to-br from-[hsl(210,15%,30%)] to-[hsl(210,15%,22%)] text-white rounded-2xl p-6 sm:p-8 text-center mt-4 shadow-lg">
+                  <div className="w-20 h-28 bg-white/10 border border-white/20 mx-auto mb-4 rounded-lg flex items-center justify-center">
+                    <span className="text-3xl">📄</span>
                   </div>
+                  <h4 className="font-bold text-lg sm:text-xl mb-2">Diagnóstico de Factibilidad</h4>
+                  <p className="text-white/70 text-sm font-light">
+                    {data.route === "regularizacion" && "Análisis preliminar de regularización según Ley del Mono y normativa vigente"}
+                    {data.route === "ampliacion" && "Estudio de factibilidad para ampliación según Plan Regulador comunal"}
+                    {data.route === "obra-nueva" && "Evaluación preliminar de cabida y normativa para tu terreno"}
+                  </p>
+                  <p className="text-[hsl(14,70%,60%)] font-semibold text-sm mt-3">Material exclusivo — ArquitectoChile</p>
                 </div>
-                <div className="mt-6 flex justify-between items-center">
-                  <button type="button" onClick={() => nav(2)} className="bg-transparent border-none text-[#94a3b8] underline cursor-pointer text-[13px]">
-                    Volver
-                  </button>
-                  <button type="button" onClick={evalGift} className="bg-[#1a1a1a] text-white border-none px-8 py-4 rounded-[14px] font-bold cursor-pointer transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg">
-                    Ver Regalo
-                  </button>
+                <div className="flex justify-between items-center mt-8">
+                  <BackButton onClick={() => setStep(2)} />
+                  <NextButton onClick={() => setStep(4)} label="Recibir Diagnóstico" />
                 </div>
-              </div>
+              </motion.div>
             )}
 
             {step === 4 && (
-              <div className="animate-fadeIn">
-                <div className="bg-[#f1f5f9] p-5 rounded-[20px_20px_20px_5px] text-[15px] leading-relaxed mb-6 border border-[#e2e8f0]">
-                  Excelente. Como le interesa la <b>{leadSvc}</b>, Patricio le obsequiará su material:
-                </div>
-                <div className="bg-[#fff7ed] border-2 border-dashed border-[#fb923c] rounded-[20px] p-6 text-center mt-4">
-                  <div className="w-[110px] h-[150px] bg-[#334155] mx-auto mb-4 rounded shadow-[0_10px_20px_rgba(0,0,0,0.2)]" />
-                  <h4 className="font-bold text-base m-0 mb-2.5">{giftTitles[leadSvc] || ""}</h4>
-                  <p className="text-xs text-[#7c2d12]">Material exclusivo para suscriptores de ArquitectoChile.</p>
-                  <label className="flex items-center gap-2 justify-center text-xs font-semibold mt-3 cursor-pointer">
-                    <input
-                      type="checkbox"
-                      checked={newsChecked}
-                      onChange={e => setNewsChecked(e.target.checked)}
-                    />
-                    Solicitar regalo y asesoría
-                  </label>
-                </div>
-                <div className="mt-6 flex justify-between items-center">
-                  <button type="button" onClick={() => nav(3)} className="bg-transparent border-none text-[#94a3b8] underline cursor-pointer text-[13px]">
-                    Volver
+              <motion.div key="step4-contact" {...fadeSlide}>
+                <Bubble>
+                  Excelente. Patricio ya tiene los parámetros iniciales. <b>Déjanos tu correo para enviarte tu Diagnóstico de Factibilidad Preliminar ahora mismo.</b>
+                </Bubble>
+                <div className="space-y-4 mt-6">
+                  <input
+                    type="text"
+                    placeholder="Nombre completo"
+                    value={data.nombre}
+                    onChange={e => setData(prev => ({ ...prev, nombre: e.target.value }))}
+                    className="w-full px-5 py-4 border border-gray-200 rounded-xl text-base focus:outline-none focus:border-[hsl(14,70%,50%)] focus:ring-1 focus:ring-[hsl(14,70%,50%)]/30 transition-all tracking-wide"
+                  />
+                  <input
+                    type="email"
+                    placeholder="Correo electrónico"
+                    value={data.email}
+                    onChange={e => setData(prev => ({ ...prev, email: e.target.value }))}
+                    className="w-full px-5 py-4 border border-gray-200 rounded-xl text-base focus:outline-none focus:border-[hsl(14,70%,50%)] focus:ring-1 focus:ring-[hsl(14,70%,50%)]/30 transition-all tracking-wide"
+                  />
+                  <input
+                    type="tel"
+                    placeholder="WhatsApp +569..."
+                    value={data.telefono}
+                    onChange={e => setData(prev => ({ ...prev, telefono: e.target.value }))}
+                    className="w-full px-5 py-4 border border-gray-200 rounded-xl text-base focus:outline-none focus:border-[hsl(14,70%,50%)] focus:ring-1 focus:ring-[hsl(14,70%,50%)]/30 transition-all tracking-wide"
+                  />
+                  <button
+                    type="button"
+                    onClick={handleSubmit}
+                    className="w-full bg-emerald-600 hover:bg-emerald-700 text-white px-8 py-4 rounded-xl font-bold text-base tracking-wide transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg mt-2"
+                  >
+                    ENVIAR Y RECIBIR DIAGNÓSTICO
                   </button>
-                  <button type="button" onClick={() => nav(5)} className="bg-[#1a1a1a] text-white border-none px-8 py-4 rounded-[14px] font-bold cursor-pointer transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg">
-                    Finalizar
-                  </button>
+                  <p className="text-center text-xs text-gray-400 font-light tracking-wide mt-2">
+                    🔒 Tu información es confidencial y está protegida.
+                  </p>
                 </div>
-              </div>
+                <div className="mt-6">
+                  <BackButton onClick={() => setStep(3)} />
+                </div>
+              </motion.div>
             )}
 
-            {step === 5 && (
-              <div className="animate-fadeIn">
-                <div className="bg-[#f1f5f9] p-5 rounded-[20px_20px_20px_5px] text-[15px] leading-relaxed mb-6 border border-[#e2e8f0]">
-                  ¡Todo listo! Patricio recibirá su caso. Confirme dónde enviarle el diagnóstico y su regalo:
-                </div>
-                <input
-                  type="text"
-                  placeholder="Nombre completo"
-                  value={nombre}
-                  onChange={e => setNombre(e.target.value)}
-                  className="w-full p-4 mb-3 border border-[#cbd5e1] rounded-xl text-[15px] box-border focus:outline-none focus:border-[#e67e22]"
-                  required
-                />
-                <input
-                  type="email"
-                  placeholder="Correo electrónico"
-                  value={email}
-                  onChange={e => setEmail(e.target.value)}
-                  className="w-full p-4 mb-3 border border-[#cbd5e1] rounded-xl text-[15px] box-border focus:outline-none focus:border-[#e67e22]"
-                  required
-                />
-                <input
-                  type="tel"
-                  placeholder="WhatsApp +569..."
-                  value={tel}
-                  onChange={e => setTel(e.target.value)}
-                  className="w-full p-4 mb-3 border border-[#cbd5e1] rounded-xl text-[15px] box-border focus:outline-none focus:border-[#e67e22]"
-                  required
-                />
-                <button
-                  type="submit"
-                  className="w-full mt-4 bg-[#059669] text-white border-none px-8 py-4 rounded-[14px] font-bold text-base cursor-pointer transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg"
-                >
-                  ENVIAR A REVISIÓN
-                </button>
-              </div>
-            )}
-          </form>
+          </AnimatePresence>
+        </div>
+
+        <div className="text-center mt-8 text-xs text-gray-400 font-light tracking-widest uppercase">
+          ArquitectoChile — Patricio Becar Elissegaray
         </div>
       </div>
     </section>

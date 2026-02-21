@@ -1,0 +1,43 @@
+Entendido perfectamente, Patricio Becar Elissegaray. La consistencia de marca es lo que separa a un sitio "hecho a parches" de una plataforma profesional de alto nivel. Para que este nuevo "túnel" conversacional no parezca algo externo, sino el corazón de ArquitectoChile.com, debemos heredar la paleta de colores y la sobriedad que ya manejas.
+
+Basándome en tus documentos, usaremos la combinación de Blanco, Azul (autoridad), Verde (acción) y Naranja (acentos/detalles) con una tipografía moderna y limpia.
+
+Aquí tienes el prompt definitivo y ultra-específico para Replit. Este código está diseñado para que no gastes créditos en pruebas fallidas:
+
+Prompt Maestro para Replit Agent (Versión Final "Unidad Visual")
+Copia y pega esto en Replit Agent:
+
+"Actúa como un Desarrollador Senior de React y Diseñador UI especializado en marcas de Arquitectura de Lujo.
+
+OBJETIVO: Crear una Single Page Application (SPA) conversacional para arquitectochile.com. Debe sentirse como una extensión natural del sitio actual, manteniendo una unidad visual absoluta.
+
+1. ADN Visual (Estricto):
+
+Paleta de Colores: Fondo principal Blanco (#FFFFFF). Azul corporativo para encabezados y elementos de confianza. Verde para botones de avance y confirmación. Naranja sutil para acentos y estados de 'hover'.
+
+Tipografía: Usa 'Inter' o 'Montserrat' de Google Fonts. Peso ligero para textos largos y semibold para titulares. El espaciado entre letras debe ser elegante (arquitectónico).
+
+Bordes y Sombras: Esquinas con radio suave (rounded-lg) y sombras muy sutiles (shadow-sm) para dar profundidad sin parecer tosco.
+
+2. La Experiencia 'Agustín' (UX):
+
+El asistente virtual Agustín debe aparecer con un avatar circular profesional.
+
+La interfaz no es un chat de soporte pequeño; es una interfaz de pantalla completa donde Agustín presenta preguntas una a una.
+
+Cero Dropdowns: Todas las opciones deben ser Cajas de Selección Grandes (Cards) con iconos limpios. Al seleccionar una, la pantalla transiciona suavemente a la siguiente pregunta.
+
+3. El Árbol de Decisión (Sesiones):
+
+Inicio: Agustín saluda: 'Hola, soy Agustín. Estoy aquí para guiarte en tu proyecto con Patricio Becar Elissegaray. ¿En qué etapa te encuentras hoy?'
+
+Ruta A (Regularización/Ley del Mono): Pregunta sobre m² y urgencia.
+
+Ruta B (Ampliación/Remodelación): Pregunta sobre el objetivo (más espacio, plusvalía, estética).
+
+Ruta C (Obra Nueva): Pregunta sobre el terreno y estilo deseado.
+
+4. Captura de Datos Final:
+Antes de dar el resultado, Agustín dice: 'Excelente. Patricio ya tiene los parámetros iniciales. Déjanos tu correo para enviarte tu Diagnóstico de Factibilidad Preliminar ahora mismo'.
+
+Stack Técnico: React, Tailwind CSS, Framer Motion para transiciones líquidas entre pantallas.
