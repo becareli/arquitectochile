@@ -18,6 +18,8 @@ import { setupIntegrationRoutes } from "./integrations/routes";
 import { ObjectStorageService, ObjectNotFoundError } from "./objectStorage";
 import { setupAuth, isAuthenticated, isCrmAdmin } from "./replitAuth";
 import crypto from "crypto";
+import path from "path";
+import fs from "fs";
 import type { RequestHandler } from "express";
 // Enhanced analytics will be loaded separately to avoid circular imports
 
@@ -216,6 +218,20 @@ const googleReviewSchema = z.object({
 });
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Serve contacto.html directly with no-cache headers (before Vite catch-all)
+  app.get('/contacto.html', (_req, res) => {
+    const filePath = path.resolve(import.meta.dirname, '..', 'client', 'public', 'contacto.html');
+    if (fs.existsSync(filePath)) {
+      res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+      res.setHeader('Pragma', 'no-cache');
+      res.setHeader('Expires', '0');
+      res.setHeader('Surrogate-Control', 'no-store');
+      res.sendFile(filePath);
+    } else {
+      res.status(404).send('Página no encontrada');
+    }
+  });
+
   // Auth middleware
   await setupAuth(app);
 
