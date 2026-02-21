@@ -1,0 +1,182 @@
+📋 INSTRUCCIONES DE IMPLEMENTACIÓN
+Crea un archivo nuevo en tu proyecto de Replit llamado exactamente contacto.html.
+
+Pega el código de abajo en ese archivo.
+
+En tu página principal (index.html), asegúrate de que todos tus botones de "Contacto" o "Cotizar" apunten a: <a href="contacto.html">...</a>.
+
+🚀 EL PROMPT FINAL (Para la IA de Replit)
+"Actúa como desarrollador Frontend senior. Mi sitio ya tiene una página de inicio, pero necesito que programes exclusivamente la página contacto.html.
+Esta página debe ser una Single Page Application (SPA) donde el asistente virtual 'Agustín' guía al usuario por un embudo de calificación.
+
+Lógica requerida:
+
+Inicio: Selección entre 'Empresa' (7 servicios técnicos) o 'Particular' (10 servicios de vivienda).
+
+Comodín: Opción '¿No encuentras lo que buscas?' en ambas ramas para no perder leads.
+
+Filtro de Calificación: Si eligen 'Proyecto desde Cero' en Particular, mostrar selector de presupuesto (<50M, 50-100M, >100M).
+
+Captura de datos: Formulario con Calle, Comuna (obligatorios), ROL (opcional) y soporte para Audio/Texto.
+
+Conversión: Al finalizar, mostrar página de agradecimiento con la foto de Patricio Becar, sus credenciales (Arquitecto U. de Chile) y un botón para descargar su vCard.
+
+Estilo: Usa Tailwind CSS, tipografía Montserrat y un diseño limpio 'Mobile First'."
+
+💻 CÓDIGO FINAL PARA contacto.html (Llegar y Pegar)
+HTML
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto Técnico - ArquitectoChile.com</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: 'Montserrat', sans-serif; background-color: #f8fafc; }
+        .fade-in { animation: fadeIn 0.5s ease-in; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .btn-option { transition: all 0.2s; border: 2px solid #e2e8f0; }
+        .btn-option:hover { border-color: #3b82f6; background-color: #eff6ff; transform: scale(1.02); }
+        .vcard-btn { background: linear-gradient(135deg, #ff851b 0%, #ff4136 100%); }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4">
+
+    <div id="app-container" class="w-full max-w-lg bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden">
+        
+        <div class="bg-gray-50 p-6 text-center border-b border-gray-100">
+            <div class="relative inline-block">
+                <img id="avatar" src="https://img.freepik.com/foto-gratis/retrato-joven-estudiante-sonriente-anteojos-que-sostienen-computadora-portatil-mientras-estaba-pie-aislado-sobre-fondo-azul_637285-11504.jpg" 
+                     class="w-24 h-24 rounded-full border-4 border-white shadow-md object-cover mx-auto" alt="Agustín">
+                <div class="absolute bottom-1 right-1 w-5 h-5 bg-green-500 border-2 border-white rounded-full"></div>
+            </div>
+            <p id="speech-bubble" class="mt-4 text-gray-700 font-medium leading-tight">
+                ¡Hola! Soy <b>Agustín</b>, asistente de Patricio. ¿Tu requerimiento es para una <b>Empresa</b> o un proyecto <b>Particular</b>?
+            </p>
+        </div>
+
+        <div id="step-1" class="p-6 grid grid-cols-1 gap-4 fade-in">
+            <button onclick="selectBranch('empresa')" class="btn-option p-6 rounded-2xl text-left flex items-center gap-4">
+                <span class="text-3xl">🏢</span>
+                <div><b class="block text-blue-800">Empresa / Institución</b><span class="text-xs text-gray-500">Proyectos corporativos y técnicos</span></div>
+            </button>
+            <button onclick="selectBranch('particular')" class="btn-option p-6 rounded-2xl text-left flex items-center gap-4">
+                <span class="text-3xl">🏠</span>
+                <div><b class="block text-orange-600">Proyecto Particular</b><span class="text-xs text-gray-500">Casas, ampliaciones y trámites</span></div>
+            </button>
+        </div>
+
+        <div id="step-2" class="p-6 hidden fade-in">
+            <div id="services-grid" class="grid grid-cols-2 gap-3"></div>
+            <button onclick="reset()" class="w-full mt-6 text-gray-400 text-sm underline text-center">Volver al inicio</button>
+        </div>
+
+        <div id="step-budget" class="p-6 hidden fade-in text-center">
+            <h3 class="font-bold mb-4">¿Qué presupuesto estimas para la obra?</h3>
+            <div class="flex flex-col gap-3">
+                <button onclick="setBudget('<50M')" class="p-4 border rounded-xl hover:bg-blue-50">Menos de $50 Millones</button>
+                <button onclick="setBudget('50-100M')" class="p-4 border rounded-xl hover:bg-blue-50">$50M a $100 Millones</button>
+                <button onclick="setBudget('>100M')" class="p-4 border rounded-xl hover:bg-blue-50">Más de $100 Millones</button>
+            </div>
+        </div>
+
+        <div id="step-form" class="p-6 hidden fade-in">
+            <div class="space-y-4">
+                <div class="grid grid-cols-2 gap-2">
+                    <input type="text" id="calle" placeholder="Calle y N° *" class="p-3 bg-gray-50 border rounded-xl w-full outline-none focus:border-blue-500">
+                    <input type="text" id="comuna" placeholder="Comuna *" class="p-3 bg-gray-50 border rounded-xl w-full outline-none focus:border-blue-500">
+                </div>
+                <input type="text" id="rol" placeholder="ROL de la propiedad (Opcional)" class="p-3 bg-gray-50 border rounded-xl w-full outline-none">
+                <textarea id="obs" placeholder="Cuéntame más detalles aquí..." class="p-3 bg-gray-50 border rounded-xl w-full h-24 outline-none"></textarea>
+                
+                <div class="flex gap-2">
+                    <button class="flex-1 bg-green-500 text-white font-bold py-4 rounded-xl shadow-lg shadow-green-100 flex items-center justify-center gap-2">
+                        🎤 Grabar Audio
+                    </button>
+                    <button onclick="submitLead()" class="flex-1 bg-blue-600 text-white font-bold py-4 rounded-xl shadow-lg shadow-blue-100">
+                        Enviar Datos
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="step-thanks" class="p-8 hidden fade-in text-center">
+            <img src="https://arquitectochile.com/wp-content/uploads/2023/patricio-becar.jpg" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-blue-600 object-cover" alt="Patricio Becar">
+            <h2 class="text-2xl font-bold text-gray-800 italic">"Tu proyecto ahora está en manos expertas."</h2>
+            <p class="text-sm text-gray-600 mt-2"><b>Patricio Becar Elissegaray</b><br>Arquitecto U. de Chile | Revisor Independiente MINVU</p>
+            
+            <div class="mt-6 p-4 bg-orange-50 rounded-2xl text-xs text-gray-700 border border-orange-100">
+                ⚠️ <b>AVISO:</b> Patricio te contactará personalmente. Por favor, <b>descarga su contacto</b> ahora para que su llamada no sea bloqueada como spam.
+            </div>
+
+            <button class="vcard-btn w-full mt-6 text-white font-bold py-4 rounded-2xl shadow-xl uppercase tracking-wider">
+                💾 Guardar Contacto de Patricio
+            </button>
+            <a href="index.html" class="block mt-6 text-blue-600 font-bold text-sm">← Volver a la Web Principal</a>
+        </div>
+
+    </div>
+
+    <script>
+        let leadData = { branch: '', service: '', budget: '' };
+
+        const services = {
+            empresa: [
+                {n: 'Revisoría Indep.', i: '⚖️'}, {n: 'ITO Obras', i: '🏗️'}, 
+                {n: 'Proy. Eléctricos', i: '⚡'}, {n: 'Proyectos Gas', i: '🔥'}, 
+                {n: 'Subdivisión', i: '🗺️'}, {n: 'Loteos', i: '📐'}, {n: 'Diseño 3D', i: '🖥️'}
+            ],
+            particular: [
+                {n: 'Asesoría Terreno', i: '📍'}, {n: 'Ampliaciones', i: '🏠'}, 
+                {n: 'Remodelación', i: '✨'}, {n: 'Ley del Mono', i: '📜'}, 
+                {n: 'Fusión/Subdiv.', i: '🗺️'}, {n: 'Permisos/3D', i: '📐'}, 
+                {n: 'Revisor Indep.', i: '⚖️'}, {n: 'Agua/Alcant.', i: '💧'}, 
+                {n: 'Electricidad/Gas', i: '⚡'}, {n: 'Proyecto desde Cero', i: '🌱'}
+            ]
+        };
+
+        function selectBranch(b) {
+            leadData.branch = b;
+            document.getElementById('step-1').classList.add('hidden');
+            document.getElementById('step-2').classList.remove('hidden');
+            document.getElementById('speech-bubble').innerHTML = b === 'empresa' ? 
+                "Entendido. Somos expertos en normativa corporativa. <b>¿Qué servicio requiere la empresa?</b>" : 
+                "Excelente. Ayudamos a familias a construir sueños legalmente. <b>¿Qué necesitas hacer?</b>";
+            
+            const grid = document.getElementById('services-grid');
+            grid.innerHTML = services[b].map(s => `
+                <button onclick="selectService('${s.n}')" class="p-3 border rounded-xl flex flex-col items-center text-[10px] font-bold hover:bg-gray-50">
+                    <span class="text-xl mb-1">${s.i}</span> ${s.n}
+                </button>
+            `).join('') + `<button onclick="selectService('Especial')" class="col-span-2 p-3 border-2 border-dashed rounded-xl text-gray-400 text-xs font-bold uppercase mt-2">¿No encuentras lo que buscas?</button>`;
+        }
+
+        function selectService(s) {
+            leadData.service = s;
+            if (s === 'Proyecto desde Cero') {
+                showStep('step-budget');
+            } else {
+                showStep('step-form');
+            }
+        }
+
+        function setBudget(b) { leadData.budget = b; showStep('step-form'); }
+
+        function showStep(id) {
+            document.querySelectorAll('#app-container > div:not(:first-child)').forEach(el => el.classList.add('hidden'));
+            document.getElementById(id).classList.remove('hidden');
+        }
+
+        function submitLead() {
+            if(!document.getElementById('calle').value || !document.getElementById('comuna').value) return alert("Calle y Comuna son obligatorios");
+            showStep('step-thanks');
+            document.getElementById('avatar').style.display = 'none';
+            document.getElementById('speech-bubble').innerHTML = "<b>¡Solicitud enviada con éxito!</b>";
+        }
+
+        function reset() { location.reload(); }
+    </script>
+</body>
+</html>
