@@ -263,7 +263,7 @@ export default function Navigation() {
                 Revista
               </button>
               <button 
-                onClick={() => handleNavigation('contacto')}
+                onClick={() => navigateToService('/contacto')}
                 className="text-dark hover:text-primary transition-colors text-sm font-medium"
               >
                 Contacto
@@ -399,7 +399,7 @@ export default function Navigation() {
               Revista
             </button>
             <button 
-              onClick={() => handleNavigation('contacto')}
+              onClick={() => navigateToService('/contacto')}
               className="block w-full text-left px-3 py-2 text-dark hover:text-primary"
             >
               Contacto
