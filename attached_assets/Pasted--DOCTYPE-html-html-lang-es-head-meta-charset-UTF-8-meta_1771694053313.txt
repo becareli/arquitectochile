@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto Profesional - ArquitectoChile.com</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: 'Montserrat', sans-serif; background-color: #f1f5f9; color: #1e293b; }
+        .fade-in { animation: fadeIn 0.4s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .btn-service { transition: all 0.2s; border: 2px solid #e2e8f0; text-align: center; }
+        .btn-service:hover { border-color: #2563eb; background-color: #eff6ff; }
+        .vcard-gradient { background: linear-gradient(135deg, #1e293b 0%, #334155 100%); }
+        .tidycal-btn { background-color: #2563eb; }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4">
+
+    <div id="app-container" class="w-full max-w-xl bg-white rounded-[2rem] shadow-2xl overflow-hidden border border-gray-100">
+        
+        <div class="bg-slate-50 p-8 text-center border-b border-gray-100">
+            <img id="agustin-avatar" src="https://img.freepik.com/foto-gratis/retrato-joven-estudiante-sonriente-anteojos-que-sostienen-computadora-portatil-mientras-estaba-pie-aislado-sobre-fondo-azul_637285-11504.jpg" 
+                 class="w-20 h-20 rounded-full border-4 border-white shadow-lg mx-auto object-cover mb-4" alt="Agustín">
+            <p id="speech-bubble" class="text-lg font-semibold text-slate-700 leading-snug">
+                ¡Hola! Soy <b>Agustín</b>, asistente de Patricio. <br>¿Tu requerimiento es para una <b>Empresa</b> o un proyecto <b>Particular</b>?
+            </p>
+        </div>
+
+        <div id="step-1" class="p-8 space-y-4 fade-in">
+            <button onclick="selectBranch('empresa')" class="w-full btn-service p-6 rounded-2xl flex items-center gap-5">
+                <span class="text-4xl">🏢</span>
+                <div class="text-left"><b class="block text-xl text-blue-900">Empresa / Institución</b><span class="text-sm text-slate-500">Proyectos corporativos y técnicos</span></div>
+            </button>
+            <button onclick="selectBranch('particular')" class="w-full btn-service p-6 rounded-2xl flex items-center gap-5 border-orange-100">
+                <span class="text-4xl">🏠</span>
+                <div class="text-left"><b class="block text-xl text-orange-700">Proyecto Particular</b><span class="text-sm text-slate-500">Casas, regularizaciones y terrenos</span></div>
+            </button>
+        </div>
+
+        <div id="step-2" class="p-6 hidden fade-in">
+            <div id="services-grid" class="grid grid-cols-1 gap-3 max-h-[400px] overflow-y-auto pr-2">
+                </div>
+            <button onclick="reset()" class="w-full mt-6 text-slate-400 text-sm underline uppercase tracking-widest font-bold">Volver</button>
+        </div>
+
+        <div id="step-property" class="p-8 hidden fade-in space-y-4">
+            <p class="text-sm font-bold text-blue-600 uppercase mb-4 text-center">Datos de la Propiedad</p>
+            <div class="grid grid-cols-1 gap-4">
+                <input type="text" id="direccion" placeholder="Calle y número exacto *" class="w-full p-4 bg-slate-50 border rounded-xl outline-none focus:ring-2 focus:ring-blue-500">
+                <input type="text" id="comuna" placeholder="Comuna *" class="w-full p-4 bg-slate-50 border rounded-xl outline-none focus:ring-2 focus:ring-blue-500">
+                <input type="text" id="rol" placeholder="ROL (Opcional)" class="w-full p-4 bg-slate-50 border rounded-xl outline-none">
+            </div>
+            <div class="pt-4">
+                <label class="block text-sm font-bold mb-2">¿Qué tipo de propiedad es?</label>
+                <div class="grid grid-cols-3 gap-2">
+                    <button onclick="setPropertyType('Vivienda')" class="prop-type-btn p-3 border rounded-xl text-xs font-bold hover:bg-blue-50">🏠 Vivienda</button>
+                    <button onclick="setPropertyType('Comercial')" class="prop-type-btn p-3 border rounded-xl text-xs font-bold hover:bg-blue-50">🏪 Local</button>
+                    <button onclick="setPropertyType('Industrial')" class="prop-type-btn p-3 border rounded-xl text-xs font-bold hover:bg-blue-50">🏭 Industria</button>
+                </div>
+            </div>
+            <button onclick="showStep('step-details')" class="w-full bg-slate-800 text-white font-bold py-4 rounded-xl mt-4">Siguiente</button>
+        </div>
+
+        <div id="step-details" class="p-8 hidden fade-in space-y-4 text-center">
+            <p class="text-lg font-medium text-slate-700 mb-4 text-left">Cuéntame qué necesitas lograr en este proyecto:</p>
+            <textarea id="descripcion" placeholder="Escribe aquí los detalles..." class="w-full p-4 bg-slate-50 border rounded-xl h-32 outline-none focus:ring-2 focus:ring-blue-500 mb-4"></textarea>
+            
+            <div class="flex gap-3">
+                <button class="flex-1 bg-emerald-500 text-white font-bold py-4 rounded-xl flex items-center justify-center gap-2 shadow-lg shadow-emerald-100">
+                    🎤 Grabar Audio
+                </button>
+                <button onclick="submitLead()" class="flex-1 bg-blue-600 text-white font-bold py-4 rounded-xl shadow-lg shadow-blue-100">
+                    Enviar Datos
+                </button>
+            </div>
+        </div>
+
+        <div id="step-thanks" class="p-8 hidden fade-in text-center">
+            <img src="https://media.licdn.com/dms/image/v2/D4E03AQE_E05R0mCezQ/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1689254884102?e=1745452800&v=beta&t=H-30x2Q2u6_qYf8wYj6k-L8pS6g4Yk_m6u8oI1N_YnI" 
+                 class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-blue-600 object-cover shadow-2xl" alt="Patricio Becar">
+            
+            <h2 class="text-2xl font-bold text-slate-800 italic">"Tu proyecto ahora está en manos expertas."</h2>
+            <p class="text-sm text-slate-600 mt-3"><b>Patricio Becar Elissegaray</b><br>Arquitecto U. de Chile desde 1999<br>Revisor Independiente MINVU</p>
+            
+            <div class="my-6 p-4 bg-amber-50 rounded-2xl text-xs text-amber-900 border border-amber-100">
+                ⚠️ <b>AVISO:</b> Patricio o alguien de su equipo se contactará directamente con usted. Por favor, <b>descargue su contacto</b> para que la llamada no sea bloqueada como spam.
+            </div>
+
+            <div class="space-y-3">
+                <button onclick="downloadVCard()" class="w-full vcard-gradient text-white font-bold py-4 rounded-2xl flex items-center justify-center gap-2">
+                    💾 GUARDAR CONTACTO DE PATRICIO
+                </button>
+                
+                <a href="https://tidycal.com/arquitectopatriciobecar/" target="_blank" class="block w-full tidycal-btn text-white font-bold py-4 rounded-2xl shadow-xl">
+                    📅 AGENDAR VIDEOLLAMADA GRATUITA
+                </a>
+            </div>
+
+            <a href="index.html" class="block mt-8 text-blue-600 font-bold text-xs uppercase tracking-widest">← Volver a la Web</a>
+        </div>
+
+    </div>
+
+    <script>
+        let leadData = { branch: '', service: '', propertyType: '' };
+
+        const services = {
+            empresa: [
+                {n: 'Revisoría Independiente de Arquitectura', i: '⚖️'},
+                {n: 'Inspección Técnica de Obras (ITO)', i: '🏗️'},
+                {n: 'Construcción de Obras Menores para Empresas', i: '⚒️'},
+                {n: 'Diseño de Arquitectura para Empresas', i: '📐'},
+                {n: 'Permiso de Edificación y Regularización', i: '📜'},
+                {n: 'Proyectos de Agua Potable y Alcantarillado', i: '💧'},
+                {n: 'Proyectos de Electricidad y Gas', i: '⚡'},
+                {n: 'Autorización SEREMI de Salud', i: '🏥'}
+            ],
+            particular: [
+                {n: 'Asesoría de Arquitecto a domicilio', i: '🏠'},
+                {n: 'Diseño de ampliaciones de casas', i: '➕'},
+                {n: 'Diseño de remodelación', i: '✨'},
+                {n: 'Permiso regularización de propiedades (Ley del Mono)', i: '📜'},
+                {n: 'Fusión y subdivisión de terrenos', i: '🗺️'},
+                {n: 'Permisos de edificación y recepción final', i: '📐'},
+                {n: 'Revisor independiente de arquitectura', i: '⚖️'},
+                {n: 'Proyectos de Agua Potable y Alcantarillado', i: '💧'},
+                {n: 'Proyectos de Electricidad y Gas', i: '⚡'},
+                {n: 'Autorización SEREMI de Salud', i: '🏥'},
+                {n: 'Proyecto desde Cero', i: '🌱'}
+            ]
+        };
+
+        function selectBranch(b) {
+            leadData.branch = b;
+            document.getElementById('step-1').classList.add('hidden');
+            document.getElementById('step-2').classList.remove('hidden');
+            document.getElementById('speech-bubble').innerHTML = b === 'empresa' ? 
+                "Entendido. Los proyectos corporativos son nuestra especialidad. <b>¿En qué área necesitan apoyo?</b>" : 
+                "Excelente. Ayudamos a familias a construir sueños legalmente. <b>¿Qué necesitas hacer?</b>";
+            
+            const grid = document.getElementById('services-grid');
+            grid.innerHTML = services[b].map(s => `
+                <button onclick="selectService('${s.n}')" class="btn-service p-4 rounded-xl flex items-center gap-4 text-left font-bold text-sm">
+                    <span class="text-2xl">${s.i}</span> ${s.n}
+                </button>
+            `).join('') + `<button onclick="selectService('Otros')" class="p-4 border-2 border-dashed rounded-xl text-slate-400 font-bold text-xs uppercase mt-2">¿No encuentras lo que buscas?</button>`;
+        }
+
+        function selectService(s) {
+            leadData.service = s;
+            document.getElementById('speech-bubble').innerHTML = "Perfecto. Necesito algunos datos para <b>entender mejor tu proyecto.</b>";
+            showStep('step-property');
+        }
+
+        function setPropertyType(type) {
+            leadData.propertyType = type;
+            document.querySelectorAll('.prop-type-btn').forEach(b => b.classList.remove('bg-blue-600', 'text-white'));
+            event.target.classList.add('bg-blue-600', 'text-white');
+        }
+
+        function showStep(id) {
+            document.querySelectorAll('#app-container > div:not(:first-child)').forEach(el => el.classList.add('hidden'));
+            document.getElementById(id).classList.remove('hidden');
+        }
+
+        function submitLead() {
+            if(!document.getElementById('direccion').value || !document.getElementById('comuna').value) {
+                return alert("Por favor, completa la dirección y comuna.");
+            }
+            showStep('step-thanks');
+            document.getElementById('agustin-avatar').classList.add('hidden');
+            document.getElementById('speech-bubble').innerHTML = "<b>¡Solicitud recibida!</b><br>Analizaremos tu caso de inmediato.";
+        }
+
+        function downloadVCard() {
+            const vcard = `BEGIN:VCARD
+VERSION:3.0
+FN:Patricio Becar Elissegaray
+ORG:ArquitectoChile.com
+TITLE:Arquitecto U. de Chile (Desde 1999)
+TEL;TYPE=CELL:+56979316827
+EMAIL:contacto@arquitectochile.com
+EMAIL:arquitectopatriciobecar@gmail.com
+URL:https://arquitectochile.com
+END:VCARD`;
+            const blob = new Blob([vcard], { type: 'text/vcard' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'Patricio_Becar.vcf';
+            a.click();
+        }
+
+        function reset() { location.reload(); }
+    </script>
+</body>
+</html>
