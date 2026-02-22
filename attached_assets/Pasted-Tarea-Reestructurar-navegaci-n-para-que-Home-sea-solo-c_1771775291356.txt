@@ -1,0 +1,87 @@
+Tarea: Reestructurar navegación para que Home sea solo carta de ventas. Las secciones “Colaboradores” y “Portal del Cliente” NO deben aparecer dentro de Home, pero deben existir como páginas separadas accesibles desde los botones superiores.
+
+Objetivos funcionales
+En client/src/pages/home.tsx:
+
+Dejar de renderizar (remover imports + JSX) estos componentes/sections:
+
+VideoCallWidget
+
+HomeownerVideoCallWidget
+
+ColaboradoresSection
+
+ClientPortalCTA (y cualquier bloque “Portal del Cliente” dentro del render de Home)
+
+Importante: no borrar archivos, solo sacar del render de Home.
+
+En el Header / barra “Acceso” (donde hoy hay botones tipo “CRM Admin / Colaboradores / Portal de Clientes”):
+
+Botón Colaboradores → navegar a ruta /colaboradores
+
+Botón Portal de Clientes → navegar a ruta /portal-cliente
+
+Mantén “CRM Admin” como está (no tocar).
+
+Crear/confirmar rutas/páginas:
+
+/colaboradores debe existir como página y renderizar el contenido que hoy era la sección de colaboradores (puedes reutilizar ColaboradoresSection dentro de esta page).
+
+/portal-cliente debe existir como página y mostrar la landing “Portal del Cliente” (la que contiene “Iniciar sesión con Google”, etc.). Puedes reutilizar el componente existente dentro de esta page.
+
+Navegación interna dentro de /colaboradores:
+
+Cada card/botón “Ver perfil” debe abrir un perfil con URL tipo slug:
+
+/colaboradores/:slug ejemplo: /colaboradores/carlos-rodriguez
+
+Implementa una page de perfil:
+
+Ruta: /colaboradores/[slug] o equivalente según router actual.
+
+Si no hay backend/DB, usar un dataset mock en el front (array) con al menos 2 colaboradores para probar.
+
+Mostrar UI mínima (nombre, badge verificado, años experiencia, rating, proyectos, ciudad, tabs/sections tipo panel).
+
+Regla de slug:
+
+minúsculas, sin tildes, espacios a guion, solo [a-z0-9-].
+
+Portal del Cliente (dentro de /portal-cliente):
+
+El botón “Iniciar sesión con Google” debe:
+
+Si ya existe auth, disparar el flujo existente.
+
+Si no existe auth, navegar a /portal-cliente/login (placeholder) y mostrar mensaje “Próximamente / En construcción” sin romper.
+
+Entregables obligatorios
+A) Lista de archivos modificados (rutas exactas).
+B) Confirmación de que Home ya NO renderiza esos 4 componentes (muestra el snippet del render de Home con secciones restantes).
+C) URLs de preview funcionando:
+
+/
+
+/colaboradores
+
+/colaboradores/carlos-rodriguez
+
+/portal-cliente
+
+/portal-cliente/login (si aplica)
+D) Ejecuta grep/búsqueda en el repo y confirma que en client/src/pages/home.tsx ya no aparecen:
+
+ColaboradoresSection
+
+ClientPortalCTA
+
+VideoCallWidget
+
+HomeownerVideoCallWidget
+
+Restricciones
+No implementar SMTP/Trello/CRM ahora.
+
+No tocar textos legales/garantías ahora.
+
+Prioridad: navegación y estructura de páginas.
