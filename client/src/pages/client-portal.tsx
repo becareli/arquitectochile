@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useLocation } from "wouter";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -61,15 +61,6 @@ export default function ClientPortal() {
   const [, setLocation] = useLocation();
   const [clientId, setClientId] = useState<string | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-
-  // Mock authentication check - In real implementation, this would verify JWT or session
-  useEffect(() => {
-    const authCheck = localStorage.getItem('client_session');
-    if (authCheck) {
-      setClientId(authCheck);
-      setIsAuthenticated(true);
-    }
-  }, []);
 
   const { data: clientProject, isLoading } = useQuery({
     queryKey: ['/api/client-project', clientId],

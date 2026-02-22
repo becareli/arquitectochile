@@ -1,0 +1,60 @@
+Tenemos 2 bugs. NO quiero explicaciones ni “plan”; quiero que edites archivos y lo dejes funcionando. El router es wouter y estas rutas YA existen en client/src/App.tsx:
+
+/colaboradores → Colaboradores
+
+/colaboradores/:slug → ColaboradorProfile
+
+/portal-cliente → ClientPortal
+
+/portal-cliente/login → PortalClienteLogin
+
+BUG A: Botón “Colaboradores” (header) abre un perfil
+Objetivo: al hacer clic en el botón superior Colaboradores debe ir SIEMPRE a /colaboradores (landing/listado), y SOLO dentro de esa landing, al hacer clic en “Ver perfil”, debe ir a /colaboradores/:slug.
+
+Acciones obligatorias:
+
+Encuentra el archivo del header/nav (por ejemplo client/src/components/navigation.tsx u otro) y corrige el link del botón “Colaboradores” para que apunte EXACTAMENTE a:
+
+/colaboradores
+(no debe contener ningún slug).
+
+Revisa client/src/pages/colaboradores.tsx y elimina cualquier redirección automática al primer slug (nada de setLocation('/colaboradores/' + ...) ni lógica que navegue sola al montar).
+
+Asegura que la navegación al perfil ocurra SOLO al hacer clic en botón/card (ej: onClick={() => setLocation('/colaboradores/' + slug)}).
+
+BUG B: Botón “Portal de Clientes” (header) no muestra la landing
+Objetivo: al hacer clic en el botón superior Portal de Clientes debe ir a /portal-cliente (landing de beneficios). El login debe abrirse SOLO al hacer clic en el botón interno “Iniciar sesión con Google”.
+
+Acciones obligatorias:
+
+En el header/nav, corrige el link “Portal de Clientes” para que apunte EXACTAMENTE a:
+
+/portal-cliente
+(no a /portal-cliente/login).
+
+Revisa client/src/pages/client-portal.tsx y elimina cualquier redirección automática a /portal-cliente/login al montar.
+
+En client-portal.tsx, el botón “Iniciar sesión con Google” debe navegar a /portal-cliente/login.
+
+Evidencia (obligatoria)
+Al terminar, pégame:
+A) Snippet del header/nav donde se vean estos href/to EXACTOS:
+
+Colaboradores → /colaboradores
+
+Portal de Clientes → /portal-cliente
+B) Snippet de colaboradores.tsx mostrando que no hay redirect automático.
+C) Snippet de client-portal.tsx mostrando que solo el botón “Iniciar sesión con Google” navega a /portal-cliente/login.
+
+Prueba final (obligatoria)
+Confirma en el preview:
+
+Click header Colaboradores → queda en /colaboradores (landing).
+
+Click “Ver perfil” → /colaboradores/carlos-rodriguez.
+
+Click header Portal de Clientes → /portal-cliente (landing).
+
+Click “Iniciar sesión con Google” → /portal-cliente/login.
+
+No toques SMTP/Trello/CRM ni copy legal.
