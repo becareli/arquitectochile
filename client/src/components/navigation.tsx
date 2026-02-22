@@ -13,19 +13,21 @@ export default function Navigation() {
 
   const isHomePage = location === "/";
 
-  const services = [
-    { name: "Regularización de Viviendas La Florida", path: "/regularizacion-viviendas-la-florida" },
-    { name: "Reacondicionamiento Térmico de Viviendas", path: "/reacondicionamiento-termico-viviendas" },
-    { name: "Subdivisión de Terrenos Urbanos", path: "/subdivision-terrenos-urbanos" },
-    { name: "Tasación de Viviendas Urbanas", path: "/tasacion-viviendas-urbanas" },
-    { name: "Inspección Técnica de Viviendas", path: "/inspeccion-tecnica-viviendas" },
-    { name: "Fusión de Terrenos Urbanos", path: "/fusion-terrenos-urbanos" },
-    { name: "Diseño de Espacios", path: "/#servicios" },
-    { name: "Revisor Independiente", path: "/#servicios" },
-    { name: "Regularización de Inmuebles", path: "/#servicios" },
-    { name: "Sistema EIFS", path: "/#servicios" },
-    { name: "Permisos y Recepciones", path: "/#servicios" },
-    { name: "Obras Menores Empresas", path: "/obras-menores-empresas" }
+  const servicesMenuItems = [
+    { label: "Asesoría de Arquitectura a Domicilio", href: "/asesoria-arquitectonica-terreno" },
+    { label: "Diseño de Arquitectura", href: "/disenemos-tus-nuevos-espacios" },
+    { label: "Obras Menores para Empresas", href: "/obras-menores-empresas" },
+    { label: "Regularización de Inmuebles", href: "/regularizacion-inmuebles" },
+    { label: "Permiso de Edificación y Recepción Final", href: "/permiso-edificacion-recepcion-final" },
+    { label: "Revisor Independiente de Arquitectura", href: "/revisor-independiente-de-arquitectura" },
+    { label: "Subdivisión de Terrenos Urbanos", href: "/subdivision-terrenos-urbanos" },
+    { label: "Fusión de Terrenos Urbanos", href: "/fusion-terrenos-urbanos" },
+    { label: "Inspección Técnica de Viviendas", href: "/inspeccion-tecnica-viviendas" },
+    { label: "Tasación de Viviendas Urbanas", href: "/tasacion-viviendas-urbanas" },
+    { label: "Reacondicionamiento Térmico de Viviendas", href: "/reacondicionamiento-termico-viviendas" },
+    { label: "Sistema EIFS", href: "/sistema-eifs" },
+    { label: "Diseñemos tus Nuevos Espacios", href: "/disenemos-tus-nuevos-espacios" },
+    { label: "Regularización de Viviendas La Florida", href: "/regularizacion-viviendas-la-florida" },
   ];
 
   useEffect(() => {
@@ -166,32 +168,25 @@ export default function Navigation() {
                 </button>
                 
                 {isServicesDropdownOpen && (
-                  <div className="absolute top-full left-0 mt-2 w-80 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
+                  <div className="absolute top-full left-0 mt-2 w-80 bg-white border border-gray-200 rounded-lg shadow-lg z-50 max-h-[70vh] overflow-y-auto">
                     <div className="py-2">
-                      <div className="px-4 py-2 text-xs font-bold text-gray-500 uppercase tracking-wide border-b border-gray-100">
-                        Servicios Especializados
-                      </div>
-                      {services.slice(0, 5).map((service, index) => (
+                      {servicesMenuItems.map((item, index) => (
                         <button
                           key={index}
-                          onClick={() => navigateToService(service.path)}
-                          className="w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors"
+                          onClick={() => navigateToService(item.href)}
+                          className={`w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors ${index < 5 ? 'font-medium' : ''}`}
                         >
-                          {service.name}
+                          {item.label}
                         </button>
                       ))}
-                      <div className="px-4 py-2 text-xs font-bold text-gray-500 uppercase tracking-wide border-b border-gray-100 border-t border-gray-100 mt-2">
-                        Servicios Tradicionales
-                      </div>
-                      {services.slice(5).map((service, index) => (
+                      <div className="border-t border-gray-200 mt-1 pt-1">
                         <button
-                          key={index + 5}
-                          onClick={() => navigateToService(service.path)}
-                          className="w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors"
+                          onClick={() => navigateToService('/contacto')}
+                          className="w-full text-left px-4 py-3 text-sm text-blue-600 hover:bg-blue-50 font-medium"
                         >
-                          {service.name}
+                          ¿No encuentras lo que buscas? →
                         </button>
-                      ))}
+                      </div>
                     </div>
                   </div>
                 )}
@@ -352,30 +347,23 @@ export default function Navigation() {
               
               {isMobileServicesOpen && (
                 <div className="ml-4 border-l-2 border-gray-200 pl-4 space-y-1">
-                  <div className="text-xs font-bold text-gray-500 uppercase tracking-wide py-1">
-                    Especializados
-                  </div>
-                  {services.slice(0, 4).map((service, index) => (
+                  {servicesMenuItems.map((item, index) => (
                     <button
                       key={index}
-                      onClick={() => navigateToService(service.path)}
-                      className="block w-full text-left px-2 py-2 text-sm text-gray-600 hover:text-blue-600"
+                      onClick={() => navigateToService(item.href)}
+                      className={`block w-full text-left px-2 py-2 text-sm text-gray-600 hover:text-blue-600 ${index < 5 ? 'font-medium' : ''}`}
                     >
-                      {service.name}
+                      {item.label}
                     </button>
                   ))}
-                  <div className="text-xs font-bold text-gray-500 uppercase tracking-wide py-1 pt-3">
-                    Tradicionales
-                  </div>
-                  {services.slice(4).map((service, index) => (
+                  <div className="border-t border-gray-200 mt-2 pt-2">
                     <button
-                      key={index + 4}
-                      onClick={() => navigateToService(service.path)}
-                      className="block w-full text-left px-2 py-2 text-sm text-gray-600 hover:text-blue-600"
+                      onClick={() => navigateToService('/contacto')}
+                      className="block w-full text-left px-2 py-2 text-sm text-blue-600 font-medium"
                     >
-                      {service.name}
+                      ¿No encuentras lo que buscas? →
                     </button>
-                  ))}
+                  </div>
                 </div>
               )}
             </div>

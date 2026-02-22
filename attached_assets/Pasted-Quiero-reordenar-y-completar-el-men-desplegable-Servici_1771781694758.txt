@@ -1,0 +1,69 @@
+Quiero reordenar y completar el menú desplegable “Servicios” del navbar. No quiero que me expliques; quiero que edites el código y lo dejes funcionando.
+
+Objetivo UX
+El dropdown debe mostrar primero mis servicios “estrella” en este orden.
+
+Debe incluir toda la parrilla de servicios que existen como páginas/rutas.
+
+Debe eliminar el texto “SERVICIOS TRADICIONALES”.
+
+Debe agregar al final “¿No encuentras lo que buscas?” con link a /contacto.
+
+Orden superior (obligatorio)
+El dropdown de “Servicios” debe comenzar con estos ítems en este orden exacto:
+
+Asesoría de Arquitectura a Domicilio → /asesoria-arquitectonica-terreno
+
+Diseño de Arquitectura → (usar la ruta existente para “diseño”; si NO existe una página específica, enlazar temporalmente a /servicios-a-domicilio y dejar un TODO)
+
+Obras Menores para Empresas → /obras-menores-empresas
+
+Regularización de Inmuebles → /regularizacion-inmuebles
+
+Permiso de Edificación y Recepción Final → /permiso-edificacion-recepcion-final
+
+Parrilla completa (obligatorio)
+Debajo de esos 5, agrega el resto de servicios (solo si existen rutas en client/src/App.tsx), por ejemplo:
+
+Revisor Independiente → /revisor-independiente-de-arquitectura
+
+Subdivisión de Terrenos Urbanos → /subdivision-terrenos-urbanos
+
+Fusión de Terrenos Urbanos → /fusion-terrenos-urbanos
+
+Inspección Técnica de Viviendas → /inspeccion-tecnica-viviendas
+
+Tasación de Viviendas Urbanas → /tasacion-viviendas-urbanas
+
+Reacondicionamiento Térmico de Viviendas → /reacondicionamiento-termico-viviendas
+
+Sistema EIFS → /sistema-eifs
+
+Diseñemos tus Nuevos Espacios → /disenemos-tus-nuevos-espacios
+
+Regularización de Viviendas La Florida → /regularizacion-viviendas-la-florida
+(Confirma la lista final contra App.tsx y NO inventes rutas nuevas sin avisar.)
+
+Texto/Secciones del dropdown
+Elimina completamente el encabezado “SERVICIOS TRADICIONALES” (no debe verse).
+
+Puedes mantener “SERVICIOS ESPECIALIZADOS” o eliminar encabezados, pero “SERVICIOS TRADICIONALES” debe desaparecer sí o sí.
+
+Link final
+Al final del dropdown agrega:
+
+Separador
+
+¿No encuentras lo que buscas? → /contacto
+
+Implementación (requisito técnico)
+Encuentra el archivo del navbar (normalmente client/src/components/navigation.tsx).
+
+Define un array único servicesMenuItems = [{ label, href }] en el orden final, y renderiza el dropdown desde ese array (para que no se desordene después).
+
+Evidencia obligatoria al terminar
+Pega el array servicesMenuItems completo.
+
+Pega el snippet del JSX del dropdown donde se vea que ya NO aparece “SERVICIOS TRADICIONALES”.
+
+Confirma en preview que el dropdown muestra el nuevo orden y que “¿No encuentras lo que buscas?” lleva a /contacto.
