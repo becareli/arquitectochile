@@ -250,6 +250,78 @@ export default function ColaboradoresSection() {
           </div>
         </div>
 
+        {/* Colaboradores Destacados */}
+        <div className="mb-16">
+          <div className="text-center mb-10">
+            <h3 className="text-3xl font-bold text-gray-900 mb-3">Colaboradores Destacados</h3>
+            <p className="text-lg text-gray-600">Profesionales verificados que forman parte de nuestra red</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            {[
+              {
+                slug: "carlos-rodriguez",
+                name: "Carlos Rodríguez",
+                specialty: "Arquitecto",
+                experience: 8,
+                location: "Santiago, Chile",
+                rating: 4.8,
+                totalProjects: 23,
+                profileImage: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&h=300&fit=crop&crop=face",
+                description: "Especializado en diseño residencial y remodelaciones. Amplia experiencia en ampliación y regularización de viviendas."
+              },
+              {
+                slug: "maria-gonzalez",
+                name: "María González",
+                specialty: "Ingeniera Estructural",
+                experience: 12,
+                location: "Viña del Mar, Chile",
+                rating: 4.9,
+                totalProjects: 45,
+                profileImage: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=300&h=300&fit=crop&crop=face",
+                description: "Más de 12 años en cálculo y diseño de estructuras residenciales y comerciales. Especialista en reforzamiento sísmico."
+              }
+            ].map((colab) => (
+              <Card key={colab.slug} className="border-none shadow-lg hover:shadow-xl transition-shadow overflow-hidden">
+                <CardContent className="p-6">
+                  <div className="flex items-start gap-4 mb-4">
+                    <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-green-500 flex-shrink-0">
+                      <img src={colab.profileImage} alt={colab.name} className="w-full h-full object-cover" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2 mb-1">
+                        <h4 className="text-lg font-bold text-gray-900 truncate">{colab.name}</h4>
+                        <Badge className="bg-green-100 text-green-800 text-xs flex-shrink-0">
+                          <Shield className="w-3 h-3 mr-1" />
+                          Verificado
+                        </Badge>
+                      </div>
+                      <p className="text-gray-600 text-sm font-medium">{colab.specialty}</p>
+                      <div className="flex items-center gap-3 mt-1 text-xs text-gray-500">
+                        <span className="flex items-center"><Star className="w-3 h-3 text-yellow-400 mr-1" />{colab.rating}</span>
+                        <span>{colab.totalProjects} proyectos</span>
+                        <span>{colab.experience} años</span>
+                      </div>
+                    </div>
+                  </div>
+                  <p className="text-gray-600 text-sm mb-4">{colab.description}</p>
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs text-gray-500 flex items-center">
+                      <Eye className="w-3 h-3 mr-1" />{colab.location}
+                    </span>
+                    <Button
+                      size="sm"
+                      onClick={() => window.location.href = `/colaboradores/${colab.slug}`}
+                    >
+                      <Eye className="w-4 h-4 mr-1" />
+                      Ver Perfil
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+
         {/* CTA */}
         <div className="text-center">
           <div className="bg-gradient-to-r from-green-600 to-blue-600 rounded-2xl p-8 text-white">
@@ -261,19 +333,10 @@ export default function ColaboradoresSection() {
               <Button 
                 size="lg" 
                 className="bg-white text-green-600 hover:bg-gray-100 font-semibold"
-                onClick={() => window.location.href = '/colaboradores'}
-              >
-                <Users className="w-5 h-5 mr-2" />
-                Acceder a la Plataforma
-              </Button>
-              <Button 
-                size="lg" 
-                variant="outline" 
-                className="border-white text-white hover:bg-white hover:text-green-600 font-semibold"
-                onClick={() => { window.location.href = '/contacto'; }}
+                onClick={() => window.location.href = '/contacto'}
               >
                 <MessageSquare className="w-5 h-5 mr-2" />
-                Más Información
+                Quiero ser Colaborador
               </Button>
             </div>
           </div>
