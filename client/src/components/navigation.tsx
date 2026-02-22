@@ -26,7 +26,6 @@ export default function Navigation() {
     { label: "Tasación de Viviendas Urbanas", href: "/tasacion-viviendas-urbanas" },
     { label: "Reacondicionamiento Térmico de Viviendas", href: "/reacondicionamiento-termico-viviendas" },
     { label: "Sistema EIFS", href: "/sistema-eifs" },
-    { label: "Diseñemos tus Nuevos Espacios", href: "/disenemos-tus-nuevos-espacios" },
     { label: "Regularización de Viviendas La Florida", href: "/regularizacion-viviendas-la-florida" },
   ];
 
