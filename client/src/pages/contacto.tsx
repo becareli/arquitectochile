@@ -1,4 +1,5 @@
 import { useState, useRef } from "react";
+import Navigation from "@/components/navigation";
 
 const svcData = {
   empresa: [
@@ -132,6 +133,8 @@ export default function Contacto() {
   const services = branch ? svcData[branch as "empresa" | "particular"] : [];
 
   return (
+    <>
+    <Navigation />
     <div
       style={{
         minHeight: "100vh",
@@ -492,6 +495,7 @@ export default function Contacto() {
         }
       `}</style>
     </div>
+    </>
   );
 }
 

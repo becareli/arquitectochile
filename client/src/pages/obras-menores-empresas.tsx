@@ -1,9 +1,11 @@
 import { Link } from "wouter";
 import { Cpu, Gavel } from "lucide-react";
+import Navigation from "@/components/navigation";
 
 export default function ObrasMenoresEmpresas() {
   return (
     <div className="bg-gray-50 text-gray-900 font-sans leading-relaxed">
+      <Navigation />
       <header className="bg-slate-900 text-white py-20 px-6">
         <div className="max-w-5xl mx-auto text-center">
           <h1 className="text-4xl md:text-6xl font-extrabold mb-6 tracking-tight">
