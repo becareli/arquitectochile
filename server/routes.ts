@@ -21,7 +21,7 @@ import crypto from "crypto";
 import path from "path";
 import fs from "fs";
 import type { RequestHandler } from "express";
-import { processLeadIntegrations } from "./lead-integrations";
+import { sendLeadEmail } from "./lead-integrations";
 // Enhanced analytics will be loaded separately to avoid circular imports
 
 // Webhook schemas for AI agent integration
@@ -310,9 +310,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
 
       const timestamp = new Date().toISOString();
-      const userAgent = req.headers["user-agent"] || "";
 
-      const integrations = await processLeadIntegrations({
+      const emailResult = await sendLeadEmail({
         nombre: d.nombre,
         email: d.email,
         comuna: d.comuna,
@@ -326,21 +325,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
         direccion: d.direccion,
         rol: d.rol,
         classification,
-        userAgent,
         timestamp,
       });
 
-      console.log("📊 Integraciones:", JSON.stringify(integrations));
+      console.log(`📊 Email: ${emailResult.ok ? "enviado" : emailResult.error}`);
 
       res.json({
-        success: true,
+        ok: true,
         classification,
         message: "Gracias, recibimos tu solicitud.",
-        integrations: {
-          email: integrations.email.ok,
-          trello: integrations.trello.ok,
-          crm: integrations.crm.ok,
-        },
+        emailSent: emailResult.ok,
       });
     } catch (error) {
       console.error("❌ Error procesando lead:", error);

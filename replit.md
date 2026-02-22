@@ -51,7 +51,29 @@ The application follows a monorepo structure with shared types and schemas betwe
 
 ### Third-Party Services
 - **Unsplash**: Stock photography for content.
-- **WhatsApp API**: Direct messaging integration for customer communication.
 - **TidyCal**: Integration for automated booking and scheduling.
-- **WebinarKit**: Integration for automated webinar system.
-- **N8N/MAKE**: For AI agent integration and business process automation via webhooks.
+- **Nodemailer**: Email notifications for new leads (SMTP).
+
+### Lead Capture (`/api/lead`)
+- **Validation**: nombre + email required (Zod schema)
+- **Anti-spam**: Honeypot field (hidden input, rejects if filled)
+- **Classification**: VIP (empresas, ITO, revisoría, industrial) vs NUEVO (regular)
+- **Email**: Sends notification to LEADS_NOTIFY_EMAIL via SMTP; if SMTP not configured, responds `ok: true, emailSent: false` (no crash)
+- **DB**: Saves to PostgreSQL leads table (graceful fallback if DB error)
+- **CRM future**: Odoo integration planned via `ODOO_WEBHOOK_URL` or JSON-RPC to `/jsonrpc`
+
+### Environment Variables (Email Only)
+| Variable | Required | Description |
+|---|---|---|
+| `LEADS_NOTIFY_EMAIL` | Yes | Destination for lead emails (default: contacto@arquitectochile.com) |
+| `SMTP_HOST` | For email | SMTP server hostname |
+| `SMTP_PORT` | For email | SMTP port (default: 587) |
+| `SMTP_USER` | For email | SMTP username |
+| `SMTP_PASS` | For email | SMTP password |
+| `SMTP_FROM` | Optional | From address (defaults to SMTP_USER) |
+| `SEND_AUTOREPLY` | Optional | Set to "true" to auto-reply to lead's email |
+
+### Legal Safety
+- **CRITICAL**: Never use guarantee language for DOM/permit approvals (e.g., "garantiza aprobación", "imposible que rechacen"). Use "gestión profesional", "respaldo experto", "compromiso" instead.
+- All CTA buttons across the site link to `/contacto` (no WhatsApp/phone CTAs)
+- Contact emails: contacto@arquitectochile.com, arquitectopatriciobecar@gmail.com
