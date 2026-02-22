@@ -16,7 +16,6 @@ import Projects from "@/components/projects";
 import Testimonials from "@/components/testimonials";
 import SocialProof from "@/components/social-proof";
 import SalesMechanism from "@/components/sales-mechanism";
-import LeadMagnetsVilma from "@/components/lead-magnets-vilma";
 import AdvancedLeadMagnets from "@/components/advanced-lead-magnets";
 import ObjectionHandling from "@/components/objection-handling";
 import Guarantees from "@/components/guarantees";
@@ -219,7 +218,6 @@ export default function Home() {
       <Testimonials />
       <SocialProof />
       <SalesMechanism />
-      <LeadMagnetsVilma />
       <AdvancedLeadMagnets />
       <ObjectionHandling />
       <Guarantees />
