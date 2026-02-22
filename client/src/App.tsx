@@ -10,6 +10,8 @@ import CRMAdminDashboardNew from "@/pages/crm-admin-dashboard-new";
 import ClientPortal from "@/pages/client-portal";
 import ServiciosADomicilio from "@/pages/servicios-a-domicilio";
 import Colaboradores from "@/pages/colaboradores";
+import ColaboradorProfile from "@/pages/colaborador-profile";
+import PortalClienteLogin from "@/pages/portal-cliente-login";
 import RevisorIndependienteDeArquitectura from "@/pages/revisor-independiente-de-arquitectura";
 import DisenemosNuevosEspacios from "@/pages/disenemos-tus-nuevos-espacios";
 import FusionTerrenosUrbanos from "@/pages/fusion-terrenos-urbanos";
@@ -46,6 +48,8 @@ function Router() {
       <Route path="/asesoria-arquitectonica-terreno" component={AsesoriaArquitectonicaTerreno} />
       <Route path="/regularizacion-inmuebles" component={RegularizacionInmuebles} />
       <Route path="/colaboradores" component={Colaboradores} />
+      <Route path="/colaboradores/:slug" component={ColaboradorProfile} />
+      <Route path="/portal-cliente/login" component={PortalClienteLogin} />
       <Route path="/revisor-independiente-de-arquitectura" component={RevisorIndependienteDeArquitectura} />
       <Route path="/disenemos-tus-nuevos-espacios" component={DisenemosNuevosEspacios} />
       <Route path="/fusion-terrenos-urbanos" component={FusionTerrenosUrbanos} />

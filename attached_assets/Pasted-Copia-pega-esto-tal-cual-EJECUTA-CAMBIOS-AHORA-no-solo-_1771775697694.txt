@@ -1,0 +1,67 @@
+Copia/pega esto tal cual:
+
+EJECUTA CAMBIOS AHORA (no solo plan).
+Quiero que implementes lo siguiente y me lo confirmes con evidencia (snippets de archivos):
+
+A) Home = carta de ventas
+En client/src/pages/home.tsx:
+
+Remueve imports y JSX (dejar de renderizar) de:
+
+VideoCallWidget
+
+HomeownerVideoCallWidget
+
+ColaboradoresSection
+
+ClientPortalCTA (o cualquier bloque “Portal del Cliente” en Home)
+
+No borres archivos; solo quita del render de Home.
+
+Evidencia: pega el bloque de imports al inicio y el bloque del render donde se vea que ya no están.
+
+B) Navegación superior (Acceso)
+En el componente del header/nav (encuéntralo tú):
+
+Botón “Colaboradores” debe ir a /colaboradores
+
+Botón “Portal de Clientes” debe ir a /portal-cliente
+(No cambies “CRM Admin”.)
+
+Evidencia: pega el snippet del header con los links.
+
+C) Páginas separadas
+Confirma/crea estas páginas:
+
+/colaboradores (page) que renderice el contenido de colaboradores (puedes reutilizar ColaboradoresSection dentro de esta page).
+
+/portal-cliente (page) que renderice la landing del portal (con “Iniciar sesión con Google”).
+
+Evidencia: indica rutas/archivos exactos de esas páginas.
+
+D) Perfil por slug (opción A)
+Implementa ruta /colaboradores/:slug (ej: /colaboradores/carlos-rodriguez):
+
+Si no hay DB, crea un array mock con 2 colaboradores (incluye a “Carlos Rodríguez” con slug carlos-rodriguez) y renderiza una vista de perfil mínima.
+
+Si el slug no existe, mostrar 404 amigable.
+
+Evidencia: pega el archivo de la ruta dinámica y el dataset mock.
+
+E) Portal login placeholder
+Si no existe auth real todavía:
+
+crea /portal-cliente/login con texto “En construcción”.
+
+botón “Iniciar sesión con Google” debe navegar allí.
+
+F) Checklist de salida (obligatorio)
+Al final dame:
+
+Lista de archivos modificados.
+
+URLs del preview que funcionen: /, /colaboradores, /colaboradores/carlos-rodriguez, /portal-cliente, /portal-cliente/login.
+
+Confirmación de que la Home ya no renderiza esos 4 componentes.
+
+No toques SMTP/Trello/CRM ni copy legal

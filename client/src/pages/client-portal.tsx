@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { useLocation } from "wouter";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -57,6 +58,7 @@ interface TimelineEvent {
 }
 
 export default function ClientPortal() {
+  const [, setLocation] = useLocation();
   const [clientId, setClientId] = useState<string | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
@@ -210,7 +212,7 @@ export default function ClientPortal() {
             </p>
           </CardHeader>
           <CardContent>
-            <Button onClick={handleLogin} className="w-full bg-primary text-white">
+            <Button onClick={() => setLocation("/portal-cliente/login")} className="w-full bg-primary text-white">
               <User className="w-4 h-4 mr-2" />
               Iniciar Sesión con Google
             </Button>
