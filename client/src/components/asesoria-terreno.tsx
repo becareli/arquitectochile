@@ -1,4 +1,4 @@
-import { MapPin, CheckCircle, Clock, FileText, Calculator, Shield, Star, Phone } from "lucide-react";
+import { MapPin, CheckCircle, Clock, FileText, Calculator, Shield, Star } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
@@ -7,15 +7,8 @@ export default function AsesoriaTerreno() {
     window.open('https://tidycal.com/arquitectopatriciobecar/asesoria-de-arquitectura-a-domicilio', '_blank');
   };
 
-  const handleWhatsAppContact = () => {
-    const message = encodeURIComponent(
-      "Hola Patricio, me interesa tu Asesoría Arquitectónica en Terreno por $45.000. ¿Cuándo podrías visitarme para analizar mi proyecto?"
-    );
-    window.open(`https://wa.me/56979316827?text=${message}`, '_blank');
-  };
-
-  const handlePhoneContact = () => {
-    window.open("tel:+56979316827", '_self');
+  const handleContactClick = () => {
+    window.location.href = '/contacto';
   };
 
   const benefits = [
@@ -118,10 +111,10 @@ export default function AsesoriaTerreno() {
                 📅 Agendar Visita Online
               </Button>
               <Button 
-                onClick={handleWhatsAppContact}
+                onClick={handleContactClick}
                 className="bg-green-600 text-white hover:bg-green-700 font-semibold px-8 py-4 text-lg"
               >
-                💬 Consultar por WhatsApp
+                Contáctanos
               </Button>
             </div>
           </div>
@@ -229,10 +222,10 @@ export default function AsesoriaTerreno() {
               📅 Agendar Visita Online
             </Button>
             <Button 
-              onClick={handleWhatsAppContact}
+              onClick={handleContactClick}
               className="bg-green-600 text-white hover:bg-green-700 font-semibold px-8 py-4 text-lg"
             >
-              💬 Consultar por WhatsApp
+              Contáctanos
             </Button>
           </div>
           

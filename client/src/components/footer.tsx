@@ -112,12 +112,10 @@ export default function Footer() {
                 arquitectopatricio.becar@gmail.com
               </a>
               <a 
-                href="https://wa.me/56979316827?text=Hola%20Patricio,%20me%20interesa%20conocer%20más%20sobre%20tus%20servicios%20de%20arquitectura"
-                target="_blank"
-                rel="noopener noreferrer"
+                href="/contacto"
                 className="block text-sm hover:text-white transition-colors"
               >
-                +56 9 7931 6827
+                Formulario de Contacto
               </a>
               <div className="text-sm">
                 <div>Av. Vicuña Mackenna, Poniente 7735</div>

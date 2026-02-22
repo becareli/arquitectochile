@@ -73,8 +73,8 @@ export default function ConversionOptimizer() {
     },
     {
       id: "results",
-      title: "Resultados Garantizados",
-      description: "100% de proyectos aprobados en primer intento",
+      title: "Resultados Comprobados",
+      description: "Alto índice de aprobación en proyectos gestionados",
       icon: Target,
       color: "text-green-600",
       bgColor: "bg-green-50"
@@ -235,10 +235,10 @@ export default function ConversionOptimizer() {
               </Button>
               
               <Button 
-                onClick={() => window.open('https://api.whatsapp.com/send?phone=56979316827&text=Quiero%20saber%20más%20sobre%20el%20sistema%20de%20conversión', '_blank')}
+                onClick={() => { window.location.href = '/contacto'; }}
                 className="bg-white/20 hover:bg-white/30 text-white border-2 border-white px-8 py-4 text-lg font-bold"
               >
-                Consultar por WhatsApp
+                Contáctanos
               </Button>
             </div>
           </div>

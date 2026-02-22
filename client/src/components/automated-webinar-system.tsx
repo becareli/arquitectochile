@@ -165,7 +165,7 @@ export default function AutomatedWebinarSystem() {
     } catch (error) {
       toast({
         title: "Error",
-        description: "Hubo un problema con el registro. Contacta por WhatsApp",
+        description: "Hubo un problema con el registro. Intenta nuevamente o contáctanos",
         variant: "destructive"
       });
     }

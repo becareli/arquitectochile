@@ -325,7 +325,7 @@ export default function WebinarSystem() {
               AGENDAR CONSULTA PERSONALIZADA
             </Button>
             <p className="text-sm text-gray-500 mt-3">
-              Consulta gratuita • 15 minutos • Sin compromiso
+              Asesoría profesional • Sin compromiso
             </p>
           </div>
         </div>

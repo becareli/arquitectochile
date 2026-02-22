@@ -111,7 +111,7 @@ export default function AdvancedLeadMagnets() {
     } catch (error) {
       toast({
         title: "Error",
-        description: "Hubo un problema. Intenta nuevamente o contacta por WhatsApp",
+        description: "Hubo un problema. Intenta nuevamente o contáctanos",
         variant: "destructive"
       });
     }

@@ -11,15 +11,15 @@ export default function Guarantees() {
     },
     {
       icon: <Shield className="w-8 h-8 text-blue-600" />,
-      title: "Garantía Legal",
-      description: "Nos comprometemos a obtener todos los permisos necesarios cumpliendo con las normativas vigentes.",
-      highlight: "Cumplimiento legal"
+      title: "Respaldo Legal",
+      description: "Gestionamos todos los trámites y permisos necesarios cumpliendo con las normativas vigentes.",
+      highlight: "Gestión profesional"
     },
     {
       icon: <Clock className="w-8 h-8 text-orange-600" />,
-      title: "Garantía de Entrega",
-      description: "Garantizamos cumplir con los plazos acordados o te compensamos cualquier retraso.",
-      highlight: "Puntualidad asegurada"
+      title: "Compromiso de Entrega",
+      description: "Nos comprometemos con los plazos acordados y mantenemos comunicación constante del avance.",
+      highlight: "Plazos claros"
     },
     {
       icon: <Award className="w-8 h-8 text-purple-600" />,
@@ -34,7 +34,7 @@ export default function Guarantees() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold text-gray-900 mb-4">
-            Nuestras Garantías de Tranquilidad
+            Nuestro Compromiso Profesional
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
             Para que tomes esta decisión con total tranquilidad, cada etapa del proyecto 
@@ -71,21 +71,16 @@ export default function Guarantees() {
         <div className="text-center mt-16">
           <div className="bg-white rounded-lg shadow-lg p-8 max-w-2xl mx-auto">
             <h3 className="text-2xl font-bold text-gray-900 mb-4">
-              Con estas garantías tienes la certeza total
+              Con este respaldo profesional tienes tranquilidad
             </h3>
             <p className="text-gray-600 mb-6">
               Cada día que pospongas tu decisión, es un día más lejos de la casa que tu familia merece.
             </p>
             <button 
-              onClick={() => {
-                const element = document.getElementById('contacto');
-                if (element) {
-                  element.scrollIntoView({ behavior: 'smooth' });
-                }
-              }}
+              onClick={() => { window.location.href = '/contacto'; }}
               className="bg-primary text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-primary/90 transition-colors shadow-lg"
             >
-              Agenda tu Consulta Gratuita Ahora
+              Solicitar Evaluación
             </button>
           </div>
         </div>

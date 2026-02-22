@@ -12,12 +12,12 @@ export default function SalesMechanism() {
     {
       icon: <Target className="w-8 h-8 text-blue-500" />,
       title: "La Solución Única",
-      description: "Nuestro sistema '3D + Legal + Acompañamiento' es el único en Chile que garantiza tu casa exactamente como la soñaste, sin sorpresas legales ni sobrecostos."
+      description: "Nuestro sistema '3D + Legal + Acompañamiento' te entrega un proceso integral para construir tu casa como la soñaste, con gestión profesional de permisos y control de costos."
     },
     {
       icon: <TrendingUp className="w-8 h-8 text-green-500" />,
-      title: "El Resultado Garantizado",
-      description: "100+ familias ya tienen su casa soñada con nosotros. Cero problemas legales. Cero retrasos importantes. Total satisfacción garantizada."
+      title: "Resultados Comprobados",
+      description: "100+ familias ya tienen su casa soñada con nosotros. Experiencia comprobada en gestión de proyectos con alto nivel de satisfacción."
     }
   ];
 
@@ -162,19 +162,14 @@ export default function SalesMechanism() {
           
           <p className="text-red-700 mb-6 text-lg">
             No es por capricho. Es porque dedicamos 100% de nuestra atención a cada proyecto 
-            para garantizar resultados perfectos. <strong>Queda 1 cupo disponible este mes.</strong>
+            para lograr resultados de excelencia. <strong>Queda 1 cupo disponible este mes.</strong>
           </p>
           
           <button 
-            onClick={() => {
-              const element = document.getElementById('contacto');
-              if (element) {
-                element.scrollIntoView({ behavior: 'smooth' });
-              }
-            }}
+            onClick={() => { window.location.href = '/contacto'; }}
             className="bg-red-600 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-red-700 transition-colors shadow-lg"
           >
-            Reservar Mi Cupo Ahora - Consulta Gratuita
+            Solicitar Evaluación
           </button>
           
           <p className="text-red-600 text-sm mt-4 font-medium">

@@ -44,7 +44,7 @@ export default function Chatbot() {
     }
     
     if (message.includes('fusión') || message.includes('fusion') || message.includes('terreno')) {
-      return 'La fusión de terrenos permite aumentar hasta 30% la capacidad de construcción según el Art. 63 de la Ley General de Urbanismo. El proceso completo toma 45-60 días y cuesta desde $890.000. ¿Te gustaría una evaluación gratuita?';
+      return 'La fusión de terrenos permite aumentar hasta 30% la capacidad de construcción según el Art. 63 de la Ley General de Urbanismo. El proceso completo toma 45-60 días y cuesta desde $890.000. ¿Te gustaría solicitar una evaluación?';
     }
     
     if (message.includes('revisor') || message.includes('independiente') || message.includes('rechaz')) {
@@ -121,7 +121,7 @@ export default function Chatbot() {
     }
     
     if (message.includes('contacto') || message.includes('telefono') || message.includes('whatsapp')) {
-      return 'Contactos: WhatsApp +56979316827, Email contacto@arquitectochile.com, Oficina en Santiago. Atención personalizada de Patricio Becar. ¿Prefieres que te conecte por WhatsApp?';
+      return 'Puedes contactarnos a través de nuestro formulario en /contacto o por email a contacto@arquitectochile.com. Oficina en Santiago. Atención personalizada de Patricio Becar.';
     }
     
     if (message.includes('patricio') || message.includes('arquitecto') || message.includes('experiencia')) {
@@ -133,7 +133,7 @@ export default function Chatbot() {
     }
     
     // Respuesta por defecto
-    return 'Gracias por tu consulta. Ofrecemos servicios completos de arquitectura: regularización de viviendas La Florida, subdivisión de terrenos, fusión de terrenos, reacondicionamiento térmico, diseño, permisos, tasaciones y más. Para información específica, contacta a Patricio por WhatsApp +56979316827. ¿Te ayudo a conectarte?';
+    return 'Gracias por tu consulta. Ofrecemos servicios completos de arquitectura: regularización de viviendas La Florida, subdivisión de terrenos, fusión de terrenos, reacondicionamiento térmico, diseño, permisos, tasaciones y más. Para información específica, visita nuestra página de contacto en /contacto. ¿Te ayudo con algo más?';
   };
 
   const handleSendMessage = async () => {
@@ -170,10 +170,8 @@ export default function Chatbot() {
     }
   };
 
-  const connectToWhatsApp = () => {
-    const message = "Hola Patricio, vengo del chatbot de la web. Me interesa obtener más información sobre sus servicios de arquitectura.";
-    const whatsappUrl = `https://wa.me/56979316827?text=${encodeURIComponent(message)}`;
-    window.open(whatsappUrl, '_blank');
+  const goToContactPage = () => {
+    window.location.href = '/contacto';
   };
 
   if (!isOpen) {
@@ -267,12 +265,12 @@ export default function Chatbot() {
             <div className="border-t p-3">
               <div className="flex gap-2 mb-2">
                 <Button
-                  onClick={connectToWhatsApp}
+                  onClick={goToContactPage}
                   variant="outline"
                   size="sm"
                   className="text-xs"
                 >
-                  Conectar WhatsApp
+                  Ir a Contacto
                 </Button>
               </div>
               <div className="flex gap-2">

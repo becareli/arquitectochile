@@ -14,9 +14,9 @@ export default function HomeownerVideoCallWidget() {
           <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 text-white rounded-full mb-6">
             <Home className="w-8 h-8" />
           </div>
-          <h2 className="text-4xl font-bold text-dark mb-4">Consulta Gratuita para tu Hogar</h2>
+          <h2 className="text-4xl font-bold text-dark mb-4">Asesoría para tu Hogar</h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Agenda una videollamada gratuita de 30 minutos para planificar la ampliación o remodelación de tu casa
+            Agenda una videollamada de 30 minutos para planificar la ampliación o remodelación de tu casa
           </p>
         </div>
 
@@ -160,7 +160,7 @@ export default function HomeownerVideoCallWidget() {
                     className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white text-lg py-3 px-6 rounded-lg transition-all duration-300 transform hover:scale-105"
                   >
                     <Video className="w-5 h-5 mr-2" />
-                    Agendar Mi Consulta Gratuita
+                    Agendar Mi Asesoría
                   </Button>
                   
                   <p className="text-xs text-gray-500 mt-3">

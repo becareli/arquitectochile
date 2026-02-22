@@ -1,0 +1,76 @@
+Perfecto: en **/contacto** vamos a disparar (A) email y además (C) creación en tu CRM **y** en Trello. Para que Replit lo ejecute bien, el prompt debe dejar **interfaces claras** (endpoints, variables de entorno, fallbacks) porque tu CRM puede variar, mientras que Trello sí tiene API directa para crear tarjetas. [developer.atlassian](https://developer.atlassian.com/cloud/trello/rest/api-group-cards/)
+
+## Prompt para Replit (Email + CRM + Trello)
+Copia/pega tal cual en Replit:
+
+Eres un **Senior Full‑Stack Engineer + Integrations Engineer**. Vas a modificar el repo de **www.arquitectochile.com** para:
+
+1) Aplicar los cambios de limpieza/conversión en la **HOME** (según audio/screencapture).  
+2) Convertir **/contacto** en una página de **captura de leads** que al enviar el formulario haga 3 acciones:
+   - (A) Enviar email de notificación (a mí y opcionalmente auto‑reply al lead).  
+   - (C1) Crear lead en mi **CRM** (vía API/Webhook configurable).  
+   - (C2) Crear una **tarjeta en Trello** en una lista específica.
+
+### Constantes y reglas de embudo
+- `PRIMARY_CTA_URL = "/contacto"`  
+- Toda la HOME debe enviar CTAs principales a `/contacto`.  
+- En HOME: eliminar WhatsApp, eliminar teléfonos públicos y eliminar “consulta gratis/gratuita” en CTAs de contacto. [ppl-ai-file-upload.s3.amazonaws](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/104873276/a650f9a6-60c2-4008-a57b-f5b76b272614/screencapture-main-page-achile.pdf)
+
+### /CONTACTO: formulario y backend (obligatorio)
+Implementa o ajusta:
+- Frontend: formulario con campos: nombre, email, comuna, tipo_proyecto, etapa, presupuesto (opcional), mensaje.  
+- Backend: endpoint POST (ej. `/api/leads` o equivalente según stack) que valide, sanitice y procese.
+
+Al recibir un lead:
+1) **Email**
+- Enviar correo a `LEADS_NOTIFY_EMAIL` con todos los datos del lead y timestamp.
+- (Opcional) Enviar correo de confirmación al lead (si `SEND_AUTOREPLY=true`).
+- Usar proveedor existente; si no hay, implementar con un proveedor estándar (Node: nodemailer/Resend; Python: SMTP) usando variables de entorno.
+
+2) **CRM**
+- Integración por webhook configurable: `CRM_WEBHOOK_URL`.  
+- Enviar JSON con el payload del lead.  
+- Si `CRM_WEBHOOK_URL` no está seteada, NO fallar: registrar warning y continuar (email + trello deben seguir).
+
+3) **Trello**
+- Crear tarjeta en una lista usando Trello REST API “Create a new card”. [developer.atlassian](https://developer.atlassian.com/cloud/trello/rest/api-group-cards/)
+- Variables de entorno requeridas:
+  - `TRELLO_KEY`
+  - `TRELLO_TOKEN`
+  - `TRELLO_LIST_ID`
+- Endpoint típico: `POST https://api.trello.com/1/cards` con `idList`, `name`, `desc` (y key/token). [developer.atlassian](https://developer.atlassian.com/cloud/trello/rest/api-group-cards/)
+- Nombre de tarjeta (name): `Lead: {comuna} - {tipo_proyecto} - {nombre}`
+- Descripción (desc): incluir email, etapa, presupuesto, mensaje, URL de referencia (Home), user agent si está disponible.
+
+### Requisitos de robustez
+- Validación mínima: email válido, nombre no vacío.  
+- Anti-spam: honeypot field o rate limit simple.  
+- Respuesta al usuario: “Gracias, recibimos tu solicitud.” sin prometer gratuidad ni tiempos exactos.
+- Logs: registrar resultado de cada integración (email ok/fail, CRM ok/fail, Trello ok/fail).
+- Seguridad: no exponer keys/tokens en frontend; solo server-side.
+
+### Output requerido
+- Archivos modificados (rutas exactas).  
+- Variables de entorno necesarias (lista).  
+- Cómo probar local: ejemplo de curl/postman para enviar un lead.
+- Confirmar que HOME sigue mandando a `/contacto` y que /contacto crea email + trello + CRM cuando están configurados.
+
+### Implementación Trello (obligatorio)
+Usa Trello REST API “cards” (create card). [developer.atlassian](https://developer.atlassian.com/cloud/trello/rest/api-group-cards/)
+
+***
+
+## Variables de entorno que debes crear en Replit
+- `LEADS_NOTIFY_EMAIL=tuemail@dominio.cl`
+- `SEND_AUTOREPLY=true|false`
+- (si SMTP) `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS`, `SMTP_FROM`
+- `CRM_WEBHOOK_URL=https://...` (tu endpoint del CRM o n8n/make)
+- `TRELLO_KEY=...`
+- `TRELLO_TOKEN=...`
+- `TRELLO_LIST_ID=...`
+
+## Solo 2 datos que me faltan (para dejarlo listo sin suposiciones)
+1) ¿Cuál es el email destino para `LEADS_NOTIFY_EMAIL`?  
+2) ¿Tu “CRM” se conecta por webhook (por ejemplo n8n/Make/endpoint propio)? Si sí, pega aquí la URL que quieras usar como `CRM_WEBHOOK_URL`.
+
+Si me das esos dos, te devuelvo el prompt final “sin placeholders” y con nombres exactos de variables según tu stack.

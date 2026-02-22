@@ -18,7 +18,7 @@ export default function Hero() {
               </p>
             </div>
             
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-bold mb-8 leading-tight">¿Vas a invertir en tu casa o en un problema legal? Obtén un diseño arquitectónico premium con gestión de permisos garantizada por expertos de la Universidad de Chile.</h1>
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-bold mb-8 leading-tight">¿Vas a invertir en tu casa o en un problema legal? Obtén un diseño arquitectónico premium con gestión profesional de permisos por expertos de la Universidad de Chile.</h1>
             <p className="text-xl sm:text-2xl font-bold text-accent mb-6 animate-pulse">
               Tu familia merece una casa de autor. Tu patrimonio merece protección legal absoluta.
             </p>
@@ -87,7 +87,7 @@ export default function Hero() {
               {/* Risk Reversal - Refined */}
               <div className="text-center mt-6 space-y-2">
                 <p className="text-sm opacity-95 font-light">
-                  ✓ Consulta 100% gratuita ✓ Sin compromiso ✓ Garantía total
+                  ✓ Asesoría profesional ✓ Sin compromiso ✓ Respaldo experto
                 </p>
                 <p className="text-xs text-accent/90 font-medium">
                   ⏰ Oferta válida solo por 24 horas

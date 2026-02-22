@@ -14,9 +14,9 @@ export default function VideoCallWidget() {
           <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-full mb-6">
             <Video className="w-8 h-8" />
           </div>
-          <h2 className="text-4xl font-bold text-dark mb-4">Videollamada Gratis</h2>
+          <h2 className="text-4xl font-bold text-dark mb-4">Videollamada de Asesoría</h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Agenda una consulta gratuita de 30 minutos para discutir tu proyecto de construcción o remodelación
+            Agenda una asesoría de 30 minutos para discutir tu proyecto de construcción o remodelación
           </p>
         </div>
 
@@ -24,7 +24,7 @@ export default function VideoCallWidget() {
           <div className="bg-gradient-to-r from-blue-500 to-blue-600 text-white p-6">
             <div className="flex items-center justify-between">
               <div>
-                <h3 className="text-2xl font-bold mb-2">Asesoría Gratuita</h3>
+                <h3 className="text-2xl font-bold mb-2">Asesoría Profesional</h3>
                 <p className="text-blue-100">Arquitectura y Construcción</p>
               </div>
               <div className="flex items-center space-x-2 bg-white/20 rounded-full px-4 py-2">
@@ -115,7 +115,7 @@ export default function VideoCallWidget() {
 
                 <div className="bg-gray-50 rounded-lg p-6 text-center">
                   <p className="text-gray-600 mb-4">
-                    Agenda tu sesión gratuita ahora y obtén la orientación profesional que necesitas
+                    Agenda tu sesión ahora y obtén la orientación profesional que necesitas
                   </p>
                   
                   <Button
@@ -123,11 +123,11 @@ export default function VideoCallWidget() {
                     className="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white text-lg py-3 px-6 rounded-lg transition-all duration-300 transform hover:scale-105"
                   >
                     <Calendar className="w-5 h-5 mr-2" />
-                    Agendar Videollamada Gratis
+                    Agendar Videollamada
                   </Button>
                   
                   <p className="text-xs text-gray-500 mt-3">
-                    * Sin compromisos • Asesoría profesional • 100% gratuita
+                    * Sin compromisos • Asesoría profesional
                   </p>
                 </div>
               </div>

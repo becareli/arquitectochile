@@ -22,12 +22,12 @@ export default function RegularizacionInmuebles() {
     {
       icon: Award,
       title: "Cumplimiento Total",
-      description: "Garantizamos el cumplimiento de todas las normativas vigentes"
+      description: "Gestionamos el cumplimiento de todas las normativas vigentes"
     }
   ];
 
   const handleContactClick = () => {
-    window.open("https://wa.me/56979316827?text=Hola%20Patricio%2C%20me%20interesa%20conocer%20más%20sobre%20la%20Regularización%20de%20Inmuebles%20(Ley%20del%20Mono)", '_blank');
+    window.location.href = '/contacto';
   };
 
   return (
@@ -102,7 +102,7 @@ export default function RegularizacionInmuebles() {
                   <div className="flex-shrink-0 w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
                     <CheckCircle className="w-5 h-5 text-green-600" />
                   </div>
-                  <span>Garantía de cumplimiento normativo completo</span>
+                  <span>Gestión profesional de cumplimiento normativo</span>
                 </div>
               </div>
             </CardContent>
@@ -137,14 +137,14 @@ export default function RegularizacionInmuebles() {
             ¿Listo para regularizar tu propiedad?
           </h3>
           <p className="text-xl mb-6 opacity-90">
-            Consulta gratuita para evaluar tu caso específico
+            Solicita una evaluación de tu caso específico
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <Button 
               onClick={handleContactClick}
               className="bg-white text-green-600 hover:bg-gray-100 font-semibold px-8 py-3 text-lg"
             >
-              📞 Consulta Gratuita por WhatsApp
+              Solicitar Evaluación
             </Button>
             <Button 
               onClick={() => {

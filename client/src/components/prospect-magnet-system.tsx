@@ -19,7 +19,7 @@ export default function ProspectMagnetSystem() {
       color: "bg-red-600",
       borderColor: "border-red-500",
       textColor: "text-red-600",
-      offer: "Consulta GRATIS + Diseño 3D básico GRATIS",
+      offer: "Evaluación Inicial + Diseño 3D básico",
       value: "(Valor $250.000)",
       cta: "AGENDAR CONSULTA INMEDIATA",
       benefits: [
@@ -294,21 +294,16 @@ export default function ProspectMagnetSystem() {
               ¿Aún No Estás Seguro Por Dónde Empezar?
             </h3>
             <p className="text-lg mb-6">
-              Habla directamente con un arquitecto en una consulta gratuita de 15 minutos
+              Habla directamente con un arquitecto y resuelve tus dudas
             </p>
             <Button 
-              onClick={() => {
-                const element = document.getElementById('contacto');
-                if (element) {
-                  element.scrollIntoView({ behavior: 'smooth' });
-                }
-              }}
+              onClick={() => { window.location.href = '/contacto'; }}
               className="bg-black text-white px-8 py-4 rounded-lg text-lg font-bold hover:bg-gray-800 transition-colors"
             >
-              HABLAR CON UN ARQUITECTO AHORA
+              CONTÁCTANOS AHORA
             </Button>
             <p className="text-sm mt-3 opacity-75">
-              Llamada gratuita • Sin compromiso • Respuestas inmediatas
+              Sin compromiso • Respuestas profesionales
             </p>
           </div>
         </div>

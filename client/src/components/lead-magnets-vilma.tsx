@@ -193,15 +193,10 @@ export default function LeadMagnetsVilma() {
           </div>
           
           <Button 
-            onClick={() => {
-              const element = document.getElementById('contacto');
-              if (element) {
-                element.scrollIntoView({ behavior: 'smooth' });
-              }
-            }}
+            onClick={() => { window.location.href = '/contacto'; }}
             className="bg-yellow-400 text-black px-8 py-4 rounded-lg text-lg font-bold hover:bg-yellow-300 transition-colors shadow-xl"
           >
-            O MEJOR AÚN: AGENDA TU CONSULTA GRATUITA AHORA
+            SOLICITAR EVALUACIÓN PROFESIONAL
           </Button>
           
           <p className="text-sm opacity-75 mt-4">

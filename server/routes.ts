@@ -21,6 +21,7 @@ import crypto from "crypto";
 import path from "path";
 import fs from "fs";
 import type { RequestHandler } from "express";
+import { processLeadIntegrations } from "./lead-integrations";
 // Enhanced analytics will be loaded separately to avoid circular imports
 
 // Webhook schemas for AI agent integration
@@ -247,16 +248,21 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Lead capture endpoint for contacto.html (Agustín assistant)
+  // Lead capture endpoint for /contacto (Agustín assistant + full form)
   const leadSchema = z.object({
-    branch: z.enum(["empresa", "particular"]),
-    service: z.string().max(200).default("General"),
-    propertyType: z.string().max(50).default(""),
-    direccion: z.string().max(300).default(""),
+    nombre: z.string().min(1, "Nombre requerido").max(200),
+    email: z.string().email("Email inválido"),
     comuna: z.string().max(100).default(""),
-    rol: z.string().max(50).default(""),
-    descripcion: z.string().max(2000).default(""),
-    hasAudio: z.boolean().default(false),
+    tipo_proyecto: z.string().max(200).default("General"),
+    etapa: z.string().max(100).default(""),
+    presupuesto: z.string().max(100).optional().default(""),
+    mensaje: z.string().max(2000).default(""),
+    branch: z.string().max(50).optional().default(""),
+    service: z.string().max(200).optional().default(""),
+    propertyType: z.string().max(50).optional().default(""),
+    direccion: z.string().max(300).optional().default(""),
+    rol: z.string().max(50).optional().default(""),
+    honeypot: z.string().max(0).optional().default(""),
   });
 
   app.post("/api/lead", async (req, res) => {
@@ -265,7 +271,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
       if (!parsed.success) {
         return res.status(400).json({ error: "Datos inválidos", details: parsed.error.flatten() });
       }
-      const leadData = parsed.data;
+      const d = parsed.data;
+
+      if (d.honeypot && d.honeypot.length > 0) {
+        console.log("🤖 Spam detectado (honeypot)");
+        return res.json({ success: true, message: "Gracias, recibimos tu solicitud." });
+      }
 
       const vipServices = [
         "Revisoría Independiente de Arquitectura",
@@ -277,32 +288,59 @@ export async function registerRoutes(app: Express): Promise<Server> {
       ];
 
       let classification = "NUEVO";
-      if (leadData.branch === "empresa") classification = "VIP";
-      else if (vipServices.includes(leadData.service)) classification = "VIP";
-      else if (leadData.propertyType === "Industrial") classification = "VIP";
+      if (d.branch === "empresa") classification = "VIP";
+      else if (d.service && vipServices.includes(d.service)) classification = "VIP";
+      else if (d.propertyType === "Industrial") classification = "VIP";
 
-      console.log(`📋 [LEAD ${classification}] ${leadData.service} - ${leadData.comuna}`);
-      console.log(`📦 Datos:`, JSON.stringify(leadData, null, 2));
+      console.log(`📋 [LEAD ${classification}] ${d.tipo_proyecto} - ${d.comuna} - ${d.nombre}`);
 
       try {
         await storage.createLead({
-          name: "Contacto Agustín",
-          email: "",
+          name: d.nombre,
+          email: d.email,
           phone: "",
-          helpType: leadData.service || "General",
-          message: `[${classification}] ${leadData.branch?.toUpperCase()} | ROL: ${leadData.rol || '-'} | Propiedad: ${leadData.propertyType || '-'} | Descripción: ${leadData.descripcion || '-'}`,
+          helpType: d.service || d.tipo_proyecto || "General",
+          message: `[${classification}] ${d.branch?.toUpperCase() || "WEB"} | Etapa: ${d.etapa || "-"} | Presupuesto: ${d.presupuesto || "-"} | ${d.mensaje || "-"}`,
           source: "contacto-agustin",
-          comuna: leadData.comuna || "",
-          calle: leadData.direccion || "",
+          comuna: d.comuna || "",
+          calle: d.direccion || "",
         });
       } catch (dbErr) {
         console.warn("⚠️ No se pudo guardar en DB:", dbErr);
       }
 
+      const timestamp = new Date().toISOString();
+      const userAgent = req.headers["user-agent"] || "";
+
+      const integrations = await processLeadIntegrations({
+        nombre: d.nombre,
+        email: d.email,
+        comuna: d.comuna,
+        tipo_proyecto: d.tipo_proyecto || d.service || "General",
+        etapa: d.etapa,
+        presupuesto: d.presupuesto,
+        mensaje: d.mensaje,
+        branch: d.branch,
+        service: d.service,
+        propertyType: d.propertyType,
+        direccion: d.direccion,
+        rol: d.rol,
+        classification,
+        userAgent,
+        timestamp,
+      });
+
+      console.log("📊 Integraciones:", JSON.stringify(integrations));
+
       res.json({
         success: true,
         classification,
-        message: "Lead procesado correctamente",
+        message: "Gracias, recibimos tu solicitud.",
+        integrations: {
+          email: integrations.email.ok,
+          trello: integrations.trello.ok,
+          crm: integrations.crm.ok,
+        },
       });
     } catch (error) {
       console.error("❌ Error procesando lead:", error);

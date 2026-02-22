@@ -27,6 +27,13 @@ const svcData = {
   ],
 };
 
+const etapas = [
+  "Solo estoy cotizando",
+  "Necesito empezar pronto",
+  "Es urgente",
+  "Ya tengo proyecto, necesito apoyo técnico",
+];
+
 type Branch = "empresa" | "particular" | "";
 type Step = 1 | 2 | 3 | 4 | 5;
 
@@ -38,7 +45,14 @@ export default function Contacto() {
   const [direccion, setDireccion] = useState("");
   const [comuna, setComuna] = useState("");
   const [rol, setRol] = useState("");
-  const [descripcion, setDescripcion] = useState("");
+  const [nombre, setNombre] = useState("");
+  const [email, setEmail] = useState("");
+  const [etapa, setEtapa] = useState("");
+  const [presupuesto, setPresupuesto] = useState("");
+  const [mensaje, setMensaje] = useState("");
+  const [honeypot, setHoneypot] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formError, setFormError] = useState("");
   const [hasAudio, setHasAudio] = useState(false);
   const [isRecording, setIsRecording] = useState(false);
   const [speech, setSpeech] = useState(
@@ -61,15 +75,20 @@ export default function Contacto() {
 
   function selectService(s: string) {
     setService(s);
-    setSpeech('Perfecto. Necesito algunos datos para <b>entender mejor tu proyecto.</b>');
+    setSpeech('Necesito tus datos de contacto y <b>ubicación del proyecto.</b>');
     setStep(3);
   }
 
   function goToDetails() {
-    if (!direccion.trim() || !comuna.trim()) {
-      alert("Por favor ingresa la dirección y la comuna.");
+    if (!nombre.trim() || !email.trim() || !comuna.trim()) {
+      setFormError("Por favor completa nombre, email y comuna.");
       return;
     }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setFormError("Por favor ingresa un email válido.");
+      return;
+    }
+    setFormError("");
     setSpeech('Cuéntame un poco más acerca de esta propiedad y <b>qué es lo que realmente necesitas.</b>');
     setStep(4);
   }
@@ -101,7 +120,29 @@ export default function Contacto() {
   }
 
   function submitLead() {
-    const payload = { branch, service, propertyType, direccion, comuna, rol, descripcion, hasAudio };
+    if (!nombre.trim() || !email.trim()) {
+      setFormError("Nombre y email son obligatorios.");
+      return;
+    }
+    setFormError("");
+    setIsSubmitting(true);
+
+    const payload = {
+      nombre,
+      email,
+      comuna,
+      tipo_proyecto: service || "General",
+      etapa,
+      presupuesto,
+      mensaje,
+      branch,
+      service,
+      propertyType,
+      direccion,
+      rol,
+      honeypot,
+    };
+
     fetch("/api/lead", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -109,7 +150,8 @@ export default function Contacto() {
     })
       .then((r) => r.json())
       .then((d) => console.log("Lead enviado:", d))
-      .catch((e) => console.warn("Error:", e));
+      .catch((e) => console.warn("Error:", e))
+      .finally(() => setIsSubmitting(false));
 
     setShowAvatar(false);
     setSpeech('<b>¡Solicitud recibida!</b><br/>Analizaremos tu caso de inmediato.');
@@ -158,7 +200,6 @@ export default function Contacto() {
           overflow: "hidden",
         }}
       >
-        {/* HEADER: AGUSTÍN */}
         <div
           style={{
             background: "linear-gradient(180deg, #f0f9ff 0%, #fff 100%)",
@@ -227,7 +268,6 @@ export default function Contacto() {
           </div>
         </div>
 
-        {/* PASO 1: EMPRESA / PARTICULAR */}
         {step === 1 && (
           <div style={{ padding: "1.5rem", animation: "fadeIn 0.4s ease-out" }}>
             <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
@@ -257,7 +297,6 @@ export default function Contacto() {
           </div>
         )}
 
-        {/* PASO 2: SERVICIOS */}
         {step === 2 && (
           <div style={{ padding: "1.5rem", animation: "fadeIn 0.4s ease-out" }}>
             <div style={{ maxHeight: 420, overflowY: "auto", display: "flex", flexDirection: "column", gap: "0.6rem" }}>
@@ -302,16 +341,23 @@ export default function Contacto() {
           </div>
         )}
 
-        {/* PASO 3: UBICACIÓN */}
         {step === 3 && (
           <div style={{ padding: "1.5rem", animation: "fadeIn 0.4s ease-out" }}>
             <p style={{ fontSize: "0.75rem", fontWeight: 700, color: "#2563eb", textTransform: "uppercase", textAlign: "center", marginBottom: "1.25rem", letterSpacing: "0.15em" }}>
-              Datos de la Propiedad
+              Tus Datos y Ubicación
             </p>
+            {formError && (
+              <p style={{ fontSize: "0.8rem", color: "#dc2626", fontWeight: 600, marginBottom: "0.75rem", textAlign: "center" }}>
+                {formError}
+              </p>
+            )}
             <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
-              <input type="text" placeholder="Calle y número exacto *" value={direccion} onChange={(e) => setDireccion(e.target.value)} style={inputStyle} />
+              <input type="text" placeholder="Tu nombre completo *" value={nombre} onChange={(e) => setNombre(e.target.value)} style={inputStyle} />
+              <input type="email" placeholder="Tu email *" value={email} onChange={(e) => setEmail(e.target.value)} style={inputStyle} />
               <input type="text" placeholder="Comuna *" value={comuna} onChange={(e) => setComuna(e.target.value)} style={inputStyle} />
+              <input type="text" placeholder="Calle y número (opcional)" value={direccion} onChange={(e) => setDireccion(e.target.value)} style={inputStyle} />
               <input type="text" placeholder="ROL de la propiedad (opcional)" value={rol} onChange={(e) => setRol(e.target.value)} style={inputStyle} />
+              <input type="text" name="website" value={honeypot} onChange={(e) => setHoneypot(e.target.value)} style={{ position: "absolute", left: "-9999px", opacity: 0, height: 0, width: 0, tabIndex: -1 } as any} autoComplete="off" tabIndex={-1} />
             </div>
             <div style={{ marginTop: "1.25rem" }}>
               <label style={{ display: "block", fontSize: "0.85rem", fontWeight: 700, marginBottom: "0.6rem", color: "#334155" }}>
@@ -359,14 +405,52 @@ export default function Contacto() {
           </div>
         )}
 
-        {/* PASO 4: DETALLE */}
         {step === 4 && (
           <div style={{ padding: "1.5rem", animation: "fadeIn 0.4s ease-out" }}>
+            {formError && (
+              <p style={{ fontSize: "0.8rem", color: "#dc2626", fontWeight: 600, marginBottom: "0.75rem", textAlign: "center" }}>
+                {formError}
+              </p>
+            )}
+            <div style={{ marginBottom: "1rem" }}>
+              <label style={{ display: "block", fontSize: "0.85rem", fontWeight: 700, marginBottom: "0.6rem", color: "#334155" }}>
+                ¿En qué etapa estás?
+              </label>
+              <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+                {etapas.map((e) => (
+                  <button
+                    key={e}
+                    onClick={() => setEtapa(e)}
+                    style={{
+                      padding: "0.75rem 1rem",
+                      border: `2px solid ${etapa === e ? "#2563eb" : "#e2e8f0"}`,
+                      borderRadius: "0.85rem",
+                      background: etapa === e ? "#2563eb" : "#fff",
+                      color: etapa === e ? "#fff" : "#334155",
+                      cursor: "pointer",
+                      fontFamily: "inherit",
+                      fontWeight: 600,
+                      fontSize: "0.82rem",
+                      textAlign: "left",
+                    }}
+                  >
+                    {e}
+                  </button>
+                ))}
+              </div>
+            </div>
+            <input
+              type="text"
+              placeholder="Presupuesto estimado (opcional)"
+              value={presupuesto}
+              onChange={(e) => setPresupuesto(e.target.value)}
+              style={{ ...inputStyle, marginBottom: "0.75rem" }}
+            />
             <textarea
-              placeholder="Describe tu situación actual, qué quieres lograr, plazos, y cualquier detalle importante para tu proyecto..."
-              value={descripcion}
-              onChange={(e) => setDescripcion(e.target.value)}
-              style={{ ...inputStyle, height: 150, resize: "none", lineHeight: 1.6 }}
+              placeholder="Describe tu situación actual, qué quieres lograr, plazos, y cualquier detalle importante..."
+              value={mensaje}
+              onChange={(e) => setMensaje(e.target.value)}
+              style={{ ...inputStyle, height: 120, resize: "none", lineHeight: 1.6 }}
             />
             <p style={{ fontSize: "0.75rem", color: "#94a3b8", textAlign: "center", marginTop: "0.5rem" }}>
               Mientras más detalles nos des, mejor podremos ayudarte
@@ -388,23 +472,22 @@ export default function Contacto() {
               >
                 {isRecording ? "⏹️ Detener grabación" : hasAudio ? "🎤 Grabar de nuevo" : "🎤 Grabar Mensaje de Audio"}
               </button>
-              <button onClick={submitLead} style={sendBtnStyle}>
-                📤 Enviar mi Solicitud
+              <button onClick={submitLead} disabled={isSubmitting} style={{ ...sendBtnStyle, opacity: isSubmitting ? 0.6 : 1 }}>
+                {isSubmitting ? "Enviando..." : "📤 Enviar mi Solicitud"}
               </button>
             </div>
             <button
               onClick={() => {
-                setSpeech('Perfecto. Necesito algunos datos para <b>entender mejor tu proyecto.</b>');
+                setSpeech('Necesito tus datos de contacto y <b>ubicación del proyecto.</b>');
                 setStep(3);
               }}
               style={backBtnStyle}
             >
-              ← Volver a ubicación
+              ← Volver a datos
             </button>
           </div>
         )}
 
-        {/* PASO 5: PÁGINA DE GRACIAS */}
         {step === 5 && (
           <div style={{ padding: "2.5rem 1.5rem", textAlign: "center", background: "linear-gradient(180deg, #f8fafc 0%, #fff 100%)", animation: "fadeIn 0.4s ease-out" }}>
             <img
@@ -420,7 +503,7 @@ export default function Contacto() {
                 marginBottom: "1.25rem",
               }}
             />
-            <p style={{ fontSize: "1.4rem", fontWeight: 800, color: "#0f172a" }}>¡Solicitud Recibida!</p>
+            <p style={{ fontSize: "1.4rem", fontWeight: 800, color: "#0f172a" }}>Gracias, recibimos tu solicitud.</p>
             <p style={{ fontSize: "1.1rem", fontWeight: 600, color: "#475569", fontStyle: "italic", lineHeight: 1.5, marginTop: "0.5rem" }}>
               "Tu proyecto ahora está en manos expertas."
             </p>
@@ -478,7 +561,7 @@ export default function Contacto() {
                 rel="noopener noreferrer"
                 style={tidycalBtnStyle}
               >
-                📅 AGENDAR VIDEOLLAMADA GRATUITA
+                📅 AGENDAR VIDEOLLAMADA
               </a>
             </div>
             <a href="/" style={{ ...backBtnStyle, display: "block", marginTop: "2rem", textDecoration: "none" }}>
@@ -540,6 +623,7 @@ const inputStyle: React.CSSProperties = {
   fontFamily: "inherit",
   fontSize: "0.9rem",
   outline: "none",
+  boxSizing: "border-box",
 };
 
 const primaryBtnStyle: React.CSSProperties = {

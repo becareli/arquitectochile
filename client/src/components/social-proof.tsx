@@ -109,15 +109,10 @@ export default function SocialProof() {
             Cada día que esperas es una oportunidad perdida.
           </p>
           <button 
-            onClick={() => {
-              const element = document.getElementById('contacto');
-              if (element) {
-                element.scrollIntoView({ behavior: 'smooth' });
-              }
-            }}
+            onClick={() => { window.location.href = '/contacto'; }}
             className="bg-primary text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-primary/90 transition-colors shadow-lg"
           >
-            Empieza Hoy Mismo - Consulta Gratuita
+            Contáctanos
           </button>
         </div>
       </div>

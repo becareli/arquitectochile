@@ -86,7 +86,7 @@ export default function WebinarIntegration() {
     },
     {
       trigger: "No asiste pero registrado",
-      action: "Replay exclusivo + consulta gratis",
+      action: "Replay exclusivo + invitación a contacto",
       platform: "Recovery sequence + WebinarKit replay"
     },
     {

@@ -39,7 +39,7 @@ export default function ClientPortalCTA() {
   };
 
   const handleContactArchitect = () => {
-    window.open("https://wa.me/56979316827?text=Hola%20Patricio%2C%20me%20interesa%20conocer%20más%20sobre%20el%20Portal%20del%20Cliente%20y%20cómo%20puedo%20tener%20control%20total%20de%20mi%20proyecto", '_blank');
+    window.location.href = '/contacto';
   };
 
   return (
@@ -103,7 +103,7 @@ export default function ClientPortalCTA() {
                 variant="outline"
                 className="border-blue-600 text-blue-600 hover:bg-blue-50 font-semibold px-8 py-3"
               >
-                📞 Consultar por WhatsApp
+                Contáctanos
               </Button>
             </div>
           </div>

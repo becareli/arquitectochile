@@ -223,15 +223,10 @@ export default function FunnelOptimizationVilma() {
           
           <div className="text-center">
             <button 
-              onClick={() => {
-                const element = document.getElementById('contacto');
-                if (element) {
-                  element.scrollIntoView({ behavior: 'smooth' });
-                }
-              }}
+              onClick={() => { window.location.href = '/contacto'; }}
               className="bg-yellow-400 text-black px-8 py-4 rounded-lg text-lg font-bold hover:bg-yellow-300 transition-colors shadow-xl"
             >
-              Quiero Entrar en Este Funnel Ahora
+              Contáctanos
             </button>
             <p className="text-sm opacity-75 mt-3">
               Únete a las 2,000+ familias que ya forman parte de nuestro sistema

@@ -44,19 +44,19 @@ export default function Services() {
       id: "revisor-independiente-de-arquitectura",
       title: "Revisor Independiente",
       price: "Desde $497,000",
-      description: "Garantiza aprobación de tu permiso - Certificación MINVU ROL 00237-13",
+      description: "Revisión profesional de tu proyecto - Certificación MINVU ROL 00237-13",
       icon: Shield,
       features: [
-        "🚫 IMPOSIBLE que rechacen tu solicitud",
-        "⚡ Aprobación en solo 15 días (vs 60 días)",
+        "🔍 Revisión exhaustiva para cumplimiento normativo",
+        "⚡ Proceso ágil en solo 15 días (vs 60 días)",
         "💰 30% descuento en derechos municipales",
-        "⚖️ Respaldo legal garantizado por ley",
+        "⚖️ Respaldo profesional con certificación MINVU",
         "✅ 26+ años experiencia Universidad Chile",
         "📋 Informe Favorable - documento oficial"
       ],
       featured: true,
       bgColor: "bg-gradient-to-br from-[hsl(210,15%,30%)] to-[hsl(210,20%,35%)]",
-      urgency: "🔥 EVITA RECHAZOS COSTOSOS",
+      urgency: "🔥 REVISIÓN PROFESIONAL CERTIFICADA",
       legalBacking: "Certificación MINVU N° 369500 Vigente"
     },
     {
@@ -71,7 +71,7 @@ export default function Services() {
         "💰 Ahorre hasta 70% en gastos energéticos",
         "🏗️ Soluciones de aislación profesional",
         "📋 Cumplimiento normativa térmica OGUC",
-        "🛡️ Garantía de asesoría especializada"
+        "🛡️ Asesoría especializada certificada"
       ],
       featured: true,
       bgColor: "bg-gradient-to-br from-[hsl(14,70%,50%)] to-[hsl(25,75%,50%)]",
@@ -121,7 +121,7 @@ export default function Services() {
       id: "fusion-terrenos-urbanos",
       title: "Fusión de Terrenos Urbanos",
       price: "Desde $890.000",
-      description: "Aumenta INSTANTÁNEAMENTE el valor de tu propiedad hasta 30% - Proceso garantizado por ley",
+      description: "Aumenta el valor de tu propiedad hasta 30% - Proceso respaldado por normativa vigente",
       icon: Merge,
       features: [
         "💰 Aumenta el valor comercial automáticamente",

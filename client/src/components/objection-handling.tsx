@@ -36,18 +36,18 @@ export default function ObjectionHandling() {
 
   const guarantees = [
     {
-      title: "Garantía de Diseño 100%",
+      title: "Compromiso de Diseño",
       description: "Revisiones ilimitadas hasta que ames tu diseño 3D",
       icon: <CheckCircle className="w-8 h-8 text-green-600" />
     },
     {
-      title: "Garantía Legal Total",
-      description: "Todos los permisos aprobados o te devolvemos tu dinero",
+      title: "Gestión Legal Profesional",
+      description: "Tramitamos todos los permisos con el respaldo de más de 26 años de experiencia",
       icon: <Shield className="w-8 h-8 text-blue-600" />
     },
     {
-      title: "Garantía de Tiempo",
-      description: "Cumplimos plazos o compensamos cualquier retraso",
+      title: "Compromiso de Plazos",
+      description: "Nos comprometemos con los plazos acordados y comunicamos avances constantemente",
       icon: <Clock className="w-8 h-8 text-purple-600" />
     }
   ];
@@ -68,8 +68,8 @@ export default function ObjectionHandling() {
           {/* Urgencia y escasez */}
           <div className="bg-red-100 border-l-4 border-red-500 p-4 rounded-lg max-w-2xl mx-auto">
             <p className="text-red-800 font-semibold">
-              ⚠️ IMPORTANTE: Solo trabajamos con 3 familias por mes para garantizar calidad excepcional. 
-              Quedan 1 cupos disponibles para iniciós inmediatos.
+              ⚠️ IMPORTANTE: Solo trabajamos con 3 familias por mes para asegurar atención dedicada. 
+              Quedan 1 cupos disponibles para inicio inmediato.
             </p>
           </div>
         </div>
@@ -98,10 +98,10 @@ export default function ObjectionHandling() {
           ))}
         </div>
 
-        {/* Triple Garantía (Russell Brunson style) */}
+        {/* Triple Compromiso (Russell Brunson style) */}
         <div className="bg-white rounded-lg shadow-xl p-8 mb-16">
           <h3 className="text-3xl font-bold text-center text-gray-900 mb-8">
-            Triple Garantía de Tranquilidad Total
+            Triple Compromiso de Tranquilidad
           </h3>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -158,7 +158,7 @@ export default function ObjectionHandling() {
               </div>
               <div className="flex items-center space-x-3">
                 <CheckCircle className="w-6 h-6 text-green-300 flex-shrink-0" />
-                <span>Garantía legal de por vida (Valor: $500.000)</span>
+                <span>Respaldo legal profesional (Valor: $500.000)</span>
               </div>
               <div className="flex items-center space-x-3">
                 <CheckCircle className="w-6 h-6 text-green-300 flex-shrink-0" />
@@ -186,19 +186,14 @@ export default function ObjectionHandling() {
           
           <div className="space-y-4">
             <button 
-              onClick={() => {
-                const element = document.getElementById('contacto');
-                if (element) {
-                  element.scrollIntoView({ behavior: 'smooth' });
-                }
-              }}
+              onClick={() => { window.location.href = '/contacto'; }}
               className="bg-red-600 text-white px-10 py-4 rounded-lg text-xl font-bold hover:bg-red-700 transition-colors shadow-lg block w-full md:w-auto md:inline-block"
             >
               SÍ, QUIERO MI CASA SOÑADA POR $1.800.000
             </button>
             
             <p className="text-sm text-gray-600">
-              ✓ Sin compromisos ocultos ✓ Garantía total ✓ Inicio inmediato
+              ✓ Sin compromisos ocultos ✓ Respaldo profesional ✓ Inicio inmediato
             </p>
           </div>
         </div>
