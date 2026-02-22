@@ -1,0 +1,54 @@
+Quiero REVERTIR el enfoque: NO quiero páginas nuevas “inventadas” ni contenido mock. Quiero reutilizar EXACTAMENTE las secciones que ya existían (las que estaban antes en la Home/carta de ventas) y convertirlas en páginas.
+
+Objetivo de navegación (final)
+Header “Colaboradores” -> /colaboradores muestra la landing de invitación a colaboradores (la que antes aparecía en Home como sección “Para Colaboradores”).
+
+Desde esa landing, botones internos -> abren perfiles en /colaboradores/:slug.
+
+Header “Portal de Clientes” -> /portal-cliente muestra la landing de beneficios del portal (la que antes aparecía en Home como sección “Portal del Cliente”).
+
+Desde esa landing, botón “Iniciar sesión con Google” -> /portal-cliente/login (o auth real si existe).
+
+Acciones (hacer cambios reales ahora)
+/colaboradores:
+
+NO debe mostrar un “dashboard de Carlos” ni un listado mock.
+
+Debe renderizar el componente/section original de invitación a colaboradores (reutilízalo tal cual, sin reescribir textos).
+
+Identifica cuál componente era (por ejemplo ColaboradoresSection o similar) y úsalo dentro de client/src/pages/colaboradores.tsx.
+
+/portal-cliente:
+
+Debe renderizar el componente/section original de beneficios del portal (por ejemplo ClientPortalCTA o similar), tal cual estaba antes en Home.
+
+NO quiero auto-redirect al login al entrar a /portal-cliente.
+
+Solo el botón “Iniciar sesión con Google” debe navegar a /portal-cliente/login.
+
+Perfiles:
+
+Mantén /colaboradores/:slug para perfil (puede seguir como está), pero los links hacia perfil deben venir desde la landing real de colaboradores.
+
+Si el perfil actual es “dashboard”, sepáralo: perfil público simple vs dashboard privado. Por ahora, que /colaboradores/:slug sea el perfil público (como la vista tipo “Carlos Rodríguez”).
+
+Portal login:
+
+Mantén /portal-cliente/login como placeholder “En construcción” por ahora.
+
+Evidencia obligatoria
+Pégame el snippet de client/src/pages/colaboradores.tsx mostrando que renderiza la landing real (no mock).
+
+Pégame el snippet de client/src/pages/client-portal.tsx mostrando que renderiza la landing real (no redirect).
+
+Confirma manualmente en preview:
+
+Header Colaboradores -> /colaboradores y se ve “Para Colaboradores / Únete a nuestra red…”
+
+En esa página, click “Ver perfil” -> /colaboradores/carlos-rodriguez
+
+Header Portal de Clientes -> /portal-cliente y se ve “Portal del Cliente / Transparencia, control…”
+
+Click “Iniciar sesión con Google” -> /portal-cliente/login
+
+No tocar SMTP/Trello/CRM. No tocar copy legal.
