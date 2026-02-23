@@ -15,6 +15,7 @@ type Pillar = {
   id: string;
   title: string;
   subtitle: string;
+  badge?: string;
   accentColor: string;
   accentBg: string;
   borderColor: string;
@@ -30,23 +31,25 @@ export default function Services() {
     {
       id: "vivienda",
       title: "Vivienda de Alto Estándar",
-      subtitle: "Arquitectura residencial personalizada, asesoría en terreno, inspecciones y tasaciones profesionales",
+      subtitle: "Diseño de Autor · Arquitectura residencial personalizada, asesoría en terreno, inspecciones y tasaciones profesionales",
       accentColor: "text-orange-600",
       accentBg: "bg-orange-50",
       borderColor: "border-orange-200",
       buttonClass: "bg-orange-500 text-white hover:bg-orange-600",
       icon: Home,
       services: [
-        { id: "arquitecto-domicilio", title: "Arquitecto a Domicilio", price: "$45.000", route: "/asesoria-arquitectonica-terreno", icon: Home },
-        { id: "disena-espacio", title: "Diseño de Nuevos Espacios y 3D", price: "Desde $2.490.000", route: "/disenemos-tus-nuevos-espacios", icon: Home },
+        { id: "arquitectura-desde-cero", title: "Arquitectura desde Cero (Diseño de Autor)", price: "Desde $2.490.000", route: "/disenemos-tus-nuevos-espacios", icon: Home },
+        { id: "construccion", title: "Construcción y Gestión de Obra", price: "Consultar", route: "/contacto", icon: Box },
+        { id: "arquitecto-domicilio", title: "Asesoría a Domicilio", price: "$45.000", route: "/asesoria-arquitectonica-terreno", icon: Search },
         { id: "inspeccion-tecnica-viviendas", title: "Inspección Técnica de Viviendas", price: "Desde $180.000", route: "/inspeccion-tecnica-viviendas", icon: Search },
         { id: "tasacion-viviendas-urbanas", title: "Tasación de Viviendas Urbanas", price: "Consultar", route: "/tasacion-viviendas-urbanas", icon: Calculator },
       ],
     },
     {
       id: "normativa",
-      title: "Gestión Normativa",
-      subtitle: "Fusión, subdivisión, regularización y permisos — respaldo técnico ante DOM, SII y CBR",
+      title: "Consultoría Normativa y Legal",
+      subtitle: "Expertos en Gestión Municipal · Fusión, subdivisión, regularización y permisos ante DOM, SII y CBR",
+      badge: "Recomendado en YouTube",
       accentColor: "text-blue-600",
       accentBg: "bg-blue-50",
       borderColor: "border-blue-200",
@@ -62,8 +65,8 @@ export default function Services() {
     },
     {
       id: "corporativa",
-      title: "Consultoría Corporativa",
-      subtitle: "Gestión de proyectos, permisos y obras menores para empresas, retail e instituciones",
+      title: "Soluciones Corporativas e Industriales",
+      subtitle: "Obras menores para empresas, gestión de proyectos y oficina técnica para retail e instituciones",
       accentColor: "text-emerald-600",
       accentBg: "bg-emerald-50",
       borderColor: "border-emerald-200",
@@ -72,12 +75,13 @@ export default function Services() {
       services: [
         { id: "obras-menores-empresas", title: "Obras Menores para Empresas", price: "Consultar", route: "/obras-menores-empresas", icon: Box },
         { id: "gestion-proyectos", title: "Gestión Integral de Proyectos", price: "Consultar", route: "/contacto", icon: Briefcase },
+        { id: "oficina-tecnica", title: "Oficina Técnica Externalizada", price: "Consultar", route: "/contacto", icon: Building2 },
       ],
     },
   ];
 
   return (
-    <section id="servicios" className="py-24 bg-gray-50">
+    <section id="servicios" className="py-24" style={{ background: "#f9f9f9" }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="font-serif text-4xl md:text-5xl font-bold text-[hsl(210,15%,30%)] mb-4">
@@ -91,7 +95,6 @@ export default function Services() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {pillars.map((pillar) => {
             const PillarIcon = pillar.icon;
-            const isOpen = expanded === pillar.id;
             return (
               <Card
                 key={pillar.id}
@@ -104,6 +107,11 @@ export default function Services() {
                   <h3 className={`font-serif text-2xl font-bold ${pillar.accentColor} mb-2`}>
                     {pillar.title}
                   </h3>
+                  {pillar.badge && (
+                    <span className="inline-block bg-red-100 text-red-700 text-[11px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wide mb-2">
+                      {pillar.badge}
+                    </span>
+                  )}
                   <p className="text-gray-600 text-sm leading-relaxed">
                     {pillar.subtitle}
                   </p>

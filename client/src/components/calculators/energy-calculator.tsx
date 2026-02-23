@@ -107,9 +107,9 @@ export default function EnergyCalculator() {
           <Thermometer className="w-7 h-7 text-orange-600" />
         </div>
         <CardTitle className="text-xl font-bold text-gray-900">
-          Simulador de Eficiencia Energética
+          Diagnóstico de Confort Térmico
         </CardTitle>
-        <p className="text-sm text-gray-500">Evalúe las pérdidas térmicas de su vivienda</p>
+        <p className="text-sm text-gray-500">Evalúe las pérdidas energéticas de su vivienda</p>
       </CardHeader>
 
       <CardContent className="space-y-5">

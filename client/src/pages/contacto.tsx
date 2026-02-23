@@ -46,6 +46,7 @@ export default function Contacto() {
   const [direccion, setDireccion] = useState("");
   const [comuna, setComuna] = useState("");
   const [rol, setRol] = useState("");
+  const [rut, setRut] = useState("");
   const [nombre, setNombre] = useState("");
   const [email, setEmail] = useState("");
   const [etapa, setEtapa] = useState("");
@@ -143,6 +144,7 @@ export default function Contacto() {
       propertyType,
       direccion,
       rol,
+      rut,
       honeypot,
     };
 
@@ -375,7 +377,15 @@ export default function Contacto() {
               <input type="email" placeholder="Tu email *" value={email} onChange={(e) => setEmail(e.target.value)} style={inputStyle} />
               <input type="text" placeholder="Comuna *" value={comuna} onChange={(e) => setComuna(e.target.value)} style={inputStyle} />
               <input type="text" placeholder="Calle y número (opcional)" value={direccion} onChange={(e) => setDireccion(e.target.value)} style={inputStyle} />
-              <input type="text" placeholder="ROL de la propiedad (opcional)" value={rol} onChange={(e) => setRol(e.target.value)} style={inputStyle} />
+              {branch === "normativa" && (
+                <input type="text" placeholder="ROL de la propiedad (SII) *" value={rol} onChange={(e) => setRol(e.target.value)} style={{ ...inputStyle, borderColor: "#bfdbfe" }} />
+              )}
+              {branch === "empresa" && (
+                <input type="text" placeholder="RUT de la empresa *" value={rut} onChange={(e) => setRut(e.target.value)} style={{ ...inputStyle, borderColor: "#d1d5db" }} />
+              )}
+              {branch === "particular" && (
+                <input type="text" placeholder="ROL de la propiedad (opcional)" value={rol} onChange={(e) => setRol(e.target.value)} style={inputStyle} />
+              )}
               <input type="text" name="website" value={honeypot} onChange={(e) => setHoneypot(e.target.value)} style={{ position: "absolute", left: "-9999px", opacity: 0, height: 0, width: 0, tabIndex: -1 } as any} autoComplete="off" tabIndex={-1} />
             </div>
             <div style={{ marginTop: "1.25rem" }}>

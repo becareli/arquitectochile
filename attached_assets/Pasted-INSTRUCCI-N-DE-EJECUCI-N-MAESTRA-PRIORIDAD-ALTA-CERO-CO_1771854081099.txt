@@ -1,0 +1,37 @@
+INSTRUCCIÓN DE EJECUCIÓN MAESTRA - PRIORIDAD ALTA (CERO CONVERSACIÓN)
+
+"Actúa como un Senior UX/UI Engineer & Next.js Expert. Hay un fallo crítico de sincronización: los cambios que reportas no son visibles en la interfaz. Debes sobrescribir íntegramente el archivo principal de la Home (src/app/page.tsx o equivalente) para forzar la actualización visual. No intentes arreglar lo anterior; aplica esta estructura institucional de 'Oficina Técnica' de una sola vez:
+
+1. HOME PAGE - ESTRUCTURA DE 3 PILARES (CARDS VISUALES):
+Reemplaza la sección de servicios actual por un grid de 3 columnas de alta visibilidad:
+
+Pilar 1: Vivienda de Alto Estándar: (Arquitectura desde cero, Construcción, Inspección Técnica). Enfoque en 'Diseño de Autor'.
+
+Pilar 2: Consultoría Normativa y Legal: (Fusión de Terrenos, Subdivisiones, Regularizaciones, Revisor Independiente). Texto destacado: 'Expertos en Gestión Municipal - Recomendado en YouTube'.
+
+Pilar 3: Soluciones Corporativas e Industriales: (Obras Menores para Empresas, Gestión de Proyectos, Oficina Técnica).
+
+2. NUEVA CALCULADORA DE EFICIENCIA (SIMULADOR DE PÉRDIDA):
+Elimina la calculadora antigua y crea un 'Diagnóstico de Confort Térmico'.
+
+Lógica: No dar un número genérico. El usuario ingresa Comuna, Materialidad de Muros y Tipo de Ventana.
+
+Resultado: Muestra un gráfico de barra de 'Pérdida de Energía Estimada' (ej: 40%).
+
+CTA: 'Tu casa pierde energía. Agenda tu Asesoría de Diagnóstico ($45.000) para un plan EIFS/Aislamiento'.
+
+3. CALCULADORA DE COSTOS 2.0:
+Actualiza para que el resultado sea un Rango de Inversión (ej: 28 - 34 UF/m²) y no un valor fijo. Agrega el aviso: 'Cálculo sujeto a factibilidad normativa local'.
+
+4. PÁGINA DE CONTACTO (SISTEMA DE CALIFICACIÓN):
+Asegura que el formulario de contacto sea el único punto de entrada y tenga 3 ramas:
+
+Particular | Gestión Normativa (Mencionar YouTube) | Empresa.
+
+Cada rama debe tener campos específicos según el perfil (Rol para normativa, RUT para empresa).
+
+5. VERIFICACIÓN Y CACHÉ:
+
+Cambia el color de fondo de la sección de servicios a un tono gris muy suave (#f9f9f9) solo para confirmar que el cambio es real.
+
+Una vez guardes, haz un 'Hard Reload' de la vista previa para que el usuario vea la versión 2026 de inmediato.

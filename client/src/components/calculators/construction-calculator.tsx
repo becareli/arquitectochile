@@ -120,7 +120,7 @@ export default function ConstructionCalculator() {
 
             <div className="bg-amber-50 border border-amber-200 rounded-lg p-4">
               <p className="text-xs text-amber-800 font-semibold leading-relaxed">
-                Cálculo sujeto a normativa local. Requiere validación técnica en terreno. Los valores son referenciales y pueden variar según calidad de materiales, condiciones del terreno y complejidad del proyecto.
+                Cálculo sujeto a factibilidad normativa local. Requiere validación técnica en terreno. Los valores son referenciales y pueden variar según calidad de materiales, condiciones del terreno y complejidad del proyecto.
               </p>
             </div>
 
