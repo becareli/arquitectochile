@@ -41,14 +41,14 @@ export default function Hero() {
             <div className="flex flex-col sm:flex-row gap-4">
               <button
                 onClick={() => scrollToSection('contacto')}
-                className="bg-[#f97316] text-white px-8 py-3.5 rounded-md text-sm font-semibold hover:bg-orange-600 transition-all duration-200 flex items-center justify-center gap-2 shadow-lg shadow-orange-500/20"
+                className="bg-[#f97316] text-white px-8 py-3.5 rounded-lg text-sm font-semibold hover:bg-orange-600 transition-all duration-200 flex items-center justify-center gap-2 shadow-lg shadow-orange-500/20"
               >
                 Asesoría a Domicilio — $45.000
                 <ArrowRight className="w-4 h-4" strokeWidth={1.5} />
               </button>
               <button
                 onClick={() => scrollToSection('servicios')}
-                className="border border-white/20 text-white px-8 py-3.5 rounded-md text-sm font-medium hover:bg-white/5 transition-all duration-200"
+                className="border border-white/20 text-white px-8 py-3.5 rounded-lg text-sm font-medium hover:bg-white/5 transition-all duration-200"
               >
                 Ver Servicios
               </button>
@@ -76,7 +76,7 @@ export default function Hero() {
                   </div>
                   <button
                     onClick={() => scrollToSection('contacto')}
-                    className="bg-[#f97316] text-white px-5 py-2.5 rounded-md text-xs font-semibold hover:bg-orange-600 transition-colors"
+                    className="bg-[#f97316] text-white px-5 py-2.5 rounded-lg text-xs font-semibold hover:bg-orange-600 transition-colors"
                   >
                     Agendar
                   </button>

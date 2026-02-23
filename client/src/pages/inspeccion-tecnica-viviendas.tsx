@@ -105,16 +105,16 @@ export default function InspeccionTecnicaViviendas() {
       <Navigation />
       
       {/* Hero Section - Gary Halbert Style Opening */}
-      <section className="bg-gradient-to-br from-blue-900 to-indigo-900 text-white py-20">
+      <section className="bg-[#0f172a] text-white py-20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="mb-8">
-            <Badge className="bg-red-600 text-white mb-4 text-sm font-bold px-4 py-2">
+            <Badge className="rounded-lg bg-[#f97316] text-white mb-4 text-sm font-bold px-4 py-2">
               🏠 INSPECCIÓN PROFESIONAL CERTIFICADA
             </Badge>
             
             <div className="relative w-20 h-20 mx-auto mb-6">
-              <Search className="w-20 h-20 text-blue-300" />
-              <Shield className="w-8 h-8 text-yellow-400 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />
+              <Search className="w-20 h-20 text-[#f97316]" />
+              <Shield className="w-8 h-8 text-[#f97316] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />
             </div>
             
             <h1 className="text-4xl lg:text-6xl font-bold mb-6">
@@ -122,7 +122,7 @@ export default function InspeccionTecnicaViviendas() {
               QUE NO QUIERE COMETER EL ERROR MÁS CARO DE SU VIDA
             </h1>
             
-            <div className="bg-yellow-500 text-black p-6 rounded-lg mb-8">
+            <div className="bg-[#f97316] text-white p-6 rounded-lg mb-8">
               <h2 className="text-2xl font-bold mb-4">
                 SI ESTÁ A PUNTO DE COMPRAR UNA VIVIENDA SIN UNA INSPECCIÓN TÉCNICA PROFESIONAL...
               </h2>
@@ -141,7 +141,7 @@ export default function InspeccionTecnicaViviendas() {
                   className="w-full h-32 object-cover rounded-lg mb-4"
                 />
               </div>
-              <AlertTriangle className="w-12 h-12 text-red-400 mx-auto mb-4" />
+              <AlertTriangle className="w-12 h-12 text-[#f97316] mx-auto mb-4" />
               <h3 className="text-xl font-bold mb-2">EL PROBLEMA</h3>
               <p>El 73% de las viviendas nuevas y usadas tienen defectos ocultos que solo un experto puede detectar</p>
             </div>
@@ -153,7 +153,7 @@ export default function InspeccionTecnicaViviendas() {
                   className="w-full h-32 object-cover rounded-lg mb-4"
                 />
               </div>
-              <DollarSign className="w-12 h-12 text-green-400 mx-auto mb-4" />
+              <DollarSign className="w-12 h-12 text-[#f97316] mx-auto mb-4" />
               <h3 className="text-xl font-bold mb-2">EL COSTO</h3>
               <p>Reparaciones posteriores pueden costar entre $2-8 millones que nadie le advertirá</p>
             </div>
@@ -165,7 +165,7 @@ export default function InspeccionTecnicaViviendas() {
                   className="w-full h-32 object-cover rounded-lg mb-4"
                 />
               </div>
-              <Shield className="w-12 h-12 text-blue-400 mx-auto mb-4" />
+              <Shield className="w-12 h-12 text-[#f97316] mx-auto mb-4" />
               <h3 className="text-xl font-bold mb-2">LA SOLUCIÓN</h3>
               <p>Inspección técnica profesional por solo $180.000 que puede ahorrarle millones</p>
             </div>
@@ -175,7 +175,7 @@ export default function InspeccionTecnicaViviendas() {
             <Button 
               onClick={openWhatsApp}
               size="lg" 
-              className="bg-green-600 hover:bg-green-700 text-white text-xl px-8 py-4"
+              className="rounded-lg bg-[#f97316] hover:bg-orange-600 text-white text-xl px-8 py-4"
             >
               <Phone className="mr-2 h-6 w-6" />
               SOLICITAR INSPECCIÓN AHORA
@@ -184,14 +184,14 @@ export default function InspeccionTecnicaViviendas() {
               onClick={scrollToContact}
               size="lg" 
               variant="outline"
-              className="border-white text-white hover:bg-white hover:text-blue-900 text-xl px-8 py-4"
+              className="border-white text-white hover:bg-white hover:text-[#0f172a] text-xl px-8 py-4"
             >
               <FileText className="mr-2 h-6 w-6" />
               VER INFORME DE EJEMPLO
             </Button>
           </div>
           
-          <div className="mt-8 text-blue-200">
+          <div className="mt-8 text-gray-300">
             <p className="text-lg">
               <Clock className="inline h-5 w-5 mr-2" />
               Disponibilidad limitada: Solo 15 inspecciones por mes
@@ -221,11 +221,11 @@ export default function InspeccionTecnicaViviendas() {
                   <strong>Julio 2023:</strong> Problemas eléctricos graves. El tablero no cumple normas SEC. 
                   Cambio completo: $3.2 millones.
                 </p>
-                <div className="bg-red-50 border-l-4 border-red-500 p-6">
-                  <p className="text-xl font-bold text-red-800">
+                <div className="bg-orange-50 border-l-4 border-[#f97316] p-6">
+                  <p className="text-xl font-bold text-[#0f172a]">
                     TOTAL GASTADO EN REPARACIONES: $7.7 MILLONES
                   </p>
-                  <p className="text-lg text-red-700 mt-2">
+                  <p className="text-lg text-gray-600 mt-2">
                     Una inspección técnica de $180.000 habría detectado todo esto ANTES de la compra.
                   </p>
                 </div>
@@ -236,8 +236,8 @@ export default function InspeccionTecnicaViviendas() {
                   alt="Inspección técnica detecta daños ocultos vivienda antes compra Chile" 
                   className="w-full rounded-lg shadow-lg"
                 />
-                <div className="bg-yellow-100 border border-yellow-400 rounded-lg p-4">
-                  <p className="text-sm font-bold text-yellow-800">
+                <div className="bg-orange-50 border border-[#f97316] rounded-lg p-4">
+                  <p className="text-sm font-bold text-[#0f172a]">
                     ⚠️ ESTO PUDO HABERSE EVITADO CON UNA INSPECCIÓN PROFESIONAL
                   </p>
                 </div>
@@ -248,7 +248,7 @@ export default function InspeccionTecnicaViviendas() {
       </section>
 
       {/* Propuesta de Valor - Hormozi Value Equation */}
-      <section className="py-16 bg-blue-900 text-white">
+      <section className="py-16 bg-[#0f172a] text-white">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold mb-6">
@@ -259,11 +259,11 @@ export default function InspeccionTecnicaViviendas() {
             </p>
           </div>
           
-          <div className="bg-white text-blue-900 p-8 rounded-lg mb-8">
+          <div className="bg-white text-[#0f172a] p-8 rounded-lg mb-8">
             <h3 className="text-3xl font-bold text-center mb-6">FÓRMULA DEL VALOR</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div>
-                <h4 className="text-xl font-bold mb-4 text-green-600">✅ LO QUE OBTIENE:</h4>
+                <h4 className="text-xl font-bold mb-4 text-[#0f172a]">✅ LO QUE OBTIENE:</h4>
                 <ul className="space-y-2">
                   <li>• Inspección visual completa por arquitecto certificado</li>
                   <li>• Informe técnico con fotografías y diagnóstico</li>
@@ -274,7 +274,7 @@ export default function InspeccionTecnicaViviendas() {
                 </ul>
               </div>
               <div>
-                <h4 className="text-xl font-bold mb-4 text-red-600">❌ LO QUE EVITA:</h4>
+                <h4 className="text-xl font-bold mb-4 text-[#0f172a]">❌ LO QUE EVITA:</h4>
                 <ul className="space-y-2">
                   <li>• Reparaciones millonarias no previstas</li>
                   <li>• Problemas de filtraciones y humedad</li>
@@ -288,7 +288,7 @@ export default function InspeccionTecnicaViviendas() {
           </div>
           
           <div className="text-center">
-            <div className="bg-yellow-500 text-black p-6 rounded-lg inline-block">
+            <div className="bg-[#f97316] text-white p-6 rounded-lg inline-block">
               <p className="text-2xl font-bold">
                 INVERSIÓN: $180.000 | AHORRO POTENCIAL: $2-8 MILLONES
               </p>
@@ -313,9 +313,9 @@ export default function InspeccionTecnicaViviendas() {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-            <Card className="border-2 border-blue-200">
+            <Card className="border-2 border-gray-200">
               <CardHeader className="text-center">
-                <Building className="w-12 h-12 text-blue-600 mx-auto mb-4" />
+                <Building className="w-12 h-12 text-[#0f172a] mx-auto mb-4" />
                 <CardTitle className="text-lg">ESTRUCTURA & TERMINACIONES</CardTitle>
               </CardHeader>
               <CardContent>
@@ -329,9 +329,9 @@ export default function InspeccionTecnicaViviendas() {
               </CardContent>
             </Card>
             
-            <Card className="border-2 border-green-200">
+            <Card className="border-2 border-gray-200">
               <CardHeader className="text-center">
-                <Zap className="w-12 h-12 text-green-600 mx-auto mb-4" />
+                <Zap className="w-12 h-12 text-[#0f172a] mx-auto mb-4" />
                 <CardTitle className="text-lg">INSTALACIONES ELÉCTRICAS</CardTitle>
               </CardHeader>
               <CardContent>
@@ -345,9 +345,9 @@ export default function InspeccionTecnicaViviendas() {
               </CardContent>
             </Card>
             
-            <Card className="border-2 border-red-200">
+            <Card className="border-2 border-gray-200">
               <CardHeader className="text-center">
-                <Wrench className="w-12 h-12 text-red-600 mx-auto mb-4" />
+                <Wrench className="w-12 h-12 text-[#0f172a] mx-auto mb-4" />
                 <CardTitle className="text-lg">INSTALACIONES SANITARIAS</CardTitle>
               </CardHeader>
               <CardContent>
@@ -361,7 +361,7 @@ export default function InspeccionTecnicaViviendas() {
               </CardContent>
             </Card>
             
-            <Card className="border-2 border-orange-200">
+            <Card className="border-2 border-gray-200">
               <CardHeader className="text-center">
                 <ThermometerSun className="w-12 h-12 text-orange-600 mx-auto mb-4" />
                 <CardTitle className="text-lg">EFICIENCIA TÉRMICA</CardTitle>
@@ -391,22 +391,22 @@ export default function InspeccionTecnicaViviendas() {
             
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
               <div className="text-center">
-                <div className="bg-blue-600 text-white w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">1</div>
+                <div className="bg-[#0f172a] text-white w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">1</div>
                 <h4 className="font-bold mb-2">CONTACTO INICIAL</h4>
                 <p className="text-sm">Coordinamos fecha y hora según su disponibilidad</p>
               </div>
               <div className="text-center">
-                <div className="bg-blue-600 text-white w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">2</div>
+                <div className="bg-[#0f172a] text-white w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">2</div>
                 <h4 className="font-bold mb-2">INSPECCIÓN EN TERRENO</h4>
                 <p className="text-sm">2-3 horas de revisión exhaustiva con equipos profesionales</p>
               </div>
               <div className="text-center">
-                <div className="bg-blue-600 text-white w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">3</div>
+                <div className="bg-[#0f172a] text-white w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">3</div>
                 <h4 className="font-bold mb-2">ANÁLISIS TÉCNICO</h4>
                 <p className="text-sm">Procesamiento de datos y elaboración del informe</p>
               </div>
               <div className="text-center">
-                <div className="bg-blue-600 text-white w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">4</div>
+                <div className="bg-[#0f172a] text-white w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">4</div>
                 <h4 className="font-bold mb-2">ENTREGA DE INFORME</h4>
                 <p className="text-sm">Informe digital completo en 48 horas máximo</p>
               </div>
@@ -416,7 +416,7 @@ export default function InspeccionTecnicaViviendas() {
       </section>
 
       {/* Perfil del Cliente Ideal */}
-      <section className="py-16 bg-blue-50">
+      <section className="py-16 bg-gray-50">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold text-gray-900 mb-6">
@@ -427,7 +427,7 @@ export default function InspeccionTecnicaViviendas() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <Card className="bg-white">
               <CardHeader className="text-center">
-                <Target className="w-12 h-12 text-blue-600 mx-auto mb-4" />
+                <Target className="w-12 h-12 text-[#0f172a] mx-auto mb-4" />
                 <CardTitle>COMPRADOR INTELIGENTE</CardTitle>
               </CardHeader>
               <CardContent>
@@ -459,7 +459,7 @@ export default function InspeccionTecnicaViviendas() {
             
             <Card className="bg-white">
               <CardHeader className="text-center">
-                <MapPin className="w-12 h-12 text-green-600 mx-auto mb-4" />
+                <MapPin className="w-12 h-12 text-[#0f172a] mx-auto mb-4" />
                 <CardTitle>UBICACIÓN SANTIAGO</CardTitle>
               </CardHeader>
               <CardContent>
@@ -477,7 +477,7 @@ export default function InspeccionTecnicaViviendas() {
       </section>
 
       {/* Argumentos de Venta Clave */}
-      <section className="py-16 bg-gray-900 text-white">
+      <section className="py-16 bg-[#0f172a] text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold mb-6">
@@ -487,31 +487,31 @@ export default function InspeccionTecnicaViviendas() {
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
             <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 text-center">
-              <Shield className="w-12 h-12 text-green-400 mx-auto mb-4" />
+              <Shield className="w-12 h-12 text-[#f97316] mx-auto mb-4" />
               <h3 className="font-bold mb-2">INVERSIÓN SEGURA</h3>
               <p className="text-sm">Transforme la compra más grande de su vida en una decisión científica</p>
             </div>
             
             <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 text-center">
-              <DollarSign className="w-12 h-12 text-yellow-400 mx-auto mb-4" />
+              <DollarSign className="w-12 h-12 text-[#f97316] mx-auto mb-4" />
               <h3 className="font-bold mb-2">EVITE COSTOS OCULTOS</h3>
               <p className="text-sm">Detecte problemas antes de escriturar y ahorre millones</p>
             </div>
             
             <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 text-center">
-              <CheckCircle className="w-12 h-12 text-blue-400 mx-auto mb-4" />
+              <CheckCircle className="w-12 h-12 text-[#f97316] mx-auto mb-4" />
               <h3 className="font-bold mb-2">TRANQUILIDAD TOTAL</h3>
               <p className="text-sm">Duerma en paz sabiendo que hizo la elección correcta</p>
             </div>
             
             <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 text-center">
-              <TrendingUp className="w-12 h-12 text-purple-400 mx-auto mb-4" />
+              <TrendingUp className="w-12 h-12 text-[#f97316] mx-auto mb-4" />
               <h3 className="font-bold mb-2">PODER DE NEGOCIACIÓN</h3>
               <p className="text-sm">Use defectos encontrados para negociar mejor precio</p>
             </div>
             
             <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 text-center">
-              <Award className="w-12 h-12 text-red-400 mx-auto mb-4" />
+              <Award className="w-12 h-12 text-[#f97316] mx-auto mb-4" />
               <h3 className="font-bold mb-2">RESPALDO PROFESIONAL</h3>
               <p className="text-sm">Arquitecto certificado con 15+ años de experiencia</p>
             </div>
@@ -529,28 +529,28 @@ export default function InspeccionTecnicaViviendas() {
           </div>
           
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
-            <Card className="bg-blue-50">
+            <Card className="bg-gray-50">
               <CardHeader className="text-center">
-                <Award className="w-16 h-16 text-blue-600 mx-auto mb-4" />
+                <Award className="w-16 h-16 text-[#0f172a] mx-auto mb-4" />
                 <CardTitle className="text-xl">PATRICIO BECAR ELISSEGARAY</CardTitle>
-                <p className="text-blue-600">Arquitecto Universidad de Chile</p>
+                <p className="text-[#0f172a]">Arquitecto Universidad de Chile</p>
               </CardHeader>
               <CardContent>
                 <ul className="space-y-3">
                   <li className="flex items-center">
-                    <CheckCircle className="w-5 h-5 text-green-600 mr-3" />
+                    <CheckCircle className="w-5 h-5 text-[#0f172a] mr-3" />
                     <span>15+ años experiencia en construcción</span>
                   </li>
                   <li className="flex items-center">
-                    <CheckCircle className="w-5 h-5 text-green-600 mr-3" />
+                    <CheckCircle className="w-5 h-5 text-[#0f172a] mr-3" />
                     <span>Revisor Independiente MINVU Certificado</span>
                   </li>
                   <li className="flex items-center">
-                    <CheckCircle className="w-5 h-5 text-green-600 mr-3" />
+                    <CheckCircle className="w-5 h-5 text-[#0f172a] mr-3" />
                     <span>Especialista en patologías constructivas</span>
                   </li>
                   <li className="flex items-center">
-                    <CheckCircle className="w-5 h-5 text-green-600 mr-3" />
+                    <CheckCircle className="w-5 h-5 text-[#0f172a] mr-3" />
                     <span>+500 inspecciones realizadas</span>
                   </li>
                 </ul>
@@ -563,34 +563,34 @@ export default function InspeccionTecnicaViviendas() {
                 alt="Inspector técnico revisando instalaciones eléctricas SEC normativa Chile" 
                 className="w-full rounded-lg shadow-lg mb-4"
               />
-              <div className="bg-yellow-100 border border-yellow-400 rounded-lg p-4 text-center">
-                <p className="text-sm font-bold text-yellow-800">
+              <div className="bg-orange-50 border border-[#f97316] rounded-lg p-4 text-center">
+                <p className="text-sm font-bold text-[#0f172a]">
                   INSPECCIÓN REAL EN TERRENO
                 </p>
               </div>
             </div>
             
-            <Card className="bg-green-50">
+            <Card className="bg-gray-50">
               <CardHeader className="text-center">
-                <Shield className="w-16 h-16 text-green-600 mx-auto mb-4" />
+                <Shield className="w-16 h-16 text-[#0f172a] mx-auto mb-4" />
                 <CardTitle className="text-xl">GARANTÍAS DE SERVICIO</CardTitle>
               </CardHeader>
               <CardContent>
                 <ul className="space-y-3">
                   <li className="flex items-center">
-                    <CheckCircle className="w-5 h-5 text-green-600 mr-3" />
+                    <CheckCircle className="w-5 h-5 text-[#0f172a] mr-3" />
                     <span>Informe entregado en 48 horas máximo</span>
                   </li>
                   <li className="flex items-center">
-                    <CheckCircle className="w-5 h-5 text-green-600 mr-3" />
+                    <CheckCircle className="w-5 h-5 text-[#0f172a] mr-3" />
                     <span>Revisión de 47 puntos críticos garantizada</span>
                   </li>
                   <li className="flex items-center">
-                    <CheckCircle className="w-5 h-5 text-green-600 mr-3" />
+                    <CheckCircle className="w-5 h-5 text-[#0f172a] mr-3" />
                     <span>Respaldo técnico post-inspección</span>
                   </li>
                   <li className="flex items-center">
-                    <CheckCircle className="w-5 h-5 text-green-600 mr-3" />
+                    <CheckCircle className="w-5 h-5 text-[#0f172a] mr-3" />
                     <span>Seguro responsabilidad civil</span>
                   </li>
                 </ul>
@@ -625,13 +625,13 @@ export default function InspeccionTecnicaViviendas() {
       </section>
 
       {/* Urgencia y Escasez - Vilma Núñez */}
-      <section className="py-16 bg-red-600 text-white">
+      <section className="py-16 bg-[#f97316] text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="mb-8">
             <h2 className="text-4xl font-bold mb-6">
               ⏰ DISPONIBILIDAD LIMITADA
             </h2>
-            <div className="bg-white text-red-600 p-6 rounded-lg mb-8">
+            <div className="bg-white text-[#0f172a] p-6 rounded-lg mb-8">
               <p className="text-2xl font-bold mb-4">
                 SOLO 15 INSPECCIONES POR MES
               </p>
@@ -663,7 +663,7 @@ export default function InspeccionTecnicaViviendas() {
       </section>
 
       {/* CTA Final Poderoso */}
-      <section className="py-20 bg-gradient-to-br from-green-800 to-emerald-900 text-white">
+      <section className="py-20 bg-[#0f172a] text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-4xl lg:text-5xl font-bold mb-6">
             🚀 RESERVE SU CUPO AHORA
@@ -673,11 +673,11 @@ export default function InspeccionTecnicaViviendas() {
           </p>
           
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center mb-8">
-            <div className="bg-white text-green-900 p-8 rounded-lg">
+            <div className="bg-white text-[#0f172a] p-8 rounded-lg">
               <h3 className="text-3xl font-bold mb-4">PRECIO ESPECIAL LANZAMIENTO</h3>
               <div className="flex items-center justify-center mb-4">
                 <span className="text-2xl line-through text-gray-500 mr-4">$250.000</span>
-                <span className="text-4xl font-bold text-green-600">$180.000</span>
+                <span className="text-4xl font-bold text-[#0f172a]">$180.000</span>
               </div>
               <p className="text-lg">
                 <strong>AHORRO: $70.000</strong> | Válido solo hasta fin de mes
@@ -689,8 +689,8 @@ export default function InspeccionTecnicaViviendas() {
                 alt="Familia chilena feliz compra casa segura inspección técnica exitosa Santiago" 
                 className="w-full rounded-lg shadow-lg"
               />
-              <div className="bg-green-100 border border-green-400 rounded-lg p-4 mt-4 text-center">
-                <p className="text-sm font-bold text-green-800">
+              <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mt-4 text-center">
+                <p className="text-sm font-bold text-[#0f172a]">
                   ✅ ASÍ SE SIENTE COMPRAR CON SEGURIDAD Y TRANQUILIDAD
                 </p>
               </div>
@@ -700,14 +700,14 @@ export default function InspeccionTecnicaViviendas() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
             <Button 
               onClick={openWhatsApp}
-              className="bg-green-600 hover:bg-green-700 text-white px-8 py-4 text-xl font-bold"
+              className="rounded-lg bg-[#f97316] hover:bg-orange-600 text-white px-8 py-4 text-xl font-bold"
             >
               <Phone className="w-6 h-6 mr-2" />
               WhatsApp +56 9 7931 6827
             </Button>
             <Button 
               onClick={scrollToContact}
-              className="bg-white hover:bg-gray-100 text-green-900 px-8 py-4 text-xl font-bold"
+              className="rounded-lg bg-white hover:bg-gray-100 text-[#0f172a] px-8 py-4 text-xl font-bold"
             >
               <Mail className="w-6 h-6 mr-2" />
               Más Información

@@ -35,7 +35,7 @@ export default function SalesMechanism() {
           <p className="text-xs font-semibold tracking-[0.2em] uppercase text-[#f97316] mb-3">
             Cómo Trabajamos
           </p>
-          <h2 className="text-3xl md:text-4xl font-bold text-[#1e293b] mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-[#0f172a] mb-4">
             Método ArquitectoChile: Diseño con Certeza Técnica
           </h2>
           <p className="text-base text-gray-500 max-w-xl mx-auto">
@@ -48,13 +48,13 @@ export default function SalesMechanism() {
             const Icon = item.icon;
             return (
               <div key={item.step} className="text-center">
-                <div className="w-14 h-14 mx-auto mb-5 rounded-md border border-gray-200 flex items-center justify-center">
-                  <Icon className="w-5 h-5 text-[#1e293b]" strokeWidth={1.5} />
+                <div className="w-16 h-16 mx-auto mb-5 rounded-lg border border-gray-200 flex items-center justify-center">
+                  <Icon className="w-8 h-8 text-[#0f172a]" strokeWidth={1.5} />
                 </div>
                 <p className="text-[10px] font-bold tracking-[0.2em] uppercase text-[#f97316] mb-2">
                   Paso {item.step}
                 </p>
-                <h4 className="text-base font-bold text-[#1e293b] mb-2">{item.title}</h4>
+                <h4 className="text-base font-bold text-[#0f172a] mb-2">{item.title}</h4>
                 <p className="text-sm text-gray-500 leading-relaxed">{item.description}</p>
               </div>
             );
@@ -64,7 +64,7 @@ export default function SalesMechanism() {
         <div className="mt-16 text-center">
           <div className="inline-block bg-blueprint border border-gray-200 rounded-md px-8 py-6">
             <p className="text-sm text-gray-500 mb-1">
-              El primer paso es un <span className="font-semibold text-[#1e293b]">Diagnóstico Técnico</span> en terreno.
+              El primer paso es un <span className="font-semibold text-[#0f172a]">Diagnóstico Técnico</span> en terreno.
             </p>
             <p className="text-xs text-gray-400">
               Presupuestos personalizados tras la visita de diagnóstico.

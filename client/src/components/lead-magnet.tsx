@@ -44,7 +44,7 @@ export default function LeadMagnet() {
               href="https://www.arquitectochile.cl/ebook"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-[#f97316] text-white px-6 py-3.5 rounded-md text-sm font-semibold hover:bg-orange-600 transition-colors shadow-lg shadow-orange-500/20"
+              className="inline-flex items-center gap-2 bg-[#f97316] text-white px-6 py-3.5 rounded-lg text-sm font-semibold hover:bg-orange-600 transition-colors shadow-lg shadow-orange-500/20"
             >
               <Download className="w-4 h-4" strokeWidth={1.5} />
               Descargar Ebook Gratis

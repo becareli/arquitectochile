@@ -1,5 +1,5 @@
 import { Mail, MapPin, ArrowRight } from "lucide-react";
-import logoImg from "@assets/ArquitectoChile.com Logo_1754020481868.png";
+import logoImg from "@assets/ArquitectoChile.com_Logo_1771886286621.png";
 
 export default function Footer() {
   return (
@@ -137,7 +137,7 @@ export default function Footer() {
             <div className="mt-8">
               <a
                 href="/contacto"
-                className="inline-flex items-center gap-2 bg-[#f97316] text-white px-5 py-2.5 rounded-md text-sm font-semibold hover:bg-orange-600 transition-colors"
+                className="inline-flex items-center gap-2 bg-[#f97316] text-white px-5 py-2.5 rounded-lg text-sm font-semibold hover:bg-orange-600 transition-colors"
               >
                 Solicitar Asesoría
                 <ArrowRight className="w-3.5 h-3.5" strokeWidth={1.5} />
@@ -146,7 +146,8 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-white/10 mt-12 pt-8 text-center">
+        <div className="border-t border-white/10 mt-12 pt-8 flex flex-col items-center gap-3">
+          <img src={logoImg} alt="ArquitectoChile.com" className="h-10 w-auto opacity-60" />
           <p className="text-xs text-gray-500">
             &copy; 2025 ArquitectoChile.com · Todos los derechos reservados
           </p>

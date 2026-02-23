@@ -42,11 +42,11 @@ export default function AsesoriaTerreno() {
   ];
 
   return (
-    <section className="py-16 bg-gradient-to-br from-green-50 to-blue-50">
+    <section className="py-16 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Hero Section */}
         <div className="text-center mb-12">
-          <div className="inline-flex items-center px-4 py-2 bg-green-100 text-green-800 rounded-full text-sm font-semibold mb-4">
+          <div className="inline-flex items-center px-4 py-2 bg-gray-100 text-[#0f172a] rounded-full text-sm font-semibold mb-4">
             <MapPin className="w-4 h-4 mr-2" />
             SERVICIO PRESENCIAL
           </div>
@@ -56,7 +56,7 @@ export default function AsesoriaTerreno() {
           <p className="text-xl text-gray-600 mb-2">
             El arquitecto va a tu casa por solo $45.000
           </p>
-          <p className="text-lg text-green-700 font-semibold">
+          <p className="text-lg text-[#0f172a] font-semibold">
             Análisis profesional + presupuesto detallado + eliminación de dudas
           </p>
         </div>
@@ -82,15 +82,15 @@ export default function AsesoriaTerreno() {
             <div className="space-y-3 mb-8">
               {whyChoose.map((reason, index) => (
                 <div key={index} className="flex items-center space-x-3">
-                  <div className="flex-shrink-0 w-6 h-6 bg-green-100 rounded-full flex items-center justify-center">
-                    <CheckCircle className="w-4 h-4 text-green-600" />
+                  <div className="flex-shrink-0 w-6 h-6 bg-gray-100 rounded-full flex items-center justify-center">
+                    <CheckCircle className="w-4 h-4 text-[#f97316]" />
                   </div>
                   <span className="text-gray-700">{reason}</span>
                 </div>
               ))}
             </div>
             
-            <div className="bg-gradient-to-r from-green-600 to-blue-600 rounded-2xl p-6 text-white mb-8">
+            <div className="bg-[#0f172a] rounded-2xl p-6 text-white mb-8">
               <div className="flex items-center justify-between">
                 <div>
                   <h4 className="text-2xl font-bold">Solo $45.000</h4>
@@ -106,13 +106,13 @@ export default function AsesoriaTerreno() {
             <div className="flex flex-col sm:flex-row gap-4">
               <Button 
                 onClick={handleScheduleVisit}
-                className="bg-blue-600 text-white hover:bg-blue-700 font-semibold px-8 py-4 text-lg"
+                className="bg-[#f97316] text-white hover:bg-orange-600 rounded-lg font-semibold px-8 py-4 text-lg"
               >
                 📅 Agendar Visita Online
               </Button>
               <Button 
                 onClick={handleContactClick}
-                className="bg-green-600 text-white hover:bg-green-700 font-semibold px-8 py-4 text-lg"
+                className="bg-[#0f172a] text-white hover:bg-[#0f172a]/90 rounded-lg font-semibold px-8 py-4 text-lg"
               >
                 Contáctanos
               </Button>
@@ -126,8 +126,8 @@ export default function AsesoriaTerreno() {
                 <Card key={index} className="bg-white shadow-lg hover:shadow-xl transition-shadow">
                   <CardContent className="p-6">
                     <div className="flex items-start space-x-4">
-                      <div className="flex-shrink-0 w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
-                        <IconComponent className="w-6 h-6 text-green-600" />
+                      <div className="flex-shrink-0 w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center">
+                        <IconComponent className="w-6 h-6 text-[#f97316]" />
                       </div>
                       <div>
                         <h4 className="font-bold text-gray-900 mb-2">
@@ -153,32 +153,32 @@ export default function AsesoriaTerreno() {
           
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             <div className="text-center">
-              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-2xl font-bold text-blue-600">1</span>
+              <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-2xl font-bold text-[#0f172a]">1</span>
               </div>
               <h4 className="font-bold text-gray-900 mb-2">Agendas Online</h4>
               <p className="text-gray-600">Seleccionas fecha y hora disponible en TidyCal</p>
             </div>
             
             <div className="text-center">
-              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-2xl font-bold text-green-600">2</span>
+              <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-2xl font-bold text-[#0f172a]">2</span>
               </div>
               <h4 className="font-bold text-gray-900 mb-2">Visito tu terreno</h4>
               <p className="text-gray-600">Análisis completo in situ de tu edificación actual</p>
             </div>
             
             <div className="text-center">
-              <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-2xl font-bold text-purple-600">3</span>
+              <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-2xl font-bold text-[#0f172a]">3</span>
               </div>
               <h4 className="font-bold text-gray-900 mb-2">Asesoría verbal</h4>
               <p className="text-gray-600">Respondo todas tus preguntas en el momento</p>
             </div>
             
             <div className="text-center">
-              <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-2xl font-bold text-orange-600">4</span>
+              <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-2xl font-bold text-[#f97316]">4</span>
               </div>
               <h4 className="font-bold text-gray-900 mb-2">Presupuesto</h4>
               <p className="text-gray-600">Recibes presupuesto detallado posterior</p>
@@ -187,7 +187,7 @@ export default function AsesoriaTerreno() {
         </div>
 
         {/* Testimonial */}
-        <div className="bg-gradient-to-r from-gray-900 to-gray-800 rounded-2xl p-8 text-center text-white">
+        <div className="bg-[#0f172a] rounded-2xl p-8 text-center text-white">
           <div className="max-w-4xl mx-auto">
             <div className="flex justify-center mb-4">
               {[...Array(5)].map((_, i) => (
@@ -217,13 +217,13 @@ export default function AsesoriaTerreno() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button 
               onClick={handleScheduleVisit}
-              className="bg-blue-600 text-white hover:bg-blue-700 font-semibold px-8 py-4 text-lg"
+              className="bg-[#f97316] text-white hover:bg-orange-600 rounded-lg font-semibold px-8 py-4 text-lg"
             >
               📅 Agendar Visita Online
             </Button>
             <Button 
               onClick={handleContactClick}
-              className="bg-green-600 text-white hover:bg-green-700 font-semibold px-8 py-4 text-lg"
+              className="bg-[#0f172a] text-white hover:bg-[#0f172a]/90 rounded-lg font-semibold px-8 py-4 text-lg"
             >
               Contáctanos
             </Button>

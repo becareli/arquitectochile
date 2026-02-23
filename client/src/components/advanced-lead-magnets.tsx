@@ -32,7 +32,7 @@ export default function AdvancedLeadMagnets() {
           <p className="text-xs font-semibold tracking-[0.2em] uppercase text-[#f97316] mb-3">
             Recursos Gratuitos
           </p>
-          <h2 className="text-3xl md:text-4xl font-bold text-[#1e293b] mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-[#0f172a] mb-4">
             Herramientas para Planificar tu Proyecto
           </h2>
           <p className="text-base text-gray-500 max-w-xl mx-auto">
@@ -45,10 +45,10 @@ export default function AdvancedLeadMagnets() {
             const Icon = item.icon;
             return (
               <div key={item.title} className="bg-white border border-gray-200 rounded-md p-8 hover:border-gray-300 hover:shadow-lg transition-all duration-300">
-                <div className="w-12 h-12 rounded-md border border-gray-200 flex items-center justify-center mb-5">
-                  <Icon className="w-5 h-5 text-[#1e293b]" strokeWidth={1.5} />
+                <div className="w-16 h-16 rounded-lg border border-gray-200 flex items-center justify-center mb-5">
+                  <Icon className="w-8 h-8 text-[#0f172a]" strokeWidth={1.5} />
                 </div>
-                <h4 className="text-base font-bold text-[#1e293b] mb-2">{item.title}</h4>
+                <h4 className="text-base font-bold text-[#0f172a] mb-2">{item.title}</h4>
                 <p className="text-sm text-gray-500 leading-relaxed mb-5">{item.description}</p>
                 <a
                   href={item.href}

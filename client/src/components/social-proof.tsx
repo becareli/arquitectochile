@@ -38,7 +38,7 @@ export default function SocialProof() {
           <p className="text-xs font-semibold tracking-[0.2em] uppercase text-[#f97316] mb-3">
             Trayectoria
           </p>
-          <h2 className="text-3xl md:text-4xl font-bold text-[#1e293b] mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-[#0f172a] mb-4">
             Experiencia que Respalda
           </h2>
           <p className="text-base text-gray-500 max-w-xl mx-auto">
@@ -49,7 +49,7 @@ export default function SocialProof() {
         <div className="grid grid-cols-3 gap-8 mb-16 max-w-md mx-auto">
           {stats.map((stat) => (
             <div key={stat.label} className="text-center">
-              <p className="text-2xl font-bold text-[#1e293b]">{stat.number}</p>
+              <p className="text-2xl font-bold text-[#0f172a]">{stat.number}</p>
               <p className="text-xs text-gray-400 mt-1">{stat.label}</p>
             </div>
           ))}
@@ -64,7 +64,7 @@ export default function SocialProof() {
               </p>
               <div className="flex items-center justify-between pt-4 border-t border-gray-100">
                 <div>
-                  <p className="text-sm font-semibold text-[#1e293b]">{t.name}</p>
+                  <p className="text-sm font-semibold text-[#0f172a]">{t.name}</p>
                   <p className="text-xs text-gray-400">{t.location}</p>
                 </div>
                 <div className="flex text-[#f97316]">

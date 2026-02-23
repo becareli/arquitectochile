@@ -35,7 +35,7 @@ export default function ObjectionHandling() {
           <p className="text-xs font-semibold tracking-[0.2em] uppercase text-[#f97316] mb-3">
             Preguntas Frecuentes
           </p>
-          <h2 className="text-3xl md:text-4xl font-bold text-[#1e293b] mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-[#0f172a] mb-4">
             Resuelve tus Dudas
           </h2>
           <p className="text-base text-gray-500 max-w-xl mx-auto">
@@ -51,7 +51,7 @@ export default function ObjectionHandling() {
             >
               <summary className="flex items-start gap-3 py-5 cursor-pointer list-none">
                 <HelpCircle className="w-4 h-4 text-gray-400 flex-shrink-0 mt-0.5 group-open:text-[#f97316] transition-colors" strokeWidth={1.5} />
-                <span className="text-sm font-semibold text-[#1e293b] group-open:text-[#f97316] transition-colors flex-1">
+                <span className="text-sm font-semibold text-[#0f172a] group-open:text-[#f97316] transition-colors flex-1">
                   {faq.question}
                 </span>
                 <ArrowRight className="w-3.5 h-3.5 text-gray-300 flex-shrink-0 mt-0.5 group-open:rotate-90 transition-transform" strokeWidth={1.5} />
@@ -67,7 +67,7 @@ export default function ObjectionHandling() {
           <p className="text-sm text-gray-500 mb-4">¿Tienes otra consulta?</p>
           <a
             href="/contacto"
-            className="inline-flex items-center gap-2 bg-[#f97316] text-white px-6 py-3 rounded-md text-sm font-semibold hover:bg-orange-600 transition-colors shadow-lg shadow-orange-500/20"
+            className="inline-flex items-center gap-2 bg-[#f97316] text-white px-6 py-3 rounded-lg text-sm font-semibold hover:bg-orange-600 transition-colors shadow-lg shadow-orange-500/20"
           >
             Contáctanos
             <ArrowRight className="w-4 h-4" strokeWidth={1.5} />

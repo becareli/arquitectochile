@@ -5,14 +5,14 @@ import arquitectoPhoto from "@assets/1651766771115_1753490676082.jpeg";
 
 export default function AboutArchitect() {
   return (
-    <section id="arquitecto" className="py-20 bg-gradient-to-br from-gray-50 to-gray-100">
+    <section id="arquitecto" className="py-20 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold text-dark mb-4">Sobre el Arquitecto</h2>
           <p className="text-xl text-gray-600 mb-8">Experiencia y credenciales profesionales que avalan nuestro trabajo</p>
           
           {/* Personal Message */}
-          <div className="max-w-4xl mx-auto bg-gradient-to-r from-blue-50 to-green-50 rounded-2xl p-8 mb-8">
+          <div className="max-w-4xl mx-auto bg-gray-100 rounded-2xl p-8 mb-8">
             <div className="text-left">
               <div className="flex items-start space-x-4">
                 <div className="flex-shrink-0">
@@ -62,7 +62,7 @@ export default function AboutArchitect() {
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
               <Button 
-                className="bg-blue-600 text-white hover:bg-blue-700 transition-colors"
+                className="bg-[#0f172a] text-white hover:bg-[#0f172a]/90 rounded-lg transition-colors"
                 onClick={() => window.open('https://www.linkedin.com/in/patriciobecar/', '_blank')}
               >
                 <ExternalLink className="w-4 h-4 mr-2" />
@@ -70,7 +70,7 @@ export default function AboutArchitect() {
               </Button>
               <Button 
                 variant="outline"
-                className="border-primary text-primary hover:bg-primary hover:text-white transition-colors"
+                className="border-primary text-primary hover:bg-primary hover:text-white rounded-lg transition-colors"
               >
                 📞 +56 9 7931 6827
               </Button>
@@ -89,7 +89,7 @@ export default function AboutArchitect() {
               <CardContent>
                 <div className="space-y-4">
                   <div className="flex items-start space-x-3">
-                    <CheckCircle className="w-5 h-5 text-green-500 mt-1" />
+                    <CheckCircle className="w-5 h-5 text-[#0f172a] mt-1" />
                     <div>
                       <p className="font-semibold text-dark">Arquitecto Universidad de Chile</p>
                       <p className="text-gray-600">Titulado con distinción en 1999 • MBA Universidad de Chile (2008-2009) • Global MBA University of Macquarie, Australia (2009)</p>
@@ -97,7 +97,7 @@ export default function AboutArchitect() {
                   </div>
                   
                   <div className="flex items-start space-x-3">
-                    <Shield className="w-5 h-5 text-blue-500 mt-1" />
+                    <Shield className="w-5 h-5 text-[#0f172a] mt-1" />
                     <div>
                       <p className="font-semibold text-dark">Arquitecto Revisor Independiente</p>
                       <p className="text-gray-600">Reconocido por el MINVU • Especialista en normativas DFL2 y OGUC</p>
@@ -105,7 +105,7 @@ export default function AboutArchitect() {
                   </div>
                   
                   <div className="flex items-start space-x-3">
-                    <Users className="w-5 h-5 text-purple-500 mt-1" />
+                    <Users className="w-5 h-5 text-[#64748b] mt-1" />
                     <div>
                       <p className="font-semibold text-dark">Especialista en Inteligencia Artificial y Automatizaciones</p>
                       <p className="text-gray-600">Experto en software N8N/MAKE • Automatización de procesos • Vibecoding: Lovable-Replit</p>
@@ -113,7 +113,7 @@ export default function AboutArchitect() {
                   </div>
                   
                   <div className="flex items-start space-x-3">
-                    <Building2 className="w-5 h-5 text-orange-500 mt-1" />
+                    <Building2 className="w-5 h-5 text-[#f97316] mt-1" />
                     <div>
                       <p className="font-semibold text-dark">Experto en Regularización de Inmuebles</p>
                       <p className="text-gray-600">Especialista en Ley del Mono - Permiso + Recepción simultáneos</p>

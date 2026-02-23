@@ -23,7 +23,7 @@ export default function RevisorIndependienteDeArquitectura() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary to-secondary">
+    <div className="min-h-screen bg-[#0f172a]">
       <Navigation />
       
       {/* Hero Section */}
@@ -32,7 +32,7 @@ export default function RevisorIndependienteDeArquitectura() {
           <div className="mb-8">
             <div className="relative w-20 h-20 mx-auto mb-6">
               <Shield className="w-20 h-20 text-accent" />
-              <Star className="w-8 h-8 text-yellow-400 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 fill-current" />
+              <Star className="w-8 h-8 text-[#f97316] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 fill-current" />
             </div>
             <h1 className="text-4xl lg:text-6xl font-bold mb-6">
               REVISOR INDEPENDIENTE DE OBRAS DE CONSTRUCCIÓN
@@ -43,7 +43,7 @@ export default function RevisorIndependienteDeArquitectura() {
             </div>
           </div>
           
-          <div className="bg-red-600 text-white px-6 py-3 rounded-lg mb-8 inline-block animate-pulse">
+          <div className="bg-[#f97316] text-white px-6 py-3 rounded-lg mb-8 inline-block animate-pulse">
             <p className="font-bold">
               🔥 EVITA RECHAZOS COSTOSOS - Revisión previa garantizada
             </p>
@@ -76,14 +76,14 @@ export default function RevisorIndependienteDeArquitectura() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button 
               onClick={openWhatsApp}
-              className="bg-green-600 hover:bg-green-700 text-white px-8 py-4 text-lg font-bold"
+              className="rounded-lg bg-[#f97316] hover:bg-orange-600 text-white px-8 py-4 text-lg font-bold"
             >
               <Phone className="w-5 h-5 mr-2" />
               WhatsApp +56 9 7931 6827
             </Button>
             <Button 
               onClick={scrollToContact}
-              className="bg-accent hover:bg-yellow-600 text-black px-8 py-4 text-lg font-bold"
+              className="rounded-lg bg-[#f97316] hover:bg-orange-600 text-white px-8 py-4 text-lg font-bold"
             >
               Cotizar Mi Proyecto
             </Button>
@@ -95,16 +95,16 @@ export default function RevisorIndependienteDeArquitectura() {
       <section className="py-16 bg-white">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-dark mb-6">¿QUÉ ES UN REVISOR INDEPENDIENTE?</h2>
+            <h2 className="text-4xl font-bold text-[#0f172a] mb-6">¿QUÉ ES UN REVISOR INDEPENDIENTE?</h2>
             <p className="text-xl text-gray-600 max-w-4xl mx-auto">
               Soy un profesional <strong>certificado oficialmente por el Ministerio de Vivienda y Urbanismo (MINVU)</strong> para verificar que tu proyecto de construcción cumpla con <strong>todas las normativas legales vigentes</strong> antes de obtener los permisos municipales.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <Card className="text-center border-2 border-primary">
+            <Card className="text-center border-2 border-[#0f172a]">
               <CardHeader>
-                <Award className="w-12 h-12 text-primary mx-auto mb-2" />
+                <Award className="w-12 h-12 text-[#0f172a] mx-auto mb-2" />
                 <CardTitle className="text-lg">ROL N° 00237-13</CardTitle>
               </CardHeader>
               <CardContent>
@@ -112,9 +112,9 @@ export default function RevisorIndependienteDeArquitectura() {
               </CardContent>
             </Card>
 
-            <Card className="text-center border-2 border-primary">
+            <Card className="text-center border-2 border-[#0f172a]">
               <CardHeader>
-                <FileCheck className="w-12 h-12 text-primary mx-auto mb-2" />
+                <FileCheck className="w-12 h-12 text-[#0f172a] mx-auto mb-2" />
                 <CardTitle className="text-lg">Certificado N° 369500</CardTitle>
               </CardHeader>
               <CardContent>
@@ -122,9 +122,9 @@ export default function RevisorIndependienteDeArquitectura() {
               </CardContent>
             </Card>
 
-            <Card className="text-center border-2 border-primary">
+            <Card className="text-center border-2 border-[#0f172a]">
               <CardHeader>
-                <Shield className="w-12 h-12 text-primary mx-auto mb-2" />
+                <Shield className="w-12 h-12 text-[#0f172a] mx-auto mb-2" />
                 <CardTitle className="text-lg">Ley N° 20.071</CardTitle>
               </CardHeader>
               <CardContent>
@@ -132,9 +132,9 @@ export default function RevisorIndependienteDeArquitectura() {
               </CardContent>
             </Card>
 
-            <Card className="text-center border-2 border-primary">
+            <Card className="text-center border-2 border-[#0f172a]">
               <CardHeader>
-                <Users className="w-12 h-12 text-primary mx-auto mb-2" />
+                <Users className="w-12 h-12 text-[#0f172a] mx-auto mb-2" />
                 <CardTitle className="text-lg">26+ Años</CardTitle>
               </CardHeader>
               <CardContent>
@@ -146,63 +146,63 @@ export default function RevisorIndependienteDeArquitectura() {
       </section>
 
       {/* ¿Por qué es CRÍTICO contratar un Revisor Independiente? */}
-      <section className="py-16 bg-gradient-to-br from-red-50 to-orange-50">
+      <section className="py-16 bg-gray-50">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-dark mb-6">
+            <h2 className="text-4xl font-bold text-[#0f172a] mb-6">
               ⚠️ ANTES de Ingresar tu Permiso de Edificación...
             </h2>
             <p className="text-xl text-gray-700 max-w-4xl mx-auto leading-relaxed">
               <strong>¿Sabías que 7 de cada 10 solicitudes de permisos son rechazadas</strong> por errores que podrían haberse evitado? 
-              <span className="text-red-600 font-bold"> No arriesgues tu inversión</span> al azar.
+              <span className="text-[#0f172a] font-bold"> No arriesgues tu inversión</span> al azar.
             </p>
           </div>
 
           <div className="bg-white rounded-lg shadow-xl p-8 mb-8">
-            <h3 className="text-2xl font-bold text-dark mb-6 text-center">
+            <h3 className="text-2xl font-bold text-[#0f172a] mb-6 text-center">
               🎯 La ÚNICA Forma de Garantizar Aprobación al 100%
             </h3>
             
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               <div>
-                <h4 className="text-xl font-bold text-primary mb-4">❌ SIN Revisor Independiente:</h4>
+                <h4 className="text-xl font-bold text-[#0f172a] mb-4">❌ SIN Revisor Independiente:</h4>
                 <ul className="space-y-3 text-gray-700">
                   <li className="flex items-start">
-                    <span className="text-red-500 font-bold mr-2">•</span>
+                    <span className="text-[#0f172a] font-bold mr-2">•</span>
                     <span>Revisión puede tomar hasta <strong>60 días</strong></span>
                   </li>
                   <li className="flex items-start">
-                    <span className="text-red-500 font-bold mr-2">•</span>
+                    <span className="text-[#0f172a] font-bold mr-2">•</span>
                     <span>Alto riesgo de <strong>rechazo por errores</strong></span>
                   </li>
                   <li className="flex items-start">
-                    <span className="text-red-500 font-bold mr-2">•</span>
+                    <span className="text-[#0f172a] font-bold mr-2">•</span>
                     <span>Pagas el <strong>100% de derechos municipales</strong></span>
                   </li>
                   <li className="flex items-start">
-                    <span className="text-red-500 font-bold mr-2">•</span>
+                    <span className="text-[#0f172a] font-bold mr-2">•</span>
                     <span>Estrés e incertidumbre constante</span>
                   </li>
                 </ul>
               </div>
               
               <div>
-                <h4 className="text-xl font-bold text-green-600 mb-4">✅ CON Revisor Independiente:</h4>
+                <h4 className="text-xl font-bold text-[#0f172a] mb-4">✅ CON Revisor Independiente:</h4>
                 <ul className="space-y-3 text-gray-700">
                   <li className="flex items-start">
-                    <span className="text-green-500 font-bold mr-2">•</span>
+                    <span className="text-[#f97316] font-bold mr-2">•</span>
                     <span>Revisión garantizada en solo <strong>15 días</strong></span>
                   </li>
                   <li className="flex items-start">
-                    <span className="text-green-500 font-bold mr-2">•</span>
+                    <span className="text-[#f97316] font-bold mr-2">•</span>
                     <span><strong>IMPOSIBLE que rechacen</strong> tu solicitud</span>
                   </li>
                   <li className="flex items-start">
-                    <span className="text-green-500 font-bold mr-2">•</span>
+                    <span className="text-[#f97316] font-bold mr-2">•</span>
                     <span><strong>30% de descuento</strong> en derechos municipales</span>
                   </li>
                   <li className="flex items-start">
-                    <span className="text-green-500 font-bold mr-2">•</span>
+                    <span className="text-[#f97316] font-bold mr-2">•</span>
                     <span>Tranquilidad total y proceso expedito</span>
                   </li>
                 </ul>
@@ -210,16 +210,16 @@ export default function RevisorIndependienteDeArquitectura() {
             </div>
           </div>
 
-          <div className="bg-gradient-to-r from-yellow-400 to-orange-500 rounded-lg p-8 text-center">
-            <h3 className="text-2xl font-bold text-black mb-4">
+          <div className="bg-[#f97316] rounded-lg p-8 text-center">
+            <h3 className="text-2xl font-bold text-white mb-4">
               💡 RESPALDO LEGAL GARANTIZADO
             </h3>
-            <p className="text-lg text-black font-medium mb-6">
+            <p className="text-lg text-white font-medium mb-6">
               "No podrá rechazarse el ingreso de una solicitud, si ésta cuenta con informe favorable 
               de un Revisor Independiente de Arquitectura" - <strong>Ley General de Urbanismo y Construcciones</strong>
             </p>
             <div className="bg-black/20 rounded-lg p-4">
-              <p className="text-sm font-bold text-black">
+              <p className="text-sm font-bold text-white">
                 📋 ARTÍCULO 5.1.8. OGUC | 🏛️ DECRETO SUPREMO N° 177 | ⚖️ LEY N° 20.071
               </p>
             </div>
@@ -231,54 +231,54 @@ export default function RevisorIndependienteDeArquitectura() {
       <section className="py-16 bg-gray-50">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-dark mb-6">¿PARA QUÉ SIRVE LA REVISIÓN INDEPENDIENTE?</h2>
+            <h2 className="text-4xl font-bold text-[#0f172a] mb-6">¿PARA QUÉ SIRVE LA REVISIÓN INDEPENDIENTE?</h2>
             <p className="text-xl text-gray-600">ANTES del permiso municipal detectamos todos los errores</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div>
-              <h3 className="text-2xl font-bold text-dark mb-6">✅ LO QUE REVISAMOS:</h3>
+              <h3 className="text-2xl font-bold text-[#0f172a] mb-6">✅ LO QUE REVISAMOS:</h3>
               <div className="space-y-4">
                 <div className="flex items-center">
-                  <CheckCircle className="w-6 h-6 text-green-600 mr-3" />
+                  <CheckCircle className="w-6 h-6 text-[#0f172a] mr-3" />
                   <span>Detectamos errores que <strong>rechazan</strong> tu permiso</span>
                 </div>
                 <div className="flex items-center">
-                  <CheckCircle className="w-6 h-6 text-green-600 mr-3" />
+                  <CheckCircle className="w-6 h-6 text-[#0f172a] mr-3" />
                   <span>Verificamos cumplimiento de <strong>normativas vigentes</strong></span>
                 </div>
                 <div className="flex items-center">
-                  <CheckCircle className="w-6 h-6 text-green-600 mr-3" />
+                  <CheckCircle className="w-6 h-6 text-[#0f172a] mr-3" />
                   <span>Revisamos <strong>distanciamientos y alturas</strong> permitidas</span>
                 </div>
                 <div className="flex items-center">
-                  <CheckCircle className="w-6 h-6 text-green-600 mr-3" />
+                  <CheckCircle className="w-6 h-6 text-[#0f172a] mr-3" />
                   <span>Validamos <strong>superficie construida</strong> vs terreno</span>
                 </div>
                 <div className="flex items-center">
-                  <CheckCircle className="w-6 h-6 text-green-600 mr-3" />
+                  <CheckCircle className="w-6 h-6 text-[#0f172a] mr-3" />
                   <span>Chequeamos <strong>estacionamientos</strong> requeridos</span>
                 </div>
               </div>
             </div>
 
             <div>
-              <h3 className="text-2xl font-bold text-dark mb-6">🎯 BENEFICIOS GARANTIZADOS:</h3>
+              <h3 className="text-2xl font-bold text-[#0f172a] mb-6">🎯 BENEFICIOS GARANTIZADOS:</h3>
               <div className="space-y-4">
                 <div className="flex items-center">
-                  <Zap className="w-6 h-6 text-blue-600 mr-3" />
+                  <Zap className="w-6 h-6 text-[#0f172a] mr-3" />
                   <span><strong>Aprobación más rápida</strong> en la municipalidad</span>
                 </div>
                 <div className="flex items-center">
-                  <Zap className="w-6 h-6 text-blue-600 mr-3" />
+                  <Zap className="w-6 h-6 text-[#0f172a] mr-3" />
                   <span><strong>Evitas rechazos costosos</strong> y re-trámites</span>
                 </div>
                 <div className="flex items-center">
-                  <Zap className="w-6 h-6 text-blue-600 mr-3" />
+                  <Zap className="w-6 h-6 text-[#0f172a] mr-3" />
                   <span><strong>Cumplimiento legal garantizado</strong></span>
                 </div>
                 <div className="flex items-center">
-                  <Zap className="w-6 h-6 text-blue-600 mr-3" />
+                  <Zap className="w-6 h-6 text-[#0f172a] mr-3" />
                   <span><strong>Tranquilidad total</strong> durante construcción</span>
                 </div>
               </div>
@@ -291,12 +291,12 @@ export default function RevisorIndependienteDeArquitectura() {
       <section className="py-16 bg-white">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-dark mb-6">PROYECTOS QUE REVISO</h2>
+            <h2 className="text-4xl font-bold text-[#0f172a] mb-6">PROYECTOS QUE REVISO</h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div>
-              <h3 className="text-2xl font-bold text-dark mb-6">🏠 ESPECIALIZACIÓN EN:</h3>
+              <h3 className="text-2xl font-bold text-[#0f172a] mb-6">🏠 ESPECIALIZACIÓN EN:</h3>
               <div className="space-y-3">
                 <p className="text-lg">🏠 <strong>Casas unifamiliares</strong> y ampliaciones</p>
                 <p className="text-lg">🏢 <strong>Proyectos residenciales</strong></p>
@@ -307,7 +307,7 @@ export default function RevisorIndependienteDeArquitectura() {
             </div>
 
             <div>
-              <h3 className="text-2xl font-bold text-dark mb-6">📋 DOCUMENTOS QUE REVISO:</h3>
+              <h3 className="text-2xl font-bold text-[#0f172a] mb-6">📋 DOCUMENTOS QUE REVISO:</h3>
               <div className="space-y-3">
                 <p className="text-lg">✅ Planos de arquitectura</p>
                 <p className="text-lg">✅ Planos estructurales</p>
@@ -322,10 +322,10 @@ export default function RevisorIndependienteDeArquitectura() {
       </section>
 
       {/* BENEFICIOS ECONÓMICOS ESPECÍFICOS */}
-      <section className="py-16 bg-gradient-to-br from-green-50 to-blue-50">
+      <section className="py-16 bg-gray-50">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-dark mb-6">
+            <h2 className="text-4xl font-bold text-[#0f172a] mb-6">
               💰 BENEFICIOS ECONÓMICOS REALES
             </h2>
             <p className="text-xl text-gray-700 max-w-4xl mx-auto">
@@ -334,24 +334,24 @@ export default function RevisorIndependienteDeArquitectura() {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
-            <div className="bg-white rounded-lg shadow-lg p-8 text-center border-t-4 border-green-500">
-              <div className="text-4xl font-bold text-green-600 mb-4">30%</div>
+            <div className="bg-white rounded-lg shadow-lg p-8 text-center border-t-4 border-[#f97316]">
+              <div className="text-4xl font-bold text-[#0f172a] mb-4">30%</div>
               <h3 className="text-xl font-bold mb-4">DESCUENTO AUTOMÁTICO</h3>
               <p className="text-gray-700">
                 <strong>30% de descuento</strong> en derechos municipales garantizado por OGUC Art. 5.1.14
               </p>
             </div>
 
-            <div className="bg-white rounded-lg shadow-lg p-8 text-center border-t-4 border-blue-500">
-              <div className="text-4xl font-bold text-blue-600 mb-4">15</div>
+            <div className="bg-white rounded-lg shadow-lg p-8 text-center border-t-4 border-[#0f172a]">
+              <div className="text-4xl font-bold text-[#0f172a] mb-4">15</div>
               <h3 className="text-xl font-bold mb-4">DÍAS MÁXIMO</h3>
               <p className="text-gray-700">
                 <strong>15 días máximo</strong> de revisión vs 30-60 días normales. <strong>4x más rápido</strong>
               </p>
             </div>
 
-            <div className="bg-white rounded-lg shadow-lg p-8 text-center border-t-4 border-yellow-500">
-              <div className="text-4xl font-bold text-yellow-600 mb-4">0%</div>
+            <div className="bg-white rounded-lg shadow-lg p-8 text-center border-t-4 border-[#f97316]">
+              <div className="text-4xl font-bold text-[#f97316] mb-4">0%</div>
               <h3 className="text-xl font-bold mb-4">RIESGO DE RECHAZO</h3>
               <p className="text-gray-700">
                 <strong>Imposible rechazar</strong> solicitud con Informe Favorable por ley
@@ -364,17 +364,17 @@ export default function RevisorIndependienteDeArquitectura() {
               💡 ¿POR QUÉ NECESITAS un REVISOR INDEPENDIENTE DE ARQUITECTURA?
             </h3>
             
-            <div className="bg-gradient-to-r from-blue-100 to-green-100 rounded-lg p-6 mb-6">
+            <div className="bg-gray-100 rounded-lg p-6 mb-6">
               <p className="text-lg leading-relaxed text-gray-800">
                 <strong>Antes de conseguir un Permiso de Edificación en Chile</strong>, es recomendable revisar con calma cada componente 
-                de tu solicitud. <span className="text-primary font-bold">Lo ideal es ingresar un expediente al Municipio con la CERTEZA 
+                de tu solicitud. <span className="text-[#0f172a] font-bold">Lo ideal es ingresar un expediente al Municipio con la CERTEZA 
                 de que será aprobado</span> por la Dirección de Obras.
               </p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div>
-                <h4 className="text-xl font-bold text-primary mb-4">📋 MI APORTE TÉCNICO:</h4>
+                <h4 className="text-xl font-bold text-[#0f172a] mb-4">📋 MI APORTE TÉCNICO:</h4>
                 <ul className="space-y-3 text-gray-700">
                   <li>• <strong>Confecciono Informe Favorable</strong> - documento legal que respalda tu expediente</li>
                   <li>• <strong>Hago más ágil la revisión</strong> de tu Permiso de Edificación en la Municipalidad</li>
@@ -384,7 +384,7 @@ export default function RevisorIndependienteDeArquitectura() {
               </div>
               
               <div>
-                <h4 className="text-xl font-bold text-green-600 mb-4">⚖️ BENEFICIOS LEGALES GARANTIZADOS:</h4>
+                <h4 className="text-xl font-bold text-[#0f172a] mb-4">⚖️ BENEFICIOS LEGALES GARANTIZADOS:</h4>
                 <ul className="space-y-3 text-gray-700">
                   <li>• <strong>NO PUEDE rechazarse</strong> el ingreso si cuenta con Informe Favorable</li>
                   <li>• <strong>Plazo reducido a 15 días</strong> para pronunciarse (vs 30 días normales)</li>
@@ -395,7 +395,7 @@ export default function RevisorIndependienteDeArquitectura() {
             </div>
           </div>
 
-          <div className="bg-gradient-to-r from-red-500 to-orange-500 rounded-lg p-8 text-center text-white">
+          <div className="bg-[#f97316] rounded-lg p-8 text-center text-white">
             <h3 className="text-2xl font-bold mb-4">
               🚨 Si deseas que tu Permiso de Edificación tenga ÉXITO...
             </h3>
@@ -405,14 +405,14 @@ export default function RevisorIndependienteDeArquitectura() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button 
                 onClick={openWhatsApp}
-                className="bg-green-600 hover:bg-green-700 text-white px-8 py-4 text-lg font-bold"
+                className="rounded-lg bg-[#f97316] hover:bg-orange-600 text-white px-8 py-4 text-lg font-bold"
               >
                 <Phone className="w-5 h-5 mr-2" />
                 WhatsApp +56 9 7931 6827
               </Button>
               <Button 
                 onClick={scrollToContact}
-                className="bg-white hover:bg-gray-100 text-black px-8 py-4 text-lg font-bold"
+                className="rounded-lg bg-white hover:bg-gray-100 text-black px-8 py-4 text-lg font-bold"
               >
                 Cotizar Mi Proyecto
               </Button>
@@ -424,9 +424,9 @@ export default function RevisorIndependienteDeArquitectura() {
       {/* Video */}
       <section className="py-16 bg-gray-50">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl font-bold text-dark mb-6">🎬 CONTRATA MI SERVICIO DE REVISOR INDEPENDIENTE</h2>
+          <h2 className="text-4xl font-bold text-[#0f172a] mb-6">🎬 CONTRATA MI SERVICIO DE REVISOR INDEPENDIENTE</h2>
           <p className="text-xl text-gray-600 mb-4">Mira cómo trabajo y por qué soy tu mejor opción</p>
-          <p className="text-lg font-bold text-primary mb-8">⚡ Evita rechazos costosos - Aprobación garantizada</p>
+          <p className="text-lg font-bold text-[#0f172a] mb-8">⚡ Evita rechazos costosos - Aprobación garantizada</p>
           
           <div className="bg-white rounded-xl p-6 shadow-lg mb-8">
             <div className="aspect-video w-full mb-4 rounded-lg overflow-hidden">
@@ -446,7 +446,7 @@ export default function RevisorIndependienteDeArquitectura() {
 
 
 
-          <div className="bg-primary text-white rounded-xl p-6">
+          <div className="bg-[#0f172a] text-white rounded-xl p-6">
             <h4 className="text-xl font-bold mb-4">💡 ¿POR QUÉ CONTRATAR AHORA?</h4>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
               <div>
@@ -470,14 +470,14 @@ export default function RevisorIndependienteDeArquitectura() {
       <section className="py-16 bg-white">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-dark mb-6">¿CÓMO TRABAJAMOS?</h2>
+            <h2 className="text-4xl font-bold text-[#0f172a] mb-6">¿CÓMO TRABAJAMOS?</h2>
             <p className="text-xl text-gray-600">PROCESO PASO A PASO</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
             <Card className="text-center">
               <CardHeader>
-                <div className="w-12 h-12 bg-primary text-white rounded-full flex items-center justify-center mx-auto mb-2 text-xl font-bold">1</div>
+                <div className="w-12 h-12 bg-[#0f172a] text-white rounded-full flex items-center justify-center mx-auto mb-2 text-xl font-bold">1</div>
                 <CardTitle className="text-lg">ENVÍAS TUS PLANOS</CardTitle>
               </CardHeader>
               <CardContent>
@@ -487,7 +487,7 @@ export default function RevisorIndependienteDeArquitectura() {
 
             <Card className="text-center">
               <CardHeader>
-                <div className="w-12 h-12 bg-primary text-white rounded-full flex items-center justify-center mx-auto mb-2 text-xl font-bold">2</div>
+                <div className="w-12 h-12 bg-[#0f172a] text-white rounded-full flex items-center justify-center mx-auto mb-2 text-xl font-bold">2</div>
                 <CardTitle className="text-lg">REVISIÓN COMPLETA</CardTitle>
               </CardHeader>
               <CardContent>
@@ -497,7 +497,7 @@ export default function RevisorIndependienteDeArquitectura() {
 
             <Card className="text-center">
               <CardHeader>
-                <div className="w-12 h-12 bg-primary text-white rounded-full flex items-center justify-center mx-auto mb-2 text-xl font-bold">3</div>
+                <div className="w-12 h-12 bg-[#0f172a] text-white rounded-full flex items-center justify-center mx-auto mb-2 text-xl font-bold">3</div>
                 <CardTitle className="text-lg">INFORME OFICIAL</CardTitle>
               </CardHeader>
               <CardContent>
@@ -507,7 +507,7 @@ export default function RevisorIndependienteDeArquitectura() {
 
             <Card className="text-center">
               <CardHeader>
-                <div className="w-12 h-12 bg-primary text-white rounded-full flex items-center justify-center mx-auto mb-2 text-xl font-bold">4</div>
+                <div className="w-12 h-12 bg-[#0f172a] text-white rounded-full flex items-center justify-center mx-auto mb-2 text-xl font-bold">4</div>
                 <CardTitle className="text-lg">CORRECCIONES</CardTitle>
               </CardHeader>
               <CardContent>
@@ -517,7 +517,7 @@ export default function RevisorIndependienteDeArquitectura() {
 
             <Card className="text-center">
               <CardHeader>
-                <div className="w-12 h-12 bg-primary text-white rounded-full flex items-center justify-center mx-auto mb-2 text-xl font-bold">5</div>
+                <div className="w-12 h-12 bg-[#0f172a] text-white rounded-full flex items-center justify-center mx-auto mb-2 text-xl font-bold">5</div>
                 <CardTitle className="text-lg">CERTIFICADO FINAL</CardTitle>
               </CardHeader>
               <CardContent>
@@ -527,7 +527,7 @@ export default function RevisorIndependienteDeArquitectura() {
           </div>
 
           <div className="text-center mt-12">
-            <div className="bg-primary text-white rounded-xl p-8 max-w-2xl mx-auto">
+            <div className="bg-[#0f172a] text-white rounded-xl p-8 max-w-2xl mx-auto">
               <h3 className="text-2xl font-bold mb-4">INVERSIÓN:</h3>
               <p className="text-3xl font-bold text-accent mb-2">Desde $150.000</p>
               <p className="text-lg opacity-90 mb-4">(varía según complejidad)</p>
@@ -550,49 +550,49 @@ export default function RevisorIndependienteDeArquitectura() {
       <section className="py-16 bg-gray-50">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-dark mb-6">¿POR QUÉ ELEGIR MI SERVICIO?</h2>
+            <h2 className="text-4xl font-bold text-[#0f172a] mb-6">¿POR QUÉ ELEGIR MI SERVICIO?</h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <Card className="p-6">
-              <h3 className="text-2xl font-bold text-dark mb-6">🏆 EXPERIENCIA COMPROBADA:</h3>
+              <h3 className="text-2xl font-bold text-[#0f172a] mb-6">🏆 EXPERIENCIA COMPROBADA:</h3>
               <div className="space-y-4">
                 <div className="flex items-center">
-                  <CheckCircle className="w-6 h-6 text-green-600 mr-3" />
+                  <CheckCircle className="w-6 h-6 text-[#0f172a] mr-3" />
                   <span><strong>26+ años</strong> diseñando y construyendo</span>
                 </div>
                 <div className="flex items-center">
-                  <CheckCircle className="w-6 h-6 text-green-600 mr-3" />
+                  <CheckCircle className="w-6 h-6 text-[#0f172a] mr-3" />
                   <span><strong>Cientos de proyectos</strong> aprobados</span>
                 </div>
                 <div className="flex items-center">
-                  <CheckCircle className="w-6 h-6 text-green-600 mr-3" />
+                  <CheckCircle className="w-6 h-6 text-[#0f172a] mr-3" />
                   <span><strong>Conocimiento profundo</strong> de normativas municipales</span>
                 </div>
                 <div className="flex items-center">
-                  <CheckCircle className="w-6 h-6 text-green-600 mr-3" />
+                  <CheckCircle className="w-6 h-6 text-[#0f172a] mr-3" />
                   <span><strong>Relación directa</strong> con Direcciones de Obras</span>
                 </div>
               </div>
             </Card>
 
             <Card className="p-6">
-              <h3 className="text-2xl font-bold text-dark mb-6">🛡️ GARANTÍA DE SERVICIO:</h3>
+              <h3 className="text-2xl font-bold text-[#0f172a] mb-6">🛡️ GARANTÍA DE SERVICIO:</h3>
               <div className="space-y-4">
                 <div className="flex items-center">
-                  <CheckCircle className="w-6 h-6 text-blue-600 mr-3" />
+                  <CheckCircle className="w-6 h-6 text-[#0f172a] mr-3" />
                   <span><strong>Re-revisión gratuita</strong> si hay observaciones menores</span>
                 </div>
                 <div className="flex items-center">
-                  <CheckCircle className="w-6 h-6 text-blue-600 mr-3" />
+                  <CheckCircle className="w-6 h-6 text-[#0f172a] mr-3" />
                   <span><strong>Asesoría telefónica</strong> durante el trámite municipal</span>
                 </div>
                 <div className="flex items-center">
-                  <CheckCircle className="w-6 h-6 text-blue-600 mr-3" />
+                  <CheckCircle className="w-6 h-6 text-[#0f172a] mr-3" />
                   <span><strong>Respuesta rápida</strong> a consultas</span>
                 </div>
                 <div className="flex items-center">
-                  <CheckCircle className="w-6 h-6 text-blue-600 mr-3" />
+                  <CheckCircle className="w-6 h-6 text-[#0f172a] mr-3" />
                   <span><strong>Profesionalismo certificado</strong> por MINVU</span>
                 </div>
               </div>
@@ -602,7 +602,7 @@ export default function RevisorIndependienteDeArquitectura() {
       </section>
 
       {/* Contacto */}
-      <section id="contacto-revisor" className="py-16 bg-primary text-white">
+      <section id="contacto-revisor" className="py-16 bg-[#0f172a] text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-4xl font-bold mb-8">CONTACTO INMEDIATO</h2>
           
@@ -616,7 +616,7 @@ export default function RevisorIndependienteDeArquitectura() {
                 <p className="text-2xl font-bold mb-2">+56 9 7931 6827</p>
                 <Button 
                   onClick={openWhatsApp}
-                  className="bg-green-600 hover:bg-green-700 text-white"
+                  className="rounded-lg bg-[#f97316] hover:bg-orange-600 text-white"
                 >
                   Enviar Mensaje
                 </Button>
@@ -654,7 +654,7 @@ export default function RevisorIndependienteDeArquitectura() {
             
             <Button 
               onClick={openWhatsApp}
-              className="bg-accent hover:bg-yellow-600 text-black px-8 py-4 text-lg font-bold"
+              className="rounded-lg bg-[#f97316] hover:bg-orange-600 text-white px-8 py-4 text-lg font-bold"
             >
               Solicitar Revisión Ahora
             </Button>
@@ -663,7 +663,7 @@ export default function RevisorIndependienteDeArquitectura() {
       </section>
 
       {/* Marco Legal */}
-      <section className="py-12 bg-gray-900 text-white">
+      <section className="py-12 bg-[#0f172a] text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8">
             <h3 className="text-2xl font-bold mb-6">⚖️ MARCO LEGAL DE RESPALDO</h3>

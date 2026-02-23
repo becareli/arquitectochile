@@ -9,11 +9,11 @@ export default function ViviendaAutor() {
             <p className="text-xs font-semibold tracking-[0.2em] uppercase text-[#f97316] mb-4">
               Vivienda de Autor
             </p>
-            <h2 className="text-3xl md:text-4xl font-bold text-[#1e293b] mb-6 leading-tight">
+            <h2 className="text-3xl md:text-4xl font-bold text-[#0f172a] mb-6 leading-tight">
               El Diseño que tu Familia Merece
             </h2>
             <p className="text-base text-gray-500 mb-8 leading-relaxed max-w-lg">
-              Creamos espacios que respiran, diseñados bajo tus necesidades y blindados por la normativa vigente. Cada proyecto es único porque cada familia es distinta.
+              Diseño exclusivo con visualización 3D y respaldo técnico total. Tu visión, nuestra maestría técnica.
             </p>
 
             <div className="space-y-5 mb-10">
@@ -25,11 +25,11 @@ export default function ViviendaAutor() {
                 const Icon = item.icon;
                 return (
                   <div key={item.title} className="flex items-start gap-4">
-                    <div className="w-10 h-10 rounded-md border border-gray-200 flex items-center justify-center flex-shrink-0">
-                      <Icon className="w-4 h-4 text-[#1e293b]" strokeWidth={1.5} />
+                    <div className="w-14 h-14 rounded-lg border border-gray-200 flex items-center justify-center flex-shrink-0">
+                      <Icon className="w-7 h-7 text-[#0f172a]" strokeWidth={1.5} />
                     </div>
                     <div>
-                      <h4 className="text-sm font-semibold text-[#1e293b] mb-0.5">{item.title}</h4>
+                      <h4 className="text-sm font-semibold text-[#0f172a] mb-0.5">{item.title}</h4>
                       <p className="text-sm text-gray-500 leading-relaxed">{item.text}</p>
                     </div>
                   </div>
@@ -39,7 +39,7 @@ export default function ViviendaAutor() {
 
             <a
               href="/contacto"
-              className="inline-flex items-center gap-2 bg-[#f97316] text-white px-6 py-3 rounded-md text-sm font-semibold hover:bg-orange-600 transition-colors shadow-lg shadow-orange-500/20"
+              className="inline-flex items-center gap-2 bg-[#f97316] text-white px-6 py-3 rounded-lg text-sm font-semibold hover:bg-orange-600 transition-colors shadow-lg shadow-orange-500/20"
             >
               Solicitar Diagnóstico Técnico
               <ArrowRight className="w-4 h-4" strokeWidth={1.5} />
@@ -53,7 +53,7 @@ export default function ViviendaAutor() {
                   <p className="text-xs font-semibold tracking-[0.15em] uppercase text-[#f97316] mb-2">
                     Método ArquitectoChile
                   </p>
-                  <h3 className="text-lg font-bold text-[#1e293b] mb-1">Diseño con Certeza Técnica</h3>
+                  <h3 className="text-lg font-bold text-[#0f172a] mb-1">Diseño con Certeza Técnica</h3>
                   <p className="text-xs text-gray-400">Proyectos de Arquitectura Integral</p>
                 </div>
                 <p className="text-sm text-gray-500 leading-relaxed">
@@ -66,7 +66,7 @@ export default function ViviendaAutor() {
                     { label: "Experiencia", value: "26+ años" },
                   ].map((stat) => (
                     <div key={stat.label} className="text-center">
-                      <p className="text-lg font-bold text-[#1e293b]">{stat.value}</p>
+                      <p className="text-lg font-bold text-[#0f172a]">{stat.value}</p>
                       <p className="text-[10px] text-gray-400 uppercase tracking-wider">{stat.label}</p>
                     </div>
                   ))}

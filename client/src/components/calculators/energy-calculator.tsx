@@ -93,9 +93,9 @@ export default function EnergyCalculator() {
 
   const barItems = result
     ? [
-        { label: "Muros", value: result.muros, color: "bg-red-500" },
-        { label: "Ventanas", value: result.ventanas, color: "bg-amber-500" },
-        { label: "Techo", value: result.techo, color: "bg-blue-500" },
+        { label: "Muros", value: result.muros, color: "bg-[#f97316]" },
+        { label: "Ventanas", value: result.ventanas, color: "bg-[#0f172a]" },
+        { label: "Techo", value: result.techo, color: "bg-[#64748b]" },
         { label: "Piso", value: result.piso, color: "bg-gray-400" },
       ]
     : [];
@@ -178,7 +178,7 @@ export default function EnergyCalculator() {
               </div>
               <div className="mt-4 pt-3 border-t border-gray-200 flex justify-between items-center">
                 <span className="text-sm font-semibold text-gray-700">Pérdida total estimada</span>
-                <span className={`text-lg font-bold ${totalLoss > 80 ? "text-red-600" : totalLoss > 60 ? "text-amber-600" : "text-green-600"}`}>
+                <span className={`text-lg font-bold ${totalLoss > 80 ? "text-[#f97316]" : totalLoss > 60 ? "text-[#f97316]" : "text-[#0f172a]"}`}>
                   {totalLoss}%
                 </span>
               </div>

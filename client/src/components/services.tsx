@@ -69,7 +69,7 @@ export default function Services() {
           <p className="text-xs font-semibold tracking-[0.2em] uppercase text-[#f97316] mb-3">
             Oficina Técnica de Arquitectura
           </p>
-          <h2 className="text-3xl md:text-4xl font-bold text-[#1e293b] mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-[#0f172a] mb-4">
             Nuestros Servicios
           </h2>
           <p className="text-base text-gray-500 max-w-xl mx-auto">
@@ -86,10 +86,10 @@ export default function Services() {
                 className="bg-white border border-gray-200 rounded-md p-8 flex flex-col hover:border-gray-300 hover:shadow-lg transition-all duration-300"
               >
                 <div className="mb-6">
-                  <div className="w-12 h-12 rounded-md border border-gray-200 flex items-center justify-center mb-5">
-                    <PillarIcon className="w-5 h-5 text-[#1e293b]" strokeWidth={1.5} />
+                  <div className="w-16 h-16 rounded-lg border border-gray-200 flex items-center justify-center mb-5">
+                    <PillarIcon className="w-8 h-8 text-[#0f172a]" strokeWidth={1.5} />
                   </div>
-                  <h3 className="text-xl font-bold text-[#1e293b] mb-2">
+                  <h3 className="text-xl font-bold text-[#0f172a] mb-2">
                     {pillar.title}
                   </h3>
                   {pillar.badge && (
@@ -113,7 +113,7 @@ export default function Services() {
                         >
                           <SvcIcon className="w-4 h-4 flex-shrink-0 text-gray-400" strokeWidth={1.5} />
                           <div className="flex-1 min-w-0">
-                            <span className="text-sm font-medium text-[#1e293b] group-hover:text-[#f97316] block leading-tight transition-colors">
+                            <span className="text-sm font-medium text-[#0f172a] group-hover:text-[#f97316] block leading-tight transition-colors">
                               {svc.title}
                             </span>
                             <span className="text-xs text-gray-400 mt-0.5 block">{svc.price}</span>

@@ -168,7 +168,7 @@ export default function Contact() {
                 className="w-24 h-24 rounded-full border-4 border-white shadow-md object-cover mx-auto"
                 alt="Agustín"
               />
-              <div className="absolute bottom-1 right-1 w-5 h-5 bg-green-500 border-2 border-white rounded-full" />
+              <div className="absolute bottom-1 right-1 w-5 h-5 bg-[#f97316] border-2 border-white rounded-full" />
             </div>
           )}
           <p
@@ -184,11 +184,11 @@ export default function Contact() {
               <button
                 type="button"
                 onClick={() => selectBranch("empresa")}
-                className="p-6 rounded-2xl text-left flex items-center gap-4 border-2 border-gray-200 bg-white transition-all duration-200 hover:border-blue-500 hover:bg-blue-50 hover:scale-[1.02] cursor-pointer"
+                className="p-6 rounded-2xl text-left flex items-center gap-4 border-2 border-gray-200 bg-white transition-all duration-200 hover:border-[#0f172a] hover:bg-slate-50 hover:scale-[1.02] cursor-pointer"
               >
                 <span className="text-3xl">🏢</span>
                 <div>
-                  <b className="block text-blue-800">Empresa / Institución</b>
+                  <b className="block text-[#0f172a]">Empresa / Institución</b>
                   <span className="text-xs text-gray-500">Proyectos corporativos y técnicos</span>
                 </div>
               </button>
@@ -251,7 +251,7 @@ export default function Contact() {
                     key={opt.val}
                     type="button"
                     onClick={() => setBudget(opt.val)}
-                    className="p-4 border rounded-xl hover:bg-blue-50 transition-all cursor-pointer bg-white text-sm font-medium text-gray-700"
+                    className="p-4 border rounded-xl hover:bg-slate-50 transition-all cursor-pointer bg-white text-sm font-medium text-gray-700"
                   >
                     {opt.label}
                   </button>
@@ -276,14 +276,14 @@ export default function Contact() {
                     placeholder="Calle y N° *"
                     value={data.calle}
                     onChange={e => setData(prev => ({ ...prev, calle: e.target.value }))}
-                    className="p-3 bg-gray-50 border rounded-xl w-full outline-none focus:border-blue-500 text-sm"
+                    className="p-3 bg-gray-50 border rounded-xl w-full outline-none focus:border-[#0f172a] text-sm"
                   />
                   <input
                     type="text"
                     placeholder="Comuna *"
                     value={data.comuna}
                     onChange={e => setData(prev => ({ ...prev, comuna: e.target.value }))}
-                    className="p-3 bg-gray-50 border rounded-xl w-full outline-none focus:border-blue-500 text-sm"
+                    className="p-3 bg-gray-50 border rounded-xl w-full outline-none focus:border-[#0f172a] text-sm"
                   />
                 </div>
                 <input
@@ -301,7 +301,7 @@ export default function Contact() {
                 />
 
                 {audioReady && (
-                  <p className="text-xs text-green-600 font-semibold">✅ Audio grabado correctamente</p>
+                  <p className="text-xs text-[#0f172a] font-semibold">✅ Audio grabado correctamente</p>
                 )}
 
                 <div className="flex gap-2">
@@ -309,7 +309,7 @@ export default function Contact() {
                     <button
                       type="button"
                       onClick={startRecording}
-                      className="flex-1 bg-green-500 text-white font-bold py-4 rounded-xl shadow-lg shadow-green-100 flex items-center justify-center gap-2 cursor-pointer transition-all hover:bg-green-600 text-sm border-none"
+                      className="flex-1 bg-[#0f172a] text-white font-bold py-4 rounded-xl shadow-lg shadow-gray-200 flex items-center justify-center gap-2 cursor-pointer transition-all hover:bg-[#1e293b] text-sm border-none"
                     >
                       🎤 {audioReady ? "Grabar de nuevo" : "Grabar Audio"}
                     </button>
@@ -317,7 +317,7 @@ export default function Contact() {
                     <button
                       type="button"
                       onClick={stopRecording}
-                      className="flex-1 bg-red-500 text-white font-bold py-4 rounded-xl flex items-center justify-center gap-2 cursor-pointer animate-pulse text-sm border-none"
+                      className="flex-1 bg-[#f97316] text-white font-bold py-4 rounded-xl flex items-center justify-center gap-2 cursor-pointer animate-pulse text-sm border-none"
                     >
                       ⏹️ Detener
                     </button>
@@ -325,7 +325,7 @@ export default function Contact() {
                   <button
                     type="button"
                     onClick={submitLead}
-                    className="flex-1 bg-blue-600 text-white font-bold py-4 rounded-xl shadow-lg shadow-blue-100 cursor-pointer transition-all hover:bg-blue-700 text-sm border-none"
+                    className="flex-1 bg-[#f97316] text-white font-bold py-4 rounded-xl shadow-lg shadow-orange-100 cursor-pointer transition-all hover:bg-[#ea580c] text-sm border-none"
                   >
                     Enviar Datos
                   </button>
@@ -345,7 +345,7 @@ export default function Contact() {
             <motion.div key="thanks" {...fadeSlide} className="p-8 text-center">
               <img
                 src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=400&auto=format&fit=crop"
-                className="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-blue-600 object-cover"
+                className="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-[#0f172a] object-cover"
                 alt="Patricio Becar"
               />
               <h2 className="text-xl sm:text-2xl font-bold text-gray-800 italic leading-snug">
@@ -372,7 +372,7 @@ export default function Contact() {
               <button
                 type="button"
                 onClick={reset}
-                className="block mt-6 text-blue-600 font-bold text-sm bg-transparent border-none cursor-pointer mx-auto"
+                className="block mt-6 text-[#0f172a] font-bold text-sm bg-transparent border-none cursor-pointer mx-auto"
               >
                 ← Volver a la Web Principal
               </button>

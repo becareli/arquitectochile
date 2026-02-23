@@ -31,11 +31,11 @@ export default function RegularizacionInmuebles() {
   };
 
   return (
-    <section className="py-16 bg-gradient-to-br from-green-50 to-emerald-100">
+    <section className="py-16 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Hero Section */}
         <div className="text-center mb-12">
-          <div className="inline-flex items-center px-4 py-2 bg-green-100 text-green-800 rounded-full text-sm font-semibold mb-4">
+          <div className="inline-flex items-center px-4 py-2 bg-gray-100 text-[#0f172a] rounded-full text-sm font-semibold mb-4">
             <BadgeCheck className="w-4 h-4 mr-2" />
             SERVICIO ESPECIALIZADO
           </div>
@@ -45,7 +45,7 @@ export default function RegularizacionInmuebles() {
           <p className="text-xl text-gray-600 mb-2">
             La solución definitiva para propiedades sin permisos
           </p>
-          <p className="text-lg text-green-700 font-semibold">
+          <p className="text-lg text-[#0f172a] font-semibold">
             Conocida como "Ley del Mono" - Permiso de Edificación + Recepción Final simultáneos
           </p>
         </div>
@@ -66,14 +66,14 @@ export default function RegularizacionInmuebles() {
                 <strong> el Permiso de Edificación y la Recepción Final de forma simultánea</strong>, 
                 ahorrándote tiempo, dinero y dolores de cabeza.
               </p>
-              <p className="text-green-700 font-semibold">
+              <p className="text-[#0f172a] font-semibold">
                 ✓ Ideal para vender tu propiedad al mejor precio del mercado
               </p>
             </div>
           </div>
           
           <Card className="bg-white shadow-xl">
-            <CardHeader className="bg-gradient-to-r from-green-600 to-emerald-600 text-white">
+            <CardHeader className="bg-[#0f172a] text-white">
               <CardTitle className="text-center text-2xl">
                 ¿Por qué elegir nuestro servicio?
               </CardTitle>
@@ -81,26 +81,26 @@ export default function RegularizacionInmuebles() {
             <CardContent className="p-6">
               <div className="space-y-4">
                 <div className="flex items-center space-x-3">
-                  <div className="flex-shrink-0 w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
-                    <CheckCircle className="w-5 h-5 text-green-600" />
+                  <div className="flex-shrink-0 w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center">
+                    <CheckCircle className="w-5 h-5 text-[#f97316]" />
                   </div>
                   <span>Aumenta el valor comercial hasta un 30%</span>
                 </div>
                 <div className="flex items-center space-x-3">
-                  <div className="flex-shrink-0 w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
-                    <CheckCircle className="w-5 h-5 text-green-600" />
+                  <div className="flex-shrink-0 w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center">
+                    <CheckCircle className="w-5 h-5 text-[#f97316]" />
                   </div>
                   <span>Proceso 50% más rápido que métodos tradicionales</span>
                 </div>
                 <div className="flex items-center space-x-3">
-                  <div className="flex-shrink-0 w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
-                    <CheckCircle className="w-5 h-5 text-green-600" />
+                  <div className="flex-shrink-0 w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center">
+                    <CheckCircle className="w-5 h-5 text-[#f97316]" />
                   </div>
                   <span>Experiencia de 26+ años en regularizaciones</span>
                 </div>
                 <div className="flex items-center space-x-3">
-                  <div className="flex-shrink-0 w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
-                    <CheckCircle className="w-5 h-5 text-green-600" />
+                  <div className="flex-shrink-0 w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center">
+                    <CheckCircle className="w-5 h-5 text-[#f97316]" />
                   </div>
                   <span>Gestión profesional de cumplimiento normativo</span>
                 </div>
@@ -116,8 +116,8 @@ export default function RegularizacionInmuebles() {
             return (
               <Card key={index} className="bg-white hover:shadow-lg transition-shadow duration-300">
                 <CardContent className="p-6 text-center">
-                  <div className="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <IconComponent className="w-8 h-8 text-green-600" />
+                  <div className="bg-gray-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <IconComponent className="w-8 h-8 text-[#f97316]" />
                   </div>
                   <h4 className="text-lg font-bold text-gray-900 mb-2">
                     {benefit.title}
@@ -132,7 +132,7 @@ export default function RegularizacionInmuebles() {
         </div>
 
         {/* CTA Section */}
-        <div className="bg-gradient-to-r from-green-600 to-emerald-600 rounded-2xl p-8 text-center text-white">
+        <div className="bg-[#0f172a] rounded-2xl p-8 text-center text-white">
           <h3 className="text-3xl font-bold mb-4">
             ¿Listo para regularizar tu propiedad?
           </h3>
@@ -142,7 +142,7 @@ export default function RegularizacionInmuebles() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <Button 
               onClick={handleContactClick}
-              className="bg-white text-green-600 hover:bg-gray-100 font-semibold px-8 py-3 text-lg"
+              className="bg-[#f97316] text-white hover:bg-orange-600 rounded-lg font-semibold px-8 py-3 text-lg"
             >
               Solicitar Evaluación
             </Button>
@@ -154,7 +154,7 @@ export default function RegularizacionInmuebles() {
                 }
               }}
               variant="outline"
-              className="border-white text-white hover:bg-white hover:text-green-600 font-semibold px-8 py-3 text-lg"
+              className="border-white text-white hover:bg-white hover:text-[#0f172a] rounded-lg font-semibold px-8 py-3 text-lg"
             >
               Más Información
             </Button>

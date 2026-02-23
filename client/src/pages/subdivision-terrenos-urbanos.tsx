@@ -18,7 +18,6 @@ import Chatbot from "@/components/chatbot";
 import Footer from "@/components/footer";
 import Navigation from "@/components/navigation";
 
-// Import generated images for subdivision service
 import subdivisionAerialImg from "@assets/generated_images/Subdivision_aerial_view_technical_de94368c.png";
 import architectConsultationImg from "@assets/generated_images/Architect_consultation_subdivision_process_35d30a54.png";
 import beforeAfterComparisonImg from "@assets/generated_images/Before_after_subdivision_comparison_3d231415.png";
@@ -29,11 +28,9 @@ import happyFamilySuccessImg from "@assets/generated_images/Happy_family_subdivi
 export default function SubdivisionTerrenosUrbanos() {
   const [, setLocation] = useLocation();
 
-  // Scroll to top when component mounts
   useEffect(() => {
     window.scrollTo(0, 0);
 
-    // SEO Schema markup for Subdivision service
     const schema = {
       "@context": "https://schema.org",
       "@type": "Service",
@@ -78,41 +75,26 @@ export default function SubdivisionTerrenosUrbanos() {
     <div className="min-h-screen bg-white">
       <Navigation />
       
-      {/* Hero Section - Gary Halbert Style */}
-      <section className="bg-gradient-to-br from-blue-900 to-indigo-900 text-white py-20">
+      {/* Hero Section */}
+      <section className="bg-[#0f172a] text-white py-20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="mb-8">
-            <Badge className="bg-green-600 text-white mb-4 text-sm font-bold px-4 py-2">
+            <Badge className="bg-[#f97316] text-white mb-4 text-sm font-bold px-4 py-2">
               🏗️ MULTIPLICACIÓN PATRIMONIAL GARANTIZADA
             </Badge>
             
             <div className="relative w-20 h-20 mx-auto mb-6">
-              <MapPin className="w-20 h-20 text-blue-300" />
-              <DollarSign className="w-8 h-8 text-yellow-400 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />
+              <MapPin className="w-20 h-20 text-gray-300" />
+              <DollarSign className="w-8 h-8 text-[#f97316] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />
             </div>
             
-            {/* 1. Titular Principal - Gary Halbert Style - 3 Opciones */}
             <div className="mb-8">
               <h1 className="text-4xl lg:text-6xl font-bold mb-4">
                 🏡➡️🏡🏡 CÓMO CONVERTIR SU TERRENO EN DOS O MÁS PROPIEDADES<br/>
                 Y MULTIPLICAR SU PATRIMONIO
               </h1>
-              
-              {/* Alternativas de titular comentadas */}
-              {/* 
-              <h1 className="text-4xl lg:text-6xl font-bold mb-4">
-                💰 DE 1 TERRENO A MÚLTIPLES PROPIEDADES:<br/>
-                LA FÓRMULA SECRETA PARA DUPLICAR SU PATRIMONIO INMOBILIARIO
-              </h1>
-              
-              <h1 className="text-4xl lg:text-6xl font-bold mb-4">
-                🔓 DESBLOQUEE EL POTENCIAL OCULTO DE SU TERRENO:<br/>
-                MULTIPLIQUE SU VALOR SIN INVERTIR UN PESO ADICIONAL
-              </h1>
-              */}
             </div>
             
-            {/* 2. Sección de Héroe - Russell Brunson Style */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center mb-8">
               <div className="bg-white/10 backdrop-blur-sm rounded-lg p-8">
                 <p className="text-2xl leading-relaxed">
@@ -129,7 +111,7 @@ export default function SubdivisionTerrenosUrbanos() {
                   alt="Vista aérea de subdivisión de terreno urbano"
                   className="rounded-lg shadow-xl"
                 />
-                <div className="absolute -bottom-4 -right-4 bg-green-600 text-white p-3 rounded-lg font-bold text-sm">
+                <div className="absolute -bottom-4 -right-4 bg-[#f97316] text-white p-3 rounded-lg font-bold text-sm">
                   💰 MULTIPLIQUE SU PATRIMONIO
                 </div>
               </div>
@@ -138,70 +120,70 @@ export default function SubdivisionTerrenosUrbanos() {
         </div>
       </section>
 
-      {/* 3. Problema y Agitación - Alex Hormozi Style */}
-      <section className="py-16 bg-red-50">
+      {/* Problema y Agitación */}
+      <section className="py-16 bg-orange-50">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-red-800 mb-6">
+            <h2 className="text-4xl font-bold text-[#0f172a] mb-6">
               ⚠️ SU TERRENO ES "CAPITAL DORMIDO"<br/>
               Y ESTÁ PERDIENDO DINERO CADA DÍA
             </h2>
             
-            <p className="text-xl text-red-700 mb-8">
+            <p className="text-xl text-[#64748b] mb-8">
               Mientras lee esto, su propiedad podría estar generando <strong>doble o triple valor</strong>, 
               pero está bloqueada por la falta de conocimiento técnico.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-            <Card className="border-red-200 bg-white">
+            <Card className="border-orange-200 bg-white">
               <CardContent className="p-6">
                 <div className="flex items-center mb-4">
-                  <AlertTriangle className="w-8 h-8 text-red-600 mr-3" />
-                  <h3 className="text-lg font-bold text-red-800">Riesgos de Hacerlo Solo</h3>
+                  <AlertTriangle className="w-8 h-8 text-[#f97316] mr-3" />
+                  <h3 className="text-lg font-bold text-[#0f172a]">Riesgos de Hacerlo Solo</h3>
                 </div>
                 <ul className="space-y-3 text-gray-700">
                   <li className="flex items-start">
-                    <span className="text-red-500 mr-2">❌</span>
+                    <span className="text-[#f97316] mr-2">❌</span>
                     <span>Perder meses en trámites rechazados por la Dirección de Obras</span>
                   </li>
                   <li className="flex items-start">
-                    <span className="text-red-500 mr-2">❌</span>
+                    <span className="text-[#f97316] mr-2">❌</span>
                     <span>Diseñar una subdivisión que NO maximiza el valor de los lotes</span>
                   </li>
                   <li className="flex items-start">
-                    <span className="text-red-500 mr-2">❌</span>
+                    <span className="text-[#f97316] mr-2">❌</span>
                     <span>Enfrentar costos inesperados de subdivisión "afecta a utilidad pública"</span>
                   </li>
                   <li className="flex items-start">
-                    <span className="text-red-500 mr-2">❌</span>
+                    <span className="text-[#f97316] mr-2">❌</span>
                     <span>Conflictos familiares en herencias por falta de plan claro</span>
                   </li>
                 </ul>
               </CardContent>
             </Card>
 
-            <Card className="border-green-200 bg-green-50">
+            <Card className="border-gray-200 bg-gray-50">
               <CardContent className="p-6">
                 <div className="flex items-center mb-4">
-                  <TrendingUp className="w-8 h-8 text-green-600 mr-3" />
-                  <h3 className="text-lg font-bold text-green-800">El Costo de No Actuar</h3>
+                  <TrendingUp className="w-8 h-8 text-[#0f172a] mr-3" />
+                  <h3 className="text-lg font-bold text-[#0f172a]">El Costo de No Actuar</h3>
                 </div>
                 <ul className="space-y-3 text-gray-700">
                   <li className="flex items-start">
-                    <span className="text-orange-500 mr-2">⏰</span>
+                    <span className="text-[#f97316] mr-2">⏰</span>
                     <span>Cada mes de retraso = Oportunidades de venta perdidas</span>
                   </li>
                   <li className="flex items-start">
-                    <span className="text-orange-500 mr-2">📈</span>
+                    <span className="text-[#f97316] mr-2">📈</span>
                     <span>Plusvalía congelada mientras el mercado sube</span>
                   </li>
                   <li className="flex items-start">
-                    <span className="text-orange-500 mr-2">👨‍👩‍👧‍👦</span>
+                    <span className="text-[#f97316] mr-2">👨‍👩‍👧‍👦</span>
                     <span>Herencia mal planificada genera conflictos familiares</span>
                   </li>
                   <li className="flex items-start">
-                    <span className="text-orange-500 mr-2">💸</span>
+                    <span className="text-[#f97316] mr-2">💸</span>
                     <span>Impuestos territoriales altos por un terreno grande y único</span>
                   </li>
                 </ul>
@@ -211,15 +193,15 @@ export default function SubdivisionTerrenosUrbanos() {
         </div>
       </section>
 
-      {/* 4. La Solución: El Arquitecto como Guía Experto - Vilma Núñez Style */}
-      <section className="py-16 bg-blue-50">
+      {/* La Solución */}
+      <section className="py-16 bg-gray-50">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-blue-800 mb-6">
+            <h2 className="text-4xl font-bold text-[#0f172a] mb-6">
               💡 LA SOLUCIÓN: SU ARQUITECTO COMO GUÍA EXPERTO
             </h2>
             
-            <p className="text-xl text-blue-700 mb-8">
+            <p className="text-xl text-[#64748b] mb-8">
               No vendemos "trámites"... <strong>Vendemos un proyecto de inversión guiado por un experto</strong> 
               que transforma su potencial bloqueado en patrimonio multiplicado.
             </p>
@@ -228,25 +210,25 @@ export default function SubdivisionTerrenosUrbanos() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
             <Card className="text-center">
               <CardContent className="p-6">
-                <Building2 className="w-16 h-16 text-blue-600 mx-auto mb-4" />
+                <Building2 className="w-16 h-16 text-[#0f172a] mx-auto mb-4" />
                 <h3 className="text-lg font-bold mb-2">Estado Actual</h3>
-                <p className="text-gray-600">1 terreno grande<br/>Potencial bloqueado<br/>Capital dormido</p>
+                <p className="text-[#64748b]">1 terreno grande<br/>Potencial bloqueado<br/>Capital dormido</p>
               </CardContent>
             </Card>
 
-            <Card className="text-center bg-green-50 border-green-200">
+            <Card className="text-center bg-gray-50 border-gray-200">
               <CardContent className="p-6">
-                <ArrowRight className="w-16 h-16 text-green-600 mx-auto mb-4" />
-                <h3 className="text-lg font-bold mb-2 text-green-800">Nuestro Proceso</h3>
-                <p className="text-green-700">Análisis experto<br/>Diseño estratégico<br/>Gestión municipal</p>
+                <ArrowRight className="w-16 h-16 text-[#f97316] mx-auto mb-4" />
+                <h3 className="text-lg font-bold mb-2 text-[#0f172a]">Nuestro Proceso</h3>
+                <p className="text-gray-600">Análisis experto<br/>Diseño estratégico<br/>Gestión municipal</p>
               </CardContent>
             </Card>
 
             <Card className="text-center">
               <CardContent className="p-6">
-                <Home className="w-16 h-16 text-yellow-600 mx-auto mb-4" />
+                <Home className="w-16 h-16 text-[#f97316] mx-auto mb-4" />
                 <h3 className="text-lg font-bold mb-2">Estado Deseado</h3>
-                <p className="text-gray-600">2+ propiedades<br/>Patrimonio multiplicado<br/>Capital liberado</p>
+                <p className="text-[#64748b]">2+ propiedades<br/>Patrimonio multiplicado<br/>Capital liberado</p>
               </CardContent>
             </Card>
           </div>
@@ -257,19 +239,19 @@ export default function SubdivisionTerrenosUrbanos() {
               <div>
                 <h4 className="font-bold text-lg mb-3">✅ Lo Que SÍ Obtiene Con Nosotros:</h4>
                 <ul className="space-y-2">
-                  <li className="flex items-center"><CheckCircle className="w-5 h-5 text-green-500 mr-2" />Análisis de máximo aprovechamiento del terreno</li>
-                  <li className="flex items-center"><CheckCircle className="w-5 h-5 text-green-500 mr-2" />Diseño que maximiza el valor de cada lote</li>
-                  <li className="flex items-center"><CheckCircle className="w-5 h-5 text-green-500 mr-2" />Gestión municipal especializada</li>
-                  <li className="flex items-center"><CheckCircle className="w-5 h-5 text-green-500 mr-2" />Acompañamiento hasta la inscripción final</li>
+                  <li className="flex items-center"><CheckCircle className="w-5 h-5 text-[#0f172a] mr-2" />Análisis de máximo aprovechamiento del terreno</li>
+                  <li className="flex items-center"><CheckCircle className="w-5 h-5 text-[#0f172a] mr-2" />Diseño que maximiza el valor de cada lote</li>
+                  <li className="flex items-center"><CheckCircle className="w-5 h-5 text-[#0f172a] mr-2" />Gestión municipal especializada</li>
+                  <li className="flex items-center"><CheckCircle className="w-5 h-5 text-[#0f172a] mr-2" />Acompañamiento hasta la inscripción final</li>
                 </ul>
               </div>
               <div>
                 <h4 className="font-bold text-lg mb-3">🎯 Especialización Técnica:</h4>
                 <ul className="space-y-2">
-                  <li className="flex items-center"><Star className="w-5 h-5 text-yellow-500 mr-2" />Manejo de CIP y superficie predial mínima</li>
-                  <li className="flex items-center"><Star className="w-5 h-5 text-yellow-500 mr-2" />Subdivisiones normales y afectas a utilidad pública</li>
-                  <li className="flex items-center"><Star className="w-5 h-5 text-yellow-500 mr-2" />Soluciones especializadas para herencias</li>
-                  <li className="flex items-center"><Star className="w-5 h-5 text-yellow-500 mr-2" />Optimización de costos municipales</li>
+                  <li className="flex items-center"><Star className="w-5 h-5 text-[#f97316] mr-2" />Manejo de CIP y superficie predial mínima</li>
+                  <li className="flex items-center"><Star className="w-5 h-5 text-[#f97316] mr-2" />Subdivisiones normales y afectas a utilidad pública</li>
+                  <li className="flex items-center"><Star className="w-5 h-5 text-[#f97316] mr-2" />Soluciones especializadas para herencias</li>
+                  <li className="flex items-center"><Star className="w-5 h-5 text-[#f97316] mr-2" />Optimización de costos municipales</li>
                 </ul>
               </div>
               <div className="flex flex-col items-center">
@@ -278,7 +260,7 @@ export default function SubdivisionTerrenosUrbanos() {
                   alt="Consulta profesional de arquitecto para subdivisión"
                   className="rounded-lg shadow-md mb-3 w-full"
                 />
-                <p className="text-sm text-center text-gray-600 font-medium">
+                <p className="text-sm text-center text-[#64748b] font-medium">
                   Consulta personalizada en su terreno
                 </p>
               </div>
@@ -287,29 +269,29 @@ export default function SubdivisionTerrenosUrbanos() {
         </div>
       </section>
 
-      {/* 5. Los Dos Caminos de la Subdivisión - Russell Brunson Style */}
+      {/* Los Dos Caminos de la Subdivisión */}
       <section className="py-16 bg-gray-50">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-gray-800 mb-6">
+            <h2 className="text-4xl font-bold text-[#0f172a] mb-6">
               🛤️ LOS DOS CAMINOS DE LA SUBDIVISIÓN
             </h2>
-            <p className="text-xl text-gray-600">
+            <p className="text-xl text-[#64748b]">
               Como expertos, dominamos <strong>todos los escenarios</strong> para maximizar su inversión
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <Card className="border-blue-200">
-              <CardHeader className="bg-blue-50">
-                <CardTitle className="text-center text-blue-800">
+            <Card className="border-gray-200">
+              <CardHeader className="bg-gray-50">
+                <CardTitle className="text-center text-[#0f172a]">
                   <Calculator className="w-8 h-8 mx-auto mb-2" />
                   SUBDIVISIÓN NORMAL
                 </CardTitle>
               </CardHeader>
               <CardContent className="p-6">
                 <div className="mb-4">
-                  <h4 className="font-bold text-green-600 mb-2">✅ Ideal Para:</h4>
+                  <h4 className="font-bold text-[#0f172a] mb-2">✅ Ideal Para:</h4>
                   <ul className="space-y-1 text-sm">
                     <li>• Terrenos con acceso a servicios básicos</li>
                     <li>• Proyectos de hasta 4-5 lotes</li>
@@ -317,29 +299,29 @@ export default function SubdivisionTerrenosUrbanos() {
                   </ul>
                 </div>
                 <div className="mb-4">
-                  <h4 className="font-bold text-blue-600 mb-2">📋 Proceso:</h4>
+                  <h4 className="font-bold text-[#0f172a] mb-2">📋 Proceso:</h4>
                   <ul className="space-y-1 text-sm">
                     <li>• Diseño según CIP municipal</li>
                     <li>• Aprobación en Dirección de Obras</li>
                     <li>• Pago de derechos e inscripción</li>
                   </ul>
                 </div>
-                <div className="bg-green-100 p-3 rounded">
-                  <p className="text-sm font-bold text-green-800">⚡ Proceso más rápido y económico</p>
+                <div className="bg-gray-100 p-3 rounded">
+                  <p className="text-sm font-bold text-[#0f172a]">⚡ Proceso más rápido y económico</p>
                 </div>
               </CardContent>
             </Card>
 
             <Card className="border-orange-200">
               <CardHeader className="bg-orange-50">
-                <CardTitle className="text-center text-orange-800">
+                <CardTitle className="text-center text-[#0f172a]">
                   <Building2 className="w-8 h-8 mx-auto mb-2" />
                   SUBDIVISIÓN AFECTA A UTILIDAD PÚBLICA
                 </CardTitle>
               </CardHeader>
               <CardContent className="p-6">
                 <div className="mb-4">
-                  <h4 className="font-bold text-green-600 mb-2">✅ Ideal Para:</h4>
+                  <h4 className="font-bold text-[#0f172a] mb-2">✅ Ideal Para:</h4>
                   <ul className="space-y-1 text-sm">
                     <li>• Terrenos grandes (5+ lotes)</li>
                     <li>• Proyectos inmobiliarios complejos</li>
@@ -347,7 +329,7 @@ export default function SubdivisionTerrenosUrbanos() {
                   </ul>
                 </div>
                 <div className="mb-4">
-                  <h4 className="font-bold text-orange-600 mb-2">📋 Proceso:</h4>
+                  <h4 className="font-bold text-[#f97316] mb-2">📋 Proceso:</h4>
                   <ul className="space-y-1 text-sm">
                     <li>• Proyecto de urbanización completo</li>
                     <li>• Cesión de terrenos para áreas verdes</li>
@@ -355,7 +337,7 @@ export default function SubdivisionTerrenosUrbanos() {
                   </ul>
                 </div>
                 <div className="bg-orange-100 p-3 rounded">
-                  <p className="text-sm font-bold text-orange-800">⚡ Mayor inversión, mayor rentabilidad</p>
+                  <p className="text-sm font-bold text-[#0f172a]">⚡ Mayor inversión, mayor rentabilidad</p>
                 </div>
               </CardContent>
             </Card>
@@ -363,11 +345,11 @@ export default function SubdivisionTerrenosUrbanos() {
 
           <div className="text-center mt-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-center">
-              <div className="bg-yellow-100 border border-yellow-300 rounded-lg p-6">
-                <h3 className="font-bold text-lg text-yellow-800 mb-2">
+              <div className="bg-orange-50 border border-orange-200 rounded-lg p-6">
+                <h3 className="font-bold text-lg text-[#0f172a] mb-2">
                   🎯 Nuestra Ventaja Competitiva
                 </h3>
-                <p className="text-yellow-700">
+                <p className="text-[#64748b]">
                   <strong>Evaluamos su terreno</strong> y le recomendamos el camino más rentable. 
                   No todos los arquitectos manejan ambos tipos de subdivisión.
                 </p>
@@ -378,7 +360,7 @@ export default function SubdivisionTerrenosUrbanos() {
                   alt="Comparación antes y después de subdivisión"
                   className="rounded-lg shadow-lg"
                 />
-                <div className="absolute -top-3 -left-3 bg-blue-600 text-white p-2 rounded-lg font-bold text-xs">
+                <div className="absolute -top-3 -left-3 bg-[#0f172a] text-white p-2 rounded-lg font-bold text-xs">
                   ANTES ➡️ DESPUÉS
                 </div>
               </div>
@@ -387,34 +369,34 @@ export default function SubdivisionTerrenosUrbanos() {
         </div>
       </section>
 
-      {/* 6. Nuestro Proceso Paso a Paso - Vilma Núñez Style */}
+      {/* Nuestro Proceso Paso a Paso */}
       <section className="py-16 bg-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-gray-800 mb-6">
+            <h2 className="text-4xl font-bold text-[#0f172a] mb-6">
               📋 NUESTRO PROCESO PASO A PASO
             </h2>
-            <p className="text-xl text-gray-600">
+            <p className="text-xl text-[#64748b]">
               Transformamos la complejidad en un proceso simple y manejable
             </p>
           </div>
 
           <div className="space-y-8">
             <div className="flex items-start">
-              <div className="flex-shrink-0 w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold text-xl mr-6">
+              <div className="flex-shrink-0 w-12 h-12 bg-[#0f172a] text-white rounded-full flex items-center justify-center font-bold text-xl mr-6">
                 1
               </div>
               <div className="flex-grow">
-                <h3 className="text-xl font-bold text-blue-800 mb-2">
+                <h3 className="text-xl font-bold text-[#0f172a] mb-2">
                   <FileText className="inline w-6 h-6 mr-2" />
                   Diagnóstico y Estudio de Cabida
                 </h3>
-                <p className="text-gray-600 mb-3">
+                <p className="text-[#64748b] mb-3">
                   Analizamos su CIP municipal y evaluamos el terreno para determinar la máxima cantidad de lotes posibles 
                   respetando la superficie predial mínima.
                 </p>
-                <div className="bg-blue-50 p-3 rounded">
-                  <p className="text-sm font-bold text-blue-700">
+                <div className="bg-gray-50 p-3 rounded">
+                  <p className="text-sm font-bold text-[#0f172a]">
                     📄 Documentos necesarios: Plano del terreno + CIP vigente
                   </p>
                 </div>
@@ -422,20 +404,20 @@ export default function SubdivisionTerrenosUrbanos() {
             </div>
 
             <div className="flex items-start">
-              <div className="flex-shrink-0 w-12 h-12 bg-green-600 text-white rounded-full flex items-center justify-center font-bold text-xl mr-6">
+              <div className="flex-shrink-0 w-12 h-12 bg-[#0f172a] text-white rounded-full flex items-center justify-center font-bold text-xl mr-6">
                 2
               </div>
               <div className="flex-grow">
-                <h3 className="text-xl font-bold text-green-800 mb-2">
+                <h3 className="text-xl font-bold text-[#0f172a] mb-2">
                   <Target className="inline w-6 h-6 mr-2" />
                   Diseño del Proyecto de Subdivisión
                 </h3>
-                <p className="text-gray-600 mb-3">
+                <p className="text-[#64748b] mb-3">
                   Creamos el proyecto técnico optimizando la configuración de lotes para maximizar valor y cumplir 
                   todas las normativas municipales.
                 </p>
-                <div className="bg-green-50 p-3 rounded">
-                  <p className="text-sm font-bold text-green-700">
+                <div className="bg-gray-50 p-3 rounded">
+                  <p className="text-sm font-bold text-[#0f172a]">
                     🎯 Incluye: Planos técnicos + Memoria de cálculo + Especificaciones
                   </p>
                 </div>
@@ -443,20 +425,20 @@ export default function SubdivisionTerrenosUrbanos() {
             </div>
 
             <div className="flex items-start">
-              <div className="flex-shrink-0 w-12 h-12 bg-orange-600 text-white rounded-full flex items-center justify-center font-bold text-xl mr-6">
+              <div className="flex-shrink-0 w-12 h-12 bg-[#f97316] text-white rounded-full flex items-center justify-center font-bold text-xl mr-6">
                 3
               </div>
               <div className="flex-grow">
-                <h3 className="text-xl font-bold text-orange-800 mb-2">
+                <h3 className="text-xl font-bold text-[#0f172a] mb-2">
                   <Building2 className="inline w-6 h-6 mr-2" />
                   Gestión Municipal Especializada
                 </h3>
-                <p className="text-gray-600 mb-3">
+                <p className="text-[#64748b] mb-3">
                   Ingresamos y gestionamos el proyecto en la Dirección de Obras Municipal, realizando seguimiento 
                   hasta obtener la aprobación final.
                 </p>
                 <div className="bg-orange-50 p-3 rounded">
-                  <p className="text-sm font-bold text-orange-700">
+                  <p className="text-sm font-bold text-[#0f172a]">
                     ⚡ Seguimiento semanal + Resolución de observaciones técnicas
                   </p>
                 </div>
@@ -464,20 +446,20 @@ export default function SubdivisionTerrenosUrbanos() {
             </div>
 
             <div className="flex items-start">
-              <div className="flex-shrink-0 w-12 h-12 bg-purple-600 text-white rounded-full flex items-center justify-center font-bold text-xl mr-6">
+              <div className="flex-shrink-0 w-12 h-12 bg-[#0f172a] text-white rounded-full flex items-center justify-center font-bold text-xl mr-6">
                 4
               </div>
               <div className="flex-grow">
-                <h3 className="text-xl font-bold text-purple-800 mb-2">
+                <h3 className="text-xl font-bold text-[#0f172a] mb-2">
                   <CheckCircle className="inline w-6 h-6 mr-2" />
                   Aprobación y Trámites Finales
                 </h3>
-                <p className="text-gray-600 mb-3">
+                <p className="text-[#64748b] mb-3">
                   Le guiamos en el pago de derechos municipales y la inscripción en el Conservador de Bienes Raíces 
                   para materializar las nuevas propiedades.
                 </p>
-                <div className="bg-purple-50 p-3 rounded">
-                  <p className="text-sm font-bold text-purple-700">
+                <div className="bg-gray-50 p-3 rounded">
+                  <p className="text-sm font-bold text-[#0f172a]">
                     🎉 Resultado: Nuevos roles de propiedad listos para venta o construcción
                   </p>
                 </div>
@@ -487,7 +469,7 @@ export default function SubdivisionTerrenosUrbanos() {
 
           <div className="text-center mt-12">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-              <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg p-8">
+              <div className="bg-[#0f172a] text-white rounded-lg p-8">
                 <h3 className="text-2xl font-bold mb-4">
                   ⏰ Tiempo Total del Proceso
                 </h3>
@@ -508,7 +490,7 @@ export default function SubdivisionTerrenosUrbanos() {
                   alt="Proceso de aprobación municipal de permisos"
                   className="rounded-lg shadow-lg"
                 />
-                <div className="absolute -bottom-3 -right-3 bg-green-600 text-white p-2 rounded-lg font-bold text-xs">
+                <div className="absolute -bottom-3 -right-3 bg-[#f97316] text-white p-2 rounded-lg font-bold text-xs">
                   ✅ GESTIÓN MUNICIPAL
                 </div>
               </div>
@@ -517,11 +499,11 @@ export default function SubdivisionTerrenosUrbanos() {
         </div>
       </section>
 
-      {/* 7. Mención Especial: Soluciones para Herencias - Vilma Núñez Style */}
+      {/* Soluciones para Herencias */}
       <section className="py-16 bg-amber-50">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold text-amber-800 mb-4">
+            <h2 className="text-3xl font-bold text-[#0f172a] mb-4">
               👨‍👩‍👧‍👦 SOLUCIONES ESPECIALES PARA HERENCIAS
             </h2>
           </div>
@@ -532,7 +514,7 @@ export default function SubdivisionTerrenosUrbanos() {
                 <div className="flex items-start">
                   <Users className="w-12 h-12 text-amber-600 mr-4 flex-shrink-0" />
                   <div>
-                    <h3 className="text-xl font-bold text-amber-800 mb-3">
+                    <h3 className="text-xl font-bold text-[#0f172a] mb-3">
                       Entendemos que Gestionar una Herencia es Complejo
                     </h3>
                     <p className="text-gray-700 text-lg leading-relaxed">
@@ -556,44 +538,44 @@ export default function SubdivisionTerrenosUrbanos() {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="bg-amber-50 p-6 rounded-lg">
-                  <h4 className="font-bold text-amber-800 mb-3">🤝 Facilitamos el Acuerdo Familiar</h4>
+                  <h4 className="font-bold text-[#0f172a] mb-3">🤝 Facilitamos el Acuerdo Familiar</h4>
                   <ul className="space-y-2 text-sm">
                     <li className="flex items-start">
-                      <CheckCircle className="w-4 h-4 text-green-500 mr-2 mt-0.5" />
+                      <CheckCircle className="w-4 h-4 text-[#0f172a] mr-2 mt-0.5" />
                       Reunión familiar para explicar el proceso técnico
                     </li>
                     <li className="flex items-start">
-                      <CheckCircle className="w-4 h-4 text-green-500 mr-2 mt-0.5" />
+                      <CheckCircle className="w-4 h-4 text-[#0f172a] mr-2 mt-0.5" />
                       Asesoría para designación de representante legal
                     </li>
                     <li className="flex items-start">
-                      <CheckCircle className="w-4 h-4 text-green-500 mr-2 mt-0.5" />
+                      <CheckCircle className="w-4 h-4 text-[#0f172a] mr-2 mt-0.5" />
                       Propuesta de división que beneficie a todos
                     </li>
                   </ul>
                 </div>
 
-                <div className="bg-blue-50 p-6 rounded-lg">
-                  <h4 className="font-bold text-blue-800 mb-3">📋 Requisitos Especiales</h4>
+                <div className="bg-gray-50 p-6 rounded-lg">
+                  <h4 className="font-bold text-[#0f172a] mb-3">📋 Requisitos Especiales</h4>
                   <ul className="space-y-2 text-sm">
                     <li className="flex items-start">
-                      <FileText className="w-4 h-4 text-blue-500 mr-2 mt-0.5" />
+                      <FileText className="w-4 h-4 text-[#0f172a] mr-2 mt-0.5" />
                       Posesión efectiva al día
                     </li>
                     <li className="flex items-start">
-                      <FileText className="w-4 h-4 text-blue-500 mr-2 mt-0.5" />
+                      <FileText className="w-4 h-4 text-[#0f172a] mr-2 mt-0.5" />
                       Mandato firmado por todos los herederos
                     </li>
                     <li className="flex items-start">
-                      <FileText className="w-4 h-4 text-blue-500 mr-2 mt-0.5" />
+                      <FileText className="w-4 h-4 text-[#0f172a] mr-2 mt-0.5" />
                       Acuerdo sobre el representante técnico
                     </li>
                   </ul>
                 </div>
               </div>
 
-              <div className="mt-6 p-4 bg-green-100 border border-green-300 rounded-lg">
-                <p className="text-green-800 font-bold text-center">
+              <div className="mt-6 p-4 bg-gray-100 border border-gray-200 rounded-lg">
+                <p className="text-[#0f172a] font-bold text-center">
                   💡 "Transformamos conflictos familiares en oportunidades de crecimiento patrimonial conjunto"
                 </p>
               </div>
@@ -602,8 +584,8 @@ export default function SubdivisionTerrenosUrbanos() {
         </div>
       </section>
 
-      {/* 8. Llamada a la Acción Principal */}
-      <section className="py-16 bg-gradient-to-br from-blue-600 to-purple-600 text-white">
+      {/* Llamada a la Acción Principal */}
+      <section className="py-16 bg-[#0f172a] text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-4xl font-bold mb-6">
             🚀 SOLICITE SU ESTUDIO DE SUBDIVISIÓN
@@ -615,10 +597,10 @@ export default function SubdivisionTerrenosUrbanos() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
             <Card className="bg-white text-gray-800">
               <CardContent className="p-6 text-center">
-                <Phone className="w-12 h-12 text-green-600 mx-auto mb-4" />
+                <Phone className="w-12 h-12 text-[#f97316] mx-auto mb-4" />
                 <h3 className="font-bold text-lg mb-2">Consulta Inmediata</h3>
                 <p className="text-sm mb-4">Hable directamente con el arquitecto</p>
-                <Button onClick={openWhatsApp} className="w-full bg-green-600 hover:bg-green-700">
+                <Button onClick={openWhatsApp} className="w-full bg-[#f97316] hover:bg-orange-600 rounded-lg">
                   <Phone className="mr-2 h-4 w-4" />
                   WhatsApp: +56 9 7931 6827
                 </Button>
@@ -627,10 +609,10 @@ export default function SubdivisionTerrenosUrbanos() {
 
             <Card className="bg-white text-gray-800">
               <CardContent className="p-6 text-center">
-                <Mail className="w-12 h-12 text-blue-600 mx-auto mb-4" />
+                <Mail className="w-12 h-12 text-[#0f172a] mx-auto mb-4" />
                 <h3 className="font-bold text-lg mb-2">Consulta Detallada</h3>
                 <p className="text-sm mb-4">Formulario completo en página principal</p>
-                <Button onClick={scrollToContact} variant="outline" className="w-full">
+                <Button onClick={scrollToContact} variant="outline" className="w-full rounded-lg">
                   <Mail className="mr-2 h-4 w-4" />
                   Formulario de Contacto
                 </Button>
@@ -664,7 +646,7 @@ export default function SubdivisionTerrenosUrbanos() {
                 alt="Familia feliz con proyecto de subdivisión exitoso"
                 className="rounded-lg shadow-lg"
               />
-              <div className="absolute -bottom-3 -right-3 bg-yellow-500 text-black p-2 rounded-lg font-bold text-xs">
+              <div className="absolute -bottom-3 -right-3 bg-[#f97316] text-black p-2 rounded-lg font-bold text-xs">
                 ✨ SU FUTURO EXITOSO
               </div>
             </div>
@@ -672,24 +654,24 @@ export default function SubdivisionTerrenosUrbanos() {
         </div>
       </section>
 
-      {/* 9. Preguntas Frecuentes - Hormozi/Núñez Style */}
+      {/* Preguntas Frecuentes */}
       <section className="py-16 bg-gray-50">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-gray-800 mb-4">
+            <h2 className="text-4xl font-bold text-[#0f172a] mb-4">
               ❓ PREGUNTAS FRECUENTES
             </h2>
-            <p className="text-xl text-gray-600">
+            <p className="text-xl text-[#64748b]">
               Eliminamos todas sus dudas sobre el proceso de subdivisión
             </p>
           </div>
 
           <Accordion type="single" collapsible className="w-full space-y-4">
             <AccordionItem value="item-1" className="bg-white rounded-lg border border-gray-200 px-6">
-              <AccordionTrigger className="text-left font-bold text-blue-800 hover:text-blue-600 py-6">
+              <AccordionTrigger className="text-left font-bold text-[#0f172a] hover:text-[#0f172a] py-6">
                 ¿Qué es la "superficie predial mínima" y por qué es tan importante?
               </AccordionTrigger>
-              <AccordionContent className="text-gray-600 pb-6">
+              <AccordionContent className="text-[#64748b] pb-6">
                 La superficie predial mínima es el tamaño mínimo que debe tener cada lote según la normativa municipal. 
                 Está definida en el CIP y determina cuántos lotes se pueden crear. <strong>Es crucial respetarla</strong> 
                 porque una subdivisión que no la cumpla será rechazada automáticamente por la Dirección de Obras.
@@ -697,10 +679,10 @@ export default function SubdivisionTerrenosUrbanos() {
             </AccordionItem>
 
             <AccordionItem value="item-2" className="bg-white rounded-lg border border-gray-200 px-6">
-              <AccordionTrigger className="text-left font-bold text-blue-800 hover:text-blue-600 py-6">
+              <AccordionTrigger className="text-left font-bold text-[#0f172a] hover:text-[#0f172a] py-6">
                 ¿Cuánto tiempo tarda todo el proceso de subdivisión?
               </AccordionTrigger>
-              <AccordionContent className="text-gray-600 pb-6">
+              <AccordionContent className="text-[#64748b] pb-6">
                 <strong>Subdivisión Normal:</strong> 3-4 meses desde el diseño hasta la inscripción final.
                 <br/>
                 <strong>Subdivisión Afecta a Utilidad Pública:</strong> 6-8 meses debido a la complejidad del proyecto de urbanización.
@@ -710,10 +692,10 @@ export default function SubdivisionTerrenosUrbanos() {
             </AccordionItem>
 
             <AccordionItem value="item-3" className="bg-white rounded-lg border border-gray-200 px-6">
-              <AccordionTrigger className="text-left font-bold text-blue-800 hover:text-blue-600 py-6">
+              <AccordionTrigger className="text-left font-bold text-[#0f172a] hover:text-[#0f172a] py-6">
                 ¿Qué costos debo considerar además de sus honorarios?
               </AccordionTrigger>
-              <AccordionContent className="text-gray-600 pb-6">
+              <AccordionContent className="text-[#64748b] pb-6">
                 <strong>Costos adicionales típicos:</strong>
                 <br/>• Derechos municipales (variable según la comuna)
                 <br/>• Inscripción en el Conservador de Bienes Raíces
@@ -725,10 +707,10 @@ export default function SubdivisionTerrenosUrbanos() {
             </AccordionItem>
 
             <AccordionItem value="item-4" className="bg-white rounded-lg border border-gray-200 px-6">
-              <AccordionTrigger className="text-left font-bold text-blue-800 hover:text-blue-600 py-6">
+              <AccordionTrigger className="text-left font-bold text-[#0f172a] hover:text-[#0f172a] py-6">
                 ¿Puedo subdividir si tengo una construcción en el terreno?
               </AccordionTrigger>
-              <AccordionContent className="text-gray-600 pb-6">
+              <AccordionContent className="text-[#64748b] pb-6">
                 <strong>Sí, es posible</strong>, pero requiere consideraciones especiales:
                 <br/>• La construcción debe quedar completamente dentro de uno de los lotes resultantes
                 <br/>• Debe cumplir con las distanciamientos mínimos a los nuevos deslindes
@@ -739,10 +721,10 @@ export default function SubdivisionTerrenosUrbanos() {
             </AccordionItem>
 
             <AccordionItem value="item-5" className="bg-white rounded-lg border border-gray-200 px-6">
-              <AccordionTrigger className="text-left font-bold text-blue-800 hover:text-blue-600 py-6">
+              <AccordionTrigger className="text-left font-bold text-[#0f172a] hover:text-[#0f172a] py-6">
                 ¿Necesito contratar un topógrafo por separado?
               </AccordionTrigger>
-              <AccordionContent className="text-gray-600 pb-6">
+              <AccordionContent className="text-[#64748b] pb-6">
                 No necesariamente. En muchos casos, <strong>el plano existente es suficiente</strong> para iniciar el proceso. 
                 Solo recomendamos topografía nueva cuando:
                 <br/>• El plano tiene más de 5 años de antigüedad
@@ -754,10 +736,10 @@ export default function SubdivisionTerrenosUrbanos() {
             </AccordionItem>
 
             <AccordionItem value="item-6" className="bg-white rounded-lg border border-gray-200 px-6">
-              <AccordionTrigger className="text-left font-bold text-blue-800 hover:text-blue-600 py-6">
+              <AccordionTrigger className="text-left font-bold text-[#0f172a] hover:text-[#0f172a] py-6">
                 ¿Qué documentos necesito para comenzar el proceso?
               </AccordionTrigger>
-              <AccordionContent className="text-gray-600 pb-6">
+              <AccordionContent className="text-[#64748b] pb-6">
                 <strong>Documentos esenciales:</strong>
                 <br/>• Plano del terreno (preferiblemente actualizado)
                 <br/>• Certificado de Informes Previos (CIP) vigente

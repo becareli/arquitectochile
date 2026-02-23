@@ -78,9 +78,9 @@ export default function RegularizacionInmuebles() {
       <Navigation />
       
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-[hsl(210,15%,30%)] to-[hsl(210,15%,25%)] text-white py-24">
+      <section className="relative bg-[#0f172a] text-white py-24">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <Badge className="bg-[hsl(14,70%,50%)] text-white mb-6 text-sm font-semibold px-6 py-2">
+          <Badge className="bg-[#f97316] text-white mb-6 text-sm font-semibold px-6 py-2">
             <BadgeCheck className="inline h-4 w-4 mr-2" />
             LEY DEL MONO
           </Badge>
@@ -103,7 +103,7 @@ export default function RegularizacionInmuebles() {
           <Button 
             onClick={openCotizacionForm}
             size="lg" 
-            className="bg-[hsl(14,70%,50%)] hover:bg-[hsl(14,70%,45%)] text-white text-xl px-10 py-6 font-bold shadow-xl"
+            className="bg-[#f97316] hover:bg-orange-600 text-white text-xl px-10 py-6 font-bold shadow-xl rounded-lg"
             data-testid="button-cotizar-hero"
           >
             <FileText className="mr-3 h-6 w-6" />
@@ -116,10 +116,10 @@ export default function RegularizacionInmuebles() {
       <section className="py-20 bg-gray-50">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="font-serif text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
+            <h2 className="font-serif text-4xl lg:text-5xl font-bold text-[#0f172a] mb-6">
               ¿Tienes una Propiedad sin Permisos?
             </h2>
-            <p className="text-xl text-gray-700 max-w-3xl mx-auto">
+            <p className="text-xl text-[#64748b] max-w-3xl mx-auto">
               Miles de propiedades en Chile fueron construidas o ampliadas sin los permisos correspondientes. 
               Esto genera problemas legales, impide la venta y reduce el valor comercial.
             </p>
@@ -128,11 +128,11 @@ export default function RegularizacionInmuebles() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <Card className="bg-white shadow-xl">
               <CardHeader className="text-center pb-4">
-                <AlertTriangle className="w-16 h-16 text-red-500 mx-auto mb-4" />
-                <CardTitle className="text-2xl font-bold text-gray-900">Problema Legal</CardTitle>
+                <AlertTriangle className="w-16 h-16 text-[#f97316] mx-auto mb-4" />
+                <CardTitle className="text-2xl font-bold text-[#0f172a]">Problema Legal</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-gray-600 text-center">
+                <p className="text-[#64748b] text-center">
                   Propiedad irregular ante la DOM. Riesgo de multas y complicaciones legales.
                 </p>
               </CardContent>
@@ -140,11 +140,11 @@ export default function RegularizacionInmuebles() {
 
             <Card className="bg-white shadow-xl">
               <CardHeader className="text-center pb-4">
-                <DollarSign className="w-16 h-16 text-orange-500 mx-auto mb-4" />
-                <CardTitle className="text-2xl font-bold text-gray-900">Valor Reducido</CardTitle>
+                <DollarSign className="w-16 h-16 text-[#f97316] mx-auto mb-4" />
+                <CardTitle className="text-2xl font-bold text-[#0f172a]">Valor Reducido</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-gray-600 text-center">
+                <p className="text-[#64748b] text-center">
                   Imposible vender a precio justo sin regularización. Pérdida de valor patrimonial.
                 </p>
               </CardContent>
@@ -152,11 +152,11 @@ export default function RegularizacionInmuebles() {
 
             <Card className="bg-white shadow-xl">
               <CardHeader className="text-center pb-4">
-                <Building className="w-16 h-16 text-blue-500 mx-auto mb-4" />
-                <CardTitle className="text-2xl font-bold text-gray-900">Bloqueo Comercial</CardTitle>
+                <Building className="w-16 h-16 text-[#0f172a] mx-auto mb-4" />
+                <CardTitle className="text-2xl font-bold text-[#0f172a]">Bloqueo Comercial</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-gray-600 text-center">
+                <p className="text-[#64748b] text-center">
                   Bancos no financian propiedades irregulares. Venta restringida a compradores con pago al contado.
                 </p>
               </CardContent>
@@ -169,21 +169,21 @@ export default function RegularizacionInmuebles() {
       <section className="py-20 bg-white">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="font-serif text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
+            <h2 className="font-serif text-4xl lg:text-5xl font-bold text-[#0f172a] mb-6">
               La Ley del Mono: Tu Solución Legal
             </h2>
-            <p className="text-xl text-gray-700 max-w-3xl mx-auto mb-8">
+            <p className="text-xl text-[#64748b] max-w-3xl mx-auto mb-8">
               El Decreto con Fuerza de Ley N° 2 (Ley del Mono) permite <strong>regularizar construcciones existentes</strong> 
               obteniendo el Permiso de Edificación y la Recepción Final de forma <strong>simultánea</strong>.
             </p>
           </div>
 
-          <div className="bg-green-50 border-l-4 border-green-500 p-8 mb-12">
+          <div className="bg-gray-50 border-l-4 border-[#f97316] p-8 mb-12">
             <div className="flex items-start gap-4">
-              <CheckCircle className="text-green-600 w-8 h-8 flex-shrink-0 mt-1" />
+              <CheckCircle className="text-[#0f172a] w-8 h-8 flex-shrink-0 mt-1" />
               <div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-3">Beneficio Único</h3>
-                <p className="text-lg text-gray-700">
+                <h3 className="text-2xl font-bold text-[#0f172a] mb-3">Beneficio Único</h3>
+                <p className="text-lg text-[#64748b]">
                   A diferencia del proceso tradicional (primero permiso, después construcción, luego recepción), 
                   la Ley del Mono permite <strong>legalizar lo ya construido</strong> en un solo proceso.
                 </p>
@@ -195,7 +195,7 @@ export default function RegularizacionInmuebles() {
             <Button 
               onClick={openCotizacionForm}
               size="lg" 
-              className="bg-[hsl(210,15%,30%)] hover:bg-[hsl(210,15%,25%)] text-white text-xl px-10 py-6 font-bold"
+              className="bg-[#0f172a] hover:bg-[#1e293b] text-white text-xl px-10 py-6 font-bold rounded-lg"
               data-testid="button-cotizar-middle"
             >
               <FileText className="mr-3 h-6 w-6" />
@@ -208,7 +208,7 @@ export default function RegularizacionInmuebles() {
       {/* Beneficios del Servicio */}
       <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="font-serif text-4xl font-bold text-[hsl(210,15%,30%)] text-center mb-12">
+          <h2 className="font-serif text-4xl font-bold text-[#0f172a] text-center mb-12">
             ¿Qué Incluye Nuestro Servicio?
           </h2>
           
@@ -216,34 +216,34 @@ export default function RegularizacionInmuebles() {
             
             <Card className="bg-white shadow-xl hover:shadow-2xl transition-all duration-300">
               <CardHeader className="text-center pb-6">
-                <div className="bg-[hsl(210,15%,30%)]/10 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <FileText className="text-[hsl(210,15%,30%)] w-10 h-10" />
+                <div className="bg-[#0f172a]/10 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <FileText className="text-[#0f172a] w-10 h-10" />
                 </div>
-                <CardTitle className="font-serif text-2xl font-bold text-[hsl(210,15%,30%)]">
+                <CardTitle className="font-serif text-2xl font-bold text-[#0f172a]">
                   Gestión Integral del Proceso
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <ul className="space-y-3">
                   <li className="flex items-start gap-3">
-                    <CheckCircle className="text-green-600 w-5 h-5 flex-shrink-0 mt-1" />
-                    <span className="text-gray-700">Levantamiento arquitectónico completo</span>
+                    <CheckCircle className="text-[#0f172a] w-5 h-5 flex-shrink-0 mt-1" />
+                    <span className="text-[#64748b]">Levantamiento arquitectónico completo</span>
                   </li>
                   <li className="flex items-start gap-3">
-                    <CheckCircle className="text-green-600 w-5 h-5 flex-shrink-0 mt-1" />
-                    <span className="text-gray-700">Elaboración de planos conforme a obra</span>
+                    <CheckCircle className="text-[#0f172a] w-5 h-5 flex-shrink-0 mt-1" />
+                    <span className="text-[#64748b]">Elaboración de planos conforme a obra</span>
                   </li>
                   <li className="flex items-start gap-3">
-                    <CheckCircle className="text-green-600 w-5 h-5 flex-shrink-0 mt-1" />
-                    <span className="text-gray-700">Tramitación ante la Dirección de Obras Municipales</span>
+                    <CheckCircle className="text-[#0f172a] w-5 h-5 flex-shrink-0 mt-1" />
+                    <span className="text-[#64748b]">Tramitación ante la Dirección de Obras Municipales</span>
                   </li>
                   <li className="flex items-start gap-3">
-                    <CheckCircle className="text-green-600 w-5 h-5 flex-shrink-0 mt-1" />
-                    <span className="text-gray-700">Obtención de Permiso de Edificación</span>
+                    <CheckCircle className="text-[#0f172a] w-5 h-5 flex-shrink-0 mt-1" />
+                    <span className="text-[#64748b]">Obtención de Permiso de Edificación</span>
                   </li>
                   <li className="flex items-start gap-3">
-                    <CheckCircle className="text-green-600 w-5 h-5 flex-shrink-0 mt-1" />
-                    <span className="text-gray-700">Obtención de Recepción Final</span>
+                    <CheckCircle className="text-[#0f172a] w-5 h-5 flex-shrink-0 mt-1" />
+                    <span className="text-[#64748b]">Obtención de Recepción Final</span>
                   </li>
                 </ul>
               </CardContent>
@@ -251,34 +251,34 @@ export default function RegularizacionInmuebles() {
 
             <Card className="bg-white shadow-xl hover:shadow-2xl transition-all duration-300">
               <CardHeader className="text-center pb-6">
-                <div className="bg-[hsl(14,70%,50%)]/10 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <TrendingUp className="text-[hsl(14,70%,50%)] w-10 h-10" />
+                <div className="bg-[#f97316]/10 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <TrendingUp className="text-[#f97316] w-10 h-10" />
                 </div>
-                <CardTitle className="font-serif text-2xl font-bold text-[hsl(210,15%,30%)]">
+                <CardTitle className="font-serif text-2xl font-bold text-[#0f172a]">
                   Aumenta el Valor de tu Propiedad
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <ul className="space-y-3">
                   <li className="flex items-start gap-3">
-                    <CheckCircle className="text-green-600 w-5 h-5 flex-shrink-0 mt-1" />
-                    <span className="text-gray-700">Propiedad 100% legal y regularizada</span>
+                    <CheckCircle className="text-[#0f172a] w-5 h-5 flex-shrink-0 mt-1" />
+                    <span className="text-[#64748b]">Propiedad 100% legal y regularizada</span>
                   </li>
                   <li className="flex items-start gap-3">
-                    <CheckCircle className="text-green-600 w-5 h-5 flex-shrink-0 mt-1" />
-                    <span className="text-gray-700">Mayor valor comercial comprobable</span>
+                    <CheckCircle className="text-[#0f172a] w-5 h-5 flex-shrink-0 mt-1" />
+                    <span className="text-[#64748b]">Mayor valor comercial comprobable</span>
                   </li>
                   <li className="flex items-start gap-3">
-                    <CheckCircle className="text-green-600 w-5 h-5 flex-shrink-0 mt-1" />
-                    <span className="text-gray-700">Acceso a financiamiento bancario</span>
+                    <CheckCircle className="text-[#0f172a] w-5 h-5 flex-shrink-0 mt-1" />
+                    <span className="text-[#64748b]">Acceso a financiamiento bancario</span>
                   </li>
                   <li className="flex items-start gap-3">
-                    <CheckCircle className="text-green-600 w-5 h-5 flex-shrink-0 mt-1" />
-                    <span className="text-gray-700">Venta sin restricciones</span>
+                    <CheckCircle className="text-[#0f172a] w-5 h-5 flex-shrink-0 mt-1" />
+                    <span className="text-[#64748b]">Venta sin restricciones</span>
                   </li>
                   <li className="flex items-start gap-3">
-                    <CheckCircle className="text-green-600 w-5 h-5 flex-shrink-0 mt-1" />
-                    <span className="text-gray-700">Tranquilidad legal total</span>
+                    <CheckCircle className="text-[#0f172a] w-5 h-5 flex-shrink-0 mt-1" />
+                    <span className="text-[#64748b]">Tranquilidad legal total</span>
                   </li>
                 </ul>
               </CardContent>
@@ -286,30 +286,30 @@ export default function RegularizacionInmuebles() {
 
             <Card className="bg-white shadow-xl hover:shadow-2xl transition-all duration-300">
               <CardHeader className="text-center pb-6">
-                <div className="bg-[hsl(210,15%,30%)]/10 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <Clock className="text-[hsl(210,15%,30%)] w-10 h-10" />
+                <div className="bg-[#0f172a]/10 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <Clock className="text-[#0f172a] w-10 h-10" />
                 </div>
-                <CardTitle className="font-serif text-2xl font-bold text-[hsl(210,15%,30%)]">
+                <CardTitle className="font-serif text-2xl font-bold text-[#0f172a]">
                   Proceso Ágil y Profesional
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <ul className="space-y-3">
                   <li className="flex items-start gap-3">
-                    <CheckCircle className="text-green-600 w-5 h-5 flex-shrink-0 mt-1" />
-                    <span className="text-gray-700">26+ años de experiencia en regularizaciones</span>
+                    <CheckCircle className="text-[#0f172a] w-5 h-5 flex-shrink-0 mt-1" />
+                    <span className="text-[#64748b]">26+ años de experiencia en regularizaciones</span>
                   </li>
                   <li className="flex items-start gap-3">
-                    <CheckCircle className="text-green-600 w-5 h-5 flex-shrink-0 mt-1" />
-                    <span className="text-gray-700">Conocimiento profundo de normativas municipales</span>
+                    <CheckCircle className="text-[#0f172a] w-5 h-5 flex-shrink-0 mt-1" />
+                    <span className="text-[#64748b]">Conocimiento profundo de normativas municipales</span>
                   </li>
                   <li className="flex items-start gap-3">
-                    <CheckCircle className="text-green-600 w-5 h-5 flex-shrink-0 mt-1" />
-                    <span className="text-gray-700">Seguimiento constante del proceso</span>
+                    <CheckCircle className="text-[#0f172a] w-5 h-5 flex-shrink-0 mt-1" />
+                    <span className="text-[#64748b]">Seguimiento constante del proceso</span>
                   </li>
                   <li className="flex items-start gap-3">
-                    <CheckCircle className="text-green-600 w-5 h-5 flex-shrink-0 mt-1" />
-                    <span className="text-gray-700">Comunicación clara en cada etapa</span>
+                    <CheckCircle className="text-[#0f172a] w-5 h-5 flex-shrink-0 mt-1" />
+                    <span className="text-[#64748b]">Comunicación clara en cada etapa</span>
                   </li>
                 </ul>
               </CardContent>
@@ -317,30 +317,30 @@ export default function RegularizacionInmuebles() {
 
             <Card className="bg-white shadow-xl hover:shadow-2xl transition-all duration-300">
               <CardHeader className="text-center pb-6">
-                <div className="bg-[hsl(14,70%,50%)]/10 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <Shield className="text-[hsl(14,70%,50%)] w-10 h-10" />
+                <div className="bg-[#f97316]/10 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <Shield className="text-[#f97316] w-10 h-10" />
                 </div>
-                <CardTitle className="font-serif text-2xl font-bold text-[hsl(210,15%,30%)]">
+                <CardTitle className="font-serif text-2xl font-bold text-[#0f172a]">
                   Cumplimiento Normativo Total
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <ul className="space-y-3">
                   <li className="flex items-start gap-3">
-                    <CheckCircle className="text-green-600 w-5 h-5 flex-shrink-0 mt-1" />
-                    <span className="text-gray-700">Verificación de cumplimiento OGUC</span>
+                    <CheckCircle className="text-[#0f172a] w-5 h-5 flex-shrink-0 mt-1" />
+                    <span className="text-[#64748b]">Verificación de cumplimiento OGUC</span>
                   </li>
                   <li className="flex items-start gap-3">
-                    <CheckCircle className="text-green-600 w-5 h-5 flex-shrink-0 mt-1" />
-                    <span className="text-gray-700">Análisis de normativa local aplicable</span>
+                    <CheckCircle className="text-[#0f172a] w-5 h-5 flex-shrink-0 mt-1" />
+                    <span className="text-[#64748b]">Análisis de normativa local aplicable</span>
                   </li>
                   <li className="flex items-start gap-3">
-                    <CheckCircle className="text-green-600 w-5 h-5 flex-shrink-0 mt-1" />
-                    <span className="text-gray-700">Solución de observaciones municipales</span>
+                    <CheckCircle className="text-[#0f172a] w-5 h-5 flex-shrink-0 mt-1" />
+                    <span className="text-[#64748b]">Solución de observaciones municipales</span>
                   </li>
                   <li className="flex items-start gap-3">
-                    <CheckCircle className="text-green-600 w-5 h-5 flex-shrink-0 mt-1" />
-                    <span className="text-gray-700">Garantía de aprobación final</span>
+                    <CheckCircle className="text-[#0f172a] w-5 h-5 flex-shrink-0 mt-1" />
+                    <span className="text-[#64748b]">Garantía de aprobación final</span>
                   </li>
                 </ul>
               </CardContent>
@@ -353,55 +353,55 @@ export default function RegularizacionInmuebles() {
       {/* Casos Ideales */}
       <section className="py-20 bg-white">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="font-serif text-4xl font-bold text-[hsl(210,15%,30%)] text-center mb-12">
+          <h2 className="font-serif text-4xl font-bold text-[#0f172a] text-center mb-12">
             ¿Cuándo Necesitas Este Servicio?
           </h2>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <div className="bg-gray-50 rounded-lg p-6">
-              <Home className="text-[hsl(14,70%,50%)] w-12 h-12 mb-4" />
-              <h3 className="text-xl font-bold text-gray-900 mb-3">Ampliaciones sin Permiso</h3>
-              <p className="text-gray-600">
+              <Home className="text-[#f97316] w-12 h-12 mb-4" />
+              <h3 className="text-xl font-bold text-[#0f172a] mb-3">Ampliaciones sin Permiso</h3>
+              <p className="text-[#64748b]">
                 Segundo piso, terraza, bodega o cualquier ampliación construida sin permisos.
               </p>
             </div>
 
             <div className="bg-gray-50 rounded-lg p-6">
-              <Building className="text-[hsl(14,70%,50%)] w-12 h-12 mb-4" />
-              <h3 className="text-xl font-bold text-gray-900 mb-3">Construcción Original Irregular</h3>
-              <p className="text-gray-600">
+              <Building className="text-[#f97316] w-12 h-12 mb-4" />
+              <h3 className="text-xl font-bold text-[#0f172a] mb-3">Construcción Original Irregular</h3>
+              <p className="text-[#64748b]">
                 Vivienda completa construida sin recepción final o permisos originales.
               </p>
             </div>
 
             <div className="bg-gray-50 rounded-lg p-6">
-              <Target className="text-[hsl(14,70%,50%)] w-12 h-12 mb-4" />
-              <h3 className="text-xl font-bold text-gray-900 mb-3">Venta de Propiedad</h3>
-              <p className="text-gray-600">
+              <Target className="text-[#f97316] w-12 h-12 mb-4" />
+              <h3 className="text-xl font-bold text-[#0f172a] mb-3">Venta de Propiedad</h3>
+              <p className="text-[#64748b]">
                 Necesitas regularizar para vender a mejor precio y con financiamiento disponible.
               </p>
             </div>
 
             <div className="bg-gray-50 rounded-lg p-6">
-              <DollarSign className="text-[hsl(14,70%,50%)] w-12 h-12 mb-4" />
-              <h3 className="text-xl font-bold text-gray-900 mb-3">Acceso a Créditos</h3>
-              <p className="text-gray-600">
+              <DollarSign className="text-[#f97316] w-12 h-12 mb-4" />
+              <h3 className="text-xl font-bold text-[#0f172a] mb-3">Acceso a Créditos</h3>
+              <p className="text-[#64748b]">
                 Requieres regularizar para que la propiedad pueda ser evaluada por bancos.
               </p>
             </div>
 
             <div className="bg-gray-50 rounded-lg p-6">
-              <FileText className="text-[hsl(14,70%,50%)] w-12 h-12 mb-4" />
-              <h3 className="text-xl font-bold text-gray-900 mb-3">Herencias y Sucesiones</h3>
-              <p className="text-gray-600">
+              <FileText className="text-[#f97316] w-12 h-12 mb-4" />
+              <h3 className="text-xl font-bold text-[#0f172a] mb-3">Herencias y Sucesiones</h3>
+              <p className="text-[#64748b]">
                 Propiedad heredada sin documentación municipal al día.
               </p>
             </div>
 
             <div className="bg-gray-50 rounded-lg p-6">
-              <Award className="text-[hsl(14,70%,50%)] w-12 h-12 mb-4" />
-              <h3 className="text-xl font-bold text-gray-900 mb-3">Tranquilidad Legal</h3>
-              <p className="text-gray-600">
+              <Award className="text-[#f97316] w-12 h-12 mb-4" />
+              <h3 className="text-xl font-bold text-[#0f172a] mb-3">Tranquilidad Legal</h3>
+              <p className="text-[#64748b]">
                 Quieres eliminar riesgos legales y tener tu propiedad 100% regularizada.
               </p>
             </div>
@@ -411,7 +411,7 @@ export default function RegularizacionInmuebles() {
             <Button 
               onClick={openCotizacionForm}
               size="lg" 
-              className="bg-[hsl(14,70%,50%)] hover:bg-[hsl(14,70%,45%)] text-white text-xl px-10 py-6 font-bold"
+              className="bg-[#f97316] hover:bg-orange-600 text-white text-xl px-10 py-6 font-bold rounded-lg"
               data-testid="button-cotizar-casos"
             >
               <FileText className="mr-3 h-6 w-6" />
@@ -422,7 +422,7 @@ export default function RegularizacionInmuebles() {
       </section>
 
       {/* CTA Final */}
-      <section className="py-20 bg-gradient-to-br from-[hsl(210,15%,30%)] to-[hsl(210,15%,25%)] text-white">
+      <section className="py-20 bg-[#0f172a] text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="font-serif text-4xl lg:text-5xl font-bold mb-6">
             Regulariza tu Propiedad Ahora
@@ -434,7 +434,7 @@ export default function RegularizacionInmuebles() {
           <Button 
             onClick={openCotizacionForm}
             size="lg" 
-            className="bg-[hsl(14,70%,50%)] hover:bg-[hsl(14,70%,45%)] text-white text-xl px-10 py-6 font-bold shadow-xl"
+            className="bg-[#f97316] hover:bg-orange-600 text-white text-xl px-10 py-6 font-bold shadow-xl rounded-lg"
             data-testid="button-cotizar-final"
           >
             <FileText className="mr-3 h-6 w-6" />

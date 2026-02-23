@@ -104,16 +104,16 @@ export default function TasacionViviendasUrbanas() {
       <Navigation />
       
       {/* Hero Section - Gary Halbert Style */}
-      <section className="bg-gradient-to-br from-emerald-900 to-teal-900 text-white py-20">
+      <section className="bg-[#0f172a] text-white py-20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="mb-8">
-            <Badge className="bg-yellow-500 text-black mb-4 text-sm font-bold px-4 py-2">
+            <Badge className="rounded-lg bg-[#f97316] text-white mb-4 text-sm font-bold px-4 py-2">
               🏠 DIPLOMADO UNIVERSIDAD DE CHILE
             </Badge>
             
             <div className="relative w-20 h-20 mx-auto mb-6">
-              <Calculator className="w-20 h-20 text-emerald-300" />
-              <Shield className="w-8 h-8 text-yellow-400 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />
+              <Calculator className="w-20 h-20 text-[#f97316]" />
+              <Shield className="w-8 h-8 text-[#f97316] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />
             </div>
             
             {/* 1. Titular Principal - Gary Halbert Style - 3 Opciones */}
@@ -160,67 +160,67 @@ export default function TasacionViviendasUrbanas() {
       </section>
 
       {/* 3. Problema y Agitación - Alex Hormozi Style */}
-      <section className="py-16 bg-red-50">
+      <section className="py-16 bg-orange-50">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-red-800 mb-6">
+            <h2 className="text-4xl font-bold text-[#0f172a] mb-6">
               ⚠️ LOS RIESGOS DE NO CONOCER EL VALOR REAL DE SU PROPIEDAD
             </h2>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <Card className="bg-red-100 border-red-300">
+            <Card className="bg-orange-50 border-[#f97316]">
               <CardHeader>
-                <CardTitle className="text-2xl text-red-800 flex items-center">
+                <CardTitle className="text-2xl text-[#0f172a] flex items-center">
                   <TrendingDown className="w-8 h-8 mr-3" />
                   SI VA A VENDER
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <ul className="space-y-3 text-red-700">
+                <ul className="space-y-3 text-gray-600">
                   <li className="flex items-start">
-                    <AlertTriangle className="w-5 h-5 mr-2 mt-0.5 text-red-600" />
+                    <AlertTriangle className="w-5 h-5 mr-2 mt-0.5 text-[#0f172a]" />
                     <span>Vender por menos y dejar <strong>millones de pesos sobre la mesa</strong></span>
                   </li>
                   <li className="flex items-start">
-                    <AlertTriangle className="w-5 h-5 mr-2 mt-0.5 text-red-600" />
+                    <AlertTriangle className="w-5 h-5 mr-2 mt-0.5 text-[#0f172a]" />
                     <span>Negociaciones fallidas por <strong>pedir un precio irreal</strong></span>
                   </li>
                   <li className="flex items-start">
-                    <AlertTriangle className="w-5 h-5 mr-2 mt-0.5 text-red-600" />
+                    <AlertTriangle className="w-5 h-5 mr-2 mt-0.5 text-[#0f172a]" />
                     <span>Meses sin vender por <strong>incertidumbre en el precio</strong></span>
                   </li>
                   <li className="flex items-start">
-                    <AlertTriangle className="w-5 h-5 mr-2 mt-0.5 text-red-600" />
+                    <AlertTriangle className="w-5 h-5 mr-2 mt-0.5 text-[#0f172a]" />
                     <span>Compradores desconfiados que <strong>no creen en su precio</strong></span>
                   </li>
                 </ul>
               </CardContent>
             </Card>
 
-            <Card className="bg-red-100 border-red-300">
+            <Card className="bg-orange-50 border-[#f97316]">
               <CardHeader>
-                <CardTitle className="text-2xl text-red-800 flex items-center">
+                <CardTitle className="text-2xl text-[#0f172a] flex items-center">
                   <TrendingUp className="w-8 h-8 mr-3" />
                   SI VA A COMPRAR
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <ul className="space-y-3 text-red-700">
+                <ul className="space-y-3 text-gray-600">
                   <li className="flex items-start">
-                    <AlertTriangle className="w-5 h-5 mr-2 mt-0.5 text-red-600" />
+                    <AlertTriangle className="w-5 h-5 mr-2 mt-0.5 text-[#0f172a]" />
                     <span>Pagar de más y empezar su nueva vida con <strong>una deuda injusta</strong></span>
                   </li>
                   <li className="flex items-start">
-                    <AlertTriangle className="w-5 h-5 mr-2 mt-0.5 text-red-600" />
+                    <AlertTriangle className="w-5 h-5 mr-2 mt-0.5 text-[#0f172a]" />
                     <span>Desconfianza total: <strong>"¿Me están estafando?"</strong></span>
                   </li>
                   <li className="flex items-start">
-                    <AlertTriangle className="w-5 h-5 mr-2 mt-0.5 text-red-600" />
+                    <AlertTriangle className="w-5 h-5 mr-2 mt-0.5 text-[#0f172a]" />
                     <span>Perder oportunidades por <strong>no saber si el precio es justo</strong></span>
                   </li>
                   <li className="flex items-start">
-                    <AlertTriangle className="w-5 h-5 mr-2 mt-0.5 text-red-600" />
+                    <AlertTriangle className="w-5 h-5 mr-2 mt-0.5 text-[#0f172a]" />
                     <span>Arrepentimiento de por vida: <strong>"Pagué demasiado"</strong></span>
                   </li>
                 </ul>
@@ -231,9 +231,9 @@ export default function TasacionViviendasUrbanas() {
       </section>
 
       {/* 4. La Solución - Vilma Núñez Style */}
-      <section className="py-16 bg-emerald-50">
+      <section className="py-16 bg-gray-50">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl font-bold text-emerald-800 mb-8">
+          <h2 className="text-4xl font-bold text-[#0f172a] mb-8">
             ✅ LA SOLUCIÓN DEFINITIVA: TASACIÓN PROFESIONAL DE VIVIENDAS URBANAS
           </h2>
           
@@ -250,18 +250,18 @@ export default function TasacionViviendasUrbanas() {
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="text-center">
-                <Shield className="w-16 h-16 text-emerald-600 mx-auto mb-4" />
-                <h3 className="text-xl font-bold text-emerald-800 mb-2">SEGURIDAD TOTAL</h3>
+                <Shield className="w-16 h-16 text-[#0f172a] mx-auto mb-4" />
+                <h3 className="text-xl font-bold text-[#0f172a] mb-2">SEGURIDAD TOTAL</h3>
                 <p className="text-gray-600">Conoce el valor exacto respaldado por análisis profesional</p>
               </div>
               <div className="text-center">
-                <Target className="w-16 h-16 text-emerald-600 mx-auto mb-4" />
-                <h3 className="text-xl font-bold text-emerald-800 mb-2">PODER DE NEGOCIACIÓN</h3>
+                <Target className="w-16 h-16 text-[#0f172a] mx-auto mb-4" />
+                <h3 className="text-xl font-bold text-[#0f172a] mb-2">PODER DE NEGOCIACIÓN</h3>
                 <p className="text-gray-600">Argumentos sólidos para defender su precio o regatear</p>
               </div>
               <div className="text-center">
-                <CheckCircle className="w-16 h-16 text-emerald-600 mx-auto mb-4" />
-                <h3 className="text-xl font-bold text-emerald-800 mb-2">TRANQUILIDAD</h3>
+                <CheckCircle className="w-16 h-16 text-[#0f172a] mx-auto mb-4" />
+                <h3 className="text-xl font-bold text-[#0f172a] mb-2">TRANQUILIDAD</h3>
                 <p className="text-gray-600">Decisión informada sin dudas ni remordimientos</p>
               </div>
             </div>
@@ -283,24 +283,24 @@ export default function TasacionViviendasUrbanas() {
             <img 
               src={certificadoTasacionesImg}
               alt="Certificado oficial Universidad de Chile - Curso de Tasación de Inmuebles Urbanos - Patricio Becar Elissegaray"
-              className="rounded-lg shadow-2xl max-w-lg h-auto border-4 border-yellow-400"
+              className="rounded-lg shadow-2xl max-w-lg h-auto border-4 border-[#f97316]"
             />
           </div>
           
-          <Card className="bg-blue-50 border-blue-200">
+          <Card className="bg-gray-50 border-gray-200">
             <CardHeader className="text-center">
-              <div className="w-24 h-24 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
+              <div className="w-24 h-24 bg-[#0f172a] rounded-full flex items-center justify-center mx-auto mb-4">
                 <Award className="w-12 h-12 text-white" />
               </div>
-              <CardTitle className="text-3xl text-blue-800">PATRICIO BECAR ELISSEGARAY</CardTitle>
-              <p className="text-xl text-blue-600 font-semibold">Arquitecto • Universidad de Chile</p>
-              <Badge className="bg-yellow-500 text-black text-lg px-4 py-2 mt-2">
+              <CardTitle className="text-3xl text-[#0f172a]">PATRICIO BECAR ELISSEGARAY</CardTitle>
+              <p className="text-xl text-[#0f172a] font-semibold">Arquitecto • Universidad de Chile</p>
+              <Badge className="rounded-lg bg-[#f97316] text-white text-lg px-4 py-2 mt-2">
                 DIPLOMADO EN TASACIÓN DE INMUEBLES URBANOS
               </Badge>
             </CardHeader>
             <CardContent className="text-center">
-              <div className="bg-yellow-50 border-l-4 border-yellow-400 p-6 mb-6">
-                <p className="text-sm font-semibold text-yellow-800 mb-2">
+              <div className="bg-orange-50 border-l-4 border-[#f97316] p-6 mb-6">
+                <p className="text-sm font-semibold text-[#0f172a] mb-2">
                   ✅ CERTIFICACIÓN OFICIAL VERIFICABLE
                 </p>
                 <p className="text-gray-700 text-sm">
@@ -326,7 +326,7 @@ export default function TasacionViviendasUrbanas() {
       </section>
 
       {/* 6. ¿Qué Obtendrás Exactamente? - Alex Hormozi Value Stack */}
-      <section className="py-16 bg-gradient-to-br from-blue-900 to-indigo-900 text-white">
+      <section className="py-16 bg-[#0f172a] text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold mb-6">
@@ -356,21 +356,21 @@ export default function TasacionViviendasUrbanas() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <ul className="space-y-4">
                   <li className="flex items-start">
-                    <BarChart3 className="w-6 h-6 mr-3 mt-1 text-emerald-400" />
+                    <BarChart3 className="w-6 h-6 mr-3 mt-1 text-[#f97316]" />
                     <div>
                       <strong>Análisis Comparativo de Mercado</strong>
                       <p className="text-gray-300 text-sm">Propiedades similares vendidas recientemente en su sector</p>
                     </div>
                   </li>
                   <li className="flex items-start">
-                    <Building className="w-6 h-6 mr-3 mt-1 text-emerald-400" />
+                    <Building className="w-6 h-6 mr-3 mt-1 text-[#f97316]" />
                     <div>
                       <strong>Evaluación de Calidad Constructiva</strong>
                       <p className="text-gray-300 text-sm">Estado de terminaciones, materialidad y conservación</p>
                     </div>
                   </li>
                   <li className="flex items-start">
-                    <FileText className="w-6 h-6 mr-3 mt-1 text-emerald-400" />
+                    <FileText className="w-6 h-6 mr-3 mt-1 text-[#f97316]" />
                     <div>
                       <strong>Revisión Normativa Urbana</strong>
                       <p className="text-gray-300 text-sm">Regulaciones municipales que afectan el valor</p>
@@ -379,21 +379,21 @@ export default function TasacionViviendasUrbanas() {
                 </ul>
                 <ul className="space-y-4">
                   <li className="flex items-start">
-                    <Calculator className="w-6 h-6 mr-3 mt-1 text-emerald-400" />
+                    <Calculator className="w-6 h-6 mr-3 mt-1 text-[#f97316]" />
                     <div>
                       <strong>Valor Comercial Fundamentado</strong>
                       <p className="text-gray-300 text-sm">Precio justo calculado con metodología profesional</p>
                     </div>
                   </li>
                   <li className="flex items-start">
-                    <Target className="w-6 h-6 mr-3 mt-1 text-emerald-400" />
+                    <Target className="w-6 h-6 mr-3 mt-1 text-[#f97316]" />
                     <div>
                       <strong>Conclusiones y Recomendaciones</strong>
                       <p className="text-gray-300 text-sm">Estrategias claras para su negociación</p>
                     </div>
                   </li>
                   <li className="flex items-start">
-                    <Shield className="w-6 h-6 mr-3 mt-1 text-emerald-400" />
+                    <Shield className="w-6 h-6 mr-3 mt-1 text-[#f97316]" />
                     <div>
                       <strong>Respaldo Legal y Técnico</strong>
                       <p className="text-gray-300 text-sm">Válido para bancos, notarías y tribunales</p>
@@ -430,10 +430,10 @@ export default function TasacionViviendasUrbanas() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <Card className="text-center bg-white shadow-lg hover:shadow-xl transition-shadow">
               <CardHeader>
-                <div className="w-16 h-16 bg-emerald-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold">
+                <div className="w-16 h-16 bg-[#0f172a] text-white rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold">
                   1
                 </div>
-                <CardTitle className="text-xl text-emerald-800">CONTACTO Y SOLICITUD</CardTitle>
+                <CardTitle className="text-xl text-[#0f172a]">CONTACTO Y SOLICITUD</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-gray-600">
@@ -444,10 +444,10 @@ export default function TasacionViviendasUrbanas() {
 
             <Card className="text-center bg-white shadow-lg hover:shadow-xl transition-shadow">
               <CardHeader>
-                <div className="w-16 h-16 bg-emerald-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold">
+                <div className="w-16 h-16 bg-[#0f172a] text-white rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold">
                   2
                 </div>
-                <CardTitle className="text-xl text-emerald-800">ENVÍO DE ANTECEDENTES</CardTitle>
+                <CardTitle className="text-xl text-[#0f172a]">ENVÍO DE ANTECEDENTES</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-gray-600">
@@ -458,10 +458,10 @@ export default function TasacionViviendasUrbanas() {
 
             <Card className="text-center bg-white shadow-lg hover:shadow-xl transition-shadow">
               <CardHeader>
-                <div className="w-16 h-16 bg-emerald-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold">
+                <div className="w-16 h-16 bg-[#0f172a] text-white rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold">
                   3
                 </div>
-                <CardTitle className="text-xl text-emerald-800">ANÁLISIS PROFESIONAL</CardTitle>
+                <CardTitle className="text-xl text-[#0f172a]">ANÁLISIS PROFESIONAL</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-gray-600">
@@ -472,10 +472,10 @@ export default function TasacionViviendasUrbanas() {
 
             <Card className="text-center bg-white shadow-lg hover:shadow-xl transition-shadow">
               <CardHeader>
-                <div className="w-16 h-16 bg-emerald-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold">
+                <div className="w-16 h-16 bg-[#0f172a] text-white rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold">
                   4
                 </div>
-                <CardTitle className="text-xl text-emerald-800">RECEPCIÓN DEL INFORME</CardTitle>
+                <CardTitle className="text-xl text-[#0f172a]">RECEPCIÓN DEL INFORME</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-gray-600">
@@ -488,7 +488,7 @@ export default function TasacionViviendasUrbanas() {
       </section>
 
       {/* 8. Llamada a la Acción Principal - CTA */}
-      <section className="py-16 bg-gradient-to-r from-emerald-600 to-teal-600 text-white">
+      <section className="py-16 bg-[#f97316] text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-4xl font-bold mb-6">
             🚀 TOME EL CONTROL DE SU NEGOCIACIÓN HOY
@@ -501,7 +501,7 @@ export default function TasacionViviendasUrbanas() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
             <Button 
               onClick={openWhatsApp}
-              className="bg-yellow-500 hover:bg-yellow-600 text-black font-bold text-xl px-12 py-6"
+              className="rounded-lg bg-[#f97316] hover:bg-orange-600 text-white font-bold text-xl px-12 py-6"
             >
               <Calculator className="w-6 h-6 mr-3" />
               COTIZAR MI TASACIÓN AHORA
@@ -536,7 +536,7 @@ export default function TasacionViviendasUrbanas() {
           <div className="space-y-6">
             <Card className="bg-gray-50">
               <CardHeader>
-                <CardTitle className="text-xl text-emerald-800">
+                <CardTitle className="text-xl text-[#0f172a]">
                   ✅ ¿Por qué necesito un arquitecto y no un tasador de banco?
                 </CardTitle>
               </CardHeader>
@@ -552,7 +552,7 @@ export default function TasacionViviendasUrbanas() {
 
             <Card className="bg-gray-50">
               <CardHeader>
-                <CardTitle className="text-xl text-emerald-800">
+                <CardTitle className="text-xl text-[#0f172a]">
                   📋 ¿Qué documentos necesito para la tasación?
                 </CardTitle>
               </CardHeader>
@@ -567,7 +567,7 @@ export default function TasacionViviendasUrbanas() {
 
             <Card className="bg-gray-50">
               <CardHeader>
-                <CardTitle className="text-xl text-emerald-800">
+                <CardTitle className="text-xl text-[#0f172a]">
                   ⏰ ¿En cuánto tiempo tendré mi informe?
                 </CardTitle>
               </CardHeader>
@@ -582,7 +582,7 @@ export default function TasacionViviendasUrbanas() {
 
             <Card className="bg-gray-50">
               <CardHeader>
-                <CardTitle className="text-xl text-emerald-800">
+                <CardTitle className="text-xl text-[#0f172a]">
                   🏛️ ¿Esta tasación me sirve para el banco?
                 </CardTitle>
               </CardHeader>
@@ -599,13 +599,13 @@ export default function TasacionViviendasUrbanas() {
       </section>
 
       {/* 10. Cierre y Última Llamada a la Acción - Gary Halbert / Alex Hormozi */}
-      <section className="py-16 bg-gradient-to-br from-gray-900 to-black text-white">
+      <section className="py-16 bg-[#0f172a] text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-4xl font-bold mb-8">
             ⚡ NO DEJE QUE LA DUDA LE CUESTE MILLONES
           </h2>
           
-          <div className="bg-red-600/20 border border-red-500 rounded-lg p-8 mb-8">
+          <div className="bg-[#f97316]/20 border border-[#f97316] rounded-lg p-8 mb-8">
             <p className="text-2xl mb-6">
               Cada día que pasa sin conocer el valor real de su propiedad es un día más cerca de cometer 
               el <strong>error financiero más costoso</strong> de su vida.
@@ -617,8 +617,8 @@ export default function TasacionViviendasUrbanas() {
             </p>
           </div>
           
-          <div className="bg-emerald-600/20 border border-emerald-500 rounded-lg p-8 mb-8">
-            <p className="text-2xl font-bold text-emerald-400 mb-4">
+          <div className="bg-[#0f172a]/20 border border-[#f97316] rounded-lg p-8 mb-8">
+            <p className="text-2xl font-bold text-[#f97316] mb-4">
               TOME EL CONTROL DE SU NEGOCIACIÓN HOY
             </p>
             <p className="text-lg">
@@ -637,7 +637,7 @@ export default function TasacionViviendasUrbanas() {
           
           <Button 
             onClick={openWhatsApp}
-            className="bg-yellow-500 hover:bg-yellow-600 text-black font-bold text-2xl px-16 py-8 mb-6"
+            className="rounded-lg bg-[#f97316] hover:bg-orange-600 text-white font-bold text-2xl px-16 py-8 mb-6"
           >
             <Phone className="w-8 h-8 mr-4" />
             CONTACTAR ARQUITECTO TASADOR AHORA

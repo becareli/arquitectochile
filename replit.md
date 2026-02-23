@@ -12,17 +12,18 @@ Preferred communication style: Simple, everyday language.
 The platform features a mobile-first responsive design with a **Technical Minimalism** aesthetic (February 2026 redesign). Branding uses text-based "ArquitectoChile.com" wordmark.
 
 **Design System (Technical Minimalism - Feb 2026)**:
-- **Color Palette**: Navy #1e293b (headings/text), white (backgrounds), #f97316 orange (CTAs only), gray-200 borders
-- **Typography**: Inter only (sans-serif) for all headings and body text. No serif fonts.
-- **Backgrounds**: Blueprint grid texture (40px grid, 3-5% opacity lines) via `.bg-blueprint` and `.bg-blueprint-dark` CSS classes
+- **Color Palette**: Navy #0f172a (headings/text/icons), white (backgrounds), #f97316 orange (CTAs only), #64748b (support text), gray-200 borders. NO other colors allowed (no green, red, blue, purple, etc.)
+- **Logo**: Official logo (casco/casa icon) at 45px height in header + footer. Same image as favicon.
+- **Typography**: Inter only (sans-serif) for all headings and body text. No serif fonts. No Montserrat.
+- **Backgrounds**: Blueprint grid texture (40px grid, 3% opacity lines with rgba(15,23,42)) via `.bg-blueprint` and `.bg-blueprint-dark` CSS classes
 - **Spacing**: Generous section padding (py-16 sm:py-20 lg:py-24), max-w-6xl containers
-- **Cards**: Thin 1px borders, generous padding (p-8), line icons (strokeWidth 1.5), hover:shadow-lg transitions
-- **Buttons**: All rounded-md, CTA uses bg-[#f97316] with shadow-lg shadow-orange-500/20
+- **Cards**: Thin 1px borders, generous padding (p-8), large icons (w-8 h-8 in w-16 h-16 containers), hover:shadow-lg transitions
+- **Buttons**: All rounded-lg, CTA uses bg-[#f97316] with shadow-lg shadow-orange-500/20
 - **Section Headers**: Uppercase tracking-[0.2em] orange label + bold navy heading + gray-500 subtitle
-- **Components**: Navigation (clean minimal), Hero (dark blueprint bg, no stock photos), Services (3 minimalist cards), Footer (4-column clean layout)
+- **Components**: Navigation (logo + text wordmark + centered links + orange CTA), Hero (dark blueprint bg, no stock photos), Services (3 minimalist cards), Footer (4-column clean layout with logo in copyright)
 - **Removed**: Floating chatbot, Playfair Display serif font, "Sobre el Arquitecto" dropdown, admin bar in nav
 
-The navigation features a clean single-row layout with text wordmark, centered links, and a prominent orange CTA button. Design leverages Tailwind CSS, Radix UI, and shadcn/ui.
+The navigation features a clean single-row layout with logo + text wordmark, centered links, and a prominent orange "Arquitecto a Domicilio" CTA button. Design leverages Tailwind CSS, Radix UI, and shadcn/ui.
 
 ### Technical Implementations
 - **Frontend**: React 18 with TypeScript, Vite for build, TanStack Query for server state, Wouter for routing, React Hook Form with Zod for forms.

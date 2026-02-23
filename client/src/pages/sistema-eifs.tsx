@@ -14,7 +14,6 @@ import Navigation from "@/components/navigation";
 export default function SistemaEIFS() {
   const [, setLocation] = useLocation();
 
-  // SEO Meta tags optimization and scroll to top
   useEffect(() => {
     window.scrollTo(0, 0);
     
@@ -62,11 +61,11 @@ export default function SistemaEIFS() {
     <div className="min-h-screen bg-white">
       <Navigation />
       
-      {/* Hero Section - Gary Halbert Style con Diseño Arquitectónico */}
-      <section className="relative bg-gradient-to-br from-[hsl(210,15%,30%)] via-[hsl(210,15%,25%)] to-[hsl(210,15%,20%)] text-white py-24">
+      {/* Hero Section */}
+      <section className="relative bg-[#0f172a] text-white py-24">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-10">
-            <Badge className="bg-[hsl(14,70%,50%)] text-white mb-6 px-6 py-3 text-base font-bold animate-pulse">
+            <Badge className="bg-[#f97316] text-white mb-6 px-6 py-3 text-base font-bold animate-pulse">
               🔥 PARE DE QUEMAR DINERO EN CALEFACCIÓN
             </Badge>
           </div>
@@ -74,7 +73,7 @@ export default function SistemaEIFS() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
               <h1 className="font-serif text-5xl md:text-6xl font-black mb-8 leading-tight">
-                ¿Ya Está CANSADO de que su Hogar sea un <span className="text-[hsl(14,70%,50%)]">HORNO en Verano</span> y un <span className="text-blue-300">TÉMPANO en Invierno?</span>
+                ¿Ya Está CANSADO de que su Hogar sea un <span className="text-[#f97316]">HORNO en Verano</span> y un <span className="text-gray-300">TÉMPANO en Invierno?</span>
               </h1>
               <p className="text-xl mb-8 text-gray-200 leading-relaxed">
                 <strong>El Sistema EIFS</strong> es la solución definitiva para convertir su casa en un espacio confortable todo el año, mientras <strong>reduce hasta 60% sus costos de energía.</strong>
@@ -84,7 +83,7 @@ export default function SistemaEIFS() {
                 <Button 
                   onClick={openWhatsApp} 
                   size="lg" 
-                  className="bg-[hsl(14,70%,50%)] hover:bg-[hsl(14,70%,45%)] text-white font-bold text-lg px-8 py-6 shadow-xl hover:shadow-2xl transition-all duration-300"
+                  className="bg-[#f97316] hover:bg-orange-600 text-white font-bold text-lg px-8 py-6 shadow-xl hover:shadow-2xl transition-all duration-300 rounded-lg"
                   data-testid="button-whatsapp-hero"
                 >
                   <Phone className="mr-2 h-6 w-6" />
@@ -94,7 +93,7 @@ export default function SistemaEIFS() {
                   onClick={scrollToContact} 
                   size="lg" 
                   variant="outline" 
-                  className="bg-white/10 text-white border-white hover:bg-white/20 font-semibold text-lg px-8 py-6 backdrop-blur-sm transition-all duration-300"
+                  className="bg-white/10 text-white border-white hover:bg-white/20 font-semibold text-lg px-8 py-6 backdrop-blur-sm transition-all duration-300 rounded-lg"
                   data-testid="button-cotizacion-hero"
                 >
                   <DollarSign className="mr-2 h-6 w-6" />
@@ -103,7 +102,7 @@ export default function SistemaEIFS() {
               </div>
 
               <div className="flex items-center gap-6 bg-white/10 backdrop-blur-sm rounded-lg p-4">
-                <Star className="text-yellow-400 fill-yellow-400" size={32} />
+                <Star className="text-[#f97316] fill-[#f97316]" size={32} />
                 <div>
                   <p className="font-bold text-lg">4.9 estrellas en Google</p>
                   <p className="text-sm text-gray-300">29+ familias confían en nosotros</p>
@@ -129,30 +128,30 @@ export default function SistemaEIFS() {
         </div>
       </section>
 
-      {/* Sección de Empatía - Russell Brunson Style */}
+      {/* Sección de Empatía */}
       <section className="py-20 bg-gray-50">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="font-serif text-4xl font-bold text-[hsl(210,15%,30%)] mb-8">
+          <h2 className="font-serif text-4xl font-bold text-[#0f172a] mb-8">
             ¿Se Siente Identificado con Esta Situación?
           </h2>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
             {[
-              { icon: Flame, text: "Su casa es un HORNO insoportable en verano", color: "text-orange-600" },
-              { icon: Snowflake, text: "En invierno, su hogar es un CONGELADOR", color: "text-blue-600" },
-              { icon: DollarSign, text: "Las cuentas de luz y gas SE DISPARAN cada mes", color: "text-red-600" },
-              { icon: AlertTriangle, text: "Aparece MOHO y humedad en las paredes", color: "text-yellow-600" }
+              { icon: Flame, text: "Su casa es un HORNO insoportable en verano", color: "text-[#f97316]" },
+              { icon: Snowflake, text: "En invierno, su hogar es un CONGELADOR", color: "text-[#0f172a]" },
+              { icon: DollarSign, text: "Las cuentas de luz y gas SE DISPARAN cada mes", color: "text-[#0f172a]" },
+              { icon: AlertTriangle, text: "Aparece MOHO y humedad en las paredes", color: "text-[#f97316]" }
             ].map((item, index) => (
-              <Card key={index} className="border-2 hover:border-[hsl(14,70%,50%)] transition-all duration-300 shadow-lg">
+              <Card key={index} className="border-2 border-gray-200 hover:border-[#f97316] transition-all duration-300 shadow-lg">
                 <CardContent className="pt-6">
                   <item.icon className={`${item.color} mx-auto mb-4`} size={48} />
-                  <p className="font-semibold text-lg text-gray-800">{item.text}</p>
+                  <p className="font-semibold text-lg text-[#0f172a]">{item.text}</p>
                 </CardContent>
               </Card>
             ))}
           </div>
 
-          <div className="bg-[hsl(14,70%,50%)] text-white rounded-xl p-8 shadow-xl">
+          <div className="bg-[#f97316] text-white rounded-xl p-8 shadow-xl">
             <p className="font-serif text-2xl font-bold mb-4">
               "Enfrente el Tema: Usted tiene un GRAVE problema de Aislación Térmica"
             </p>
@@ -167,18 +166,18 @@ export default function SistemaEIFS() {
       <section className="py-20 bg-white">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="font-serif text-5xl font-bold text-[hsl(210,15%,30%)] mb-6">
+            <h2 className="font-serif text-5xl font-bold text-[#0f172a] mb-6">
               Su Problema de Aislación Térmica AHORA Tiene Solución
             </h2>
-            <p className="text-2xl text-[hsl(14,70%,50%)] font-semibold">
+            <p className="text-2xl text-[#f97316] font-semibold">
               Le Presentamos el Sistema EIFS
             </p>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16">
             <div>
-              <div className="bg-[hsl(210,15%,30%)] text-white rounded-xl p-8 mb-8">
-                <HomeIcon className="text-[hsl(14,70%,50%)] mb-4" size={48} />
+              <div className="bg-[#0f172a] text-white rounded-xl p-8 mb-8">
+                <HomeIcon className="text-[#f97316] mb-4" size={48} />
                 <h3 className="font-serif text-3xl font-bold mb-4">¿Qué es el EIFS?</h3>
                 <p className="text-lg leading-relaxed">
                   <strong>EIFS</strong> (Exterior Insulation Finishing System) es un sistema de aislación térmica para las fachadas de su casa u oficina. Es un revestimiento exterior de capas que se aplica sobre los muros exteriores, <strong>envolviendo y abrigando a su casa en todas sus fachadas.</strong>
@@ -187,28 +186,28 @@ export default function SistemaEIFS() {
 
               <div className="space-y-4">
                 <div className="flex items-start gap-4 bg-gray-50 p-4 rounded-lg">
-                  <CheckCircle className="text-[hsl(14,70%,50%)] flex-shrink-0" size={24} />
-                  <p className="text-gray-700">
+                  <CheckCircle className="text-[#f97316] flex-shrink-0" size={24} />
+                  <p className="text-[#64748b]">
                     <strong>Reduce los puentes térmicos</strong> y evita la fuga de energía desde el interior al exterior (y viceversa)
                   </p>
                 </div>
                 <div className="flex items-start gap-4 bg-gray-50 p-4 rounded-lg">
-                  <CheckCircle className="text-[hsl(14,70%,50%)] flex-shrink-0" size={24} />
-                  <p className="text-gray-700">
+                  <CheckCircle className="text-[#f97316] flex-shrink-0" size={24} />
+                  <p className="text-[#64748b]">
                     <strong>Funciona como un cooler</strong> para conservar la temperatura ideal en su hogar
                   </p>
                 </div>
                 <div className="flex items-start gap-4 bg-gray-50 p-4 rounded-lg">
-                  <CheckCircle className="text-[hsl(14,70%,50%)] flex-shrink-0" size={24} />
-                  <p className="text-gray-700">
+                  <CheckCircle className="text-[#f97316] flex-shrink-0" size={24} />
+                  <p className="text-[#64748b]">
                     <strong>Eficiencia energética garantizada:</strong> reduce costos de calefacción en invierno y refrigeración en verano
                   </p>
                 </div>
               </div>
             </div>
 
-            <div className="bg-gradient-to-br from-[hsl(210,15%,30%)] to-[hsl(210,15%,25%)] text-white rounded-xl p-8 shadow-xl">
-              <Award className="text-[hsl(14,70%,50%)] mb-6" size={56} />
+            <div className="bg-[#0f172a] text-white rounded-xl p-8 shadow-xl">
+              <Award className="text-[#f97316] mb-6" size={56} />
               <h3 className="font-serif text-3xl font-bold mb-6">Ventajas del Sistema EIFS</h3>
               <div className="space-y-4">
                 {[
@@ -219,7 +218,7 @@ export default function SistemaEIFS() {
                   { title: "Resistente al Clima", desc: "Impermeable exterior, permeable al vapor interior" },
                   { title: "Alta Rentabilidad", desc: "Instalación rápida y bajo costo de mantenimiento" }
                 ].map((item, index) => (
-                  <div key={index} className="border-l-4 border-[hsl(14,70%,50%)] pl-4">
+                  <div key={index} className="border-l-4 border-[#f97316] pl-4">
                     <h4 className="font-bold text-lg mb-1">{item.title}</h4>
                     <p className="text-gray-300">{item.desc}</p>
                   </div>
@@ -230,8 +229,8 @@ export default function SistemaEIFS() {
         </div>
       </section>
 
-      {/* Beneficios - Vilma Núñez Emotional Style */}
-      <section className="py-20 bg-gradient-to-br from-[hsl(14,70%,50%)] to-[hsl(14,80%,55%)] text-white">
+      {/* Beneficios */}
+      <section className="py-20 bg-[#f97316] text-white">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="font-serif text-5xl font-bold mb-6">
@@ -292,7 +291,7 @@ export default function SistemaEIFS() {
             <Button 
               onClick={openWhatsApp}
               size="lg"
-              className="bg-white text-[hsl(14,70%,50%)] hover:bg-gray-100 font-bold text-xl px-12 py-8 shadow-2xl hover:scale-105 transition-all duration-300"
+              className="bg-white text-[#f97316] hover:bg-gray-100 font-bold text-xl px-12 py-8 shadow-2xl hover:scale-105 transition-all duration-300 rounded-lg"
               data-testid="button-beneficios-whatsapp"
             >
               <Phone className="mr-3 h-6 w-6" />
@@ -306,10 +305,10 @@ export default function SistemaEIFS() {
       <section className="py-20 bg-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="font-serif text-4xl font-bold text-[hsl(210,15%,30%)] mb-6">
+            <h2 className="font-serif text-4xl font-bold text-[#0f172a] mb-6">
               Escuche a Nuestros Clientes Satisfechos
             </h2>
-            <p className="text-xl text-gray-600">
+            <p className="text-xl text-[#64748b]">
               Familias reales que transformaron sus hogares con el Sistema EIFS
             </p>
           </div>
@@ -331,20 +330,20 @@ export default function SistemaEIFS() {
         </div>
       </section>
 
-      {/* Garantía - Hormozi Stack Style */}
+      {/* Garantía */}
       <section className="py-20 bg-gray-50">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="font-serif text-4xl font-bold text-[hsl(210,15%,30%)] mb-6">
+            <h2 className="font-serif text-4xl font-bold text-[#0f172a] mb-6">
               ¿Existe Alguna Garantía por la Instalación del Sistema EIFS?
             </h2>
-            <p className="text-2xl text-[hsl(14,70%,50%)] font-bold">
+            <p className="text-2xl text-[#f97316] font-bold">
               Por Supuesto que SÍ
             </p>
           </div>
 
-          <Card className="border-4 border-[hsl(14,70%,50%)] shadow-2xl">
-            <CardHeader className="bg-gradient-to-r from-[hsl(210,15%,30%)] to-[hsl(210,15%,25%)] text-white">
+          <Card className="border-4 border-[#f97316] shadow-2xl">
+            <CardHeader className="bg-[#0f172a] text-white">
               <CardTitle className="font-serif text-3xl text-center">
                 <Shield className="inline-block mr-3" size={36} />
                 Nuestra Garantía de Satisfacción Total
@@ -352,24 +351,24 @@ export default function SistemaEIFS() {
             </CardHeader>
             <CardContent className="pt-8 space-y-6">
               <div className="flex items-start gap-4">
-                <CheckCircle className="text-[hsl(14,70%,50%)] flex-shrink-0 mt-1" size={28} />
+                <CheckCircle className="text-[#f97316] flex-shrink-0 mt-1" size={28} />
                 <div>
-                  <h3 className="font-bold text-xl mb-2">Garantía de Calidad</h3>
-                  <p className="text-gray-700">Estamos TAN CONVENCIDOS de la calidad de nuestros trabajos que garantizamos los materiales y la instalación</p>
+                  <h3 className="font-bold text-xl mb-2 text-[#0f172a]">Garantía de Calidad</h3>
+                  <p className="text-[#64748b]">Estamos TAN CONVENCIDOS de la calidad de nuestros trabajos que garantizamos los materiales y la instalación</p>
                 </div>
               </div>
               <div className="flex items-start gap-4">
-                <CheckCircle className="text-[hsl(14,70%,50%)] flex-shrink-0 mt-1" size={28} />
+                <CheckCircle className="text-[#f97316] flex-shrink-0 mt-1" size={28} />
                 <div>
-                  <h3 className="font-bold text-xl mb-2">Profesionales Certificados</h3>
-                  <p className="text-gray-700">Disponemos de profesionales y personal calificado con 26+ años de experiencia</p>
+                  <h3 className="font-bold text-xl mb-2 text-[#0f172a]">Profesionales Certificados</h3>
+                  <p className="text-[#64748b]">Disponemos de profesionales y personal calificado con 26+ años de experiencia</p>
                 </div>
               </div>
               <div className="flex items-start gap-4">
-                <CheckCircle className="text-[hsl(14,70%,50%)] flex-shrink-0 mt-1" size={28} />
+                <CheckCircle className="text-[#f97316] flex-shrink-0 mt-1" size={28} />
                 <div>
-                  <h3 className="font-bold text-xl mb-2">Instalación Garantizada</h3>
-                  <p className="text-gray-700">Nos encargamos del Reacondicionamiento Térmico INTEGRAL de su vivienda con garantía escrita</p>
+                  <h3 className="font-bold text-xl mb-2 text-[#0f172a]">Instalación Garantizada</h3>
+                  <p className="text-[#64748b]">Nos encargamos del Reacondicionamiento Térmico INTEGRAL de su vivienda con garantía escrita</p>
                 </div>
               </div>
             </CardContent>
@@ -377,18 +376,18 @@ export default function SistemaEIFS() {
         </div>
       </section>
 
-      {/* Urgencia y Escasez - Hormozi Scarcity */}
-      <section className="py-20 bg-gradient-to-br from-[hsl(210,15%,30%)] to-[hsl(210,15%,20%)] text-white">
+      {/* Urgencia y Escasez */}
+      <section className="py-20 bg-[#0f172a] text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="mb-12">
-            <AlertTriangle className="text-[hsl(14,70%,50%)] mx-auto mb-6" size={64} />
+            <AlertTriangle className="text-[#f97316] mx-auto mb-6" size={64} />
             <h2 className="font-serif text-5xl font-bold mb-8">
               ¿Qué Sucede Si NO Instala AHORA el Sistema EIFS?
             </h2>
           </div>
 
           <div className="bg-white/10 backdrop-blur-sm rounded-xl p-10 mb-12">
-            <p className="text-2xl font-bold mb-6 text-[hsl(14,70%,50%)]">
+            <p className="text-2xl font-bold mb-6 text-[#f97316]">
               Simplemente Usted NO AVANZARÁ Este Año
             </p>
             <p className="text-xl mb-6 leading-relaxed">
@@ -405,14 +404,14 @@ export default function SistemaEIFS() {
               { icon: AlertTriangle, text: "El moho y la humedad SEGUIRÁN creciendo, afectando la salud de su familia" },
               { icon: TrendingUp, text: "Perderá la oportunidad de AUMENTAR el valor de su propiedad" }
             ].map((item, index) => (
-              <div key={index} className="flex items-center gap-4 bg-red-600/20 border-2 border-red-500 rounded-lg p-6">
-                <item.icon className="text-red-400 flex-shrink-0" size={32} />
+              <div key={index} className="flex items-center gap-4 bg-white/10 border-2 border-gray-200 rounded-lg p-6">
+                <item.icon className="text-[#f97316] flex-shrink-0" size={32} />
                 <p className="text-lg font-semibold text-left">{item.text}</p>
               </div>
             ))}
           </div>
 
-          <div className="bg-[hsl(14,70%,50%)] rounded-xl p-8 mb-8">
+          <div className="bg-[#f97316] rounded-xl p-8 mb-8">
             <p className="font-serif text-3xl font-bold mb-4">
               🔥 ATENCIÓN: Cupos Limitados por Mes
             </p>
@@ -425,7 +424,7 @@ export default function SistemaEIFS() {
             <Button 
               onClick={openWhatsApp}
               size="lg"
-              className="bg-[hsl(14,70%,50%)] hover:bg-[hsl(14,70%,45%)] text-white font-bold text-xl px-12 py-8 shadow-2xl hover:scale-105 transition-all duration-300"
+              className="bg-[#f97316] hover:bg-orange-600 text-white font-bold text-xl px-12 py-8 shadow-2xl hover:scale-105 transition-all duration-300 rounded-lg"
               data-testid="button-urgencia-whatsapp"
             >
               <Phone className="mr-3 h-6 w-6" />
@@ -435,7 +434,7 @@ export default function SistemaEIFS() {
               onClick={scrollToContact}
               size="lg"
               variant="outline"
-              className="bg-white text-[hsl(210,15%,30%)] hover:bg-gray-100 font-bold text-xl px-12 py-8 border-2 border-white shadow-xl"
+              className="bg-white text-[#0f172a] hover:bg-gray-100 font-bold text-xl px-12 py-8 border-2 border-white shadow-xl rounded-lg"
               data-testid="button-urgencia-contacto"
             >
               <ArrowRight className="mr-3 h-6 w-6" />
@@ -448,27 +447,27 @@ export default function SistemaEIFS() {
       {/* CTA Final */}
       <section className="py-20 bg-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="font-serif text-5xl font-bold text-[hsl(210,15%,30%)] mb-8">
+          <h2 className="font-serif text-5xl font-bold text-[#0f172a] mb-8">
             Transforme Su Hogar Hoy con el Sistema EIFS
           </h2>
-          <p className="text-2xl text-gray-600 mb-12">
+          <p className="text-2xl text-[#64748b] mb-12">
             En <strong>ArquitectoChile.com</strong> nos encargamos del Reacondicionamiento Térmico Integral de su vivienda
           </p>
 
-          <div className="bg-gradient-to-br from-[hsl(210,15%,30%)] to-[hsl(210,15%,25%)] text-white rounded-xl p-10 mb-8">
+          <div className="bg-[#0f172a] text-white rounded-xl p-10 mb-8">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
               <div>
-                <ThermometerSun className="text-[hsl(14,70%,50%)] mx-auto mb-4" size={48} />
+                <ThermometerSun className="text-[#f97316] mx-auto mb-4" size={48} />
                 <h3 className="font-bold text-xl mb-2">Paso 1</h3>
                 <p>Diagnóstico Térmico Profesional</p>
               </div>
               <div>
-                <Shield className="text-[hsl(14,70%,50%)] mx-auto mb-4" size={48} />
+                <Shield className="text-[#f97316] mx-auto mb-4" size={48} />
                 <h3 className="font-bold text-xl mb-2">Paso 2</h3>
                 <p>Instalación por Expertos Certificados</p>
               </div>
               <div>
-                <Star className="text-[hsl(14,70%,50%)] mx-auto mb-4" size={48} />
+                <Star className="text-[#f97316] mx-auto mb-4" size={48} />
                 <h3 className="font-bold text-xl mb-2">Paso 3</h3>
                 <p>Disfrute su Hogar Confortable</p>
               </div>
@@ -477,27 +476,12 @@ export default function SistemaEIFS() {
             <Button 
               onClick={openWhatsApp}
               size="lg"
-              className="bg-[hsl(14,70%,50%)] hover:bg-[hsl(14,70%,45%)] text-white font-bold text-xl px-16 py-8 shadow-2xl hover:scale-105 transition-all duration-300"
-              data-testid="button-final-cta"
+              className="bg-[#f97316] hover:bg-orange-600 text-white font-bold text-xl px-12 py-8 shadow-2xl hover:scale-105 transition-all duration-300 rounded-lg"
+              data-testid="button-cta-final"
             >
-              <Phone className="mr-3 h-7 w-7" />
-              CONTACTAR AHORA POR WHATSAPP
+              <Phone className="mr-3 h-6 w-6" />
+              AGENDAR CONSULTA GRATUITA
             </Button>
-          </div>
-
-          <div className="flex items-center justify-center gap-8 text-gray-600">
-            <div className="flex items-center gap-2">
-              <Star className="text-yellow-500 fill-yellow-500" />
-              <span className="font-semibold">4.9/5 estrellas</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <Shield className="text-[hsl(14,70%,50%)]" />
-              <span className="font-semibold">Garantía Total</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <Award className="text-[hsl(210,15%,30%)]" />
-              <span className="font-semibold">26+ años experiencia</span>
-            </div>
           </div>
         </div>
       </section>

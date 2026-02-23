@@ -91,7 +91,7 @@ export default function AsesoriaArquitectonicaTerreno() {
       <Navigation />
       
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-[hsl(14,70%,50%)] to-[hsl(14,80%,55%)] text-white py-24">
+      <section className="relative bg-[#f97316] text-white py-24">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <Badge className="bg-white/20 backdrop-blur-sm text-white mb-6 text-sm font-semibold px-6 py-2">
             <MapPin className="inline h-4 w-4 mr-2" />
@@ -118,7 +118,7 @@ export default function AsesoriaArquitectonicaTerreno() {
           <Button 
             onClick={openWhatsApp}
             size="lg" 
-            className="bg-white text-[hsl(14,70%,50%)] hover:bg-gray-100 text-xl px-10 py-6 font-bold shadow-xl"
+            className="bg-white text-[#f97316] hover:bg-gray-100 text-xl px-10 py-6 font-bold shadow-xl rounded-lg"
             data-testid="button-agendar-visita-hero"
           >
             <Phone className="mr-3 h-6 w-6" />
@@ -131,22 +131,22 @@ export default function AsesoriaArquitectonicaTerreno() {
       <section className="py-20 bg-white">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mb-12">
-            <h2 className="font-serif text-4xl lg:text-5xl font-bold mb-6 text-gray-900">
+            <h2 className="font-serif text-4xl lg:text-5xl font-bold mb-6 text-[#0f172a]">
               ¿Tienes dudas sobre tu proyecto? Te las resuelvo en terreno
             </h2>
-            <p className="text-xl text-gray-700 max-w-3xl mb-8">
+            <p className="text-xl text-[#64748b] max-w-3xl mb-8">
               <strong>Imagínate tener al arquitecto en tu casa, analizando personalmente</strong> las posibilidades reales de tu ampliación o 
               remodelación, respondiendo todas tus preguntas y eliminando la incertidumbre por solo $45.000.
             </p>
-            <p className="text-lg text-gray-600 max-w-3xl mb-8">
+            <p className="text-lg text-[#64748b] max-w-3xl mb-8">
               Esta asesoría presencial te permite conocer mi metodología de trabajo, generar confianza mutua y 
               obtener información profesional valiosa antes de tomar cualquier decisión importante.
             </p>
             
-            <div className="bg-green-50 border-l-4 border-green-500 p-6 max-w-3xl">
+            <div className="bg-gray-50 border-l-4 border-gray-200 p-6 max-w-3xl">
               <div className="flex items-start gap-3">
-                <CheckCircle className="text-green-600 w-6 h-6 flex-shrink-0 mt-1" />
-                <p className="text-gray-700 text-lg">
+                <CheckCircle className="text-[#0f172a] w-6 h-6 flex-shrink-0 mt-1" />
+                <p className="text-[#64748b] text-lg">
                   <strong>Conoces al arquitecto y su metodología antes de contratar</strong>
                 </p>
               </div>
@@ -160,72 +160,68 @@ export default function AsesoriaArquitectonicaTerreno() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
             
-            {/* Análisis Profesional en Tu Terreno */}
             <Card className="bg-white shadow-xl hover:shadow-2xl transition-all duration-300">
               <CardHeader className="text-center pb-6">
-                <div className="bg-[hsl(14,70%,50%)]/10 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <MapPin className="text-[hsl(14,70%,50%)] w-10 h-10" />
+                <div className="bg-[#f97316]/10 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <MapPin className="text-[#f97316] w-10 h-10" />
                 </div>
-                <CardTitle className="font-serif text-2xl font-bold text-[hsl(210,15%,30%)]">
+                <CardTitle className="font-serif text-2xl font-bold text-[#0f172a]">
                   Análisis Profesional en Tu Terreno
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-gray-600 leading-relaxed">
+                <p className="text-[#64748b] leading-relaxed">
                   Revisión completa de tu edificación actual desde el punto de vista normativo y técnico. 
                   Identifico oportunidades y restricciones que solo se pueden ver en persona.
                 </p>
               </CardContent>
             </Card>
 
-            {/* Evaluación de Potencial Real */}
             <Card className="bg-white shadow-xl hover:shadow-2xl transition-all duration-300">
               <CardHeader className="text-center pb-6">
-                <div className="bg-[hsl(210,15%,30%)]/10 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <Eye className="text-[hsl(210,15%,30%)] w-10 h-10" />
+                <div className="bg-[#0f172a]/10 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <Eye className="text-[#0f172a] w-10 h-10" />
                 </div>
-                <CardTitle className="font-serif text-2xl font-bold text-[hsl(210,15%,30%)]">
+                <CardTitle className="font-serif text-2xl font-bold text-[#0f172a]">
                   Evaluación de Potencial Real
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-gray-600 leading-relaxed">
+                <p className="text-[#64748b] leading-relaxed">
                   Estudio de tus deseos y certificados prediales para determinar las posibilidades exactas de 
                   ampliación o remodelación según normativa vigente.
                 </p>
               </CardContent>
             </Card>
 
-            {/* Recomendaciones Personalizadas */}
             <Card className="bg-white shadow-xl hover:shadow-2xl transition-all duration-300">
               <CardHeader className="text-center pb-6">
-                <div className="bg-[hsl(14,70%,50%)]/10 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <Lightbulb className="text-[hsl(14,70%,50%)] w-10 h-10" />
+                <div className="bg-[#f97316]/10 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <Lightbulb className="text-[#f97316] w-10 h-10" />
                 </div>
-                <CardTitle className="font-serif text-2xl font-bold text-[hsl(210,15%,30%)]">
+                <CardTitle className="font-serif text-2xl font-bold text-[#0f172a]">
                   Recomendaciones Personalizadas
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-gray-600 leading-relaxed">
+                <p className="text-[#64748b] leading-relaxed">
                   Recibe orientación experta sobre materiales, diseño, etapas del proyecto y mejores prácticas 
                   para maximizar tu inversión y lograr el resultado que imaginas.
                 </p>
               </CardContent>
             </Card>
 
-            {/* Presupuesto de Arquitectura */}
             <Card className="bg-white shadow-xl hover:shadow-2xl transition-all duration-300">
               <CardHeader className="text-center pb-6">
-                <div className="bg-[hsl(210,15%,30%)]/10 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <FileText className="text-[hsl(210,15%,30%)] w-10 h-10" />
+                <div className="bg-[#0f172a]/10 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <FileText className="text-[#0f172a] w-10 h-10" />
                 </div>
-                <CardTitle className="font-serif text-2xl font-bold text-[hsl(210,15%,30%)]">
+                <CardTitle className="font-serif text-2xl font-bold text-[#0f172a]">
                   Presupuesto de Arquitectura
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-gray-600 leading-relaxed">
+                <p className="text-[#64748b] leading-relaxed">
                   Obtén un presupuesto profesional detallado de los servicios arquitectónicos necesarios para 
                   materializar tu proyecto, sin sorpresas ni costos ocultos.
                 </p>
@@ -239,36 +235,36 @@ export default function AsesoriaArquitectonicaTerreno() {
       {/* Metodología de Trabajo */}
       <section className="py-20 bg-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="font-serif text-4xl font-bold text-[hsl(210,15%,30%)] text-center mb-12">
+          <h2 className="font-serif text-4xl font-bold text-[#0f172a] text-center mb-12">
             Conoce al Arquitecto y su Metodología
           </h2>
           
-          <div className="bg-gradient-to-br from-gray-50 to-white rounded-xl p-8 border-2 border-gray-100">
+          <div className="bg-gray-50 rounded-xl p-8 border-2 border-gray-200">
             <div className="flex items-start gap-4 mb-6">
-              <CheckCircle className="text-green-600 w-6 h-6 flex-shrink-0 mt-1" />
+              <CheckCircle className="text-[#0f172a] w-6 h-6 flex-shrink-0 mt-1" />
               <div>
-                <h3 className="text-xl font-bold text-gray-900 mb-2">26+ años de experiencia</h3>
-                <p className="text-gray-600">
+                <h3 className="text-xl font-bold text-[#0f172a] mb-2">26+ años de experiencia</h3>
+                <p className="text-[#64748b]">
                   Arquitecto titulado Universidad de Chile con vasta experiencia en proyectos residenciales
                 </p>
               </div>
             </div>
             
             <div className="flex items-start gap-4 mb-6">
-              <CheckCircle className="text-green-600 w-6 h-6 flex-shrink-0 mt-1" />
+              <CheckCircle className="text-[#0f172a] w-6 h-6 flex-shrink-0 mt-1" />
               <div>
-                <h3 className="text-xl font-bold text-gray-900 mb-2">Proceso colaborativo</h3>
-                <p className="text-gray-600">
+                <h3 className="text-xl font-bold text-[#0f172a] mb-2">Proceso colaborativo</h3>
+                <p className="text-[#64748b]">
                   Trabajo paso a paso contigo, escuchando tus necesidades y adaptando soluciones a tu presupuesto
                 </p>
               </div>
             </div>
             
             <div className="flex items-start gap-4">
-              <CheckCircle className="text-green-600 w-6 h-6 flex-shrink-0 mt-1" />
+              <CheckCircle className="text-[#0f172a] w-6 h-6 flex-shrink-0 mt-1" />
               <div>
-                <h3 className="text-xl font-bold text-gray-900 mb-2">Transparencia total</h3>
-                <p className="text-gray-600">
+                <h3 className="text-xl font-bold text-[#0f172a] mb-2">Transparencia total</h3>
+                <p className="text-[#64748b]">
                   Información clara sobre costos, plazos y alcances desde la primera visita
                 </p>
               </div>
@@ -278,17 +274,17 @@ export default function AsesoriaArquitectonicaTerreno() {
       </section>
 
       {/* Nota sobre Precio Variable */}
-      <section className="py-16 bg-amber-50 border-t-4 border-amber-400">
+      <section className="py-16 bg-gray-50 border-t-4 border-[#f97316]">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-start gap-4">
-            <MapPin className="text-amber-600 w-8 h-8 flex-shrink-0 mt-1" />
+            <MapPin className="text-[#f97316] w-8 h-8 flex-shrink-0 mt-1" />
             <div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-3">Importante: Precio según distancia</h3>
-              <p className="text-lg text-gray-700 mb-4">
+              <h3 className="text-2xl font-bold text-[#0f172a] mb-3">Importante: Precio según distancia</h3>
+              <p className="text-lg text-[#64748b] mb-4">
                 El precio base de <strong>$45.000</strong> aplica para servicios dentro del radio cercano a nuestra 
                 ubicación en <strong>Vicuña Mackenna Poniente 7730, La Florida</strong>.
               </p>
-              <p className="text-gray-600">
+              <p className="text-[#64748b]">
                 Para proyectos fuera de esta zona, el precio puede variar según la distancia. Te confirmaremos el 
                 costo exacto al momento de agendar tu visita.
               </p>
@@ -298,7 +294,7 @@ export default function AsesoriaArquitectonicaTerreno() {
       </section>
 
       {/* CTA Final */}
-      <section className="py-20 bg-gradient-to-br from-[hsl(14,70%,50%)] to-[hsl(14,80%,55%)] text-white">
+      <section className="py-20 bg-[#f97316] text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="font-serif text-4xl lg:text-5xl font-bold mb-6">
             ¿Listo para Eliminar tus Dudas?
@@ -311,7 +307,7 @@ export default function AsesoriaArquitectonicaTerreno() {
             <Button 
               onClick={openTidyCal}
               size="lg" 
-              className="bg-white text-[hsl(14,70%,50%)] hover:bg-gray-100 text-xl px-10 py-6 font-bold"
+              className="bg-white text-[#f97316] hover:bg-gray-100 text-xl px-10 py-6 font-bold rounded-lg"
               data-testid="button-agendar-visita-final"
             >
               <Calendar className="mr-3 h-6 w-6" />

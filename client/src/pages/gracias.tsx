@@ -11,8 +11,8 @@ export default function GraciasPage() {
           {/* Success Icon */}
           <div className="flex justify-center mb-8">
             <div className="relative">
-              <div className="absolute inset-0 bg-emerald-500/20 dark:bg-emerald-500/10 rounded-full blur-2xl" />
-              <CheckCircle2 className="w-24 h-24 text-emerald-600 dark:text-emerald-400 relative" />
+              <div className="absolute inset-0 bg-[#f97316]/20 dark:bg-[#f97316]/10 rounded-full blur-2xl" />
+              <CheckCircle2 className="w-24 h-24 text-[#f97316] dark:text-[#f97316] relative" />
             </div>
           </div>
 

@@ -304,14 +304,14 @@ export default function CalculadoraCostos() {
                     </div>
                   </div>
 
-                  <div className="bg-yellow-50 p-4 rounded-lg border border-yellow-200">
-                    <p className="text-sm text-yellow-800">
+                  <div className="bg-orange-50 p-4 rounded-lg border border-orange-200">
+                    <p className="text-sm text-[#0f172a]">
                       <strong>Nota:</strong> Esta es una estimación referencial basada en promedios del mercado. 
                       Los costos reales pueden variar según ubicación, proveedores y especificaciones del proyecto.
                     </p>
                   </div>
 
-                  <div className="mt-6 p-6 bg-gradient-to-r from-primary/5 to-blue-50 rounded-lg border border-primary/20">
+                  <div className="mt-6 p-6 bg-gradient-to-r from-primary/5 to-orange-50 rounded-lg border border-primary/20">
                     <h4 className="text-lg font-semibold text-gray-900 mb-2">
                       ¿Quieres una cotización exacta y personalizada?
                     </h4>
@@ -339,7 +339,7 @@ export default function CalculadoraCostos() {
 
         {/* CTA Section */}
         <div className="mt-12 text-center">
-          <Card className="bg-gradient-to-r from-primary/5 to-blue-50 border-primary/20">
+          <Card className="bg-gradient-to-r from-primary/5 to-orange-50 border-primary/20">
             <CardContent className="py-8">
               <h3 className="text-2xl font-bold text-gray-900 mb-4">
                 ¿Quieres una cotización exacta y personalizada?
@@ -374,7 +374,7 @@ export default function CalculadoraCostos() {
             
             {isSubmitted ? (
               <div className="text-center py-6">
-                <CheckCircle className="h-16 w-16 text-green-500 mx-auto mb-4" />
+                <CheckCircle className="h-16 w-16 text-[#f97316] mx-auto mb-4" />
                 <h3 className="text-lg font-semibold text-gray-900 mb-2">¡Gracias!</h3>
                 <p className="text-gray-600">
                   Hemos recibido tu información. Te contactaremos pronto con tu cotización personalizada.

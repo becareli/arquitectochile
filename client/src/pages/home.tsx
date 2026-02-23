@@ -195,7 +195,7 @@ export default function Home() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <p className="text-xs font-semibold tracking-[0.2em] uppercase text-[#f97316] mb-3">Herramientas</p>
-            <h2 className="text-3xl md:text-4xl font-bold text-[#1e293b] mb-4">Calculadoras Interactivas</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-[#0f172a] mb-4">Calculadoras Interactivas</h2>
             <p className="text-base text-gray-500 max-w-xl mx-auto">Estimaciones referenciales para planificar su proyecto</p>
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
