@@ -1,0 +1,101 @@
+Tengo un proyecto React + TypeScript con Tailwind y componentes UI (Card/Button). Necesito que edites SOLO este archivo:
+
+client/src/components/services.tsx
+
+Contexto: En la sección “Nuestros Servicios” muestro 12 cards en una grilla 3 columnas x 4 filas. Quiero mejorar composición visual (menos fragmentado), alinear botones, definir colores por fila, limpiar emojis y agrandar íconos.
+
+REQUISITOS (todos obligatorios):
+
+1) Composición: fondo slate uniforme + acento naranjo
+Todas las cards (featured y no-featured) deben tener el MISMO fondo base “slate premium”, por ejemplo:
+
+bg-slate-900 text-white border border-slate-800
+
+Elimina el uso de service.bgColor como fondo principal (no quiero 12 fondos distintos).
+
+Mantén el naranjo como acento de marca (no como fondo completo): fila 1 usa acento naranjo.
+
+2) Acento por fila (barra superior)
+Agrega una barra superior delgada dentro de cada Card (ej: h-1 w-full) con color según service.row:
+
+row 1: bg-orange-500
+
+row 2: bg-blue-500
+
+row 3: bg-emerald-500
+
+row 4: bg-rose-500
+
+3) Alineación de botones (todos abajo)
+Todos los botones deben quedar alineados horizontalmente dentro de cada fila (siempre abajo).
+
+Implementa flex flex-col h-full en cada Card y usa mt-auto para empujar el bloque del botón al fondo.
+
+4) Color de botón por fila (mismo color para las 3 cards de la fila)
+Agrega row: 1|2|3|4 a cada servicio en el array services respetando el orden actual:
+
+Fila 1: arquitecto-domicilio, regularizacion-inmuebles, revisor-independiente-de-arquitectura
+
+Fila 2: reacondicionamiento-termico, eifs, disena-espacio
+
+Fila 3: fusion-terrenos-urbanos, inspeccion-tecnica-viviendas, tasacion-viviendas-urbanas
+
+Fila 4: subdivision-terrenos-urbanos, permiso-recepcion, obras-menores-empresas
+
+Elimina la lógica actual de colores por service.id (condicional largo en el Button de featured).
+
+Crea un mapa rowButtonClass y úsalo para TODOS los botones:
+
+row 1 (naranjo): bg-orange-500 text-white hover:bg-orange-600
+
+row 2 (azul): bg-blue-600 text-white hover:bg-blue-700
+
+row 3 (verde): bg-emerald-600 text-white hover:bg-emerald-700
+
+row 4 (rojo): bg-rose-600 text-white hover:bg-rose-700
+
+5) Uniformar “Obras Menores Empresas”
+Hoy esa card se ve distinta (y con poco contenido).
+
+Cámbiala para que quede igual que las otras:
+
+featured: true
+
+price: "Consultar"
+
+features: agrega 4 bullets (sin emojis)
+
+urgency: opcional
+
+row: 4
+
+Mantén path y el handleServiceClick igual.
+
+6) Quitar emojis en features (se ve artificial)
+Mantén el ícono CheckCircle como viñeta visual.
+
+Elimina emojis del texto de features (✅📊💡 etc.) para TODOS los servicios.
+
+Implementa una función tipo stripLeadingEmoji(text: string) o regex para limpiar solo el inicio del string, y úsala al renderizar {stripLeadingEmoji(feature)}.
+
+7) Íconos del servicio más grandes
+En los círculos de ícono, aumenta el tamaño real del ícono de lucide-react usando clases w-10 h-10 o w-12 h-12 (no uses text-3xl si no aplica).
+
+Aplica el cambio tanto en featured como en no-featured.
+
+8) TypeScript limpio
+Define un tipo Service que incluya row y tipa const services: Service[] = [...] (sin any).
+
+RESTRICCIONES:
+
+No cambies otros archivos.
+
+No cambies rutas/paths ni handleServiceClick (solo si es imprescindible para compilar).
+
+Mantén textos actuales excepto remover emojis y completar “Obras Menores Empresas”.
+
+ENTREGA:
+
+Devuélveme el archivo client/src/components/services.tsx completo actualizado.
+
+Confirma: “fondo slate unificado”, “barra por fila”, “botones alineados”, “botones por color de fila”, “emojis removidos”, “íconos más grandes”, “Obras Menores uniformada”.

@@ -11,7 +11,6 @@ type Service = {
   icon: typeof Home;
   features: string[];
   featured: boolean;
-  bgColor: string;
   path?: string;
   urgency?: string;
   legalBacking?: string;
@@ -20,10 +19,17 @@ type Service = {
 };
 
 const rowButtonClass: Record<1 | 2 | 3 | 4, string> = {
-  1: "bg-white text-[hsl(14,70%,45%)] hover:bg-gray-50 border-2 border-white",
+  1: "bg-orange-500 text-white hover:bg-orange-600",
   2: "bg-blue-600 text-white hover:bg-blue-700",
   3: "bg-emerald-600 text-white hover:bg-emerald-700",
   4: "bg-rose-600 text-white hover:bg-rose-700",
+};
+
+const rowAccentClass: Record<1 | 2 | 3 | 4, string> = {
+  1: "bg-orange-500",
+  2: "bg-blue-500",
+  3: "bg-emerald-500",
+  4: "bg-rose-500",
 };
 
 function stripLeadingEmoji(text: string): string {
@@ -48,7 +54,6 @@ export default function Services() {
         "⚠️ Precio puede variar según distancia (base: Vicuña Mackenna Pte. 7730)"
       ],
       featured: true,
-      bgColor: "bg-gradient-to-br from-[hsl(14,70%,50%)] to-[hsl(14,65%,45%)]",
       path: "/asesoria-arquitectonica-terreno",
       row: 1
     },
@@ -65,7 +70,6 @@ export default function Services() {
         "Gestión integral del proceso"
       ],
       featured: true,
-      bgColor: "bg-gradient-to-br from-[hsl(210,15%,30%)] to-[hsl(210,15%,25%)]",
       path: "/regularizacion-inmuebles",
       row: 1
     },
@@ -84,7 +88,6 @@ export default function Services() {
         "📋 Informe Favorable - documento oficial"
       ],
       featured: true,
-      bgColor: "bg-gradient-to-br from-[hsl(210,15%,30%)] to-[hsl(210,20%,35%)]",
       urgency: "REVISION PROFESIONAL CERTIFICADA",
       legalBacking: "Certificación MINVU N° 369500 Vigente",
       row: 1
@@ -104,7 +107,6 @@ export default function Services() {
         "🛡️ Asesoría especializada certificada"
       ],
       featured: true,
-      bgColor: "bg-gradient-to-br from-[hsl(14,70%,50%)] to-[hsl(25,75%,50%)]",
       urgency: "PARE DE QUEMAR DINERO EN CALEFACCION",
       path: "/reacondicionamiento-termico-viviendas",
       row: 2
@@ -117,14 +119,13 @@ export default function Services() {
       icon: Snowflake,
       features: [
         "❄️ Aislación térmica exterior de última generación",
-        "🏠 Envuelve y abrига completamente su hogar",
+        "🏠 Envuelve y abriga completamente su hogar",
         "💰 Reduce 60% costos calefacción/refrigeración",
         "🌡️ Temperatura estable todo el año",
         "🛡️ Impermeable + resistente al clima chileno",
         "✅ Instalación profesional con garantía"
       ],
       featured: true,
-      bgColor: "bg-gradient-to-br from-[hsl(210,15%,30%)] to-[hsl(210,15%,25%)]",
       urgency: "PARE DE SUFRIR FRIO/CALOR EXTREMO",
       valueProposition: "El único sistema que abraza su casa completa para máximo confort térmico",
       path: "/sistema-eifs",
@@ -145,7 +146,6 @@ export default function Services() {
         "⚡ Proceso colaborativo paso a paso"
       ],
       featured: true,
-      bgColor: "bg-gradient-to-br from-[hsl(14,70%,50%)] to-[hsl(14,80%,55%)]",
       urgency: "SOLO 3 PROYECTOS POR MES",
       valueProposition: "El hogar que siempre imaginaste, diseñado específicamente para tu estilo de vida",
       row: 2
@@ -165,7 +165,6 @@ export default function Services() {
         "✅ Gestión integral: DOM→SII→CBR"
       ],
       featured: true,
-      bgColor: "bg-gradient-to-br from-[hsl(210,15%,30%)] to-[hsl(210,15%,20%)]",
       urgency: "BENEFICIO LEY ART. 63 LIMITADO",
       valueProposition: "La única forma LEGAL de aumentar instantáneamente el valor y capacidad de tu terreno",
       row: 3
@@ -185,7 +184,6 @@ export default function Services() {
         "⚖️ Respaldo para negociar mejor precio"
       ],
       featured: true,
-      bgColor: "bg-gradient-to-br from-[hsl(210,15%,25%)] to-[hsl(210,20%,20%)]",
       urgency: "SOLO 15 INSPECCIONES POR MES",
       valueProposition: "Transforme la compra más grande de su vida en una decisión científica",
       row: 3
@@ -205,7 +203,6 @@ export default function Services() {
         "💰 Evita perder millones en tu negociación"
       ],
       featured: true,
-      bgColor: "bg-gradient-to-br from-[hsl(210,15%,30%)] to-[hsl(210,18%,25%)]",
       urgency: "DECISION MILLONARIA REQUIERE CERTEZA",
       valueProposition: "No deje que la duda le cueste millones - Conozca el valor exacto de su propiedad",
       row: 3
@@ -225,7 +222,6 @@ export default function Services() {
         "✅ 26+ años experiencia en subdivisiones"
       ],
       featured: true,
-      bgColor: "bg-gradient-to-br from-[hsl(210,15%,28%)] to-[hsl(210,18%,22%)]",
       urgency: "CAPITAL DORMIDO PIERDE VALOR CADA DIA",
       valueProposition: "Desbloquee el potencial oculto de su terreno sin invertir un peso adicional",
       row: 4
@@ -245,7 +241,6 @@ export default function Services() {
         "🏆 Proceso completo: desde permiso hasta legalización"
       ],
       featured: true,
-      bgColor: "bg-gradient-to-br from-[hsl(210,15%,30%)] to-[hsl(210,15%,25%)]",
       urgency: "EVITA RECHAZOS Y MULTAS MILLONARIAS",
       valueProposition: "Servicio integral profesional para aprobación y legalización completa",
       path: "/permiso-edificacion-recepcion-final",
@@ -264,7 +259,6 @@ export default function Services() {
         "Plazos optimizados para apertura de sucursales"
       ],
       featured: true,
-      bgColor: "bg-gradient-to-br from-[hsl(210,15%,28%)] to-[hsl(210,18%,22%)]",
       path: "/obras-menores-empresas",
       row: 4
     }
@@ -349,17 +343,20 @@ export default function Services() {
           {services.map((service) => {
             const IconComponent = service.icon;
             const btnClass = rowButtonClass[service.row];
+            const accentClass = rowAccentClass[service.row];
 
             return (
-              <Card key={service.id} className={`${service.bgColor} text-white md:col-span-2 lg:col-span-1 transform hover:scale-105 transition-all duration-300 relative overflow-hidden shadow-xl hover:shadow-2xl flex flex-col`}>
+              <Card key={service.id} className="bg-slate-900 text-white border border-slate-800 md:col-span-2 lg:col-span-1 transform hover:scale-105 transition-all duration-300 relative overflow-hidden shadow-xl hover:shadow-2xl flex flex-col">
+                <div className={`h-1 w-full ${accentClass}`} />
+
                 {service.urgency && (
-                  <div className="bg-[hsl(14,70%,50%)] text-white text-center py-2.5 px-4 text-sm font-semibold">
+                  <div className={`${accentClass} text-white text-center py-2.5 px-4 text-sm font-semibold`}>
                     {service.urgency}
                   </div>
                 )}
 
                 <CardHeader className="text-center pb-6">
-                  <div className="bg-white/20 backdrop-blur-sm w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <div className="bg-white/10 backdrop-blur-sm w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
                     <IconComponent className="w-10 h-10 text-white" />
                   </div>
                   <CardTitle className="font-serif text-3xl font-bold mb-3">{service.title}</CardTitle>
@@ -369,7 +366,7 @@ export default function Services() {
                   <p className="opacity-90 text-lg">{service.description}</p>
 
                   {service.legalBacking && (
-                    <div className="bg-white/20 backdrop-blur-sm rounded-lg p-3 mt-4">
+                    <div className="bg-white/10 backdrop-blur-sm rounded-lg p-3 mt-4">
                       <p className="text-sm font-medium opacity-95">{service.legalBacking}</p>
                     </div>
                   )}
@@ -378,8 +375,8 @@ export default function Services() {
                   <ul className="space-y-3 mb-6">
                     {service.features.map((feature, index) => (
                       <li key={index} className="flex items-start text-sm">
-                        <CheckCircle className="w-4 h-4 mr-2 mt-0.5 flex-shrink-0" />
-                        <span className="leading-tight">{stripLeadingEmoji(feature)}</span>
+                        <CheckCircle className="w-4 h-4 mr-2 mt-0.5 flex-shrink-0 text-slate-400" />
+                        <span className="leading-tight text-slate-200">{stripLeadingEmoji(feature)}</span>
                       </li>
                     ))}
                   </ul>
