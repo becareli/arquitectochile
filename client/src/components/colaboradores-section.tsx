@@ -26,18 +26,18 @@ const especialidades = [
     icon: Building2
   },
   {
-    titulo: "Gestión BIM",
-    detalle: "Coordinación y Modelación LOD 300+",
+    titulo: "Gestión y Modelación BIM",
+    detalle: "LOD 300+",
     icon: Cpu
   },
   {
-    titulo: "Instalaciones de Alto Desempeño",
+    titulo: "Instalaciones Técnicas",
     detalle: "Sanitario, Eléctrico, Gas, Climatización",
     icon: Zap
   },
   {
-    titulo: "Sustentabilidad",
-    detalle: "Eficiencia Energética",
+    titulo: "Eficiencia Energética y Sustentabilidad",
+    detalle: "Normativa y certificación",
     icon: Leaf
   }
 ];
@@ -45,26 +45,26 @@ const especialidades = [
 const pasos = [
   {
     numero: "01",
-    titulo: "Briefing de Alto Valor",
-    descripcion: "Alcances claros, antecedentes completos, entregables definidos y criterios de evaluación transparentes.",
+    titulo: "Briefing Técnico",
+    descripcion: "Alcances definidos y antecedentes completos. Cada encargo se entrega con la información necesaria para cotizar con precisión.",
     icon: FileText
   },
   {
     numero: "02",
-    titulo: "Propuesta Estratégica",
-    descripcion: "Honorarios y plazos ordenados. Cada profesional presenta alcance, condiciones y compromiso de entrega.",
+    titulo: "Propuesta Profesional",
+    descripcion: "Honorarios y plazos bajo un estándar de orden. El profesional presenta su alcance, condiciones y compromiso de entrega.",
     icon: Send
   },
   {
     numero: "03",
-    titulo: "Selección por Excelencia",
-    descripcion: "Ajuste técnico, claridad de propuesta, cumplimiento previo y plazos. No se evalúa solo por precio.",
+    titulo: "Selección por Calidad",
+    descripcion: "Evaluación de ajuste técnico, claridad de propuesta, cumplimiento previo y plazos. No se decide solo por precio.",
     icon: Search
   },
   {
     numero: "04",
-    titulo: "Retroalimentación",
-    descripcion: "Mejora continua. Feedback breve al cierre de cada encargo para fortalecer futuras colaboraciones.",
+    titulo: "Mejora Continua",
+    descripcion: "Retroalimentación para optimizar futuras colaboraciones. Feedback breve al cierre de cada encargo.",
     icon: MessageSquare
   }
 ];
@@ -115,10 +115,10 @@ export default function ColaboradoresSection() {
         }} />
         <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-24 text-center">
           <h2 className="font-serif text-3xl md:text-5xl font-bold text-white mb-6 leading-tight">
-            Únete a la Élite: Proyecta en el Ecosistema Residencial<br className="hidden md:block" /> de Colaboradores de ArquitectoChile.com
+            Súmate a nuestra Red de Especialistas:<br className="hidden md:block" /> Colaboración de Alto Desempeño en ArquitectoChile.com
           </h2>
           <p className="text-lg text-slate-300 max-w-3xl mx-auto leading-relaxed">
-            Eliminamos la fricción administrativa. Tú pones la maestría técnica; nosotros, la infraestructura de proyectos de alto estándar.
+            Buscamos profesionales que dominen su área técnica. Nosotros gestionamos la estructura del proyecto para que tú te enfoques en la calidad del entregable.
           </p>
         </div>
       </div>
@@ -135,7 +135,7 @@ export default function ColaboradoresSection() {
                 </div>
                 <div>
                   <p className="text-slate-700 text-base md:text-lg leading-relaxed mb-6">
-                    En ArquitectoChile.com gestionamos activos de valor. Integramos a los mejores especialistas en una Red de Colaboradores donde el orden es la ley. Buscamos profesionales que valoren la calidad técnica sobre el volumen.
+                    En ArquitectoChile.com creemos en el valor del orden y la precisión. Integramos especialistas que compartan nuestro estándar de trabajo: encargos claros, documentación rigurosa y plazos que se cumplen. Si valoras trabajar en un ecosistema profesional y bien coordinado, este es tu lugar.
                   </p>
                   <div className="flex items-center gap-3">
                     <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-slate-300">
@@ -320,7 +320,7 @@ export default function ColaboradoresSection() {
             <CardContent className="p-10 text-center">
               <h3 className="font-serif text-2xl font-bold mb-3">Postular a la Red de Colaboradores</h3>
               <p className="text-slate-400 mb-8 max-w-xl mx-auto text-sm leading-relaxed">
-                El acceso es selectivo. Buscamos aliados técnicos para los proyectos más exigentes.
+                Buscamos aliados técnicos para ejecutar los proyectos más exigentes. Tu capacidad técnica es nuestro motor.
               </p>
 
               <Button
