@@ -160,6 +160,39 @@ export default function ColaboradoresSection() {
           </div>
         </div>
 
+        {/* Modalidad de coordinación y entregables */}
+        <div className="mb-20">
+          <div className="max-w-4xl mx-auto">
+            <Card className="border border-slate-200 shadow-sm bg-white">
+              <CardHeader>
+                <CardTitle className="font-serif text-2xl text-slate-900 text-center">Modalidad de coordinación y entregables</CardTitle>
+                <p className="text-center text-slate-500 text-sm mt-1">Trabajo principalmente remoto</p>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <p className="text-slate-700 text-sm leading-relaxed">
+                  Los encargos se coordinan principalmente de forma remota (online), mediante reuniones breves y entrega de documentación digital en formatos acordados. Esta modalidad requiere autonomía, comunicación oportuna y cumplimiento estricto de hitos.
+                </p>
+                <p className="text-slate-700 text-sm leading-relaxed">
+                  En situaciones específicas, y cuando el proyecto lo requiera, se podrá coordinar una visita técnica presencial (levantamiento, inspección o reunión en terreno), dependiendo del tipo de encargo y ubicación.
+                </p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+                  {[
+                    "Coordinación remota como modalidad principal",
+                    "Entregables digitales en formatos acordados",
+                    "Responsabilidad y autonomía en el cumplimiento",
+                    "Visita presencial solo cuando el encargo lo requiera"
+                  ].map((item, i) => (
+                    <div key={i} className="flex items-start gap-2">
+                      <CheckCircle className="w-4 h-4 text-slate-600 flex-shrink-0 mt-0.5" />
+                      <span className="text-xs text-slate-600">{item}</span>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+
         {/* Modalidad de participación */}
         <div className="mb-20">
           <div className="text-center mb-10">
