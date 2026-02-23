@@ -1,0 +1,113 @@
+Necesito actualizar la página de colaboradores con un enfoque nuevo (red técnica para vivienda + cotización competitiva), con tono más formal y mejor composición visual.
+
+Archivos:
+
+NO cambie client/src/pages/Colaboradores.tsx (déjelo tal cual).
+
+Edite SOLO el componente que renderiza el contenido: client/src/components/colaboradores-section.tsx (o el archivo real que corresponda a @/components/colaboradores-section).
+
+Objetivo:
+
+Formar una red de especialistas y colaboradores para proyectos de vivienda (principalmente Santiago y también regiones).
+
+Perfiles: proyectistas de especialidades, coordinadores BIM y profesionales/instaladores para ejecutar o apoyar la ejecución de especialidades.
+
+Flujo: publicar encargos por especialidad y recibir cotizaciones competitivas (plazo + honorarios + alcance), seleccionar por ajuste técnico, plazos y precio, y entregar retroalimentación posterior cuando corresponda.
+
+Tono y estilo:
+
+Más formal (no usar “tú”, usar “usted” o redacción impersonal).
+
+Sin emojis.
+
+Sin palabras de marketing como “revolucionando”, “startup”, “plataforma”, etc.
+
+No usar la palabra “Premium” en ninguna parte.
+
+Evitar usar “Chile” en el título principal (puede mencionarse en el cuerpo si es necesario, pero sin enfatizarlo).
+
+Cambios obligatorios de contenido:
+
+Hero:
+
+Título (use una de estas opciones o similar):
+
+“Red de Especialistas y Colaboradores para Proyectos de Vivienda”
+
+“Red de Especialistas y Colaboradores en Vivienda”
+
+Subtítulo (formal):
+
+“Convocatoria abierta para proyectistas, coordinadores BIM y profesionales/instaladores que desarrollen especialidades y apoyen la ejecución de proyectos habitacionales. Operación principal en Santiago y coordinación con regiones.”
+
+Reemplace el mensaje actual firmado por Patricio por un texto más sobrio:
+
+Explicar que se está conformando una red técnica para asegurar calidad, coordinación y entregables completos.
+
+Firma:
+
+“— Patricio Becar, Arquitecto (ArquitectoChile)”
+
+Sección “Áreas de colaboración requeridas” (en tono profesional; NO usar “especialidades que busco”):
+
+Cálculo estructural (memoria, planos, EETT, coordinación con arquitectura)
+
+Mecánica de suelos (informe y recomendaciones)
+
+Proyecto sanitario / alcantarillado / aguas lluvias (según corresponda)
+
+Proyecto eléctrico (planos y documentación)
+
+Proyecto de gas (cuando aplique)
+
+Coordinación BIM (interferencias, coordinación de especialidades)
+
+Modelación/documentación BIM (Revit/Archicad según corresponda)
+
+Otras áreas según proyecto (climatización, eficiencia energética, etc.)
+
+Sección “Modalidad de participación” (formal):
+
+Publicación del encargo: alcance, antecedentes, entregables, plazos, criterios.
+
+Presentación de cotización competitiva: honorarios, plazo, alcance, condiciones.
+
+Evaluación y asignación: se pondera calidad técnica, claridad, cumplimiento y plazos (no solo precio).
+
+Retroalimentación: se entrega feedback breve cuando corresponda.
+
+Sección “Requisitos mínimos de colaboración”:
+
+Comunicación clara y tiempos de respuesta razonables.
+
+Control documental y trazabilidad de cambios.
+
+Entregables completos en formato acordado.
+
+Cumplimiento de plazos por hitos.
+
+CTA final:
+
+Botón: “Postular a la Red”
+
+Campos sugeridos (si existe formulario, adaptar labels/placeholders sin cambiar la funcionalidad): área de colaboración, cobertura (Santiago/regiones), experiencia y certificaciones, portafolio (link), software, modalidad (solo proyecto / también ejecución), disponibilidad, plazo típico.
+
+Diseño y visual (para que no se vea “muy blanco”):
+
+Mejorar la composición agregando un bloque visual en el Hero:
+
+O bien una imagen (si existe un asset en el proyecto, úselo), o un “hero background” con gradiente suave + patrón sutil.
+
+Mantener estilo sobrio y arquitectónico (no saturado).
+
+No agregar dependencias nuevas.
+
+Entrega:
+
+Devuelva client/src/components/colaboradores-section.tsx completo actualizado.
+
+Verifique que compile (TypeScript) y que el lenguaje sea formal.
+
+Si el archivo no existe:
+
+Buscar en el repo el componente por el import @/components/colaboradores-section o por textos antiguos (“Únete a nuestra red de profesionales”, “Fundador ArquitectoChile.com”) y editar el archivo correcto.

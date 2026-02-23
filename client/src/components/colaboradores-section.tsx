@@ -2,7 +2,6 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Shield,
-  Users,
   CheckCircle,
   FileText,
   Eye,
@@ -16,57 +15,57 @@ import {
 import { Badge } from "@/components/ui/badge";
 import arquitectoPhoto from "@assets/1651766771115_1753490676082.jpeg";
 
-const especialidades = [
-  "Cálculo estructural",
-  "Mecánica de suelos",
-  "Sanitario / alcantarillado / aguas lluvias (si aplica)",
-  "Electricidad",
-  "Gas (si aplica)",
-  "Coordinación BIM",
-  "Modelación BIM y documentación",
-  "Otras especialidades según proyecto (climatización, eficiencia energética, etc.)"
+const areasColaboracion = [
+  "Cálculo estructural (memoria, planos, EETT, coordinación con arquitectura)",
+  "Mecánica de suelos (informe y recomendaciones)",
+  "Proyecto sanitario / alcantarillado / aguas lluvias (según corresponda)",
+  "Proyecto eléctrico (planos y documentación)",
+  "Proyecto de gas (cuando aplique)",
+  "Coordinación BIM (interferencias, coordinación de especialidades)",
+  "Modelación / documentación BIM (Revit / Archicad según corresponda)",
+  "Otras áreas según proyecto (climatización, eficiencia energética, etc.)"
 ];
 
 const pasos = [
   {
     numero: "01",
     titulo: "Publicación del encargo",
-    descripcion: "Se publica el alcance, antecedentes, entregables esperados, plazos y criterios de evaluación.",
+    descripcion: "Se define alcance, antecedentes, entregables esperados, plazos y criterios de evaluación.",
     icon: FileText
   },
   {
     numero: "02",
-    titulo: "Envío de cotización competitiva",
-    descripcion: "Cada especialista presenta honorarios, plazo, alcance y condiciones para el encargo.",
+    titulo: "Presentación de cotización competitiva",
+    descripcion: "Cada profesional presenta honorarios, plazo, alcance y condiciones para el encargo publicado.",
     icon: Send
   },
   {
     numero: "03",
-    titulo: "Selección",
-    descripcion: "No solo precio: se evalúa ajuste técnico, claridad de propuesta, cumplimiento previo y plazos.",
+    titulo: "Evaluación y asignación",
+    descripcion: "Se pondera calidad técnica, claridad de propuesta, cumplimiento previo y plazos. No se evalúa solo por precio.",
     icon: Search
   },
   {
     numero: "04",
     titulo: "Retroalimentación",
-    descripcion: "Retroalimentación breve al cierre para mejorar futuras cotizaciones, cuando corresponda.",
+    descripcion: "Se entrega feedback breve al cierre del encargo, cuando corresponda, para mejorar futuras colaboraciones.",
     icon: MessageSquare
   }
 ];
 
-const estandares = [
+const requisitos = [
   "Comunicación clara y tiempos de respuesta razonables",
-  "Orden documental y control de versiones",
-  "Entregables completos (planos, memorias, especificaciones según aplique)",
+  "Control documental y trazabilidad de cambios",
+  "Entregables completos en formato acordado",
   "Cumplimiento de plazos por hitos"
 ];
 
 const camposPostulacion = [
-  "Especialidad principal",
-  "Cobertura geográfica",
+  "Área de colaboración",
+  "Cobertura (Santiago / regiones)",
   "Experiencia y certificaciones relevantes",
   "Portafolio o trabajos anteriores (link)",
-  "Software que maneja",
+  "Software que utiliza",
   "Modalidad: solo proyecto / también ejecución",
   "Disponibilidad y plazo típico de entrega"
 ];
@@ -77,7 +76,7 @@ const colaboradoresDestacados = [
     name: "Carlos Rodríguez",
     specialty: "Arquitecto",
     experience: 8,
-    location: "Santiago, Chile",
+    location: "Santiago",
     rating: 4.8,
     totalProjects: 23,
     profileImage: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&h=300&fit=crop&crop=face",
@@ -88,7 +87,7 @@ const colaboradoresDestacados = [
     name: "María González",
     specialty: "Ingeniera Estructural",
     experience: 12,
-    location: "Viña del Mar, Chile",
+    location: "Viña del Mar",
     rating: 4.9,
     totalProjects: 45,
     profileImage: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=300&h=300&fit=crop&crop=face",
@@ -98,44 +97,46 @@ const colaboradoresDestacados = [
 
 export default function ColaboradoresSection() {
   return (
-    <section id="colaboradores" className="py-20 bg-slate-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="colaboradores" className="py-0 bg-slate-50">
 
-        {/* Hero */}
-        <div className="text-center mb-16">
-          <h2 className="font-serif text-4xl md:text-5xl font-bold text-slate-900 mb-4">
-            Red de Especialistas — Vivienda Premium (Chile)
+      {/* Hero con fondo arquitectónico */}
+      <div className="relative bg-slate-900 overflow-hidden">
+        <div className="absolute inset-0 opacity-[0.07]" style={{
+          backgroundImage: `repeating-linear-gradient(90deg, transparent, transparent 60px, rgba(255,255,255,0.15) 60px, rgba(255,255,255,0.15) 61px), repeating-linear-gradient(0deg, transparent, transparent 60px, rgba(255,255,255,0.15) 60px, rgba(255,255,255,0.15) 61px)`
+        }} />
+        <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-24 text-center">
+          <h2 className="font-serif text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
+            Red de Especialistas y Colaboradores<br className="hidden md:block" /> para Proyectos de Vivienda
           </h2>
-          <p className="text-lg text-slate-600 max-w-4xl mx-auto leading-relaxed">
-            Busco proyectistas, coordinadores BIM, profesionales e instaladores para desarrollar especialidades y apoyar la ejecución de proyectos residenciales de alto estándar. Principalmente Santiago y también regiones.
+          <p className="text-lg text-slate-300 max-w-3xl mx-auto leading-relaxed">
+            Convocatoria abierta para proyectistas, coordinadores BIM y profesionales/instaladores que desarrollen especialidades y apoyen la ejecución de proyectos habitacionales. Operación principal en Santiago y coordinación con regiones.
           </p>
         </div>
+      </div>
 
-        {/* Mensaje personal */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+
+        {/* Mensaje del arquitecto */}
         <div className="max-w-4xl mx-auto mb-20">
-          <Card className="border border-slate-200 shadow-md">
-            <CardContent className="p-8">
+          <Card className="border border-slate-200 shadow-md bg-white">
+            <CardContent className="p-8 md:p-10">
               <div className="flex items-start gap-5">
-                <div className="flex-shrink-0">
-                  <div className="w-2 h-full min-h-[80px] bg-slate-700 rounded-full" />
+                <div className="flex-shrink-0 hidden sm:block">
+                  <div className="w-1.5 h-full min-h-[100px] bg-slate-800 rounded-full" />
                 </div>
                 <div>
-                  <p className="text-slate-700 text-lg leading-relaxed mb-4">
-                    Estoy formando una red de especialistas con quienes entregar proyectos de vivienda con estándar alto, documentación ordenada y coordinación profesional. 
-                    La idea es trabajar con profesionales que valoren la claridad en los encargos, el cumplimiento de plazos y la calidad técnica de los entregables. 
-                    Si te interesa participar en proyectos residenciales bien estructurados, esta red es para ti.
+                  <p className="text-slate-700 text-base md:text-lg leading-relaxed mb-6">
+                    Se está conformando una red técnica de profesionales y especialistas orientada a proyectos de vivienda que requieren coordinación, documentación ordenada y entregables de calidad. El objetivo es contar con colaboradores confiables, con quienes se pueda mantener una relación de trabajo continua basada en cumplimiento, claridad y rigor técnico.
                   </p>
                   <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-slate-400">
+                    <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-slate-300">
                       <img
                         src={arquitectoPhoto}
                         alt="Patricio Becar"
                         className="w-full h-full object-cover"
                       />
                     </div>
-                    <div>
-                      <p className="font-semibold text-slate-800">— Patricio Becar, Arquitecto (ArquitectoChile)</p>
-                    </div>
+                    <p className="font-semibold text-slate-800 text-sm">— Patricio Becar, Arquitecto (ArquitectoChile)</p>
                   </div>
                 </div>
               </div>
@@ -143,39 +144,39 @@ export default function ColaboradoresSection() {
           </Card>
         </div>
 
-        {/* Especialidades que busco */}
+        {/* Áreas de colaboración requeridas */}
         <div className="mb-20">
           <div className="text-center mb-10">
-            <h3 className="font-serif text-3xl font-bold text-slate-900 mb-3">Especialidades que busco</h3>
-            <p className="text-slate-600">Profesionales y proyectistas en las siguientes áreas</p>
+            <h3 className="font-serif text-3xl font-bold text-slate-900 mb-3">Áreas de colaboración requeridas</h3>
+            <p className="text-slate-600">Perfiles técnicos que se buscan para integrar la red</p>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto">
-            {especialidades.map((esp, i) => (
-              <div key={i} className="flex items-start gap-3 bg-white border border-slate-200 rounded-lg p-4">
-                <CheckCircle className="w-5 h-5 text-slate-700 flex-shrink-0 mt-0.5" />
-                <span className="text-sm text-slate-700 leading-snug">{esp}</span>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-4xl mx-auto">
+            {areasColaboracion.map((area, i) => (
+              <div key={i} className="flex items-start gap-3 bg-white border border-slate-200 rounded-lg p-4 shadow-sm">
+                <CheckCircle className="w-5 h-5 text-slate-600 flex-shrink-0 mt-0.5" />
+                <span className="text-sm text-slate-700 leading-snug">{area}</span>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Cómo funciona */}
+        {/* Modalidad de participación */}
         <div className="mb-20">
           <div className="text-center mb-10">
-            <h3 className="font-serif text-3xl font-bold text-slate-900 mb-3">Cómo funciona</h3>
-            <p className="text-slate-600">Proceso de cotización competitiva en 4 pasos</p>
+            <h3 className="font-serif text-3xl font-bold text-slate-900 mb-3">Modalidad de participación</h3>
+            <p className="text-slate-600">Proceso de cotización competitiva en cuatro etapas</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
             {pasos.map((paso) => {
               const Icon = paso.icon;
               return (
-                <Card key={paso.numero} className="border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+                <Card key={paso.numero} className="border border-slate-200 shadow-sm hover:shadow-md transition-shadow bg-white">
                   <CardHeader className="pb-3">
                     <div className="flex items-center gap-3 mb-2">
                       <div className="w-10 h-10 bg-slate-800 text-white rounded-lg flex items-center justify-center font-bold text-sm">
                         {paso.numero}
                       </div>
-                      <Icon className="w-5 h-5 text-slate-500" />
+                      <Icon className="w-5 h-5 text-slate-400" />
                     </div>
                     <CardTitle className="text-lg text-slate-900">{paso.titulo}</CardTitle>
                   </CardHeader>
@@ -188,19 +189,19 @@ export default function ColaboradoresSection() {
           </div>
         </div>
 
-        {/* Estándares mínimos */}
+        {/* Requisitos mínimos de colaboración */}
         <div className="mb-20">
           <div className="max-w-3xl mx-auto">
-            <Card className="border border-slate-200 shadow-sm">
+            <Card className="border border-slate-200 shadow-sm bg-slate-800 text-white">
               <CardHeader>
-                <CardTitle className="font-serif text-2xl text-slate-900 text-center">Estándares mínimos</CardTitle>
+                <CardTitle className="font-serif text-2xl text-center">Requisitos mínimos de colaboración</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {estandares.map((item, i) => (
+                  {requisitos.map((item, i) => (
                     <div key={i} className="flex items-start gap-3">
-                      <CheckCircle className="w-5 h-5 text-slate-700 flex-shrink-0 mt-0.5" />
-                      <span className="text-slate-700 text-sm">{item}</span>
+                      <CheckCircle className="w-5 h-5 text-slate-300 flex-shrink-0 mt-0.5" />
+                      <span className="text-slate-200 text-sm">{item}</span>
                     </div>
                   ))}
                 </div>
@@ -213,14 +214,14 @@ export default function ColaboradoresSection() {
         <div className="mb-20">
           <div className="text-center mb-10">
             <h3 className="font-serif text-3xl font-bold text-slate-900 mb-3">Colaboradores en la red</h3>
-            <p className="text-slate-600">Profesionales verificados que forman parte de nuestra red</p>
+            <p className="text-slate-600">Profesionales verificados que forman parte de esta red</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             {colaboradoresDestacados.map((colab) => (
-              <Card key={colab.slug} className="border border-slate-200 shadow-sm hover:shadow-md transition-shadow overflow-hidden">
+              <Card key={colab.slug} className="border border-slate-200 shadow-sm hover:shadow-md transition-shadow overflow-hidden bg-white">
                 <CardContent className="p-6">
                   <div className="flex items-start gap-4 mb-4">
-                    <div className="w-14 h-14 rounded-full overflow-hidden border-2 border-slate-400 flex-shrink-0">
+                    <div className="w-14 h-14 rounded-full overflow-hidden border-2 border-slate-300 flex-shrink-0">
                       <img src={colab.profileImage} alt={colab.name} className="w-full h-full object-cover" />
                     </div>
                     <div className="flex-1 min-w-0">
@@ -262,9 +263,9 @@ export default function ColaboradoresSection() {
         <div className="max-w-3xl mx-auto">
           <Card className="bg-slate-900 text-white border-none shadow-xl">
             <CardContent className="p-10 text-center">
-              <h3 className="font-serif text-2xl font-bold mb-3">Postular a la Red de Especialistas</h3>
-              <p className="text-slate-300 mb-8 max-w-xl mx-auto">
-                Si trabajas en alguna de las especialidades listadas y te interesa participar en proyectos de vivienda premium, completa tu postulación.
+              <h3 className="font-serif text-2xl font-bold mb-3">Postular a la Red</h3>
+              <p className="text-slate-300 mb-8 max-w-xl mx-auto text-sm leading-relaxed">
+                Si trabaja en alguna de las áreas indicadas y le interesa participar en proyectos de vivienda con documentación y coordinación profesional, puede enviar su postulación.
               </p>
 
               <Button
@@ -273,11 +274,11 @@ export default function ColaboradoresSection() {
                 onClick={() => window.location.href = '/contacto'}
               >
                 <ArrowRight className="w-5 h-5 mr-2" />
-                Postular a la Red de Especialistas
+                Postular a la Red
               </Button>
 
               <div className="text-left max-w-md mx-auto">
-                <p className="text-sm text-slate-400 mb-3 font-medium">Datos que te pediremos:</p>
+                <p className="text-sm text-slate-400 mb-3 font-medium">Información solicitada:</p>
                 <ul className="space-y-2">
                   {camposPostulacion.map((campo, i) => (
                     <li key={i} className="flex items-start gap-2 text-sm text-slate-400">
