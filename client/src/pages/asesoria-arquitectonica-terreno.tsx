@@ -17,7 +17,7 @@ export default function AsesoriaArquitectonicaTerreno() {
   useEffect(() => {
     window.scrollTo(0, 0);
     
-    document.title = "Asesoría Arquitectónica en Terreno - Arquitecto a Domicilio $40.000 | ArquitectoChile";
+    document.title = "Asesoría Arquitectónica en Terreno - Arquitecto a Domicilio $45.000 | ArquitectoChile";
     
     const setMetaTag = (name: string, content: string, isProperty = false) => {
       const selector = isProperty ? `meta[property="${name}"]` : `meta[name="${name}"]`;
@@ -36,9 +36,9 @@ export default function AsesoriaArquitectonicaTerreno() {
       }
     };
 
-    setMetaTag('description', 'Arquitecto a domicilio por $40.000. Asesoría profesional en tu terreno con análisis de factibilidad, recomendaciones expertas y presupuesto de arquitectura detallado.');
+    setMetaTag('description', 'Arquitecto a domicilio por $45.000. Asesoría profesional en tu terreno con análisis de factibilidad, recomendaciones expertas y presupuesto de arquitectura detallado.');
     setMetaTag('keywords', 'arquitecto a domicilio, asesoría terreno, visita arquitecto, presupuesto arquitectura, análisis factibilidad chile');
-    setMetaTag('og:title', 'Asesoría Arquitectónica en Terreno - El arquitecto va a tu casa por $40.000', true);
+    setMetaTag('og:title', 'Asesoría Arquitectónica en Terreno - El arquitecto va a tu casa por $45.000', true);
     setMetaTag('og:description', 'Análisis profesional + presupuesto detallado + eliminación de dudas. Visita profesional al terreno con informe completo.', true);
     setMetaTag('og:type', 'website', true);
 
@@ -46,7 +46,7 @@ export default function AsesoriaArquitectonicaTerreno() {
       "@context": "https://schema.org",
       "@type": "Service",
       "name": "Asesoría Arquitectónica en Terreno",
-      "description": "Arquitecto a domicilio por $40.000. Análisis profesional del terreno con presupuesto de arquitectura detallado.",
+      "description": "Arquitecto a domicilio por $45.000. Análisis profesional del terreno con presupuesto de arquitectura detallado.",
       "provider": {
         "@type": "Person",
         "name": "Patricio Becar Elissegaray",
@@ -103,7 +103,7 @@ export default function AsesoriaArquitectonicaTerreno() {
           </h1>
           
           <p className="text-2xl lg:text-3xl font-semibold mb-8">
-            El arquitecto va a tu casa por solo $40.000
+            El arquitecto va a tu casa por solo $45.000
           </p>
           
           <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 mb-8 max-w-2xl mx-auto">
@@ -136,7 +136,7 @@ export default function AsesoriaArquitectonicaTerreno() {
             </h2>
             <p className="text-xl text-gray-700 max-w-3xl mb-8">
               <strong>Imagínate tener al arquitecto en tu casa, analizando personalmente</strong> las posibilidades reales de tu ampliación o 
-              remodelación, respondiendo todas tus preguntas y eliminando la incertidumbre por solo $40.000.
+              remodelación, respondiendo todas tus preguntas y eliminando la incertidumbre por solo $45.000.
             </p>
             <p className="text-lg text-gray-600 max-w-3xl mb-8">
               Esta asesoría presencial te permite conocer mi metodología de trabajo, generar confianza mutua y 
@@ -285,7 +285,7 @@ export default function AsesoriaArquitectonicaTerreno() {
             <div>
               <h3 className="text-2xl font-bold text-gray-900 mb-3">Importante: Precio según distancia</h3>
               <p className="text-lg text-gray-700 mb-4">
-                El precio base de <strong>$40.000</strong> aplica para servicios dentro del radio cercano a nuestra 
+                El precio base de <strong>$45.000</strong> aplica para servicios dentro del radio cercano a nuestra 
                 ubicación en <strong>Vicuña Mackenna Poniente 7730, La Florida</strong>.
               </p>
               <p className="text-gray-600">
