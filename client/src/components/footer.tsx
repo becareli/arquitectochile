@@ -1,144 +1,154 @@
-import { Facebook, Instagram, Linkedin, Mail, Phone, MapPin } from "lucide-react";
+import { Mail, MapPin, ArrowRight } from "lucide-react";
 import logoImg from "@assets/ArquitectoChile.com Logo_1754020481868.png";
 
 export default function Footer() {
   return (
-    <footer className="bg-[hsl(210,15%,20%)] text-white py-16">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-6 gap-10">
+    <footer className="bg-blueprint-dark text-white py-16">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
           <div>
-            <div className="mb-4">
-              <img 
-                src={logoImg} 
-                alt="ArquitectoChile.com" 
-                className="h-24 w-auto md:h-28"
-              />
-            </div>
-            <p className="text-gray-300 text-sm mb-2 font-medium">
-              Arquitecto Patricio Becar Elissegaray
+            <img
+              src={logoImg}
+              alt="ArquitectoChile.com"
+              className="h-16 w-auto mb-4"
+            />
+            <p className="text-sm font-semibold text-white mb-1">
+              Arq. Patricio Becar Elissegaray
             </p>
-            <p className="text-gray-300 mb-4">
-              Diseñamos y construimos tus sueños con pasión y profesionalismo.
+            <p className="text-xs text-gray-400 leading-relaxed mb-4">
+              Universidad de Chile · Revisor Independiente MINVU · MBA · Desde 1999
             </p>
-            <div className="flex space-x-4">
-              <a 
-                href="https://www.facebook.com/arquitectoconstructor" 
+            <div className="flex items-center gap-3">
+              <a
+                href="https://www.instagram.com/patricio.becar.elissegaray/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-300 hover:text-white transition-colors"
-                aria-label="Facebook - ArquitectoChile"
+                className="text-gray-500 hover:text-white transition-colors text-xs"
               >
-                <Facebook size={20} />
+                Instagram
               </a>
-              <a 
-                href="https://www.instagram.com/patricio.becar.elissegaray/" 
+              <span className="text-gray-700">·</span>
+              <a
+                href="https://www.linkedin.com/in/patriciobecar/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-300 hover:text-white transition-colors"
-                aria-label="Instagram - Patricio Becar"
+                className="text-gray-500 hover:text-white transition-colors text-xs"
               >
-                <Instagram size={20} />
+                LinkedIn
               </a>
-              <a 
-                href="https://www.linkedin.com/in/patriciobecar/" 
+              <span className="text-gray-700">·</span>
+              <a
+                href="https://www.facebook.com/arquitectoconstructor"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-300 hover:text-white transition-colors"
-                aria-label="LinkedIn - Patricio Becar"
+                className="text-gray-500 hover:text-white transition-colors text-xs"
               >
-                <Linkedin size={20} />
+                Facebook
               </a>
             </div>
           </div>
-          
+
           <div>
-            <h4 className="font-serif text-xl font-bold mb-5 text-white">Servicios</h4>
-            <ul className="space-y-1 text-gray-300 text-sm">
-              <li><a href="#servicios" className="hover:text-white transition-colors">Arquitecto a Domicilio</a></li>
-              <li><a href="#servicios" className="hover:text-white transition-colors">Regularización de Inmuebles</a></li>
-              <li><a href="/revisor-independiente-de-arquitectura" className="hover:text-white transition-colors">Revisor Independiente</a></li>
-              <li><a href="/fusion-terrenos-urbanos" className="hover:text-white transition-colors">Fusión de Terrenos</a></li>
-              <li><a href="/inspeccion-tecnica-viviendas" className="hover:text-white transition-colors">Inspección de Viviendas</a></li>
-              <li><a href="/tasacion-viviendas-urbanas" className="hover:text-white transition-colors">Tasación de Viviendas</a></li>
-              <li><a href="/subdivision-terrenos-urbanos" className="hover:text-white transition-colors">Subdivisión de Terrenos</a></li>
-              <li><a href="/reacondicionamiento-termico-viviendas" className="hover:text-white transition-colors">Reacondicionamiento Térmico</a></li>
-              <li><a href="#servicios" className="hover:text-white transition-colors">Sistema EIFS</a></li>
-              <li><a href="/disenemos-tus-nuevos-espacios" className="hover:text-white transition-colors">Diseño de Espacios</a></li>
+            <h4 className="text-xs font-semibold tracking-[0.15em] uppercase text-gray-400 mb-5">
+              Servicios
+            </h4>
+            <ul className="space-y-2.5">
+              {[
+                { label: "Asesoría a Domicilio", href: "/asesoria-arquitectonica-terreno" },
+                { label: "Diseño de Arquitectura", href: "/disenemos-tus-nuevos-espacios" },
+                { label: "Regularización de Inmuebles", href: "/regularizacion-inmuebles" },
+                { label: "Fusión de Terrenos", href: "/fusion-terrenos-urbanos" },
+                { label: "Subdivisión de Terrenos", href: "/subdivision-terrenos-urbanos" },
+                { label: "Inspección de Viviendas", href: "/inspeccion-tecnica-viviendas" },
+                { label: "Revisor Independiente", href: "/revisor-independiente-de-arquitectura" },
+              ].map((item) => (
+                <li key={item.href}>
+                  <a href={item.href} className="text-sm text-gray-400 hover:text-white transition-colors">
+                    {item.label}
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
-          
+
           <div>
-            <h4 className="font-serif text-xl font-bold mb-5 text-white">Recursos</h4>
-            <ul className="space-y-2 text-gray-300">
-              <li><a href="#ebook" className="hover:text-white transition-colors">Ebook Gratis</a></li>
-              <li><a href="/calculadora-costos" className="hover:text-white transition-colors">Calculadora de Costos</a></li>
-              <li><a href="#calculadoras" className="hover:text-white transition-colors">Calculadora Energética</a></li>
-              <li><a href="#blog" className="hover:text-white transition-colors">Revista</a></li>
-              <li><a href="#proyectos" className="hover:text-white transition-colors">Modelos de Casas</a></li>
+            <h4 className="text-xs font-semibold tracking-[0.15em] uppercase text-gray-400 mb-5">
+              Recursos
+            </h4>
+            <ul className="space-y-2.5">
+              {[
+                { label: "Calculadora de Costos", href: "/calculadora-costos" },
+                { label: "Ebook Gratuito", href: "/#ebook" },
+                { label: "Revista", href: "/revista" },
+                { label: "Portal del Cliente", href: "/portal-cliente" },
+                { label: "Colaboradores", href: "/colaboradores" },
+              ].map((item) => (
+                <li key={item.href}>
+                  <a href={item.href} className="text-sm text-gray-400 hover:text-white transition-colors">
+                    {item.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+
+            <h4 className="text-xs font-semibold tracking-[0.15em] uppercase text-gray-400 mb-4 mt-8">
+              Legal
+            </h4>
+            <ul className="space-y-2.5">
+              <li><a href="/aviso-legal" className="text-sm text-gray-400 hover:text-white transition-colors">Aviso Legal</a></li>
+              <li><a href="/politica-privacidad" className="text-sm text-gray-400 hover:text-white transition-colors">Política de Privacidad</a></li>
+              <li><a href="/politica-cookies" className="text-sm text-gray-400 hover:text-white transition-colors">Cookies</a></li>
             </ul>
           </div>
-          
+
           <div>
-            <h4 className="font-serif text-xl font-bold mb-5 text-white">Accesos</h4>
-            <ul className="space-y-2 text-gray-300">
-              <li><a href="/portal-cliente" className="hover:text-white transition-colors">Portal del Cliente</a></li>
-              <li><a href="/colaboradores" className="hover:text-white transition-colors">Portal Colaboradores</a></li>
-            </ul>
-          </div>
-          
-          <div>
-            <h4 className="font-serif text-xl font-bold mb-5 text-white">Legal</h4>
-            <ul className="space-y-2 text-gray-300">
-              <li><a href="/aviso-legal" className="hover:text-white transition-colors">Aviso Legal</a></li>
-              <li><a href="/politica-privacidad" className="hover:text-white transition-colors">Política de Privacidad</a></li>
-              <li><a href="/politica-cookies" className="hover:text-white transition-colors">Política de Cookies</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Personalizar Cookies</a></li>
-            </ul>
-          </div>
-          
-          <div>
-            <h4 className="font-serif text-xl font-bold mb-5 text-white">Contacto</h4>
-            <div className="space-y-3 text-gray-300">
-              <a 
+            <h4 className="text-xs font-semibold tracking-[0.15em] uppercase text-gray-400 mb-5">
+              Contacto
+            </h4>
+            <div className="space-y-3">
+              <a
                 href="mailto:contacto@arquitectochile.com"
-                className="block text-sm hover:text-white transition-colors"
+                className="flex items-center gap-2 text-sm text-gray-400 hover:text-white transition-colors"
               >
+                <Mail className="w-3.5 h-3.5" strokeWidth={1.5} />
                 contacto@arquitectochile.com
               </a>
-              <a 
-                href="mailto:arquitectopatricio.becar@gmail.com"
-                className="block text-sm hover:text-white transition-colors"
-              >
-                arquitectopatricio.becar@gmail.com
-              </a>
-              <a 
-                href="/contacto"
-                className="block text-sm hover:text-white transition-colors"
-              >
-                Formulario de Contacto
-              </a>
-              <div className="text-sm">
-                <div>Av. Vicuña Mackenna, Poniente 7735</div>
-                <div>8260302 La Florida</div>
-                <div>Región Metropolitana, Chile</div>
-                <a 
-                  href="https://maps.google.com/?cid=12123957937748651818"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center mt-2 px-3 py-1.5 bg-[hsl(14,70%,50%)] text-white text-xs rounded-md hover:bg-[hsl(14,70%,45%)] transition-colors font-medium"
-                >
-                  <MapPin size={12} className="mr-1" />
-                  Ver en Google Maps
-                </a>
+              <div className="text-sm text-gray-500 leading-relaxed">
+                <div className="flex items-start gap-2">
+                  <MapPin className="w-3.5 h-3.5 mt-0.5 flex-shrink-0" strokeWidth={1.5} />
+                  <div>
+                    Av. Vicuña Mackenna Pte. 7735<br />
+                    La Florida, Santiago<br />
+                    Región Metropolitana
+                  </div>
+                </div>
               </div>
+              <a
+                href="https://maps.google.com/?cid=12123957937748651818"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 text-xs text-[#f97316] hover:text-orange-400 transition-colors font-medium"
+              >
+                Ver en Google Maps
+                <ArrowRight className="w-3 h-3" strokeWidth={1.5} />
+              </a>
+            </div>
+
+            <div className="mt-8">
+              <a
+                href="/contacto"
+                className="inline-flex items-center gap-2 bg-[#f97316] text-white px-5 py-2.5 rounded-md text-sm font-semibold hover:bg-orange-600 transition-colors"
+              >
+                Solicitar Asesoría
+                <ArrowRight className="w-3.5 h-3.5" strokeWidth={1.5} />
+              </a>
             </div>
           </div>
         </div>
-        
-        <div className="border-t border-gray-700 mt-12 pt-10 text-center text-gray-400">
-          <p>&copy; 2025 ArquitectoChile. Todos los derechos reservados.</p>
-          <p className="mt-2 text-sm">
-            Diseñado para cumplir con estándares de Meta, Google y regulaciones de privacidad chilenas
+
+        <div className="border-t border-white/10 mt-12 pt-8 text-center">
+          <p className="text-xs text-gray-500">
+            &copy; 2025 ArquitectoChile.com · Todos los derechos reservados
           </p>
         </div>
       </div>

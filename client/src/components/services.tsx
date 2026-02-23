@@ -1,6 +1,4 @@
 import { Home, Shield, Search, Calculator, Merge, MapPin, BadgeCheck, FileText, Box, Briefcase, Scale, Building2, ArrowRight } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { useLocation } from "wouter";
 
 type SubService = {
@@ -16,10 +14,6 @@ type Pillar = {
   title: string;
   subtitle: string;
   badge?: string;
-  accentColor: string;
-  accentBg: string;
-  borderColor: string;
-  buttonClass: string;
   icon: typeof Home;
   services: SubService[];
 };
@@ -30,12 +24,8 @@ export default function Services() {
   const pillars: Pillar[] = [
     {
       id: "vivienda",
-      title: "Vivienda de Alto Estándar",
-      subtitle: "Diseño de Autor · Arquitectura residencial personalizada, asesoría en terreno, inspecciones y tasaciones profesionales",
-      accentColor: "text-orange-600",
-      accentBg: "bg-orange-50",
-      borderColor: "border-orange-200",
-      buttonClass: "bg-orange-500 text-white hover:bg-orange-600",
+      title: "Vivienda de Autor",
+      subtitle: "Arquitectura residencial personalizada, asesoría en terreno, inspecciones y tasaciones profesionales.",
       icon: Home,
       services: [
         { id: "arquitectura-desde-cero", title: "Arquitectura desde Cero (Diseño de Autor)", price: "Desde $2.490.000", route: "/disenemos-tus-nuevos-espacios", icon: Home },
@@ -47,13 +37,9 @@ export default function Services() {
     },
     {
       id: "normativa",
-      title: "Consultoría Normativa y Legal",
-      subtitle: "Expertos en Gestión Municipal · Fusión, subdivisión, regularización y permisos ante DOM, SII y CBR",
+      title: "Gestión Normativa",
+      subtitle: "Expertos en gestión municipal. Fusión, subdivisión, regularización y permisos ante DOM, SII y CBR.",
       badge: "Recomendado en YouTube",
-      accentColor: "text-blue-600",
-      accentBg: "bg-blue-50",
-      borderColor: "border-blue-200",
-      buttonClass: "bg-blue-600 text-white hover:bg-blue-700",
       icon: Scale,
       services: [
         { id: "fusion-terrenos-urbanos", title: "Fusión de Terrenos Urbanos", price: "Desde $890.000", route: "/fusion-terrenos-urbanos", icon: Merge },
@@ -65,12 +51,8 @@ export default function Services() {
     },
     {
       id: "corporativa",
-      title: "Soluciones Corporativas e Industriales",
-      subtitle: "Obras menores para empresas, gestión de proyectos y oficina técnica para retail e instituciones",
-      accentColor: "text-emerald-600",
-      accentBg: "bg-emerald-50",
-      borderColor: "border-emerald-200",
-      buttonClass: "bg-emerald-600 text-white hover:bg-emerald-700",
+      title: "Consultoría Corporativa",
+      subtitle: "Obras menores para empresas, gestión de proyectos y oficina técnica para retail e instituciones.",
       icon: Building2,
       services: [
         { id: "obras-menores-empresas", title: "Obras Menores para Empresas", price: "Consultar", route: "/obras-menores-empresas", icon: Box },
@@ -81,14 +63,17 @@ export default function Services() {
   ];
 
   return (
-    <section id="servicios" className="py-24" style={{ background: "#f9f9f9" }}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="servicios" className="bg-blueprint section-padding">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="font-serif text-4xl md:text-5xl font-bold text-[hsl(210,15%,30%)] mb-4">
+          <p className="text-xs font-semibold tracking-[0.2em] uppercase text-[#f97316] mb-3">
+            Oficina Técnica de Arquitectura
+          </p>
+          <h2 className="text-3xl md:text-4xl font-bold text-[#1e293b] mb-4">
             Nuestros Servicios
           </h2>
-          <p className="text-lg text-gray-500 max-w-2xl mx-auto">
-            Tres unidades especializadas para cubrir todas sus necesidades de arquitectura, normativa y gestión empresarial
+          <p className="text-base text-gray-500 max-w-xl mx-auto">
+            Tres unidades especializadas para cubrir todas sus necesidades de arquitectura, normativa y gestión empresarial.
           </p>
         </div>
 
@@ -96,60 +81,59 @@ export default function Services() {
           {pillars.map((pillar) => {
             const PillarIcon = pillar.icon;
             return (
-              <Card
+              <div
                 key={pillar.id}
-                className={`relative overflow-hidden border-2 ${pillar.borderColor} bg-white hover:shadow-xl transition-all duration-300 flex flex-col`}
+                className="bg-white border border-gray-200 rounded-md p-8 flex flex-col hover:border-gray-300 hover:shadow-lg transition-all duration-300"
               >
-                <div className={`${pillar.accentBg} px-6 pt-8 pb-6`}>
-                  <div className={`w-14 h-14 rounded-xl bg-white shadow-sm flex items-center justify-center mb-5 ${pillar.accentColor}`}>
-                    <PillarIcon className="w-7 h-7" />
+                <div className="mb-6">
+                  <div className="w-12 h-12 rounded-md border border-gray-200 flex items-center justify-center mb-5">
+                    <PillarIcon className="w-5 h-5 text-[#1e293b]" strokeWidth={1.5} />
                   </div>
-                  <h3 className={`font-serif text-2xl font-bold ${pillar.accentColor} mb-2`}>
+                  <h3 className="text-xl font-bold text-[#1e293b] mb-2">
                     {pillar.title}
                   </h3>
                   {pillar.badge && (
-                    <span className="inline-block bg-red-100 text-red-700 text-[11px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wide mb-2">
+                    <span className="inline-block bg-orange-50 text-[#f97316] text-[10px] font-bold px-2 py-0.5 rounded-md uppercase tracking-wider mb-2">
                       {pillar.badge}
                     </span>
                   )}
-                  <p className="text-gray-600 text-sm leading-relaxed">
+                  <p className="text-sm text-gray-500 leading-relaxed">
                     {pillar.subtitle}
                   </p>
                 </div>
 
-                <CardContent className="flex-1 flex flex-col px-6 py-6">
-                  <ul className="space-y-0 flex-1">
-                    {pillar.services.map((svc, idx) => {
-                      const SvcIcon = svc.icon;
-                      return (
-                        <li key={svc.id}>
-                          <button
-                            onClick={() => setLocation(svc.route)}
-                            className="w-full flex items-center gap-3 py-3.5 text-left group hover:bg-gray-50 rounded-lg px-2 -mx-2 transition-colors"
-                          >
-                            <SvcIcon className={`w-5 h-5 flex-shrink-0 ${pillar.accentColor} opacity-70`} />
-                            <div className="flex-1 min-w-0">
-                              <span className="text-sm font-semibold text-gray-800 group-hover:text-gray-900 block leading-tight">
-                                {svc.title}
-                              </span>
-                              <span className="text-xs text-gray-500 mt-0.5 block">{svc.price}</span>
-                            </div>
-                            <ArrowRight className="w-4 h-4 text-gray-300 group-hover:text-gray-500 flex-shrink-0 transition-colors" />
-                          </button>
-                          {idx < pillar.services.length - 1 && <div className="border-b border-gray-100" />}
-                        </li>
-                      );
-                    })}
-                  </ul>
+                <ul className="space-y-0 flex-1">
+                  {pillar.services.map((svc, idx) => {
+                    const SvcIcon = svc.icon;
+                    return (
+                      <li key={svc.id}>
+                        <button
+                          onClick={() => setLocation(svc.route)}
+                          className="w-full flex items-center gap-3 py-3 text-left group rounded-md px-2 -mx-2 hover:bg-gray-50 transition-colors"
+                        >
+                          <SvcIcon className="w-4 h-4 flex-shrink-0 text-gray-400" strokeWidth={1.5} />
+                          <div className="flex-1 min-w-0">
+                            <span className="text-sm font-medium text-[#1e293b] group-hover:text-[#f97316] block leading-tight transition-colors">
+                              {svc.title}
+                            </span>
+                            <span className="text-xs text-gray-400 mt-0.5 block">{svc.price}</span>
+                          </div>
+                          <ArrowRight className="w-3.5 h-3.5 text-gray-300 group-hover:text-[#f97316] flex-shrink-0 transition-colors" strokeWidth={1.5} />
+                        </button>
+                        {idx < pillar.services.length - 1 && <div className="border-b border-gray-100" />}
+                      </li>
+                    );
+                  })}
+                </ul>
 
-                  <Button
-                    onClick={() => setLocation("/contacto")}
-                    className={`w-full mt-6 font-semibold ${pillar.buttonClass}`}
-                  >
-                    Solicitar Información
-                  </Button>
-                </CardContent>
-              </Card>
+                <button
+                  onClick={() => setLocation("/contacto")}
+                  className="mt-6 text-sm font-medium text-[#f97316] hover:text-orange-600 transition-colors text-left flex items-center gap-1.5"
+                >
+                  Ver más detalles
+                  <ArrowRight className="w-3.5 h-3.5" strokeWidth={1.5} />
+                </button>
+              </div>
             );
           })}
         </div>

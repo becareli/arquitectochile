@@ -19,7 +19,6 @@ import Blog from "@/components/blog";
 import Contact from "@/components/contact";
 import GoogleBusinessIntegration from "@/components/google-business-integration";
 import Footer from "@/components/footer";
-import Chatbot from "@/components/chatbot";
 import CookieConsent from "@/components/cookie-consent";
 
 export default function Home() {
@@ -181,12 +180,12 @@ export default function Home() {
       <Navigation />
       <Hero />
       
-      {/* Interactive Calculators Section */}
-      <section id="calculadoras" className="py-20 bg-neutral">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section id="calculadoras" className="bg-blueprint section-padding">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-dark mb-4">Calculadoras Interactivas</h2>
-            <p className="text-xl text-gray-600">Obtén estimaciones instantáneas para tu proyecto</p>
+            <p className="text-xs font-semibold tracking-[0.2em] uppercase text-[#f97316] mb-3">Herramientas</p>
+            <h2 className="text-3xl md:text-4xl font-bold text-[#1e293b] mb-4">Calculadoras Interactivas</h2>
+            <p className="text-base text-gray-500 max-w-xl mx-auto">Estimaciones referenciales para planificar su proyecto</p>
           </div>
           
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
@@ -215,8 +214,7 @@ export default function Home() {
       <Guarantees />
       <Blog />
       
-      {/* Google My Business Integration */}
-      <section className="py-8 bg-gray-50">
+      <section className="py-8 bg-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <GoogleBusinessIntegration />
         </div>
@@ -224,7 +222,6 @@ export default function Home() {
       
       <Contact />
       <Footer />
-      <Chatbot />
       <CookieConsent />
     </div>
   );
