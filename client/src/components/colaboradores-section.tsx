@@ -14,33 +14,79 @@ import {
   Building2,
   Cpu,
   Zap,
-  Leaf
+  Leaf,
+  Droplets,
+  Flame,
+  Lightbulb,
+  Thermometer,
+  TreePine,
+  Map
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import arquitectoPhoto from "@assets/1651766771115_1753490676082.jpeg";
 
-const especialidades = [
+type CategoriaEspecialidad = {
+  categoria: string;
+  icon: typeof Building2;
+  items: string[];
+};
+
+const categoriasEspecialidades: CategoriaEspecialidad[] = [
   {
-    titulo: "Ingeniería Estructural",
-    detalle: "Cálculo y Mecánica de Suelos",
-    icon: Building2
+    categoria: "Ingeniería y Suelos",
+    icon: Building2,
+    items: [
+      "Cálculo Estructural",
+      "Mecánica de Suelos / Geotecnia",
+      "Topografía y Agrimensura"
+    ]
   },
   {
-    titulo: "Gestión y Modelación BIM",
-    detalle: "LOD 300+",
-    icon: Cpu
+    categoria: "Instalaciones Sanitarias y Gas",
+    icon: Droplets,
+    items: [
+      "Proyectistas de Agua Potable y Alcantarillado",
+      "Proyectistas de Gas (Certificados SEC)",
+      "Sistemas de Aguas Lluvias y Drenajes"
+    ]
   },
   {
-    titulo: "Instalaciones Técnicas",
-    detalle: "Sanitario, Eléctrico, Gas, Climatización",
-    icon: Zap
+    categoria: "Eléctrica y Tecnología",
+    icon: Zap,
+    items: [
+      "Proyectistas Eléctricos (TE1)",
+      "Corrientes Débiles y Domótica",
+      "Sistemas de Seguridad y Circuito Cerrado"
+    ]
   },
   {
-    titulo: "Eficiencia Energética y Sustentabilidad",
-    detalle: "Normativa y certificación",
-    icon: Leaf
+    categoria: "Climatización y Confort",
+    icon: Thermometer,
+    items: [
+      "Proyectistas de Climatización (HVAC)",
+      "Eficiencia Energética y Aislación Térmica"
+    ]
+  },
+  {
+    categoria: "Paisajismo y Recreación",
+    icon: TreePine,
+    items: [
+      "Diseño y Construcción de Piscinas",
+      "Paisajismo y Sistemas de Riego",
+      "Diseño de Iluminación Exterior"
+    ]
+  },
+  {
+    categoria: "Gestión y Documentación BIM",
+    icon: Cpu,
+    items: [
+      "Coordinadores y Modeladores BIM (LOD 300/400)",
+      "Proyectistas de Arquitectura de Detalle"
+    ]
   }
 ];
+
+const todasLasEspecialidades = categoriasEspecialidades.flatMap(c => c.items);
 
 const pasos = [
   {
@@ -70,7 +116,7 @@ const pasos = [
 ];
 
 const camposPostulacion = [
-  "Área de colaboración",
+  "Especialidad (selección del listado)",
   "Cobertura (Santiago / regiones)",
   "Experiencia y certificaciones relevantes",
   "Portafolio o trabajos anteriores (link)",
@@ -115,10 +161,10 @@ export default function ColaboradoresSection() {
         }} />
         <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-24 text-center">
           <h2 className="font-serif text-3xl md:text-5xl font-bold text-white mb-6 leading-tight">
-            Súmate a nuestra Red de Especialistas:<br className="hidden md:block" /> Colaboración de Alto Desempeño en ArquitectoChile.com
+            Red de Colaboradores Especializados:<br className="hidden md:block" /> Construyamos el Futuro de la Vivienda en Chile
           </h2>
           <p className="text-lg text-slate-300 max-w-3xl mx-auto leading-relaxed">
-            Buscamos profesionales que dominen su área técnica. Nosotros gestionamos la estructura del proyecto para que tú te enfoques en la calidad del entregable.
+            Buscamos aliarnos con los mejores proyectistas y técnicos independientes para ejecutar proyectos residenciales de alto estándar con rigor y orden.
           </p>
         </div>
       </div>
@@ -153,23 +199,34 @@ export default function ColaboradoresSection() {
           </Card>
         </div>
 
-        {/* Especialidades */}
+        {/* Especialidades por categoría */}
         <div className="mb-20">
           <div className="text-center mb-10">
             <h3 className="font-serif text-3xl font-bold text-slate-900 mb-3">Especialidades</h3>
-            <p className="text-slate-600">Perfiles técnicos que integran la red</p>
+            <p className="text-slate-600">Encuentra tu nicho en nuestra red de construcción integral</p>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
-            {especialidades.map((esp, i) => {
-              const Icon = esp.icon;
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+            {categoriasEspecialidades.map((cat, i) => {
+              const Icon = cat.icon;
               return (
-                <Card key={i} className="border border-slate-200 shadow-sm bg-white text-center hover:shadow-md transition-shadow">
-                  <CardContent className="p-6">
-                    <div className="w-12 h-12 bg-slate-100 rounded-lg flex items-center justify-center mx-auto mb-4">
-                      <Icon className="w-6 h-6 text-slate-700" />
+                <Card key={i} className="border border-slate-200 shadow-sm bg-white hover:shadow-md transition-shadow">
+                  <CardHeader className="pb-3">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 bg-slate-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                        <Icon className="w-5 h-5 text-slate-700" />
+                      </div>
+                      <CardTitle className="text-base text-slate-900">{cat.categoria}</CardTitle>
                     </div>
-                    <h4 className="font-semibold text-slate-900 text-sm mb-1">{esp.titulo}</h4>
-                    <p className="text-xs text-slate-500">{esp.detalle}</p>
+                  </CardHeader>
+                  <CardContent>
+                    <ul className="space-y-2">
+                      {cat.items.map((item, j) => (
+                        <li key={j} className="flex items-start gap-2">
+                          <CheckCircle className="w-4 h-4 text-slate-500 flex-shrink-0 mt-0.5" />
+                          <span className="text-sm text-slate-600">{item}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </CardContent>
                 </Card>
               );
@@ -318,7 +375,7 @@ export default function ColaboradoresSection() {
         <div className="max-w-3xl mx-auto">
           <Card className="bg-slate-900 text-white border-none shadow-xl">
             <CardContent className="p-10 text-center">
-              <h3 className="font-serif text-2xl font-bold mb-3">Postular a la Red de Colaboradores</h3>
+              <h3 className="font-serif text-2xl font-bold mb-3">Postular a la Red Técnica</h3>
               <p className="text-slate-400 mb-8 max-w-xl mx-auto text-sm leading-relaxed">
                 Buscamos aliados técnicos para ejecutar los proyectos más exigentes. Tu capacidad técnica es nuestro motor.
               </p>
@@ -329,7 +386,7 @@ export default function ColaboradoresSection() {
                 onClick={() => window.location.href = '/contacto'}
               >
                 <ArrowRight className="w-5 h-5 mr-2" />
-                Postular a la Red de Colaboradores
+                Postular a la Red Técnica
               </Button>
 
               <div className="text-left max-w-md mx-auto">
