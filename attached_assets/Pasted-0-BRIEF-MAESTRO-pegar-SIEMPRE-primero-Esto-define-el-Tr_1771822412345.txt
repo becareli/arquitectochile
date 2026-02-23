@@ -1,0 +1,58 @@
+0) BRIEF MAESTRO (pegar SIEMPRE primero)
+(Esto define el “Tron” y evita que se desvíe)
+
+Actúe como Senior Software Architect & Conversion Expert. Este proyecto debe mantener la riqueza del contenido original, pero reordenado para claridad institucional y conversión.
+
+Reglas globales:
+
+Mantener el mensaje central y la propuesta de valor existente; no “simplificar” eliminando contenido útil, solo reorganizar y pulir.
+
+No cambiar rutas existentes sin compatibilidad.
+
+No agregar dependencias nuevas.
+
+No inventar datos; todo cálculo debe ser “estimación” con disclaimer.
+
+Cambios controlados: máximo 6 archivos por ejecución.
+
+Entrega: solo código + lista de archivos modificados al final (sin explicación).
+
+Tono: institucional plural (“Nosotros”, “ArquitectoChile gestiona”), formal, sobrio, sin exageraciones, sin “gratis”.
+
+PROMPT 1 (Home + navegación + composición)
+Objetivo: reestructurar Home en 3 unidades, mejorar composición/jerarquía, y asegurar que en móvil aparezcan links (Colaboradores/Portal).
+No tocar calculadoras ni contacto en este prompt.
+
+PROMPT 1 (copiar/pegar):
+
+Usando el BRIEF MAESTRO anterior, ejecute SOLO:
+
+A) HOME en 3 secciones claras (sin perder riqueza de contenido)
+
+Vivienda de Autor (Arquitectura y Construcción)
+
+Unidad Técnica Normativa (Fusión, Subdivisión, Regularización/Ley del Mono) — mantener SEO, textos y links existentes
+
+Consultoría Corporativa (Servicios para empresas)
+
+Requisitos:
+
+No eliminar contenido valioso; reorganizarlo en bloques y mejorar la lectura (títulos, subtítulos, bullets, jerarquía).
+
+Mantener los CTA existentes, pero ordenados (sin popups ni widgets flotantes invasivos).
+
+Asegurar consistencia visual (espaciado, tipografía sans-serif, estilo corporativo minimalista).
+
+B) NAVEGACIÓN (mobile)
+
+En móvil, el menú hamburguesa debe incluir los links “Colaboradores” y “Portal de Clientes” (y seguir funcionando en desktop).
+
+Cambiar lo mínimo necesario.
+
+Restricciones:
+
+No modifique calculadoras ni contacto.
+
+Máximo 6 archivos.
+
+Devuelva solo código y al final “Archivos modificados: …”.
