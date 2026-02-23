@@ -2,28 +2,29 @@ import { useState, useRef } from "react";
 import Navigation from "@/components/navigation";
 
 const svcData = {
-  empresa: [
-    { n: "Revisoría Independiente de Arquitectura", i: "⚖️" },
-    { n: "Inspección Técnica de Obras (ITO)", i: "🏗️" },
-    { n: "Construcción de Obras Menores para Empresas", i: "⚒️" },
-    { n: "Diseño de Arquitectura para Empresas", i: "📐" },
-    { n: "Permiso de Edificación y Regularización", i: "📜" },
-    { n: "Proyectos de Agua Potable y Alcantarillado", i: "💧" },
-    { n: "Proyectos de Electricidad y Gas", i: "⚡" },
-    { n: "Autorización SEREMI de Salud", i: "🏥" },
-  ],
   particular: [
     { n: "Asesoría de Arquitecto a domicilio", i: "🏠" },
     { n: "Diseño de ampliaciones de casas", i: "➕" },
     { n: "Diseño de remodelación", i: "✨" },
-    { n: "Permiso regularización de propiedades (Ley del Mono)", i: "📜" },
-    { n: "Fusión y subdivisión de terrenos", i: "🗺️" },
-    { n: "Permisos de edificación y recepción final", i: "📐" },
-    { n: "Revisor independiente de arquitectura", i: "⚖️" },
-    { n: "Proyectos de Agua Potable y Alcantarillado", i: "💧" },
-    { n: "Proyectos de Electricidad y Gas", i: "⚡" },
-    { n: "Autorización SEREMI de Salud", i: "🏥" },
+    { n: "Inspección Técnica de Viviendas", i: "🔍" },
+    { n: "Tasación de Viviendas Urbanas", i: "📊" },
+    { n: "Reacondicionamiento Térmico / EIFS", i: "🌡️" },
     { n: "Proyecto desde Cero", i: "🌱" },
+  ],
+  normativa: [
+    { n: "Fusión de Terrenos Urbanos", i: "🗺️" },
+    { n: "Subdivisión de Terrenos Urbanos", i: "📍" },
+    { n: "Regularización de Inmuebles (Ley del Mono)", i: "📜" },
+    { n: "Permiso de Edificación y Recepción Final", i: "📐" },
+    { n: "Revisor Independiente de Arquitectura", i: "⚖️" },
+  ],
+  empresa: [
+    { n: "Obras Menores para Empresas", i: "🏗️" },
+    { n: "Revisoría Independiente de Arquitectura", i: "⚖️" },
+    { n: "Inspección Técnica de Obras (ITO)", i: "🔍" },
+    { n: "Diseño de Arquitectura para Empresas", i: "📐" },
+    { n: "Permiso de Edificación y Regularización", i: "📜" },
+    { n: "Gestión Integral de Proyectos", i: "📋" },
   ],
 };
 
@@ -34,7 +35,7 @@ const etapas = [
   "Ya tengo proyecto, necesito apoyo técnico",
 ];
 
-type Branch = "empresa" | "particular" | "";
+type Branch = "empresa" | "particular" | "normativa" | "";
 type Step = 1 | 2 | 3 | 4 | 5;
 
 export default function Contacto() {
@@ -56,7 +57,7 @@ export default function Contacto() {
   const [hasAudio, setHasAudio] = useState(false);
   const [isRecording, setIsRecording] = useState(false);
   const [speech, setSpeech] = useState(
-    '¡Hola! Soy <b>Agustín</b>, asistente del Arquitecto Patricio Becar.<br/><br/>¿Tu requerimiento es para una <b>Empresa</b> o un proyecto <b>Particular</b>?'
+    '¡Hola! Soy <b>Agustín</b>, asistente del Arquitecto Patricio Becar.<br/><br/>Seleccione el área que mejor describe su necesidad:'
   );
   const [showAvatar, setShowAvatar] = useState(true);
 
@@ -65,11 +66,13 @@ export default function Contacto() {
 
   function selectBranch(b: Branch) {
     setBranch(b);
-    setSpeech(
-      b === "empresa"
-        ? 'Perfecto, trabajamos con empresas e instituciones a diario. <b>¿En qué área necesitan apoyo técnico?</b>'
-        : 'Excelente, ayudamos a familias a construir sus sueños de forma legal y segura. <b>¿Qué necesitas hacer?</b>'
-    );
+    if (b === "empresa") {
+      setSpeech('Perfecto, trabajamos con empresas e instituciones a diario. <b>¿En qué área necesitan apoyo técnico?</b>');
+    } else if (b === "normativa") {
+      setSpeech('Entendido. Somos especialistas en gestión normativa ante DOM, SII y CBR.<br/><br/><b>¿Qué trámite necesitas gestionar?</b><br/><span style="font-size:0.85rem;color:#64748b">Si viste alguno de nuestros videos en YouTube, indícalo para priorizar tu caso.</span>');
+    } else {
+      setSpeech('Excelente, ayudamos a familias a construir sus sueños de forma legal y segura. <b>¿Qué necesitas hacer?</b>');
+    }
     setStep(2);
   }
 
@@ -172,7 +175,7 @@ export default function Contacto() {
     URL.revokeObjectURL(url);
   }
 
-  const services = branch ? svcData[branch as "empresa" | "particular"] : [];
+  const services = branch ? svcData[branch as keyof typeof svcData] : [];
 
   return (
     <>
@@ -270,26 +273,37 @@ export default function Contacto() {
 
         {step === 1 && (
           <div style={{ padding: "1.5rem", animation: "fadeIn 0.4s ease-out" }}>
-            <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-              <button onClick={() => selectBranch("empresa")} style={branchBtnStyle}>
-                <span style={{ fontSize: "2.2rem" }}>🏢</span>
-                <div>
-                  <span style={{ fontSize: "1.1rem", fontWeight: 700, color: "#1e3a5f", display: "block" }}>
-                    Empresa / Institución
-                  </span>
-                  <span style={{ fontSize: "0.78rem", color: "#64748b" }}>
-                    Proyectos corporativos, ITO y revisoría
-                  </span>
-                </div>
-              </button>
+            <div style={{ display: "flex", flexDirection: "column", gap: "0.85rem" }}>
               <button onClick={() => selectBranch("particular")} style={branchBtnStyle}>
                 <span style={{ fontSize: "2.2rem" }}>🏠</span>
                 <div>
-                  <span style={{ fontSize: "1.1rem", fontWeight: 700, color: "#c2410c", display: "block" }}>
-                    Proyecto Particular
+                  <span style={{ fontSize: "1.05rem", fontWeight: 700, color: "#c2410c", display: "block" }}>
+                    Vivienda Particular
                   </span>
-                  <span style={{ fontSize: "0.78rem", color: "#64748b" }}>
-                    Casas, regularizaciones, terrenos y permisos
+                  <span style={{ fontSize: "0.75rem", color: "#64748b" }}>
+                    Diseño, inspección, tasación y asesoría a domicilio
+                  </span>
+                </div>
+              </button>
+              <button onClick={() => selectBranch("normativa")} style={branchBtnStyle}>
+                <span style={{ fontSize: "2.2rem" }}>⚖️</span>
+                <div>
+                  <span style={{ fontSize: "1.05rem", fontWeight: 700, color: "#2563eb", display: "block" }}>
+                    Gestión Normativa
+                  </span>
+                  <span style={{ fontSize: "0.75rem", color: "#64748b" }}>
+                    Fusión, subdivisión, regularización y permisos
+                  </span>
+                </div>
+              </button>
+              <button onClick={() => selectBranch("empresa")} style={branchBtnStyle}>
+                <span style={{ fontSize: "2.2rem" }}>🏢</span>
+                <div>
+                  <span style={{ fontSize: "1.05rem", fontWeight: 700, color: "#1e3a5f", display: "block" }}>
+                    Empresa
+                  </span>
+                  <span style={{ fontSize: "0.75rem", color: "#64748b" }}>
+                    Obras menores, ITO y gestión de proyectos
                   </span>
                 </div>
               </button>
@@ -299,6 +313,11 @@ export default function Contacto() {
 
         {step === 2 && (
           <div style={{ padding: "1.5rem", animation: "fadeIn 0.4s ease-out" }}>
+            {branch === "normativa" && (
+              <div style={{ background: "#eff6ff", border: "1.5px solid #bfdbfe", borderRadius: "0.85rem", padding: "0.85rem 1rem", marginBottom: "1rem", fontSize: "0.8rem", color: "#1e40af", lineHeight: 1.5 }}>
+                <b>¿Viste un trámite en YouTube?</b> Selecciónalo a continuación. Priorizamos casos que llegan informados.
+              </div>
+            )}
             <div style={{ maxHeight: 420, overflowY: "auto", display: "flex", flexDirection: "column", gap: "0.6rem" }}>
               {services.map((s) => (
                 <button key={s.n} onClick={() => selectService(s.n)} style={serviceBtnStyle}>
@@ -330,7 +349,7 @@ export default function Contacto() {
             <button
               onClick={() => {
                 setSpeech(
-                  '¡Hola! Soy <b>Agustín</b>, asistente del Arquitecto Patricio Becar.<br/><br/>¿Tu requerimiento es para una <b>Empresa</b> o un proyecto <b>Particular</b>?'
+                  '¡Hola! Soy <b>Agustín</b>, asistente del Arquitecto Patricio Becar.<br/><br/>Seleccione el área que mejor describe su necesidad:'
                 );
                 setStep(1);
               }}
@@ -391,11 +410,13 @@ export default function Contacto() {
             </button>
             <button
               onClick={() => {
-                setSpeech(
-                  branch === "empresa"
-                    ? 'Perfecto, trabajamos con empresas e instituciones a diario. <b>¿En qué área necesitan apoyo técnico?</b>'
-                    : 'Excelente, ayudamos a familias a construir sus sueños de forma legal y segura. <b>¿Qué necesitas hacer?</b>'
-                );
+                if (branch === "empresa") {
+                  setSpeech('Perfecto, trabajamos con empresas e instituciones a diario. <b>¿En qué área necesitan apoyo técnico?</b>');
+                } else if (branch === "normativa") {
+                  setSpeech('Entendido. Somos especialistas en gestión normativa ante DOM, SII y CBR.<br/><br/><b>¿Qué trámite necesitas gestionar?</b><br/><span style="font-size:0.85rem;color:#64748b">Si viste alguno de nuestros videos en YouTube, indícalo para priorizar tu caso.</span>');
+                } else {
+                  setSpeech('Excelente, ayudamos a familias a construir sus sueños de forma legal y segura. <b>¿Qué necesitas hacer?</b>');
+                }
                 setStep(2);
               }}
               style={backBtnStyle}

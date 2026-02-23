@@ -1,195 +1,207 @@
 import { useState } from "react";
-import { Leaf } from "lucide-react";
+import { Thermometer } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { apiRequest } from "@/lib/queryClient";
-import { useToast } from "@/hooks/use-toast";
+import { useLocation } from "wouter";
+
+const comunas: Record<string, { label: string; zone: "calido" | "templado" | "frio" }> = {
+  "santiago-centro": { label: "Santiago Centro", zone: "templado" },
+  "providencia": { label: "Providencia", zone: "templado" },
+  "las-condes": { label: "Las Condes", zone: "templado" },
+  "la-florida": { label: "La Florida", zone: "templado" },
+  "maipu": { label: "Maipú", zone: "templado" },
+  "nunoa": { label: "Ñuñoa", zone: "templado" },
+  "puente-alto": { label: "Puente Alto", zone: "frio" },
+  "san-bernardo": { label: "San Bernardo", zone: "frio" },
+  "colina": { label: "Colina", zone: "frio" },
+  "valparaiso": { label: "Valparaíso", zone: "templado" },
+  "vina-del-mar": { label: "Viña del Mar", zone: "templado" },
+  "concepcion": { label: "Concepción", zone: "frio" },
+  "temuco": { label: "Temuco", zone: "frio" },
+  "la-serena": { label: "La Serena", zone: "calido" },
+  "antofagasta": { label: "Antofagasta", zone: "calido" },
+  "otra": { label: "Otra comuna", zone: "templado" },
+};
+
+const lossData: Record<string, Record<string, Record<string, { muros: number; ventanas: number; techo: number; piso: number }>>> = {
+  calido: {
+    ladrillo: {
+      simple: { muros: 30, ventanas: 25, techo: 15, piso: 10 },
+      termopanel: { muros: 30, ventanas: 10, techo: 15, piso: 10 },
+    },
+    hormigon: {
+      simple: { muros: 35, ventanas: 25, techo: 15, piso: 10 },
+      termopanel: { muros: 35, ventanas: 10, techo: 15, piso: 10 },
+    },
+    madera: {
+      simple: { muros: 20, ventanas: 25, techo: 20, piso: 15 },
+      termopanel: { muros: 20, ventanas: 10, techo: 20, piso: 15 },
+    },
+  },
+  templado: {
+    ladrillo: {
+      simple: { muros: 35, ventanas: 30, techo: 18, piso: 12 },
+      termopanel: { muros: 35, ventanas: 12, techo: 18, piso: 12 },
+    },
+    hormigon: {
+      simple: { muros: 40, ventanas: 30, techo: 18, piso: 12 },
+      termopanel: { muros: 40, ventanas: 12, techo: 18, piso: 12 },
+    },
+    madera: {
+      simple: { muros: 25, ventanas: 30, techo: 22, piso: 15 },
+      termopanel: { muros: 25, ventanas: 12, techo: 22, piso: 15 },
+    },
+  },
+  frio: {
+    ladrillo: {
+      simple: { muros: 40, ventanas: 35, techo: 20, piso: 15 },
+      termopanel: { muros: 40, ventanas: 15, techo: 20, piso: 15 },
+    },
+    hormigon: {
+      simple: { muros: 45, ventanas: 35, techo: 20, piso: 15 },
+      termopanel: { muros: 45, ventanas: 15, techo: 20, piso: 15 },
+    },
+    madera: {
+      simple: { muros: 30, ventanas: 35, techo: 25, piso: 18 },
+      termopanel: { muros: 30, ventanas: 15, techo: 25, piso: 18 },
+    },
+  },
+};
 
 export default function EnergyCalculator() {
-  const [formData, setFormData] = useState({
-    housingType: "",
-    energyMeters: "",
-    currentEnergyCost: "",
-    climateZone: "",
-    email: ""
-  });
-  
-  const [result, setResult] = useState<any>(null);
+  const [, setLocation] = useLocation();
+  const [comuna, setComuna] = useState("");
+  const [material, setMaterial] = useState("");
+  const [ventanas, setVentanas] = useState("");
   const [showResult, setShowResult] = useState(false);
-  const { toast } = useToast();
-
-  const efficiencyRates = {
-    casa: { norte: 0.25, centro: 0.35, sur: 0.45 },
-    departamento: { norte: 0.20, centro: 0.30, sur: 0.40 },
-    oficina: { norte: 0.30, centro: 0.40, sur: 0.50 }
-  };
 
   const handleCalculate = () => {
-    const { housingType, energyMeters, currentEnergyCost, climateZone } = formData;
-    
-    if (!housingType || !energyMeters || !currentEnergyCost || !climateZone) {
-      toast({
-        title: "Error",
-        description: "Por favor completa todos los campos",
-        variant: "destructive"
-      });
-      return;
-    }
-
-    const savingsRate = efficiencyRates[housingType as keyof typeof efficiencyRates][climateZone as keyof typeof efficiencyRates.casa];
-    const monthlySavings = parseFloat(currentEnergyCost) * savingsRate;
-    const annualSavings = monthlySavings * 12;
-    const co2Reduction = parseFloat(energyMeters) * 0.5 * 12;
-
-    const calculationResult = {
-      housingType,
-      energyMeters: parseFloat(energyMeters),
-      currentEnergyCost: parseFloat(currentEnergyCost),
-      climateZone,
-      monthlySavings,
-      annualSavings,
-      co2Reduction,
-      treesEquivalent: co2Reduction / 22,
-      fiveYearSavings: annualSavings * 5
-    };
-
-    setResult(calculationResult);
+    if (!comuna || !material || !ventanas) return;
     setShowResult(true);
   };
 
-  const handleSendQuote = async () => {
-    if (!formData.email) {
-      toast({
-        title: "Error",
-        description: "Por favor ingresa tu email",
-        variant: "destructive"
-      });
-      return;
-    }
-
-    try {
-      await apiRequest("POST", "/api/calculator-results", {
-        type: "energy",
-        email: formData.email,
-        inputs: formData,
-        results: result
-      });
-
-      toast({
-        title: "Éxito",
-        description: "Te enviaremos una cotización personalizada de EIFS",
-      });
-    } catch (error) {
-      toast({
-        title: "Error",
-        description: "Hubo un problema al procesar tu solicitud",
-        variant: "destructive"
-      });
-    }
+  const getResult = () => {
+    if (!comuna || !material || !ventanas) return null;
+    const zone = comunas[comuna]?.zone || "templado";
+    return lossData[zone]?.[material]?.[ventanas] || null;
   };
 
+  const result = getResult();
+  const totalLoss = result ? result.muros + result.ventanas + result.techo + result.piso : 0;
+
+  const barItems = result
+    ? [
+        { label: "Muros", value: result.muros, color: "bg-red-500" },
+        { label: "Ventanas", value: result.ventanas, color: "bg-amber-500" },
+        { label: "Techo", value: result.techo, color: "bg-blue-500" },
+        { label: "Piso", value: result.piso, color: "bg-gray-400" },
+      ]
+    : [];
+
   return (
-    <Card className="bg-white rounded-xl shadow-lg">
-      <CardHeader className="text-center">
-        <div className="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-          <Leaf className="text-green-600 text-2xl" />
+    <Card className="bg-white rounded-xl shadow-lg border border-gray-200">
+      <CardHeader className="text-center pb-4">
+        <div className="bg-orange-50 w-14 h-14 rounded-xl flex items-center justify-center mx-auto mb-3">
+          <Thermometer className="w-7 h-7 text-orange-600" />
         </div>
-        <CardTitle className="text-2xl font-bold text-dark mb-2">
-          Calculadora de Eficiencia Energética
+        <CardTitle className="text-xl font-bold text-gray-900">
+          Simulador de Eficiencia Energética
         </CardTitle>
-        <p className="text-gray-600">Descubre cuánto puedes ahorrar con EIFS</p>
+        <p className="text-sm text-gray-500">Evalúe las pérdidas térmicas de su vivienda</p>
       </CardHeader>
-      
-      <CardContent className="space-y-6">
+
+      <CardContent className="space-y-5">
         <div>
-          <Label className="block text-sm font-medium text-gray-700 mb-2">Tipo de Vivienda</Label>
-          <Select value={formData.housingType} onValueChange={(value) => setFormData({...formData, housingType: value})}>
-            <SelectTrigger>
-              <SelectValue placeholder="Selecciona el tipo" />
-            </SelectTrigger>
+          <Label className="text-sm font-semibold text-gray-700 mb-1.5 block">Comuna (clima)</Label>
+          <Select value={comuna} onValueChange={(v) => { setComuna(v); setShowResult(false); }}>
+            <SelectTrigger><SelectValue placeholder="Seleccione comuna" /></SelectTrigger>
             <SelectContent>
-              <SelectItem value="casa">Casa</SelectItem>
-              <SelectItem value="departamento">Departamento</SelectItem>
-              <SelectItem value="oficina">Oficina</SelectItem>
+              {Object.entries(comunas).map(([key, val]) => (
+                <SelectItem key={key} value={key}>{val.label}</SelectItem>
+              ))}
             </SelectContent>
           </Select>
         </div>
-        
+
         <div>
-          <Label className="block text-sm font-medium text-gray-700 mb-2">Metros Cuadrados</Label>
-          <Input 
-            type="number" 
-            placeholder="Ej: 120" 
-            value={formData.energyMeters}
-            onChange={(e) => setFormData({...formData, energyMeters: e.target.value})}
-          />
-        </div>
-        
-        <div>
-          <Label className="block text-sm font-medium text-gray-700 mb-2">Gasto Mensual Actual en Energía</Label>
-          <Input 
-            type="number" 
-            placeholder="Ej: 80000" 
-            value={formData.currentEnergyCost}
-            onChange={(e) => setFormData({...formData, currentEnergyCost: e.target.value})}
-          />
-        </div>
-        
-        <div>
-          <Label className="block text-sm font-medium text-gray-700 mb-2">Zona Climática</Label>
-          <Select value={formData.climateZone} onValueChange={(value) => setFormData({...formData, climateZone: value})}>
-            <SelectTrigger>
-              <SelectValue placeholder="Selecciona la zona" />
-            </SelectTrigger>
+          <Label className="text-sm font-semibold text-gray-700 mb-1.5 block">Material de Muros</Label>
+          <Select value={material} onValueChange={(v) => { setMaterial(v); setShowResult(false); }}>
+            <SelectTrigger><SelectValue placeholder="Seleccione material" /></SelectTrigger>
             <SelectContent>
-              <SelectItem value="norte">Norte (Cálido)</SelectItem>
-              <SelectItem value="centro">Centro (Templado)</SelectItem>
-              <SelectItem value="sur">Sur (Frío)</SelectItem>
+              <SelectItem value="ladrillo">Ladrillo</SelectItem>
+              <SelectItem value="hormigon">Hormigón</SelectItem>
+              <SelectItem value="madera">Madera</SelectItem>
             </SelectContent>
           </Select>
         </div>
-        
-        <Button 
+
+        <div>
+          <Label className="text-sm font-semibold text-gray-700 mb-1.5 block">Tipo de Ventanas</Label>
+          <Select value={ventanas} onValueChange={(v) => { setVentanas(v); setShowResult(false); }}>
+            <SelectTrigger><SelectValue placeholder="Seleccione tipo" /></SelectTrigger>
+            <SelectContent>
+              <SelectItem value="simple">Vidrio Simple</SelectItem>
+              <SelectItem value="termopanel">Termopanel</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+
+        <Button
           onClick={handleCalculate}
-          className="w-full bg-green-600 text-white hover:bg-green-700"
+          disabled={!comuna || !material || !ventanas}
+          className="w-full bg-orange-500 text-white hover:bg-orange-600 font-semibold"
         >
-          Calcular Ahorros
+          Evaluar Pérdida Energética
         </Button>
-        
+
         {showResult && result && (
-          <div className="bg-green-50 border border-green-200 rounded-lg p-6">
-            <h4 className="font-semibold text-green-800 mb-2">Potencial de Ahorro</h4>
-            <div className="text-green-700 space-y-2">
-              <p><strong>Ahorro Mensual:</strong> ${result.monthlySavings.toLocaleString('es-CL')} CLP</p>
-              <p><strong>Ahorro Anual:</strong> ${result.annualSavings.toLocaleString('es-CL')} CLP</p>
-              <p><strong>Reducción CO₂:</strong> {result.co2Reduction.toFixed(1)} kg/año</p>
-              <p><strong>Equivalente a:</strong> {result.treesEquivalent.toFixed(1)} árboles plantados</p>
-              <hr className="my-3" />
-              <p className="text-lg font-bold text-green-600">
-                Ahorro en 5 años: ${result.fiveYearSavings.toLocaleString('es-CL')} CLP
-              </p>
-            </div>
-            <div className="mt-4 p-4 bg-white rounded-lg border">
-              <p className="text-sm text-gray-600 mb-3">¿Quieres una cotización personalizada de EIFS?</p>
-              <div className="flex flex-col sm:flex-row gap-2">
-                <Input 
-                  type="email" 
-                  placeholder="Tu email" 
-                  value={formData.email}
-                  onChange={(e) => setFormData({...formData, email: e.target.value})}
-                  className="flex-1"
-                />
-                <Button 
-                  onClick={handleSendQuote}
-                  className="bg-accent text-white hover:bg-yellow-500"
-                >
-                  Solicitar Cotización
-                </Button>
+          <div className="space-y-5 pt-2">
+            <div className="bg-gray-50 border border-gray-200 rounded-xl p-5">
+              <h4 className="text-sm font-bold text-gray-700 mb-4 uppercase tracking-wide">Distribución de Pérdida Energética</h4>
+              <div className="space-y-3">
+                {barItems.map((item) => (
+                  <div key={item.label}>
+                    <div className="flex justify-between text-xs font-medium text-gray-600 mb-1">
+                      <span>{item.label}</span>
+                      <span>{item.value}%</span>
+                    </div>
+                    <div className="w-full bg-gray-200 rounded-full h-3">
+                      <div
+                        className={`${item.color} h-3 rounded-full transition-all duration-700`}
+                        style={{ width: `${Math.min(item.value * 2, 100)}%` }}
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <div className="mt-4 pt-3 border-t border-gray-200 flex justify-between items-center">
+                <span className="text-sm font-semibold text-gray-700">Pérdida total estimada</span>
+                <span className={`text-lg font-bold ${totalLoss > 80 ? "text-red-600" : totalLoss > 60 ? "text-amber-600" : "text-green-600"}`}>
+                  {totalLoss}%
+                </span>
               </div>
             </div>
+
+            <div className="bg-orange-50 border border-orange-200 rounded-xl p-5 text-center">
+              <p className="text-sm font-bold text-orange-800 mb-1">
+                Ahorre hasta un 35% con nuestro sistema EIFS
+              </p>
+              <p className="text-xs text-orange-600 mb-4">
+                Aislación térmica exterior profesional para su vivienda
+              </p>
+              <Button
+                onClick={() => setLocation("/asesoria-arquitectonica-terreno")}
+                className="bg-orange-500 text-white hover:bg-orange-600 font-semibold"
+              >
+                Agendar Asesoría — $45.000
+              </Button>
+            </div>
+
+            <p className="text-[11px] text-gray-400 text-center leading-snug">
+              Estimación referencial basada en parámetros generales. Los valores reales dependen de factores constructivos específicos. Requiere validación técnica en terreno.
+            </p>
           </div>
         )}
       </CardContent>
