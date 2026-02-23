@@ -146,7 +146,7 @@ export default function Navigation() {
               href="/contacto"
               className="bg-[#f97316] text-white px-5 py-2.5 rounded-md text-sm font-semibold hover:bg-orange-600 transition-colors"
             >
-              Asesoría a Domicilio — $45.000
+              Arquitecto a Domicilio
             </a>
           </div>
 
@@ -186,7 +186,7 @@ export default function Navigation() {
             <button onClick={() => navigateToService('/contacto')} className="block w-full text-left px-3 py-2.5 text-sm text-gray-600 hover:text-[#1e293b] rounded-md">Contacto</button>
             <div className="pt-3 border-t border-gray-100 mt-2">
               <a href="/contacto" className="block w-full text-center bg-[#f97316] text-white px-4 py-3 rounded-md text-sm font-semibold hover:bg-orange-600 transition-colors">
-                Asesoría a Domicilio — $45.000
+                Arquitecto a Domicilio
               </a>
             </div>
           </div>

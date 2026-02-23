@@ -1,201 +1,77 @@
-import { AlertTriangle, DollarSign, Clock, Users, Shield, CheckCircle } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { HelpCircle, ArrowRight } from "lucide-react";
 
 export default function ObjectionHandling() {
-  // Objeciones comunes basadas en el documento de Arquiboost
-  const objections = [
+  const faqs = [
     {
-      id: 1,
-      icon: <DollarSign className="w-6 h-6 text-red-500" />,
-      objection: "Es demasiado caro",
-      response: "Entiendo que parezca caro ahora. ¿Pero cuánto vale para ti tener la casa de tus sueños con total seguridad legal? Nos centramos en dar el mejor resultado, no el precio más bajo.",
-      category: "Precio"
+      question: "¿Cuánto demora un permiso de edificación en la municipalidad?",
+      answer: "Los plazos municipales varían según la comuna y el tipo de proyecto. En promedio, un permiso de edificación toma entre 30 y 60 días hábiles. Nosotros nos encargamos de presentar una carpeta técnica completa para minimizar observaciones y agilizar la aprobación."
     },
     {
-      id: 2,
-      icon: <Clock className="w-6 h-6 text-yellow-500" />,
-      objection: "Necesito tiempo para pensarlo",
-      response: "¿No estás interesado o no estás seguro? Si es para ti y te ayudamos, ¿qué específicamente necesitas pensar que no hayamos discutido hoy?",
-      category: "Tiempo"
+      question: "¿Para qué sirve el Diagnóstico Técnico de $45.000?",
+      answer: "Es una visita profesional a tu terreno o propiedad donde evaluamos normativa municipal, factibilidad constructiva, cabida del terreno y te entregamos un informe con recomendaciones claras. Es el primer paso antes de cualquier proyecto, y su costo se descuenta si continúas con nosotros."
     },
     {
-      id: 3,
-      icon: <Users className="w-6 h-6 text-blue-500" />,
-      objection: "Debo consultar con mi pareja",
-      response: "¿Estás diciendo que estás dentro y solo necesitas el 'ok' de tu pareja? Perfecto. Pongamos a tu pareja al teléfono ahora mismo.",
-      category: "Decisión"
+      question: "¿Cómo el diseño 3D evita sobrecostos en la obra?",
+      answer: "Al visualizar tu proyecto completo en 3D antes de construir, puedes ajustar distribución, materiales y terminaciones sin gastar en demoliciones ni cambios de obra. Los proyectos con diseño 3D previo reducen significativamente los imprevistos durante la construcción."
     },
     {
-      id: 4,
-      icon: <AlertTriangle className="w-6 h-6 text-orange-500" />,
-      objection: "No es buen momento",
-      response: "¿Cuándo será un buen momento para que empieces a priorizar las cosas que dijiste que necesitas? Hoy siempre será el mejor momento.",
-      category: "Timing"
-    }
-  ];
-
-  const guarantees = [
-    {
-      title: "Compromiso de Diseño",
-      description: "Revisiones ilimitadas hasta que ames tu diseño 3D",
-      icon: <CheckCircle className="w-8 h-8 text-green-600" />
+      question: "¿Qué incluye un proyecto de arquitectura integral?",
+      answer: "Incluye diseño arquitectónico personalizado, planos técnicos completos, visualización 3D, gestión de permisos ante la municipalidad y acompañamiento durante la construcción. Los presupuestos son personalizados tras el Diagnóstico Técnico."
     },
     {
-      title: "Gestión Legal Profesional",
-      description: "Tramitamos todos los permisos con el respaldo de más de 26 años de experiencia",
-      icon: <Shield className="w-8 h-8 text-blue-600" />
+      question: "¿Trabajan solo en Santiago o también en regiones?",
+      answer: "Nuestra oficina está en Santiago (La Florida), pero atendemos proyectos en toda la Región Metropolitana. Para proyectos en regiones, evaluamos caso a caso la factibilidad de servicio."
     },
     {
-      title: "Compromiso de Plazos",
-      description: "Nos comprometemos con los plazos acordados y comunicamos avances constantemente",
-      icon: <Clock className="w-8 h-8 text-purple-600" />
-    }
+      question: "¿Qué diferencia hay entre diseño y regularización?",
+      answer: "El diseño es para obras nuevas o ampliaciones que aún no se construyen. La regularización es para construcciones existentes que nunca obtuvieron permiso municipal. Ambos servicios requieren un arquitecto y trámites ante la DOM."
+    },
   ];
 
   return (
-    <section className="py-20 bg-gradient-to-br from-red-50 to-orange-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header con urgencia (Alex Hormozi style) */}
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">
-            ¿Aún Tienes Dudas? Te Entendemos Perfectamente
-          </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
-            Estas son las preguntas que nos hacen el 95% de las familias antes de decidirse. 
-            Te damos respuestas honestas porque queremos que tomes la mejor decisión.
+    <section className="bg-blueprint section-padding">
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-12">
+          <p className="text-xs font-semibold tracking-[0.2em] uppercase text-[#f97316] mb-3">
+            Preguntas Frecuentes
           </p>
-          
-          {/* Urgencia y escasez */}
-          <div className="bg-red-100 border-l-4 border-red-500 p-4 rounded-lg max-w-2xl mx-auto">
-            <p className="text-red-800 font-semibold">
-              ⚠️ IMPORTANTE: Solo trabajamos con 3 familias por mes para asegurar atención dedicada. 
-              Quedan 1 cupos disponibles para inicio inmediato.
-            </p>
-          </div>
+          <h2 className="text-3xl md:text-4xl font-bold text-[#1e293b] mb-4">
+            Resuelve tus Dudas
+          </h2>
+          <p className="text-base text-gray-500 max-w-xl mx-auto">
+            Las consultas más comunes sobre plazos, costos y proceso de trabajo.
+          </p>
         </div>
 
-        {/* Objeciones comunes */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
-          {objections.map((item) => (
-            <Card key={item.id} className="hover:shadow-lg transition-shadow bg-white">
-              <CardHeader>
-                <div className="flex items-center space-x-3">
-                  {item.icon}
-                  <div>
-                    <CardTitle className="text-lg text-red-600">
-                      "{item.objection}"
-                    </CardTitle>
-                    <p className="text-sm text-gray-500">{item.category}</p>
-                  </div>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <p className="text-gray-700 font-medium">
-                  {item.response}
-                </p>
-              </CardContent>
-            </Card>
+        <div className="space-y-0">
+          {faqs.map((faq, idx) => (
+            <details
+              key={idx}
+              className="group border-b border-gray-200 last:border-b-0"
+            >
+              <summary className="flex items-start gap-3 py-5 cursor-pointer list-none">
+                <HelpCircle className="w-4 h-4 text-gray-400 flex-shrink-0 mt-0.5 group-open:text-[#f97316] transition-colors" strokeWidth={1.5} />
+                <span className="text-sm font-semibold text-[#1e293b] group-open:text-[#f97316] transition-colors flex-1">
+                  {faq.question}
+                </span>
+                <ArrowRight className="w-3.5 h-3.5 text-gray-300 flex-shrink-0 mt-0.5 group-open:rotate-90 transition-transform" strokeWidth={1.5} />
+              </summary>
+              <p className="text-sm text-gray-500 leading-relaxed pb-5 pl-7">
+                {faq.answer}
+              </p>
+            </details>
           ))}
         </div>
 
-        {/* Triple Compromiso (Russell Brunson style) */}
-        <div className="bg-white rounded-lg shadow-xl p-8 mb-16">
-          <h3 className="text-3xl font-bold text-center text-gray-900 mb-8">
-            Triple Compromiso de Tranquilidad
-          </h3>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {guarantees.map((guarantee, index) => (
-              <div key={index} className="text-center">
-                <div className="flex justify-center mb-4">
-                  {guarantee.icon}
-                </div>
-                <h4 className="text-xl font-bold text-gray-900 mb-2">
-                  {guarantee.title}
-                </h4>
-                <p className="text-gray-600">
-                  {guarantee.description}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Stack de valor (Alex Hormozi $100M Offers) */}
-        <div className="bg-gradient-to-r from-blue-600 to-blue-800 rounded-lg text-white p-8 mb-16">
-          <h3 className="text-3xl font-bold text-center mb-8">
-            Lo Que Recibes Cuando Decides HOY
-          </h3>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="space-y-4">
-              <div className="flex items-center space-x-3">
-                <CheckCircle className="w-6 h-6 text-green-300 flex-shrink-0" />
-                <span>Diseño 3D personalizado completo (Valor: $800.000)</span>
-              </div>
-              <div className="flex items-center space-x-3">
-                <CheckCircle className="w-6 h-6 text-green-300 flex-shrink-0" />
-                <span>Gestión completa de permisos legales (Valor: $600.000)</span>
-              </div>
-              <div className="flex items-center space-x-3">
-                <CheckCircle className="w-6 h-6 text-green-300 flex-shrink-0" />
-                <span>Acompañamiento hasta entrega final (Valor: $400.000)</span>
-              </div>
-              <div className="flex items-center space-x-3">
-                <CheckCircle className="w-6 h-6 text-green-300 flex-shrink-0" />
-                <span>Revisiones ilimitadas de diseño (Valor: $300.000)</span>
-              </div>
-            </div>
-            
-            <div className="space-y-4">
-              <div className="flex items-center space-x-3">
-                <CheckCircle className="w-6 h-6 text-green-300 flex-shrink-0" />
-                <span>Asesoría arquitectónica permanente (Valor: $250.000)</span>
-              </div>
-              <div className="flex items-center space-x-3">
-                <CheckCircle className="w-6 h-6 text-green-300 flex-shrink-0" />
-                <span>Plan de construcción paso a paso (Valor: $200.000)</span>
-              </div>
-              <div className="flex items-center space-x-3">
-                <CheckCircle className="w-6 h-6 text-green-300 flex-shrink-0" />
-                <span>Respaldo legal profesional (Valor: $500.000)</span>
-              </div>
-              <div className="flex items-center space-x-3">
-                <CheckCircle className="w-6 h-6 text-green-300 flex-shrink-0" />
-                <span>🎁 BONUS: Consulta de diseño interior (Valor: $150.000)</span>
-              </div>
-            </div>
-          </div>
-          
-          <div className="text-center mt-8 pt-8 border-t border-blue-400">
-            <p className="text-xl mb-2">Valor Total: <span className="line-through text-blue-200">$3.200.000</span></p>
-            <p className="text-3xl font-bold text-yellow-300">Tu Precio HOY: $1.800.000</p>
-            <p className="text-lg text-blue-100 mt-2">Ahorras $1.400.000 si decides ahora</p>
-          </div>
-        </div>
-
-        {/* CTA final con urgencia */}
-        <div className="text-center bg-yellow-100 border-2 border-yellow-400 rounded-lg p-8">
-          <h3 className="text-2xl font-bold text-gray-900 mb-4">
-            Esta Oferta Desaparece en 24 Horas
-          </h3>
-          <p className="text-gray-700 mb-6">
-            No podemos mantener estos precios especiales indefinidamente. 
-            Si no actúas hoy, volverás a pagar el precio regular de $3.200.000.
-          </p>
-          
-          <div className="space-y-4">
-            <button 
-              onClick={() => { window.location.href = '/contacto'; }}
-              className="bg-red-600 text-white px-10 py-4 rounded-lg text-xl font-bold hover:bg-red-700 transition-colors shadow-lg block w-full md:w-auto md:inline-block"
-            >
-              SÍ, QUIERO MI CASA SOÑADA POR $1.800.000
-            </button>
-            
-            <p className="text-sm text-gray-600">
-              ✓ Sin compromisos ocultos ✓ Respaldo profesional ✓ Inicio inmediato
-            </p>
-          </div>
+        <div className="mt-12 text-center">
+          <p className="text-sm text-gray-500 mb-4">¿Tienes otra consulta?</p>
+          <a
+            href="/contacto"
+            className="inline-flex items-center gap-2 bg-[#f97316] text-white px-6 py-3 rounded-md text-sm font-semibold hover:bg-orange-600 transition-colors shadow-lg shadow-orange-500/20"
+          >
+            Contáctanos
+            <ArrowRight className="w-4 h-4" strokeWidth={1.5} />
+          </a>
         </div>
       </div>
     </section>

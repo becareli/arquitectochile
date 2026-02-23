@@ -1,0 +1,41 @@
+INSTRUCCIÓN DE REFINAMIENTO ESTRATÉGICO Y UNIFICACIÓN VISUAL
+
+"Actúa como un Senior UX Copywriter & UI Designer. Necesito ajustar la narrativa y la consistencia del sitio para que sea profesional y no 'soberbio'. Ejecuta estos cambios específicos:
+
+1. HEADER Y NAVEGACIÓN:
+
+Cambia el texto del botón naranja superior derecho de 'Asesoría a Domicilio 45.000' a 'Arquitecto a Domicilio'.
+
+2. RE-ESTRUCTURA DEL HOME (FLUJO DE VALOR):
+
+Orden de Secciones: 1. Hero.
+2. Lead Magnet (Ebook).
+3. NUEVA SECCIÓN: Vivienda de Autor. (Inserta aquí un bloque elegante sobre diseño arquitectónico personalizado. Título: 'El Diseño que tu Familia Merece'. Texto: 'Creamos espacios que respiran, diseñados bajo tus necesidades y blindados por la normativa vigente').
+4. Gestión Normativa (Tu contenido de YouTube).
+5. Consultoría Corporativa.
+
+3. CAMBIO DE NOMBRES Y TONO (HUMILDAD TÉCNICA):
+
+ELIMINAR: Cualquier mención a 'Sistema Casa Perfecta' o 'Único en Chile'.
+
+REEMPLAZAR POR: 'Método ArquitectoChile: Diseño con Certeza Técnica'.
+
+ELIMINAR: La sección 'Acelera tu proyecto de construcción'.
+
+4. AJUSTE DE OFERTA Y PRECIOS (ESTRATEGIA HORMOZI):
+
+ELIMINAR: El precio fijo de $1.800.000 y la promesa de 'Revisiones Ilimitadas'.
+
+NUEVO TEXTO PARA LA OFERTA: 'Proyectos de Arquitectura Integral. Diseñamos tu hogar con tecnología 3D y gestión total de permisos. Presupuestos personalizados tras Diagnóstico Técnico'.
+
+FAQ: Actualiza las preguntas frecuentes para que respondan dudas sobre: Plazos municipales, importancia del Diagnóstico de $45.000 y cómo el diseño 3D evita sobrecostos en obra.
+
+5. CONSISTENCIA VISUAL (UI CLEAN-UP):
+
+Tipografía: Forza el uso de 'Inter' en TODA la página. Elimina cualquier fuente residual.
+
+Colores: Asegura que el azul Navy de las cuadrículas del footer se use en los encabezados de sección.
+
+Imágenes: Donde no hay fotos, usa iconos técnicos de línea fina (lucide-react) en color Navy, manteniendo el estilo minimalista.
+
+EJECUCIÓN: Sobrescribe los componentes Hero, Services, Pricing y Contact. Asegura que el sitio se sienta como una unidad profesional coherente.

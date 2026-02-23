@@ -157,7 +157,7 @@ export default function Contact() {
   const currentServices = data.branch === "empresa" ? empresaServices : particularServices;
 
   return (
-    <section id="contacto" className="min-h-screen flex items-center justify-center p-4 sm:py-20" style={{ background: "#f8fafc", fontFamily: "'Montserrat', 'Inter', sans-serif" }}>
+    <section id="contacto" className="min-h-screen flex items-center justify-center p-4 sm:py-20" style={{ background: "#f8fafc" }}>
       <div className="w-full max-w-lg bg-white rounded-3xl overflow-hidden border border-gray-100" style={{ boxShadow: "0 20px 40px rgba(0,0,0,0.1)" }}>
 
         <div className="bg-gray-50 p-6 text-center border-b border-gray-100">

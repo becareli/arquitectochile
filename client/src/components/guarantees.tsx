@@ -1,88 +1,57 @@
-import { Shield, CheckCircle, Clock, Award } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { CheckCircle, Shield, Clock, Award } from "lucide-react";
 
 export default function Guarantees() {
-  const guarantees = [
+  const commitments = [
     {
-      icon: <CheckCircle className="w-8 h-8 text-green-600" />,
-      title: "Garantía de Diseño",
-      description: "Revisiones y ajustes ilimitados a tus planos en 3D hasta que estés 100% satisfecho.",
-      highlight: "Ajustes ilimitados"
+      icon: CheckCircle,
+      title: "Compromiso de Diseño",
+      description: "Rondas de ajuste definidas en contrato para que el diseño 3D refleje tus necesidades.",
     },
     {
-      icon: <Shield className="w-8 h-8 text-blue-600" />,
-      title: "Respaldo Legal",
-      description: "Gestionamos todos los trámites y permisos necesarios cumpliendo con las normativas vigentes.",
-      highlight: "Gestión profesional"
+      icon: Shield,
+      title: "Gestión Legal Profesional",
+      description: "Tramitamos permisos con el respaldo de más de 26 años de experiencia ante DOM.",
     },
     {
-      icon: <Clock className="w-8 h-8 text-orange-600" />,
-      title: "Compromiso de Entrega",
-      description: "Nos comprometemos con los plazos acordados y mantenemos comunicación constante del avance.",
-      highlight: "Plazos claros"
+      icon: Clock,
+      title: "Plazos Claros",
+      description: "Te comunicamos plazos reales y mantenemos informes de avance constantes.",
     },
     {
-      icon: <Award className="w-8 h-8 text-purple-600" />,
-      title: "Respaldo Profesional",
-      description: "Arquitecto titulado y revisor independiente con más de 15 años de experiencia.",
-      highlight: "15+ años experiencia"
-    }
+      icon: Award,
+      title: "Respaldo Universitario",
+      description: "Arquitecto titulado U. de Chile, Revisor Independiente MINVU, MBA.",
+    },
   ];
 
   return (
-    <section className="py-20 bg-gradient-to-br from-gray-50 to-blue-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">
-            Nuestro Compromiso Profesional
+    <section className="bg-white section-padding">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-12">
+          <p className="text-xs font-semibold tracking-[0.2em] uppercase text-[#f97316] mb-3">
+            Nuestro Compromiso
+          </p>
+          <h2 className="text-3xl md:text-4xl font-bold text-[#1e293b] mb-4">
+            Respaldo Profesional en Cada Etapa
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Para que tomes esta decisión con total tranquilidad, cada etapa del proyecto 
-            estará respaldada por profesionales comprometidos contigo.
+          <p className="text-base text-gray-500 max-w-xl mx-auto">
+            Compromisos concretos para que avances con tranquilidad en cada fase de tu proyecto.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {guarantees.map((guarantee, index) => (
-            <Card key={index} className="text-center hover:shadow-lg transition-shadow bg-white border-t-4 border-t-primary">
-              <CardHeader>
-                <div className="flex justify-center mb-4">
-                  {guarantee.icon}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          {commitments.map((item) => {
+            const Icon = item.icon;
+            return (
+              <div key={item.title} className="text-center">
+                <div className="w-12 h-12 mx-auto mb-4 rounded-md border border-gray-200 flex items-center justify-center">
+                  <Icon className="w-5 h-5 text-[#1e293b]" strokeWidth={1.5} />
                 </div>
-                <CardTitle className="text-xl font-semibold">
-                  {guarantee.title}
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="bg-primary/10 rounded-lg p-3 mb-4">
-                  <p className="text-sm font-semibold text-primary">
-                    {guarantee.highlight}
-                  </p>
-                </div>
-                <p className="text-gray-600 text-sm leading-relaxed">
-                  {guarantee.description}
-                </p>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-
-        {/* Call to Action */}
-        <div className="text-center mt-16">
-          <div className="bg-white rounded-lg shadow-lg p-8 max-w-2xl mx-auto">
-            <h3 className="text-2xl font-bold text-gray-900 mb-4">
-              Con este respaldo profesional tienes tranquilidad
-            </h3>
-            <p className="text-gray-600 mb-6">
-              Cada día que pospongas tu decisión, es un día más lejos de la casa que tu familia merece.
-            </p>
-            <button 
-              onClick={() => { window.location.href = '/contacto'; }}
-              className="bg-primary text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-primary/90 transition-colors shadow-lg"
-            >
-              Solicitar Evaluación
-            </button>
-          </div>
+                <h4 className="text-sm font-bold text-[#1e293b] mb-2">{item.title}</h4>
+                <p className="text-sm text-gray-500 leading-relaxed">{item.description}</p>
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>

@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import Navigation from "@/components/navigation";
 import Hero from "@/components/hero";
 import LeadMagnet from "@/components/lead-magnet";
+import ViviendaAutor from "@/components/vivienda-autor";
 import ConstructionCalculator from "@/components/calculators/construction-calculator";
 import EnergyCalculator from "@/components/calculators/energy-calculator";
 import Services from "@/components/services";
@@ -179,7 +180,17 @@ export default function Home() {
     <div className="min-h-screen bg-white">
       <Navigation />
       <Hero />
-      
+
+      <section id="ebook">
+        <LeadMagnet />
+      </section>
+
+      <ViviendaAutor />
+
+      <Services />
+
+      <SalesMechanism />
+
       <section id="calculadoras" className="bg-blueprint section-padding">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
@@ -187,7 +198,6 @@ export default function Home() {
             <h2 className="text-3xl md:text-4xl font-bold text-[#1e293b] mb-4">Calculadoras Interactivas</h2>
             <p className="text-base text-gray-500 max-w-xl mx-auto">Estimaciones referenciales para planificar su proyecto</p>
           </div>
-          
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             <ConstructionCalculator />
             <EnergyCalculator />
@@ -195,31 +205,23 @@ export default function Home() {
         </div>
       </section>
 
-      <Services />
-      
-      {/* Lead Magnet Section */}
-      <section id="ebook">
-        <LeadMagnet />
-      </section>
-      
       <RegularizacionInmuebles />
       <AsesoriaTerreno />
       <AboutArchitect />
       <Projects />
       <Testimonials />
       <SocialProof />
-      <SalesMechanism />
       <AdvancedLeadMagnets />
-      <ObjectionHandling />
       <Guarantees />
+      <ObjectionHandling />
       <Blog />
-      
+
       <section className="py-8 bg-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <GoogleBusinessIntegration />
         </div>
       </section>
-      
+
       <Contact />
       <Footer />
       <CookieConsent />
