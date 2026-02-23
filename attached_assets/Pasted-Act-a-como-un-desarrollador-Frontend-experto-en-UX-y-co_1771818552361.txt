@@ -1,0 +1,53 @@
+Actúa como un desarrollador Frontend experto en UX y conversión. Necesito que actualices el contenido y la estructura de la página de colaboradores (/colaboradores) de mi sitio ArquitectoChile.com siguiendo estas instrucciones precisas:
+
+1. Ajustes de Texto y Vocabulario (Filtros Estrictos):
+
+Sustituye todas las instancias de la palabra 'Premium' por 'de Colaboradores'.
+
+Elimina la palabra 'Vanguardia'. Úsala solo si es estrictamente necesario como 'técnica profesional'.
+
+Elimina frases pasivas como 'Estoy formando' o 'La idea es' y cámbialas por verbos de autoridad: 'Integramos', 'Lideramos', 'Gestionamos'.
+
+2. Estructura de Secciones a Implementar:
+
+Hero Section: - Headline: 'Únete a la Élite: Proyecta en el Ecosistema Residencial de Colaboradores de ArquitectoChile.com'
+
+Subheadline: 'Eliminamos la fricción administrativa. Tú pones la maestría técnica; nosotros, la infraestructura de proyectos de alto estándar.'
+
+Cuerpo del Mensaje:
+
+Texto: 'En ArquitectoChile.com gestionamos activos de valor. Estamos integrando a los mejores especialistas en una Red de Colaboradores donde el orden es la ley. Buscamos profesionales que valoren la calidad técnica sobre el volumen.'
+
+Especialidades (Listado Limpio):
+
+Ingeniería Estructural (Cálculo y Mecánica de Suelos).
+
+Gestión BIM (Coordinación y Modelación LOD 300+).
+
+Instalaciones de Alto Desempeño (Sanitario, Eléctrico, Gas, Climatización).
+
+Sustentabilidad (Eficiencia Energética).
+
+Proceso de 4 Pasos (Cards de UI):
+
+Briefing de Alto Valor (Alcances claros).
+
+Propuesta Estratégica (Honorarios y plazos ordenados).
+
+Selección por Excelencia (Ajuste técnico y cumplimiento).
+
+Retroalimentación (Mejora continua).
+
+Llamado a la Acción (CTA):
+
+Botón destacado: 'POSTULAR A LA RED DE COLABORADORES'.
+
+Texto inferior: 'El acceso es selectivo. Buscamos aliados técnicos para los proyectos más exigentes de Chile.'
+
+3. Estilo Visual:
+
+Mantener un diseño limpio, profesional y corporativo.
+
+Usa iconos minimalistas para las especialidades y el proceso.
+
+Asegúrate de que el diseño sea 'KISS' (Simple y directo).

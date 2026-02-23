@@ -10,54 +10,63 @@ import {
   Send,
   Search,
   MessageSquare,
-  ArrowRight
+  ArrowRight,
+  Building2,
+  Cpu,
+  Zap,
+  Leaf
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import arquitectoPhoto from "@assets/1651766771115_1753490676082.jpeg";
 
-const areasColaboracion = [
-  "Cálculo estructural (memoria, planos, EETT, coordinación con arquitectura)",
-  "Mecánica de suelos (informe y recomendaciones)",
-  "Proyecto sanitario / alcantarillado / aguas lluvias (según corresponda)",
-  "Proyecto eléctrico (planos y documentación)",
-  "Proyecto de gas (cuando aplique)",
-  "Coordinación BIM (interferencias, coordinación de especialidades)",
-  "Modelación / documentación BIM (Revit / Archicad según corresponda)",
-  "Otras áreas según proyecto (climatización, eficiencia energética, etc.)"
+const especialidades = [
+  {
+    titulo: "Ingeniería Estructural",
+    detalle: "Cálculo y Mecánica de Suelos",
+    icon: Building2
+  },
+  {
+    titulo: "Gestión BIM",
+    detalle: "Coordinación y Modelación LOD 300+",
+    icon: Cpu
+  },
+  {
+    titulo: "Instalaciones de Alto Desempeño",
+    detalle: "Sanitario, Eléctrico, Gas, Climatización",
+    icon: Zap
+  },
+  {
+    titulo: "Sustentabilidad",
+    detalle: "Eficiencia Energética",
+    icon: Leaf
+  }
 ];
 
 const pasos = [
   {
     numero: "01",
-    titulo: "Publicación del encargo",
-    descripcion: "Se define alcance, antecedentes, entregables esperados, plazos y criterios de evaluación.",
+    titulo: "Briefing de Alto Valor",
+    descripcion: "Alcances claros, antecedentes completos, entregables definidos y criterios de evaluación transparentes.",
     icon: FileText
   },
   {
     numero: "02",
-    titulo: "Presentación de cotización competitiva",
-    descripcion: "Cada profesional presenta honorarios, plazo, alcance y condiciones para el encargo publicado.",
+    titulo: "Propuesta Estratégica",
+    descripcion: "Honorarios y plazos ordenados. Cada profesional presenta alcance, condiciones y compromiso de entrega.",
     icon: Send
   },
   {
     numero: "03",
-    titulo: "Evaluación y asignación",
-    descripcion: "Se pondera calidad técnica, claridad de propuesta, cumplimiento previo y plazos. No se evalúa solo por precio.",
+    titulo: "Selección por Excelencia",
+    descripcion: "Ajuste técnico, claridad de propuesta, cumplimiento previo y plazos. No se evalúa solo por precio.",
     icon: Search
   },
   {
     numero: "04",
     titulo: "Retroalimentación",
-    descripcion: "Se entrega feedback breve al cierre del encargo, cuando corresponda, para mejorar futuras colaboraciones.",
+    descripcion: "Mejora continua. Feedback breve al cierre de cada encargo para fortalecer futuras colaboraciones.",
     icon: MessageSquare
   }
-];
-
-const requisitos = [
-  "Comunicación clara y tiempos de respuesta razonables",
-  "Control documental y trazabilidad de cambios",
-  "Entregables completos en formato acordado",
-  "Cumplimiento de plazos por hitos"
 ];
 
 const camposPostulacion = [
@@ -99,17 +108,17 @@ export default function ColaboradoresSection() {
   return (
     <section id="colaboradores" className="py-0 bg-slate-50">
 
-      {/* Hero con fondo arquitectónico */}
+      {/* Hero */}
       <div className="relative bg-slate-900 overflow-hidden">
-        <div className="absolute inset-0 opacity-[0.07]" style={{
-          backgroundImage: `repeating-linear-gradient(90deg, transparent, transparent 60px, rgba(255,255,255,0.15) 60px, rgba(255,255,255,0.15) 61px), repeating-linear-gradient(0deg, transparent, transparent 60px, rgba(255,255,255,0.15) 60px, rgba(255,255,255,0.15) 61px)`
+        <div className="absolute inset-0 opacity-[0.06]" style={{
+          backgroundImage: `repeating-linear-gradient(90deg, transparent, transparent 80px, rgba(255,255,255,0.12) 80px, rgba(255,255,255,0.12) 81px), repeating-linear-gradient(0deg, transparent, transparent 80px, rgba(255,255,255,0.12) 80px, rgba(255,255,255,0.12) 81px)`
         }} />
         <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-24 text-center">
-          <h2 className="font-serif text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
-            Red de Especialistas y Colaboradores<br className="hidden md:block" /> para Proyectos de Vivienda
+          <h2 className="font-serif text-3xl md:text-5xl font-bold text-white mb-6 leading-tight">
+            Únete a la Élite: Proyecta en el Ecosistema Residencial<br className="hidden md:block" /> de Colaboradores de ArquitectoChile.com
           </h2>
           <p className="text-lg text-slate-300 max-w-3xl mx-auto leading-relaxed">
-            Convocatoria abierta para proyectistas, coordinadores BIM y profesionales/instaladores que desarrollen especialidades y apoyen la ejecución de proyectos habitacionales. Operación principal en Santiago y coordinación con regiones.
+            Eliminamos la fricción administrativa. Tú pones la maestría técnica; nosotros, la infraestructura de proyectos de alto estándar.
           </p>
         </div>
       </div>
@@ -126,7 +135,7 @@ export default function ColaboradoresSection() {
                 </div>
                 <div>
                   <p className="text-slate-700 text-base md:text-lg leading-relaxed mb-6">
-                    Se está conformando una red técnica de profesionales y especialistas orientada a proyectos de vivienda que requieren coordinación, documentación ordenada y entregables de calidad. El objetivo es contar con colaboradores confiables, con quienes se pueda mantener una relación de trabajo continua basada en cumplimiento, claridad y rigor técnico.
+                    En ArquitectoChile.com gestionamos activos de valor. Integramos a los mejores especialistas en una Red de Colaboradores donde el orden es la ley. Buscamos profesionales que valoren la calidad técnica sobre el volumen.
                   </p>
                   <div className="flex items-center gap-3">
                     <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-slate-300">
@@ -144,23 +153,31 @@ export default function ColaboradoresSection() {
           </Card>
         </div>
 
-        {/* Áreas de colaboración requeridas */}
+        {/* Especialidades */}
         <div className="mb-20">
           <div className="text-center mb-10">
-            <h3 className="font-serif text-3xl font-bold text-slate-900 mb-3">Áreas de colaboración requeridas</h3>
-            <p className="text-slate-600">Perfiles técnicos que se buscan para integrar la red</p>
+            <h3 className="font-serif text-3xl font-bold text-slate-900 mb-3">Especialidades</h3>
+            <p className="text-slate-600">Perfiles técnicos que integran la red</p>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-4xl mx-auto">
-            {areasColaboracion.map((area, i) => (
-              <div key={i} className="flex items-start gap-3 bg-white border border-slate-200 rounded-lg p-4 shadow-sm">
-                <CheckCircle className="w-5 h-5 text-slate-600 flex-shrink-0 mt-0.5" />
-                <span className="text-sm text-slate-700 leading-snug">{area}</span>
-              </div>
-            ))}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
+            {especialidades.map((esp, i) => {
+              const Icon = esp.icon;
+              return (
+                <Card key={i} className="border border-slate-200 shadow-sm bg-white text-center hover:shadow-md transition-shadow">
+                  <CardContent className="p-6">
+                    <div className="w-12 h-12 bg-slate-100 rounded-lg flex items-center justify-center mx-auto mb-4">
+                      <Icon className="w-6 h-6 text-slate-700" />
+                    </div>
+                    <h4 className="font-semibold text-slate-900 text-sm mb-1">{esp.titulo}</h4>
+                    <p className="text-xs text-slate-500">{esp.detalle}</p>
+                  </CardContent>
+                </Card>
+              );
+            })}
           </div>
         </div>
 
-        {/* Modalidad de coordinación y entregables */}
+        {/* Modalidad de coordinación */}
         <div className="mb-20">
           <div className="max-w-4xl mx-auto">
             <Card className="border border-slate-200 shadow-sm bg-white">
@@ -193,11 +210,11 @@ export default function ColaboradoresSection() {
           </div>
         </div>
 
-        {/* Modalidad de participación */}
+        {/* Proceso de 4 pasos */}
         <div className="mb-20">
           <div className="text-center mb-10">
-            <h3 className="font-serif text-3xl font-bold text-slate-900 mb-3">Modalidad de participación</h3>
-            <p className="text-slate-600">Proceso de cotización competitiva en cuatro etapas</p>
+            <h3 className="font-serif text-3xl font-bold text-slate-900 mb-3">Proceso</h3>
+            <p className="text-slate-600">Cotización competitiva en cuatro etapas</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
             {pasos.map((paso) => {
@@ -222,7 +239,7 @@ export default function ColaboradoresSection() {
           </div>
         </div>
 
-        {/* Requisitos mínimos de colaboración */}
+        {/* Requisitos mínimos */}
         <div className="mb-20">
           <div className="max-w-3xl mx-auto">
             <Card className="border border-slate-200 shadow-sm bg-slate-800 text-white">
@@ -231,7 +248,12 @@ export default function ColaboradoresSection() {
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {requisitos.map((item, i) => (
+                  {[
+                    "Comunicación clara y tiempos de respuesta razonables",
+                    "Control documental y trazabilidad de cambios",
+                    "Entregables completos en formato acordado",
+                    "Cumplimiento de plazos por hitos"
+                  ].map((item, i) => (
                     <div key={i} className="flex items-start gap-3">
                       <CheckCircle className="w-5 h-5 text-slate-300 flex-shrink-0 mt-0.5" />
                       <span className="text-slate-200 text-sm">{item}</span>
@@ -247,7 +269,7 @@ export default function ColaboradoresSection() {
         <div className="mb-20">
           <div className="text-center mb-10">
             <h3 className="font-serif text-3xl font-bold text-slate-900 mb-3">Colaboradores en la red</h3>
-            <p className="text-slate-600">Profesionales verificados que forman parte de esta red</p>
+            <p className="text-slate-600">Profesionales verificados que integran esta red</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             {colaboradoresDestacados.map((colab) => (
@@ -296,18 +318,18 @@ export default function ColaboradoresSection() {
         <div className="max-w-3xl mx-auto">
           <Card className="bg-slate-900 text-white border-none shadow-xl">
             <CardContent className="p-10 text-center">
-              <h3 className="font-serif text-2xl font-bold mb-3">Postular a la Red</h3>
-              <p className="text-slate-300 mb-8 max-w-xl mx-auto text-sm leading-relaxed">
-                Si trabaja en alguna de las áreas indicadas y le interesa participar en proyectos de vivienda con documentación y coordinación profesional, puede enviar su postulación.
+              <h3 className="font-serif text-2xl font-bold mb-3">Postular a la Red de Colaboradores</h3>
+              <p className="text-slate-400 mb-8 max-w-xl mx-auto text-sm leading-relaxed">
+                El acceso es selectivo. Buscamos aliados técnicos para los proyectos más exigentes.
               </p>
 
               <Button
                 size="lg"
-                className="bg-white text-slate-900 hover:bg-slate-100 font-semibold px-10 mb-8"
+                className="bg-white text-slate-900 hover:bg-slate-100 font-bold px-10 mb-8 uppercase tracking-wide"
                 onClick={() => window.location.href = '/contacto'}
               >
                 <ArrowRight className="w-5 h-5 mr-2" />
-                Postular a la Red
+                Postular a la Red de Colaboradores
               </Button>
 
               <div className="text-left max-w-md mx-auto">
