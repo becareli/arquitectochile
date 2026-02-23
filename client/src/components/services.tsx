@@ -1,4 +1,4 @@
-import { Home, Shield, Snowflake, Compass, Thermometer, Tags, Box, FileText, CheckCircle, BadgeCheck, Merge, Search, Calculator, MapPin, Building2, Scale, Landmark } from "lucide-react";
+import { Home, Shield, Snowflake, Thermometer, Box, FileText, CheckCircle, BadgeCheck, Merge, Search, Calculator, MapPin, Building2, Scale } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useLocation } from "wouter";
@@ -66,7 +66,7 @@ export default function Services() {
           title: "Diseñemos tus Nuevos Espacios",
           price: "Desde $2.490.000",
           description: "Transformamos tu hogar en el espacio de tus sueños — 26+ años creando hogares únicos",
-          icon: Compass,
+          icon: Home,
           features: [
             "Diseño 100% personalizado para tu familia",
             "Planos completos listos para construir",
@@ -330,7 +330,7 @@ export default function Services() {
                 </div>
                 <p className="text-gray-500 text-lg mb-10 ml-16">{section.subtitle}</p>
 
-                <div className={`grid grid-cols-1 ${section.services.length === 1 ? 'md:grid-cols-1 max-w-lg' : 'md:grid-cols-2 lg:grid-cols-3'} gap-10`}>
+                <div className={`grid grid-cols-1 ${section.services.length === 1 ? 'md:grid-cols-1 max-w-lg mx-auto' : 'md:grid-cols-2 lg:grid-cols-3'} gap-10`}>
                   {section.services.map((service) => {
                     const IconComponent = service.icon;
                     return (
