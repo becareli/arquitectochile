@@ -17,82 +17,82 @@ import { Badge } from "@/components/ui/badge";
 import arquitectoPhoto from "@assets/1651766771115_1753490676082.jpeg";
 
 const especialidades = [
-  "Calculo estructural",
-  "Mecanica de suelos",
-  "Sanitario / alcantarillado / aguas lluvias",
+  "Cálculo estructural",
+  "Mecánica de suelos",
+  "Sanitario / alcantarillado / aguas lluvias (si aplica)",
   "Electricidad",
-  "Gas",
-  "Coordinacion BIM",
-  "Modelacion BIM y documentacion",
-  "Otras especialidades segun proyecto (climatizacion, eficiencia energetica, etc.)"
+  "Gas (si aplica)",
+  "Coordinación BIM",
+  "Modelación BIM y documentación",
+  "Otras especialidades según proyecto (climatización, eficiencia energética, etc.)"
 ];
 
 const pasos = [
   {
     numero: "01",
-    titulo: "Publicacion del encargo",
-    descripcion: "Se publica el alcance, antecedentes, entregables esperados, plazos y criterios de evaluacion.",
+    titulo: "Publicación del encargo",
+    descripcion: "Se publica el alcance, antecedentes, entregables esperados, plazos y criterios de evaluación.",
     icon: FileText
   },
   {
     numero: "02",
-    titulo: "Envio de cotizacion competitiva",
+    titulo: "Envío de cotización competitiva",
     descripcion: "Cada especialista presenta honorarios, plazo, alcance y condiciones para el encargo.",
     icon: Send
   },
   {
     numero: "03",
-    titulo: "Seleccion",
-    descripcion: "No solo precio: se evalua ajuste tecnico, claridad de propuesta, cumplimiento previo y plazos.",
+    titulo: "Selección",
+    descripcion: "No solo precio: se evalúa ajuste técnico, claridad de propuesta, cumplimiento previo y plazos.",
     icon: Search
   },
   {
     numero: "04",
-    titulo: "Retroalimentacion",
-    descripcion: "Retroalimentacion breve al cierre para mejorar futuras cotizaciones, cuando corresponda.",
+    titulo: "Retroalimentación",
+    descripcion: "Retroalimentación breve al cierre para mejorar futuras cotizaciones, cuando corresponda.",
     icon: MessageSquare
   }
 ];
 
 const estandares = [
-  "Comunicacion clara y tiempos de respuesta razonables",
+  "Comunicación clara y tiempos de respuesta razonables",
   "Orden documental y control de versiones",
-  "Entregables completos (planos, memorias, especificaciones segun aplique)",
+  "Entregables completos (planos, memorias, especificaciones según aplique)",
   "Cumplimiento de plazos por hitos"
 ];
 
 const camposPostulacion = [
   "Especialidad principal",
-  "Cobertura geografica",
+  "Cobertura geográfica",
   "Experiencia y certificaciones relevantes",
   "Portafolio o trabajos anteriores (link)",
   "Software que maneja",
-  "Modalidad: solo proyecto / tambien ejecucion",
-  "Disponibilidad y plazo tipico de entrega"
+  "Modalidad: solo proyecto / también ejecución",
+  "Disponibilidad y plazo típico de entrega"
 ];
 
 const colaboradoresDestacados = [
   {
     slug: "carlos-rodriguez",
-    name: "Carlos Rodriguez",
+    name: "Carlos Rodríguez",
     specialty: "Arquitecto",
     experience: 8,
     location: "Santiago, Chile",
     rating: 4.8,
     totalProjects: 23,
     profileImage: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&h=300&fit=crop&crop=face",
-    description: "Especializado en diseno residencial y remodelaciones. Amplia experiencia en ampliacion y regularizacion de viviendas."
+    description: "Especializado en diseño residencial y remodelaciones. Amplia experiencia en ampliación y regularización de viviendas."
   },
   {
     slug: "maria-gonzalez",
-    name: "Maria Gonzalez",
+    name: "María González",
     specialty: "Ingeniera Estructural",
     experience: 12,
-    location: "Vina del Mar, Chile",
+    location: "Viña del Mar, Chile",
     rating: 4.9,
     totalProjects: 45,
     profileImage: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=300&h=300&fit=crop&crop=face",
-    description: "Mas de 12 anos en calculo y diseno de estructuras residenciales y comerciales. Especialista en reforzamiento sismico."
+    description: "Más de 12 años en cálculo y diseño de estructuras residenciales y comerciales. Especialista en reforzamiento sísmico."
   }
 ];
 
@@ -103,11 +103,11 @@ export default function ColaboradoresSection() {
 
         {/* Hero */}
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">
+          <h2 className="font-serif text-4xl md:text-5xl font-bold text-slate-900 mb-4">
             Red de Especialistas — Vivienda Premium (Chile)
           </h2>
           <p className="text-lg text-slate-600 max-w-4xl mx-auto leading-relaxed">
-            Busco proyectistas, coordinadores BIM, profesionales e instaladores para desarrollar especialidades y apoyar la ejecucion de proyectos residenciales de alto estandar. Principalmente Santiago y tambien regiones.
+            Busco proyectistas, coordinadores BIM, profesionales e instaladores para desarrollar especialidades y apoyar la ejecución de proyectos residenciales de alto estándar. Principalmente Santiago y también regiones.
           </p>
         </div>
 
@@ -121,8 +121,8 @@ export default function ColaboradoresSection() {
                 </div>
                 <div>
                   <p className="text-slate-700 text-lg leading-relaxed mb-4">
-                    Estoy formando una red de especialistas con quienes entregar proyectos de vivienda con estandar alto, documentacion ordenada y coordinacion profesional. 
-                    La idea es trabajar con profesionales que valoren la claridad en los encargos, el cumplimiento de plazos y la calidad tecnica de los entregables. 
+                    Estoy formando una red de especialistas con quienes entregar proyectos de vivienda con estándar alto, documentación ordenada y coordinación profesional. 
+                    La idea es trabajar con profesionales que valoren la claridad en los encargos, el cumplimiento de plazos y la calidad técnica de los entregables. 
                     Si te interesa participar en proyectos residenciales bien estructurados, esta red es para ti.
                   </p>
                   <div className="flex items-center gap-3">
@@ -134,8 +134,7 @@ export default function ColaboradoresSection() {
                       />
                     </div>
                     <div>
-                      <p className="font-semibold text-slate-800">Patricio Becar, Arquitecto</p>
-                      <p className="text-sm text-slate-500">ArquitectoChile</p>
+                      <p className="font-semibold text-slate-800">— Patricio Becar, Arquitecto (ArquitectoChile)</p>
                     </div>
                   </div>
                 </div>
@@ -147,8 +146,8 @@ export default function ColaboradoresSection() {
         {/* Especialidades que busco */}
         <div className="mb-20">
           <div className="text-center mb-10">
-            <h3 className="text-3xl font-bold text-slate-900 mb-3">Especialidades que busco</h3>
-            <p className="text-slate-600">Profesionales y proyectistas en las siguientes areas</p>
+            <h3 className="font-serif text-3xl font-bold text-slate-900 mb-3">Especialidades que busco</h3>
+            <p className="text-slate-600">Profesionales y proyectistas en las siguientes áreas</p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto">
             {especialidades.map((esp, i) => (
@@ -160,11 +159,11 @@ export default function ColaboradoresSection() {
           </div>
         </div>
 
-        {/* Como funciona */}
+        {/* Cómo funciona */}
         <div className="mb-20">
           <div className="text-center mb-10">
-            <h3 className="text-3xl font-bold text-slate-900 mb-3">Como funciona</h3>
-            <p className="text-slate-600">Proceso de cotizacion competitiva en 4 pasos</p>
+            <h3 className="font-serif text-3xl font-bold text-slate-900 mb-3">Cómo funciona</h3>
+            <p className="text-slate-600">Proceso de cotización competitiva en 4 pasos</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
             {pasos.map((paso) => {
@@ -189,12 +188,12 @@ export default function ColaboradoresSection() {
           </div>
         </div>
 
-        {/* Estandares minimos */}
+        {/* Estándares mínimos */}
         <div className="mb-20">
           <div className="max-w-3xl mx-auto">
             <Card className="border border-slate-200 shadow-sm">
               <CardHeader>
-                <CardTitle className="text-2xl text-slate-900 text-center">Estandares minimos</CardTitle>
+                <CardTitle className="font-serif text-2xl text-slate-900 text-center">Estándares mínimos</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -210,10 +209,10 @@ export default function ColaboradoresSection() {
           </div>
         </div>
 
-        {/* Colaboradores Destacados */}
+        {/* Colaboradores en la red */}
         <div className="mb-20">
           <div className="text-center mb-10">
-            <h3 className="text-3xl font-bold text-slate-900 mb-3">Colaboradores en la red</h3>
+            <h3 className="font-serif text-3xl font-bold text-slate-900 mb-3">Colaboradores en la red</h3>
             <p className="text-slate-600">Profesionales verificados que forman parte de nuestra red</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
@@ -236,7 +235,7 @@ export default function ColaboradoresSection() {
                       <div className="flex items-center gap-3 mt-1 text-xs text-slate-500">
                         <span className="flex items-center"><Star className="w-3 h-3 text-yellow-500 mr-1" />{colab.rating}</span>
                         <span>{colab.totalProjects} proyectos</span>
-                        <span>{colab.experience} anos</span>
+                        <span>{colab.experience} años</span>
                       </div>
                     </div>
                   </div>
@@ -263,9 +262,9 @@ export default function ColaboradoresSection() {
         <div className="max-w-3xl mx-auto">
           <Card className="bg-slate-900 text-white border-none shadow-xl">
             <CardContent className="p-10 text-center">
-              <h3 className="text-2xl font-bold mb-3">Postular a la Red de Especialistas</h3>
+              <h3 className="font-serif text-2xl font-bold mb-3">Postular a la Red de Especialistas</h3>
               <p className="text-slate-300 mb-8 max-w-xl mx-auto">
-                Si trabajas en alguna de las especialidades listadas y te interesa participar en proyectos de vivienda premium, completa tu postulacion.
+                Si trabajas en alguna de las especialidades listadas y te interesa participar en proyectos de vivienda premium, completa tu postulación.
               </p>
 
               <Button
