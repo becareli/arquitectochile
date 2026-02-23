@@ -1,0 +1,48 @@
+"Actúa como un Senior Frontend Architect & Brand Manager. Necesito unificar la identidad visual de TODO el ecosistema de arquitectochile.com (Home y todas las subpáginas de servicios) bajo un manual de marca estricto.
+
+1. BRANDING & LOGO (Header Global):
+
+Inserción de Logo: Inserta el logo cuadrado (casco y lápiz) en el extremo izquierdo del Header. Usa el archivo logo.png. Tamaño máximo: 45px de altura.
+
+Favicon: Configura el mismo logo como el favicon del sitio.
+
+Texto Header: Cambia el botón naranja superior derecho de 'Asesoría a Domicilio 45.000' a solo 'Arquitecto a Domicilio'.
+
+2. UNIFICACIÓN DE PÁGINAS DE SERVICIOS (Blueprint System):
+
+Eliminación de Colores Residuales: Recorre todas las páginas (Regularización, Fusión, EIFS, etc.) y elimina cualquier color verde, rojo o azul claro.
+
+Paleta Oficial Única:
+
+Fondo: Blanco Puro con Blueprint Grid (cuadrícula técnica sutil).
+
+Títulos e Iconos: Navy Blue (#0f172a).
+
+Botones de Acción: Naranja Técnico (#f97316).
+
+Textos de apoyo: Gris profesional (#64748b).
+
+Tipografía: Forza el uso de la fuente 'Inter' en todo el sitio. Elimina Montserrat o cualquier otra.
+
+3. RE-ESTRUCTURA DEL HOME (Orden Estratégico):
+Reorganiza las secciones en este orden exacto:
+
+Hero Section (Limpio y tipográfico).
+
+Lead Magnet (Ebook): 'Cómo ampliar sin morir en el intento'.
+
+SECCIÓN NUEVA: Vivienda de Autor: Título: 'El Diseño que tu Familia Merece'. Texto: 'Creamos hogares únicos con tecnología 3D y certeza legal desde el primer plano. Tu visión, nuestra maestría técnica'.
+
+Gestión Normativa (YouTube Hub): Fusión, Subdivisión, Ley del Mono.
+
+Consultoría Corporativa: Servicios para empresas e instituciones.
+
+4. AJUSTE DE OFERTA (Estrategia de Valor):
+
+ELIMINAR: El precio de $1.800.000 y 'Revisiones Ilimitadas'.
+
+NUEVO TEXTO: 'Proyectos de Arquitectura Integral. Presupuestos personalizados tras Diagnóstico Técnico Inicial'.
+
+FAQ: Actualiza para que refleje esta nueva estructura de servicios y el precio de $45.000 de la asesoría.
+
+EJECUCIÓN: Aplica estos cambios en el layout global y en los componentes específicos. El sitio debe verse como una sola unidad institucional, técnica y de alto estándar."
