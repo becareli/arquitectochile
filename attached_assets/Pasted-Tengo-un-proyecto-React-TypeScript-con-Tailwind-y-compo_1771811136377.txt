@@ -1,0 +1,99 @@
+Tengo un proyecto React + TypeScript con Tailwind y componentes UI (Card/Button). Necesito que edites SOLO este archivo:
+
+client/src/components/services.tsx
+
+Contexto: En la sección “Nuestros Servicios” muestro 12 cards en una grilla de 3 columnas x 4 filas.
+
+Objetivos (todos obligatorios):
+
+A) Alinear botones
+Todos los botones deben quedar alineados horizontalmente dentro de cada fila (siempre abajo).
+
+Implementa flex flex-col h-full en cada Card y usa mt-auto (por ejemplo en CardContent className="mt-auto") para empujar el bloque del botón al fondo.
+
+B) Colores de botón por fila (mismo color para las 3 cards de la fila)
+Agrega row: 1|2|3|4 a cada servicio en el array services en el orden actual:
+
+Fila 1: arquitecto-domicilio, regularizacion-inmuebles, revisor-independiente-de-arquitectura
+
+Fila 2: reacondicionamiento-termico, eifs, disena-espacio
+
+Fila 3: fusion-terrenos-urbanos, inspeccion-tecnica-viviendas, tasacion-viviendas-urbanas
+
+Fila 4: subdivision-terrenos-urbanos, permiso-recepcion, obras-menores-empresas
+
+Elimina la lógica actual de colores por service.id (condicional largo en el className del Button para featured).
+
+Crea un mapa rowButtonClass y úsalo para TODOS los botones (featured y no featured):
+
+row 1 (naranja): bg-white text-[hsl(14,70%,45%)] hover:bg-gray-50 border-2 border-white
+
+row 2 (azul): bg-blue-600 text-white hover:bg-blue-700
+
+row 3 (verde): bg-emerald-600 text-white hover:bg-emerald-700
+
+row 4 (rojo): bg-rose-600 text-white hover:bg-rose-700
+
+C) Uniformar “Obras Menores Empresas”
+Hoy esa card se ve distinta (bg blanco y sin contenido).
+
+Cámbiala a un objeto completo como las demás:
+
+featured: true
+
+price: "Consultar"
+
+features: agrega 4 bullets (sin emojis, ver punto D)
+
+urgency: opcional
+
+bgColor: un gradiente oscuro coherente (NO bg-white)
+
+row: 4
+
+Mantén path y el comportamiento de handleServiceClick tal cual.
+
+D) Limpiar “emojis” en features (se ve artificial)
+En las cards featured, hoy renderizas cada feature con un ícono de check grande (CheckCircle) y además los textos de features contienen emojis al inicio.
+
+Quiero que se vea profesional:
+
+Elimina los emojis del texto de features (por ejemplo, reemplaza "✅ Visita..." por "Visita...", "📊 ..." -> "...", etc.).
+
+Mantén el CheckCircle como viñeta (eso queda bien).
+
+Asegúrate que TODOS los features queden sin emojis (incluye “Obras Menores Empresas”).
+
+Implementación sugerida:
+
+Crear una función stripLeadingEmoji(text: string): string o una limpieza simple por regex para remover emojis/íconos al principio + espacios, y aplicarla al render ({stripLeadingEmoji(feature)}) sin tener que reescribir manualmente cada string.
+
+Si prefieres reescribir manualmente, también sirve, pero debe quedar consistente en los 12 servicios.
+
+E) Íconos del servicio más grandes
+Actualmente hay un círculo (w-20 h-20) y el ícono adentro se ve pequeño.
+
+Aumenta el tamaño del ícono dentro del círculo:
+
+En featured: sube el tamaño del ícono (por ejemplo w-10 h-10 o w-12 h-12) y asegúrate de usar clases correctas para lucide-react (NO text-3xl si no aplica).
+
+En no-featured: lo mismo; ícono más grande y visualmente centrado.
+
+Mantén el círculo del mismo tamaño si quieres, pero el ícono debe verse con más protagonismo.
+
+F) TypeScript limpio
+Define un tipo Service que incluya row y tipa const services: Service[] = [...] para no usar any.
+
+Restricciones:
+
+No cambies otros archivos.
+
+No cambies rutas/paths ni handleServiceClick (solo si es imprescindible para compilar).
+
+Mantén el layout general y textos (excepto remover emojis en features y completar “Obras Menores Empresas”).
+
+Entrega:
+
+Devuélveme el archivo client/src/components/services.tsx COMPLETO ya modificado.
+
+Confirma brevemente: “botones alineados”, “colores por fila”, “emojis removidos”, “íconos más grandes”, “Obras Menores uniformada”.

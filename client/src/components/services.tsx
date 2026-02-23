@@ -3,10 +3,37 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useLocation } from "wouter";
 
+type Service = {
+  id: string;
+  title: string;
+  price: string;
+  description: string;
+  icon: typeof Home;
+  features: string[];
+  featured: boolean;
+  bgColor: string;
+  path?: string;
+  urgency?: string;
+  legalBacking?: string;
+  valueProposition?: string;
+  row: 1 | 2 | 3 | 4;
+};
+
+const rowButtonClass: Record<1 | 2 | 3 | 4, string> = {
+  1: "bg-white text-[hsl(14,70%,45%)] hover:bg-gray-50 border-2 border-white",
+  2: "bg-blue-600 text-white hover:bg-blue-700",
+  3: "bg-emerald-600 text-white hover:bg-emerald-700",
+  4: "bg-rose-600 text-white hover:bg-rose-700",
+};
+
+function stripLeadingEmoji(text: string): string {
+  return text.replace(/^[^\w\dÁÉÍÓÚáéíóúñÑ(]+/, "").trim();
+}
+
 export default function Services() {
   const [, setLocation] = useLocation();
-  
-  const services = [
+
+  const services: Service[] = [
     {
       id: "arquitecto-domicilio",
       title: "Arquitecto a Domicilio",
@@ -22,7 +49,8 @@ export default function Services() {
       ],
       featured: true,
       bgColor: "bg-gradient-to-br from-[hsl(14,70%,50%)] to-[hsl(14,65%,45%)]",
-      path: "/asesoria-arquitectonica-terreno"
+      path: "/asesoria-arquitectonica-terreno",
+      row: 1
     },
     {
       id: "regularizacion-inmuebles",
@@ -38,7 +66,8 @@ export default function Services() {
       ],
       featured: true,
       bgColor: "bg-gradient-to-br from-[hsl(210,15%,30%)] to-[hsl(210,15%,25%)]",
-      path: "/regularizacion-inmuebles"
+      path: "/regularizacion-inmuebles",
+      row: 1
     },
     {
       id: "revisor-independiente-de-arquitectura",
@@ -56,8 +85,9 @@ export default function Services() {
       ],
       featured: true,
       bgColor: "bg-gradient-to-br from-[hsl(210,15%,30%)] to-[hsl(210,20%,35%)]",
-      urgency: "🔥 REVISIÓN PROFESIONAL CERTIFICADA",
-      legalBacking: "Certificación MINVU N° 369500 Vigente"
+      urgency: "REVISION PROFESIONAL CERTIFICADA",
+      legalBacking: "Certificación MINVU N° 369500 Vigente",
+      row: 1
     },
     {
       id: "reacondicionamiento-termico",
@@ -75,8 +105,9 @@ export default function Services() {
       ],
       featured: true,
       bgColor: "bg-gradient-to-br from-[hsl(14,70%,50%)] to-[hsl(25,75%,50%)]",
-      urgency: "🔥 PARE DE QUEMAR DINERO EN CALEFACCIÓN",
-      path: "/reacondicionamiento-termico-viviendas"
+      urgency: "PARE DE QUEMAR DINERO EN CALEFACCION",
+      path: "/reacondicionamiento-termico-viviendas",
+      row: 2
     },
     {
       id: "eifs",
@@ -94,9 +125,10 @@ export default function Services() {
       ],
       featured: true,
       bgColor: "bg-gradient-to-br from-[hsl(210,15%,30%)] to-[hsl(210,15%,25%)]",
-      urgency: "❄️ PARE DE SUFRIR FRÍO/CALOR EXTREMO",
+      urgency: "PARE DE SUFRIR FRIO/CALOR EXTREMO",
       valueProposition: "El único sistema que abraza su casa completa para máximo confort térmico",
-      path: "/sistema-eifs"
+      path: "/sistema-eifs",
+      row: 2
     },
     {
       id: "disena-espacio",
@@ -114,8 +146,9 @@ export default function Services() {
       ],
       featured: true,
       bgColor: "bg-gradient-to-br from-[hsl(14,70%,50%)] to-[hsl(14,80%,55%)]",
-      urgency: "🔥 SOLO 3 PROYECTOS POR MES",
-      valueProposition: "El hogar que siempre imaginaste, diseñado específicamente para tu estilo de vida"
+      urgency: "SOLO 3 PROYECTOS POR MES",
+      valueProposition: "El hogar que siempre imaginaste, diseñado específicamente para tu estilo de vida",
+      row: 2
     },
     {
       id: "fusion-terrenos-urbanos",
@@ -126,15 +159,16 @@ export default function Services() {
       features: [
         "💰 Aumenta el valor comercial automáticamente",
         "📈 30% más capacidad de construcción por LEY",
-        "🏗️ Permite proyectos de mayor envergadura", 
+        "🏗️ Permite proyectos de mayor envergadura",
         "🎯 Acceso desde múltiples calles/avenidas",
         "⚡ Proceso completo en 45-60 días",
         "✅ Gestión integral: DOM→SII→CBR"
       ],
       featured: true,
       bgColor: "bg-gradient-to-br from-[hsl(210,15%,30%)] to-[hsl(210,15%,20%)]",
-      urgency: "🔥 BENEFICIO LEY ART. 63 LIMITADO",
-      valueProposition: "La única forma LEGAL de aumentar instantáneamente el valor y capacidad de tu terreno"
+      urgency: "BENEFICIO LEY ART. 63 LIMITADO",
+      valueProposition: "La única forma LEGAL de aumentar instantáneamente el valor y capacidad de tu terreno",
+      row: 3
     },
     {
       id: "inspeccion-tecnica-viviendas",
@@ -146,14 +180,15 @@ export default function Services() {
         "🔍 Inspección visual completa por arquitecto",
         "📋 Informe técnico con fotografías y diagnóstico",
         "⚡ Revisión instalaciones, estructura y terminaciones",
-        "🌡️ Análisis térmico y eficiencia energética", 
+        "🌡️ Análisis térmico y eficiencia energética",
         "💰 Evita costos ocultos de $2-8 millones",
         "⚖️ Respaldo para negociar mejor precio"
       ],
       featured: true,
       bgColor: "bg-gradient-to-br from-[hsl(210,15%,25%)] to-[hsl(210,20%,20%)]",
-      urgency: "🔥 SOLO 15 INSPECCIONES POR MES",
-      valueProposition: "Transforme la compra más grande de su vida en una decisión científica"
+      urgency: "SOLO 15 INSPECCIONES POR MES",
+      valueProposition: "Transforme la compra más grande de su vida en una decisión científica",
+      row: 3
     },
     {
       id: "tasacion-viviendas-urbanas",
@@ -171,8 +206,9 @@ export default function Services() {
       ],
       featured: true,
       bgColor: "bg-gradient-to-br from-[hsl(210,15%,30%)] to-[hsl(210,18%,25%)]",
-      urgency: "🔥 DECISIÓN MILLONARIA REQUIERE CERTEZA",
-      valueProposition: "No deje que la duda le cueste millones - Conozca el valor exacto de su propiedad"
+      urgency: "DECISION MILLONARIA REQUIERE CERTEZA",
+      valueProposition: "No deje que la duda le cueste millones - Conozca el valor exacto de su propiedad",
+      row: 3
     },
     {
       id: "subdivision-terrenos-urbanos",
@@ -190,14 +226,14 @@ export default function Services() {
       ],
       featured: true,
       bgColor: "bg-gradient-to-br from-[hsl(210,15%,28%)] to-[hsl(210,18%,22%)]",
-      urgency: "🔥 CAPITAL DORMIDO PIERDE VALOR CADA DÍA",
-      valueProposition: "Desbloquee el potencial oculto de su terreno sin invertir un peso adicional"
+      urgency: "CAPITAL DORMIDO PIERDE VALOR CADA DIA",
+      valueProposition: "Desbloquee el potencial oculto de su terreno sin invertir un peso adicional",
+      row: 4
     },
-
-
     {
       id: "permiso-recepcion",
       title: "Permiso de Edificación + Recepción Final",
+      price: "Consultar",
       description: "Legalice su construcción sin rechazos - Proceso completo DOM",
       icon: FileText,
       features: [
@@ -210,83 +246,91 @@ export default function Services() {
       ],
       featured: true,
       bgColor: "bg-gradient-to-br from-[hsl(210,15%,30%)] to-[hsl(210,15%,25%)]",
-      urgency: "🚨 EVITA RECHAZOS Y MULTAS MILLONARIAS",
+      urgency: "EVITA RECHAZOS Y MULTAS MILLONARIAS",
       valueProposition: "Servicio integral profesional para aprobación y legalización completa",
-      path: "/permiso-edificacion-recepcion-final"
+      path: "/permiso-edificacion-recepcion-final",
+      row: 4
     },
     {
       id: "obras-menores-empresas",
       title: "Obras Menores Empresas",
+      price: "Consultar",
       description: "Gestión integral para grandes empresas y retail",
       icon: Box,
-      bgColor: "bg-white",
-      path: "/obras-menores-empresas"
+      features: [
+        "Gestión completa de permisos municipales",
+        "Coordinación con equipos corporativos",
+        "Cumplimiento normativo para locales comerciales",
+        "Plazos optimizados para apertura de sucursales"
+      ],
+      featured: true,
+      bgColor: "bg-gradient-to-br from-[hsl(210,15%,28%)] to-[hsl(210,18%,22%)]",
+      path: "/obras-menores-empresas",
+      row: 4
     }
   ];
 
   const handleServiceClick = (serviceId: string) => {
-    // Special handling for services with dedicated pages
     if (serviceId === 'arquitecto-domicilio') {
       setLocation('/asesoria-arquitectonica-terreno');
       return;
     }
-    
+
     if (serviceId === 'regularizacion-inmuebles') {
       setLocation('/regularizacion-inmuebles');
       return;
     }
-    
+
     if (serviceId === 'revisor-independiente-de-arquitectura') {
       setLocation('/revisor-independiente-de-arquitectura');
       return;
     }
-    
+
     if (serviceId === 'disena-espacio') {
       setLocation('/disenemos-tus-nuevos-espacios');
       return;
     }
-    
+
     if (serviceId === 'fusion-terrenos-urbanos') {
       setLocation('/fusion-terrenos-urbanos');
       return;
     }
-    
+
     if (serviceId === 'inspeccion-tecnica-viviendas') {
       setLocation('/inspeccion-tecnica-viviendas');
       return;
     }
-    
+
     if (serviceId === 'tasacion-viviendas-urbanas') {
       setLocation('/tasacion-viviendas-urbanas');
       return;
     }
-    
+
     if (serviceId === 'subdivision-terrenos-urbanos') {
       setLocation('/subdivision-terrenos-urbanos');
       return;
     }
-    
+
     if (serviceId === 'reacondicionamiento-termico') {
       setLocation('/reacondicionamiento-termico-viviendas');
       return;
     }
-    
+
     if (serviceId === 'eifs') {
       setLocation('/sistema-eifs');
       return;
     }
-    
+
     if (serviceId === 'permiso-recepcion') {
       setLocation('/permiso-edificacion-recepcion-final');
       return;
     }
-    
+
     if (serviceId === 'obras-menores-empresas') {
       setLocation('/obras-menores-empresas');
       return;
     }
-    
-    // Scroll to contact section for other services
+
     const contactSection = document.getElementById('contacto');
     if (contactSection) {
       contactSection.scrollIntoView({ behavior: 'smooth' });
@@ -300,90 +344,52 @@ export default function Services() {
           <h2 className="font-serif text-5xl font-bold text-[hsl(210,15%,30%)] mb-6">Nuestros Servicios</h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">Soluciones completas para tus proyectos de arquitectura y construcción</p>
         </div>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
           {services.map((service) => {
             const IconComponent = service.icon;
-            
-            if (service.featured) {
-              return (
-                <Card key={service.id} className={`${service.bgColor} text-white md:col-span-2 lg:col-span-1 transform hover:scale-105 transition-all duration-300 relative overflow-hidden shadow-xl hover:shadow-2xl`}>
-                  {/* Urgency Banner */}
-                  {service.urgency && (
-                    <div className="bg-[hsl(14,70%,50%)] text-white text-center py-2.5 px-4 text-sm font-semibold">
-                      {service.urgency}
-                    </div>
-                  )}
-                  
-                  <CardHeader className="text-center pb-6">
-                    <div className="bg-white/20 backdrop-blur-sm w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
-                      <IconComponent className="text-white text-3xl" />
-                    </div>
-                    <CardTitle className="font-serif text-3xl font-bold mb-3">{service.title}</CardTitle>
-                    {service.price && (
-                      <div className="text-3xl font-bold mb-2">{service.price}</div>
-                    )}
-                    <p className="opacity-90 text-lg">{service.description}</p>
-                    
-                    {/* Legal backing for Revisor Independiente */}
-                    {service.legalBacking && (
-                      <div className="bg-white/20 backdrop-blur-sm rounded-lg p-3 mt-4">
-                        <p className="text-sm font-medium opacity-95">{service.legalBacking}</p>
-                      </div>
-                    )}
-                  </CardHeader>
-                  <CardContent>
-                    <ul className="space-y-3 mb-6">
-                      {service.features?.map((feature, index) => (
-                        <li key={index} className="flex items-start text-sm">
-                          <CheckCircle className="w-4 h-4 mr-2 mt-0.5 flex-shrink-0" />
-                          <span className="leading-tight">{feature}</span>
-                        </li>
-                      ))}
-                    </ul>
-                    
-                    <Button 
-                      onClick={() => handleServiceClick(service.id)}
-                      className={`w-full font-semibold text-lg py-3 ${
-                        service.id === 'revisor-independiente-de-arquitectura' 
-                          ? 'bg-white text-blue-600 hover:bg-gray-50 border-2 border-white' 
-                          : service.id === 'disena-espacio'
-                          ? 'bg-blue-600 text-white hover:bg-blue-700'
-                          : service.id === 'fusion-terrenos-urbanos'
-                          ? 'bg-emerald-600 text-white hover:bg-emerald-700'
-                          : service.id === 'eifs'
-                          ? 'bg-[hsl(14,70%,50%)] text-white hover:bg-[hsl(14,70%,45%)]'
-                          : 'bg-white text-accent hover:bg-gray-50'
-                      }`}
-                      data-testid={`button-${service.id}`}
-                    >
-                      {service.id === 'arquitecto-domicilio'
-                        ? 'Agendar Visita'
-                        : service.id === 'regularizacion-inmuebles' || service.id === 'revisor-independiente-de-arquitectura' || service.id === 'disena-espacio' || service.id === 'fusion-terrenos-urbanos' || service.id === 'inspeccion-tecnica-viviendas' || service.id === 'tasacion-viviendas-urbanas' || service.id === 'subdivision-terrenos-urbanos' || service.id === 'eifs' || service.id === 'reacondicionamiento-termico' || service.id === 'permiso-recepcion'
-                        ? 'Más Información' 
-                        : 'Agendar Visita'
-                      }
-                    </Button>
-                  </CardContent>
-                </Card>
-              );
-            }
+            const btnClass = rowButtonClass[service.row];
 
             return (
-              <Card key={service.id} className={`${service.bgColor} rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-200`}>
-                <CardHeader className="text-center pb-6">
-                  <div className="bg-[hsl(210,15%,30%)]/10 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-5">
-                    <IconComponent className="text-[hsl(210,15%,30%)] text-3xl" />
+              <Card key={service.id} className={`${service.bgColor} text-white md:col-span-2 lg:col-span-1 transform hover:scale-105 transition-all duration-300 relative overflow-hidden shadow-xl hover:shadow-2xl flex flex-col`}>
+                {service.urgency && (
+                  <div className="bg-[hsl(14,70%,50%)] text-white text-center py-2.5 px-4 text-sm font-semibold">
+                    {service.urgency}
                   </div>
-                  <CardTitle className="font-serif text-2xl font-bold text-[hsl(210,15%,30%)] mb-3">{service.title}</CardTitle>
-                  <p className="text-gray-600 text-base">{service.description}</p>
+                )}
+
+                <CardHeader className="text-center pb-6">
+                  <div className="bg-white/20 backdrop-blur-sm w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <IconComponent className="w-10 h-10 text-white" />
+                  </div>
+                  <CardTitle className="font-serif text-3xl font-bold mb-3">{service.title}</CardTitle>
+                  {service.price && (
+                    <div className="text-3xl font-bold mb-2">{service.price}</div>
+                  )}
+                  <p className="opacity-90 text-lg">{service.description}</p>
+
+                  {service.legalBacking && (
+                    <div className="bg-white/20 backdrop-blur-sm rounded-lg p-3 mt-4">
+                      <p className="text-sm font-medium opacity-95">{service.legalBacking}</p>
+                    </div>
+                  )}
                 </CardHeader>
-                <CardContent className="pt-0">
-                  <Button 
+                <CardContent className="mt-auto">
+                  <ul className="space-y-3 mb-6">
+                    {service.features.map((feature, index) => (
+                      <li key={index} className="flex items-start text-sm">
+                        <CheckCircle className="w-4 h-4 mr-2 mt-0.5 flex-shrink-0" />
+                        <span className="leading-tight">{stripLeadingEmoji(feature)}</span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  <Button
                     onClick={() => handleServiceClick(service.id)}
-                    className="w-full bg-[hsl(210,15%,30%)] text-white hover:bg-[hsl(210,15%,25%)] transition-colors"
+                    className={`w-full font-semibold text-lg py-3 ${btnClass}`}
+                    data-testid={`button-${service.id}`}
                   >
-                    Más Información
+                    {service.id === 'arquitecto-domicilio' ? 'Agendar Visita' : 'Más Información'}
                   </Button>
                 </CardContent>
               </Card>
