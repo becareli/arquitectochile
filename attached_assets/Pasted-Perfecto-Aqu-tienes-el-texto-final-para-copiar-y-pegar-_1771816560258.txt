@@ -1,0 +1,66 @@
+Perfecto. Aquí tienes el texto **final** para copiar y pegar en Replit, usando “**cotización competitiva**” (y sin “subasta”):
+
+***
+
+Necesito que actualices la página de colaboradores con un enfoque nuevo (vivienda premium + red de especialistas + **cotización competitiva**). 
+
+Archivos:
+- NO cambies `client/src/pages/Colaboradores.tsx` (déjalo como está).
+- Edita **solo** el componente que renderiza el contenido: `client/src/components/colaboradores-section.tsx` (o el archivo real que corresponda a `@/components/colaboradores-section`).
+
+Objetivo de negocio:
+- Red de colaboradores a nivel Chile, con foco en Santiago.
+- Colaboradores: proyectistas de especialidades e instaladores/profesionales para desarrollar y/o ejecutar especialidades relacionadas con vivienda premium.
+- Flujo: publicar encargos “por banda/lotes” (oportunidades por especialidad), recibir **cotizaciones competitivas** (plazo + honorarios + alcance), seleccionar por calidad técnica/plazo/precio, y entregar retroalimentación posterior.
+
+Tono:
+- Profesional, sobrio, “vivienda premium”.
+- Sin emojis.
+- No sonar a “startup genérica” ni a “plataforma de marketing”. Debe sonar a red técnica seria de arquitectura/ingeniería.
+
+Cambios obligatorios de contenido:
+1) Cambia el Hero (título + subtítulo) a:
+   - Título: “Red de Especialistas — Vivienda Premium (Chile)”
+   - Subtítulo: “Busco proyectistas, coordinadores BIM, profesionales e instaladores para desarrollar especialidades y apoyar la ejecución de proyectos residenciales de alto estándar. Principalmente Santiago y también regiones.”
+
+2) Reemplaza el mensaje firmado por “Patricio Becar fundador...” por un texto realista:
+   - Explica que estás formando una red de especialistas para entregar proyectos de vivienda con estándar alto, documentación ordenada y coordinación.
+   - Firma: “— Patricio Becar, Arquitecto (ArquitectoChile)”
+
+3) Sección “Especialidades que busco” (lista clara):
+   - Cálculo estructural
+   - Mecánica de suelos
+   - Sanitario/alcantarillado/aguas lluvias (si aplica)
+   - Electricidad
+   - Gas (si aplica)
+   - Coordinación BIM
+   - Modelación BIM y documentación
+   - Otras especialidades según proyecto (climatización/eficiencia energética, etc.)
+
+4) Sección “Cómo funciona” (4 pasos):
+   - Publicación del encargo (alcance, antecedentes, entregables, plazos y criterios).
+   - Envío de **cotización competitiva** (honorarios, plazo, alcance, condiciones).
+   - Selección (no solo precio: pesa ajuste técnico, claridad, cumplimiento y plazos).
+   - Retroalimentación breve para mejorar futuras cotizaciones (cuando corresponda).
+
+5) Sección “Estándares mínimos” (bullets):
+   - Comunicación clara y tiempos de respuesta razonables.
+   - Orden documental y control de versiones.
+   - Entregables completos (planos/memorias/especificaciones según aplique).
+   - Cumplimiento de plazos por hitos.
+
+6) CTA final:
+   - Botón: “Postular a la Red de Especialistas”
+   - Debajo, lista de campos del formulario: especialidad, cobertura, experiencia/certificaciones, portafolio (link), software, modalidad (solo proyecto / también ejecución), disponibilidad y plazo típico.
+   - Si ya existe formulario, adapta labels/placeholders a esto sin cambiar la funcionalidad.
+
+Diseño:
+- Mantén layout y componentes existentes (Card, Button, etc.), reordena si hace falta para lectura premium.
+- No agregues dependencias nuevas.
+
+Entrega:
+- Devuélveme el archivo `client/src/components/colaboradores-section.tsx` completo actualizado y compilando (TypeScript).
+
+Si no encuentras el archivo, busca en el repo el texto antiguo (“Únete a nuestra red de profesionales” o “Fundador ArquitectoChile.com”) y edita el archivo correcto.
+
+---
