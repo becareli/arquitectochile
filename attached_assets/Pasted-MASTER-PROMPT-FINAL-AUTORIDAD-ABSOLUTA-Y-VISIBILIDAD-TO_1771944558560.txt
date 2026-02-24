@@ -1,0 +1,43 @@
+MASTER PROMPT FINAL: AUTORIDAD ABSOLUTA Y VISIBILIDAD TOTAL
+"Actúa como un Senior Frontend Architect. El sitio actual tiene errores críticos de visibilidad (elementos ocultos). Debes aplicar esta estructura técnica de forma obligatoria, usando 'Hardcoding' para asegurar que nada desaparezca. Ejecuta esto en una sola pasada:
+
+1. ESTRUCTURA DE CABECERA (Top Bar + Navbar):
+
+Top Bar (Navy Blue #0f172a / Texto Blanco): Altura fija h-[40px].
+
+Lado Derecho (Orden de derecha a izquierda): 1. Portal de Clientes (Icono: LayoutDashboard)
+2. Red de Colaboradores (Icono: Users)
+3. Casos de Éxito (Icono: Star) -> Página de testimonios.
+4. Revista Técnica (Icono: PlayCircle) -> Página de videos /revista.
+5. Admin (Icono: Lock) -> Tu acceso privado.
+6. Contacto (Icono: Mail)
+
+Navbar Principal (Blanco / Altura h-[140px]):
+
+Contenedor: Usa flex items-center justify-between px-10 w-full flex-nowrap. PROHIBIDO usar hidden o menús colapsables en desktop.
+
+Logo: Altura FIJA h-[90px]. Al lado, el texto 'ArquitectoChile.com' en Navy Blue.
+
+Menú Central-Derecho: Links 'Servicios' (Dropdown) y 'Calculadoras'. Usa text-lg font-semibold y gap-10.
+
+Botón Naranja (Extremo Derecho): 'Arquitecto a Domicilio'. Fondo #f97316, min-w-[220px], py-4, rounded-lg, texto blanco font-bold. DEBE SER VISIBLE SÍ O SÍ.
+
+2. UNIFICACIÓN DE DISEÑO (Technical Blueprint):
+
+Aplica el fondo blanco con cuadrícula técnica (grid 20px) sutil a todas las páginas: Home, /revista, /casos-de-exito, /regularizacion y /regularizacion-la-florida.
+
+Tipografía: Exclusivamente 'Inter'. Títulos en Navy Blue (#0f172a).
+
+3. ESTRUCTURA ESTRATÉGICA DE LA HOME:
+
+Orden de secciones: 1. Hero, 2. Ebook (Lead Magnet), 3. Vivienda de Autor (Sección nueva), 4. Gestión Normativa, 5. Equipo de Especialistas (Banner de Red de Colaboradores), 6. Consultoría Corporativa.
+
+Copy de Autoridad: Reemplaza 'Casa Perfecta' por 'Método ArquitectoChile'. Elimina precios de $1.8M. Asegura que la asesoría figure a $45.000.
+
+4. PÁGINA /REVISTA Y /CASOS-DE-EXITO:
+
+La página /revista debe mostrar los videos en una grilla limpia con títulos Navy.
+
+La página /casos-de-exito debe usar el mismo layout institucional con el nuevo Header gigante.
+
+EJECUCIÓN: No uses clases de ocultamiento responsivo (hidden) para los elementos mencionados. Si el logo de 90px requiere más espacio, expande el ancho del contenedor, pero NO borres los textos."

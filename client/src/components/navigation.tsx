@@ -1,32 +1,38 @@
 import { useState, useRef, useEffect } from "react";
-import { Menu, X, ChevronDown, ArrowLeft, Mail, Lock, Users, LayoutDashboard } from "lucide-react";
+import { Menu, X, ChevronDown, ArrowLeft, Mail, Lock, Users, LayoutDashboard, Star, PlayCircle } from "lucide-react";
 import { useLocation } from "wouter";
 import logoImg from "@assets/ArquitectoChile.com_Logo_1771886286621.png";
 
 function TopBar() {
-  const topBarLinkClass = "flex items-center gap-1.5 text-[11px] text-gray-400 hover:text-white transition-colors font-medium tracking-wide";
+  const linkClass = "flex items-center gap-1.5 text-[11px] text-gray-400 hover:text-white transition-colors font-medium tracking-wide whitespace-nowrap";
   return (
-    <div className="bg-[#0f172a] text-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-end items-center h-8">
-          <div className="flex items-center gap-5">
-            <a href="/contacto" className={topBarLinkClass}>
-              <Mail className="w-3 h-3" strokeWidth={1.5} />
-              Contacto
-            </a>
-            <a href="/admin" className={topBarLinkClass}>
-              <Lock className="w-3 h-3" strokeWidth={1.5} />
-              Admin
-            </a>
-            <a href="/colaboradores" className={topBarLinkClass}>
-              <Users className="w-3.5 h-3.5" strokeWidth={1.5} />
-              Red de Colaboradores
-            </a>
-            <a href="/portal-cliente" className={topBarLinkClass}>
-              <LayoutDashboard className="w-3.5 h-3.5" strokeWidth={1.5} />
-              Portal de Clientes
-            </a>
-          </div>
+    <div className="bg-[#0f172a] text-white" style={{ height: "40px" }}>
+      <div className="w-full px-6 sm:px-8 lg:px-10 h-full">
+        <div className="flex justify-end items-center h-full gap-5">
+          <a href="/contacto" className={linkClass}>
+            <Mail className="w-3 h-3" strokeWidth={1.5} />
+            Contacto
+          </a>
+          <a href="/admin" className={linkClass}>
+            <Lock className="w-3 h-3" strokeWidth={1.5} />
+            Admin
+          </a>
+          <a href="/revista" className={linkClass}>
+            <PlayCircle className="w-3.5 h-3.5" strokeWidth={1.5} />
+            Revista Técnica
+          </a>
+          <a href="/casos-de-exito" className={linkClass}>
+            <Star className="w-3.5 h-3.5" strokeWidth={1.5} />
+            Casos de Éxito
+          </a>
+          <a href="/colaboradores" className={linkClass}>
+            <Users className="w-3.5 h-3.5" strokeWidth={1.5} />
+            Red de Colaboradores
+          </a>
+          <a href="/portal-cliente" className={linkClass}>
+            <LayoutDashboard className="w-3.5 h-3.5" strokeWidth={1.5} />
+            Portal de Clientes
+          </a>
         </div>
       </div>
     </div>
@@ -102,36 +108,56 @@ export default function Navigation() {
     setIsMenuOpen(false);
   };
 
-  const navLinkClass = "text-gray-600 hover:text-[#0f172a] transition-colors text-sm font-medium whitespace-nowrap";
+  const navLinkClass = "text-gray-600 hover:text-[#0f172a] transition-colors text-lg font-semibold whitespace-nowrap";
 
   if (!isHomePage) {
     return (
       <div className="sticky top-0 z-50">
         <TopBar />
         <nav className="bg-white border-b border-gray-200">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex justify-between items-center" style={{ height: "110px" }}>
-              <button onClick={navigateToHome} className="flex items-center gap-4 hover:opacity-80 transition-opacity flex-shrink-0">
+          <div className="w-full px-6 sm:px-8 lg:px-10">
+            <div className="flex items-center justify-between flex-nowrap" style={{ height: "140px" }}>
+              <button onClick={navigateToHome} className="flex items-center gap-4 hover:opacity-80 transition-opacity flex-shrink-0" style={{ marginRight: "48px" }}>
                 <img src={logoImg} alt="ArquitectoChile" className="h-[90px] w-auto flex-shrink-0" />
-                <span className="text-xl font-semibold whitespace-nowrap hidden sm:inline">
+                <span className="text-xl font-semibold whitespace-nowrap">
                   <span className="text-[#0f172a]">ArquitectoChile</span>
                   <span className="text-gray-400">.com</span>
                 </span>
               </button>
-              <div className="flex items-center gap-5">
-                <button onClick={navigateToHome} className="flex items-center gap-1.5 text-sm font-medium text-gray-500 hover:text-[#0f172a] transition-colors whitespace-nowrap">
-                  <ArrowLeft size={16} strokeWidth={1.5} />
-                  <span className="hidden sm:inline">Volver al Inicio</span>
-                  <span className="sm:hidden">Inicio</span>
-                </button>
-                <a
-                  href="/contacto"
-                  className="bg-[#f97316] text-white rounded-lg text-sm font-semibold hover:bg-orange-600 transition-colors shadow-lg shadow-orange-500/20 whitespace-nowrap inline-flex items-center justify-center"
-                  style={{ padding: "10px 24px" }}
-                >
-                  Arquitecto a Domicilio
-                </a>
+              <div className="flex items-center gap-10 flex-shrink-0" style={{ marginRight: "32px" }}>
+                <div className="relative" ref={dropdownRef}>
+                  <button
+                    onClick={() => setIsServicesDropdownOpen(!isServicesDropdownOpen)}
+                    className={`${navLinkClass} flex items-center gap-1.5`}
+                  >
+                    Servicios
+                    <ChevronDown size={16} strokeWidth={1.5} className={`transition-transform ${isServicesDropdownOpen ? 'rotate-180' : ''}`} />
+                  </button>
+                  {isServicesDropdownOpen && (
+                    <div className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-80 bg-white border border-gray-200 rounded-lg shadow-xl z-50">
+                      <div className="py-2">
+                        {servicesMenuItems.map((item, index) => (
+                          <button
+                            key={index}
+                            onClick={() => navigateToService(item.href)}
+                            className="w-full text-left px-5 py-3 text-sm text-gray-600 hover:bg-gray-50 hover:text-[#0f172a] transition-colors"
+                          >
+                            {item.label}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+                <button onClick={() => navigateToService('/calculadora-costos')} className={navLinkClass}>Calculadoras</button>
               </div>
+              <a
+                href="/contacto"
+                className="bg-[#f97316] text-white rounded-lg font-bold hover:bg-orange-600 transition-colors shadow-lg shadow-orange-500/20 whitespace-nowrap inline-flex items-center justify-center flex-shrink-0"
+                style={{ minWidth: "220px", padding: "16px 24px" }}
+              >
+                Arquitecto a Domicilio
+              </a>
             </div>
           </div>
         </nav>
@@ -143,34 +169,34 @@ export default function Navigation() {
     <div className="sticky top-0 z-50">
       <TopBar />
       <nav className="bg-white border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between" style={{ height: "110px" }}>
+        <div className="w-full px-6 sm:px-8 lg:px-10">
+          <div className="flex items-center justify-between flex-nowrap" style={{ height: "140px" }}>
 
             <button onClick={navigateToHome} className="flex items-center gap-4 hover:opacity-80 transition-opacity flex-shrink-0" style={{ marginRight: "48px" }}>
               <img src={logoImg} alt="ArquitectoChile" className="h-[90px] w-auto flex-shrink-0" />
-              <span className="text-xl font-semibold whitespace-nowrap hidden sm:inline">
+              <span className="text-xl font-semibold whitespace-nowrap">
                 <span className="text-[#0f172a]">ArquitectoChile</span>
                 <span className="text-gray-400">.com</span>
               </span>
             </button>
 
-            <div className="hidden lg:flex items-center gap-10 flex-1 justify-end" style={{ marginRight: "32px" }}>
+            <div className="hidden lg:flex items-center gap-10 flex-shrink-0" style={{ marginRight: "32px" }}>
               <div className="relative" ref={dropdownRef}>
                 <button
                   onClick={() => setIsServicesDropdownOpen(!isServicesDropdownOpen)}
-                  className={`${navLinkClass} flex items-center gap-1`}
+                  className={`${navLinkClass} flex items-center gap-1.5`}
                 >
                   Servicios
-                  <ChevronDown size={14} strokeWidth={1.5} className={`transition-transform ${isServicesDropdownOpen ? 'rotate-180' : ''}`} />
+                  <ChevronDown size={16} strokeWidth={1.5} className={`transition-transform ${isServicesDropdownOpen ? 'rotate-180' : ''}`} />
                 </button>
                 {isServicesDropdownOpen && (
-                  <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-72 bg-white border border-gray-200 rounded-lg shadow-xl z-50">
-                    <div className="py-1">
+                  <div className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-80 bg-white border border-gray-200 rounded-lg shadow-xl z-50">
+                    <div className="py-2">
                       {servicesMenuItems.map((item, index) => (
                         <button
                           key={index}
                           onClick={() => navigateToService(item.href)}
-                          className="w-full text-left px-4 py-2.5 text-sm text-gray-600 hover:bg-gray-50 hover:text-[#0f172a] transition-colors"
+                          className="w-full text-left px-5 py-3 text-sm text-gray-600 hover:bg-gray-50 hover:text-[#0f172a] transition-colors"
                         >
                           {item.label}
                         </button>
@@ -185,8 +211,8 @@ export default function Navigation() {
             <div className="hidden lg:block flex-shrink-0">
               <a
                 href="/contacto"
-                className="bg-[#f97316] text-white rounded-lg text-sm font-semibold hover:bg-orange-600 transition-colors shadow-lg shadow-orange-500/20 whitespace-nowrap inline-flex items-center justify-center"
-                style={{ padding: "10px 24px" }}
+                className="bg-[#f97316] text-white rounded-lg font-bold hover:bg-orange-600 transition-colors shadow-lg shadow-orange-500/20 whitespace-nowrap inline-flex items-center justify-center"
+                style={{ minWidth: "220px", padding: "16px 24px" }}
               >
                 Arquitecto a Domicilio
               </a>
@@ -194,9 +220,9 @@ export default function Navigation() {
 
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="lg:hidden text-[#0f172a]"
+              className="lg:hidden text-[#0f172a] flex-shrink-0"
             >
-              {isMenuOpen ? <X size={24} strokeWidth={1.5} /> : <Menu size={24} strokeWidth={1.5} />}
+              {isMenuOpen ? <X size={28} strokeWidth={1.5} /> : <Menu size={28} strokeWidth={1.5} />}
             </button>
           </div>
         </div>
@@ -207,10 +233,10 @@ export default function Navigation() {
               <div>
                 <button
                   onClick={() => setIsMobileServicesOpen(!isMobileServicesOpen)}
-                  className="flex items-center justify-between w-full text-left px-3 py-2.5 text-sm text-gray-600 hover:text-[#0f172a] rounded-lg"
+                  className="flex items-center justify-between w-full text-left px-3 py-2.5 text-base font-semibold text-gray-600 hover:text-[#0f172a] rounded-lg"
                 >
                   Servicios
-                  <ChevronDown size={14} strokeWidth={1.5} className={`transition-transform ${isMobileServicesOpen ? 'rotate-180' : ''}`} />
+                  <ChevronDown size={16} strokeWidth={1.5} className={`transition-transform ${isMobileServicesOpen ? 'rotate-180' : ''}`} />
                 </button>
                 {isMobileServicesOpen && (
                   <div className="ml-4 border-l border-gray-200 pl-4 space-y-0.5 mt-1">
@@ -222,9 +248,17 @@ export default function Navigation() {
                   </div>
                 )}
               </div>
-              <button onClick={() => navigateToService('/calculadora-costos')} className="block w-full text-left px-3 py-2.5 text-sm text-gray-600 hover:text-[#0f172a] rounded-lg">Calculadoras</button>
-              <button onClick={() => navigateToService('/contacto')} className="block w-full text-left px-3 py-2.5 text-sm text-gray-600 hover:text-[#0f172a] rounded-lg">Contacto</button>
-              <div className="pt-2 border-t border-gray-100 mt-2 space-y-2">
+              <button onClick={() => navigateToService('/calculadora-costos')} className="block w-full text-left px-3 py-2.5 text-base font-semibold text-gray-600 hover:text-[#0f172a] rounded-lg">Calculadoras</button>
+              <button onClick={() => navigateToService('/contacto')} className="block w-full text-left px-3 py-2.5 text-base font-semibold text-gray-600 hover:text-[#0f172a] rounded-lg">Contacto</button>
+              <div className="pt-2 border-t border-gray-100 mt-2 space-y-1">
+                <a href="/revista" className="flex items-center gap-2 px-3 py-2 text-sm text-gray-500 hover:text-[#0f172a]">
+                  <PlayCircle className="w-4 h-4" strokeWidth={1.5} />
+                  Revista Técnica
+                </a>
+                <a href="/casos-de-exito" className="flex items-center gap-2 px-3 py-2 text-sm text-gray-500 hover:text-[#0f172a]">
+                  <Star className="w-4 h-4" strokeWidth={1.5} />
+                  Casos de Éxito
+                </a>
                 <a href="/admin" className="flex items-center gap-2 px-3 py-2 text-sm text-gray-500 hover:text-[#0f172a]">
                   <Lock className="w-4 h-4" strokeWidth={1.5} />
                   Admin
@@ -239,7 +273,7 @@ export default function Navigation() {
                 </a>
               </div>
               <div className="pt-3 border-t border-gray-100 mt-2">
-                <a href="/contacto" className="block w-full text-center bg-[#f97316] text-white rounded-lg text-sm font-semibold hover:bg-orange-600 transition-colors" style={{ padding: "12px 24px" }}>
+                <a href="/contacto" className="block w-full text-center bg-[#f97316] text-white rounded-lg font-bold hover:bg-orange-600 transition-colors" style={{ padding: "16px 24px" }}>
                   Arquitecto a Domicilio
                 </a>
               </div>

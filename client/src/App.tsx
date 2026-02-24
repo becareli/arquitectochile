@@ -33,6 +33,7 @@ import AsesoriaArquitectonicaTerreno from "@/pages/asesoria-arquitectonica-terre
 import RegularizacionInmuebles from "@/pages/regularizacion-inmuebles";
 import Contacto from "@/pages/contacto";
 import ObrasMenoresEmpresas from "@/pages/obras-menores-empresas";
+import CasosDeExito from "@/pages/casos-de-exito";
 import NotFound from "@/pages/not-found";
 import CookieConsent from "@/components/cookie-consent";
 
@@ -70,6 +71,7 @@ function Router() {
       <Route path="/gracias" component={Gracias} />
       <Route path="/contacto" component={Contacto} />
       <Route path="/obras-menores-empresas" component={ObrasMenoresEmpresas} />
+      <Route path="/casos-de-exito" component={CasosDeExito} />
       <Route component={NotFound} />
     </Switch>
   );
