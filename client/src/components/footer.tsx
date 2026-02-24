@@ -10,7 +10,7 @@ export default function Footer() {
             <img
               src={logoImg}
               alt="ArquitectoChile.com"
-              className="h-16 w-auto mb-4"
+              className="h-[100px] w-auto mb-5"
             />
             <p className="text-sm font-semibold text-white mb-1">
               Arq. Patricio Becar Elissegaray

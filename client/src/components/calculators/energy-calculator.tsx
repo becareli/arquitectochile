@@ -103,11 +103,11 @@ export default function EnergyCalculator() {
   return (
     <Card className="bg-white rounded-xl shadow-lg border border-gray-200">
       <CardHeader className="text-center pb-4">
-        <div className="bg-orange-50 w-14 h-14 rounded-xl flex items-center justify-center mx-auto mb-3">
-          <Thermometer className="w-7 h-7 text-orange-600" />
+        <div className="bg-gray-50 w-14 h-14 rounded-xl flex items-center justify-center mx-auto mb-3">
+          <Thermometer className="w-7 h-7 text-[#f97316]" />
         </div>
-        <CardTitle className="text-xl font-bold text-gray-900">
-          Diagnóstico de Confort Térmico
+        <CardTitle className="text-xl font-bold text-[#0f172a]">
+          Simulador de Confort Térmico
         </CardTitle>
         <p className="text-sm text-gray-500">Evalúe las pérdidas energéticas de su vivienda</p>
       </CardHeader>
@@ -151,7 +151,7 @@ export default function EnergyCalculator() {
         <Button
           onClick={handleCalculate}
           disabled={!comuna || !material || !ventanas}
-          className="w-full bg-orange-500 text-white hover:bg-orange-600 font-semibold"
+          className="w-full bg-[#f97316] text-white hover:bg-orange-600 font-semibold"
         >
           Evaluar Pérdida Energética
         </Button>
@@ -159,11 +159,11 @@ export default function EnergyCalculator() {
         {showResult && result && (
           <div className="space-y-5 pt-2">
             <div className="bg-gray-50 border border-gray-200 rounded-xl p-5">
-              <h4 className="text-sm font-bold text-gray-700 mb-4 uppercase tracking-wide">Distribución de Pérdida Energética</h4>
+              <h4 className="text-sm font-bold text-[#0f172a] mb-4 uppercase tracking-wide">Distribución de Pérdida Energética</h4>
               <div className="space-y-3">
                 {barItems.map((item) => (
                   <div key={item.label}>
-                    <div className="flex justify-between text-xs font-medium text-gray-600 mb-1">
+                    <div className="flex justify-between text-xs font-medium text-[#64748b] mb-1">
                       <span>{item.label}</span>
                       <span>{item.value}%</span>
                     </div>
@@ -177,23 +177,23 @@ export default function EnergyCalculator() {
                 ))}
               </div>
               <div className="mt-4 pt-3 border-t border-gray-200 flex justify-between items-center">
-                <span className="text-sm font-semibold text-gray-700">Pérdida total estimada</span>
-                <span className={`text-lg font-bold ${totalLoss > 80 ? "text-[#f97316]" : totalLoss > 60 ? "text-[#f97316]" : "text-[#0f172a]"}`}>
+                <span className="text-sm font-semibold text-[#0f172a]">Pérdida total estimada</span>
+                <span className={`text-lg font-bold ${totalLoss > 60 ? "text-[#f97316]" : "text-[#0f172a]"}`}>
                   {totalLoss}%
                 </span>
               </div>
             </div>
 
-            <div className="bg-orange-50 border border-orange-200 rounded-xl p-5 text-center">
-              <p className="text-sm font-bold text-orange-800 mb-1">
-                Ahorre hasta un 35% con nuestro sistema EIFS
+            <div className="bg-gray-50 border border-gray-200 rounded-xl p-5 text-center">
+              <p className="text-sm font-bold text-[#0f172a] mb-1">
+                Reduzca hasta un 35% con nuestro sistema EIFS
               </p>
-              <p className="text-xs text-orange-600 mb-4">
+              <p className="text-xs text-[#64748b] mb-4">
                 Aislación térmica exterior profesional para su vivienda
               </p>
               <Button
-                onClick={() => setLocation("/asesoria-arquitectonica-terreno")}
-                className="bg-orange-500 text-white hover:bg-orange-600 font-semibold"
+                onClick={() => setLocation("/contacto")}
+                className="bg-[#f97316] text-white hover:bg-orange-600 font-semibold"
               >
                 Agendar Asesoría — $45.000
               </Button>

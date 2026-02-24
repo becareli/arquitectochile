@@ -23,7 +23,7 @@ export default function AboutArchitect() {
                     "Con más de 25 años de experiencia como Arquitecto MBA y Revisor Independiente de 
                     Arquitectura acreditado por el MINVU (3° Categoría), he desarrollado una visión 
                     integral de la industria de la construcción. Mi objetivo es ofrecer un enfoque de 
-                    revisión exhaustivo y eficiente, garantizando el cumplimiento normativo y la 
+                    revisión exhaustivo y eficiente, velando por el cumplimiento normativo y la 
                     excelencia en cada proyecto arquitectónico."
                   </blockquote>
                   <div className="flex items-center space-x-3">

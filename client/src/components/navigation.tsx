@@ -76,8 +76,8 @@ export default function Navigation() {
 
   const LogoBrand = ({ onClick }: { onClick: () => void }) => (
     <button onClick={onClick} className="flex items-center gap-2.5 hover:opacity-80 transition-opacity">
-      <img src={logoImg} alt="ArquitectoChile" className="h-[45px] w-auto" />
-      <span className="text-lg font-bold">
+      <img src={logoImg} alt="ArquitectoChile" className="h-[42px] w-auto" />
+      <span className="text-lg font-semibold">
         <span className="text-[#0f172a]">ArquitectoChile</span>
         <span className="text-gray-400">.com</span>
       </span>
@@ -98,9 +98,9 @@ export default function Navigation() {
               </button>
               <a
                 href="/contacto"
-                className="bg-[#f97316] text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-orange-600 transition-colors"
+                className="bg-[#f97316] text-white px-6 py-2 rounded-lg text-sm font-semibold hover:bg-orange-600 transition-colors shadow-lg shadow-orange-500/20 whitespace-nowrap text-center"
               >
-                Contacto
+                Arquitecto a Domicilio
               </a>
             </div>
           </div>
@@ -149,7 +149,7 @@ export default function Navigation() {
           <div className="hidden md:block">
             <a
               href="/contacto"
-              className="bg-[#f97316] text-white px-5 py-2.5 rounded-lg text-sm font-semibold hover:bg-orange-600 transition-colors shadow-lg shadow-orange-500/20"
+              className="bg-[#f97316] text-white px-6 py-2 rounded-lg text-sm font-semibold hover:bg-orange-600 transition-colors shadow-lg shadow-orange-500/20 whitespace-nowrap text-center"
             >
               Arquitecto a Domicilio
             </a>
@@ -190,7 +190,7 @@ export default function Navigation() {
             <button onClick={() => handleNavigation('testimonios')} className="block w-full text-left px-3 py-2.5 text-sm text-gray-600 hover:text-[#0f172a] rounded-lg">Testimonios</button>
             <button onClick={() => navigateToService('/contacto')} className="block w-full text-left px-3 py-2.5 text-sm text-gray-600 hover:text-[#0f172a] rounded-lg">Contacto</button>
             <div className="pt-3 border-t border-gray-100 mt-2">
-              <a href="/contacto" className="block w-full text-center bg-[#f97316] text-white px-4 py-3 rounded-lg text-sm font-semibold hover:bg-orange-600 transition-colors">
+              <a href="/contacto" className="block w-full text-center bg-[#f97316] text-white px-6 py-3 rounded-lg text-sm font-semibold hover:bg-orange-600 transition-colors">
                 Arquitecto a Domicilio
               </a>
             </div>

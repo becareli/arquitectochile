@@ -88,9 +88,9 @@
 .bg-blueprint {
   background-color: #ffffff;
   background-image:
-    linear-gradient(rgba(15, 23, 42, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(15, 23, 42, 0.03) 1px, transparent 1px);
-  background-size: 40px 40px;
+    linear-gradient(rgba(226, 232, 240, 0.15) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(226, 232, 240, 0.15) 1px, transparent 1px);
+  background-size: 20px 20px;
 }
 
 .bg-blueprint-dark {
@@ -98,7 +98,7 @@
   background-image:
     linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
-  background-size: 40px 40px;
+  background-size: 20px 20px;
 }
 
 @layer utilities {

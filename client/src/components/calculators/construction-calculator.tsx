@@ -56,10 +56,10 @@ export default function ConstructionCalculator() {
   return (
     <Card className="bg-white rounded-xl shadow-lg border border-gray-200">
       <CardHeader className="text-center pb-4">
-        <div className="bg-blue-50 w-14 h-14 rounded-xl flex items-center justify-center mx-auto mb-3">
-          <Calculator className="w-7 h-7 text-blue-600" />
+        <div className="bg-gray-50 w-14 h-14 rounded-xl flex items-center justify-center mx-auto mb-3">
+          <Calculator className="w-7 h-7 text-[#0f172a]" />
         </div>
-        <CardTitle className="text-xl font-bold text-gray-900">
+        <CardTitle className="text-xl font-bold text-[#0f172a]">
           Calculadora de Costos de Construcción
         </CardTitle>
         <p className="text-sm text-gray-500">Estimación referencial en UF por m²</p>
@@ -92,34 +92,34 @@ export default function ConstructionCalculator() {
         <Button
           onClick={handleCalculate}
           disabled={!comuna || !m2 || parseFloat(m2) <= 0}
-          className="w-full bg-blue-600 text-white hover:bg-blue-700 font-semibold"
+          className="w-full bg-[#0f172a] text-white hover:bg-[#1e293b] font-semibold"
         >
           Calcular Estimación
         </Button>
 
         {showResult && result && (
           <div className="space-y-4 pt-2">
-            <div className="bg-blue-50 border border-blue-200 rounded-xl p-5">
+            <div className="bg-gray-50 border border-gray-200 rounded-xl p-5">
               <div className="text-center mb-4">
-                <p className="text-sm text-blue-700 font-semibold mb-1">Rango estimado para {result.area} m²</p>
-                <p className="text-3xl font-bold text-blue-900">
+                <p className="text-sm text-[#64748b] font-semibold mb-1">Rango estimado para {result.area} m²</p>
+                <p className="text-3xl font-bold text-[#0f172a]">
                   {result.minUF} – {result.maxUF} UF/m²
                 </p>
               </div>
-              <div className="border-t border-blue-200 pt-3 space-y-1.5">
+              <div className="border-t border-gray-200 pt-3 space-y-1.5">
                 <div className="flex justify-between text-sm">
-                  <span className="text-blue-700">Inversión mínima estimada</span>
-                  <span className="font-bold text-blue-900">{result.totalMin.toLocaleString("es-CL")} UF</span>
+                  <span className="text-[#64748b]">Inversión mínima estimada</span>
+                  <span className="font-bold text-[#0f172a]">{result.totalMin.toLocaleString("es-CL")} UF</span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-blue-700">Inversión máxima estimada</span>
-                  <span className="font-bold text-blue-900">{result.totalMax.toLocaleString("es-CL")} UF</span>
+                  <span className="text-[#64748b]">Inversión máxima estimada</span>
+                  <span className="font-bold text-[#0f172a]">{result.totalMax.toLocaleString("es-CL")} UF</span>
                 </div>
               </div>
             </div>
 
-            <div className="bg-amber-50 border border-amber-200 rounded-lg p-4">
-              <p className="text-xs text-amber-800 font-semibold leading-relaxed">
+            <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+              <p className="text-xs text-[#64748b] font-semibold leading-relaxed">
                 Cálculo sujeto a factibilidad normativa local. Requiere validación técnica en terreno. Los valores son referenciales y pueden variar según calidad de materiales, condiciones del terreno y complejidad del proyecto.
               </p>
             </div>
@@ -127,7 +127,7 @@ export default function ConstructionCalculator() {
             <Button
               onClick={() => setLocation("/contacto")}
               variant="outline"
-              className="w-full border-blue-300 text-blue-700 hover:bg-blue-50 font-semibold"
+              className="w-full border-gray-300 text-[#0f172a] hover:bg-gray-50 font-semibold"
             >
               Solicitar Presupuesto Profesional
             </Button>

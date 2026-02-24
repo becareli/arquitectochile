@@ -1,312 +1,150 @@
-import { useState, useEffect } from 'react';
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
-import { CheckCircle, AlertTriangle, Shield, Clock, Phone, Mail, MapPin, Star, Users, FileText, Calendar, TrendingUp } from 'lucide-react';
-import uncleSamRegularizacionImage from "@assets/Regularizar tus ampliaciones es Inteligente_1755480443189.png";
-import processInfographicImage from "@assets/generated_images/Housing_regularization_process_infographic_b6f85788.png";
-import beforeAfterImage from "@assets/generated_images/Before_after_regularization_transformation_5eab5567.png";
-import architectInspectionImage from "@assets/generated_images/Professional_architectural_house_inspection_051db6f4.png";
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
-import { useMutation } from '@tanstack/react-query';
-import { apiRequest } from '@/lib/queryClient';
-import { useToast } from '@/hooks/use-toast';
-
-// Schema para el formulario de contacto
-const contactSchema = z.object({
-  name: z.string().min(2, 'Nombre debe tener al menos 2 caracteres'),
-  email: z.string().email('Email inválido'),
-  phone: z.string().min(8, 'Teléfono debe tener al menos 8 dígitos'),
-  propertyAddress: z.string().min(5, 'Dirección de la propiedad es requerida'),
-  propertySize: z.string().optional(),
-  message: z.string().optional(),
-});
-
-type ContactForm = z.infer<typeof contactSchema>;
+import { useEffect } from "react";
+import {
+  CheckCircle, AlertTriangle, Shield, Clock,
+  FileText, MapPin, TrendingUp, Home,
+  BadgeCheck, ArrowRight, Award, Building
+} from "lucide-react";
+import Navigation from "@/components/navigation";
+import Footer from "@/components/footer";
 
 export default function RegularizacionViviendasLaFloridaPage() {
-  const { toast } = useToast();
-  const [showFloatingCTA, setShowFloatingCTA] = useState(false);
-
-  const form = useForm<ContactForm>({
-    resolver: zodResolver(contactSchema),
-    defaultValues: {
-      name: '',
-      email: '',
-      phone: '',
-      propertyAddress: '',
-      propertySize: '',
-      message: '',
-    },
-  });
-
-  const contactMutation = useMutation({
-    mutationFn: async (data: ContactForm) => {
-      return apiRequest('/api/leads', 'POST', {
-        ...data,
-        source: 'Regularización La Florida',
-        service: 'Regularización de Viviendas',
-        location: 'La Florida',
-      });
-    },
-    onSuccess: () => {
-      toast({
-        title: "¡Solicitud Enviada!",
-        description: "Te contactaremos en las próximas 2 horas para agendar tu visita gratuita.",
-      });
-      form.reset();
-    },
-    onError: () => {
-      toast({
-        title: "Error",
-        description: "Hubo un problema al enviar tu solicitud. Por favor intenta nuevamente.",
-        variant: "destructive",
-      });
-    },
-  });
-
-  const handleSubmit = (data: ContactForm) => {
-    contactMutation.mutate(data);
-  };
-
-  // Floating CTA scroll effect
   useEffect(() => {
-    const handleScroll = () => {
-      const scrolled = window.scrollY;
-      const shouldShow = scrolled > 800;
-      setShowFloatingCTA(shouldShow);
+    window.scrollTo(0, 0);
+    document.title = "Regularización de Viviendas La Florida | Ley del Mono | ArquitectoChile";
+
+    const setMetaTag = (name: string, content: string, isProperty = false) => {
+      const selector = isProperty ? `meta[property="${name}"]` : `meta[name="${name}"]`;
+      let meta = document.querySelector(selector) as HTMLMetaElement;
+      if (meta) {
+        meta.content = content;
+      } else {
+        meta = document.createElement('meta');
+        if (isProperty) meta.setAttribute('property', name);
+        else meta.name = name;
+        meta.content = content;
+        document.head.appendChild(meta);
+      }
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    setMetaTag('description', 'Regularización de viviendas en La Florida bajo Ley del Mono. Especialistas en la DOM de La Florida con 26+ años de experiencia. Gestión profesional integral.');
+    setMetaTag('og:title', 'Regularización de Viviendas La Florida | Ley del Mono | ArquitectoChile', true);
+    setMetaTag('og:description', 'Gestión profesional de regularización de viviendas en La Florida. Expertos en Ley del Mono y gestión municipal.', true);
   }, []);
-
-
 
   return (
     <div className="min-h-screen bg-white">
-      {/* SEO Meta Tags */}
-      <title>Regularización de Viviendas La Florida | Ley del Mono | Arquitecto Patricio Becar</title>
-      
-      {/* Hero Section - Gancho Principal */}
-      <section className="relative bg-gradient-to-br from-[#0f172a] via-[#1e293b] to-[#0f172a] text-white py-20 px-4">
-        <div className="absolute inset-0 bg-black/20"></div>
-        <div className="relative max-w-6xl mx-auto text-center">
-          <div className="inline-block mb-6">
-            <Badge variant="destructive" className="text-lg py-2 px-4 animate-pulse">
-              ⏰ PLAZO EXTENDIDO HASTA DICIEMBRE 2027
-            </Badge>
-          </div>
-          
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-            Regulariza tu Hogar en La Florida
-            <span className="block text-[#f97316]">con la Ley del Mono</span>
+      <Navigation />
+
+      <section className="bg-blueprint-dark text-white py-24">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <p className="text-xs font-semibold tracking-[0.2em] uppercase text-[#f97316] mb-6">
+            Regularización en La Florida
+          </p>
+          <h1 className="text-4xl lg:text-5xl font-bold mb-6 text-white leading-tight">
+            Regulariza tu Hogar en La Florida con la Ley del Mono
           </h1>
-          
-          <h2 className="text-2xl md:text-3xl mb-8 text-gray-300 max-w-4xl mx-auto">
-            Protege tu Inversión y Duerme Tranquilo - Servicio Integral de Regularización bajo Ley N° 20.898
-          </h2>
-
-          {/* Uncle Sam Image - Modified without phone number */}
-          <div className="mb-8 flex justify-center">
-            <div className="relative bg-white p-4 rounded-lg shadow-2xl max-w-md">
-              <img 
-                src={uncleSamRegularizacionImage} 
-                alt="Regulariza tus Ampliaciones Ahora - Uncle Sam Style" 
-                className="w-full h-auto rounded-lg shadow-lg"
-                style={{
-                  filter: 'brightness(1.1) contrast(1.05)'
-                }}
-              />
-              {/* Overlay to hide phone number */}
-              <div className="absolute bottom-0 left-0 right-0 bg-white p-3 rounded-b-lg">
-                <div className="text-center">
-                  <div className="text-[#0f172a] font-bold text-lg mb-2">
-                    ¡Completa el Formulario Abajo!
-                  </div>
-                  <Badge variant="outline" className="bg-[#f97316] text-white border-[#f97316]">
-                    💯 GARANTÍA DE SATISFACCIÓN
-                  </Badge>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="space-y-4">
-            <Button 
-              size="lg" 
-              className="bg-[#f97316] hover:bg-[#ea580c] text-white font-bold text-xl py-4 px-8 rounded-full shadow-2xl transform hover:scale-105 transition-all"
-              onClick={() => document.getElementById('contact-form')?.scrollIntoView({ behavior: 'smooth' })}
-            >
-              📞 AGENDA TU VISITA GRATUITA AHORA
-            </Button>
-            
-            <p className="text-gray-300 text-sm">
-              ⭐ Diagnóstico completamente GRATIS • ⭐ Sin compromiso • ⭐ Resultados garantizados
+          <p className="text-lg text-gray-300 mb-4 max-w-2xl mx-auto">
+            Gestión profesional integral bajo Ley N° 20.898. Protege tu inversión con respaldo técnico de 26+ años de experiencia.
+          </p>
+          <p className="text-sm font-semibold text-[#f97316] mb-8">
+            Especialistas en la DOM de La Florida — Expertos en Ley del Mono y Gestión Municipal
+          </p>
+          <div className="inline-block bg-white/10 border border-white/20 rounded-md px-6 py-3 mb-8">
+            <p className="text-sm text-gray-300">
+              Plazo vigente: <span className="font-bold text-white">Diciembre 2027</span>
             </p>
+          </div>
+          <div className="block">
+            <a
+              href="/contacto"
+              className="inline-flex items-center gap-2 bg-[#f97316] text-white px-8 py-3.5 rounded-lg text-sm font-semibold hover:bg-orange-600 transition-colors shadow-lg shadow-orange-500/20"
+            >
+              Solicitar Diagnóstico Técnico — $45.000
+              <ArrowRight className="w-4 h-4" strokeWidth={1.5} />
+            </a>
           </div>
         </div>
       </section>
 
-      {/* Sección de Problemas y Miedos */}
-      <section className="py-16 px-4 bg-gray-50">
-        <div className="max-w-6xl mx-auto">
+      <section className="bg-blueprint section-padding">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-              ¿Vives con la Angustia de una Vivienda Sin Regularizar?
+            <p className="text-xs font-semibold tracking-[0.2em] uppercase text-[#f97316] mb-3">El Problema</p>
+            <h2 className="text-3xl md:text-4xl font-bold text-[#0f172a] mb-4">
+              Riesgos de una Vivienda Sin Regularizar
             </h2>
-            <p className="text-2xl text-gray-600 max-w-4xl mx-auto">
-              Sabemos que tienes miedo. La incertidumbre no te deja dormir tranquilo. 
-              Estos son los problemas REALES que enfrentas cada día:
+            <p className="text-base text-[#64748b] max-w-2xl mx-auto">
+              Una propiedad sin permisos genera problemas legales, limita opciones financieras y reduce su valor comercial.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              {
-                icon: <AlertTriangle className="w-8 h-8 text-[#f97316]" />,
-                title: "Riesgo de Multas",
-                description: "La municipalidad puede multarte en cualquier momento por construcciones no autorizadas"
-              },
-              {
-                icon: <TrendingUp className="w-8 h-8 text-[#f97316]" />,
-                title: "No Puedes Vender",
-                description: "Tu propiedad no se puede vender legalmente, perdiendo oportunidades de inversión"
-              },
-              {
-                icon: <FileText className="w-8 h-8 text-[#f97316]" />,
-                title: "Sin Acceso a Créditos",
-                description: "Los bancos no aprueban hipotecas sobre propiedades irregulares"
-              },
-              {
-                icon: <Users className="w-8 h-8 text-[#f97316]" />,
-                title: "Amenaza de Demolición",
-                description: "Vecinos molestos pueden denunciarte y exigir la demolición de tu construcción"
-              }
-            ].map((problem, index) => (
-              <Card key={index} className="border-orange-200 hover:shadow-lg transition-shadow">
-                <CardContent className="p-6 text-center">
-                  <div className="mb-4">{problem.icon}</div>
-                  <h3 className="font-bold text-xl mb-2 text-gray-900">{problem.title}</h3>
-                  <p className="text-gray-600 text-base">{problem.description}</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-
-          {/* Before/After Transformation Image */}
-          <div className="mt-12 text-center">
-            <img 
-              src={beforeAfterImage} 
-              alt="Antes y Después de la Regularización - Transformación de tu Hogar" 
-              className="w-full max-w-4xl mx-auto rounded-lg shadow-2xl"
-            />
-          </div>
-
-          <div className="mt-8 bg-orange-50 border-l-4 border-[#f97316] p-6 rounded">
-            <div className="flex items-center mb-3">
-              <AlertTriangle className="w-6 h-6 text-[#f97316] mr-3" />
-              <h3 className="font-bold text-[#0f172a]">La Realidad es Dura...</h3>
-            </div>
-            <p className="text-[#0f172a]">
-              Cada día que pasa sin regularizar tu vivienda, <strong>aumenta el riesgo de multas, devaluación y problemas legales</strong>. 
-              La ansiedad crece, la incertidumbre no te deja en paz, y sabes que esto no se va a resolver solo.
-            </p>
-          </div>
-
-          {/* Call-to-Action after problems section */}
-          <div className="mt-8 text-center">
-            <Button 
-              size="lg" 
-              className="bg-[#f97316] hover:bg-[#ea580c] text-white font-bold text-xl py-4 px-8 rounded-full shadow-2xl transform hover:scale-105 transition-all"
-              onClick={() => document.getElementById('contact-form')?.scrollIntoView({ behavior: 'smooth' })}
-            >
-              📝 OBTÉN TU DIAGNÓSTICO GRATUITO AHORA
-            </Button>
-            <p className="text-[#f97316] text-sm mt-2 font-medium">
-              ⚡ Sin compromiso • ⚡ Arquitecto especialista • ⚡ Respuesta en 24 horas
-            </p>
+              { icon: AlertTriangle, title: "Riesgo de Multas", text: "La municipalidad puede aplicar sanciones por construcciones no autorizadas." },
+              { icon: TrendingUp, title: "Venta Restringida", text: "La propiedad no puede venderse legalmente a su valor real de mercado." },
+              { icon: FileText, title: "Sin Acceso a Créditos", text: "Los bancos no financian propiedades que carecen de documentación municipal." },
+              { icon: Building, title: "Riesgo de Denuncias", text: "Vecinos pueden presentar reclamos ante la municipalidad por obras irregulares." },
+            ].map((item) => {
+              const Icon = item.icon;
+              return (
+                <div key={item.title} className="bg-white border border-gray-200 rounded-md p-6 hover:shadow-lg transition-all">
+                  <div className="w-14 h-14 rounded-lg border border-gray-200 flex items-center justify-center mb-4">
+                    <Icon className="w-7 h-7 text-[#0f172a]" strokeWidth={1.5} />
+                  </div>
+                  <h3 className="text-base font-bold text-[#0f172a] mb-2">{item.title}</h3>
+                  <p className="text-sm text-[#64748b] leading-relaxed">{item.text}</p>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
 
-      {/* Sección de Solución y Oportunidad */}
-      <section className="py-16 px-4 bg-orange-50">
-        <div className="max-w-6xl mx-auto">
+      <section className="bg-white section-padding">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <Badge variant="outline" className="bg-[#f97316] text-white border-[#f97316] mb-4">
-              ✅ LA SOLUCIÓN EXISTE
-            </Badge>
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-              La Ley N° 20.898 "Ley del Mono" es tu
-              <span className="text-[#f97316]"> Oportunidad Única</span>
+            <p className="text-xs font-semibold tracking-[0.2em] uppercase text-[#f97316] mb-3">La Solución</p>
+            <h2 className="text-3xl md:text-4xl font-bold text-[#0f172a] mb-4">
+              La Ley N° 20.898 — Ley del Mono
             </h2>
-            <p className="text-2xl text-gray-600 max-w-4xl mx-auto">
-              El gobierno chileno creó esta ley especialmente para resolver TU problema. 
-              Y ahora tienes hasta <strong className="text-[#f97316]">diciembre de 2027</strong> para aprovechar esta oportunidad.
+            <p className="text-base text-[#64748b] max-w-2xl mx-auto">
+              El gobierno chileno creó esta ley para resolver la situación de miles de propiedades.
+              Permite regularizar construcciones existentes con gestión profesional ante la DOM.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div className="space-y-6">
-              <div className="flex items-start space-x-4">
-                <CheckCircle className="w-6 h-6 text-[#f97316] mt-1 flex-shrink-0" />
-                <div>
-                  <h3 className="font-bold text-xl mb-2">Tranquilidad Total</h3>
-                  <p className="text-gray-600 text-lg">Tu vivienda quedará completamente legal y protegida ante cualquier reclamo.</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+            <div className="space-y-5">
+              {[
+                { title: "Tranquilidad Legal", text: "Tu vivienda quedará completamente regularizada ante la municipalidad." },
+                { title: "Seguridad Jurídica", text: "Certificados oficiales que respaldan la legalidad de tu construcción." },
+                { title: "Valorización del Inmueble", text: "Tu propiedad recupera y aumenta su valor comercial al estar regularizada." },
+                { title: "Acceso a Financiamiento", text: "Podrás acceder a créditos hipotecarios y subsidios de mejoramiento." },
+                { title: "Descuentos Municipales", text: "Descuentos de hasta 75% en derechos municipales durante el proceso." },
+              ].map((item) => (
+                <div key={item.title} className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-[#f97316] flex-shrink-0 mt-0.5" strokeWidth={1.5} />
+                  <div>
+                    <h4 className="text-sm font-semibold text-[#0f172a] mb-0.5">{item.title}</h4>
+                    <p className="text-sm text-[#64748b]">{item.text}</p>
+                  </div>
                 </div>
-              </div>
-
-              <div className="flex items-start space-x-4">
-                <CheckCircle className="w-6 h-6 text-[#f97316] mt-1 flex-shrink-0" />
-                <div>
-                  <h3 className="font-bold text-lg mb-2">Seguridad Jurídica Completa</h3>
-                  <p className="text-gray-600">Certificados oficiales que garantizan la legalidad de tu construcción.</p>
-                </div>
-              </div>
-
-              <div className="flex items-start space-x-4">
-                <CheckCircle className="w-6 h-6 text-[#f97316] mt-1 flex-shrink-0" />
-                <div>
-                  <h3 className="font-bold text-lg mb-2">Valorización Inmediata</h3>
-                  <p className="text-gray-600">Tu propiedad aumentará de valor al estar completamente regularizada.</p>
-                </div>
-              </div>
-
-              <div className="flex items-start space-x-4">
-                <CheckCircle className="w-6 h-6 text-[#f97316] mt-1 flex-shrink-0" />
-                <div>
-                  <h3 className="font-bold text-lg mb-2">Acceso a Subsidios</h3>
-                  <p className="text-gray-600">Podrás acceder a subsidios de mejoramiento habitacional del gobierno.</p>
-                </div>
-              </div>
-
-              <div className="flex items-start space-x-4">
-                <CheckCircle className="w-6 h-6 text-[#f97316] mt-1 flex-shrink-0" />
-                <div>
-                  <h3 className="font-bold text-lg mb-2">Descuentos de hasta 75%</h3>
-                  <p className="text-gray-600">En derechos municipales durante el proceso de regularización.</p>
-                </div>
-              </div>
+              ))}
             </div>
 
-            <div className="bg-white p-8 rounded-lg shadow-xl border-2 border-orange-200">
+            <div className="bg-blueprint border border-gray-200 rounded-md p-8">
               <div className="text-center mb-6">
-                <Clock className="w-16 h-16 text-[#f97316] mx-auto mb-4" />
-                <h3 className="text-2xl font-bold text-gray-900 mb-2">¡Tiempo Limitado!</h3>
-                <p className="text-gray-600">La Ley del Mono tiene fecha de vencimiento</p>
+                <div className="w-16 h-16 rounded-lg border border-gray-200 flex items-center justify-center mx-auto mb-4">
+                  <Clock className="w-8 h-8 text-[#f97316]" strokeWidth={1.5} />
+                </div>
+                <h3 className="text-lg font-bold text-[#0f172a] mb-2">Plazo Vigente</h3>
+                <p className="text-sm text-[#64748b]">La Ley del Mono tiene fecha de vencimiento</p>
               </div>
-              
-              <div className="bg-orange-50 p-4 rounded-lg border border-orange-200">
+              <div className="bg-white border border-gray-200 rounded-md p-5">
                 <div className="text-center">
-                  <p className="text-[#f97316] font-bold text-lg">Plazo Final:</p>
-                  <p className="text-[#0f172a] text-2xl font-bold">31 de Diciembre 2027</p>
-                  <p className="text-sm text-[#f97316] mt-2">Después de esta fecha, la regularización será mucho más compleja y costosa</p>
+                  <p className="text-xs font-semibold tracking-[0.15em] uppercase text-[#f97316] mb-1">Plazo Final</p>
+                  <p className="text-2xl font-bold text-[#0f172a]">31 de Diciembre 2027</p>
+                  <p className="text-xs text-[#64748b] mt-2">Después de esta fecha, la regularización será más compleja y costosa</p>
                 </div>
               </div>
             </div>
@@ -314,84 +152,58 @@ export default function RegularizacionViviendasLaFloridaPage() {
         </div>
       </section>
 
-      {/* Sección del Proceso Integral */}
-      <section className="py-16 px-4 bg-white">
-        <div className="max-w-6xl mx-auto">
+      <section className="bg-blueprint section-padding">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+            <p className="text-xs font-semibold tracking-[0.2em] uppercase text-[#f97316] mb-3">Proceso</p>
+            <h2 className="text-3xl md:text-4xl font-bold text-[#0f172a] mb-4">
               Servicio Integral de Regularización
             </h2>
-            <p className="text-2xl text-gray-600 max-w-4xl mx-auto">
-              Te acompañamos en <strong>cada paso del proceso</strong>. Desde el diagnóstico inicial hasta la inscripción final. 
-              <strong>Todo incluido, sin sorpresas.</strong>
+            <p className="text-base text-[#64748b] max-w-2xl mx-auto">
+              Te acompañamos en cada paso del proceso. Desde el diagnóstico inicial hasta la inscripción final.
             </p>
           </div>
 
-          {/* Process Infographic Image */}
-          <div className="mb-8 text-center">
-            <img 
-              src={processInfographicImage} 
-              alt="Proceso de Regularización en 4 Pasos - Infografía Profesional" 
-              className="w-full max-w-5xl mx-auto rounded-lg shadow-2xl"
-            />
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              {
-                step: "1",
-                title: "Diagnóstico Gratuito",
-                description: "Visitamos tu propiedad sin costo para evaluar la viabilidad de regularización",
-                icon: <FileText className="w-8 h-8 text-[#0f172a]" />
-              },
-              {
-                step: "2", 
-                title: "Levantamiento de Planos",
-                description: "Medición profesional y elaboración de planos técnicos actualizados",
-                icon: <MapPin className="w-8 h-8 text-[#0f172a]" />
-              },
-              {
-                step: "3",
-                title: "Informe Técnico",
-                description: "Documentación técnica completa para presentar ante las autoridades",
-                icon: <Shield className="w-8 h-8 text-[#0f172a]" />
-              },
-              {
-                step: "4",
-                title: "Tramitación Completa",
-                description: "Gestión ante DOM y Conservador de Bienes Raíces hasta la inscripción final",
-                icon: <CheckCircle className="w-8 h-8 text-[#0f172a]" />
-              }
-            ].map((process, index) => (
-              <Card key={index} className="text-center hover:shadow-lg transition-shadow">
-                <CardContent className="p-6">
-                  <div className="mb-4 flex justify-center">{process.icon}</div>
-                  <Badge variant="outline" className="mb-3">Paso {process.step}</Badge>
-                  <h3 className="font-bold text-xl mb-3">{process.title}</h3>
-                  <p className="text-gray-600 text-base">{process.description}</p>
-                </CardContent>
-              </Card>
-            ))}
+              { step: "01", icon: FileText, title: "Diagnóstico Técnico", text: "Visita profesional a tu propiedad para evaluar viabilidad de regularización." },
+              { step: "02", icon: MapPin, title: "Levantamiento de Planos", text: "Medición profesional y elaboración de planos técnicos actualizados." },
+              { step: "03", icon: Shield, title: "Informe Técnico", text: "Documentación técnica completa para presentar ante la DOM." },
+              { step: "04", icon: CheckCircle, title: "Tramitación Completa", text: "Gestión ante DOM y Conservador de Bienes Raíces hasta la inscripción final." },
+            ].map((item) => {
+              const Icon = item.icon;
+              return (
+                <div key={item.step} className="bg-white border border-gray-200 rounded-md p-6 text-center hover:shadow-lg transition-all">
+                  <div className="w-14 h-14 rounded-lg border border-gray-200 flex items-center justify-center mx-auto mb-4">
+                    <Icon className="w-7 h-7 text-[#0f172a]" strokeWidth={1.5} />
+                  </div>
+                  <p className="text-[10px] font-bold tracking-[0.2em] uppercase text-[#f97316] mb-2">Paso {item.step}</p>
+                  <h3 className="text-base font-bold text-[#0f172a] mb-2">{item.title}</h3>
+                  <p className="text-sm text-[#64748b] leading-relaxed">{item.text}</p>
+                </div>
+              );
+            })}
           </div>
 
-          <div className="mt-12 bg-slate-50 p-8 rounded-lg">
+          <div className="mt-12 bg-white border border-gray-200 rounded-md p-8">
             <div className="text-center">
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">
+              <h3 className="text-lg font-bold text-[#0f172a] mb-6">
                 ¿Qué Incluye Nuestro Servicio Integral?
               </h3>
-              <div className="grid md:grid-cols-2 gap-4 text-left max-w-4xl mx-auto">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 max-w-3xl mx-auto text-left">
                 {[
-                  "✅ Visita y diagnóstico inicial completamente GRATIS",
-                  "✅ Levantamiento topográfico y arquitectónico profesional",
-                  "✅ Elaboración de planos técnicos actualizados",
-                  "✅ Informe técnico estructural y de habitabilidad",
-                  "✅ Presentación y tramitación ante la Dirección de Obras",
-                  "✅ Gestión completa ante el Conservador de Bienes Raíces",
-                  "✅ Seguimiento personalizado durante todo el proceso",
-                  "✅ Entrega de certificados oficiales de regularización"
-                ].map((item, index) => (
-                  <div key={index} className="flex items-center space-x-2">
-                    <span className="text-[#0f172a]">{item}</span>
+                  "Diagnóstico técnico inicial en terreno",
+                  "Levantamiento topográfico y arquitectónico profesional",
+                  "Elaboración de planos técnicos actualizados",
+                  "Informe técnico estructural y de habitabilidad",
+                  "Presentación y tramitación ante la Dirección de Obras",
+                  "Gestión completa ante el Conservador de Bienes Raíces",
+                  "Seguimiento personalizado durante todo el proceso",
+                  "Entrega de certificados oficiales de regularización",
+                ].map((item) => (
+                  <div key={item} className="flex items-start gap-2.5">
+                    <CheckCircle className="w-4 h-4 text-[#0f172a] flex-shrink-0 mt-0.5" strokeWidth={1.5} />
+                    <span className="text-sm text-[#64748b]">{item}</span>
                   </div>
                 ))}
               </div>
@@ -400,334 +212,137 @@ export default function RegularizacionViviendasLaFloridaPage() {
         </div>
       </section>
 
-      {/* Sección de Precios y Paquetes */}
-      <section className="py-16 px-4 bg-gray-50">
-        <div className="max-w-6xl mx-auto">
+      <section className="bg-white section-padding">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-              Precios Transparentes y Fijos
+            <p className="text-xs font-semibold tracking-[0.2em] uppercase text-[#f97316] mb-3">Inversión</p>
+            <h2 className="text-3xl md:text-4xl font-bold text-[#0f172a] mb-4">
+              Presupuestos Personalizados
             </h2>
-            <p className="text-2xl text-gray-600 max-w-4xl mx-auto">
-              <strong>Sin sorpresas, sin costos ocultos.</strong> Conoce exactamente lo que pagarás desde el primer día.
-              Esta inversión se traduce en plusvalía y tranquilidad para toda la vida.
+            <p className="text-base text-[#64748b] max-w-2xl mx-auto">
+              Cada caso de regularización es único. Tras el Diagnóstico Técnico entregamos un presupuesto detallado
+              según las características específicas de tu propiedad.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            {/* Paquete Básico */}
-            <Card className="border-2 border-gray-200 hover:border-gray-300 transition-colors">
-              <CardHeader className="text-center bg-slate-50">
-                <Badge variant="outline" className="mx-auto mb-2">PAQUETE BÁSICO</Badge>
-                <CardTitle className="text-2xl">Viviendas ≤ 90 m²</CardTitle>
-                <div className="text-3xl font-bold text-[#0f172a]">Desde $1.890.000</div>
-                <p className="text-gray-600">Ideal para viviendas pequeñas y ampliaciones menores</p>
-                <p className="text-sm text-[#f97316] font-medium mt-2">💳 Pago en 3 hitos cómodos</p>
-              </CardHeader>
-              <CardContent className="p-6">
-                <ul className="space-y-3">
-                  {[
-                    "✅ Diagnóstico inicial GRATUITO",
-                    "✅ Levantamiento de planos completo",
-                    "✅ Informe técnico profesional",
-                    "✅ Tramitación ante DOM",
-                    "✅ Gestión Conservador de Bienes Raíces",
-                    "✅ Certificados oficiales",
-                    "✅ Seguimiento personalizado",
-                    "✅ Garantía de satisfacción"
-                  ].map((feature, index) => (
-                    <li key={index} className="flex items-center space-x-2">
-                      <span className="text-base">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-              </CardContent>
-            </Card>
-
-            {/* Paquete Premium */}
-            <Card className="border-2 border-[#f97316] hover:border-[#ea580c] transition-colors relative">
-              <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
-                <Badge className="bg-[#f97316]">MÁS POPULAR</Badge>
-              </div>
-              <CardHeader className="text-center bg-orange-50">
-                <Badge variant="outline" className="mx-auto mb-2 border-[#f97316] text-[#f97316]">PAQUETE PREMIUM</Badge>
-                <CardTitle className="text-2xl">Ampliaciones hasta 140 m²</CardTitle>
-                <div className="text-3xl font-bold text-[#f97316]">Desde $2.590.000</div>
-                <p className="text-gray-600">Para viviendas grandes y proyectos complejos (hasta 2.000 UF)</p>
-                <p className="text-sm text-[#f97316] font-medium mt-2">💳 Pago en 3 hitos cómodos</p>
-              </CardHeader>
-              <CardContent className="p-6">
-                <ul className="space-y-3">
-                  {[
-                    "✅ Todo lo incluido en Paquete Básico",
-                    "✅ Proyectos hasta 2.000 UF de avalúo",
-                    "✅ Regularización de ampliaciones complejas",
-                    "✅ Gestión de permisos especiales",
-                    "✅ Informe estructural avanzado",
-                    "✅ Asesoría en optimización tributaria",
-                    "✅ Soporte prioritario",
-                    "✅ Garantía extendida"
-                  ].map((feature, index) => (
-                    <li key={index} className="flex items-center space-x-2">
-                      <span className="text-base">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-              </CardContent>
-            </Card>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+            {[
+              { icon: TrendingUp, title: "Valoriza tu Propiedad", text: "Una vivienda regularizada recupera y aumenta significativamente su valor de mercado." },
+              { icon: Shield, title: "Elimina Riesgos", text: "Evita multas municipales y posibles conflictos legales por obras irregulares." },
+              { icon: BadgeCheck, title: "Acceso a Créditos", text: "Podrás acceder a hipotecas y créditos sobre tu propiedad regularizada." },
+            ].map((item) => {
+              const Icon = item.icon;
+              return (
+                <div key={item.title} className="text-center">
+                  <div className="w-16 h-16 rounded-lg border border-gray-200 flex items-center justify-center mx-auto mb-4">
+                    <Icon className="w-8 h-8 text-[#f97316]" strokeWidth={1.5} />
+                  </div>
+                  <h3 className="text-base font-bold text-[#0f172a] mb-2">{item.title}</h3>
+                  <p className="text-sm text-[#64748b] leading-relaxed">{item.text}</p>
+                </div>
+              );
+            })}
           </div>
 
-          <div className="mt-12 bg-orange-50 p-8 rounded-lg border border-orange-200">
+          <div className="mt-12 bg-blueprint border border-gray-200 rounded-md p-8">
             <div className="text-center">
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">
-                💰 Tu Inversión se Paga Sola
-              </h3>
-              <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-                <div className="text-center">
-                  <TrendingUp className="w-12 h-12 text-[#f97316] mx-auto mb-3" />
-                  <h4 className="font-bold mb-2 text-xl">Aumenta el Valor</h4>
-                  <p className="text-lg text-gray-600">Una vivienda regularizada vale 15-25% más en el mercado</p>
-                </div>
-                <div className="text-center">
-                  <Shield className="w-12 h-12 text-[#0f172a] mx-auto mb-3" />
-                  <h4 className="font-bold mb-2 text-xl">Evita Multas</h4>
-                  <p className="text-lg text-gray-600">Las multas pueden ser de $500.000 a $2.000.000 o más</p>
-                </div>
-                <div className="text-center">
-                  <CheckCircle className="w-12 h-12 text-[#64748b] mx-auto mb-3" />
-                  <h4 className="font-bold mb-2 text-xl">Acceso a Créditos</h4>
-                  <p className="text-lg text-gray-600">Podrás acceder a hipotecas y créditos sobre tu propiedad</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Payment Schedule Information */}
-          <div className="mt-12 bg-gray-100 p-8 rounded-lg">
-            <div className="text-center">
-              <h3 className="text-3xl font-bold text-gray-900 mb-6">
-                💳 Sistema de Pago por Hitos
-              </h3>
-              <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
-                No pagas todo de una vez. El pago se distribuye en 3 hitos según el avance del proceso:
+              <h3 className="text-lg font-bold text-[#0f172a] mb-4">Sistema de Pago por Hitos</h3>
+              <p className="text-sm text-[#64748b] mb-8">
+                El pago se distribuye en 3 etapas según el avance del proceso:
               </p>
-              
-              <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-                <div className="bg-white p-6 rounded-lg shadow-lg">
-                  <div className="text-[#0f172a] font-bold text-lg mb-2">HITO 1</div>
-                  <h4 className="font-bold text-xl mb-3">Al Contratar los Servicios</h4>
-                  <p className="text-gray-600 text-lg">Primera cuota al firmar el contrato y comenzar el proceso</p>
-                </div>
-                
-                <div className="bg-white p-6 rounded-lg shadow-lg">
-                  <div className="text-[#f97316] font-bold text-lg mb-2">HITO 2</div>
-                  <h4 className="font-bold text-xl mb-3">Al Ingreso del Expediente</h4>
-                  <p className="text-gray-600 text-lg">Segunda cuota cuando ingresamos tu expediente a la municipalidad</p>
-                </div>
-                
-                <div className="bg-white p-6 rounded-lg shadow-lg">
-                  <div className="text-[#64748b] font-bold text-lg mb-2">HITO 3</div>
-                  <h4 className="font-bold text-xl mb-3">Al Obtener Certificado</h4>
-                  <p className="text-gray-600 text-lg">Última cuota cuando obtienes tu certificado de regularización</p>
-                </div>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-3xl mx-auto">
+                {[
+                  { label: "Hito 1", title: "Al Contratar", text: "Primera cuota al firmar el contrato e iniciar el proceso." },
+                  { label: "Hito 2", title: "Al Ingreso del Expediente", text: "Segunda cuota cuando se ingresa el expediente a la municipalidad." },
+                  { label: "Hito 3", title: "Al Obtener Certificado", text: "Última cuota al obtener el certificado de regularización." },
+                ].map((item) => (
+                  <div key={item.label} className="bg-white border border-gray-200 rounded-md p-5">
+                    <p className="text-[10px] font-bold tracking-[0.2em] uppercase text-[#f97316] mb-2">{item.label}</p>
+                    <h4 className="text-sm font-bold text-[#0f172a] mb-1">{item.title}</h4>
+                    <p className="text-xs text-[#64748b]">{item.text}</p>
+                  </div>
+                ))}
               </div>
-            </div>
-          </div>
-
-          {/* Strategic CTA after pricing */}
-          <div className="mt-12 text-center">
-            <div className="bg-gradient-to-r from-[#f97316] to-[#ea580c] p-8 rounded-lg shadow-2xl">
-              <h3 className="text-3xl font-bold text-white mb-4">
-                💡 ¡Tu Vivienda Vale Más Regularizada!
-              </h3>
-              <p className="text-xl text-white mb-6 max-w-2xl mx-auto">
-                No pierdas más tiempo preocupándote. Una inversión de $1.890.000 puede aumentar el valor de tu propiedad en $15-25 millones o más.
-              </p>
-              <Button 
-                size="lg" 
-                className="bg-gray-900 hover:bg-gray-800 text-white font-bold text-xl py-4 px-8 rounded-full shadow-2xl transform hover:scale-105 transition-all"
-                onClick={() => document.getElementById('contact-form')?.scrollIntoView({ behavior: 'smooth' })}
-              >
-                📋 COMPLETAR FORMULARIO AHORA
-              </Button>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Sección de Autoridad y Testimonios */}
-      <section className="py-16 px-4 bg-white">
-        <div className="max-w-6xl mx-auto">
+      <section className="bg-blueprint section-padding">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+            <p className="text-xs font-semibold tracking-[0.2em] uppercase text-[#f97316] mb-3">Respaldo Profesional</p>
+            <h2 className="text-3xl md:text-4xl font-bold text-[#0f172a] mb-4">
               Experiencia Comprobada en La Florida
             </h2>
-            <p className="text-2xl text-gray-600 max-w-4xl mx-auto">
-              El <strong>Arquitecto Patricio Becar</strong> tiene más de 25 años de experiencia y conoce perfectamente 
-              los procesos municipales de La Florida. Miles de familias ya regularizaron sus viviendas con nosotros.
+            <p className="text-base text-[#64748b] max-w-2xl mx-auto">
+              El Arquitecto Patricio Becar tiene más de 26 años de experiencia y conoce los procesos de la DOM de La Florida.
             </p>
           </div>
 
-          {/* Testimonios */}
-          <div className="grid md:grid-cols-2 gap-8 mb-12">
-            <Card className="border-l-4 border-[#f97316]">
-              <CardContent className="p-6">
-                <div className="flex items-center mb-4">
-                  <div className="flex text-yellow-400">
-                    {[...Array(5)].map((_, i) => <Star key={i} className="w-4 h-4 fill-current" />)}
-                  </div>
-                </div>
-                <p className="text-gray-600 mb-4 italic text-lg">
-                  "Antes vivía con miedo constante de que me multaran por mi ampliación. 
-                  No podía dormir tranquila. Patricio me solucionó todo en 4 meses. 
-                  Ahora mi casa vale mucho más y tengo la tranquilidad total."
-                </p>
-                <div className="flex items-center">
-                  <div>
-                    <div className="font-bold">María González</div>
-                    <div className="text-sm text-gray-500">Vecina de La Florida • Ampliación 45 m²</div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="border-l-4 border-[#0f172a]">
-              <CardContent className="p-6">
-                <div className="flex items-center mb-4">
-                  <div className="flex text-yellow-400">
-                    {[...Array(5)].map((_, i) => <Star key={i} className="w-4 h-4 fill-current" />)}
-                  </div>
-                </div>
-                <p className="text-gray-600 mb-4 italic">
-                  "Mi casa estaba completamente irregular desde hace 10 años. 
-                  Los bancos me rechazaban todos los créditos. Patricio regularizó todo 
-                  y ahora pude acceder a un crédito hipotecario. ¡Increíble!"
-                </p>
-                <div className="flex items-center">
-                  <div>
-                    <div className="font-bold">Carlos Méndez</div>
-                    <div className="text-sm text-gray-500">Propietario en La Florida • Casa 85 m²</div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-
-          {/* Autoridad del Arquitecto con Imagen Profesional */}
-          <div className="bg-slate-50 p-8 rounded-lg">
-            <div className="flex items-center md:flex-row flex-col gap-8">
-              <div className="md:w-1/3 text-center">
-                <img 
-                  src={architectInspectionImage} 
-                  alt="Arquitecto Patricio Becar realizando inspección profesional" 
-                  className="w-48 h-36 object-cover rounded-lg shadow-lg mx-auto mb-4"
-                />
-                <h3 className="font-bold text-xl mb-2">Arq. Patricio Becar</h3>
-                <p className="text-[#f97316] font-semibold">Especialista en Regularización</p>
-              </div>
-              <div className="md:w-2/3">
-                <h3 className="text-2xl font-bold mb-4 text-gray-900">Tu Tranquilidad en Manos Expertas</h3>
-                <ul className="space-y-2">
+          <div className="bg-white border border-gray-200 rounded-md p-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+              <div>
+                <h3 className="text-lg font-bold text-[#0f172a] mb-1">Arq. Patricio Becar Elissegaray</h3>
+                <p className="text-sm text-[#f97316] font-medium mb-4">Especialista en Regularización</p>
+                <div className="space-y-2.5">
                   {[
-                    "✅ Arquitecto Universidad de Chile desde 1999",
-                    "✅ MBA Universidad de Chile + Global MBA University of Macquarie Australia", 
-                    "✅ Más de 500 viviendas regularizadas en La Florida",
-                    "✅ Conocimiento profundo de la normativa municipal",
-                    "✅ Relación directa con funcionarios de la DOM",
-                    "✅ 100% de casos exitosos bajo la Ley del Mono"
-                  ].map((credential, index) => (
-                    <li key={index} className="flex items-center space-x-2">
-                      <span className="text-gray-700">{credential}</span>
-                    </li>
+                    "Arquitecto Universidad de Chile desde 1999",
+                    "MBA Universidad de Chile + Global MBA University of Macquarie, Australia",
+                    "Revisor Independiente acreditado MINVU",
+                    "Conocimiento profundo de la normativa municipal de La Florida",
+                    "Experiencia en gestión directa ante la DOM",
+                  ].map((item) => (
+                    <div key={item} className="flex items-start gap-2.5">
+                      <CheckCircle className="w-4 h-4 text-[#0f172a] flex-shrink-0 mt-0.5" strokeWidth={1.5} />
+                      <span className="text-sm text-[#64748b]">{item}</span>
+                    </div>
                   ))}
-                </ul>
+                </div>
+              </div>
+              <div className="grid grid-cols-3 gap-4">
+                {[
+                  { value: "26+", label: "Años de experiencia" },
+                  { value: "$45.000", label: "Diagnóstico Técnico" },
+                  { value: "100%", label: "Compromiso profesional" },
+                ].map((stat) => (
+                  <div key={stat.label} className="text-center bg-blueprint border border-gray-200 rounded-md p-4">
+                    <p className="text-xl font-bold text-[#0f172a]">{stat.value}</p>
+                    <p className="text-[10px] text-[#64748b] uppercase tracking-wider mt-1">{stat.label}</p>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Llamado a la Acción Final */}
-      <section className="py-20 px-4 bg-gradient-to-r from-[#0f172a] to-[#1e293b] text-white">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-4xl md:text-6xl font-bold mb-6">
-            ¡No Dejes que el Tiempo se Agote!
-          </h2>
-          <p className="text-2xl mb-8 text-gray-300">
-            Asegura tu regularización antes del <strong>31 de diciembre de 2027</strong>.
-            Cada día que esperas, aumenta el riesgo y la incertidumbre.
+      <section className="bg-blueprint-dark text-white section-padding">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <p className="text-xs font-semibold tracking-[0.2em] uppercase text-[#f97316] mb-4">
+            Especialistas en la DOM de La Florida
           </p>
-
-          <div className="bg-white p-8 rounded-lg shadow-2xl text-gray-900 max-w-4xl mx-auto" id="contact-form">
-            <h3 className="text-3xl font-bold mb-6 text-center">
-              📞 Agenda tu Visita de Diagnóstico
-            </h3>
-            
-            {/* Formulario Externo Embebido */}
-            <div className="w-full">
-              <iframe 
-                src="https://qv3ysdfj.forms.app/formulario-de-contacto"
-                width="100%"
-                height="700"
-                frameBorder="0"
-                scrolling="no"
-                className="rounded-lg"
-                title="Formulario de Contacto - Regularización de Viviendas"
-                style={{ border: 'none', overflow: 'hidden' }}
-              />
-            </div>
-            
-            <div className="text-lg text-gray-600 text-center mt-6 space-y-3">
-              <p>✅ Respuesta garantizada en menos de 2 horas</p>
-              <p>✅ Visita completamente gratuita y sin compromiso</p>
-              <p>✅ Asesoría personalizada para tu caso específico</p>
-              <p>✅ Pago fraccionado en 3 hitos según avance del proceso</p>
-            </div>
-
-            {/* QR Code Placeholder */}
-            <div className="mt-8 pt-8 border-t border-gray-200">
-              <p className="text-center text-sm text-gray-600 mb-4">
-                ¿Prefieres contactar directamente?
-              </p>
-              <div className="flex justify-center items-center space-x-8">
-                <div className="text-center">
-                  <div className="w-20 h-20 bg-gray-200 rounded-lg flex items-center justify-center mb-2">
-                    <Phone className="w-8 h-8 text-gray-600" />
-                  </div>
-                  <p className="text-xs font-bold">+56 9 7931 6827</p>
-                </div>
-                <div className="text-center">
-                  <div className="w-20 h-20 bg-gray-200 rounded-lg flex items-center justify-center mb-2">
-                    <Mail className="w-8 h-8 text-gray-600" />
-                  </div>
-                  <p className="text-xs font-bold">WhatsApp Directo</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="mt-12">
-            <p className="text-gray-300 text-lg">
-              ⏰ <strong>URGENTE:</strong> La Ley del Mono expira el 31 de diciembre de 2027
-            </p>
-            <p className="text-gray-400 text-sm mt-2">
-              Después de esta fecha, regularizar será mucho más complejo, lento y costoso
-            </p>
-          </div>
+          <h2 className="text-3xl lg:text-4xl font-bold mb-6 text-white">
+            Regulariza tu Propiedad con Respaldo Profesional
+          </h2>
+          <p className="text-base text-gray-300 mb-4 max-w-2xl mx-auto">
+            Asegura tu regularización bajo la Ley del Mono antes del plazo vigente.
+            Presupuestos personalizados tras Diagnóstico Técnico.
+          </p>
+          <p className="text-sm text-gray-400 mb-8">
+            Asesoría inicial: $45.000 — Respuesta en menos de 24 horas
+          </p>
+          <a
+            href="/contacto"
+            className="inline-flex items-center gap-2 bg-[#f97316] text-white px-8 py-3.5 rounded-lg text-sm font-semibold hover:bg-orange-600 transition-colors shadow-lg shadow-orange-500/20"
+          >
+            Solicitar Diagnóstico Técnico
+            <ArrowRight className="w-4 h-4" strokeWidth={1.5} />
+          </a>
         </div>
       </section>
 
-      {/* Floating CTA Button */}
-      {showFloatingCTA && (
-        <div className="fixed bottom-6 right-6 z-50">
-          <Button
-            size="lg"
-            className="bg-[#f97316] hover:bg-[#ea580c] text-white font-bold py-3 px-6 rounded-full shadow-2xl animate-pulse"
-            onClick={() => document.getElementById('contact-form')?.scrollIntoView({ behavior: 'smooth' })}
-          >
-            📞 Visita GRATIS
-          </Button>
-        </div>
-      )}
+      <Footer />
     </div>
   );
 }
