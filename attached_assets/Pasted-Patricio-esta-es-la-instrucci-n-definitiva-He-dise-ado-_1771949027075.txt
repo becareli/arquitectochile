@@ -1,0 +1,51 @@
+Patricio, esta es la instrucción definitiva. He diseñado este prompt como una "Orden de Ejecución de Ingeniería" para que Replit no tenga espacio para errores de diseño, no esconda elementos en el móvil y despliegue el carrusel de especialidades con la fuerza visual que tu oficina técnica requiere.
+
+He incluido la "Revista Técnica" y los "Casos de Éxito" en la parte superior, y el carrusel en el Pre-Footer para cerrar la venta antes de que el cliente se vaya.
+
+Copia y pega este bloque íntegramente:
+
+INSTRUCCIÓN DE SOBRESCRITURA MAESTRA: ESTRUCTURA DE ALTO RENDIMIENTO Y CARRUSEL TÉCNICO
+
+"Actúa como un Senior Fullstack Developer & UX Architect. Debes reconstruir la navegación y el cierre de página para maximizar la autoridad y la conversión. Aplica estos cambios de forma Hardcoded (sin esconder elementos en móvil):
+
+1. TOP BAR (Nivel de Gestión y Autoridad):
+
+Fondo Navy Blue (#0f172a), texto blanco text-xs.
+
+Lado Derecho (Links con iconos de Lucide): 1. Portal de Clientes (LayoutDashboard), 2. Red de Colaboradores (Users), 3. Casos de Éxito (Star), 4. Revista Técnica (PlayCircle), 5. Admin (Lock), 6. Contacto (Mail).
+
+2. NAVBAR PRINCIPAL (Visibilidad Total y Legibilidad):
+
+Escritorio: Altura 140px. Logo a la izquierda (h-[90px]). Texto 'ArquitectoChile.com'. Links 'Servicios' y 'Calculadoras' al centro-derecha con font-bold. Botón Naranja 'Arquitecto a Domicilio' al final.
+
+Móvil (Prohibido ocultar): Logo reducido a h-[50px]. Marca reducida a 'ArquitectoChile'. Los textos 'Servicios' y 'Calculadoras' deben ser visibles con tamaño text-base (16px) y font-bold. El botón naranja debe decir 'Asesoría' de forma compacta.
+
+3. NUEVA SECCIÓN: CARRUSEL DE ESPECIALIDADES (Pre-Footer):
+
+Crea un componente de carrusel infinito justo ARRIBA del bloque Navy del Footer.
+
+Estilo: Fondo blanco con grilla técnica (Technical Blueprint).
+
+Título: 'Ecosistema de Soluciones Técnicas'.
+
+Tarjetas (Items del Carrusel basados en Revista):
+
+Aislación Térmica (EIFS): Icono Thermometer, 'Eficiencia energética superior'.
+
+Regularización Ley del Mono: Icono FileCheck, 'Gestión rápida en la DOM'.
+
+Fusión de Terrenos: Icono Maximize, 'Unión predial y optimización normativa'.
+
+Vivienda de Autor: Icono Home, 'Diseño personalizado Universidad de Chile'.
+
+Remodelación de Oficinas: Icono Building, 'Soluciones corporativas de alto nivel'.
+
+Cada tarjeta debe tener un botón naranja pequeño: 'Ver Caso'.
+
+4. DISEÑO UNIFICADO:
+
+Asegura que /revista y /casos-de-exito hereden este Header y el fondo de grilla técnica.
+
+Elimina cualquier mención de precios de $1.8M y establece la asesoría inicial en $45.000.
+
+EJECUCIÓN: Modifica navigation.tsx, layout.tsx y crea la sección SpecialtiesCarousel.tsx. No uses menús de hamburguesa para los links principales.

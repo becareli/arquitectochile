@@ -9,29 +9,29 @@ function TopBar() {
     <div className="bg-[#0f172a] text-white" style={{ height: "36px" }}>
       <div className="w-full px-3 sm:px-6 lg:px-10 h-full">
         <div className="flex justify-end items-center h-full gap-4 sm:gap-5">
-          <a href="/contacto" className={linkClass}>
-            <Mail className="w-3 h-3" strokeWidth={1.5} />
-            <span className="hidden md:inline text-[11px] font-medium tracking-wide">Contacto</span>
-          </a>
-          <a href="/admin" className={linkClass}>
-            <Lock className="w-3 h-3" strokeWidth={1.5} />
-            <span className="hidden md:inline text-[11px] font-medium tracking-wide">Admin</span>
-          </a>
-          <a href="/revista" className={linkClass}>
-            <PlayCircle className="w-3.5 h-3.5" strokeWidth={1.5} />
-            <span className="hidden md:inline text-[11px] font-medium tracking-wide">Revista Técnica</span>
-          </a>
-          <a href="/casos-de-exito" className={linkClass}>
-            <Star className="w-3.5 h-3.5" strokeWidth={1.5} />
-            <span className="hidden md:inline text-[11px] font-medium tracking-wide">Casos de Éxito</span>
+          <a href="/portal-cliente" className={linkClass}>
+            <LayoutDashboard className="w-3.5 h-3.5" strokeWidth={1.5} />
+            <span className="hidden md:inline text-[11px] font-medium tracking-wide">Portal de Clientes</span>
           </a>
           <a href="/colaboradores" className={linkClass}>
             <Users className="w-3.5 h-3.5" strokeWidth={1.5} />
             <span className="hidden md:inline text-[11px] font-medium tracking-wide">Red de Colaboradores</span>
           </a>
-          <a href="/portal-cliente" className={linkClass}>
-            <LayoutDashboard className="w-3.5 h-3.5" strokeWidth={1.5} />
-            <span className="hidden md:inline text-[11px] font-medium tracking-wide">Portal de Clientes</span>
+          <a href="/casos-de-exito" className={linkClass}>
+            <Star className="w-3.5 h-3.5" strokeWidth={1.5} />
+            <span className="hidden md:inline text-[11px] font-medium tracking-wide">Casos de Éxito</span>
+          </a>
+          <a href="/revista" className={linkClass}>
+            <PlayCircle className="w-3.5 h-3.5" strokeWidth={1.5} />
+            <span className="hidden md:inline text-[11px] font-medium tracking-wide">Revista Técnica</span>
+          </a>
+          <a href="/admin" className={linkClass}>
+            <Lock className="w-3 h-3" strokeWidth={1.5} />
+            <span className="hidden md:inline text-[11px] font-medium tracking-wide">Admin</span>
+          </a>
+          <a href="/contacto" className={linkClass}>
+            <Mail className="w-3 h-3" strokeWidth={1.5} />
+            <span className="hidden md:inline text-[11px] font-medium tracking-wide">Contacto</span>
           </a>
         </div>
       </div>

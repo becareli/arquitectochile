@@ -16,6 +16,7 @@ import Guarantees from "@/components/guarantees";
 import ObjectionHandling from "@/components/objection-handling";
 import GoogleBusinessIntegration from "@/components/google-business-integration";
 import Contact from "@/components/contact";
+import SpecialtiesCarousel from "@/components/specialties-carousel";
 import Footer from "@/components/footer";
 import CookieConsent from "@/components/cookie-consent";
 
@@ -202,6 +203,7 @@ export default function HomePage() {
       </section>
 
       <Contact />
+      <SpecialtiesCarousel />
       <Footer />
       <CookieConsent />
     </div>
