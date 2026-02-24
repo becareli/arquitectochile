@@ -1,34 +1,30 @@
 import { useState, useRef, useEffect } from "react";
-import { Menu, X, ChevronDown, ArrowLeft, UserCheck, Briefcase, Lock } from "lucide-react";
+import { Menu, X, ChevronDown, ArrowLeft, Mail, Lock, Users, LayoutDashboard } from "lucide-react";
 import { useLocation } from "wouter";
 import logoImg from "@assets/ArquitectoChile.com_Logo_1771886286621.png";
 
 function TopBar() {
+  const topBarLinkClass = "flex items-center gap-1.5 text-[11px] text-gray-400 hover:text-white transition-colors font-medium tracking-wide";
   return (
     <div className="bg-[#0f172a] text-white">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-8">
-          <a
-            href="/admin"
-            className="flex items-center gap-1.5 text-[11px] text-gray-400 hover:text-white transition-colors font-medium tracking-wide"
-          >
-            <Lock className="w-3 h-3" strokeWidth={1.5} />
-            Admin
-          </a>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-end items-center h-8">
           <div className="flex items-center gap-5">
-            <a
-              href="/portal-cliente"
-              className="flex items-center gap-1.5 text-[11px] text-gray-400 hover:text-white transition-colors font-medium tracking-wide"
-            >
-              <UserCheck className="w-3.5 h-3.5" strokeWidth={1.5} />
-              Portal de Clientes
+            <a href="/contacto" className={topBarLinkClass}>
+              <Mail className="w-3 h-3" strokeWidth={1.5} />
+              Contacto
             </a>
-            <a
-              href="/colaboradores"
-              className="flex items-center gap-1.5 text-[11px] text-gray-400 hover:text-white transition-colors font-medium tracking-wide"
-            >
-              <Briefcase className="w-3.5 h-3.5" strokeWidth={1.5} />
+            <a href="/admin" className={topBarLinkClass}>
+              <Lock className="w-3 h-3" strokeWidth={1.5} />
+              Admin
+            </a>
+            <a href="/colaboradores" className={topBarLinkClass}>
+              <Users className="w-3.5 h-3.5" strokeWidth={1.5} />
               Red de Colaboradores
+            </a>
+            <a href="/portal-cliente" className={topBarLinkClass}>
+              <LayoutDashboard className="w-3.5 h-3.5" strokeWidth={1.5} />
+              Portal de Clientes
             </a>
           </div>
         </div>
@@ -108,24 +104,20 @@ export default function Navigation() {
 
   const navLinkClass = "text-gray-600 hover:text-[#0f172a] transition-colors text-sm font-medium whitespace-nowrap";
 
-  const LogoBrand = ({ onClick }: { onClick: () => void }) => (
-    <button onClick={onClick} className="flex items-center gap-3 hover:opacity-80 transition-opacity flex-shrink-0" style={{ marginRight: "40px" }}>
-      <img src={logoImg} alt="ArquitectoChile" className="h-[42px] w-auto flex-shrink-0" />
-      <span className="text-lg font-semibold whitespace-nowrap hidden sm:inline">
-        <span className="text-[#0f172a]">ArquitectoChile</span>
-        <span className="text-gray-400">.com</span>
-      </span>
-    </button>
-  );
-
   if (!isHomePage) {
     return (
       <div className="sticky top-0 z-50">
         <TopBar />
         <nav className="bg-white border-b border-gray-200">
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex justify-between items-center h-16">
-              <LogoBrand onClick={navigateToHome} />
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex justify-between items-center" style={{ height: "110px" }}>
+              <button onClick={navigateToHome} className="flex items-center gap-4 hover:opacity-80 transition-opacity flex-shrink-0">
+                <img src={logoImg} alt="ArquitectoChile" className="h-[90px] w-auto flex-shrink-0" />
+                <span className="text-xl font-semibold whitespace-nowrap hidden sm:inline">
+                  <span className="text-[#0f172a]">ArquitectoChile</span>
+                  <span className="text-gray-400">.com</span>
+                </span>
+              </button>
               <div className="flex items-center gap-5">
                 <button onClick={navigateToHome} className="flex items-center gap-1.5 text-sm font-medium text-gray-500 hover:text-[#0f172a] transition-colors whitespace-nowrap">
                   <ArrowLeft size={16} strokeWidth={1.5} />
@@ -134,7 +126,7 @@ export default function Navigation() {
                 </button>
                 <a
                   href="/contacto"
-                  className="bg-[#f97316] text-white rounded-lg text-sm font-semibold hover:bg-orange-600 transition-colors shadow-lg shadow-orange-500/20 whitespace-nowrap text-center inline-flex items-center justify-center"
+                  className="bg-[#f97316] text-white rounded-lg text-sm font-semibold hover:bg-orange-600 transition-colors shadow-lg shadow-orange-500/20 whitespace-nowrap inline-flex items-center justify-center"
                   style={{ padding: "10px 24px" }}
                 >
                   Arquitecto a Domicilio
@@ -151,11 +143,18 @@ export default function Navigation() {
     <div className="sticky top-0 z-50">
       <TopBar />
       <nav className="bg-white border-b border-gray-200">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <LogoBrand onClick={navigateToHome} />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between" style={{ height: "110px" }}>
 
-            <div className="hidden lg:flex items-center gap-8 flex-1 justify-center">
+            <button onClick={navigateToHome} className="flex items-center gap-4 hover:opacity-80 transition-opacity flex-shrink-0" style={{ marginRight: "48px" }}>
+              <img src={logoImg} alt="ArquitectoChile" className="h-[90px] w-auto flex-shrink-0" />
+              <span className="text-xl font-semibold whitespace-nowrap hidden sm:inline">
+                <span className="text-[#0f172a]">ArquitectoChile</span>
+                <span className="text-gray-400">.com</span>
+              </span>
+            </button>
+
+            <div className="hidden lg:flex items-center gap-10 flex-1 justify-end" style={{ marginRight: "32px" }}>
               <div className="relative" ref={dropdownRef}>
                 <button
                   onClick={() => setIsServicesDropdownOpen(!isServicesDropdownOpen)}
@@ -181,14 +180,12 @@ export default function Navigation() {
                 )}
               </div>
               <button onClick={() => navigateToService('/calculadora-costos')} className={navLinkClass}>Calculadoras</button>
-              <button onClick={() => handleNavigation('testimonios')} className={navLinkClass}>Testimonios</button>
-              <button onClick={() => navigateToService('/contacto')} className={navLinkClass}>Contacto</button>
             </div>
 
             <div className="hidden lg:block flex-shrink-0">
               <a
                 href="/contacto"
-                className="bg-[#f97316] text-white rounded-lg text-sm font-semibold hover:bg-orange-600 transition-colors shadow-lg shadow-orange-500/20 whitespace-nowrap text-center inline-flex items-center justify-center"
+                className="bg-[#f97316] text-white rounded-lg text-sm font-semibold hover:bg-orange-600 transition-colors shadow-lg shadow-orange-500/20 whitespace-nowrap inline-flex items-center justify-center"
                 style={{ padding: "10px 24px" }}
               >
                 Arquitecto a Domicilio
@@ -199,7 +196,7 @@ export default function Navigation() {
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="lg:hidden text-[#0f172a]"
             >
-              {isMenuOpen ? <X size={22} strokeWidth={1.5} /> : <Menu size={22} strokeWidth={1.5} />}
+              {isMenuOpen ? <X size={24} strokeWidth={1.5} /> : <Menu size={24} strokeWidth={1.5} />}
             </button>
           </div>
         </div>
@@ -226,7 +223,6 @@ export default function Navigation() {
                 )}
               </div>
               <button onClick={() => navigateToService('/calculadora-costos')} className="block w-full text-left px-3 py-2.5 text-sm text-gray-600 hover:text-[#0f172a] rounded-lg">Calculadoras</button>
-              <button onClick={() => handleNavigation('testimonios')} className="block w-full text-left px-3 py-2.5 text-sm text-gray-600 hover:text-[#0f172a] rounded-lg">Testimonios</button>
               <button onClick={() => navigateToService('/contacto')} className="block w-full text-left px-3 py-2.5 text-sm text-gray-600 hover:text-[#0f172a] rounded-lg">Contacto</button>
               <div className="pt-2 border-t border-gray-100 mt-2 space-y-2">
                 <a href="/admin" className="flex items-center gap-2 px-3 py-2 text-sm text-gray-500 hover:text-[#0f172a]">
@@ -234,11 +230,11 @@ export default function Navigation() {
                   Admin
                 </a>
                 <a href="/portal-cliente" className="flex items-center gap-2 px-3 py-2 text-sm text-gray-500 hover:text-[#0f172a]">
-                  <UserCheck className="w-4 h-4" strokeWidth={1.5} />
+                  <LayoutDashboard className="w-4 h-4" strokeWidth={1.5} />
                   Portal de Clientes
                 </a>
                 <a href="/colaboradores" className="flex items-center gap-2 px-3 py-2 text-sm text-gray-500 hover:text-[#0f172a]">
-                  <Briefcase className="w-4 h-4" strokeWidth={1.5} />
+                  <Users className="w-4 h-4" strokeWidth={1.5} />
                   Red de Colaboradores
                 </a>
               </div>
