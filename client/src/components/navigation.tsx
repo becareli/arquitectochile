@@ -1,37 +1,38 @@
 import { useState, useRef, useEffect } from "react";
-import { Menu, X, ChevronDown, ArrowLeft, Mail, Lock, Users, LayoutDashboard, Star, PlayCircle } from "lucide-react";
+import { Menu, X, ChevronDown, Mail, Lock, Users, LayoutDashboard, Star, PlayCircle, Calculator, ArrowRight } from "lucide-react";
 import { useLocation } from "wouter";
 import logoImg from "@assets/ArquitectoChile.com_Logo_1771886286621.png";
 
 function TopBar() {
-  const linkClass = "flex items-center gap-1.5 text-[11px] text-gray-400 hover:text-white transition-colors font-medium tracking-wide whitespace-nowrap";
+  const fullLinkClass = "flex items-center gap-1.5 text-[11px] text-gray-400 hover:text-white transition-colors font-medium tracking-wide whitespace-nowrap";
+
   return (
     <div className="bg-[#0f172a] text-white" style={{ height: "40px" }}>
-      <div className="w-full px-6 sm:px-8 lg:px-10 h-full">
-        <div className="flex justify-end items-center h-full gap-5">
-          <a href="/contacto" className={linkClass}>
+      <div className="w-full px-4 sm:px-6 lg:px-10 h-full">
+        <div className="flex justify-end items-center h-full gap-3 sm:gap-5">
+          <a href="/contacto" className={fullLinkClass}>
             <Mail className="w-3 h-3" strokeWidth={1.5} />
-            Contacto
+            <span className="hidden md:inline">Contacto</span>
           </a>
-          <a href="/admin" className={linkClass}>
+          <a href="/admin" className={fullLinkClass}>
             <Lock className="w-3 h-3" strokeWidth={1.5} />
-            Admin
+            <span className="hidden md:inline">Admin</span>
           </a>
-          <a href="/revista" className={linkClass}>
+          <a href="/revista" className={fullLinkClass}>
             <PlayCircle className="w-3.5 h-3.5" strokeWidth={1.5} />
-            Revista Técnica
+            <span className="hidden md:inline">Revista Técnica</span>
           </a>
-          <a href="/casos-de-exito" className={linkClass}>
+          <a href="/casos-de-exito" className={fullLinkClass}>
             <Star className="w-3.5 h-3.5" strokeWidth={1.5} />
-            Casos de Éxito
+            <span className="hidden md:inline">Casos de Éxito</span>
           </a>
-          <a href="/colaboradores" className={linkClass}>
+          <a href="/colaboradores" className={fullLinkClass}>
             <Users className="w-3.5 h-3.5" strokeWidth={1.5} />
-            Red de Colaboradores
+            <span className="hidden md:inline">Red de Colaboradores</span>
           </a>
-          <a href="/portal-cliente" className={linkClass}>
+          <a href="/portal-cliente" className={fullLinkClass}>
             <LayoutDashboard className="w-3.5 h-3.5" strokeWidth={1.5} />
-            Portal de Clientes
+            <span className="hidden md:inline">Portal de Clientes</span>
           </a>
         </div>
       </div>
@@ -39,10 +40,113 @@ function TopBar() {
   );
 }
 
+function MobileDrawer({
+  isOpen,
+  onClose,
+  servicesMenuItems,
+  navigateToService,
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+  servicesMenuItems: { label: string; href: string }[];
+  navigateToService: (path: string) => void;
+}) {
+  const [isServicesExpanded, setIsServicesExpanded] = useState(false);
+
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+      setIsServicesExpanded(false);
+    }
+    return () => { document.body.style.overflow = ''; };
+  }, [isOpen]);
+
+  if (!isOpen) return null;
+
+  const drawerMenuItems = [
+    { label: "Calculadoras", href: "/calculadora-costos", icon: Calculator },
+    { label: "Revista Técnica", href: "/revista", icon: PlayCircle },
+    { label: "Casos de Éxito", href: "/casos-de-exito", icon: Star },
+    { label: "Red de Colaboradores", href: "/colaboradores", icon: Users },
+    { label: "Portal de Clientes", href: "/portal-cliente", icon: LayoutDashboard },
+    { label: "Admin", href: "/admin", icon: Lock },
+  ];
+
+  return (
+    <>
+      <div className="fixed inset-0 bg-black/40 z-40" onClick={onClose} />
+      <div className="fixed inset-y-0 right-0 w-[300px] max-w-[85vw] bg-white z-50 shadow-2xl flex flex-col overflow-hidden">
+        <div className="bg-blueprint border-b border-gray-200 px-5 py-4 flex items-center justify-between flex-shrink-0">
+          <span className="text-base font-semibold text-[#0f172a]">Menu</span>
+          <button onClick={onClose} className="text-[#0f172a] p-1">
+            <X size={24} strokeWidth={1.5} />
+          </button>
+        </div>
+
+        <div className="flex-1 overflow-y-auto bg-blueprint">
+          <div className="px-5 py-4 space-y-1">
+            <div>
+              <button
+                onClick={() => setIsServicesExpanded(!isServicesExpanded)}
+                className="flex items-center justify-between w-full text-left px-3 py-3 text-base font-semibold text-[#0f172a] hover:bg-white/60 rounded-lg transition-colors"
+              >
+                Servicios
+                <ChevronDown size={18} strokeWidth={1.5} className={`text-gray-400 transition-transform ${isServicesExpanded ? 'rotate-180' : ''}`} />
+              </button>
+              {isServicesExpanded && (
+                <div className="ml-3 border-l-2 border-[#f97316]/30 pl-4 space-y-0.5 mt-1 mb-2">
+                  {servicesMenuItems.map((item, index) => (
+                    <button
+                      key={index}
+                      onClick={() => navigateToService(item.href)}
+                      className="block w-full text-left px-2 py-2.5 text-sm text-gray-500 hover:text-[#0f172a] hover:bg-white/60 rounded transition-colors"
+                    >
+                      {item.label}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {drawerMenuItems.map((item, index) => (
+              <button
+                key={index}
+                onClick={() => navigateToService(item.href)}
+                className="flex items-center gap-3 w-full text-left px-3 py-3 text-base font-semibold text-[#0f172a] hover:bg-white/60 rounded-lg transition-colors"
+              >
+                <item.icon size={18} strokeWidth={1.5} className="text-gray-400" />
+                {item.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="px-5 py-4 border-t border-gray-200 bg-white flex-shrink-0">
+          <a
+            href="/contacto"
+            className="flex items-center justify-center gap-2 w-full bg-[#f97316] text-white rounded-lg font-bold hover:bg-orange-600 transition-colors shadow-lg shadow-orange-500/20"
+            style={{ padding: "14px 20px" }}
+          >
+            Arquitecto a Domicilio
+            <ArrowRight size={18} strokeWidth={2} />
+          </a>
+          <a
+            href="/contacto"
+            className="block text-center text-xs text-gray-400 mt-2 hover:text-[#0f172a] transition-colors"
+          >
+            contacto@arquitectochile.com
+          </a>
+        </div>
+      </div>
+    </>
+  );
+}
+
 export default function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isServicesDropdownOpen, setIsServicesDropdownOpen] = useState(false);
-  const [isMobileServicesOpen, setIsMobileServicesOpen] = useState(false);
   const [location, setLocation] = useLocation();
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -71,19 +175,6 @@ export default function Navigation() {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  const handleNavigation = (sectionId: string) => {
-    const currentPath = window.location.pathname;
-    if (currentPath !== '/') {
-      setLocation(`/#${sectionId}`);
-    } else {
-      const element = document.getElementById(sectionId);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-      }
-    }
-    setIsMenuOpen(false);
-  };
-
   const navigateToHome = () => {
     setLocation('/');
     setIsMenuOpen(false);
@@ -110,77 +201,21 @@ export default function Navigation() {
 
   const navLinkClass = "text-gray-600 hover:text-[#0f172a] transition-colors text-lg font-semibold whitespace-nowrap";
 
-  if (!isHomePage) {
-    return (
-      <div className="sticky top-0 z-50">
-        <TopBar />
-        <nav className="bg-white border-b border-gray-200">
-          <div className="w-full px-6 sm:px-8 lg:px-10">
-            <div className="flex items-center justify-between flex-nowrap" style={{ height: "140px" }}>
-              <button onClick={navigateToHome} className="flex items-center gap-4 hover:opacity-80 transition-opacity flex-shrink-0" style={{ marginRight: "48px" }}>
-                <img src={logoImg} alt="ArquitectoChile" className="h-[90px] w-auto flex-shrink-0" />
-                <span className="text-xl font-semibold whitespace-nowrap">
-                  <span className="text-[#0f172a]">ArquitectoChile</span>
-                  <span className="text-gray-400">.com</span>
-                </span>
-              </button>
-              <div className="flex items-center gap-10 flex-shrink-0" style={{ marginRight: "32px" }}>
-                <div className="relative" ref={dropdownRef}>
-                  <button
-                    onClick={() => setIsServicesDropdownOpen(!isServicesDropdownOpen)}
-                    className={`${navLinkClass} flex items-center gap-1.5`}
-                  >
-                    Servicios
-                    <ChevronDown size={16} strokeWidth={1.5} className={`transition-transform ${isServicesDropdownOpen ? 'rotate-180' : ''}`} />
-                  </button>
-                  {isServicesDropdownOpen && (
-                    <div className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-80 bg-white border border-gray-200 rounded-lg shadow-xl z-50">
-                      <div className="py-2">
-                        {servicesMenuItems.map((item, index) => (
-                          <button
-                            key={index}
-                            onClick={() => navigateToService(item.href)}
-                            className="w-full text-left px-5 py-3 text-sm text-gray-600 hover:bg-gray-50 hover:text-[#0f172a] transition-colors"
-                          >
-                            {item.label}
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-                </div>
-                <button onClick={() => navigateToService('/calculadora-costos')} className={navLinkClass}>Calculadoras</button>
-              </div>
-              <a
-                href="/contacto"
-                className="bg-[#f97316] text-white rounded-lg font-bold hover:bg-orange-600 transition-colors shadow-lg shadow-orange-500/20 whitespace-nowrap inline-flex items-center justify-center flex-shrink-0"
-                style={{ minWidth: "220px", padding: "16px 24px" }}
-              >
-                Arquitecto a Domicilio
-              </a>
-            </div>
-          </div>
-        </nav>
-      </div>
-    );
-  }
-
   return (
     <div className="sticky top-0 z-50">
       <TopBar />
       <nav className="bg-white border-b border-gray-200">
-        <div className="w-full px-6 sm:px-8 lg:px-10">
-          <div className="flex items-center justify-between flex-nowrap" style={{ height: "140px" }}>
-
-            <button onClick={navigateToHome} className="flex items-center gap-4 hover:opacity-80 transition-opacity flex-shrink-0" style={{ marginRight: "48px" }}>
-              <img src={logoImg} alt="ArquitectoChile" className="h-[90px] w-auto flex-shrink-0" />
-              <span className="text-xl font-semibold whitespace-nowrap">
+        <div className="w-full px-4 sm:px-6 lg:px-10">
+          <div className="flex items-center justify-between flex-wrap lg:flex-nowrap h-auto lg:h-[140px] py-3 lg:py-0 gap-y-2">
+            <button onClick={navigateToHome} className="flex items-center gap-3 lg:gap-4 hover:opacity-80 transition-opacity flex-shrink-0 lg:mr-12">
+              <img src={logoImg} alt="ArquitectoChile" className="h-[50px] sm:h-[60px] lg:h-[90px] w-auto flex-shrink-0" />
+              <span className="hidden sm:inline text-lg lg:text-xl font-semibold whitespace-nowrap">
                 <span className="text-[#0f172a]">ArquitectoChile</span>
                 <span className="text-gray-400">.com</span>
               </span>
             </button>
 
-            <div className="hidden lg:flex items-center gap-10 flex-shrink-0" style={{ marginRight: "32px" }}>
+            <div className="hidden lg:flex items-center gap-10 flex-shrink-0 mr-8">
               <div className="relative" ref={dropdownRef}>
                 <button
                   onClick={() => setIsServicesDropdownOpen(!isServicesDropdownOpen)}
@@ -208,79 +243,33 @@ export default function Navigation() {
               <button onClick={() => navigateToService('/calculadora-costos')} className={navLinkClass}>Calculadoras</button>
             </div>
 
-            <div className="hidden lg:block flex-shrink-0">
+            <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
               <a
                 href="/contacto"
-                className="bg-[#f97316] text-white rounded-lg font-bold hover:bg-orange-600 transition-colors shadow-lg shadow-orange-500/20 whitespace-nowrap inline-flex items-center justify-center"
-                style={{ minWidth: "220px", padding: "16px 24px" }}
+                className="bg-[#f97316] text-white rounded-lg font-bold hover:bg-orange-600 transition-colors shadow-lg shadow-orange-500/20 whitespace-nowrap inline-flex items-center justify-center text-xs sm:text-sm lg:text-base px-3 py-2.5 sm:px-4 sm:py-3 lg:py-4 lg:min-w-[220px]"
               >
-                Arquitecto a Domicilio
+                <span className="sm:hidden">Consulta Gratis</span>
+                <span className="hidden sm:inline">Arquitecto a Domicilio</span>
               </a>
-            </div>
 
-            <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="lg:hidden text-[#0f172a] flex-shrink-0"
-            >
-              {isMenuOpen ? <X size={28} strokeWidth={1.5} /> : <Menu size={28} strokeWidth={1.5} />}
-            </button>
+              <button
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                className="lg:hidden text-[#0f172a] p-1.5 flex-shrink-0"
+                aria-label="Abrir menu"
+              >
+                <Menu size={26} strokeWidth={1.5} />
+              </button>
+            </div>
           </div>
         </div>
-
-        {isMenuOpen && (
-          <div className="lg:hidden bg-white border-t border-gray-100">
-            <div className="px-4 py-3 space-y-1">
-              <div>
-                <button
-                  onClick={() => setIsMobileServicesOpen(!isMobileServicesOpen)}
-                  className="flex items-center justify-between w-full text-left px-3 py-2.5 text-base font-semibold text-gray-600 hover:text-[#0f172a] rounded-lg"
-                >
-                  Servicios
-                  <ChevronDown size={16} strokeWidth={1.5} className={`transition-transform ${isMobileServicesOpen ? 'rotate-180' : ''}`} />
-                </button>
-                {isMobileServicesOpen && (
-                  <div className="ml-4 border-l border-gray-200 pl-4 space-y-0.5 mt-1">
-                    {servicesMenuItems.map((item, index) => (
-                      <button key={index} onClick={() => navigateToService(item.href)} className="block w-full text-left px-2 py-2 text-sm text-gray-500 hover:text-[#0f172a]">
-                        {item.label}
-                      </button>
-                    ))}
-                  </div>
-                )}
-              </div>
-              <button onClick={() => navigateToService('/calculadora-costos')} className="block w-full text-left px-3 py-2.5 text-base font-semibold text-gray-600 hover:text-[#0f172a] rounded-lg">Calculadoras</button>
-              <button onClick={() => navigateToService('/contacto')} className="block w-full text-left px-3 py-2.5 text-base font-semibold text-gray-600 hover:text-[#0f172a] rounded-lg">Contacto</button>
-              <div className="pt-2 border-t border-gray-100 mt-2 space-y-1">
-                <a href="/revista" className="flex items-center gap-2 px-3 py-2 text-sm text-gray-500 hover:text-[#0f172a]">
-                  <PlayCircle className="w-4 h-4" strokeWidth={1.5} />
-                  Revista Técnica
-                </a>
-                <a href="/casos-de-exito" className="flex items-center gap-2 px-3 py-2 text-sm text-gray-500 hover:text-[#0f172a]">
-                  <Star className="w-4 h-4" strokeWidth={1.5} />
-                  Casos de Éxito
-                </a>
-                <a href="/admin" className="flex items-center gap-2 px-3 py-2 text-sm text-gray-500 hover:text-[#0f172a]">
-                  <Lock className="w-4 h-4" strokeWidth={1.5} />
-                  Admin
-                </a>
-                <a href="/portal-cliente" className="flex items-center gap-2 px-3 py-2 text-sm text-gray-500 hover:text-[#0f172a]">
-                  <LayoutDashboard className="w-4 h-4" strokeWidth={1.5} />
-                  Portal de Clientes
-                </a>
-                <a href="/colaboradores" className="flex items-center gap-2 px-3 py-2 text-sm text-gray-500 hover:text-[#0f172a]">
-                  <Users className="w-4 h-4" strokeWidth={1.5} />
-                  Red de Colaboradores
-                </a>
-              </div>
-              <div className="pt-3 border-t border-gray-100 mt-2">
-                <a href="/contacto" className="block w-full text-center bg-[#f97316] text-white rounded-lg font-bold hover:bg-orange-600 transition-colors" style={{ padding: "16px 24px" }}>
-                  Arquitecto a Domicilio
-                </a>
-              </div>
-            </div>
-          </div>
-        )}
       </nav>
+
+      <MobileDrawer
+        isOpen={isMenuOpen}
+        onClose={() => setIsMenuOpen(false)}
+        servicesMenuItems={servicesMenuItems}
+        navigateToService={navigateToService}
+      />
     </div>
   );
 }
