@@ -59,7 +59,7 @@ export default function FunnelOptimizationVilma() {
     },
     {
       metric: "Lifetime Value",
-      value: "$1.800.000",
+      value: "$2.400.000",
       benchmark: "144x ROI promedio",
       status: "excellent",
       icon: <BarChart3 className="w-6 h-6 text-purple-600" />

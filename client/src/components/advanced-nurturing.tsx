@@ -45,7 +45,7 @@ export default function AdvancedNurturing() {
       conversions: "18%",
       color: "bg-green-100 text-green-800",
       sequence: [
-        { day: "Día 1", subject: "500+ ideas para tu casa perfecta", type: "Biblioteca de inspiración" },
+        { day: "Día 1", subject: "500+ ideas para tu proyecto de vivienda", type: "Biblioteca de inspiración" },
         { day: "Día 3", subject: "Tendencias 2025: Lo que está de moda", type: "Trends + Autoridad" },
         { day: "Día 7", subject: "Casa pequeña, gran impacto", type: "Inspiración específica" },
         { day: "Día 10", subject: "Antes y después: Transformaciones", type: "Visual storytelling" },

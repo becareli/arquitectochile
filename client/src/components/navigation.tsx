@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { Menu, X, ChevronDown, ArrowLeft, UserCheck, Briefcase } from "lucide-react";
+import { Menu, X, ChevronDown, ArrowLeft, UserCheck, Briefcase, Lock } from "lucide-react";
 import { useLocation } from "wouter";
 import logoImg from "@assets/ArquitectoChile.com_Logo_1771886286621.png";
 
@@ -7,21 +7,30 @@ function TopBar() {
   return (
     <div className="bg-[#0f172a] text-white">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-end items-center h-8 gap-5">
+        <div className="flex justify-between items-center h-8">
           <a
-            href="/portal-cliente"
+            href="/admin"
             className="flex items-center gap-1.5 text-[11px] text-gray-400 hover:text-white transition-colors font-medium tracking-wide"
           >
-            <UserCheck className="w-3.5 h-3.5" strokeWidth={1.5} />
-            Portal de Clientes
+            <Lock className="w-3 h-3" strokeWidth={1.5} />
+            Admin
           </a>
-          <a
-            href="/colaboradores"
-            className="flex items-center gap-1.5 text-[11px] text-gray-400 hover:text-white transition-colors font-medium tracking-wide"
-          >
-            <Briefcase className="w-3.5 h-3.5" strokeWidth={1.5} />
-            Red de Colaboradores
-          </a>
+          <div className="flex items-center gap-5">
+            <a
+              href="/portal-cliente"
+              className="flex items-center gap-1.5 text-[11px] text-gray-400 hover:text-white transition-colors font-medium tracking-wide"
+            >
+              <UserCheck className="w-3.5 h-3.5" strokeWidth={1.5} />
+              Portal de Clientes
+            </a>
+            <a
+              href="/colaboradores"
+              className="flex items-center gap-1.5 text-[11px] text-gray-400 hover:text-white transition-colors font-medium tracking-wide"
+            >
+              <Briefcase className="w-3.5 h-3.5" strokeWidth={1.5} />
+              Red de Colaboradores
+            </a>
+          </div>
         </div>
       </div>
     </div>
@@ -100,7 +109,7 @@ export default function Navigation() {
   const navLinkClass = "text-gray-600 hover:text-[#0f172a] transition-colors text-sm font-medium whitespace-nowrap";
 
   const LogoBrand = ({ onClick }: { onClick: () => void }) => (
-    <button onClick={onClick} className="flex items-center gap-3 hover:opacity-80 transition-opacity flex-shrink-0 mr-8">
+    <button onClick={onClick} className="flex items-center gap-3 hover:opacity-80 transition-opacity flex-shrink-0" style={{ marginRight: "40px" }}>
       <img src={logoImg} alt="ArquitectoChile" className="h-[42px] w-auto flex-shrink-0" />
       <span className="text-lg font-semibold whitespace-nowrap hidden sm:inline">
         <span className="text-[#0f172a]">ArquitectoChile</span>
@@ -125,7 +134,7 @@ export default function Navigation() {
                 </button>
                 <a
                   href="/contacto"
-                  className="bg-[#f97316] text-white rounded-lg text-sm font-semibold hover:bg-orange-600 transition-colors shadow-lg shadow-orange-500/20 whitespace-nowrap text-center inline-block"
+                  className="bg-[#f97316] text-white rounded-lg text-sm font-semibold hover:bg-orange-600 transition-colors shadow-lg shadow-orange-500/20 whitespace-nowrap text-center inline-flex items-center justify-center"
                   style={{ padding: "10px 24px" }}
                 >
                   Arquitecto a Domicilio
@@ -146,8 +155,7 @@ export default function Navigation() {
           <div className="flex justify-between items-center h-16">
             <LogoBrand onClick={navigateToHome} />
 
-            <div className="hidden lg:flex items-center gap-8">
-              <button onClick={() => handleNavigation('inicio')} className={navLinkClass}>Inicio</button>
+            <div className="hidden lg:flex items-center gap-8 flex-1 justify-center">
               <div className="relative" ref={dropdownRef}>
                 <button
                   onClick={() => setIsServicesDropdownOpen(!isServicesDropdownOpen)}
@@ -157,7 +165,7 @@ export default function Navigation() {
                   <ChevronDown size={14} strokeWidth={1.5} className={`transition-transform ${isServicesDropdownOpen ? 'rotate-180' : ''}`} />
                 </button>
                 {isServicesDropdownOpen && (
-                  <div className="absolute top-full left-0 mt-2 w-72 bg-white border border-gray-200 rounded-lg shadow-xl z-50">
+                  <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-72 bg-white border border-gray-200 rounded-lg shadow-xl z-50">
                     <div className="py-1">
                       {servicesMenuItems.map((item, index) => (
                         <button
@@ -180,7 +188,7 @@ export default function Navigation() {
             <div className="hidden lg:block flex-shrink-0">
               <a
                 href="/contacto"
-                className="bg-[#f97316] text-white rounded-lg text-sm font-semibold hover:bg-orange-600 transition-colors shadow-lg shadow-orange-500/20 whitespace-nowrap text-center inline-block"
+                className="bg-[#f97316] text-white rounded-lg text-sm font-semibold hover:bg-orange-600 transition-colors shadow-lg shadow-orange-500/20 whitespace-nowrap text-center inline-flex items-center justify-center"
                 style={{ padding: "10px 24px" }}
               >
                 Arquitecto a Domicilio
@@ -199,7 +207,6 @@ export default function Navigation() {
         {isMenuOpen && (
           <div className="lg:hidden bg-white border-t border-gray-100">
             <div className="px-4 py-3 space-y-1">
-              <button onClick={() => handleNavigation('inicio')} className="block w-full text-left px-3 py-2.5 text-sm text-gray-600 hover:text-[#0f172a] rounded-lg">Inicio</button>
               <div>
                 <button
                   onClick={() => setIsMobileServicesOpen(!isMobileServicesOpen)}
@@ -222,6 +229,10 @@ export default function Navigation() {
               <button onClick={() => handleNavigation('testimonios')} className="block w-full text-left px-3 py-2.5 text-sm text-gray-600 hover:text-[#0f172a] rounded-lg">Testimonios</button>
               <button onClick={() => navigateToService('/contacto')} className="block w-full text-left px-3 py-2.5 text-sm text-gray-600 hover:text-[#0f172a] rounded-lg">Contacto</button>
               <div className="pt-2 border-t border-gray-100 mt-2 space-y-2">
+                <a href="/admin" className="flex items-center gap-2 px-3 py-2 text-sm text-gray-500 hover:text-[#0f172a]">
+                  <Lock className="w-4 h-4" strokeWidth={1.5} />
+                  Admin
+                </a>
                 <a href="/portal-cliente" className="flex items-center gap-2 px-3 py-2 text-sm text-gray-500 hover:text-[#0f172a]">
                   <UserCheck className="w-4 h-4" strokeWidth={1.5} />
                   Portal de Clientes

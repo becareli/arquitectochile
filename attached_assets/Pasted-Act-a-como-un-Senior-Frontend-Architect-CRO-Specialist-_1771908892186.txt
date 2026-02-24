@@ -1,0 +1,43 @@
+Actúa como un Senior Frontend Architect & CRO Specialist. Necesito una re-estructuración final del sitio arquitectochile.com para unificar la marca y corregir errores de interfaz en una sola iteración.
+
+1. TOP BAR (GESTIÓN Y ACCESOS PRIVADOS):
+
+Crea una barra superior delgada (Top Bar) con fondo Navy Blue (#0f172a).
+
+Lado Izquierdo: Inserta el link 'Admin' con un icono de candado (Lock) pequeño y elegante.
+
+Lado Derecho: Inserta los links 'Portal de Clientes' y 'Red de Colaboradores' con iconos de Lucide.
+
+Estilo: Texto blanco, fuente Inter, tamaño pequeño (text-xs o text-sm).
+
+2. NAVBAR PRINCIPAL (ESTRATEGIA DE CONVERSIÓN):
+
+Eliminar 'Inicio': El logo cumple esa función.
+
+Lado Izquierdo: Logo cuadrado (casco y lápiz) height: 42px + texto 'ArquitectoChile.com' (Navy Blue). Asegura un margin-right de 40px para evitar traslapes.
+
+Centro: Enlaces directos y visibles (no escondidos) para 'Servicios' (Dropdown) y 'Calculadoras'.
+
+Lado Derecho: Botón 'Arquitecto a Domicilio' en Naranja Técnico (#f97316).
+
+REPARACIÓN UI: Asegura que el botón naranja NO se vea cortado. Usa padding: 10px 24px, centra el texto y dale rounded-lg. Todo el Navbar debe estar alineado verticalmente.
+
+3. UNIFICACIÓN DE PÁGINAS (LA FLORIDA Y SERVICIOS):
+
+Aplica el 'Technical Blueprint System' (Fondo blanco + Grilla técnica sutil) a las páginas de /regularizacion y /regularizacion-la-florida.
+
+Reemplaza colores antiguos por el Navy oficial y actualiza tipografía a Inter.
+
+En La Florida, añade el texto de autoridad: 'Especialistas en la DOM de La Florida - Expertos en Ley del Mono'.
+
+4. ESTRUCTURA DE LA HOME (JERARQUÍA DE VALOR):
+
+Orden exacto: 1. Hero, 2. Ebook, 3. Vivienda de Autor (Sección nueva), 4. Gestión Normativa, 5. Equipo de Especialistas (Banner de Red de Colaboradores), 6. Consultoría Corporativa.
+
+Ajuste de Oferta: Cambia 'Casa Perfecta' por 'Método ArquitectoChile'. Elimina el precio de $1.8M y las revisiones ilimitadas. Usa: 'Presupuestos personalizados tras Diagnóstico Técnico Inicial de $45.000'.
+
+5. FOOTER (AUTORIDAD):
+
+Logo en el footer con height: 100px, legible y centrado. Asegura que el fondo sea Navy con grilla.
+
+EJECUCIÓN: Modifica layout.tsx, navigation.tsx, footer.tsx y las rutas de servicios. No generes explicaciones, solo el código funcional final.

@@ -75,7 +75,7 @@ export default function LeadMagnetsVilma() {
           </h2>
           
           <p className="text-xl text-gray-600 max-w-4xl mx-auto mb-8">
-            Más de 2,000 familias han usado estos recursos para planificar su casa perfecta. 
+            Más de 2,000 familias han usado estos recursos para planificar su proyecto de arquitectura. 
             Ahora puedes acceder a ellos completamente gratis.
           </p>
 
@@ -172,8 +172,8 @@ export default function LeadMagnetsVilma() {
           </h3>
           
           <p className="text-xl mb-6 opacity-90">
-            Estos recursos han ayudado a 2,000+ familias a construir su casa sin errores costosos. 
-            Tu casa perfecta está a solo un email de distancia.
+            Estos recursos han ayudado a 2,000+ familias a planificar su proyecto sin errores costosos. 
+            Tu próximo paso está a solo un email de distancia.
           </p>
           
           {/* Testimonial inline */}

@@ -15,7 +15,7 @@ export default function WebinarSystem() {
       id: "masterclass_live",
       type: "LIVE MENSUAL",
       title: "Masterclass: Cómo Construir tu Casa Soñada sin Errores Costosos",
-      description: "Estrategias probadas para planificar, diseñar y construir tu casa perfecta en Santiago",
+      description: "Estrategias probadas para planificar, diseñar y construir tu proyecto residencial en Santiago",
       nextDate: "Sábado 15 Febrero, 10:00 AM",
       duration: "90 minutos",
       attendees: "250+ familias",
@@ -116,8 +116,8 @@ export default function WebinarSystem() {
           </h2>
           
           <p className="text-xl md:text-2xl text-gray-600 max-w-4xl mx-auto mb-8">
-            Masterclasses en vivo y automatizadas donde revelamos exactamente cómo construir 
-            tu casa perfecta sin errores costosos ni dolores de cabeza.
+            Masterclasses en vivo y automatizadas donde revelamos exactamente cómo planificar 
+            tu proyecto residencial sin errores costosos ni dolores de cabeza.
           </p>
 
           {/* Stats */}
