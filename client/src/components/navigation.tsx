@@ -4,35 +4,34 @@ import { useLocation } from "wouter";
 import logoImg from "@assets/ArquitectoChile.com_Logo_1771886286621.png";
 
 function TopBar() {
-  const fullLinkClass = "flex items-center gap-1.5 text-[11px] text-gray-400 hover:text-white transition-colors font-medium tracking-wide whitespace-nowrap";
-
+  const linkClass = "flex items-center gap-1.5 text-gray-400 hover:text-white transition-colors";
   return (
     <div className="bg-[#0f172a] text-white" style={{ height: "40px" }}>
-      <div className="w-full px-4 sm:px-6 lg:px-10 h-full">
-        <div className="flex justify-end items-center h-full gap-3 sm:gap-5">
-          <a href="/contacto" className={fullLinkClass}>
+      <div className="w-full px-3 sm:px-6 lg:px-10 h-full">
+        <div className="flex justify-end items-center h-full gap-2 sm:gap-4">
+          <a href="/contacto" className={linkClass}>
             <Mail className="w-3 h-3" strokeWidth={1.5} />
-            <span className="hidden md:inline">Contacto</span>
+            <span className="hidden md:inline text-[11px] font-medium tracking-wide">Contacto</span>
           </a>
-          <a href="/admin" className={fullLinkClass}>
+          <a href="/admin" className={linkClass}>
             <Lock className="w-3 h-3" strokeWidth={1.5} />
-            <span className="hidden md:inline">Admin</span>
+            <span className="hidden md:inline text-[11px] font-medium tracking-wide">Admin</span>
           </a>
-          <a href="/revista" className={fullLinkClass}>
+          <a href="/revista" className={linkClass}>
             <PlayCircle className="w-3.5 h-3.5" strokeWidth={1.5} />
-            <span className="hidden md:inline">Revista Técnica</span>
+            <span className="hidden md:inline text-[11px] font-medium tracking-wide">Revista Técnica</span>
           </a>
-          <a href="/casos-de-exito" className={fullLinkClass}>
+          <a href="/casos-de-exito" className={linkClass}>
             <Star className="w-3.5 h-3.5" strokeWidth={1.5} />
-            <span className="hidden md:inline">Casos de Éxito</span>
+            <span className="hidden md:inline text-[11px] font-medium tracking-wide">Casos de Éxito</span>
           </a>
-          <a href="/colaboradores" className={fullLinkClass}>
+          <a href="/colaboradores" className={linkClass}>
             <Users className="w-3.5 h-3.5" strokeWidth={1.5} />
-            <span className="hidden md:inline">Red de Colaboradores</span>
+            <span className="hidden md:inline text-[11px] font-medium tracking-wide">Red de Colaboradores</span>
           </a>
-          <a href="/portal-cliente" className={fullLinkClass}>
+          <a href="/portal-cliente" className={linkClass}>
             <LayoutDashboard className="w-3.5 h-3.5" strokeWidth={1.5} />
-            <span className="hidden md:inline">Portal de Clientes</span>
+            <span className="hidden md:inline text-[11px] font-medium tracking-wide">Portal de Clientes</span>
           </a>
         </div>
       </div>
@@ -43,35 +42,30 @@ function TopBar() {
 function MobileDrawer({
   isOpen,
   onClose,
-  servicesMenuItems,
   navigateToService,
 }: {
   isOpen: boolean;
   onClose: () => void;
-  servicesMenuItems: { label: string; href: string }[];
   navigateToService: (path: string) => void;
 }) {
-  const [isServicesExpanded, setIsServicesExpanded] = useState(false);
-
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = '';
-      setIsServicesExpanded(false);
     }
     return () => { document.body.style.overflow = ''; };
   }, [isOpen]);
 
   if (!isOpen) return null;
 
-  const drawerMenuItems = [
-    { label: "Calculadoras", href: "/calculadora-costos", icon: Calculator },
+  const drawerItems = [
     { label: "Revista Técnica", href: "/revista", icon: PlayCircle },
     { label: "Casos de Éxito", href: "/casos-de-exito", icon: Star },
     { label: "Red de Colaboradores", href: "/colaboradores", icon: Users },
     { label: "Portal de Clientes", href: "/portal-cliente", icon: LayoutDashboard },
     { label: "Admin", href: "/admin", icon: Lock },
+    { label: "Contacto", href: "/contacto", icon: Mail },
   ];
 
   return (
@@ -87,30 +81,7 @@ function MobileDrawer({
 
         <div className="flex-1 overflow-y-auto bg-blueprint">
           <div className="px-5 py-4 space-y-1">
-            <div>
-              <button
-                onClick={() => setIsServicesExpanded(!isServicesExpanded)}
-                className="flex items-center justify-between w-full text-left px-3 py-3 text-base font-semibold text-[#0f172a] hover:bg-white/60 rounded-lg transition-colors"
-              >
-                Servicios
-                <ChevronDown size={18} strokeWidth={1.5} className={`text-gray-400 transition-transform ${isServicesExpanded ? 'rotate-180' : ''}`} />
-              </button>
-              {isServicesExpanded && (
-                <div className="ml-3 border-l-2 border-[#f97316]/30 pl-4 space-y-0.5 mt-1 mb-2">
-                  {servicesMenuItems.map((item, index) => (
-                    <button
-                      key={index}
-                      onClick={() => navigateToService(item.href)}
-                      className="block w-full text-left px-2 py-2.5 text-sm text-gray-500 hover:text-[#0f172a] hover:bg-white/60 rounded transition-colors"
-                    >
-                      {item.label}
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
-
-            {drawerMenuItems.map((item, index) => (
+            {drawerItems.map((item, index) => (
               <button
                 key={index}
                 onClick={() => navigateToService(item.href)}
@@ -126,17 +97,10 @@ function MobileDrawer({
         <div className="px-5 py-4 border-t border-gray-200 bg-white flex-shrink-0">
           <a
             href="/contacto"
-            className="flex items-center justify-center gap-2 w-full bg-[#f97316] text-white rounded-lg font-bold hover:bg-orange-600 transition-colors shadow-lg shadow-orange-500/20"
-            style={{ padding: "14px 20px" }}
+            className="flex items-center justify-center gap-2 w-full bg-[#f97316] text-white rounded-lg font-bold hover:bg-orange-600 transition-colors shadow-lg shadow-orange-500/20 py-3.5"
           >
             Arquitecto a Domicilio
             <ArrowRight size={18} strokeWidth={2} />
-          </a>
-          <a
-            href="/contacto"
-            className="block text-center text-xs text-gray-400 mt-2 hover:text-[#0f172a] transition-colors"
-          >
-            contacto@arquitectochile.com
           </a>
         </div>
       </div>
@@ -147,10 +111,10 @@ function MobileDrawer({
 export default function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isServicesDropdownOpen, setIsServicesDropdownOpen] = useState(false);
+  const [isMobileServicesOpen, setIsMobileServicesOpen] = useState(false);
   const [location, setLocation] = useLocation();
   const dropdownRef = useRef<HTMLDivElement>(null);
-
-  const isHomePage = location === "/";
+  const mobileDropdownRef = useRef<HTMLDivElement>(null);
 
   const servicesMenuItems = [
     { label: "Asesoría de Arquitectura a Domicilio", href: "/asesoria-arquitectonica-terreno" },
@@ -170,6 +134,9 @@ export default function Navigation() {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setIsServicesDropdownOpen(false);
       }
+      if (mobileDropdownRef.current && !mobileDropdownRef.current.contains(event.target as Node)) {
+        setIsMobileServicesOpen(false);
+      }
     };
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
@@ -178,6 +145,7 @@ export default function Navigation() {
   const navigateToHome = () => {
     setLocation('/');
     setIsMenuOpen(false);
+    setIsMobileServicesOpen(false);
   };
 
   const navigateToService = (path: string) => {
@@ -196,30 +164,59 @@ export default function Navigation() {
       setLocation(path);
     }
     setIsServicesDropdownOpen(false);
+    setIsMobileServicesOpen(false);
     setIsMenuOpen(false);
   };
-
-  const navLinkClass = "text-gray-600 hover:text-[#0f172a] transition-colors text-lg font-semibold whitespace-nowrap";
 
   return (
     <div className="sticky top-0 z-50">
       <TopBar />
       <nav className="bg-white border-b border-gray-200">
-        <div className="w-full px-4 sm:px-6 lg:px-10">
-          <div className="flex items-center justify-between flex-wrap lg:flex-nowrap h-auto lg:h-[140px] py-3 lg:py-0 gap-y-2">
-            <button onClick={navigateToHome} className="flex items-center gap-3 lg:gap-4 hover:opacity-80 transition-opacity flex-shrink-0 lg:mr-12">
-              <img src={logoImg} alt="ArquitectoChile" className="h-[50px] sm:h-[60px] lg:h-[90px] w-auto flex-shrink-0" />
-              <span className="hidden sm:inline text-lg lg:text-xl font-semibold whitespace-nowrap">
-                <span className="text-[#0f172a]">ArquitectoChile</span>
-                <span className="text-gray-400">.com</span>
+        <div className="w-full px-2 sm:px-4 lg:px-10">
+          <div className="flex items-center justify-between flex-nowrap h-[64px] sm:h-[80px] lg:h-[140px]">
+
+            {/* Logo + Brand */}
+            <button onClick={navigateToHome} className="flex items-center gap-1.5 sm:gap-3 lg:gap-4 hover:opacity-80 transition-opacity flex-shrink-0 min-w-0">
+              <img src={logoImg} alt="ArquitectoChile" className="h-[40px] sm:h-[50px] lg:h-[90px] w-auto flex-shrink-0" />
+              <span className="hidden sm:flex flex-col leading-tight lg:flex-row lg:gap-0">
+                <span className="text-[10px] sm:text-xs lg:text-xl font-semibold text-[#0f172a] whitespace-nowrap">ArquitectoChile</span>
+                <span className="text-[10px] sm:text-xs lg:text-xl font-semibold text-gray-400 whitespace-nowrap">.com</span>
               </span>
             </button>
 
-            <div className="hidden lg:flex items-center gap-10 flex-shrink-0 mr-8">
-              <div className="relative" ref={dropdownRef}>
+            {/* ALWAYS-VISIBLE: Servicios + Calculadoras */}
+            <div className="flex items-center gap-1 sm:gap-2 lg:gap-10 flex-shrink-0">
+              {/* Mobile Servicios dropdown */}
+              <div className="relative lg:hidden" ref={mobileDropdownRef}>
+                <button
+                  onClick={() => setIsMobileServicesOpen(!isMobileServicesOpen)}
+                  className="flex items-center gap-0.5 text-[11px] sm:text-xs font-semibold text-gray-600 hover:text-[#0f172a] transition-colors whitespace-nowrap px-1.5 py-1"
+                >
+                  Servicios
+                  <ChevronDown size={12} strokeWidth={2} className={`transition-transform ${isMobileServicesOpen ? 'rotate-180' : ''}`} />
+                </button>
+                {isMobileServicesOpen && (
+                  <div className="absolute top-full left-0 mt-1 w-64 bg-white border border-gray-200 rounded-lg shadow-xl z-50">
+                    <div className="py-1 max-h-[60vh] overflow-y-auto">
+                      {servicesMenuItems.map((item, index) => (
+                        <button
+                          key={index}
+                          onClick={() => navigateToService(item.href)}
+                          className="w-full text-left px-4 py-2.5 text-xs text-gray-600 hover:bg-gray-50 hover:text-[#0f172a] transition-colors"
+                        >
+                          {item.label}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* Desktop Servicios dropdown */}
+              <div className="relative hidden lg:block" ref={dropdownRef}>
                 <button
                   onClick={() => setIsServicesDropdownOpen(!isServicesDropdownOpen)}
-                  className={`${navLinkClass} flex items-center gap-1.5`}
+                  className="flex items-center gap-1.5 text-lg font-semibold text-gray-600 hover:text-[#0f172a] transition-colors whitespace-nowrap"
                 >
                   Servicios
                   <ChevronDown size={16} strokeWidth={1.5} className={`transition-transform ${isServicesDropdownOpen ? 'rotate-180' : ''}`} />
@@ -240,24 +237,32 @@ export default function Navigation() {
                   </div>
                 )}
               </div>
-              <button onClick={() => navigateToService('/calculadora-costos')} className={navLinkClass}>Calculadoras</button>
+
+              {/* Calculadoras - always visible */}
+              <button
+                onClick={() => navigateToService('/calculadora-costos')}
+                className="text-[11px] sm:text-xs lg:text-lg font-semibold text-gray-600 hover:text-[#0f172a] transition-colors whitespace-nowrap px-1.5 py-1 lg:px-0"
+              >
+                Calculadoras
+              </button>
             </div>
 
-            <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
+            {/* CTA + Hamburger */}
+            <div className="flex items-center gap-1 sm:gap-2 flex-shrink-0">
               <a
                 href="/contacto"
-                className="bg-[#f97316] text-white rounded-lg font-bold hover:bg-orange-600 transition-colors shadow-lg shadow-orange-500/20 whitespace-nowrap inline-flex items-center justify-center text-xs sm:text-sm lg:text-base px-3 py-2.5 sm:px-4 sm:py-3 lg:py-4 lg:min-w-[220px]"
+                className="bg-[#f97316] text-white rounded-md lg:rounded-lg font-bold hover:bg-orange-600 transition-colors shadow-lg shadow-orange-500/20 whitespace-nowrap inline-flex items-center justify-center text-[10px] sm:text-xs lg:text-base px-2 py-2 sm:px-3 sm:py-2.5 lg:py-4 lg:min-w-[220px]"
               >
-                <span className="sm:hidden">Consulta Gratis</span>
+                <span className="sm:hidden">Asesoría</span>
                 <span className="hidden sm:inline">Arquitecto a Domicilio</span>
               </a>
 
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="lg:hidden text-[#0f172a] p-1.5 flex-shrink-0"
+                className="lg:hidden text-[#0f172a] p-1 flex-shrink-0"
                 aria-label="Abrir menu"
               >
-                <Menu size={26} strokeWidth={1.5} />
+                <Menu size={22} strokeWidth={1.5} />
               </button>
             </div>
           </div>
@@ -267,7 +272,6 @@ export default function Navigation() {
       <MobileDrawer
         isOpen={isMenuOpen}
         onClose={() => setIsMenuOpen(false)}
-        servicesMenuItems={servicesMenuItems}
         navigateToService={navigateToService}
       />
     </div>
