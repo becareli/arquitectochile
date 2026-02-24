@@ -1,7 +1,32 @@
 import { useState, useRef, useEffect } from "react";
-import { Menu, X, ChevronDown, ArrowLeft } from "lucide-react";
+import { Menu, X, ChevronDown, ArrowLeft, UserCheck, Briefcase } from "lucide-react";
 import { useLocation } from "wouter";
 import logoImg from "@assets/ArquitectoChile.com_Logo_1771886286621.png";
+
+function TopBar() {
+  return (
+    <div className="bg-[#0f172a] text-white">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-end items-center h-8 gap-5">
+          <a
+            href="/portal-cliente"
+            className="flex items-center gap-1.5 text-[11px] text-gray-400 hover:text-white transition-colors font-medium tracking-wide"
+          >
+            <UserCheck className="w-3.5 h-3.5" strokeWidth={1.5} />
+            Portal de Clientes
+          </a>
+          <a
+            href="/colaboradores"
+            className="flex items-center gap-1.5 text-[11px] text-gray-400 hover:text-white transition-colors font-medium tracking-wide"
+          >
+            <Briefcase className="w-3.5 h-3.5" strokeWidth={1.5} />
+            Red de Colaboradores
+          </a>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -72,12 +97,12 @@ export default function Navigation() {
     setIsMenuOpen(false);
   };
 
-  const navLinkClass = "text-gray-600 hover:text-[#0f172a] transition-colors text-sm font-medium";
+  const navLinkClass = "text-gray-600 hover:text-[#0f172a] transition-colors text-sm font-medium whitespace-nowrap";
 
   const LogoBrand = ({ onClick }: { onClick: () => void }) => (
-    <button onClick={onClick} className="flex items-center gap-2.5 hover:opacity-80 transition-opacity">
-      <img src={logoImg} alt="ArquitectoChile" className="h-[42px] w-auto" />
-      <span className="text-lg font-semibold">
+    <button onClick={onClick} className="flex items-center gap-3 hover:opacity-80 transition-opacity flex-shrink-0 mr-8">
+      <img src={logoImg} alt="ArquitectoChile" className="h-[42px] w-auto flex-shrink-0" />
+      <span className="text-lg font-semibold whitespace-nowrap hidden sm:inline">
         <span className="text-[#0f172a]">ArquitectoChile</span>
         <span className="text-gray-400">.com</span>
       </span>
@@ -86,117 +111,135 @@ export default function Navigation() {
 
   if (!isHomePage) {
     return (
-      <nav className="bg-white border-b border-gray-200 sticky top-0 z-50">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <LogoBrand onClick={navigateToHome} />
-            <div className="flex items-center gap-4">
-              <button onClick={navigateToHome} className="flex items-center gap-1.5 text-sm font-medium text-gray-500 hover:text-[#0f172a] transition-colors">
-                <ArrowLeft size={16} strokeWidth={1.5} />
-                <span className="hidden sm:inline">Volver al Inicio</span>
-                <span className="sm:hidden">Inicio</span>
-              </button>
-              <a
-                href="/contacto"
-                className="bg-[#f97316] text-white px-6 py-2 rounded-lg text-sm font-semibold hover:bg-orange-600 transition-colors shadow-lg shadow-orange-500/20 whitespace-nowrap text-center"
-              >
-                Arquitecto a Domicilio
-              </a>
+      <div className="sticky top-0 z-50">
+        <TopBar />
+        <nav className="bg-white border-b border-gray-200">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex justify-between items-center h-16">
+              <LogoBrand onClick={navigateToHome} />
+              <div className="flex items-center gap-5">
+                <button onClick={navigateToHome} className="flex items-center gap-1.5 text-sm font-medium text-gray-500 hover:text-[#0f172a] transition-colors whitespace-nowrap">
+                  <ArrowLeft size={16} strokeWidth={1.5} />
+                  <span className="hidden sm:inline">Volver al Inicio</span>
+                  <span className="sm:hidden">Inicio</span>
+                </button>
+                <a
+                  href="/contacto"
+                  className="bg-[#f97316] text-white rounded-lg text-sm font-semibold hover:bg-orange-600 transition-colors shadow-lg shadow-orange-500/20 whitespace-nowrap text-center inline-block"
+                  style={{ padding: "10px 24px" }}
+                >
+                  Arquitecto a Domicilio
+                </a>
+              </div>
             </div>
           </div>
-        </div>
-      </nav>
+        </nav>
+      </div>
     );
   }
 
   return (
-    <nav className="bg-white border-b border-gray-200 sticky top-0 z-50">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          <LogoBrand onClick={navigateToHome} />
+    <div className="sticky top-0 z-50">
+      <TopBar />
+      <nav className="bg-white border-b border-gray-200">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16">
+            <LogoBrand onClick={navigateToHome} />
 
-          <div className="hidden md:flex items-center gap-6">
-            <button onClick={() => handleNavigation('inicio')} className={navLinkClass}>Inicio</button>
-            <div className="relative" ref={dropdownRef}>
-              <button
-                onClick={() => setIsServicesDropdownOpen(!isServicesDropdownOpen)}
-                className={`${navLinkClass} flex items-center gap-1`}
+            <div className="hidden lg:flex items-center gap-8">
+              <button onClick={() => handleNavigation('inicio')} className={navLinkClass}>Inicio</button>
+              <div className="relative" ref={dropdownRef}>
+                <button
+                  onClick={() => setIsServicesDropdownOpen(!isServicesDropdownOpen)}
+                  className={`${navLinkClass} flex items-center gap-1`}
+                >
+                  Servicios
+                  <ChevronDown size={14} strokeWidth={1.5} className={`transition-transform ${isServicesDropdownOpen ? 'rotate-180' : ''}`} />
+                </button>
+                {isServicesDropdownOpen && (
+                  <div className="absolute top-full left-0 mt-2 w-72 bg-white border border-gray-200 rounded-lg shadow-xl z-50">
+                    <div className="py-1">
+                      {servicesMenuItems.map((item, index) => (
+                        <button
+                          key={index}
+                          onClick={() => navigateToService(item.href)}
+                          className="w-full text-left px-4 py-2.5 text-sm text-gray-600 hover:bg-gray-50 hover:text-[#0f172a] transition-colors"
+                        >
+                          {item.label}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+              <button onClick={() => navigateToService('/calculadora-costos')} className={navLinkClass}>Calculadoras</button>
+              <button onClick={() => handleNavigation('testimonios')} className={navLinkClass}>Testimonios</button>
+              <button onClick={() => navigateToService('/contacto')} className={navLinkClass}>Contacto</button>
+            </div>
+
+            <div className="hidden lg:block flex-shrink-0">
+              <a
+                href="/contacto"
+                className="bg-[#f97316] text-white rounded-lg text-sm font-semibold hover:bg-orange-600 transition-colors shadow-lg shadow-orange-500/20 whitespace-nowrap text-center inline-block"
+                style={{ padding: "10px 24px" }}
               >
-                Servicios
-                <ChevronDown size={14} strokeWidth={1.5} className={`transition-transform ${isServicesDropdownOpen ? 'rotate-180' : ''}`} />
-              </button>
-              {isServicesDropdownOpen && (
-                <div className="absolute top-full left-0 mt-2 w-72 bg-white border border-gray-200 rounded-lg shadow-xl z-50">
-                  <div className="py-1">
+                Arquitecto a Domicilio
+              </a>
+            </div>
+
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="lg:hidden text-[#0f172a]"
+            >
+              {isMenuOpen ? <X size={22} strokeWidth={1.5} /> : <Menu size={22} strokeWidth={1.5} />}
+            </button>
+          </div>
+        </div>
+
+        {isMenuOpen && (
+          <div className="lg:hidden bg-white border-t border-gray-100">
+            <div className="px-4 py-3 space-y-1">
+              <button onClick={() => handleNavigation('inicio')} className="block w-full text-left px-3 py-2.5 text-sm text-gray-600 hover:text-[#0f172a] rounded-lg">Inicio</button>
+              <div>
+                <button
+                  onClick={() => setIsMobileServicesOpen(!isMobileServicesOpen)}
+                  className="flex items-center justify-between w-full text-left px-3 py-2.5 text-sm text-gray-600 hover:text-[#0f172a] rounded-lg"
+                >
+                  Servicios
+                  <ChevronDown size={14} strokeWidth={1.5} className={`transition-transform ${isMobileServicesOpen ? 'rotate-180' : ''}`} />
+                </button>
+                {isMobileServicesOpen && (
+                  <div className="ml-4 border-l border-gray-200 pl-4 space-y-0.5 mt-1">
                     {servicesMenuItems.map((item, index) => (
-                      <button
-                        key={index}
-                        onClick={() => navigateToService(item.href)}
-                        className="w-full text-left px-4 py-2.5 text-sm text-gray-600 hover:bg-gray-50 hover:text-[#0f172a] transition-colors"
-                      >
+                      <button key={index} onClick={() => navigateToService(item.href)} className="block w-full text-left px-2 py-2 text-sm text-gray-500 hover:text-[#0f172a]">
                         {item.label}
                       </button>
                     ))}
                   </div>
-                </div>
-              )}
-            </div>
-            <button onClick={() => navigateToService('/calculadora-costos')} className={navLinkClass}>Calculadoras</button>
-            <button onClick={() => handleNavigation('testimonios')} className={navLinkClass}>Testimonios</button>
-            <button onClick={() => navigateToService('/contacto')} className={navLinkClass}>Contacto</button>
-          </div>
-
-          <div className="hidden md:block">
-            <a
-              href="/contacto"
-              className="bg-[#f97316] text-white px-6 py-2 rounded-lg text-sm font-semibold hover:bg-orange-600 transition-colors shadow-lg shadow-orange-500/20 whitespace-nowrap text-center"
-            >
-              Arquitecto a Domicilio
-            </a>
-          </div>
-
-          <button
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="md:hidden text-[#0f172a]"
-          >
-            {isMenuOpen ? <X size={22} strokeWidth={1.5} /> : <Menu size={22} strokeWidth={1.5} />}
-          </button>
-        </div>
-      </div>
-
-      {isMenuOpen && (
-        <div className="md:hidden bg-white border-t border-gray-100">
-          <div className="px-4 py-3 space-y-1">
-            <button onClick={() => handleNavigation('inicio')} className="block w-full text-left px-3 py-2.5 text-sm text-gray-600 hover:text-[#0f172a] rounded-lg">Inicio</button>
-            <div>
-              <button
-                onClick={() => setIsMobileServicesOpen(!isMobileServicesOpen)}
-                className="flex items-center justify-between w-full text-left px-3 py-2.5 text-sm text-gray-600 hover:text-[#0f172a] rounded-lg"
-              >
-                Servicios
-                <ChevronDown size={14} strokeWidth={1.5} className={`transition-transform ${isMobileServicesOpen ? 'rotate-180' : ''}`} />
-              </button>
-              {isMobileServicesOpen && (
-                <div className="ml-4 border-l border-gray-200 pl-4 space-y-0.5 mt-1">
-                  {servicesMenuItems.map((item, index) => (
-                    <button key={index} onClick={() => navigateToService(item.href)} className="block w-full text-left px-2 py-2 text-sm text-gray-500 hover:text-[#0f172a]">
-                      {item.label}
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
-            <button onClick={() => navigateToService('/calculadora-costos')} className="block w-full text-left px-3 py-2.5 text-sm text-gray-600 hover:text-[#0f172a] rounded-lg">Calculadoras</button>
-            <button onClick={() => handleNavigation('testimonios')} className="block w-full text-left px-3 py-2.5 text-sm text-gray-600 hover:text-[#0f172a] rounded-lg">Testimonios</button>
-            <button onClick={() => navigateToService('/contacto')} className="block w-full text-left px-3 py-2.5 text-sm text-gray-600 hover:text-[#0f172a] rounded-lg">Contacto</button>
-            <div className="pt-3 border-t border-gray-100 mt-2">
-              <a href="/contacto" className="block w-full text-center bg-[#f97316] text-white px-6 py-3 rounded-lg text-sm font-semibold hover:bg-orange-600 transition-colors">
-                Arquitecto a Domicilio
-              </a>
+                )}
+              </div>
+              <button onClick={() => navigateToService('/calculadora-costos')} className="block w-full text-left px-3 py-2.5 text-sm text-gray-600 hover:text-[#0f172a] rounded-lg">Calculadoras</button>
+              <button onClick={() => handleNavigation('testimonios')} className="block w-full text-left px-3 py-2.5 text-sm text-gray-600 hover:text-[#0f172a] rounded-lg">Testimonios</button>
+              <button onClick={() => navigateToService('/contacto')} className="block w-full text-left px-3 py-2.5 text-sm text-gray-600 hover:text-[#0f172a] rounded-lg">Contacto</button>
+              <div className="pt-2 border-t border-gray-100 mt-2 space-y-2">
+                <a href="/portal-cliente" className="flex items-center gap-2 px-3 py-2 text-sm text-gray-500 hover:text-[#0f172a]">
+                  <UserCheck className="w-4 h-4" strokeWidth={1.5} />
+                  Portal de Clientes
+                </a>
+                <a href="/colaboradores" className="flex items-center gap-2 px-3 py-2 text-sm text-gray-500 hover:text-[#0f172a]">
+                  <Briefcase className="w-4 h-4" strokeWidth={1.5} />
+                  Red de Colaboradores
+                </a>
+              </div>
+              <div className="pt-3 border-t border-gray-100 mt-2">
+                <a href="/contacto" className="block w-full text-center bg-[#f97316] text-white rounded-lg text-sm font-semibold hover:bg-orange-600 transition-colors" style={{ padding: "12px 24px" }}>
+                  Arquitecto a Domicilio
+                </a>
+              </div>
             </div>
           </div>
-        </div>
-      )}
-    </nav>
+        )}
+      </nav>
+    </div>
   );
 }

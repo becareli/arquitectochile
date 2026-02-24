@@ -3,6 +3,7 @@ import Navigation from "@/components/navigation";
 import Hero from "@/components/hero";
 import LeadMagnet from "@/components/lead-magnet";
 import ViviendaAutor from "@/components/vivienda-autor";
+import CollaboratorsBanner from "@/components/collaborators-banner";
 import Services from "@/components/services";
 import SalesMechanism from "@/components/sales-mechanism";
 import EnergyCalculator from "@/components/calculators/energy-calculator";
@@ -126,6 +127,8 @@ export default function Home() {
       </section>
 
       <ViviendaAutor />
+
+      <CollaboratorsBanner />
 
       <Services />
 
