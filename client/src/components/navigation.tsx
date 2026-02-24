@@ -8,7 +8,7 @@ function TopBar() {
   return (
     <div className="bg-[#0f172a] text-white" style={{ height: "36px" }}>
       <div className="w-full px-3 sm:px-6 lg:px-10 h-full">
-        <div className="flex justify-end items-center h-full gap-3 sm:gap-4">
+        <div className="flex justify-end items-center h-full gap-4 sm:gap-5">
           <a href="/contacto" className={linkClass}>
             <Mail className="w-3 h-3" strokeWidth={1.5} />
             <span className="hidden md:inline text-[11px] font-medium tracking-wide">Contacto</span>
@@ -173,10 +173,10 @@ export default function Navigation() {
       <TopBar />
       <nav className="bg-white border-b border-gray-200">
         <div className="w-full px-2 sm:px-4 lg:px-10">
-          <div className="flex items-center justify-between flex-nowrap h-[64px] sm:h-[80px] lg:h-[140px]">
+          <div className="flex items-center justify-between flex-nowrap h-[64px] sm:h-[80px] lg:h-[140px] gap-2">
 
             {/* Logo + Brand */}
-            <button onClick={navigateToHome} className="flex items-center gap-1.5 sm:gap-2 lg:gap-4 hover:opacity-80 transition-opacity flex-shrink-0 min-w-0">
+            <button onClick={navigateToHome} className="flex items-center gap-1.5 lg:gap-4 hover:opacity-80 transition-opacity flex-shrink-0 min-w-0">
               <img src={logoImg} alt="ArquitectoChile" className="h-[36px] sm:h-[44px] lg:h-[90px] w-auto flex-shrink-0" />
               <span className="hidden sm:inline lg:hidden text-xs font-semibold text-[#0f172a] whitespace-nowrap tracking-tight">ArquitectoChile</span>
               <span className="hidden lg:inline text-xl font-semibold whitespace-nowrap">
@@ -186,12 +186,12 @@ export default function Navigation() {
             </button>
 
             {/* ALWAYS-VISIBLE: Servicios + Calculadoras */}
-            <div className="flex items-center gap-4 lg:gap-10 flex-shrink-0">
+            <div className="flex items-center gap-3 sm:gap-4 lg:gap-10 flex-shrink-0">
               {/* Mobile Servicios dropdown */}
               <div className="relative lg:hidden" ref={mobileDropdownRef}>
                 <button
                   onClick={() => setIsMobileServicesOpen(!isMobileServicesOpen)}
-                  className="flex items-center gap-1 text-sm font-bold text-[#0f172a] hover:text-[#f97316] transition-colors whitespace-nowrap py-2 px-1"
+                  className="flex items-center gap-1 text-base font-bold text-[#0f172a] hover:text-[#f97316] transition-colors whitespace-nowrap py-2"
                 >
                   Servicios
                   <ChevronDown size={14} strokeWidth={2.5} className={`transition-transform ${isMobileServicesOpen ? 'rotate-180' : ''}`} />
@@ -242,7 +242,7 @@ export default function Navigation() {
               {/* Calculadoras - always visible */}
               <button
                 onClick={() => navigateToService('/calculadora-costos')}
-                className="text-sm lg:text-lg font-bold lg:font-semibold text-[#0f172a] lg:text-gray-600 hover:text-[#f97316] lg:hover:text-[#0f172a] transition-colors whitespace-nowrap py-2 px-1 lg:px-0"
+                className="text-base lg:text-lg font-bold lg:font-semibold text-[#0f172a] lg:text-gray-600 hover:text-[#f97316] lg:hover:text-[#0f172a] transition-colors whitespace-nowrap py-2 lg:px-0"
               >
                 Calculadoras
               </button>
@@ -252,7 +252,7 @@ export default function Navigation() {
             <div className="flex items-center gap-2 flex-shrink-0">
               <a
                 href="/contacto"
-                className="bg-[#f97316] text-white rounded-lg font-bold hover:bg-orange-600 transition-colors shadow-lg shadow-orange-500/20 whitespace-nowrap inline-flex items-center justify-center text-xs sm:text-sm lg:text-base px-3.5 py-2.5 sm:px-4 sm:py-3 lg:py-4 lg:min-w-[220px]"
+                className="bg-[#f97316] text-white rounded-lg font-extrabold hover:bg-orange-600 transition-colors shadow-lg shadow-orange-500/20 whitespace-nowrap inline-flex items-center justify-center text-sm sm:text-sm lg:text-base px-4 py-2.5 sm:px-5 sm:py-3 lg:py-4 lg:min-w-[220px] tracking-wide"
               >
                 <span className="sm:hidden">Asesoría</span>
                 <span className="hidden sm:inline">Arquitecto a Domicilio</span>
