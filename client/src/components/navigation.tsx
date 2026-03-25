@@ -176,9 +176,9 @@ export default function Navigation() {
           <div className="flex items-center justify-between flex-nowrap h-[64px] sm:h-[80px] lg:h-[140px] gap-2">
 
             {/* Logo + Brand */}
-            <button onClick={navigateToHome} className="flex items-center gap-1.5 lg:gap-4 hover:opacity-80 transition-opacity flex-shrink-0 min-w-0">
-              <img src={logoImg} alt="ArquitectoChile" className="h-[36px] sm:h-[44px] lg:h-[90px] w-auto flex-shrink-0" />
-              <span className="hidden sm:inline lg:hidden text-xs font-semibold text-[#0f172a] whitespace-nowrap tracking-tight">ArquitectoChile</span>
+            <button onClick={navigateToHome} className="flex items-center gap-2 lg:gap-4 hover:opacity-80 transition-opacity flex-shrink-0 min-w-0">
+              <img src={logoImg} alt="ArquitectoChile" className="h-[48px] sm:h-[56px] lg:h-[90px] w-auto flex-shrink-0" />
+              <span className="inline lg:hidden text-sm sm:text-base font-bold text-[#0f172a] whitespace-nowrap tracking-tight">ArquitectoChile<span className="text-gray-400">.com</span></span>
               <span className="hidden lg:inline text-xl font-semibold whitespace-nowrap">
                 <span className="text-[#0f172a]">ArquitectoChile</span>
                 <span className="text-gray-400">.com</span>
