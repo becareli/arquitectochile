@@ -22,6 +22,7 @@ import path from "path";
 import fs from "fs";
 import type { RequestHandler } from "express";
 import { sendLeadEmail } from "./lead-integrations";
+import { upsertSystemeIoContact, buildTags } from "./systeme-io";
 // Enhanced analytics will be loaded separately to avoid circular imports
 
 // Webhook schemas for AI agent integration
@@ -330,6 +331,23 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       console.log(`📊 Email: ${emailResult.ok ? "enviado" : emailResult.error}`);
 
+      try {
+        const tags = buildTags({
+          source: "contacto",
+          classification,
+          serviceInterest: d.service || d.tipo_proyecto || undefined,
+        });
+        const syncResult = await upsertSystemeIoContact({
+          email: d.email,
+          firstName: d.nombre.split(" ")[0],
+          tags,
+          source: "contacto-agustin",
+        });
+        console.log(`📧 Systeme.io: ${syncResult.ok ? `sincronizado (id=${syncResult.contactId})` : syncResult.error}`);
+      } catch (sioErr: any) {
+        console.warn("⚠️ Systeme.io error (no crítico):", sioErr.message);
+      }
+
       res.json({
         ok: true,
         classification,
@@ -424,7 +442,25 @@ export async function registerRoutes(app: Express): Promise<Server> {
       };
 
       const lead = await storage.createLead(enrichedLeadData);
-      
+
+      try {
+        const classification = leadScore >= 80 ? "VIP" : "NUEVO";
+        const tags = buildTags({
+          source: "calculadora",
+          classification,
+          serviceInterest: leadData.projectType || undefined,
+        });
+        const syncResult = await upsertSystemeIoContact({
+          email: leadData.email,
+          firstName: leadData.name.split(" ")[0],
+          tags,
+          source: "calculadora-costos",
+        });
+        console.log(`📧 Systeme.io (calculadora): ${syncResult.ok ? `sincronizado (id=${syncResult.contactId})` : syncResult.error}`);
+      } catch (sioErr: any) {
+        console.warn("⚠️ Systeme.io error (no crítico):", sioErr.message);
+      }
+
       res.json({ 
         success: true, 
         lead, 
