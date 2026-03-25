@@ -70,9 +70,6 @@ export async function upsertSystemeIoContact(opts: {
   const payload: SystemeIoContactPayload = {
     email: opts.email,
     firstName: opts.firstName,
-    fields: opts.source
-      ? [{ slug: "source", value: opts.source }]
-      : undefined,
     tags: opts.tags,
   };
 
@@ -94,7 +91,7 @@ export async function upsertSystemeIoContact(opts: {
 
     const errText = await response.text();
 
-    if (response.status === 409) {
+    if (response.status === 409 || (response.status === 422 && errText.includes("ya se ha utilizado"))) {
       console.log(`ℹ️ Systeme.io: contacto ya existe [${opts.email}], actualizando`);
       return await updateExistingContact(opts, apiKey);
     }
@@ -135,12 +132,6 @@ async function updateExistingContact(
       firstName: opts.firstName,
       tags: mergedTags,
     };
-
-    if (opts.source) {
-      const existingFields = contact.fields ?? [];
-      const otherFields = existingFields.filter((f) => f.slug !== "source");
-      patchPayload.fields = [...otherFields, { slug: "source", value: opts.source }];
-    }
 
     const patchRes = await fetch(`${SYSTEME_IO_API_BASE}/contacts/${contact.id}`, {
       method: "PATCH",
