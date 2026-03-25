@@ -217,8 +217,8 @@ export default function Contacto() {
           {showAvatar && (
             <div style={{ position: "relative", display: "inline-block", marginBottom: "1.25rem" }}>
               <img
-                src={fotoPBE}
-                alt="Arq. Patricio Becar Elissegaray"
+                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=500&auto=format&fit=crop"
+                alt="Agustín"
                 style={{
                   width: 120,
                   height: 120,
