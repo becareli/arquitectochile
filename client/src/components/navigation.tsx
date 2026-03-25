@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { Menu, X, ChevronDown, Mail, Lock, Users, LayoutDashboard, Star, PlayCircle, Calculator, ArrowRight } from "lucide-react";
+import { Menu, X, ChevronDown, Mail, Lock, Users, LayoutDashboard, Star, PlayCircle, Calculator, ArrowRight, ArrowLeft } from "lucide-react";
 import { useLocation } from "wouter";
 import logoImg from "@assets/ArquitectoChile.com_Logo_1771886286621.png";
 
@@ -269,6 +269,20 @@ export default function Navigation() {
           </div>
         </div>
       </nav>
+
+      {location !== "/" && !location.startsWith("/admin") && !location.startsWith("/crm") && (
+        <div className="bg-white border-b border-gray-100">
+          <div className="w-full px-3 sm:px-6 lg:px-10">
+            <button
+              onClick={() => window.history.back()}
+              className="flex items-center gap-1.5 py-2 text-sm text-gray-500 hover:text-[#f97316] transition-colors group"
+            >
+              <ArrowLeft size={15} strokeWidth={2} className="group-hover:-translate-x-0.5 transition-transform" />
+              <span className="font-medium">Volver</span>
+            </button>
+          </div>
+        </div>
+      )}
 
       <MobileDrawer
         isOpen={isMenuOpen}
