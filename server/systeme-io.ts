@@ -13,6 +13,13 @@ interface SystemeIoResult {
   error?: string;
 }
 
+interface SystemeIoContactRecord {
+  id: number;
+  firstName?: string;
+  tags?: Array<{ name: string }>;
+  fields?: Array<{ slug: string; value: string }>;
+}
+
 function getApiKey(): string | undefined {
   return process.env.SYSTEME_IO_API_KEY;
 }
@@ -81,16 +88,15 @@ export async function upsertSystemeIoContact(opts: {
 
     if (response.ok) {
       const data = (await response.json()) as { id?: number };
-      console.log(`✅ Systeme.io: contacto sincronizado [${opts.email}] id=${data.id ?? "?"}`);
+      console.log(`✅ Systeme.io: contacto creado [${opts.email}] id=${data.id ?? "?"}`);
       return { ok: true, contactId: data.id };
     }
 
     const errText = await response.text();
 
     if (response.status === 409) {
-      console.log(`ℹ️ Systeme.io: contacto ya existe [${opts.email}], actualizando tags`);
-      const updateResult = await addTagsToExistingContact(opts.email, opts.tags, apiKey);
-      return updateResult;
+      console.log(`ℹ️ Systeme.io: contacto ya existe [${opts.email}], actualizando`);
+      return await updateExistingContact(opts, apiKey);
     }
 
     console.warn(`⚠️ Systeme.io: respuesta inesperada ${response.status} — ${errText}`);
@@ -101,17 +107,14 @@ export async function upsertSystemeIoContact(opts: {
   }
 }
 
-async function addTagsToExistingContact(
-  email: string,
-  tags: string[],
+async function updateExistingContact(
+  opts: { email: string; firstName: string; tags: string[]; source?: string },
   apiKey: string
 ): Promise<SystemeIoResult> {
   try {
     const searchRes = await fetch(
-      `${SYSTEME_IO_API_BASE}/contacts?email=${encodeURIComponent(email)}`,
-      {
-        headers: { "X-API-Key": apiKey },
-      }
+      `${SYSTEME_IO_API_BASE}/contacts?email=${encodeURIComponent(opts.email)}`,
+      { headers: { "X-API-Key": apiKey } }
     );
 
     if (!searchRes.ok) {
@@ -119,10 +122,24 @@ async function addTagsToExistingContact(
       return { ok: false, error: `Search failed: HTTP ${searchRes.status} — ${errText}` };
     }
 
-    const searchData = (await searchRes.json()) as { items?: Array<{ id: number }> };
+    const searchData = (await searchRes.json()) as { items?: SystemeIoContactRecord[] };
     const contact = searchData.items?.[0];
     if (!contact) {
       return { ok: false, error: "Contact not found after 409" };
+    }
+
+    const existingTagNames: string[] = (contact.tags ?? []).map((t) => t.name);
+    const mergedTags = Array.from(new Set([...existingTagNames, ...opts.tags]));
+
+    const patchPayload: Partial<SystemeIoContactPayload> = {
+      firstName: opts.firstName,
+      tags: mergedTags,
+    };
+
+    if (opts.source) {
+      const existingFields = contact.fields ?? [];
+      const otherFields = existingFields.filter((f) => f.slug !== "source");
+      patchPayload.fields = [...otherFields, { slug: "source", value: opts.source }];
     }
 
     const patchRes = await fetch(`${SYSTEME_IO_API_BASE}/contacts/${contact.id}`, {
@@ -131,11 +148,11 @@ async function addTagsToExistingContact(
         "Content-Type": "application/json",
         "X-API-Key": apiKey,
       },
-      body: JSON.stringify({ tags }),
+      body: JSON.stringify(patchPayload),
     });
 
     if (patchRes.ok) {
-      console.log(`✅ Systeme.io: tags actualizados para [${email}] id=${contact.id}`);
+      console.log(`✅ Systeme.io: contacto actualizado [${opts.email}] id=${contact.id} tags=[${mergedTags.join(",")}]`);
       return { ok: true, contactId: contact.id };
     }
 
