@@ -1,5 +1,6 @@
 import { useState, useRef } from "react";
 import Navigation from "@/components/navigation";
+import fotoPBE from "@assets/FotoPBE_1774406857562.jpg";
 
 const svcData = {
   particular: [
@@ -216,8 +217,8 @@ export default function Contacto() {
           {showAvatar && (
             <div style={{ position: "relative", display: "inline-block", marginBottom: "1.25rem" }}>
               <img
-                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=500&auto=format&fit=crop"
-                alt="Agustín"
+                src={fotoPBE}
+                alt="Arq. Patricio Becar Elissegaray"
                 style={{
                   width: 120,
                   height: 120,
@@ -522,7 +523,7 @@ export default function Contacto() {
         {step === 5 && (
           <div style={{ padding: "2.5rem 1.5rem", textAlign: "center", background: "linear-gradient(180deg, #f8fafc 0%, #fff 100%)", animation: "fadeIn 0.4s ease-out" }}>
             <img
-              src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=400&auto=format&fit=crop"
+              src={fotoPBE}
               alt="Arq. Patricio Becar Elissegaray"
               style={{
                 width: 140,
