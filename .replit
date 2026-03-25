@@ -42,4 +42,8 @@ integrations = ["javascript_log_in_with_replit:1.0.0", "javascript_database:1.0.
 
 [userenv.shared]
 SEND_AUTOREPLY = "true"
-LEADS_NOTIFY_EMAIL = "contacto@arquitectochile.com"
+LEADS_NOTIFY_EMAIL = "arquitectopatriciobecar@gmail.com"
+SMTP_HOST = "smtp.gmail.com"
+SMTP_PORT = "587"
+SMTP_USER = "arquitectopatriciobecar@gmail.com"
+SMTP_FROM = "ArquitectoChile.com <arquitectopatriciobecar@gmail.com>"
