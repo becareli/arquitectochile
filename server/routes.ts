@@ -296,7 +296,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       else if (d.service && vipServices.includes(d.service)) classification = "VIP";
       else if (d.propertyType === "Industrial") classification = "VIP";
 
-      console.log(`📋 [LEAD ${classification}] ${d.tipo_proyecto} - ${d.comuna} - ${d.nombre}`);
+      console.log(`📋 [LEAD ${classification}] ${d.tipo_proyecto} - ${d.comuna} - ${d.nombre}${d.audioBase64 ? ` 🎤 con audio (${Math.round(d.audioBase64.length * 0.75 / 1024)}KB)` : ""}`);
 
       try {
         await storage.createLead({

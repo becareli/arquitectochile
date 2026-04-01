@@ -73,8 +73,12 @@ export async function sendLeadEmail(lead: LeadData): Promise<{ ok: boolean; erro
       <p style="margin-top:16px;font-size:12px;color:#94a3b8;">Enviado automáticamente desde arquitectochile.com</p>
     `;
 
+    if (lead.audioBase64) {
+      console.log(`🎤 Audio recibido: ${Math.round(lead.audioBase64.length * 0.75 / 1024)} KB — adjuntando al email`);
+    }
+
     const attachments = lead.audioBase64
-      ? [{ filename: `audio-${lead.nombre.replace(/\s+/g, "-")}.webm`, content: Buffer.from(lead.audioBase64, "base64"), contentType: "audio/webm" }]
+      ? [{ filename: `mensaje-voz-${lead.nombre.replace(/\s+/g, "-")}.ogg`, content: Buffer.from(lead.audioBase64, "base64"), contentType: "audio/ogg" }]
       : [];
 
     await transporter.sendMail({
