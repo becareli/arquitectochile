@@ -23,6 +23,7 @@ import fs from "fs";
 import type { RequestHandler } from "express";
 import { sendLeadEmail } from "./lead-integrations";
 import { upsertSystemeIoContact, buildTags } from "./systeme-io";
+import { upsertHubSpotContact } from "./hubspot";
 // Enhanced analytics will be loaded separately to avoid circular imports
 
 // Webhook schemas for AI agent integration
@@ -253,6 +254,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   const leadSchema = z.object({
     nombre: z.string().min(1, "Nombre requerido").max(200),
     email: z.string().email("Email inválido"),
+    telefono: z.string().max(20).optional().default(""),
     comuna: z.string().max(100).default(""),
     tipo_proyecto: z.string().max(200).default("General"),
     etapa: z.string().max(100).default(""),
@@ -299,7 +301,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         await storage.createLead({
           name: d.nombre,
           email: d.email,
-          phone: "",
+          phone: d.telefono || "",
           helpType: d.service || d.tipo_proyecto || "General",
           message: `[${classification}] ${d.branch?.toUpperCase() || "WEB"} | Etapa: ${d.etapa || "-"} | Presupuesto: ${d.presupuesto || "-"} | ${d.mensaje || "-"}`,
           source: "contacto-agustin",
@@ -315,6 +317,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const emailResult = await sendLeadEmail({
         nombre: d.nombre,
         email: d.email,
+        telefono: d.telefono,
         comuna: d.comuna,
         tipo_proyecto: d.tipo_proyecto || d.service || "General",
         etapa: d.etapa,
@@ -346,6 +349,22 @@ export async function registerRoutes(app: Express): Promise<Server> {
         console.log(`📧 Systeme.io: ${syncResult.ok ? `sincronizado (id=${syncResult.contactId})` : syncResult.error}`);
       } catch (sioErr: any) {
         console.warn("⚠️ Systeme.io error (no crítico):", sioErr.message);
+      }
+
+      try {
+        const hsResult = await upsertHubSpotContact({
+          email: d.email,
+          firstname: d.nombre.split(" ")[0],
+          lastname: d.nombre.split(" ").slice(1).join(" ") || "",
+          phone: d.telefono || "",
+          city: d.comuna || "",
+          address: d.direccion || "",
+          message: d.mensaje || "",
+          lifecyclestage: classification === "VIP" ? "lead" : "subscriber",
+        });
+        console.log(`🟠 HubSpot: ${hsResult.ok ? `contacto upserted (id=${hsResult.contactId})` : hsResult.error}`);
+      } catch (hsErr: any) {
+        console.warn("⚠️ HubSpot error (no crítico):", hsErr.message);
       }
 
       res.json({

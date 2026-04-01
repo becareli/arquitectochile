@@ -50,6 +50,7 @@ export default function Contacto() {
   const [rut, setRut] = useState("");
   const [nombre, setNombre] = useState("");
   const [email, setEmail] = useState("");
+  const [telefono, setTelefono] = useState("");
   const [etapa, setEtapa] = useState("");
   const [presupuesto, setPresupuesto] = useState("");
   const [mensaje, setMensaje] = useState("");
@@ -135,6 +136,7 @@ export default function Contacto() {
     const payload = {
       nombre,
       email,
+      telefono,
       comuna,
       tipo_proyecto: service || "General",
       etapa,
@@ -376,6 +378,7 @@ export default function Contacto() {
             <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
               <input type="text" placeholder="Tu nombre completo *" value={nombre} onChange={(e) => setNombre(e.target.value)} style={inputStyle} />
               <input type="email" placeholder="Tu email *" value={email} onChange={(e) => setEmail(e.target.value)} style={inputStyle} />
+              <input type="tel" placeholder="Teléfono / WhatsApp (ej: +56912345678)" value={telefono} onChange={(e) => setTelefono(e.target.value)} style={inputStyle} />
               <input type="text" placeholder="Comuna *" value={comuna} onChange={(e) => setComuna(e.target.value)} style={inputStyle} />
               <input type="text" placeholder="Calle y número (opcional)" value={direccion} onChange={(e) => setDireccion(e.target.value)} style={inputStyle} />
               {branch === "normativa" && (

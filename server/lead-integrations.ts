@@ -3,6 +3,7 @@ import nodemailer from "nodemailer";
 interface LeadData {
   nombre: string;
   email: string;
+  telefono?: string;
   comuna: string;
   tipo_proyecto: string;
   etapa: string;
@@ -48,6 +49,7 @@ export async function sendLeadEmail(lead: LeadData): Promise<{ ok: boolean; erro
     const rows = [
       ["Nombre", lead.nombre],
       ["Email", lead.email],
+      ["Teléfono", lead.telefono || "No indicado"],
       ["Comuna", lead.comuna],
       ["Tipo Proyecto", lead.tipo_proyecto],
       ["Servicio", lead.service || "—"],
