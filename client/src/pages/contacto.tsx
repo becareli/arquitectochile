@@ -133,33 +133,48 @@ export default function Contacto() {
     setFormError("");
     setIsSubmitting(true);
 
-    const payload = {
-      nombre,
-      email,
-      telefono,
-      comuna,
-      tipo_proyecto: service || "General",
-      etapa,
-      presupuesto,
-      mensaje,
-      branch,
-      service,
-      propertyType,
-      direccion,
-      rol,
-      rut,
-      honeypot,
+    const sendPayload = (audioBase64?: string) => {
+      const payload = {
+        nombre,
+        email,
+        telefono,
+        comuna,
+        tipo_proyecto: service || "General",
+        etapa,
+        presupuesto,
+        mensaje,
+        branch,
+        service,
+        propertyType,
+        direccion,
+        rol,
+        rut,
+        honeypot,
+        ...(audioBase64 ? { audioBase64 } : {}),
+      };
+
+      fetch("/api/lead", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      })
+        .then((r) => r.json())
+        .then((d) => console.log("Lead enviado:", d))
+        .catch((e) => console.warn("Error:", e))
+        .finally(() => setIsSubmitting(false));
     };
 
-    fetch("/api/lead", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
-    })
-      .then((r) => r.json())
-      .then((d) => console.log("Lead enviado:", d))
-      .catch((e) => console.warn("Error:", e))
-      .finally(() => setIsSubmitting(false));
+    if (audioChunksRef.current.length > 0) {
+      const audioBlob = new Blob(audioChunksRef.current, { type: "audio/webm" });
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const base64 = (reader.result as string).split(",")[1];
+        sendPayload(base64);
+      };
+      reader.readAsDataURL(audioBlob);
+    } else {
+      sendPayload();
+    }
 
     setShowAvatar(false);
     setSpeech('<b>¡Solicitud recibida!</b><br/>Analizaremos tu caso de inmediato.');

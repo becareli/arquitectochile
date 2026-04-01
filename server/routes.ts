@@ -266,6 +266,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     direccion: z.string().max(300).optional().default(""),
     rol: z.string().max(50).optional().default(""),
     honeypot: z.string().max(0).optional().default(""),
+    audioBase64: z.string().optional(),
   });
 
   app.post("/api/lead", async (req, res) => {
@@ -330,6 +331,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         rol: d.rol,
         classification,
         timestamp,
+        audioBase64: d.audioBase64,
       });
 
       console.log(`📊 Email: ${emailResult.ok ? "enviado" : emailResult.error}`);

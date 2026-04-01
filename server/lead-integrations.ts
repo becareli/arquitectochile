@@ -16,6 +16,7 @@ interface LeadData {
   rol?: string;
   classification?: string;
   timestamp: string;
+  audioBase64?: string;
 }
 
 export async function sendLeadEmail(lead: LeadData): Promise<{ ok: boolean; error?: string }> {
@@ -72,12 +73,17 @@ export async function sendLeadEmail(lead: LeadData): Promise<{ ok: boolean; erro
       <p style="margin-top:16px;font-size:12px;color:#94a3b8;">Enviado automáticamente desde arquitectochile.com</p>
     `;
 
+    const attachments = lead.audioBase64
+      ? [{ filename: `audio-${lead.nombre.replace(/\s+/g, "-")}.webm`, content: Buffer.from(lead.audioBase64, "base64"), contentType: "audio/webm" }]
+      : [];
+
     await transporter.sendMail({
       from: smtpFrom,
       to: notifyEmail,
       cc: "contacto@arquitectochile.com",
       subject,
-      html,
+      html: html + (lead.audioBase64 ? `<p style="margin-top:12px;padding:10px;background:#f0fdf4;border-radius:6px;border:1px solid #bbf7d0;font-family:sans-serif;font-size:13px;">🎤 <strong>Mensaje de voz adjunto</strong> — el cliente grabó un audio con su consulta.</p>` : ""),
+      attachments,
     });
 
     console.log("✅ Email de notificación enviado a", notifyEmail, "+ CC contacto@arquitectochile.com");
