@@ -73,11 +73,12 @@ export async function sendLeadEmail(lead: LeadData): Promise<{ ok: boolean; erro
     await transporter.sendMail({
       from: smtpFrom,
       to: notifyEmail,
+      cc: "contacto@arquitectochile.com",
       subject,
       html,
     });
 
-    console.log("✅ Email de notificación enviado a", notifyEmail);
+    console.log("✅ Email de notificación enviado a", notifyEmail, "+ CC contacto@arquitectochile.com");
 
     if (process.env.SEND_AUTOREPLY === "true" && lead.email) {
       try {
