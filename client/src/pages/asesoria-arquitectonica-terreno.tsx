@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
-import { useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { 
   Home, CheckCircle, MapPin, FileText, 
   Lightbulb, Eye, Calendar, Clock, ChevronDown, ChevronUp,
-  User, Award, Ruler, ArrowRight, Shield, TrendingUp
+  User, Award, Shield, TrendingUp
 } from "lucide-react";
 import Navigation from "@/components/navigation";
 import Footer from "@/components/footer";
@@ -36,7 +35,6 @@ const faqs = [
 ];
 
 export default function AsesoriaArquitectonicaTerreno() {
-  const [, setLocation] = useLocation();
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   useEffect(() => {
