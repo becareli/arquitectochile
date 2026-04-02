@@ -116,12 +116,12 @@ export default function AsesoriaArquitectonicaTerreno() {
           </div>
 
           <Button 
-            onClick={openWhatsApp}
+            onClick={openTidyCal}
             size="lg" 
             className="bg-white text-[#f97316] hover:bg-gray-100 text-xl px-10 py-6 font-bold shadow-xl rounded-lg"
             data-testid="button-agendar-visita-hero"
           >
-            <Phone className="mr-3 h-6 w-6" />
+            <Calendar className="mr-3 h-6 w-6" />
             AGENDAR VISITA AHORA
           </Button>
         </div>
