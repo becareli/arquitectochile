@@ -83,7 +83,7 @@ export default function AsesoriaArquitectonicaTerreno() {
   };
 
   const openTidyCal = () => {
-    window.open('https://tidycal.com/arquitectopatriciobecar/asesoria-de-arquitectura-y-construccion-gratuita', '_blank');
+    window.open('https://tidycal.com/arquitectopatriciobecar/asesoria-de-arquitectura-a-domicilio', '_blank');
   };
 
   return (
