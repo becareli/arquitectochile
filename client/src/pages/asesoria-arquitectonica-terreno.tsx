@@ -377,7 +377,7 @@ export default function AsesoriaArquitectonicaTerreno() {
 
           <div className="bg-white border border-gray-200 rounded-xl p-8 shadow-sm">
             <div className="flex flex-col md:flex-row gap-8 items-start">
-              <div className="w-20 h-20 rounded-full overflow-hidden flex-shrink-0 mx-auto md:mx-0 border-2 border-[#0f172a]">
+              <div className="w-24 h-24 rounded-full overflow-hidden flex-shrink-0 mx-auto md:mx-0 ring-[3px] ring-[#f97316] ring-offset-[3px] ring-offset-white shadow-lg shadow-[#f97316]/10">
                 <img src={architectPhoto} alt="Patricio Becar Elissegaray — Arquitecto" className="w-full h-full object-cover" />
               </div>
               <div className="flex-1 text-center md:text-left">
