@@ -24,6 +24,18 @@ import type { RequestHandler } from "express";
 import { sendLeadEmail } from "./lead-integrations";
 import { upsertSystemeIoContact, buildTags } from "./systeme-io";
 import { upsertHubSpotContact } from "./hubspot";
+
+// Admin API password protection
+const ADMIN_API_PASSWORD = "1Lm2ndr1";
+
+const isAdminApiKey: RequestHandler = (req, res, next) => {
+  const password = req.headers["x-admin-password"] as string || req.query["admin_key"] as string;
+  if (password === ADMIN_API_PASSWORD) {
+    return next();
+  }
+  res.status(403).json({ error: "Acceso denegado. Se requiere autenticación de administrador." });
+};
+
 // Enhanced analytics will be loaded separately to avoid circular imports
 
 // Webhook schemas for AI agent integration
@@ -423,8 +435,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Get all leads
-  app.get("/api/leads", async (req, res) => {
+  // Get all leads (admin only)
+  app.get("/api/leads", isAdminApiKey, async (req, res) => {
     try {
       const leads = await storage.getLeads();
       res.json(leads);
@@ -433,7 +445,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.patch("/api/leads/:id/status", async (req, res) => {
+  // Update lead status (admin only)
+  app.patch("/api/leads/:id/status", isAdminApiKey, async (req, res) => {
     try {
       const { status } = req.body;
       const lead = await storage.updateLeadStatus(parseInt(req.params.id), status);
@@ -512,8 +525,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Get projects
-  app.get("/api/projects", async (req, res) => {
+  // Get projects (admin only)
+  app.get("/api/projects", isAdminApiKey, async (req, res) => {
     try {
       const projects = await storage.getProjects();
       res.json(projects);
@@ -590,7 +603,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.get("/api/budget-templates", async (req, res) => {
+  // Get budget templates (admin only)
+  app.get("/api/budget-templates", isAdminApiKey, async (req, res) => {
     try {
       const templates = await storage.getActiveBudgetTemplates();
       res.json(templates);
@@ -623,7 +637,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.get("/api/quotes", async (req, res) => {
+  // Get all quotes (admin only)
+  app.get("/api/quotes", isAdminApiKey, async (req, res) => {
     try {
       const quotes = await storage.getAllQuotesWithLeads();
       res.json(quotes);
