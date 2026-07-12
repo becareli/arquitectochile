@@ -25,10 +25,6 @@ function TopBar() {
             <PlayCircle className="w-3.5 h-3.5" strokeWidth={1.5} />
             <span className="hidden md:inline text-[11px] font-medium tracking-wide">Revista Técnica</span>
           </a>
-          <a href="/admin" className={linkClass}>
-            <Lock className="w-3 h-3" strokeWidth={1.5} />
-            <span className="hidden md:inline text-[11px] font-medium tracking-wide">Admin</span>
-          </a>
           <a href="/contacto" className={linkClass}>
             <Mail className="w-3 h-3" strokeWidth={1.5} />
             <span className="hidden md:inline text-[11px] font-medium tracking-wide">Contacto</span>
@@ -64,7 +60,6 @@ function MobileDrawer({
     { label: "Casos de Éxito", href: "/casos-de-exito", icon: Star },
     { label: "Red de Colaboradores", href: "/colaboradores", icon: Users },
     { label: "Portal de Clientes", href: "/portal-cliente", icon: LayoutDashboard },
-    { label: "Admin", href: "/admin", icon: Lock },
     { label: "Contacto", href: "/contacto", icon: Mail },
   ];
 

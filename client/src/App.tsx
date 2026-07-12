@@ -36,15 +36,40 @@ import ObrasMenoresEmpresas from "@/pages/obras-menores-empresas";
 import CasosDeExito from "@/pages/casos-de-exito";
 import NotFound from "@/pages/not-found";
 import CookieConsent from "@/components/cookie-consent";
+import AdminGate from "@/components/AdminGate";
 
 function Router() {
   return (
     <Switch>
       <Route path="/" component={Home} />
-      <Route path="/admin" component={AdminDashboard} />
-      <Route path="/crm" component={CRMDashboard} />
-      <Route path="/crm-admin" component={CRMAdminDashboardNew} />
-      <Route path="/crm-admin-dashboard" component={CRMAdminDashboardNew} />
+      <Route path="/admin">
+        {() => (
+          <AdminGate>
+            <AdminDashboard />
+          </AdminGate>
+        )}
+      </Route>
+      <Route path="/crm">
+        {() => (
+          <AdminGate>
+            <CRMDashboard />
+          </AdminGate>
+        )}
+      </Route>
+      <Route path="/crm-admin">
+        {() => (
+          <AdminGate>
+            <CRMAdminDashboardNew />
+          </AdminGate>
+        )}
+      </Route>
+      <Route path="/crm-admin-dashboard">
+        {() => (
+          <AdminGate>
+            <CRMAdminDashboardNew />
+          </AdminGate>
+        )}
+      </Route>
       <Route path="/portal-cliente" component={ClientPortal} />
       <Route path="/servicios-a-domicilio" component={ServiciosADomicilio} />
       <Route path="/asesoria-arquitectonica-terreno" component={AsesoriaArquitectonicaTerreno} />
