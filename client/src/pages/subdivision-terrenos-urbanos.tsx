@@ -89,15 +89,15 @@ export default function SubdivisionTerrenosUrbanos() {
             </div>
             
             <div className="mb-8">
-              <h1 className="text-4xl lg:text-6xl font-bold mb-4">
+              <h1 className="text-4xl lg:text-6xl font-bold text-white mb-4">
                 🏡➡️🏡🏡 CÓMO CONVERTIR SU TERRENO EN DOS O MÁS PROPIEDADES<br/>
                 Y MULTIPLICAR SU PATRIMONIO
               </h1>
             </div>
-            
+
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center mb-8">
               <div className="bg-white/10 backdrop-blur-sm rounded-lg p-8">
-                <p className="text-2xl leading-relaxed">
+                <p className="text-2xl leading-relaxed text-white">
                   <strong>Usted tiene un terreno.</strong> Pero, ¿sabe que podría tener <em>dos, tres o más propiedades</em> 
                   en ese mismo lugar?
                   <br/><br/>
