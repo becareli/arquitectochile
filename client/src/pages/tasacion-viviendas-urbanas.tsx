@@ -118,7 +118,7 @@ export default function TasacionViviendasUrbanas() {
             
             {/* 1. Titular Principal - Gary Halbert Style - 3 Opciones */}
             <div className="mb-8">
-              <h1 className="text-4xl lg:text-6xl font-bold mb-4">
+              <h1 className="text-4xl lg:text-6xl font-bold text-white mb-4">
                 🔍 EL PRECIO JUSTO DE SU CASA EN SANTIAGO,<br/>
                 REVELADO POR UN ARQUITECTO TASADOR DE LA U. DE CHILE
               </h1>
@@ -139,7 +139,7 @@ export default function TasacionViviendasUrbanas() {
             
             {/* 2. Sección de Héroe - Russell Brunson Style */}
             <div className="bg-white/10 backdrop-blur-sm rounded-lg p-8 mb-8">
-              <p className="text-2xl leading-relaxed">
+              <p className="text-2xl text-white leading-relaxed">
                 Si está a punto de <strong>vender su propiedad</strong> o <strong>comprar una nueva vivienda</strong>, 
                 hay una pregunta que no lo deja dormir: <em>"¿Cuánto vale REALMENTE mi casa?"</em>
                 <br/><br/>

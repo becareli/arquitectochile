@@ -445,7 +445,7 @@ export default function FusionTerrenosUrbanos() {
                 <div className="space-y-3">
                   <div className="flex items-start gap-2">
                     <FileText className="h-4 w-4 text-[#0f172a] mt-1 flex-shrink-0" />
-                    <span className="text-sm">Formulario de Fusión de Terrenos</span>
+                    <span className="text-sm text-white">Formulario de Fusión de Terrenos</span>
                   </div>
                   <div className="flex items-start gap-2">
                     <FileText className="h-4 w-4 text-[#0f172a] mt-1 flex-shrink-0" />
@@ -484,7 +484,7 @@ export default function FusionTerrenosUrbanos() {
                 <div className="space-y-3">
                   <div className="flex items-start gap-2">
                     <FileText className="h-4 w-4 text-[#0f172a] mt-1 flex-shrink-0" />
-                    <span className="text-sm">Formulario 2118</span>
+                    <span className="text-sm text-white">Formulario 2118</span>
                   </div>
                   <div className="flex items-start gap-2">
                     <FileText className="h-4 w-4 text-[#0f172a] mt-1 flex-shrink-0" />
@@ -519,7 +519,7 @@ export default function FusionTerrenosUrbanos() {
                 <div className="space-y-3">
                   <div className="flex items-start gap-2">
                     <FileText className="h-4 w-4 text-[#0f172a] mt-1 flex-shrink-0" />
-                    <span className="text-sm">Título de Dominio de la Propiedad</span>
+                    <span className="text-sm text-white">Título de Dominio de la Propiedad</span>
                   </div>
                   <div className="flex items-start gap-2">
                     <FileText className="h-4 w-4 text-[#0f172a] mt-1 flex-shrink-0" />

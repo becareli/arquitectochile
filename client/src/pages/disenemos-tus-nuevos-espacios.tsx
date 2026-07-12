@@ -161,7 +161,7 @@ export default function DisenemosNuevosEspacios() {
             </h3>
             <p className="text-xl leading-relaxed text-white">
               <strong>No es que no tenga dinero... No es que no tenga tiempo...</strong><br/>
-              El problema real es que <span className="underline">NO SABE POR DÓNDE EMPEZAR</span> y tiene MIEDO de tomar 
+              El problema real es que <span className="underline text-white">NO SABE POR DÓNDE EMPEZAR</span> y tiene MIEDO de tomar 
               la decisión equivocada y desperdiciar su inversión.
             </p>
           </div>

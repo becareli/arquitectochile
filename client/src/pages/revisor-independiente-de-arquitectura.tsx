@@ -34,12 +34,12 @@ export default function RevisorIndependienteDeArquitectura() {
               <Shield className="w-20 h-20 text-accent" />
               <Star className="w-8 h-8 text-[#f97316] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 fill-current" />
             </div>
-            <h1 className="text-4xl lg:text-6xl font-bold mb-6">
+            <h1 className="text-4xl lg:text-6xl font-bold text-white mb-6">
               REVISOR INDEPENDIENTE DE OBRAS DE CONSTRUCCIÓN
             </h1>
             <div className="bg-white/20 backdrop-blur-sm rounded-lg p-4 mb-6">
-              <p className="text-2xl font-bold">Certificación MINVU - ROL 00237-13</p>
-              <p className="text-lg opacity-90">Registro Nacional MINVU N° 369500 - Vigente</p>
+              <p className="text-2xl font-bold text-white">Certificación MINVU - ROL 00237-13</p>
+              <p className="text-lg text-white/90">Registro Nacional MINVU N° 369500 - Vigente</p>
             </div>
           </div>
           
@@ -49,14 +49,14 @@ export default function RevisorIndependienteDeArquitectura() {
             </p>
           </div>
 
-          <p className="text-xl mb-8 opacity-90 max-w-3xl mx-auto">
+          <p className="text-xl mb-8 text-white/90 max-w-3xl mx-auto">
             Arquitecto Patricio Eduardo Becar Elissegaray - Universidad de Chile 1999 | 26+ años de experiencia
           </p>
 
           {/* Video Section */}
           <div className="mb-8">
             <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 max-w-4xl mx-auto">
-              <h3 className="text-2xl font-bold mb-4">🎥 Conoce el Proceso Completo</h3>
+              <h3 className="text-2xl font-bold text-white mb-4">🎥 Conoce el Proceso Completo</h3>
               <div className="relative aspect-video rounded-lg overflow-hidden bg-black">
                 <iframe
                   src="https://www.youtube.com/embed/tYZlUAyxvuA?start=1"
@@ -670,7 +670,7 @@ export default function RevisorIndependienteDeArquitectura() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
               <div className="text-center">
                 <p className="font-bold text-white">Ley N° 20.071</p>
-                <p className="text-sm opacity-75">Registro Nacional de Revisores</p>
+                <p className="text-sm opacity-75 text-white">Registro Nacional de Revisores</p>
               </div>
               <div className="text-center">
                 <p className="font-bold">D.F.L. N° 458</p>

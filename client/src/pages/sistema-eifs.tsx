@@ -353,8 +353,8 @@ export default function SistemaEIFS() {
               <div className="flex items-start gap-4">
                 <CheckCircle className="text-[#f97316] flex-shrink-0 mt-1" size={28} />
                 <div>
-                  <h3 className="font-bold text-xl mb-2 text-[#0f172a]">Garantía de Calidad</h3>
-                  <p className="text-[#64748b]">Estamos TAN CONVENCIDOS de la calidad de nuestros trabajos que garantizamos los materiales y la instalación</p>
+                  <h3 className="font-bold text-xl mb-2 text-[#0f172a] text-white">Garantía de Calidad</h3>
+                  <p className="text-[#64748b] text-white">Estamos TAN CONVENCIDOS de la calidad de nuestros trabajos que garantizamos los materiales y la instalación</p>
                 </div>
               </div>
               <div className="flex items-start gap-4">

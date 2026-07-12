@@ -201,7 +201,7 @@ export default function PermisoEdificacionRecepcionFinal() {
                 ].map((item, index) => (
                   <div key={index} className="flex items-start gap-3">
                     <CheckCircle className="text-[#f97316] flex-shrink-0 mt-1" size={24} />
-                    <p className="text-gray-700 leading-tight">{item}</p>
+                    <p className="text-gray-700 leading-tight text-white">{item}</p>
                   </div>
                 ))}
               </CardContent>
