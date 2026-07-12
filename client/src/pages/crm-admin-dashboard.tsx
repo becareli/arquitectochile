@@ -188,10 +188,7 @@ export default function CRMAdminDashboard() {
   // Mutación para crear nuevo cliente
   const createCustomerMutation = useMutation({
     mutationFn: async (customerData: typeof newClientForm) => {
-      return await apiRequest("/api/crm/customers", {
-        method: "POST",
-        body: JSON.stringify(customerData),
-      });
+      return await apiRequest("POST", "/api/crm/customers", customerData);
     },
     onSuccess: () => {
       toast({

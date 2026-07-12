@@ -57,10 +57,7 @@ export function CustomerForm({ onSuccess, initialData, customerId }: CustomerFor
 
   const createCustomerMutation = useMutation({
     mutationFn: (data: CustomerFormData) => 
-      apiRequest('/api/crm/customers', {
-        method: 'POST',
-        body: JSON.stringify(data)
-      }),
+      apiRequest('POST', '/api/crm/customers', data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/crm/customers'] });
       queryClient.invalidateQueries({ queryKey: ['/api/crm/reports/dashboard'] });
@@ -82,10 +79,7 @@ export function CustomerForm({ onSuccess, initialData, customerId }: CustomerFor
 
   const updateCustomerMutation = useMutation({
     mutationFn: (data: CustomerFormData) => 
-      apiRequest(`/api/crm/customers/${customerId}`, {
-        method: 'PUT',
-        body: JSON.stringify(data)
-      }),
+      apiRequest('PUT', `/api/crm/customers/${customerId}`, data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/crm/customers'] });
       queryClient.invalidateQueries({ queryKey: ['/api/crm/reports/dashboard'] });

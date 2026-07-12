@@ -71,12 +71,9 @@ export function ProjectForm({ onSuccess, initialData, projectId }: ProjectFormPr
 
   const createProjectMutation = useMutation({
     mutationFn: (data: ProjectFormData) => 
-      apiRequest('/api/crm/projects', {
-        method: 'POST',
-        body: JSON.stringify({
-          ...data,
-          progress: progress
-        })
+      apiRequest('POST', '/api/crm/projects', {
+        ...data,
+        progress: progress,
       }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/crm/projects'] });
@@ -99,12 +96,9 @@ export function ProjectForm({ onSuccess, initialData, projectId }: ProjectFormPr
 
   const updateProjectMutation = useMutation({
     mutationFn: (data: ProjectFormData) => 
-      apiRequest(`/api/crm/projects/${projectId}`, {
-        method: 'PUT',
-        body: JSON.stringify({
-          ...data,
-          progress: progress
-        })
+      apiRequest('PUT', `/api/crm/projects/${projectId}`, {
+        ...data,
+        progress: progress,
       }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/crm/projects'] });

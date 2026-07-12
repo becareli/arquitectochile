@@ -109,10 +109,7 @@ export function TaskManager() {
   // Mutations
   const createTaskMutation = useMutation({
     mutationFn: (data: TaskFormData) => 
-      apiRequest('/api/crm/tasks', {
-        method: 'POST',
-        body: JSON.stringify(data)
-      }),
+      apiRequest('POST', '/api/crm/tasks', data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/crm/tasks'] });
       queryClient.invalidateQueries({ queryKey: ['/api/crm/reports/dashboard'] });
@@ -134,10 +131,7 @@ export function TaskManager() {
 
   const updateTaskStatusMutation = useMutation({
     mutationFn: ({ taskId, status }: { taskId: number; status: string }) => 
-      apiRequest(`/api/crm/tasks/${taskId}`, {
-        method: 'PUT',
-        body: JSON.stringify({ status })
-      }),
+      apiRequest('PUT', `/api/crm/tasks/${taskId}`, { status }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/crm/tasks'] });
       queryClient.invalidateQueries({ queryKey: ['/api/crm/reports/dashboard'] });

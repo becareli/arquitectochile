@@ -86,10 +86,7 @@ export function InteractionForm({
 
   const createInteractionMutation = useMutation({
     mutationFn: (data: InteractionFormData) => 
-      apiRequest('/api/crm/interactions', {
-        method: 'POST',
-        body: JSON.stringify(data)
-      }),
+      apiRequest('POST', '/api/crm/interactions', data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/crm/interactions'] });
       queryClient.invalidateQueries({ queryKey: ['/api/crm/reports/dashboard'] });
@@ -111,10 +108,7 @@ export function InteractionForm({
 
   const updateInteractionMutation = useMutation({
     mutationFn: (data: InteractionFormData) => 
-      apiRequest(`/api/crm/interactions/${interactionId}`, {
-        method: 'PUT',
-        body: JSON.stringify(data)
-      }),
+      apiRequest('PUT', `/api/crm/interactions/${interactionId}`, data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/crm/interactions'] });
       queryClient.invalidateQueries({ queryKey: ['/api/crm/reports/dashboard'] });
