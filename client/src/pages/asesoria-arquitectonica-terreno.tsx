@@ -116,7 +116,7 @@ export default function AsesoriaArquitectonicaTerreno() {
             Servicio Presencial
           </Badge>
           
-          <h1 className="text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+          <h1 className="text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
             Asesoría Arquitectónica<br />
             <span className="text-[#f97316]">en Tu Terreno</span>
           </h1>
