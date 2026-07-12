@@ -87,7 +87,7 @@ export default function ObrasMenoresEmpresas() {
 
           <div className="grid md:grid-cols-2 gap-8">
             <div className="bg-slate-800 p-8 rounded-2xl border border-slate-700 hover:border-[#f97316] transition cursor-pointer">
-              <h3 className="text-2xl font-bold mb-4">Diagnóstico Estratégico</h3>
+              <h3 className="text-2xl font-bold mb-4 text-white">Diagnóstico Estratégico</h3>
               <p className="text-gray-300 text-sm mb-6 uppercase tracking-wider font-bold">Sin Costo - 15 Minutos Online</p>
               <p className="text-gray-400 mb-8">Revisión preliminar de objetivos, normativa aplicable y factibilidad técnica vía Meet/Zoom.</p>
               <a href="https://tidycal.com/arquitectopatriciobecar/" target="_blank" rel="noopener noreferrer" className="block w-full bg-[#f97316] py-3 rounded-lg font-bold hover:bg-orange-600 transition">Agendar Videollamada</a>

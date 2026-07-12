@@ -668,7 +668,7 @@ export default function FusionTerrenosUrbanos() {
           <h2 className="text-4xl font-bold text-white mb-6">
             ¿Listo para Multiplicar el Valor de Tu Terreno?
           </h2>
-          <p className="text-xl mb-8">
+          <p className="text-xl mb-8 text-white">
             Evaluación inicial GRATUITA. Sin compromiso. 
             Descubre cuánto puede valer tu propiedad después de la fusión.
           </p>

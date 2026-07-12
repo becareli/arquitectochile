@@ -277,7 +277,7 @@ export default function ReacondicionamientoTermicoViviendas() {
             <h2 className="text-4xl font-bold text-white mb-6">
               🎯 LA SOLUCIÓN INTELIGENTE: DIAGNOSTICAR ANTES DE ACTUAR
             </h2>
-            <p className="text-xl mb-8">
+            <p className="text-xl mb-8 text-white">
               Antes de invertir en soluciones costosas, necesita un mapa. 
               <strong> Nuestro informe es ese mapa</strong>: una evaluación experta que le dice 
               exactamente dónde está el problema y cuál es la solución más rentable para usted.
@@ -525,7 +525,7 @@ export default function ReacondicionamientoTermicoViviendas() {
           <h2 className="text-4xl font-bold text-white mb-6">
             🚀 SOLICITE SU DIAGNÓSTICO TÉRMICO AHORA
           </h2>
-          <p className="text-xl mb-8">
+          <p className="text-xl mb-8 text-white">
             Invierta en certeza. Deje de adivinar y empiece a solucionar.
           </p>
 

@@ -470,13 +470,13 @@ export default function SubdivisionTerrenosUrbanos() {
           <div className="text-center mt-12">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
               <div className="bg-[#0f172a] text-white rounded-lg p-8">
-                <h3 className="text-2xl font-bold mb-4">
+                <h3 className="text-2xl font-bold mb-4 text-white">
                   ⏰ Tiempo Total del Proceso
                 </h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <h4 className="font-bold mb-2">Subdivisión Normal:</h4>
-                    <p className="text-xl">3-4 meses</p>
+                    <h4 className="font-bold mb-2 text-white">Subdivisión Normal:</h4>
+                    <p className="text-xl text-white">3-4 meses</p>
                   </div>
                   <div>
                     <h4 className="font-bold mb-2">Afecta a Utilidad Pública:</h4>
@@ -590,7 +590,7 @@ export default function SubdivisionTerrenosUrbanos() {
           <h2 className="text-4xl font-bold text-white mb-6">
             🚀 SOLICITE SU ESTUDIO DE SUBDIVISIÓN
           </h2>
-          <p className="text-xl mb-8">
+          <p className="text-xl mb-8 text-white">
             Descubra el potencial real de su terreno. Reciba un análisis preliminar sin compromiso.
           </p>
 
@@ -598,7 +598,7 @@ export default function SubdivisionTerrenosUrbanos() {
             <Card className="bg-white text-gray-800">
               <CardContent className="p-6 text-center">
                 <Phone className="w-12 h-12 text-[#f97316] mx-auto mb-4" />
-                <h3 className="font-bold text-lg mb-2">Consulta Inmediata</h3>
+                <h3 className="font-bold text-lg mb-2 text-white">Consulta Inmediata</h3>
                 <p className="text-sm mb-4">Hable directamente con el arquitecto</p>
                 <Button onClick={openWhatsApp} className="w-full bg-[#f97316] hover:bg-orange-600 rounded-lg">
                   <Phone className="mr-2 h-4 w-4" />
@@ -610,7 +610,7 @@ export default function SubdivisionTerrenosUrbanos() {
             <Card className="bg-white text-gray-800">
               <CardContent className="p-6 text-center">
                 <Mail className="w-12 h-12 text-[#0f172a] mx-auto mb-4" />
-                <h3 className="font-bold text-lg mb-2">Consulta Detallada</h3>
+                <h3 className="font-bold text-lg mb-2 text-white">Consulta Detallada</h3>
                 <p className="text-sm mb-4">Formulario completo en página principal</p>
                 <Button onClick={scrollToContact} variant="outline" className="w-full rounded-lg">
                   <Mail className="mr-2 h-4 w-4" />

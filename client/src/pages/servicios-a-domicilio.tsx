@@ -85,7 +85,7 @@ export default function ServiciosADomicilio() {
           <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
             Servicios de Arquitectura a Domicilio
           </h1>
-          <p className="text-xl md:text-2xl mb-8 opacity-90">
+          <p className="text-xl md:text-2xl mb-8 opacity-90 text-white">
             El arquitecto va a tu casa • Análisis profesional en terreno • Presupuesto detallado
           </p>
           <div className="inline-flex items-center px-6 py-3 bg-white/20 rounded-full text-lg font-semibold">

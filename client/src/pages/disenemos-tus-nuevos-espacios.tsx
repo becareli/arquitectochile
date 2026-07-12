@@ -156,10 +156,10 @@ export default function DisenemosNuevosEspacios() {
           </div>
 
           <div className="bg-[#0f172a] rounded-lg p-8 text-center text-white">
-            <h3 className="text-2xl font-bold mb-4">
+            <h3 className="text-2xl font-bold mb-4 text-white">
               🚨 PERO AQUÍ ESTÁ EL VERDADERO PROBLEMA...
             </h3>
-            <p className="text-xl leading-relaxed">
+            <p className="text-xl leading-relaxed text-white">
               <strong>No es que no tenga dinero... No es que no tenga tiempo...</strong><br/>
               El problema real es que <span className="underline">NO SABE POR DÓNDE EMPEZAR</span> y tiene MIEDO de tomar 
               la decisión equivocada y desperdiciar su inversión.
@@ -504,8 +504,8 @@ export default function DisenemosNuevosEspacios() {
             </div>
 
             <div className="bg-[#0f172a] text-white rounded-lg p-6 text-center">
-              <h4 className="text-xl font-bold mb-4">⏰ ADVERTENCIA IMPORTANTE:</h4>
-              <p className="text-lg">
+              <h4 className="text-xl font-bold mb-4 text-white">⏰ ADVERTENCIA IMPORTANTE:</h4>
+              <p className="text-lg text-white">
                 Debido a la alta demanda y nuestro compromiso con la excelencia, 
                 <strong> los cupos para este mes se agotan rápidamente.</strong><br/>
                 No postergue más su sueño.
@@ -521,7 +521,7 @@ export default function DisenemosNuevosEspacios() {
           <h2 className="text-4xl font-bold text-white mb-6">
             🚀 RESERVE SU CUPO AHORA
           </h2>
-          <p className="text-xl mb-8">
+          <p className="text-xl mb-8 text-white">
             No deje que otro mes pase viviendo en un espacio que no lo hace feliz.
           </p>
 

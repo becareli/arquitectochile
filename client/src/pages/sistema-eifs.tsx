@@ -178,8 +178,8 @@ export default function SistemaEIFS() {
             <div>
               <div className="bg-[#0f172a] text-white rounded-xl p-8 mb-8">
                 <HomeIcon className="text-[#f97316] mb-4" size={48} />
-                <h3 className="font-serif text-3xl font-bold mb-4">¿Qué es el EIFS?</h3>
-                <p className="text-lg leading-relaxed">
+                <h3 className="font-serif text-3xl font-bold mb-4 text-white">¿Qué es el EIFS?</h3>
+                <p className="text-lg leading-relaxed text-white">
                   <strong>EIFS</strong> (Exterior Insulation Finishing System) es un sistema de aislación térmica para las fachadas de su casa u oficina. Es un revestimiento exterior de capas que se aplica sobre los muros exteriores, <strong>envolviendo y abrigando a su casa en todas sus fachadas.</strong>
                 </p>
               </div>
@@ -208,7 +208,7 @@ export default function SistemaEIFS() {
 
             <div className="bg-[#0f172a] text-white rounded-xl p-8 shadow-xl">
               <Award className="text-[#f97316] mb-6" size={56} />
-              <h3 className="font-serif text-3xl font-bold mb-6">Ventajas del Sistema EIFS</h3>
+              <h3 className="font-serif text-3xl font-bold mb-6 text-white">Ventajas del Sistema EIFS</h3>
               <div className="space-y-4">
                 {[
                   { title: "Eficiencia Energética", desc: "Estabiliza temperatura interior y reduce puentes térmicos" },
@@ -219,7 +219,7 @@ export default function SistemaEIFS() {
                   { title: "Alta Rentabilidad", desc: "Instalación rápida y bajo costo de mantenimiento" }
                 ].map((item, index) => (
                   <div key={index} className="border-l-4 border-[#f97316] pl-4">
-                    <h4 className="font-bold text-lg mb-1">{item.title}</h4>
+                    <h4 className="font-bold text-lg mb-1 text-white">{item.title}</h4>
                     <p className="text-gray-300">{item.desc}</p>
                   </div>
                 ))}
@@ -458,7 +458,7 @@ export default function SistemaEIFS() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
               <div>
                 <ThermometerSun className="text-[#f97316] mx-auto mb-4" size={48} />
-                <h3 className="font-bold text-xl mb-2">Paso 1</h3>
+                <h3 className="font-bold text-xl mb-2 text-white">Paso 1</h3>
                 <p>Diagnóstico Térmico Profesional</p>
               </div>
               <div>

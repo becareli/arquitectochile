@@ -73,7 +73,7 @@ export default function PermisoEdificacionRecepcionFinal() {
           
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
-              <h1 className="font-serif text-5xl md:text-6xl font-black mb-8 leading-tight">
+              <h1 className="font-serif text-5xl md:text-6xl font-black text-white mb-8 leading-tight">
                 ¿Necesita <span className="text-[#f97316]">LEGALIZAR</span> su Construcción sin Rechazos ni Demoras?
               </h1>
               <p className="text-xl mb-8 text-gray-200 leading-relaxed">
@@ -187,7 +187,7 @@ export default function PermisoEdificacionRecepcionFinal() {
               <CardHeader className="bg-[#0f172a] text-white">
                 <FileText className="mx-auto mb-4" size={56} />
                 <CardTitle className="font-serif text-3xl text-center">Permiso de Edificación</CardTitle>
-                <p className="text-center text-lg mt-2">Gestión Profesional DOM</p>
+                <p className="text-center text-lg mt-2 text-white">Gestión Profesional DOM</p>
               </CardHeader>
               <CardContent className="pt-6 space-y-4">
                 {[
@@ -376,7 +376,7 @@ export default function PermisoEdificacionRecepcionFinal() {
             </CardHeader>
             <CardContent className="pt-8 space-y-6">
               <div className="bg-[#f97316] text-white rounded-lg p-6">
-                <h3 className="font-bold text-2xl mb-3">📜 Base Normativa:</h3>
+                <h3 className="font-bold text-2xl mb-3 text-white">📜 Base Normativa:</h3>
                 <ul className="space-y-2 text-lg">
                   <li>• <strong>Ley General de Urbanismo y Construcciones (LGUC)</strong></li>
                   <li>• <strong>Ordenanza General (OGUC)</strong></li>
@@ -485,7 +485,7 @@ export default function PermisoEdificacionRecepcionFinal() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
               <div>
                 <FileText className="text-[#f97316] mx-auto mb-4" size={48} />
-                <h3 className="font-bold text-xl mb-2">Permiso Aprobado</h3>
+                <h3 className="font-bold text-xl mb-2 text-white">Permiso Aprobado</h3>
                 <p>En solo 15 días</p>
               </div>
               <div>

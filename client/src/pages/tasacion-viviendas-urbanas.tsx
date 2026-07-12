@@ -332,7 +332,7 @@ export default function TasacionViviendasUrbanas() {
             <h2 className="text-4xl font-bold text-white mb-6">
               📋 SU DOSSIER DE INTELIGENCIA INMOBILIARIA
             </h2>
-            <p className="text-xl">
+            <p className="text-xl text-white">
               No es solo un informe. Es su <strong>arma secreta</strong> para negociar con confianza total.
             </p>
           </div>
@@ -606,12 +606,12 @@ export default function TasacionViviendasUrbanas() {
           </h2>
           
           <div className="bg-[#f97316]/20 border border-[#f97316] rounded-lg p-8 mb-8">
-            <p className="text-2xl mb-6">
+            <p className="text-2xl mb-6 text-white">
               Cada día que pasa sin conocer el valor real de su propiedad es un día más cerca de cometer 
               el <strong>error financiero más costoso</strong> de su vida.
             </p>
             
-            <p className="text-xl mb-6">
+            <p className="text-xl mb-6 text-white">
               Mientras usted duda, otros están tomando <strong>decisiones informadas</strong> y obteniendo 
               las mejores oportunidades del mercado.
             </p>
@@ -621,7 +621,7 @@ export default function TasacionViviendasUrbanas() {
             <p className="text-2xl font-bold text-[#f97316] mb-4">
               TOME EL CONTROL DE SU NEGOCIACIÓN HOY
             </p>
-            <p className="text-lg">
+            <p className="text-lg text-white">
               Una inversión pequeña en una tasación profesional puede ahorrarle millones en su transacción inmobiliaria.
             </p>
           </div>

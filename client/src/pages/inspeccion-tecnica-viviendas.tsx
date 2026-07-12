@@ -254,7 +254,7 @@ export default function InspeccionTecnicaViviendas() {
             <h2 className="text-4xl font-bold text-white mb-6">
               🔍 INSPECCIÓN TÉCNICA PROFESIONAL CERTIFICADA
             </h2>
-            <p className="text-2xl mb-8">
+            <p className="text-2xl mb-8 text-white">
               <strong>LA ÚNICA FORMA CIENTÍFICA DE COMPRAR SEGURO</strong>
             </p>
           </div>
@@ -668,13 +668,13 @@ export default function InspeccionTecnicaViviendas() {
           <h2 className="text-4xl lg:text-5xl font-bold text-white mb-6">
             🚀 RESERVE SU CUPO AHORA
           </h2>
-          <p className="text-2xl mb-8">
+          <p className="text-2xl mb-8 text-white">
             No permita que el miedo a lo desconocido arruine la inversión más importante de su vida
           </p>
           
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center mb-8">
             <div className="bg-white text-[#0f172a] p-8 rounded-lg">
-              <h3 className="text-3xl font-bold mb-4">PRECIO ESPECIAL LANZAMIENTO</h3>
+              <h3 className="text-3xl font-bold mb-4 text-white">PRECIO ESPECIAL LANZAMIENTO</h3>
               <div className="flex items-center justify-center mb-4">
                 <span className="text-2xl line-through text-gray-500 mr-4">$250.000</span>
                 <span className="text-4xl font-bold text-[#0f172a]">$180.000</span>

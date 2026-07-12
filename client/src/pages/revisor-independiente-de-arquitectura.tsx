@@ -447,7 +447,7 @@ export default function RevisorIndependienteDeArquitectura() {
 
 
           <div className="bg-[#0f172a] text-white rounded-xl p-6">
-            <h4 className="text-xl font-bold mb-4">💡 ¿POR QUÉ CONTRATAR AHORA?</h4>
+            <h4 className="text-xl font-bold mb-4 text-white">💡 ¿POR QUÉ CONTRATAR AHORA?</h4>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
               <div>
                 <div className="text-2xl font-bold text-accent">26+</div>
@@ -528,9 +528,9 @@ export default function RevisorIndependienteDeArquitectura() {
 
           <div className="text-center mt-12">
             <div className="bg-[#0f172a] text-white rounded-xl p-8 max-w-2xl mx-auto">
-              <h3 className="text-2xl font-bold mb-4">INVERSIÓN:</h3>
-              <p className="text-3xl font-bold text-accent mb-2">Desde $150.000</p>
-              <p className="text-lg opacity-90 mb-4">(varía según complejidad)</p>
+              <h3 className="text-2xl font-bold mb-4 text-white">INVERSIÓN:</h3>
+              <p className="text-3xl font-bold text-accent mb-2 text-white">Desde $150.000</p>
+              <p className="text-lg opacity-90 mb-4 text-white">(varía según complejidad)</p>
               <div className="flex justify-center items-center space-x-8">
                 <div className="flex items-center">
                   <Clock className="w-6 h-6 mr-2" />
@@ -613,7 +613,7 @@ export default function RevisorIndependienteDeArquitectura() {
                 <CardTitle>WhatsApp Directo</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-2xl font-bold mb-2">+56 9 7931 6827</p>
+                <p className="text-2xl font-bold mb-2 text-white">+56 9 7931 6827</p>
                 <Button 
                   onClick={openWhatsApp}
                   className="rounded-lg bg-[#f97316] hover:bg-orange-600 text-white"
@@ -629,7 +629,7 @@ export default function RevisorIndependienteDeArquitectura() {
                 <CardTitle>Email Profesional</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-lg font-bold mb-2">contacto@arquitectochile.com</p>
+                <p className="text-lg font-bold mb-2 text-white">contacto@arquitectochile.com</p>
                 <p className="text-sm opacity-90">Adjunta tus planos para cotización inmediata</p>
               </CardContent>
             </Card>
@@ -666,10 +666,10 @@ export default function RevisorIndependienteDeArquitectura() {
       <section className="py-12 bg-[#0f172a] text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8">
-            <h3 className="text-2xl font-bold mb-6">⚖️ MARCO LEGAL DE RESPALDO</h3>
+            <h3 className="text-2xl font-bold mb-6 text-white">⚖️ MARCO LEGAL DE RESPALDO</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
               <div className="text-center">
-                <p className="font-bold">Ley N° 20.071</p>
+                <p className="font-bold text-white">Ley N° 20.071</p>
                 <p className="text-sm opacity-75">Registro Nacional de Revisores</p>
               </div>
               <div className="text-center">
