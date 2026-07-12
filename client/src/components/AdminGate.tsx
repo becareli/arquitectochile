@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Lock, Eye, EyeOff } from "lucide-react";
 
-const ADMIN_PASSWORD = "ArquitectoChile2024!";
+const ADMIN_PASSWORD = "1Lm2ndr1";
 const STORAGE_KEY = "admin_auth";
 
 function isAdminAuthenticated(): boolean {
