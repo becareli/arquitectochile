@@ -117,7 +117,7 @@ export default function InspeccionTecnicaViviendas() {
               <Shield className="w-8 h-8 text-[#f97316] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />
             </div>
             
-            <h1 className="text-4xl lg:text-6xl font-bold mb-6">
+            <h1 className="text-4xl lg:text-6xl font-bold text-white mb-6">
               ⚠️ CARTA ABIERTA A TODO FUTURO PROPIETARIO<br/>
               QUE NO QUIERE COMETER EL ERROR MÁS CARO DE SU VIDA
             </h1>

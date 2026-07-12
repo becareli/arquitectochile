@@ -473,7 +473,7 @@ export default function AsesoriaArquitectonicaTerreno() {
       <section className="py-20 bg-blueprint-dark text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <p className="text-sm font-semibold text-[#f97316] uppercase tracking-[0.2em] mb-4">Da el primer paso</p>
-          <h2 className="text-4xl lg:text-5xl font-bold mb-6">
+          <h2 className="text-4xl lg:text-5xl font-bold text-white mb-6">
             ¿Listo para eliminar<br />la incertidumbre?
           </h2>
           <p className="text-lg text-white/70 mb-10 max-w-xl mx-auto">
