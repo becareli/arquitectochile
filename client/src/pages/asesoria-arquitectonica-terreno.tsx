@@ -2,14 +2,15 @@ import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { 
-  Home, CheckCircle, MapPin, FileText, 
+import {
+  Home, CheckCircle, MapPin, FileText,
   Lightbulb, Eye, Calendar, Clock, ChevronDown, ChevronUp,
   User, Award, Shield, TrendingUp
 } from "lucide-react";
 import Navigation from "@/components/navigation";
 import Footer from "@/components/footer";
 import Chatbot from "@/components/chatbot";
+import architectPhoto from "@assets/1651766771115_1783822611665.jpeg";
 
 const faqs = [
   {
@@ -376,8 +377,8 @@ export default function AsesoriaArquitectonicaTerreno() {
 
           <div className="bg-white border border-gray-200 rounded-xl p-8 shadow-sm">
             <div className="flex flex-col md:flex-row gap-8 items-start">
-              <div className="w-20 h-20 bg-[#0f172a] rounded-full flex items-center justify-center flex-shrink-0 mx-auto md:mx-0">
-                <User className="text-white w-10 h-10" />
+              <div className="w-20 h-20 rounded-full overflow-hidden flex-shrink-0 mx-auto md:mx-0 border-2 border-[#0f172a]">
+                <img src={architectPhoto} alt="Patricio Becar Elissegaray — Arquitecto" className="w-full h-full object-cover" />
               </div>
               <div className="flex-1 text-center md:text-left">
                 <h3 className="text-2xl font-bold text-[#0f172a] mb-1">Patricio Becar Elissegaray</h3>
