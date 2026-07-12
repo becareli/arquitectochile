@@ -419,7 +419,7 @@ export default function PermisoEdificacionRecepcionFinal() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="mb-12">
             <AlertTriangle className="text-[#0f172a] mx-auto mb-6 animate-pulse" size={64} />
-            <h2 className="font-serif text-5xl font-bold mb-8">
+            <h2 className="font-serif text-5xl font-bold text-white mb-8">
               ⚠️ ¿Qué Pasa Si NO Legaliza Su Construcción AHORA?
             </h2>
           </div>

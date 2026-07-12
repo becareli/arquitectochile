@@ -329,7 +329,7 @@ export default function TasacionViviendasUrbanas() {
       <section className="py-16 bg-[#0f172a] text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold mb-6">
+            <h2 className="text-4xl font-bold text-white mb-6">
               📋 SU DOSSIER DE INTELIGENCIA INMOBILIARIA
             </h2>
             <p className="text-xl">
@@ -490,7 +490,7 @@ export default function TasacionViviendasUrbanas() {
       {/* 8. Llamada a la Acción Principal - CTA */}
       <section className="py-16 bg-[#f97316] text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl font-bold mb-6">
+          <h2 className="text-4xl font-bold text-white mb-6">
             🚀 TOME EL CONTROL DE SU NEGOCIACIÓN HOY
           </h2>
           
@@ -601,7 +601,7 @@ export default function TasacionViviendasUrbanas() {
       {/* 10. Cierre y Última Llamada a la Acción - Gary Halbert / Alex Hormozi */}
       <section className="py-16 bg-[#0f172a] text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl font-bold mb-8">
+          <h2 className="text-4xl font-bold text-white mb-8">
             ⚡ NO DEJE QUE LA DUDA LE CUESTE MILLONES
           </h2>
           

@@ -251,7 +251,7 @@ export default function InspeccionTecnicaViviendas() {
       <section className="py-16 bg-[#0f172a] text-white">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold mb-6">
+            <h2 className="text-4xl font-bold text-white mb-6">
               🔍 INSPECCIÓN TÉCNICA PROFESIONAL CERTIFICADA
             </h2>
             <p className="text-2xl mb-8">
@@ -480,7 +480,7 @@ export default function InspeccionTecnicaViviendas() {
       <section className="py-16 bg-[#0f172a] text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold mb-6">
+            <h2 className="text-4xl font-bold text-white mb-6">
               💡 5 RAZONES PODEROSAS PARA ACTUAR HOY
             </h2>
           </div>
@@ -628,7 +628,7 @@ export default function InspeccionTecnicaViviendas() {
       <section className="py-16 bg-[#f97316] text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="mb-8">
-            <h2 className="text-4xl font-bold mb-6">
+            <h2 className="text-4xl font-bold text-white mb-6">
               ⏰ DISPONIBILIDAD LIMITADA
             </h2>
             <div className="bg-white text-[#0f172a] p-6 rounded-lg mb-8">
@@ -665,7 +665,7 @@ export default function InspeccionTecnicaViviendas() {
       {/* CTA Final Poderoso */}
       <section className="py-20 bg-[#0f172a] text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl lg:text-5xl font-bold mb-6">
+          <h2 className="text-4xl lg:text-5xl font-bold text-white mb-6">
             🚀 RESERVE SU CUPO AHORA
           </h2>
           <p className="text-2xl mb-8">

@@ -40,7 +40,7 @@ export default function FusionTerrenosUrbanos() {
               🔥 BENEFICIO EXCLUSIVO LEY ART. 63
             </Badge>
             
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 leading-tight">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 leading-tight">
               Aumenta <span className="text-[#f97316]">INSTANTÁNEAMENTE</span> el Valor de tu Propiedad
             </h1>
             
@@ -665,7 +665,7 @@ export default function FusionTerrenosUrbanos() {
       {/* CTA Final */}
       <section className="py-20 bg-[#0f172a] text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl font-bold mb-6">
+          <h2 className="text-4xl font-bold text-white mb-6">
             ¿Listo para Multiplicar el Valor de Tu Terreno?
           </h2>
           <p className="text-xl mb-8">

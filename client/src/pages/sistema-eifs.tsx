@@ -381,7 +381,7 @@ export default function SistemaEIFS() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="mb-12">
             <AlertTriangle className="text-[#f97316] mx-auto mb-6" size={64} />
-            <h2 className="font-serif text-5xl font-bold mb-8">
+            <h2 className="font-serif text-5xl font-bold text-white mb-8">
               ¿Qué Sucede Si NO Instala AHORA el Sistema EIFS?
             </h2>
           </div>

@@ -518,7 +518,7 @@ export default function DisenemosNuevosEspacios() {
       {/* Call to Action Final */}
       <section className="py-16 bg-[#0f172a] text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl font-bold mb-6">
+          <h2 className="text-4xl font-bold text-white mb-6">
             🚀 RESERVE SU CUPO AHORA
           </h2>
           <p className="text-xl mb-8">

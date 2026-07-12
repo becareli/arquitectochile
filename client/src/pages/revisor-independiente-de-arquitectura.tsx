@@ -604,7 +604,7 @@ export default function RevisorIndependienteDeArquitectura() {
       {/* Contacto */}
       <section id="contacto-revisor" className="py-16 bg-[#0f172a] text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl font-bold mb-8">CONTACTO INMEDIATO</h2>
+          <h2 className="text-4xl font-bold text-white mb-8">CONTACTO INMEDIATO</h2>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
             <Card className="bg-white/10 backdrop-blur-sm border-white/20 text-white">

@@ -8,7 +8,7 @@ export default function ObrasMenoresEmpresas() {
       <Navigation />
       <header className="bg-[#0f172a] text-white py-20 px-6">
         <div className="max-w-5xl mx-auto text-center">
-          <h1 className="text-4xl md:text-6xl font-extrabold mb-6 tracking-tight">
+          <h1 className="text-4xl md:text-6xl font-extrabold text-white mb-6 tracking-tight">
             Proteja su Continuidad Operativa y Asegure el Cumplimiento Normativo de sus Instalaciones.
           </h1>
           <p className="text-xl md:text-2xl text-gray-300 font-light mb-10">
@@ -82,7 +82,7 @@ export default function ObrasMenoresEmpresas() {
 
       <section id="contacto" className="py-24 px-6 bg-white">
         <div className="max-w-4xl mx-auto bg-[#0f172a] rounded-3xl p-10 md:p-16 text-center text-white shadow-2xl">
-          <h2 className="text-3xl md:text-5xl font-bold mb-6">¿Hablamos de su próximo proyecto?</h2>
+          <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">¿Hablamos de su próximo proyecto?</h2>
           <p className="text-xl text-gray-300 mb-12 italic">Seleccione el nivel de asesoría que su empresa requiere hoy:</p>
 
           <div className="grid md:grid-cols-2 gap-8">
