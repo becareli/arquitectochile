@@ -172,7 +172,7 @@ export default function Navigation() {
 
             {/* Logo + Brand */}
             <button onClick={navigateToHome} className="flex items-center gap-2 lg:gap-4 hover:opacity-80 transition-opacity flex-shrink-0 min-w-0">
-              <img src={logoImg} alt="ArquitectoChile" className="h-[40px] sm:h-[48px] lg:h-[56px] w-auto flex-shrink-0" />
+              <img src={logoImg} alt="ArquitectoChile" className="h-[48px] sm:h-[56px] lg:h-[72px] w-auto flex-shrink-0" />
               <span className="inline lg:hidden text-sm sm:text-base font-bold text-[#0f172a] whitespace-nowrap tracking-tight">ArquitectoChile<span className="text-gray-400">.com</span></span>
               <span className="hidden lg:inline text-lg font-semibold whitespace-nowrap">
                 <span className="text-[#0f172a]">ArquitectoChile</span>
