@@ -168,7 +168,7 @@ export default function Navigation() {
       <TopBar />
       <nav className="bg-white border-b border-gray-200">
         <div className="w-full px-2 sm:px-4 lg:px-10">
-          <div className="flex items-center justify-between flex-nowrap h-[64px] sm:h-[80px] lg:h-[108px] gap-2">
+          <div className="flex items-center justify-between flex-nowrap h-[56px] sm:h-[72px] lg:h-[96px] gap-2">
 
             {/* Logo + Brand */}
             <button onClick={navigateToHome} className="flex items-center gap-2 lg:gap-4 hover:opacity-80 transition-opacity flex-shrink-0 min-w-0">
