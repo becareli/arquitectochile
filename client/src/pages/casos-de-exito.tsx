@@ -1,7 +1,7 @@
-import { useEffect } from "react";
 import { Star, Quote, MapPin, ArrowRight } from "lucide-react";
 import Navigation from "@/components/navigation";
 import Footer from "@/components/footer";
+import { useSEO } from "@/hooks/useSEO";
 
 const testimonials = [
   {
@@ -129,9 +129,11 @@ function StarRating({ rating }: { rating: number }) {
 }
 
 export default function CasosDeExito() {
-  useEffect(() => {
-    document.title = "Casos de Éxito | ArquitectoChile.com";
-  }, []);
+  useSEO({
+    title: "Casos de Éxito | ArquitectoChile.com",
+    description: "Casos de éxito de ArquitectoChile.com: testimonios reales de clientes en Santiago sobre diseño, regularización, tasación y construcción de viviendas.",
+    path: "/casos-de-exito",
+  });
 
   return (
     <div className="min-h-screen bg-white">

@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { Menu, X, ChevronDown, Mail, Lock, Users, LayoutDashboard, Star, PlayCircle, Calculator, ArrowRight, ArrowLeft } from "lucide-react";
 import { useLocation } from "wouter";
-import logoImg from "@assets/ArquitectoChile.com_Logo_1771886286621.png";
+import logoImg from "@assets/ArquitectoChile.com_Logo_1771886286621.webp";
 
 function TopBar() {
   const linkClass = "flex items-center gap-1.5 text-gray-400 hover:text-white transition-colors";

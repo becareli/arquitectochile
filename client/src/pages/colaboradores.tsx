@@ -2,9 +2,16 @@ import { useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import ColaboradoresSection from "@/components/colaboradores-section";
+import { useSEO } from "@/hooks/useSEO";
 
 export default function Colaboradores() {
   const [, setLocation] = useLocation();
+
+  useSEO({
+    title: "Red de Colaboradores | ArquitectoChile.com",
+    description: "Conoce a los colaboradores de ArquitectoChile.com: profesionales verificados que apoyan proyectos de diseño y construcción en toda la Región Metropolitana.",
+    path: "/colaboradores",
+  });
 
   return (
     <div className="min-h-screen bg-white">

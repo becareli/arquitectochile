@@ -4,6 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge';
 import { CheckCircle, AlertCircle, Clock, ExternalLink, Settings, TestTube } from 'lucide-react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useSEO } from '@/hooks/useSEO';
 
 interface IntegrationHealth {
   status: 'healthy' | 'unhealthy';
@@ -23,6 +24,13 @@ interface TidyCalValidation {
 }
 
 export default function AdminIntegrationsPage() {
+  useSEO({
+    title: "Integraciones | ArquitectoChile.com",
+    description: "Panel interno de integraciones de ArquitectoChile.com.",
+    path: "/admin",
+    noindex: true,
+  });
+
   const queryClient = useQueryClient();
 
   // Health check query

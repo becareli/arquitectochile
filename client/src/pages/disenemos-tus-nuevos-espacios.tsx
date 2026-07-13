@@ -394,7 +394,7 @@ export default function DisenemosNuevosEspacios() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold text-[#0f172a] mb-6">
-              👨‍🎓 ¿POR QUÉ PATRICIO BECAR ES SU MEJOR OPCIÓN?
+              👨‍🎓 ¿POR QUÉ SOMOS SU MEJOR OPCIÓN?
             </h2>
           </div>
 

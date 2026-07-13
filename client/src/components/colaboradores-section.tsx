@@ -160,9 +160,9 @@ export default function ColaboradoresSection() {
           backgroundImage: `repeating-linear-gradient(90deg, transparent, transparent 80px, rgba(255,255,255,0.12) 80px, rgba(255,255,255,0.12) 81px), repeating-linear-gradient(0deg, transparent, transparent 80px, rgba(255,255,255,0.12) 80px, rgba(255,255,255,0.12) 81px)`
         }} />
         <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-24 text-center">
-          <h2 className="font-serif text-3xl md:text-5xl font-bold text-white mb-6 leading-tight">
+          <h1 className="font-serif text-3xl md:text-5xl font-bold text-white mb-6 leading-tight">
             Red de Colaboradores Especializados:<br className="hidden md:block" /> Construyamos el Futuro de la Vivienda en Chile
-          </h2>
+          </h1>
           <p className="text-lg text-slate-300 max-w-3xl mx-auto leading-relaxed">
             Buscamos aliarnos con los mejores proyectistas y técnicos independientes para ejecutar proyectos residenciales de alto estándar con rigor y orden.
           </p>
@@ -202,7 +202,7 @@ export default function ColaboradoresSection() {
         {/* Especialidades por categoría */}
         <div className="mb-20">
           <div className="text-center mb-10">
-            <h3 className="font-serif text-3xl font-bold text-slate-900 mb-3">Especialidades</h3>
+            <h2 className="font-serif text-3xl font-bold text-slate-900 mb-3">Especialidades</h2>
             <p className="text-slate-600">Encuentra tu nicho en nuestra red de construcción integral</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
@@ -270,7 +270,7 @@ export default function ColaboradoresSection() {
         {/* Proceso de 4 pasos */}
         <div className="mb-20">
           <div className="text-center mb-10">
-            <h3 className="font-serif text-3xl font-bold text-slate-900 mb-3">Proceso</h3>
+            <h2 className="font-serif text-3xl font-bold text-slate-900 mb-3">Proceso</h2>
             <p className="text-slate-600">Cotización competitiva en cuatro etapas</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
@@ -325,7 +325,7 @@ export default function ColaboradoresSection() {
         {/* Colaboradores en la red */}
         <div className="mb-20">
           <div className="text-center mb-10">
-            <h3 className="font-serif text-3xl font-bold text-slate-900 mb-3">Colaboradores en la red</h3>
+            <h2 className="font-serif text-3xl font-bold text-slate-900 mb-3">Colaboradores en la red</h2>
             <p className="text-slate-600">Profesionales verificados que integran esta red</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
@@ -375,7 +375,7 @@ export default function ColaboradoresSection() {
         <div className="max-w-3xl mx-auto">
           <Card className="bg-slate-900 text-white border-none shadow-xl">
             <CardContent className="p-10 text-center">
-              <h3 className="font-serif text-2xl font-bold mb-3">Postular a la Red Técnica</h3>
+              <h2 className="font-serif text-2xl font-bold mb-3">Postular a la Red Técnica</h2>
               <p className="text-slate-400 mb-8 max-w-xl mx-auto text-sm leading-relaxed">
                 Buscamos aliados técnicos para ejecutar los proyectos más exigentes. Tu capacidad técnica es nuestro motor.
               </p>

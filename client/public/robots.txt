@@ -1,0 +1,10 @@
+User-agent: *
+Disallow: /admin
+Disallow: /crm
+Disallow: /crm-admin
+Disallow: /crm-admin-dashboard
+Disallow: /portal-cliente/login
+Disallow: /portal-cliente/demo
+Disallow: /api/
+
+Sitemap: https://arquitectochile.com/sitemap.xml

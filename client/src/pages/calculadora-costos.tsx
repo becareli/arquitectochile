@@ -16,6 +16,7 @@ import type { InsertCalculatorLead } from '@shared/schema';
 import Navigation from "@/components/navigation";
 import Footer from "@/components/footer";
 import Chatbot from "@/components/chatbot";
+import { useSEO } from "@/hooks/useSEO";
 
 // Schema para captura de leads
 const leadFormSchema = z.object({
@@ -43,6 +44,12 @@ interface CalculationResult {
 }
 
 export default function CalculadoraCostos() {
+  useSEO({
+    title: "Calculadora de Costos de Construcción Chile | ArquitectoChile",
+    description: "Calcula el costo estimado de tu proyecto de construcción o remodelación en Chile. Herramienta gratuita de presupuesto con arquitecto especialista.",
+    path: "/calculadora-costos",
+  });
+
   const [area, setArea] = useState<number>(0);
   const [constructionType, setConstructionType] = useState<string>("");
   const [finishLevel, setFinishLevel] = useState<string>("");

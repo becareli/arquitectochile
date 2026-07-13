@@ -18,6 +18,7 @@ import {
   Home,
   AlertTriangle
 } from "lucide-react";
+import { useSEO } from "@/hooks/useSEO";
 
 const demoProject = {
   name: "Ampliación Casa Familiar - Las Condes",
@@ -83,6 +84,13 @@ const tabs: { key: TabKey; label: string; icon: typeof FileText }[] = [
 const formatCLP = (n: number) => new Intl.NumberFormat("es-CL", { style: "currency", currency: "CLP" }).format(n);
 
 export default function PortalClienteDemo() {
+  useSEO({
+    title: "Demo Portal Cliente | ArquitectoChile.com",
+    description: "Vista de demostración del portal de clientes de ArquitectoChile.com con datos de ejemplo.",
+    path: "/portal-cliente/demo",
+    noindex: true,
+  });
+
   const [, setLocation] = useLocation();
   const [activeTab, setActiveTab] = useState<TabKey>("documentos");
 

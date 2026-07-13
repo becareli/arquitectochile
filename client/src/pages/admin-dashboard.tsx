@@ -7,8 +7,16 @@ import { BarChart3, Users, FileText, Calculator, Zap, TrendingUp, Phone, Mail } 
 import { useQuery } from "@tanstack/react-query";
 import QuoteDashboard from "@/components/quote-dashboard";
 import LeadManagement from "@/components/lead-management";
+import { useSEO } from "@/hooks/useSEO";
 
 export default function AdminDashboard() {
+  useSEO({
+    title: "Panel Administrativo | ArquitectoChile.com",
+    description: "Panel interno de administración de ArquitectoChile.com.",
+    path: "/admin",
+    noindex: true,
+  });
+
   const [activeTab, setActiveTab] = useState("overview");
 
   const { data: leads } = useQuery({

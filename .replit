@@ -51,3 +51,6 @@ SMTP_FROM = "ArquitectoChile.com <arquitectopatriciobecar@gmail.com>"
 [postMerge]
 path = "scripts/post-merge.sh"
 timeoutMs = 20000
+
+[objectStorage]
+defaultBucketID = "replit-objstore-f71f573e-56d0-4813-bd75-7394ba3ce936"

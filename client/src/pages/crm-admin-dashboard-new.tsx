@@ -18,8 +18,9 @@ import {
 } from "@/components/ui/dialog";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { 
-  Users, 
+import { useSEO } from "@/hooks/useSEO";
+import {
+  Users,
   FolderOpen, 
   CheckSquare, 
   DollarSign, 
@@ -91,6 +92,13 @@ interface Project {
 }
 
 export default function CRMAdminDashboardNew() {
+  useSEO({
+    title: "CRM Admin | ArquitectoChile.com",
+    description: "Panel interno de administración CRM de ArquitectoChile.com.",
+    path: "/crm-admin-dashboard",
+    noindex: true,
+  });
+
   // Estados
   const [searchTerm, setSearchTerm] = useState("");
   const [activeTab, setActiveTab] = useState("overview");

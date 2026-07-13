@@ -12,12 +12,12 @@ import {
 import Chatbot from "@/components/chatbot";
 import Footer from "@/components/footer";
 import Navigation from "@/components/navigation";
-import inspectorElectricalImg from "@assets/generated_images/Inspector_reviewing_electrical_panel_35e9d965.png";
-import hiddenDamageImg from "@assets/generated_images/Hidden_damage_discovery_comparison_eb88f290.png";
-import happyFamilyImg from "@assets/generated_images/Happy_family_with_inspection_report_99ef68f1.png";
-import technicalReportImg from "@assets/generated_images/Technical_inspection_report_sample_e4f41b17.png";
-import professionalInspectionImg from "@assets/generated_images/Professional_architect_conducting_inspection_30fd92ae.png";
-import expensiveRepairsImg from "@assets/generated_images/Expensive_repair_bills_scenario_08b1d6ae.png";
+import inspectorElectricalImg from "@assets/generated_images/Inspector_reviewing_electrical_panel_35e9d965.webp";
+import hiddenDamageImg from "@assets/generated_images/Hidden_damage_discovery_comparison_eb88f290.webp";
+import happyFamilyImg from "@assets/generated_images/Happy_family_with_inspection_report_99ef68f1.webp";
+import technicalReportImg from "@assets/generated_images/Technical_inspection_report_sample_e4f41b17.webp";
+import professionalInspectionImg from "@assets/generated_images/Professional_architect_conducting_inspection_30fd92ae.webp";
+import expensiveRepairsImg from "@assets/generated_images/Expensive_repair_bills_scenario_08b1d6ae.webp";
 
 export default function InspeccionTecnicaViviendas() {
   const [, setLocation] = useLocation();

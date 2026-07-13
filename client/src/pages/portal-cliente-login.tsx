@@ -2,8 +2,16 @@ import { useLocation } from "wouter";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Shield, Construction } from "lucide-react";
+import { useSEO } from "@/hooks/useSEO";
 
 export default function PortalClienteLogin() {
+  useSEO({
+    title: "Iniciar Sesión | Portal Cliente - ArquitectoChile.com",
+    description: "Inicia sesión en el portal de clientes de ArquitectoChile.com para revisar el avance de tu proyecto.",
+    path: "/portal-cliente/login",
+    noindex: true,
+  });
+
   const [, setLocation] = useLocation();
 
   return (

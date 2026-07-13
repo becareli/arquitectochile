@@ -3,8 +3,9 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { 
-  TrendingUp, 
+import { useSEO } from '@/hooks/useSEO';
+import {
+  TrendingUp,
   Users, 
   Calendar, 
   DollarSign, 
@@ -60,6 +61,13 @@ interface ExecutiveSummary {
 }
 
 export default function AdminEnhancedAnalytics() {
+  useSEO({
+    title: "Analítica Avanzada | ArquitectoChile.com",
+    description: "Panel interno de analítica avanzada de ArquitectoChile.com.",
+    path: "/admin",
+    noindex: true,
+  });
+
   const [refreshKey, setRefreshKey] = useState(0);
 
   // Fetch enhanced analytics data

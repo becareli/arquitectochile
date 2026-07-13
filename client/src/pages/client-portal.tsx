@@ -24,12 +24,19 @@ import {
   UserCheck,
   Monitor
 } from "lucide-react";
-import portalDocumentos from "../assets/portal/portal-documentos.png";
-import portalPlanos from "../assets/portal/portal-planos.png";
-import portalTimeline from "../assets/portal/portal-timeline.png";
-import portalPagos from "../assets/portal/portal-pagos.png";
+import portalDocumentos from "../assets/portal/portal-documentos.webp";
+import portalPlanos from "../assets/portal/portal-planos.webp";
+import portalTimeline from "../assets/portal/portal-timeline.webp";
+import portalPagos from "../assets/portal/portal-pagos.webp";
+import { useSEO } from "@/hooks/useSEO";
 
 export default function ClientPortal() {
+  useSEO({
+    title: "Portal Cliente | Seguimiento de Proyecto - ArquitectoChile.com",
+    description: "Portal de clientes de ArquitectoChile.com: revisa documentos, planos, avances y pagos de tu proyecto de arquitectura en un solo lugar, en tiempo real.",
+    path: "/portal-cliente",
+  });
+
   const [, setLocation] = useLocation();
 
   const portalFeatures = [

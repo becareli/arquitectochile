@@ -5,8 +5,9 @@ import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Progress } from "@/components/ui/progress";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { 
-  Users, 
+import { useSEO } from "@/hooks/useSEO";
+import {
+  Users,
   FolderOpen, 
   CheckSquare, 
   DollarSign, 
@@ -72,6 +73,13 @@ interface Task {
 }
 
 export default function CRMDashboard() {
+  useSEO({
+    title: "CRM | ArquitectoChile.com",
+    description: "Panel interno de gestión CRM de ArquitectoChile.com.",
+    path: "/crm",
+    noindex: true,
+  });
+
   const { data: dashboardData, isLoading: loadingDashboard } = useQuery<DashboardData>({
     queryKey: ['/api/crm/reports/dashboard'],
   });

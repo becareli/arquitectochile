@@ -1,6 +1,13 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useSEO } from "@/hooks/useSEO";
 
 export default function PoliticaCookies() {
+  useSEO({
+    title: "Política de Cookies | ArquitectoChile.com",
+    description: "Política de cookies de ArquitectoChile.com: qué cookies utilizamos, con qué fines y cómo puedes gestionar tus preferencias al navegar nuestro sitio web.",
+    path: "/politica-cookies",
+  });
+
   return (
     <div className="min-h-screen bg-gray-50 py-16">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">

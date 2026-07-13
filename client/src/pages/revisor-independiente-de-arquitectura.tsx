@@ -4,8 +4,15 @@ import { CheckCircle, Shield, Clock, Phone, Mail, MapPin, Youtube, Award, FileCh
 import Chatbot from "@/components/chatbot";
 import Navigation from "@/components/navigation";
 import { useEffect } from "react";
+import { useSEO } from "@/hooks/useSEO";
 
 export default function RevisorIndependienteDeArquitectura() {
+  useSEO({
+    title: "Revisor Independiente de Arquitectura Chile | ArquitectoChile",
+    description: "Revisor independiente de arquitectura en Chile: fiscalización técnica de obras de construcción según normativa MINVU, con respaldo profesional certificado.",
+    path: "/revisor-independiente-de-arquitectura",
+  });
+
   // Scroll to top when component mounts
   useEffect(() => {
     window.scrollTo(0, 0);

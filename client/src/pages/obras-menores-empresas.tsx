@@ -1,8 +1,15 @@
 import { Link } from "wouter";
 import { Cpu, Gavel } from "lucide-react";
 import Navigation from "@/components/navigation";
+import { useSEO } from "@/hooks/useSEO";
 
 export default function ObrasMenoresEmpresas() {
+  useSEO({
+    title: "Obras Menores y Regularización para Empresas | ArquitectoChile",
+    description: "Gestión integral de obras menores, regularizaciones y cumplimiento normativo para empresas, transnacionales y retail en Chile. Continuidad operativa garantizada.",
+    path: "/obras-menores-empresas",
+  });
+
   return (
     <div className="bg-gray-50 text-gray-900 font-sans leading-relaxed">
       <Navigation />

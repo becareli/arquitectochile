@@ -11,8 +11,15 @@ import fusionTerrenosImg from "@assets/fusion-terrenos2.png";
 import leyFusionImg from "@assets/ley-fusion.png";
 import fusionPredialImg from "@assets/fusion-predial2.png";
 import comoHacerFusionImg from "@assets/como-hacer-fusion-terreno2.png";
+import { useSEO } from "@/hooks/useSEO";
 
 export default function FusionTerrenosUrbanos() {
+  useSEO({
+    title: "Fusión de Terrenos Urbanos Chile | ArquitectoChile.com",
+    description: "Fusión de terrenos urbanos en Chile: aumenta el valor de tu propiedad uniendo predios de forma legal, con asesoría de arquitecto especialista en normativa.",
+    path: "/fusion-terrenos-urbanos",
+  });
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);

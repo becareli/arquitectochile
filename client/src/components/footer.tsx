@@ -1,5 +1,5 @@
-import { Mail, MapPin, ArrowRight } from "lucide-react";
-import logoImg from "@assets/ArquitectoChile.com_Logo_1771886286621.png";
+import { Mail, MapPin, ArrowRight, MessageCircle } from "lucide-react";
+import logoImg from "@assets/ArquitectoChile.com_Logo_1771886286621.webp";
 
 export default function Footer() {
   return (
@@ -113,6 +113,15 @@ export default function Footer() {
                 <Mail className="w-3.5 h-3.5" strokeWidth={1.5} />
                 contacto@arquitectochile.com
               </a>
+              <a
+                href="https://wa.me/56979316827?text=Hola%2C%20quiero%20más%20información%20sobre%20sus%20servicios%20de%20arquitectura"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-sm text-gray-400 hover:text-white transition-colors"
+              >
+                <MessageCircle className="w-3.5 h-3.5" strokeWidth={1.5} />
+                WhatsApp +56 9 7931 6827
+              </a>
               <div className="text-sm text-gray-500 leading-relaxed">
                 <div className="flex items-start gap-2">
                   <MapPin className="w-3.5 h-3.5 mt-0.5 flex-shrink-0" strokeWidth={1.5} />
@@ -124,7 +133,7 @@ export default function Footer() {
                 </div>
               </div>
               <a
-                href="https://maps.google.com/?cid=12123957937748651818"
+                href="https://maps.app.goo.gl/2xs5GE5gcr3R5ouf9"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1.5 text-xs text-[#f97316] hover:text-orange-400 transition-colors font-medium"

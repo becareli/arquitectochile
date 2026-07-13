@@ -15,11 +15,11 @@ import Footer from "@/components/footer";
 import Navigation from "@/components/navigation";
 
 // Import generated images
-import confusedFamilyImg from "@assets/generated_images/Confused_family_property_anxiety_64cc6752.png";
-import professionalReportImg from "@assets/generated_images/Professional_appraisal_report_document_7522a297.png";
-import workflowInfographicImg from "@assets/generated_images/Appraisal_process_workflow_infographic_4c8810d1.png";
-import successComparisonImg from "@assets/generated_images/Property_valuation_success_comparison_df77c676.png";
-import happyFamilyImg from "@assets/generated_images/Happy_family_property_success_aaa72930.png";
+import confusedFamilyImg from "@assets/generated_images/Confused_family_property_anxiety_64cc6752.webp";
+import professionalReportImg from "@assets/generated_images/Professional_appraisal_report_document_7522a297.webp";
+import workflowInfographicImg from "@assets/generated_images/Appraisal_process_workflow_infographic_4c8810d1.webp";
+import successComparisonImg from "@assets/generated_images/Property_valuation_success_comparison_df77c676.webp";
+import happyFamilyImg from "@assets/generated_images/Happy_family_property_success_aaa72930.webp";
 
 // Import official certificate
 import certificadoTasacionesImg from "@assets/Certificado Tasaciones_1754240869171.jpg";

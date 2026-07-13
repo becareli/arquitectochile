@@ -2,8 +2,16 @@ import { Link } from "wouter";
 import { CheckCircle2, Download, Mail, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { useSEO } from "@/hooks/useSEO";
 
 export default function GraciasPage() {
+  useSEO({
+    title: "Gracias por tu Suscripción | ArquitectoChile.com",
+    description: "Gracias por tu solicitud. Un miembro del equipo de ArquitectoChile.com se pondrá en contacto contigo a la brevedad para avanzar con tu proyecto.",
+    path: "/gracias",
+    noindex: true,
+  });
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white dark:from-slate-900 dark:to-slate-800">
       <div className="container mx-auto px-4 py-24">

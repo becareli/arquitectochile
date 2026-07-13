@@ -1,6 +1,13 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useSEO } from "@/hooks/useSEO";
 
 export default function PoliticaPrivacidad() {
+  useSEO({
+    title: "Política de Privacidad | ArquitectoChile.com",
+    description: "Política de privacidad de ArquitectoChile.com: cómo recopilamos, usamos y protegemos tus datos personales al utilizar nuestros servicios de arquitectura en Chile.",
+    path: "/politica-privacidad",
+  });
+
   return (
     <div className="min-h-screen bg-gray-50 py-16">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">

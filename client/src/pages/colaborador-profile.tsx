@@ -14,6 +14,7 @@ import {
   Briefcase,
   Award
 } from "lucide-react";
+import { useSEO } from "@/hooks/useSEO";
 
 const mockColaboradores = [
   {
@@ -64,6 +65,17 @@ export default function ColaboradorProfile() {
   const slug = params?.slug;
 
   const colaborador = mockColaboradores.find(c => c.slug === slug);
+
+  useSEO({
+    title: colaborador
+      ? `${colaborador.name} - ${colaborador.specialty} | ArquitectoChile.com`
+      : "Colaborador no encontrado | ArquitectoChile.com",
+    description: colaborador
+      ? `Perfil profesional de ${colaborador.name}, ${colaborador.specialty} en ${colaborador.location}. Experiencia, especialidad y proyectos realizados en Chile.`
+      : "El perfil de colaborador que buscas no existe o ha sido removido de la red de ArquitectoChile.com.",
+    path: `/colaboradores/${slug ?? ""}`,
+    noindex: true,
+  });
 
   if (!colaborador) {
     return (

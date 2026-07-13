@@ -16,12 +16,12 @@ import Chatbot from "@/components/chatbot";
 import Footer from "@/components/footer";
 import Navigation from "@/components/navigation";
 
-import thermalInfographicImg from "@assets/generated_images/House_thermal_efficiency_infographic_1c36aeed.png";
-import mineralWoolInstallationImg from "@assets/generated_images/Worker_installing_mineral_wool_insulation_7c19536f.png";
-import eifsWallSystemImg from "@assets/generated_images/Modern_EIFS_wall_system_09a53a8a.png";
-import thermopaneWindowImg from "@assets/generated_images/Thermopane_window_double_glazing_3d79bf11.png";
-import architectInspectionImg from "@assets/generated_images/Architect_thermal_inspection_service_fdd26f97.png";
-import happyFamilyComfortImg from "@assets/generated_images/Happy_family_comfortable_home_40405dcd.png";
+import thermalInfographicImg from "@assets/generated_images/House_thermal_efficiency_infographic_1c36aeed.webp";
+import mineralWoolInstallationImg from "@assets/generated_images/Worker_installing_mineral_wool_insulation_7c19536f.webp";
+import eifsWallSystemImg from "@assets/generated_images/Modern_EIFS_wall_system_09a53a8a.webp";
+import thermopaneWindowImg from "@assets/generated_images/Thermopane_window_double_glazing_3d79bf11.webp";
+import architectInspectionImg from "@assets/generated_images/Architect_thermal_inspection_service_fdd26f97.webp";
+import happyFamilyComfortImg from "@assets/generated_images/Happy_family_comfortable_home_40405dcd.webp";
 
 import pasosAislacionImg from "@assets/pasos-aislacion-termica2.jpeg";
 import pasosReacondicionamientoImg from "@assets/pasos-reacondicionamiento-termico2.jpeg";

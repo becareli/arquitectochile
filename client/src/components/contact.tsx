@@ -49,7 +49,7 @@ VERSION:3.0
 FN:Patricio Becar Elissegaray
 ORG:ArquitectoChile.com
 TITLE:Arquitecto U. de Chile | Revisor Independiente MINVU
-TEL;TYPE=CELL:+56912345678
+TEL;TYPE=CELL:+56979316827
 EMAIL:contacto@arquitectochile.com
 URL:https://arquitectochile.com
 END:VCARD`;
@@ -327,7 +327,7 @@ export default function Contact() {
                     onClick={submitLead}
                     className="flex-1 bg-[#f97316] text-white font-bold py-4 rounded-xl shadow-lg shadow-orange-100 cursor-pointer transition-all hover:bg-[#ea580c] text-sm border-none"
                   >
-                    Enviar Datos
+                    Solicitar Análisis de mi Proyecto
                   </button>
                 </div>
               </div>

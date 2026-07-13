@@ -17,16 +17,23 @@ import {
 import Chatbot from "@/components/chatbot";
 import Footer from "@/components/footer";
 import Navigation from "@/components/navigation";
+import { useSEO } from "@/hooks/useSEO";
 
-import subdivisionAerialImg from "@assets/generated_images/Subdivision_aerial_view_technical_de94368c.png";
-import architectConsultationImg from "@assets/generated_images/Architect_consultation_subdivision_process_35d30a54.png";
-import beforeAfterComparisonImg from "@assets/generated_images/Before_after_subdivision_comparison_3d231415.png";
-import municipalPermitsImg from "@assets/generated_images/Municipal_permits_approval_process_94199078.png";
-import familyInheritanceImg from "@assets/generated_images/Family_inheritance_subdivision_meeting_9b154685.png";
-import happyFamilySuccessImg from "@assets/generated_images/Happy_family_subdivision_success_5003b1c0.png";
+import subdivisionAerialImg from "@assets/generated_images/Subdivision_aerial_view_technical_de94368c.webp";
+import architectConsultationImg from "@assets/generated_images/Architect_consultation_subdivision_process_35d30a54.webp";
+import beforeAfterComparisonImg from "@assets/generated_images/Before_after_subdivision_comparison_3d231415.webp";
+import municipalPermitsImg from "@assets/generated_images/Municipal_permits_approval_process_94199078.webp";
+import familyInheritanceImg from "@assets/generated_images/Family_inheritance_subdivision_meeting_9b154685.webp";
+import happyFamilySuccessImg from "@assets/generated_images/Happy_family_subdivision_success_5003b1c0.webp";
 
 export default function SubdivisionTerrenosUrbanos() {
   const [, setLocation] = useLocation();
+
+  useSEO({
+    title: "Subdivisión de Terrenos Urbanos Chile | ArquitectoChile.com",
+    description: "Subdivisión de terrenos urbanos en Chile: multiplica el valor patrimonial de tu propiedad con gestión legal completa, desde el diseño hasta la inscripción final.",
+    path: "/subdivision-terrenos-urbanos",
+  });
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -614,7 +621,7 @@ export default function SubdivisionTerrenosUrbanos() {
                 <p className="text-sm mb-4">Formulario completo en página principal</p>
                 <Button onClick={scrollToContact} variant="outline" className="w-full rounded-lg">
                   <Mail className="mr-2 h-4 w-4" />
-                  Formulario de Contacto
+                  Solicitar Evaluación Gratis
                 </Button>
               </CardContent>
             </Card>

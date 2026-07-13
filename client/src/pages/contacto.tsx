@@ -1,6 +1,7 @@
 import { useState, useRef } from "react";
 import Navigation from "@/components/navigation";
 import fotoPBE from "@assets/FotoPBE_1774406857562.jpg";
+import { useSEO } from "@/hooks/useSEO";
 
 const svcData = {
   particular: [
@@ -40,6 +41,12 @@ type Branch = "empresa" | "particular" | "normativa" | "";
 type Step = 1 | 2 | 3 | 4 | 5;
 
 export default function Contacto() {
+  useSEO({
+    title: "Contacto | Agenda tu Asesoría - ArquitectoChile.com",
+    description: "Contacta al arquitecto Patricio Becar Elissegaray en Santiago. Agenda tu asesoría en diseño, regularización, permisos o inspección técnica en Chile.",
+    path: "/contacto",
+  });
+
   const [step, setStep] = useState<Step>(1);
   const [branch, setBranch] = useState<Branch>("");
   const [service, setService] = useState("");
@@ -200,6 +207,9 @@ export default function Contacto() {
   return (
     <>
     <Navigation />
+    <h1 style={{ position: "absolute", width: 1, height: 1, overflow: "hidden", clip: "rect(0,0,0,0)" }}>
+      Contacto - Agenda tu Asesoría con el Arquitecto Patricio Becar Elissegaray
+    </h1>
     <div
       style={{
         minHeight: "100vh",

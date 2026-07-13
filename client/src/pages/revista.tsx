@@ -1,7 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Play, ArrowRight } from 'lucide-react';
 import Navigation from '@/components/navigation';
 import Footer from '@/components/footer';
+import { useSEO } from '@/hooks/useSEO';
 
 function YouTubeThumbnail({ videoId, alt, className }: { videoId: string; alt: string; className?: string }) {
   const [hasError, setHasError] = useState(false);
@@ -83,9 +84,11 @@ function getYouTubeVideoId(url: string): string {
 export default function Revista() {
   const [selectedVideo, setSelectedVideo] = useState<string | null>(null);
 
-  useEffect(() => {
-    document.title = "Revista Técnica | ArquitectoChile.com";
-  }, []);
+  useSEO({
+    title: "Revista Técnica | ArquitectoChile.com",
+    description: "Revista técnica de ArquitectoChile.com: videos y artículos sobre construcción, regularización, aislación térmica y normativa de edificación en Chile.",
+    path: "/revista",
+  });
 
   const openVideo = (videoUrl: string) => {
     setSelectedVideo(videoUrl);
