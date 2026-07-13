@@ -45,7 +45,7 @@ import {
   type CrmReportsData
 } from "@shared/schema";
 import { db } from "./db";
-import { eq, desc } from "drizzle-orm";
+import { eq, desc, and } from "drizzle-orm";
 
 export interface IStorage {
   // Users for Replit Auth
@@ -187,7 +187,7 @@ export class DatabaseStorage implements IStorage {
     return user || undefined;
   }
 
-  async createUser(insertUser: InsertUser): Promise<User> {
+  async createUser(insertUser: UpsertUser): Promise<User> {
     const [user] = await db.insert(users).values(insertUser).returning();
     return user;
   }
@@ -378,9 +378,13 @@ export class DatabaseStorage implements IStorage {
   // ========== CRM IMPLEMENTATIONS ==========
 
   // CRM Customers
-  async createCrmCustomer(customer: Omit<InsertCrmCustomer, 'customerNumber'> & { customerNumber: string }): Promise<CrmCustomer> {
+  async createCrmCustomer(customer: InsertCrmCustomer): Promise<CrmCustomer> {
     const [newCustomer] = await db.insert(crmCustomers).values(customer).returning();
     return newCustomer;
+  }
+
+  async getCrmCustomersByExecutive(executive: string): Promise<CrmCustomer[]> {
+    return await db.select().from(crmCustomers).where(eq(crmCustomers.assignedTo, executive)).orderBy(desc(crmCustomers.createdAt));
   }
 
   // CRM Customers - Simplified
@@ -393,20 +397,23 @@ export class DatabaseStorage implements IStorage {
     return customer || undefined;
   }
 
-  async createCrmCustomer(customer: InsertCrmCustomer): Promise<CrmCustomer> {
-    const [newCustomer] = await db.insert(crmCustomers).values(customer).returning();
-    return newCustomer;
-  }
-
   async updateCrmCustomer(id: number, updates: Partial<CrmCustomer>): Promise<CrmCustomer> {
     const [updatedCustomer] = await db.update(crmCustomers).set(updates).where(eq(crmCustomers.id, id)).returning();
     return updatedCustomer;
   }
 
-  // CRM Projects - Simplified
+  // CRM Projects
   async createCrmProject(project: InsertCrmProject): Promise<CrmProject> {
     const [newProject] = await db.insert(crmProjects).values(project).returning();
     return newProject;
+  }
+
+  async getCrmProjectsByCustomer(customerId: number): Promise<CrmProject[]> {
+    return await db.select().from(crmProjects).where(eq(crmProjects.customerId, customerId)).orderBy(desc(crmProjects.createdAt));
+  }
+
+  async getCrmProjectsByStage(stage: string): Promise<CrmProject[]> {
+    return await db.select().from(crmProjects).where(eq(crmProjects.status, stage)).orderBy(desc(crmProjects.createdAt));
   }
 
   async getCrmProjects(): Promise<CrmProject[]> {
@@ -423,10 +430,6 @@ export class DatabaseStorage implements IStorage {
     return updatedProject;
   }
 
-  async getCrmProjectsByCustomer(customerId: number): Promise<CrmProject[]> {
-    return await db.select().from(crmProjects).where(eq(crmProjects.customerId, customerId));
-  }
-
   // CRM Interactions - Simplified
   async createCrmInteraction(interaction: InsertCrmInteraction): Promise<CrmInteraction> {
     const [newInteraction] = await db.insert(crmInteractions).values(interaction).returning();
@@ -434,16 +437,19 @@ export class DatabaseStorage implements IStorage {
   }
 
   async getCrmInteractions(filters?: { customerId?: number; projectId?: number }): Promise<CrmInteraction[]> {
-    let query = db.select().from(crmInteractions);
-    
+    const conditions = [];
     if (filters?.customerId) {
-      query = query.where(eq(crmInteractions.customerId, filters.customerId));
+      conditions.push(eq(crmInteractions.customerId, filters.customerId));
     }
     if (filters?.projectId) {
-      query = query.where(eq(crmInteractions.projectId, filters.projectId));
+      conditions.push(eq(crmInteractions.projectId, filters.projectId));
     }
     
-    return await query.orderBy(desc(crmInteractions.createdAt));
+    if (conditions.length === 0) {
+      return await db.select().from(crmInteractions).orderBy(desc(crmInteractions.createdAt));
+    }
+    
+    return await db.select().from(crmInteractions).where(and(...conditions)).orderBy(desc(crmInteractions.createdAt));
   }
 
   // CRM Documents - Simplified
@@ -453,16 +459,19 @@ export class DatabaseStorage implements IStorage {
   }
 
   async getCrmDocuments(filters?: { customerId?: number; projectId?: number }): Promise<CrmDocument[]> {
-    let query = db.select().from(crmDocuments);
-    
+    const conditions = [];
     if (filters?.customerId) {
-      query = query.where(eq(crmDocuments.customerId, filters.customerId));
+      conditions.push(eq(crmDocuments.customerId, filters.customerId));
     }
     if (filters?.projectId) {
-      query = query.where(eq(crmDocuments.projectId, filters.projectId));
+      conditions.push(eq(crmDocuments.projectId, filters.projectId));
     }
     
-    return await query.orderBy(desc(crmDocuments.createdAt));
+    if (conditions.length === 0) {
+      return await db.select().from(crmDocuments).orderBy(desc(crmDocuments.createdAt));
+    }
+    
+    return await db.select().from(crmDocuments).where(and(...conditions)).orderBy(desc(crmDocuments.createdAt));
   }
 
   // CRM Tasks - Simplified
@@ -472,16 +481,39 @@ export class DatabaseStorage implements IStorage {
   }
 
   async getCrmTasks(filters?: { assignedTo?: string; status?: string }): Promise<CrmTask[]> {
-    let query = db.select().from(crmTasks);
-    
+    const conditions = [];
     if (filters?.assignedTo) {
-      query = query.where(eq(crmTasks.assignedTo, filters.assignedTo));
+      conditions.push(eq(crmTasks.assignedTo, filters.assignedTo));
     }
     if (filters?.status) {
-      query = query.where(eq(crmTasks.status, filters.status));
+      conditions.push(eq(crmTasks.status, filters.status));
     }
     
-    return await query.orderBy(desc(crmTasks.createdAt));
+    if (conditions.length === 0) {
+      return await db.select().from(crmTasks).orderBy(desc(crmTasks.createdAt));
+    }
+    
+    return await db.select().from(crmTasks).where(and(...conditions)).orderBy(desc(crmTasks.createdAt));
+  }
+
+  async getCrmTasksByAssignee(assignedTo: string): Promise<CrmTask[]> {
+    return await db.select().from(crmTasks).where(eq(crmTasks.assignedTo, assignedTo)).orderBy(desc(crmTasks.createdAt));
+  }
+
+  async getCrmInteractionsByCustomer(customerId: number): Promise<CrmInteraction[]> {
+    return await db.select().from(crmInteractions).where(eq(crmInteractions.customerId, customerId)).orderBy(desc(crmInteractions.createdAt));
+  }
+
+  async getCrmInteractionsByProject(projectId: number): Promise<CrmInteraction[]> {
+    return await db.select().from(crmInteractions).where(eq(crmInteractions.projectId, projectId)).orderBy(desc(crmInteractions.createdAt));
+  }
+
+  async getCrmDocumentsByCustomer(customerId: number): Promise<CrmDocument[]> {
+    return await db.select().from(crmDocuments).where(eq(crmDocuments.customerId, customerId)).orderBy(desc(crmDocuments.createdAt));
+  }
+
+  async getCrmDocumentsByProject(projectId: number): Promise<CrmDocument[]> {
+    return await db.select().from(crmDocuments).where(eq(crmDocuments.projectId, projectId)).orderBy(desc(crmDocuments.createdAt));
   }
 
   async updateCrmTask(id: number, updates: Partial<CrmTask>): Promise<CrmTask> {
@@ -514,7 +546,7 @@ export class DatabaseStorage implements IStorage {
              projectDate.getFullYear() === currentYear;
     });
 
-    const monthlyRevenue = monthlyProjects.reduce((sum, p) => sum + (parseFloat(p.contractValue || '0')), 0);
+    const monthlyRevenue = monthlyProjects.reduce((sum, p) => sum + (parseFloat(p.budget || '0')), 0);
 
     // Calculate conversion rate
     const convertedLeads = leads.filter(l => l.status === 'converted').length;
@@ -526,7 +558,7 @@ export class DatabaseStorage implements IStorage {
 
     return {
       totalCustomers: customers.length,
-      activeProjects: projects.filter(p => ['planning', 'in_progress', 'under_review'].includes(p.stage)).length,
+      activeProjects: projects.filter(p => ['planning', 'in_progress', 'under_review'].includes(p.status || '')).length,
       pendingTasks: tasks.length,
       monthlyRevenue,
       conversionRate,
@@ -576,16 +608,16 @@ export class DatabaseStorage implements IStorage {
     const projects = await this.getCrmProjects();
     
     const totalProjects = projects.length;
-    const completedProjects = projects.filter(p => p.stage === 'completed').length;
+    const completedProjects = projects.filter(p => p.status === 'completed').length;
     const onTimeProjects = projects.filter(p => 
-      p.stage === 'completed' && 
-      p.scheduledEndDate && 
-      new Date(p.actualEndDate || new Date()) <= new Date(p.scheduledEndDate)
+      p.status === 'completed' && 
+      p.endDate && 
+      new Date(p.updatedAt || new Date()) <= new Date(p.endDate)
     ).length;
     
     const onTimeCompletion = completedProjects > 0 ? (onTimeProjects / completedProjects) * 100 : 0;
     
-    const totalValue = projects.reduce((sum, p) => sum + (parseFloat(p.contractValue || '0')), 0);
+    const totalValue = projects.reduce((sum, p) => sum + (parseFloat(p.budget || '0')), 0);
     const averageProjectValue = totalProjects > 0 ? totalValue / totalProjects : 0;
 
     return {

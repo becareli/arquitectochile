@@ -64,7 +64,7 @@ function calculateLeadScore(lead: Lead): LeadScore {
 
   // 3. Factores Económicos (25 puntos máximo)
   const highValueTypes = ['construccion', 'ampliacion', 'remodelacion', 'permisos', 'diseño'];
-  if (lead.helpType && highValueTypes.some(type => lead.helpType.toLowerCase().includes(type))) {
+  if (lead.helpType && highValueTypes.some(type => lead.helpType!.toLowerCase().includes(type))) {
     factors.economic += 15; // Proyectos que requieren inversión significativa
   }
   

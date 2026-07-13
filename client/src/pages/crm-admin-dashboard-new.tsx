@@ -371,7 +371,7 @@ export default function CRMAdminDashboardNew() {
                 <Star className="w-4 h-4 mr-2" />
                 Nueva Reseña
               </Button>
-              {user && (
+              {!!user && (
                 <div className="flex items-center space-x-3">
                   <div className="flex items-center space-x-2">
                     <Avatar className="h-8 w-8">

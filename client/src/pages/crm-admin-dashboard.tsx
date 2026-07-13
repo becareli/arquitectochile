@@ -334,18 +334,18 @@ export default function CRMAdminDashboard() {
                 <Plus className="w-4 h-4 mr-2" />
                 Nuevo Cliente
               </Button>
-              {user && (
+              {!!user && (
                 <div className="flex items-center space-x-3 pl-4 border-l border-gray-200 dark:border-gray-700">
                   <div className="flex items-center space-x-2">
                     <Avatar className="h-8 w-8">
-                      <AvatarImage src={user.profileImageUrl || undefined} />
+                      <AvatarImage src={(user as any).profileImageUrl || undefined} />
                       <AvatarFallback>
-                        {user.firstName?.charAt(0) || user.email?.charAt(0) || 'A'}
+                        {(user as any).firstName?.charAt(0) || (user as any).email?.charAt(0) || 'A'}
                       </AvatarFallback>
                     </Avatar>
                     <div className="text-sm">
                       <p className="font-medium text-gray-900 dark:text-white">
-                        {user.firstName ? `${user.firstName} ${user.lastName || ''}`.trim() : user.email}
+                        {(user as any).firstName ? `${(user as any).firstName} ${(user as any).lastName || ''}`.trim() : (user as any).email}
                       </p>
                       <p className="text-gray-500 dark:text-gray-400">Administrador</p>
                     </div>

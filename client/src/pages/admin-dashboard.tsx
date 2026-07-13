@@ -26,11 +26,13 @@ export default function AdminDashboard() {
     enabled: true,
   });
 
-  const getStatusStats = (items: any[], statusField: string = 'status') => {
+  const getStatusStats = (items: any[], statusField: string = 'status'): Record<string, number> => {
     if (!Array.isArray(items)) return {};
-    return items.reduce((acc, item) => {
+    return items.reduce((acc: Record<string, number>, item) => {
       const status = item[statusField];
-      acc[status] = (acc[status] || 0) + 1;
+      if (status) {
+        acc[status] = (acc[status] || 0) + 1;
+      }
       return acc;
     }, {} as Record<string, number>);
   };

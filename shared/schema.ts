@@ -336,6 +336,8 @@ export const crmCustomers = pgTable("crm_customers", {
   source: text("source"),
   assignedTo: text("assigned_to"),
   notes: text("notes"),
+  salesExecutive: text("sales_executive"),
+  customerNumber: text("customer_number"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });

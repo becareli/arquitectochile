@@ -120,7 +120,7 @@ export class TidyCalIntegration extends BaseIntegration {
       email: appointment.clientEmail,
       phone: appointment.clientPhone,
       appointmentId: appointment.id,
-      meetingLink: meetLink,
+      meetingLink: meetLink || undefined,
       scheduledAt: appointment.scheduledAt,
       serviceType: appointment.serviceType || 'Asesoría de Arquitectura',
       source: 'tidycal_appointment'

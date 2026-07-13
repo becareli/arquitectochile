@@ -123,7 +123,7 @@ export class EnhancedAnalytics {
       // In real implementation, filter by avatarMatch field
       // For now, use heuristics based on existing data
       const avatarLeads = leads.filter(lead => {
-        const message = lead.message.toLowerCase();
+        const message = lead.message?.toLowerCase() || '';
         switch (avatar) {
           case 'juan_carlos':
             return message.includes('familia') || message.includes('casa') || message.includes('ampliacion');

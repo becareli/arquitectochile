@@ -860,7 +860,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       const customer = await storage.createCrmCustomer({
         ...customerData,
-        customerNumber
+        customerNumber,
+        salesExecutive: 'Patricio Becar'
       });
       res.json({ success: true, customer });
     } catch (error) {
