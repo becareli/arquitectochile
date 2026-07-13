@@ -168,13 +168,13 @@ export default function Navigation() {
       <TopBar />
       <nav className="bg-white border-b border-gray-200">
         <div className="w-full px-2 sm:px-4 lg:px-10">
-          <div className="flex items-center justify-between flex-nowrap h-[64px] sm:h-[80px] lg:h-[140px] gap-2">
+          <div className="flex items-center justify-between flex-nowrap h-[56px] sm:h-[68px] lg:h-[88px] gap-2">
 
             {/* Logo + Brand */}
             <button onClick={navigateToHome} className="flex items-center gap-2 lg:gap-4 hover:opacity-80 transition-opacity flex-shrink-0 min-w-0">
-              <img src={logoImg} alt="ArquitectoChile" className="h-[48px] sm:h-[56px] lg:h-[90px] w-auto flex-shrink-0" />
+              <img src={logoImg} alt="ArquitectoChile" className="h-[40px] sm:h-[48px] lg:h-[56px] w-auto flex-shrink-0" />
               <span className="inline lg:hidden text-sm sm:text-base font-bold text-[#0f172a] whitespace-nowrap tracking-tight">ArquitectoChile<span className="text-gray-400">.com</span></span>
-              <span className="hidden lg:inline text-xl font-semibold whitespace-nowrap">
+              <span className="hidden lg:inline text-lg font-semibold whitespace-nowrap">
                 <span className="text-[#0f172a]">ArquitectoChile</span>
                 <span className="text-gray-400">.com</span>
               </span>
