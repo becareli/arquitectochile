@@ -5,28 +5,28 @@ import { useSEO } from "@/hooks/useSEO";
 
 const svcData = {
   particular: [
-    { n: "Asesoría de Arquitecto a domicilio", i: "🏠" },
-    { n: "Diseño de ampliaciones de casas", i: "➕" },
-    { n: "Diseño de remodelación", i: "✨" },
-    { n: "Inspección Técnica de Viviendas", i: "🔍" },
-    { n: "Tasación de Viviendas Urbanas", i: "📊" },
-    { n: "Reacondicionamiento Térmico / EIFS", i: "🌡️" },
-    { n: "Proyecto desde Cero", i: "🌱" },
+    { n: "Asesoria de Arquitecto a domicilio", i: null },
+    { n: "Diseno de ampliaciones de casas", i: null },
+    { n: "Diseno de remodelacion", i: null },
+    { n: "Inspeccion Tecnica de Viviendas", i: null },
+    { n: "Tasacion de Viviendas Urbanas", i: null },
+    { n: "Reacondicionamiento Termico / EIFS", i: null },
+    { n: "Proyecto desde Cero", i: null },
   ],
   normativa: [
-    { n: "Fusión de Terrenos Urbanos", i: "🗺️" },
-    { n: "Subdivisión de Terrenos Urbanos", i: "📍" },
-    { n: "Regularización de Inmuebles (Ley del Mono)", i: "📜" },
-    { n: "Permiso de Edificación y Recepción Final", i: "📐" },
-    { n: "Revisor Independiente de Arquitectura", i: "⚖️" },
+    { n: "Fusion de Terrenos Urbanos", i: null },
+    { n: "Subdivision de Terrenos Urbanos", i: null },
+    { n: "Regularizacion de Inmuebles (Ley del Mono)", i: null },
+    { n: "Permiso de Edificacion y Recepcion Final", i: null },
+    { n: "Revisor Independiente de Arquitectura", i: null },
   ],
   empresa: [
-    { n: "Obras Menores para Empresas", i: "🏗️" },
-    { n: "Revisoría Independiente de Arquitectura", i: "⚖️" },
-    { n: "Inspección Técnica de Obras (ITO)", i: "🔍" },
-    { n: "Diseño de Arquitectura para Empresas", i: "📐" },
-    { n: "Permiso de Edificación y Regularización", i: "📜" },
-    { n: "Gestión Integral de Proyectos", i: "📋" },
+    { n: "Obras Menores para Empresas", i: null },
+    { n: "Revisoria Independiente de Arquitectura", i: null },
+    { n: "Inspeccion Tecnica de Obras (ITO)", i: null },
+    { n: "Diseno de Arquitectura para Empresas", i: null },
+    { n: "Permiso de Edificacion y Regularizacion", i: null },
+    { n: "Gestion Integral de Proyectos", i: null },
   ],
 };
 
@@ -305,7 +305,6 @@ export default function Contacto() {
           <div style={{ padding: "1.5rem", animation: "fadeIn 0.4s ease-out" }}>
             <div style={{ display: "flex", flexDirection: "column", gap: "0.85rem" }}>
               <button onClick={() => selectBranch("particular")} style={branchBtnStyle}>
-                <span style={{ fontSize: "2.2rem" }}>🏠</span>
                 <div>
                   <span style={{ fontSize: "1.05rem", fontWeight: 700, color: "#c2410c", display: "block" }}>
                     Vivienda Particular
@@ -316,10 +315,9 @@ export default function Contacto() {
                 </div>
               </button>
               <button onClick={() => selectBranch("normativa")} style={branchBtnStyle}>
-                <span style={{ fontSize: "2.2rem" }}>⚖️</span>
                 <div>
                   <span style={{ fontSize: "1.05rem", fontWeight: 700, color: "#2563eb", display: "block" }}>
-                    Gestión Normativa
+                    Gestion Normativa
                   </span>
                   <span style={{ fontSize: "0.75rem", color: "#64748b" }}>
                     Fusión, subdivisión, regularización y permisos
@@ -327,7 +325,6 @@ export default function Contacto() {
                 </div>
               </button>
               <button onClick={() => selectBranch("empresa")} style={branchBtnStyle}>
-                <span style={{ fontSize: "2.2rem" }}>🏢</span>
                 <div>
                   <span style={{ fontSize: "1.05rem", fontWeight: 700, color: "#1e3a5f", display: "block" }}>
                     Empresa
@@ -439,7 +436,7 @@ export default function Contacto() {
                       textAlign: "center",
                     }}
                   >
-                    {t === "Vivienda" ? "🏠" : t === "Comercial" ? "🏪" : "🏭"} {t === "Comercial" ? "Local" : t === "Industrial" ? "Industria" : t}
+                    {t === "Comercial" ? "Local" : t === "Industrial" ? "Industria" : t}
                   </button>
                 ))}
               </div>
@@ -517,7 +514,7 @@ export default function Contacto() {
             </p>
             {hasAudio && (
               <p style={{ fontSize: "0.8rem", color: "#10b981", fontWeight: 600, marginTop: "0.5rem", textAlign: "center" }}>
-                ✅ Audio grabado correctamente
+                Audio grabado correctamente
               </p>
             )}
             <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem", marginTop: "1rem" }}>
@@ -530,10 +527,10 @@ export default function Contacto() {
                     : "linear-gradient(135deg, #10b981 0%, #059669 100%)",
                 }}
               >
-                {isRecording ? "⏹️ Detener grabación" : hasAudio ? "🎤 Grabar de nuevo" : "🎤 Grabar Mensaje de Audio"}
+                {isRecording ? "Detener grabacion" : hasAudio ? "Grabar de nuevo" : "Grabar Mensaje de Audio"}
               </button>
               <button onClick={submitLead} disabled={isSubmitting} style={{ ...sendBtnStyle, opacity: isSubmitting ? 0.6 : 1 }}>
-                {isSubmitting ? "Enviando..." : "📤 Enviar mi Solicitud"}
+                {isSubmitting ? "Enviando..." : "Enviar mi Solicitud"}
               </button>
             </div>
             <button
@@ -585,12 +582,10 @@ export default function Contacto() {
                 lineHeight: 2,
               }}
             >
-              ✉️{" "}
               <a href="mailto:contacto@arquitectochile.com" style={{ color: "#2563eb", textDecoration: "none", fontWeight: 600 }}>
                 contacto@arquitectochile.com
               </a>
               <br />
-              ✉️{" "}
               <a href="mailto:arquitectopatriciobecar@gmail.com" style={{ color: "#2563eb", textDecoration: "none", fontWeight: 600 }}>
                 arquitectopatriciobecar@gmail.com
               </a>
@@ -608,12 +603,12 @@ export default function Contacto() {
                 lineHeight: 1.5,
               }}
             >
-              ⚠️ <b>IMPORTANTE:</b> Patricio o alguien de su equipo se contactará directamente con usted por teléfono. Por favor,{" "}
+              <b>IMPORTANTE:</b> Patricio o alguien de su equipo se contactara directamente con usted por telefono. Por favor,{" "}
               <b>descargue su contacto</b> para que la llamada no sea bloqueada como spam.
             </div>
             <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
               <button onClick={downloadVCard} style={vcardBtnStyle}>
-                💾 GUARDAR CONTACTO DE PATRICIO
+                GUARDAR CONTACTO DE PATRICIO
               </button>
               <a
                 href="https://tidycal.com/arquitectopatriciobecar/"
@@ -621,7 +616,7 @@ export default function Contacto() {
                 rel="noopener noreferrer"
                 style={tidycalBtnStyle}
               >
-                📅 AGENDAR VIDEOLLAMADA
+                AGENDAR VIDEOLLAMADA
               </a>
             </div>
             <a href="/" style={{ ...backBtnStyle, display: "block", marginTop: "2rem", textDecoration: "none" }}>
