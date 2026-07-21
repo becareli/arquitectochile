@@ -160,14 +160,22 @@ export default function Contacto() {
         ...(audioBase64 ? { audioBase64 } : {}),
       };
 
-      fetch("/api/lead", {
+      const apiBase = import.meta.env.VITE_API_BASE_URL || "";
+      fetch(`${apiBase}/api/lead`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       })
-        .then((r) => r.json())
-        .then((d) => console.log("Lead enviado:", d))
-        .catch((e) => console.warn("Error:", e))
+        .then(async (r) => {
+          if (!r.ok) throw new Error("Error del servidor");
+          const data = await r.json();
+          setSpeech('Solicitud enviada con exito. Te contactaremos pronto.');
+          setStep(5);
+        })
+        .catch((e) => {
+          console.warn("Error:", e);
+          setSpeech('Hubo un error al enviar. Intenta de nuevo o escribenos a contacto@arquitectochile.com');
+        })
         .finally(() => setIsSubmitting(false));
     };
 
