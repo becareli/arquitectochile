@@ -1,6 +1,5 @@
 {
   "rewrites": [
-    { "source": "/api/(.*)", "destination": "https://d19cfc2b-fbaa-4813-9641-a7bfc43e435e-00-34n9cj6jnjhqh.picard.replit.dev/api/$1" },
     { "source": "/(.*)", "destination": "/index.html" }
   ]
 }

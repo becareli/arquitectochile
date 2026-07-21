@@ -1,0 +1,73 @@
+contentscript.js:14083 MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 close listeners added. Use emitter.setMaxListeners() to increase limit
+n @ contentscript.js:14083
+contentscript.js:14083 MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 end listeners added. Use emitter.setMaxListeners() to increase limit
+n @ contentscript.js:14083
+VM12 arquitectochile-482o5xn1i-aibecareli-4095s-projects.vercel.app:1 Uncaught TypeError: Cannot redefine property: ethereum
+    at Object.defineProperty (<anonymous>)
+    at Object.defineProperty (VM12 arquitectochile-482o5xn1i-aibecareli-4095s-projects.vercel.app:1:524)
+    at r.inject (evmAsk.js:15:5093)
+    at Lv.window.addEventListener.once (evmAsk.js:15:9013)
+2contentscript.js:14083 ObjectMultiplex - orphaned data for stream "app-init-liveness"
+warn @ contentscript.js:14083
+2contentscript.js:14083 ObjectMultiplex - orphaned data for stream "background-liveness"
+warn @ contentscript.js:14083
+3load_embeds.js:1 The message port closed before a response was received.
+(anonymous) @ load_embeds.js:1
+embed_script.js:23 Object
+embed_script.js:23 Object
+embed_script.js:2 [extensionService] request:start Object
+embed_script.js:2 [extensionService] request:start Object
+embed_script.js:2 [extensionService] request:start Object
+embed_script.js:2 [extensionService] request:start Object
+embed_script.js:23 Object
+embed_script.js:2 [extensionService] request:start Object
+2load_embeds.js:1 The message port closed before a response was received.
+(anonymous) @ load_embeds.js:1
+embed_script.js:2 [extensionService] request:success Object
+embed_script.js:2 [extensionService] request:success Object
+embed_script.js:2 [extensionService] request:success Object
+embed_script.js:2 [extensionService] request:success Object
+embed_script.js:23 Object
+embed_script.js:2 [extensionService] request:success Object
+2load_embeds.js:1 The message port closed before a response was received.
+(anonymous) @ load_embeds.js:1
+embed_script.js:23 Object
+102load_embeds.js:1 The message port closed before a response was received.
+(anonymous) @ load_embeds.js:1
+embed_script.js:23 Object
+4load_embeds.js:1 The message port closed before a response was received.
+(anonymous) @ load_embeds.js:1
+embed_script.js:23 {dataType: 'floater-button'}
+15load_embeds.js:1 The message port closed before a response was received.
+(anonymous) @ load_embeds.js:1
+index-C7zOSiSM.js:624  POST https://arquitectochile-482o5xn1i-aibecareli-4095s-projects.vercel.app/api/lead 405 (Method Not Allowed)
+Ne @ index-C7zOSiSM.js:624
+nt @ index-C7zOSiSM.js:624
+ME @ index-C7zOSiSM.js:37
+_E @ index-C7zOSiSM.js:37
+DE @ index-C7zOSiSM.js:37
+zy @ index-C7zOSiSM.js:37
+qy @ index-C7zOSiSM.js:37
+(anonymous) @ index-C7zOSiSM.js:37
+qf @ index-C7zOSiSM.js:40
+Hv @ index-C7zOSiSM.js:37
+zh @ index-C7zOSiSM.js:37
+Nh @ index-C7zOSiSM.js:37
+XE @ index-C7zOSiSM.js:37
+index-C7zOSiSM.js:624 Error: SyntaxError: Unexpected end of JSON input
+(anonymous) @ index-C7zOSiSM.js:624
+Promise.catch
+Ne @ index-C7zOSiSM.js:624
+nt @ index-C7zOSiSM.js:624
+ME @ index-C7zOSiSM.js:37
+_E @ index-C7zOSiSM.js:37
+DE @ index-C7zOSiSM.js:37
+zy @ index-C7zOSiSM.js:37
+qy @ index-C7zOSiSM.js:37
+(anonymous) @ index-C7zOSiSM.js:37
+qf @ index-C7zOSiSM.js:40
+Hv @ index-C7zOSiSM.js:37
+zh @ index-C7zOSiSM.js:37
+Nh @ index-C7zOSiSM.js:37
+XE @ index-C7zOSiSM.js:37
+4load_embeds.js:1 The message port closed before a response was received.
