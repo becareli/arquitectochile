@@ -182,7 +182,7 @@ export default function Contact() {
     };
 
     try {
-      const apiBase = import.meta.env.VITE_API_BASE_URL || "";
+      const apiBase = "https://d19cfc2b-fbaa-4813-9641-a7bfc43e435e-00-34n9cj6jnjhqh.picard.replit.dev";
       const res = await fetch(`${apiBase}/api/lead`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
