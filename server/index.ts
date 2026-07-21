@@ -6,8 +6,31 @@ import helmet from "helmet";
 import rateLimit from "express-rate-limit";
 import cookieParser from "cookie-parser";
 import { csrfTokenMiddleware, provideCsrfToken } from "./csrf";
+import cors from "cors";
 
 const app = express();
+
+// CORS: Allow frontend on Vercel + Replit preview + localhost to call the backend
+app.use(cors({
+  origin: (origin, callback) => {
+    const allowed = [
+      /^https:\/\/.*\.vercel\.app$/,
+      /^https:\/\/arquitectochile\.com$/,
+      /^https:\/\/www\.arquitectochile\.com$/,
+      /^https:\/\/.*\.picard\.replit\.dev$/,
+      /^http:\/\/localhost:\d+$/,
+      /^http:\/\/127\.0\.0\.1:\d+$/,
+    ];
+    if (!origin || allowed.some((r) => r.test(origin))) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS: " + origin));
+    }
+  },
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization", "x-csrf-token", "x-admin-password"],
+}));
 
 // Security Headers with Helmet
 app.use(helmet({

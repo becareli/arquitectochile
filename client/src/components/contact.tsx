@@ -182,7 +182,8 @@ export default function Contact() {
     };
 
     try {
-      const res = await fetch("/api/lead", {
+      const apiBase = import.meta.env.VITE_API_BASE_URL || "";
+      const res = await fetch(`${apiBase}/api/lead`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
