@@ -781,6 +781,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
         const ogImage = `${baseUrl}/api/blog/${post.slug}/og-image`;
         ogTagsMap["og:image"] = ogImage;
         ogTagsMap["twitter:image"] = ogImage;
+        // Include dimensions so crawlers don't need to download the image first
+        if (post.imageWidth) ogTagsMap["og:image:width"] = String(post.imageWidth);
+        if (post.imageHeight) ogTagsMap["og:image:height"] = String(post.imageHeight);
       }
 
       const canonicalTag = `  <link rel="canonical" href="${escapeHtmlAttr(pageUrl)}" />`;
@@ -1558,11 +1561,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.post("/api/admin/blog", isAdminSession, async (req, res) => {
     try {
-      const { title, slug, excerpt, content, imageUrl, published } = req.body;
+      const { title, slug, excerpt, content, imageUrl, imageWidth, imageHeight, published } = req.body;
       if (!title || !slug || !excerpt || !content) {
         return res.status(400).json({ error: "Faltan campos obligatorios: title, slug, excerpt, content" });
       }
-      const post = await storage.createBlogPost({ title, slug, excerpt, content, imageUrl: imageUrl || null, published: !!published });
+      const post = await storage.createBlogPost({
+        title, slug, excerpt, content,
+        imageUrl: imageUrl || null,
+        imageWidth: imageWidth ? Number(imageWidth) : null,
+        imageHeight: imageHeight ? Number(imageHeight) : null,
+        published: !!published,
+      });
       res.status(201).json(post);
     } catch (error: any) {
       if (error?.code === "23505") return res.status(409).json({ error: "Ya existe un artículo con ese slug" });
@@ -1573,13 +1582,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.put("/api/admin/blog/:id", isAdminSession, async (req, res) => {
     try {
       const id = parseInt(req.params.id);
-      const { title, slug, excerpt, content, imageUrl, published } = req.body;
+      const { title, slug, excerpt, content, imageUrl, imageWidth, imageHeight, published } = req.body;
       const updates: Record<string, any> = {};
       if (title !== undefined) updates.title = title;
       if (slug !== undefined) updates.slug = slug;
       if (excerpt !== undefined) updates.excerpt = excerpt;
       if (content !== undefined) updates.content = content;
       if (imageUrl !== undefined) updates.imageUrl = imageUrl;
+      if (imageWidth !== undefined) updates.imageWidth = imageWidth ? Number(imageWidth) : null;
+      if (imageHeight !== undefined) updates.imageHeight = imageHeight ? Number(imageHeight) : null;
       if (published !== undefined) updates.published = published;
       const post = await storage.updateBlogPost(id, updates);
       if (!post) return res.status(404).json({ error: "No encontrado" });

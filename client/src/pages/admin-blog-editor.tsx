@@ -13,6 +13,8 @@ interface BlogPost {
   excerpt: string;
   content: string;
   imageUrl: string | null;
+  imageWidth: number | null;
+  imageHeight: number | null;
   published: boolean;
 }
 
@@ -41,6 +43,8 @@ export default function AdminBlogEditor() {
   const [excerpt, setExcerpt] = useState("");
   const [content, setContent] = useState("");
   const [imageUrl, setImageUrl] = useState<string | null>(null);
+  const [imageWidth, setImageWidth] = useState<number | null>(null);
+  const [imageHeight, setImageHeight] = useState<number | null>(null);
   const [published, setPublished] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [saveError, setSaveError] = useState("");
@@ -64,6 +68,8 @@ export default function AdminBlogEditor() {
       setExcerpt(existing.excerpt);
       setContent(existing.content);
       setImageUrl(existing.imageUrl);
+      setImageWidth(existing.imageWidth ?? null);
+      setImageHeight(existing.imageHeight ?? null);
       setPublished(existing.published);
     }
   }, [existing]);
@@ -75,12 +81,31 @@ export default function AdminBlogEditor() {
     }
   }, [title, slugManual]);
 
+  // Read image dimensions from a File object before or after upload
+  const getImageDimensions = (file: File): Promise<{ width: number; height: number }> =>
+    new Promise((resolve) => {
+      const url = URL.createObjectURL(file);
+      const img = new Image();
+      img.onload = () => {
+        resolve({ width: img.naturalWidth, height: img.naturalHeight });
+        URL.revokeObjectURL(url);
+      };
+      img.onerror = () => {
+        resolve({ width: 0, height: 0 });
+        URL.revokeObjectURL(url);
+      };
+      img.src = url;
+    });
+
   // Image upload
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
     setUploading(true);
     try {
+      // Read dimensions locally before uploading (no extra network request)
+      const { width, height } = await getImageDimensions(file);
+
       const res = await fetch("/api/admin/blog/upload-url", {
         method: "POST",
         headers: csrfHeaders(),
@@ -95,6 +120,8 @@ export default function AdminBlogEditor() {
       });
       if (!putRes.ok) throw new Error("Error al subir imagen");
       setImageUrl(internalPath);
+      setImageWidth(width || null);
+      setImageHeight(height || null);
     } catch (err: any) {
       alert("Error al subir imagen: " + err.message);
     } finally {
@@ -104,7 +131,7 @@ export default function AdminBlogEditor() {
 
   const saveMutation = useMutation({
     mutationFn: async () => {
-      const body = { title, slug, excerpt, content, imageUrl, published };
+      const body = { title, slug, excerpt, content, imageUrl, imageWidth, imageHeight, published };
       const url = isNew ? "/api/admin/blog" : `/api/admin/blog/${editId}`;
       const method = isNew ? "POST" : "PUT";
       const res = await fetch(url, {
@@ -240,7 +267,7 @@ export default function AdminBlogEditor() {
               {imageUrl && (
                 <button
                   type="button"
-                  onClick={() => setImageUrl(null)}
+                  onClick={() => { setImageUrl(null); setImageWidth(null); setImageHeight(null); }}
                   className="block mt-2 text-xs text-red-400 hover:text-red-600"
                 >
                   Eliminar imagen
