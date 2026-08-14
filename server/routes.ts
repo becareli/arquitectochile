@@ -133,14 +133,8 @@ const isWebhookAuthenticated: RequestHandler = async (req, res, next) => {
   const signatureHeader = req.headers['x-signature'] as string;
   const timestampHeader = req.headers['x-timestamp'] as string;
   
-  console.log("🔒 Webhook authentication check:");
-  console.log("  Authorization header:", authHeader ? "Present" : "Missing");
-  console.log("  X-Signature header:", signatureHeader ? "Present" : "Missing");
-  console.log("  Environment:", process.env.NODE_ENV);
-  
   // Strict production-only development bypass
   if (process.env.NODE_ENV === "development") {
-    console.log("  ⚠️  Development mode: bypassing authentication");
     return next();
   }
   
@@ -151,13 +145,11 @@ const isWebhookAuthenticated: RequestHandler = async (req, res, next) => {
       process.env.N8N_WEBHOOK_TOKEN,
       process.env.MAKE_WEBHOOK_TOKEN,
       process.env.WEBHOOK_AUTH_TOKEN
-    ].filter(Boolean); // Remove undefined values
+    ].filter(Boolean);
     
     if (validTokens.includes(token)) {
-      console.log("  ✅ Bearer token authenticated");
       return next();
     } else {
-      console.log("  ❌ Invalid bearer token");
       return res.status(401).json({ error: "Invalid authentication token" });
     }
   }
@@ -165,26 +157,20 @@ const isWebhookAuthenticated: RequestHandler = async (req, res, next) => {
   // Method 2: HMAC Signature Authentication (production recommended)
   if (signatureHeader && timestampHeader && webhookSecret) {
     try {
-      // Validate timestamp to prevent replay attacks
       const timestamp = parseInt(timestampHeader);
       const now = Math.floor(Date.now() / 1000);
       
       if (isNaN(timestamp) || Math.abs(now - timestamp) > REPLAY_WINDOW) {
-        console.log("  ❌ Invalid or expired timestamp");
         return res.status(401).json({ error: "Request timestamp invalid or expired" });
       }
       
-      // Check replay cache
       const cacheKey = `${signatureHeader}-${timestampHeader}`;
       if (replayCache.has(cacheKey)) {
-        console.log("  ❌ Replay attack detected");
         return res.status(401).json({ error: "Request already processed (replay detected)" });
       }
       
-      // Use raw body bytes for HMAC verification (captured by middleware)
       const rawBody = (req as any).rawBody;
       if (!rawBody) {
-        console.log("  ❌ Raw body not available for HMAC");
         return res.status(401).json({ error: "Raw body required for HMAC verification" });
       }
       const payload = `${timestampHeader}.${rawBody}`;
@@ -193,12 +179,9 @@ const isWebhookAuthenticated: RequestHandler = async (req, res, next) => {
         .update(payload, 'utf8')
         .digest('hex');
       
-      // Extract signature (remove sha256= prefix if present)
       const providedSignature = signatureHeader.replace(/^sha256=/, '');
       
-      // Secure comparison with length check first
       if (expectedSignature.length !== providedSignature.length) {
-        console.log("  ❌ Signature length mismatch");
         return res.status(401).json({ error: "Invalid request signature" });
       }
       
@@ -206,28 +189,22 @@ const isWebhookAuthenticated: RequestHandler = async (req, res, next) => {
       const providedBuffer = Buffer.from(providedSignature, 'hex');
       
       if (expectedBuffer.length !== providedBuffer.length) {
-        console.log("  ❌ Signature buffer length mismatch");
         return res.status(401).json({ error: "Invalid request signature format" });
       }
       
       const isValidSignature = crypto.timingSafeEqual(expectedBuffer, providedBuffer);
       
       if (isValidSignature) {
-        // Store in replay cache
         replayCache.set(cacheKey, timestamp);
-        console.log("  ✅ HMAC signature authenticated");
         return next();
       } else {
-        console.log("  ❌ Invalid HMAC signature");
         return res.status(401).json({ error: "Invalid request signature" });
       }
     } catch (error) {
-      console.log("  ❌ HMAC validation error:", error);
       return res.status(401).json({ error: "Signature validation failed" });
     }
   }
   
-  console.log("  ❌ No valid authentication method found");
   return res.status(401).json({ 
     error: "Webhook authentication required",
     hint: "Use Bearer token in Authorization header or HMAC signature (X-Signature + X-Timestamp headers)",
