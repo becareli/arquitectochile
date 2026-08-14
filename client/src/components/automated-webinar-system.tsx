@@ -142,7 +142,9 @@ export default function AutomatedWebinarSystem() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'x-csrf-token': document.cookie.split('; ').find(r => r.startsWith('csrf-token='))?.split('=')[1] ?? '',
         },
+        credentials: 'include',
         body: JSON.stringify({
           ...registrationData,
           source: `Webinar: ${webinar?.title}`,

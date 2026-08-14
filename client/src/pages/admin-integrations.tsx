@@ -56,7 +56,11 @@ export default function AdminIntegrationsPage() {
     mutationFn: async () => {
       const response = await fetch('/api/integrations/tidycal/test-webhook', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' }
+        headers: {
+          'Content-Type': 'application/json',
+          'x-csrf-token': document.cookie.split('; ').find(r => r.startsWith('csrf-token='))?.split('=')[1] ?? '',
+        },
+        credentials: 'include',
       });
       if (!response.ok) throw new Error('Test failed');
       return response.json();

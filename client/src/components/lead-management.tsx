@@ -29,7 +29,11 @@ export default function LeadManagement() {
     mutationFn: async ({ id, status }: { id: number; status: string }) => {
       const response = await fetch(`/api/leads/${id}/status`, {
         method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'x-csrf-token': document.cookie.split('; ').find(r => r.startsWith('csrf-token='))?.split('=')[1] ?? '',
+        },
+        credentials: 'include',
         body: JSON.stringify({ status }),
       });
       if (!response.ok) throw new Error('Failed to update lead status');

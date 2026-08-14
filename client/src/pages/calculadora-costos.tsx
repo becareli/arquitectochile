@@ -79,7 +79,9 @@ export default function CalculadoraCostos() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'x-csrf-token': document.cookie.split('; ').find(r => r.startsWith('csrf-token='))?.split('=')[1] ?? '',
         },
+        credentials: 'include',
         body: JSON.stringify(leadData),
       });
       

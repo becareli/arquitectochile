@@ -284,10 +284,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
     const { password } = req.body as { password?: string };
     if (password === ADMIN_API_PASSWORD) {
       loginAttempts.delete(ip); // reset on success
+      // Preserve Passport identity across session ID rotation to prevent fixation
+      const passportUser = (req as any).session.passport;
       (req as any).session.regenerate((err: any) => {
         if (err) return res.status(500).json({ error: "Error de sesión." });
+        if (passportUser) (req as any).session.passport = passportUser;
         (req as any).session.isAdmin = true;
-        res.json({ ok: true });
+        (req as any).session.save((saveErr: any) => {
+          if (saveErr) return res.status(500).json({ error: "Error guardando sesión." });
+          res.json({ ok: true });
+        });
       });
     } else {
       res.status(403).json({ error: "Contraseña incorrecta." });
@@ -712,7 +718,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.patch("/api/quotes/:id/status", async (req, res) => {
+  app.patch("/api/quotes/:id/status", isAdminSession, async (req, res) => {
     try {
       const { status } = req.body;
       const quote = await storage.updateQuoteStatus(parseInt(req.params.id), status);
