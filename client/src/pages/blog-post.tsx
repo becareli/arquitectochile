@@ -101,10 +101,9 @@ export default function BlogPost() {
         </p>
 
         <div
-          className="prose prose-lg max-w-none text-gray-700 leading-relaxed whitespace-pre-wrap"
-        >
-          {post.content}
-        </div>
+          className="prose prose-lg max-w-none text-gray-700 leading-relaxed"
+          dangerouslySetInnerHTML={{ __html: post.content }}
+        />
       </article>
 
       <Footer />
