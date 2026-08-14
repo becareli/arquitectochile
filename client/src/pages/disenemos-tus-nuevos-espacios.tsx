@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 import Chatbot from "@/components/chatbot";
 import Navigation from "@/components/navigation";
+import FormsAppEmbed from "@/components/forms-app-embed";
 
 export default function DisenemosNuevosEspacios() {
   const [, setLocation] = useLocation();
@@ -77,12 +78,8 @@ export default function DisenemosNuevosEspacios() {
     document.head.appendChild(script);
   }, []);
 
-  const openWhatsApp = () => {
-    window.open('https://wa.me/56979316827?text=Hola,%20quiero%20información%20sobre%20el%20servicio%20de%20Diseño%20de%20Nuevos%20Espacios', '_blank');
-  };
-
   const scrollToContact = () => {
-    setLocation('/#contacto');
+    document.getElementById("formulario-diseno-arquitectura")?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
@@ -525,21 +522,12 @@ export default function DisenemosNuevosEspacios() {
             No deje que otro mes pase viviendo en un espacio que no lo hace feliz.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-            <Button 
-              onClick={openWhatsApp}
-              className="bg-[#f97316] hover:bg-orange-600 text-white px-8 py-4 text-lg font-bold rounded-lg"
-            >
-              <Phone className="w-5 h-5 mr-2" />
-              WhatsApp +56 9 7931 6827
-            </Button>
-            <Button 
-              onClick={scrollToContact}
-              className="bg-white hover:bg-gray-100 text-[#0f172a] px-8 py-4 text-lg font-bold rounded-lg"
-            >
-              Solicitar Reunión Gratuita
-            </Button>
-          </div>
+          <Button
+            onClick={scrollToContact}
+            className="bg-[#f97316] hover:bg-orange-600 text-white px-8 py-4 text-lg font-bold rounded-lg mb-10"
+          >
+            Solicitar evaluación de mi proyecto
+          </Button>
 
           <div className="bg-white/20 backdrop-blur-sm rounded-lg p-6">
             <p className="text-lg">
@@ -547,6 +535,17 @@ export default function DisenemosNuevosEspacios() {
               Si realmente está listo para transformar su vida a través de su hogar, 
               no espere más.
             </p>
+          </div>
+
+          <div id="formulario-diseno-arquitectura" className="mt-12 text-left">
+            <div className="text-center mb-8">
+              <h3 className="text-3xl font-bold text-white mb-3">Cuéntanos cómo quieres transformar tu espacio</h3>
+              <p className="text-white/70">Completa el formulario para recibir una evaluación de tu proyecto.</p>
+            </div>
+            <FormsAppEmbed
+              src="https://share.forms.app/patriciobecarelissegaray/formulario-de-calificacion-arquitecto-patricio-becar-elissegaray"
+              title="Formulario de calificación para diseño de arquitectura"
+            />
           </div>
         </div>
       </section>

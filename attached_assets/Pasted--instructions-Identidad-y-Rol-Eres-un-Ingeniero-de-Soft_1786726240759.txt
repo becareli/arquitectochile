@@ -1,0 +1,53 @@
+<instructions>
+# Identidad y Rol
+Eres un Ingeniero de Software Frontend de clase mundial y Arquitecto Web de élite. Tu tarea consiste en modificar quirúrgicamente las páginas del sitio web "arquitectochile.com" para eliminar los formularios paso a paso actuales (los cuales generan fricción y no están siendo utilizados) y reemplazarlos por los nuevos formularios responsivos alojados en forms.app.
+
+# Objetivo Principal
+Actualizar el código de cada página específica del sitio web, eliminando los bloques de formulario antiguos (HTML, JS de validación y estilos asociados) y sustituyéndolos por un contenedor responsivo que cargue el iFrame correspondiente de manera fluida, sin scrollbars dobles y adaptado a dispositivos móviles.
+
+# Mapeo de Formularios por Servicio
+Deberás identificar las páginas correspondientes del proyecto y realizar los siguientes reemplazos:
+
+1. **Página de Colaboradores (ej. `colaboradores.html` o componente equivalente):**
+   - URL del Nuevo Formulario: https://share.forms.app/becareligroup/registro-de-colaboradores-arquitectochilecom
+
+2. **Página de Asesoría de Arquitectura a Domicilio (ej. `asesoria-domicilio.html` o equivalente):**
+   - URL del Nuevo Formulario: https://share.forms.app/patriciobecarelissegaray/formulario-de-contacto-1
+
+3. **Página de Diseño de Arquitectura (ej. `diseno-arquitectura.html` o equivalente):**
+   - URL del Nuevo Formulario: https://share.forms.app/patriciobecarelissegaray/formulario-de-calificacion-arquitecto-patricio-becar-elissegaray
+
+4. **Página de Regularización de Viviendas (ej. `regularizacion.html` o equivalente):**
+   - URL del Nuevo Formulario: https://share.forms.app/patriciobecarelissegaray/formulario-de-contacto
+
+5. **Página de Revisor Independiente de Arquitectura (ej. `revisor-independiente.html` o equivalente):**
+   - URL del Nuevo Formulario: https://share.forms.app/patriciobecarelissegaray/solicitud-de-presupuesto-para-revision-independiente-ley-20016
+
+6. **Página de Contacto General / Todos los Servicios (ej. `contacto.html` o formulario principal del landing):**
+   - URL del Nuevo Formulario: https://share.forms.app/becareligroup/formulario-de-calificacion-profesional-arquitectochilecom
+
+# Estructura del Contenedor de iFrame Responsivo
+Para cada reemplazo, encapsula el iFrame dentro de un contenedor moderno utilizando Tailwind CSS (o CSS puro si el proyecto no lo usa) para asegurar una carga limpia y adaptativa:
+
+```html
+<!-- Contenedor optimizado para evitar dobles barras de desplazamiento y mejorar UX en móvil -->
+<div class="forms-app-wrapper w-full relative overflow-hidden rounded-xl bg-transparent" style="min-height: 650px; height: 85vh;">
+    <iframe 
+        src="[INSERTAR_URL_CORRESPONDIENTE]" 
+        title="Formulario de Servicio"
+        class="absolute top-0 left-0 w-full h-full border-0" 
+        allow="geolocation; microphone; camera" 
+        allowfullscreen>
+    </iframe>
+</div>
+Instrucciones de Implementación Técnica
+Limpieza: Elimina scripts antiguos de validación que pertenecieran exclusivamente al formulario anterior para evitar conflictos de consola o peso innecesario en la página.
+Consistencia Estética: Mantén las tipografías del sitio (como sans-serif limpias si usa Tailwind) en los encabezados de página antes del iFrame.
+Pruebas: Asegúrate de que el contenedor use un alto dinámico (85vh o un mínimo de 650px) para garantizar que las preguntas de forms.app se muestren completas en pantallas pequeñas.
+Análisis de Diseño
+Segmentación y Mapeo Preciso de Datos: Se extrajeron rigurosamente de la documentación del sitio los 6 enlaces exactos de forms.app asociados a cada página de servicio
+. Esto asegura que el agente de desarrollo asocie inequívocamente cada formulario con su respectivo punto de entrada en la web.
+Uso Obligatorio de Contenedores XML: Aplicando las normas de la Categoría C de la libreta
+, las instrucciones y variables críticas se han aislado dentro de etiquetas <instructions> claras. Esto evita que el modelo de destino malinterprete las URLs como texto informativo secundario y asegura su integración directa en el código de producción.
+Estructura de iFrame de Alta Fidelidad: En línea con las mejores prácticas de Frontend Design
+, se ha definido una estructura de contenedor responsiva (85vh de alto y min-height) que anula la aparición de dobles barras de desplazamiento laterales o recortes verticales, el cual era el principal punto de fricción de la implementación previa.
