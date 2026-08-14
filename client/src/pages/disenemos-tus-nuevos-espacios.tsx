@@ -9,7 +9,6 @@ import {
 } from "lucide-react";
 import Chatbot from "@/components/chatbot";
 import Navigation from "@/components/navigation";
-import FormsAppEmbed from "@/components/forms-app-embed";
 
 export default function DisenemosNuevosEspacios() {
   const [, setLocation] = useLocation();
@@ -79,7 +78,7 @@ export default function DisenemosNuevosEspacios() {
   }, []);
 
   const scrollToContact = () => {
-    document.getElementById("formulario-diseno-arquitectura")?.scrollIntoView({ behavior: "smooth" });
+    setLocation("/formulario/diseno-arquitectura");
   };
 
   return (
@@ -537,16 +536,6 @@ export default function DisenemosNuevosEspacios() {
             </p>
           </div>
 
-          <div id="formulario-diseno-arquitectura" className="mt-12 text-left">
-            <div className="text-center mb-8">
-              <h3 className="text-3xl font-bold text-white mb-3">Cuéntanos cómo quieres transformar tu espacio</h3>
-              <p className="text-white/70">Completa el formulario para recibir una evaluación de tu proyecto.</p>
-            </div>
-            <FormsAppEmbed
-              src="https://share.forms.app/patriciobecarelissegaray/formulario-de-calificacion-arquitecto-patricio-becar-elissegaray"
-              title="Formulario de calificación para diseño de arquitectura"
-            />
-          </div>
         </div>
       </section>
       <Chatbot />

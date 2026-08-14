@@ -10,8 +10,8 @@ import {
 import Navigation from "@/components/navigation";
 import Footer from "@/components/footer";
 import Chatbot from "@/components/chatbot";
-import FormsAppEmbed from "@/components/forms-app-embed";
 import architectPhoto from "@assets/1651766771115_1783822611665.jpeg";
+import { useLocation } from "wouter";
 
 const faqs = [
   {
@@ -38,6 +38,7 @@ const faqs = [
 
 export default function AsesoriaArquitectonicaTerreno() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [, setLocation] = useLocation();
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -103,7 +104,7 @@ export default function AsesoriaArquitectonicaTerreno() {
   }, []);
 
   const openTidyCal = () => {
-    document.getElementById("formulario-asesoria-domicilio")?.scrollIntoView({ behavior: "smooth" });
+    setLocation("/formulario/asesoria-domicilio");
   };
 
   return (
@@ -468,25 +469,6 @@ export default function AsesoriaArquitectonicaTerreno() {
               </div>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* Formulario de solicitud */}
-      <section id="formulario-asesoria-domicilio" className="py-20 bg-white">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-10">
-            <p className="text-sm font-semibold text-[#f97316] uppercase tracking-[0.2em] mb-4">Solicitud de asesoría</p>
-            <h2 className="text-4xl lg:text-5xl font-bold text-[#0f172a] mb-5">
-              Agenda tu visita arquitectónica
-            </h2>
-            <p className="text-lg text-[#64748b] max-w-2xl mx-auto">
-              Completa tus datos y cuéntanos sobre el terreno o propiedad que quieres evaluar.
-            </p>
-          </div>
-          <FormsAppEmbed
-            src="https://share.forms.app/patriciobecarelissegaray/formulario-de-contacto-1"
-            title="Formulario de contacto para asesoría de arquitectura a domicilio"
-          />
         </div>
       </section>
 

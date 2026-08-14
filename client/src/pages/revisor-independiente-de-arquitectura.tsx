@@ -3,11 +3,12 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { CheckCircle, Shield, Clock, Phone, Mail, MapPin, Youtube, Award, FileCheck, Users, Zap, Star } from "lucide-react";
 import Chatbot from "@/components/chatbot";
 import Navigation from "@/components/navigation";
-import FormsAppEmbed from "@/components/forms-app-embed";
 import { useEffect } from "react";
+import { useLocation } from "wouter";
 import { useSEO } from "@/hooks/useSEO";
 
 export default function RevisorIndependienteDeArquitectura() {
+  const [, setLocation] = useLocation();
   useSEO({
     title: "Revisor Independiente de Arquitectura Chile | ArquitectoChile",
     description: "Revisor independiente de arquitectura en Chile: fiscalización técnica de obras de construcción según normativa MINVU, con respaldo profesional certificado.",
@@ -20,10 +21,7 @@ export default function RevisorIndependienteDeArquitectura() {
   }, []);
 
   const scrollToContact = () => {
-    const element = document.getElementById('contacto-revisor');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
+    setLocation("/formulario/revisor-independiente");
   };
 
   return (
@@ -78,13 +76,15 @@ export default function RevisorIndependienteDeArquitectura() {
           </div>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button 
-              onClick={() => document.getElementById("formulario-revisor")?.scrollIntoView({ behavior: "smooth" })}
-              className="rounded-lg bg-[#f97316] hover:bg-orange-600 text-white px-8 py-4 text-lg font-bold"
+            <a
+              href="https://wa.me/56979316827"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#f97316] hover:bg-orange-600 text-white px-8 py-4 text-lg font-bold"
             >
-              <Phone className="w-5 h-5 mr-2" />
+              <Phone className="w-5 h-5" />
               WhatsApp +56 9 7931 6827
-            </Button>
+            </a>
             <Button 
               onClick={scrollToContact}
               className="rounded-lg bg-[#f97316] hover:bg-orange-600 text-white px-8 py-4 text-lg font-bold"
@@ -407,13 +407,15 @@ export default function RevisorIndependienteDeArquitectura() {
               <strong>CONTRATA los servicios para confeccionar tu Informe Favorable de REVISOR INDEPENDIENTE DE ARQUITECTURA</strong>
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button 
-                onClick={() => document.getElementById("formulario-revisor")?.scrollIntoView({ behavior: "smooth" })}
-                className="rounded-lg bg-[#f97316] hover:bg-orange-600 text-white px-8 py-4 text-lg font-bold"
+              <a
+                href="https://wa.me/56979316827"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#f97316] hover:bg-orange-600 text-white px-8 py-4 text-lg font-bold"
               >
-                <Phone className="w-5 h-5 mr-2" />
+                <Phone className="w-5 h-5" />
                 WhatsApp +56 9 7931 6827
-              </Button>
+              </a>
               <Button 
                 onClick={scrollToContact}
                 className="rounded-lg bg-white hover:bg-gray-100 text-black px-8 py-4 text-lg font-bold"
@@ -619,10 +621,10 @@ export default function RevisorIndependienteDeArquitectura() {
               <CardContent>
                 <p className="text-2xl font-bold mb-2 text-white">+56 9 7931 6827</p>
                 <Button 
-                  onClick={() => document.getElementById("formulario-revisor")?.scrollIntoView({ behavior: "smooth" })}
+                  onClick={scrollToContact}
                   className="rounded-lg bg-[#f97316] hover:bg-orange-600 text-white"
                 >
-                  Enviar Mensaje
+                  Solicitar Revisión
                 </Button>
               </CardContent>
             </Card>
@@ -657,22 +659,11 @@ export default function RevisorIndependienteDeArquitectura() {
             <p className="text-lg mb-8">Contacta al único Revisor Independiente certificado con 26+ años de experiencia en Santiago.</p>
             
             <Button 
-              onClick={() => document.getElementById("formulario-revisor")?.scrollIntoView({ behavior: "smooth" })}
+              onClick={scrollToContact}
               className="rounded-lg bg-[#f97316] hover:bg-orange-600 text-white px-8 py-4 text-lg font-bold"
             >
               Solicitar Revisión Ahora
             </Button>
-          </div>
-
-          <div id="formulario-revisor" className="mt-12 text-left">
-            <div className="text-center mb-8">
-              <h3 className="text-3xl font-bold text-white mb-3">Solicita tu presupuesto de revisión</h3>
-              <p className="text-white/70">Adjunta los antecedentes de tu proyecto para evaluar su revisión independiente.</p>
-            </div>
-            <FormsAppEmbed
-              src="https://share.forms.app/patriciobecarelissegaray/solicitud-de-presupuesto-para-revision-independiente-ley-20016"
-              title="Solicitud de presupuesto para revisión independiente de arquitectura"
-            />
           </div>
         </div>
       </section>

@@ -6,7 +6,6 @@ import {
 } from "lucide-react";
 import Navigation from "@/components/navigation";
 import Footer from "@/components/footer";
-import FormsAppEmbed from "@/components/forms-app-embed";
 
 export default function RegularizacionInmuebles() {
   useEffect(() => {
@@ -81,7 +80,7 @@ export default function RegularizacionInmuebles() {
             Especialistas en la DOM de La Florida — Expertos en Ley del Mono y Gestión Municipal
           </p>
           <a
-            href="#formulario-regularizacion"
+            href="/formulario/regularizacion"
             className="inline-flex items-center gap-2 bg-[#f97316] text-white px-8 py-3.5 rounded-lg text-sm font-semibold hover:bg-orange-600 transition-colors shadow-lg shadow-orange-500/20"
           >
             <FileText className="w-4 h-4" strokeWidth={1.5} />
@@ -154,7 +153,7 @@ export default function RegularizacionInmuebles() {
 
           <div className="text-center">
             <a
-              href="#formulario-regularizacion"
+              href="/formulario/regularizacion"
               className="inline-flex items-center gap-2 bg-[#0f172a] text-white px-8 py-3.5 rounded-lg text-sm font-semibold hover:bg-[#1e293b] transition-colors"
             >
               <FileText className="w-4 h-4" strokeWidth={1.5} />
@@ -247,7 +246,7 @@ export default function RegularizacionInmuebles() {
 
           <div className="text-center mt-12">
             <a
-              href="#formulario-regularizacion"
+              href="/formulario/regularizacion"
               className="inline-flex items-center gap-2 bg-[#f97316] text-white px-8 py-3.5 rounded-lg text-sm font-semibold hover:bg-orange-600 transition-colors shadow-lg shadow-orange-500/20"
             >
               Solicitar Cotización
@@ -272,30 +271,12 @@ export default function RegularizacionInmuebles() {
             Asesoría inicial: $45.000 — Respuesta en menos de 24 horas
           </p>
           <a
-            href="#formulario-regularizacion"
+            href="/formulario/regularizacion"
             className="inline-flex items-center gap-2 bg-[#f97316] text-white px-8 py-3.5 rounded-lg text-sm font-semibold hover:bg-orange-600 transition-colors shadow-lg shadow-orange-500/20"
           >
             Solicitar Diagnóstico Técnico
             <ArrowRight className="w-4 h-4" strokeWidth={1.5} />
           </a>
-        </div>
-      </section>
-
-      <section id="formulario-regularizacion" className="bg-white section-padding">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-10">
-            <p className="text-xs font-semibold tracking-[0.2em] uppercase text-[#f97316] mb-3">Solicitud de diagnóstico</p>
-            <h2 className="text-3xl md:text-4xl font-bold text-[#0f172a] mb-4">
-              Inicia la regularización de tu propiedad
-            </h2>
-            <p className="text-base text-[#64748b] max-w-2xl mx-auto">
-              Cuéntanos tu situación y te orientaremos sobre el proceso, los antecedentes necesarios y los próximos pasos.
-            </p>
-          </div>
-          <FormsAppEmbed
-            src="https://share.forms.app/patriciobecarelissegaray/formulario-de-contacto"
-            title="Formulario de contacto para regularización de inmuebles"
-          />
         </div>
       </section>
 

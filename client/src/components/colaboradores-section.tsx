@@ -24,7 +24,7 @@ import {
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import arquitectoPhoto from "@assets/1651766771115_1753490676082.jpeg";
-import FormsAppEmbed from "@/components/forms-app-embed";
+import { useLocation } from "wouter";
 
 type CategoriaEspecialidad = {
   categoria: string;
@@ -152,6 +152,7 @@ const colaboradoresDestacados = [
 ];
 
 export default function ColaboradoresSection() {
+  const [, setLocation] = useLocation();
   return (
     <section id="colaboradores" className="py-0 bg-slate-50">
 
@@ -384,7 +385,7 @@ export default function ColaboradoresSection() {
                 <Button
                 size="lg"
                 className="bg-white text-slate-900 hover:bg-slate-100 font-bold px-10 mb-8 uppercase tracking-wide"
-                 onClick={() => document.getElementById("formulario-colaboradores")?.scrollIntoView({ behavior: "smooth" })}
+                onClick={() => setLocation("/formulario/colaboradores")}
               >
                 <ArrowRight className="w-5 h-5 mr-2" />
                 Postular a la Red Técnica
@@ -403,21 +404,6 @@ export default function ColaboradoresSection() {
               </div>
             </CardContent>
           </Card>
-        </div>
-
-        <div className="max-w-4xl mx-auto mt-16">
-          <div className="text-center mb-8">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500 mb-3">Postulación</p>
-            <h2 className="font-serif text-3xl font-bold text-slate-900 mb-3">Cuéntanos sobre tu especialidad</h2>
-            <p className="text-slate-600 max-w-2xl mx-auto">
-              Completa el formulario y revisaremos tu perfil para incorporarte a nuestra red técnica.
-            </p>
-          </div>
-          <FormsAppEmbed
-            id="formulario-colaboradores"
-            src="https://share.forms.app/becareligroup/registro-de-colaboradores-arquitectochilecom"
-            title="Registro de colaboradores de ArquitectoChile.com"
-          />
         </div>
 
       </div>

@@ -37,6 +37,7 @@ import CasosDeExito from "@/pages/casos-de-exito";
 import NotFound from "@/pages/not-found";
 import CookieConsent from "@/components/cookie-consent";
 import AdminGate from "@/components/AdminGate";
+import FormPage from "@/pages/formulario-page";
 
 function Router() {
   return (
@@ -97,6 +98,24 @@ function Router() {
       <Route path="/contacto" component={Contacto} />
       <Route path="/obras-menores-empresas" component={ObrasMenoresEmpresas} />
       <Route path="/casos-de-exito" component={CasosDeExito} />
+      <Route path="/formulario/colaboradores">
+        {() => <FormPage src="https://share.forms.app/becareligroup/registro-de-colaboradores-arquitectochilecom" title="Postulación a la Red de Colaboradores" />}
+      </Route>
+      <Route path="/formulario/asesoria-domicilio">
+        {() => <FormPage src="https://share.forms.app/patriciobecarelissegaray/formulario-de-contacto-1" title="Solicitud de Asesoría Arquitectónica a Domicilio" />}
+      </Route>
+      <Route path="/formulario/diseno-arquitectura">
+        {() => <FormPage src="https://share.forms.app/patriciobecarelissegaray/formulario-de-calificacion-arquitecto-patricio-becar-elissegaray" title="Formulario de Diseño de Arquitectura" />}
+      </Route>
+      <Route path="/formulario/regularizacion">
+        {() => <FormPage src="https://share.forms.app/patriciobecarelissegaray/formulario-de-contacto" title="Solicitud de Regularización de Inmuebles" />}
+      </Route>
+      <Route path="/formulario/revisor-independiente">
+        {() => <FormPage src="https://share.forms.app/patriciobecarelissegaray/solicitud-de-presupuesto-para-revision-independiente-ley-20016" title="Solicitud de Revisión Independiente de Arquitectura" />}
+      </Route>
+      <Route path="/formulario/contacto">
+        {() => <FormPage src="https://share.forms.app/becareligroup/formulario-de-calificacion-profesional-arquitectochilecom" title="Contacto General — ArquitectoChile.com" />}
+      </Route>
       <Route component={NotFound} />
     </Switch>
   );
