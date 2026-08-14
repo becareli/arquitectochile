@@ -68,6 +68,36 @@ export default function BlogPost() {
 
   const pageUrl = typeof window !== "undefined" ? window.location.href : `https://arquitectochile.com/blog/${post.slug}`;
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": post.title,
+    "description": post.excerpt,
+    "datePublished": post.createdAt,
+    "dateModified": post.createdAt,
+    "url": pageUrl,
+    ...(post.imageUrl ? { "image": post.imageUrl } : {}),
+    "author": {
+      "@type": "Person",
+      "name": "Patricio Becar Elissegaray",
+      "jobTitle": "Arquitecto",
+      "url": "https://arquitectochile.com"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "ArquitectoChile.com",
+      "url": "https://arquitectochile.com",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://arquitectochile.com/favicon.png"
+      }
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": pageUrl
+    }
+  };
+
   return (
     <div className="min-h-screen bg-white">
       <Helmet>
@@ -88,6 +118,8 @@ export default function BlogPost() {
         {post.imageUrl && <meta name="twitter:image" content={post.imageUrl} />}
         {/* Canonical */}
         <link rel="canonical" href={pageUrl} />
+        {/* JSON-LD Structured Data */}
+        <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
       </Helmet>
       <Navigation />
 
