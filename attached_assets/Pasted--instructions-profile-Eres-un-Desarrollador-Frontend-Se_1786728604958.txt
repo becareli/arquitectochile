@@ -1,0 +1,97 @@
+<instructions>
+  <profile>
+    Eres un Desarrollador Frontend Senior experto en UI/UX, animaciones fluidas y rendimiento web. Tu objetivo es integrar un componente de cinta deslizante ("ticker tape" o marquesina infinita) en el sitio web de ArquitectoChile.
+  </profile>
+
+  <action>
+    Diseña e implementa un banner deslizante continuo (marquee) e interactivo posicionado inmediatamente debajo de la barra de navegación principal (Navbar).
+  </action>
+
+  <subject_and_context>
+    La cinta debe servir como una vitrina de acceso rápido para los servicios recientemente optimizados del sitio. Cada texto del servicio debe actuar como un enlace hipertexto que dirija a su respectiva página de servicio (donde se encuentran integrados los nuevos formularios de captura).
+    
+    Enlaces de destino específicos:
+    - **Regularización de Viviendas / Inmuebles**: `/regularizacion.html`
+    - **Diseño de Arquitectura**: `/diseno-arquitectura.html`
+    - **Asesoría de Arquitectura a Domicilio**: `/asesoria-domicilio.html`
+    - **Revisor Independiente de Arquitectura**: `/revisor-independiente.html`
+    - **Registro de Colaboradores**: `/colaboradores.html`
+    - **Contacto General y Calificación**: `/contacto.html`
+  </subject_and_context>
+
+  <constraints>
+    1. **Dirección de Movimiento**: Desplazamiento horizontal continuo de derecha a izquierda.
+    2. **Control de Interacción (Hover Pause)**: Cuando el usuario acerque el cursor al texto de la cinta, la animación debe detenerse (`animation-play-state: paused`) de forma inmediata. Al retirar el cursor, debe reanudar su marcha de manera fluida.
+    3. **Efecto de Bucle Infinito Simétrico (Seamless Loop)**: Duplica la lista de elementos en el DOM (Grupo 1 y Grupo 2) para lograr un scroll sin cortes visibles ni saltos bruscos cuando la animación se reinicie.
+    4. **Estilo Visual Limpio**:
+       - Fondo de alto contraste alineado con el diseño del sitio (ej. Gris muy oscuro o negro: `bg-slate-900` / `bg-gray-950`).
+       - Texto claro y legible con tipografía profesional (ej. `text-sm font-semibold tracking-wide text-slate-200`).
+       - Separadores elegantes entre cada enlace de servicio (como un rombo pequeño o punto medio destacado `◆` en color contrastante).
+    5. **Código Limpio y Rendimiento**: Prioriza una animación gestionada 100% por CSS (`keyframes` y `transform: translateX`) para asegurar que la CPU rinda de forma óptima en dispositivos móviles sin usar JavaScript innecesario.
+  </constraints>
+
+  <implementation_example>
+    Usa este ejemplo de marcado y estilos como base técnica de referencia:
+
+    ```html
+    <!-- Estilos de Animación de Alto Rendimiento -->
+    <style>
+      @keyframes scrollMarquee {
+        0% { transform: translateX(0%); }
+        100% { transform: translateX(-50%); }
+      }
+      .marquee-wrapper {
+        display: flex;
+        width: max-content;
+        animation: scrollMarquee 30s linear infinite;
+      }
+      .marquee-wrapper:hover {
+        animation-play-state: paused;
+      }
+    </style>
+
+    <!-- Estructura HTML de la Cinta (Ubicación: Justo debajo de </nav>) -->
+    <div class="relative w-full overflow-hidden bg-gray-950 border-y border-gray-800 py-3 z-30">
+      <div class="flex marquee-wrapper whitespace-nowrap">
+        
+        <!-- Bloque Principal de Enlaces -->
+        <div class="flex items-center gap-12 px-6">
+          <a href="/regularizacion.html" class="text-slate-100 hover:text-amber-400 font-semibold transition-colors duration-200">Regularización de Inmuebles</a>
+          <span class="text-amber-500 text-xs">◆</span>
+          <a href="/diseno-arquitectura.html" class="text-slate-100 hover:text-amber-400 font-semibold transition-colors duration-200">Diseño de Arquitectura</a>
+          <span class="text-amber-500 text-xs">◆</span>
+          <a href="/asesoria-domicilio.html" class="text-slate-100 hover:text-amber-400 font-semibold transition-colors duration-200">Asesoría de Arquitectura a Domicilio</a>
+          <span class="text-amber-500 text-xs">◆</span>
+          <a href="/revisor-independiente.html" class="text-slate-100 hover:text-amber-400 font-semibold transition-colors duration-200">Revisor Independiente de Arquitectura</a>
+          <span class="text-amber-500 text-xs">◆</span>
+          <a href="/colaboradores.html" class="text-slate-100 hover:text-amber-400 font-semibold transition-colors duration-200">Registro de Colaboradores</a>
+          <span class="text-amber-500 text-xs">◆</span>
+          <a href="/contacto.html" class="text-slate-100 hover:text-amber-400 font-semibold transition-colors duration-200">Contacto General</a>
+          <span class="text-amber-500 text-xs">◆</span>
+        </div>
+
+        <!-- Bloque de Respaldo Idéntico (Esencial para mantener la ilusión de bucle infinito) -->
+        <div class="flex items-center gap-12 px-6" aria-hidden="true">
+          <a href="/regularizacion.html" class="text-slate-100 hover:text-amber-400 font-semibold transition-colors duration-200">Regularización de Inmuebles</a>
+          <span class="text-amber-500 text-xs">◆</span>
+          <a href="/diseno-arquitectura.html" class="text-slate-100 hover:text-amber-400 font-semibold transition-colors duration-200">Diseño de Arquitectura</a>
+          <span class="text-amber-500 text-xs">◆</span>
+          <a href="/asesoria-domicilio.html" class="text-slate-100 hover:text-amber-400 font-semibold transition-colors duration-200">Asesoría de Arquitectura a Domicilio</a>
+          <span class="text-amber-500 text-xs">◆</span>
+          <a href="/revisor-independiente.html" class="text-slate-100 hover:text-amber-400 font-semibold transition-colors duration-200">Revisor Independiente de Arquitectura</a>
+          <span class="text-amber-500 text-xs">◆</span>
+          <a href="/colaboradores.html" class="text-slate-100 hover:text-amber-400 font-semibold transition-colors duration-200">Registro de Colaboradores</a>
+          <span class="text-amber-500 text-xs">◆</span>
+          <a href="/contacto.html" class="text-slate-100 hover:text-amber-400 font-semibold transition-colors duration-200">Contacto General</a>
+          <span class="text-amber-500 text-xs">◆</span>
+        </div>
+
+      </div>
+    </div>
+    ```
+  </implementation_example>
+
+  <tone>
+    Técnico, sumamente descriptivo, y enfocado en la usabilidad y rendimiento responsivo.
+  </tone>
+</instructions>
