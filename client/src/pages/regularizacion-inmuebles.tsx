@@ -84,7 +84,7 @@ export default function RegularizacionInmuebles() {
             className="inline-flex items-center gap-2 bg-[#f97316] text-white px-8 py-3.5 rounded-lg text-sm font-semibold hover:bg-orange-600 transition-colors shadow-lg shadow-orange-500/20"
           >
             <FileText className="w-4 h-4" strokeWidth={1.5} />
-            Solicitar Diagnóstico Técnico — $45.000
+            Cotizar Servicio de Regularización
           </a>
         </div>
       </section>
@@ -157,7 +157,7 @@ export default function RegularizacionInmuebles() {
               className="inline-flex items-center gap-2 bg-[#0f172a] text-white px-8 py-3.5 rounded-lg text-sm font-semibold hover:bg-[#1e293b] transition-colors"
             >
               <FileText className="w-4 h-4" strokeWidth={1.5} />
-              Solicitar Diagnóstico Técnico
+              Cotizar Servicio de Regularización
             </a>
           </div>
         </div>
@@ -274,7 +274,7 @@ export default function RegularizacionInmuebles() {
             href="/formulario/regularizacion"
             className="inline-flex items-center gap-2 bg-[#f97316] text-white px-8 py-3.5 rounded-lg text-sm font-semibold hover:bg-orange-600 transition-colors shadow-lg shadow-orange-500/20"
           >
-            Solicitar Diagnóstico Técnico
+            Cotizar Servicio de Regularización
             <ArrowRight className="w-4 h-4" strokeWidth={1.5} />
           </a>
         </div>
