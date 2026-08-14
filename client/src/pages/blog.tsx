@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useLocation } from "wouter";
 import { useQuery } from "@tanstack/react-query";
+import { Helmet } from "react-helmet-async";
 import Navigation from "@/components/navigation";
 import Footer from "@/components/footer";
 import { Badge } from "@/components/ui/badge";
@@ -29,7 +30,6 @@ export default function Blog() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    document.title = "Blog — ArquitectoChile.com";
   }, []);
 
   const { data: posts = [], isLoading } = useQuery<BlogPost[]>({
@@ -43,6 +43,24 @@ export default function Blog() {
 
   return (
     <div className="min-h-screen bg-white">
+      <Helmet>
+        <title>Blog — ArquitectoChile.com</title>
+        <meta name="description" content="Artículos de arquitectura: regularización, diseño, permisos y construcción en Chile. Conocimiento profesional de ArquitectoChile.com." />
+        {/* Open Graph */}
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Blog de Arquitectura — ArquitectoChile.com" />
+        <meta property="og:description" content="Artículos de arquitectura: regularización, diseño, permisos y construcción en Chile." />
+        <meta property="og:url" content="https://arquitectochile.com/blog" />
+        <meta property="og:image" content="https://arquitectochile.com/favicon.png" />
+        <meta property="og:site_name" content="ArquitectoChile.com" />
+        <meta property="og:locale" content="es_CL" />
+        {/* Twitter Card */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Blog de Arquitectura — ArquitectoChile.com" />
+        <meta name="twitter:description" content="Artículos de arquitectura: regularización, diseño, permisos y construcción en Chile." />
+        {/* Canonical */}
+        <link rel="canonical" href="https://arquitectochile.com/blog" />
+      </Helmet>
       <Navigation />
 
       {/* Hero */}

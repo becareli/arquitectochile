@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useRoute } from "wouter";
 import { useQuery } from "@tanstack/react-query";
+import { Helmet } from "react-helmet-async";
 import Navigation from "@/components/navigation";
 import Footer from "@/components/footer";
 import { Calendar, ArrowLeft } from "lucide-react";
@@ -40,7 +41,6 @@ export default function BlogPost() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    if (post) document.title = `${post.title} — ArquitectoChile.com`;
   }, [post]);
 
   if (isLoading) {
@@ -66,8 +66,29 @@ export default function BlogPost() {
     );
   }
 
+  const pageUrl = typeof window !== "undefined" ? window.location.href : `https://arquitectochile.com/blog/${post.slug}`;
+
   return (
     <div className="min-h-screen bg-white">
+      <Helmet>
+        <title>{post.title} — ArquitectoChile.com</title>
+        <meta name="description" content={post.excerpt} />
+        {/* Open Graph */}
+        <meta property="og:type" content="article" />
+        <meta property="og:title" content={post.title} />
+        <meta property="og:description" content={post.excerpt} />
+        <meta property="og:url" content={pageUrl} />
+        {post.imageUrl && <meta property="og:image" content={post.imageUrl} />}
+        <meta property="og:site_name" content="ArquitectoChile.com" />
+        <meta property="og:locale" content="es_CL" />
+        {/* Twitter Card */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={post.title} />
+        <meta name="twitter:description" content={post.excerpt} />
+        {post.imageUrl && <meta name="twitter:image" content={post.imageUrl} />}
+        {/* Canonical */}
+        <link rel="canonical" href={pageUrl} />
+      </Helmet>
       <Navigation />
 
       {/* Cover image */}

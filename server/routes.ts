@@ -650,6 +650,143 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // ---------------------------------------------------------------------------
+  // Server-side OG/Twitter Card injection for blog pages
+  // Social crawlers (WhatsApp, Facebook, LinkedIn, Twitter) fetch the raw HTML
+  // and do not execute JavaScript, so we must inject meta tags server-side.
+  // These routes serve the same index.html SPA shell but with per-page tags
+  // injected into <head> before the SPA fallback ever sees the request.
+  // ---------------------------------------------------------------------------
+
+  function escapeHtmlAttr(str: string): string {
+    return str
+      .replace(/&/g, "&amp;")
+      .replace(/"/g, "&quot;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;");
+  }
+
+  async function readIndexHtml(): Promise<string> {
+    // In production the built SPA lands at server/public/index.html.
+    // In development it lives at client/index.html.
+    const prodPath = path.resolve(import.meta.dirname, "public", "index.html");
+    const devPath = path.resolve(import.meta.dirname, "..", "client", "index.html");
+    const htmlPath = fs.existsSync(prodPath) ? prodPath : devPath;
+    return fs.promises.readFile(htmlPath, "utf-8");
+  }
+
+  function buildOgTags(tags: Record<string, string>): string {
+    return Object.entries(tags)
+      .filter(([, v]) => v)
+      .map(([k, v]) => `  <meta ${k.startsWith("og:") || k.startsWith("article:") ? `property="${k}"` : `name="${k}"`} content="${escapeHtmlAttr(v)}" />`)
+      .join("\n");
+  }
+
+  /**
+   * Remove pre-existing generic OG/Twitter/canonical/description meta tags
+   * from the index.html template so the injected page-specific ones are the
+   * only authoritative values in the response. Social crawlers use the FIRST
+   * occurrence of a tag, so we must strip duplicates before injecting.
+   */
+  function stripExistingMetaTags(html: string): string {
+    // Remove <meta property="og:*" …>
+    html = html.replace(/<meta\s+property="og:[^"]*"[^>]*\/?>/gi, "");
+    // Remove <meta name="twitter:*" …>
+    html = html.replace(/<meta\s+name="twitter:[^"]*"[^>]*\/?>/gi, "");
+    // Remove <meta name="description" …>
+    html = html.replace(/<meta\s+name="description"[^>]*\/?>/gi, "");
+    // Remove <link rel="canonical" …>
+    html = html.replace(/<link\s+rel="canonical"[^>]*\/?>/gi, "");
+    return html;
+  }
+
+  // /blog listing page — generic site meta tags
+  app.get("/blog", async (req, res, next) => {
+    try {
+      const html = await readIndexHtml();
+      const baseUrl = process.env.NODE_ENV === "production"
+        ? "https://arquitectochile.com"
+        : `${req.protocol}://${req.get("host")}`;
+      const pageUrl = `${baseUrl}/blog`;
+
+      const ogTags = buildOgTags({
+        "og:type": "website",
+        "og:title": "Blog de Arquitectura — ArquitectoChile.com",
+        "og:description": "Artículos de arquitectura: regularización, diseño, permisos y construcción en Chile. Conocimiento profesional de ArquitectoChile.com.",
+        "og:url": pageUrl,
+        "og:image": `${baseUrl}/favicon.png`,
+        "og:site_name": "ArquitectoChile.com",
+        "og:locale": "es_CL",
+        "twitter:card": "summary_large_image",
+        "twitter:title": "Blog de Arquitectura — ArquitectoChile.com",
+        "twitter:description": "Artículos de arquitectura: regularización, diseño, permisos y construcción en Chile.",
+        "description": "Artículos de arquitectura: regularización, diseño, permisos y construcción en Chile. Conocimiento profesional de ArquitectoChile.com.",
+      });
+
+      const stripped = stripExistingMetaTags(html);
+      const injected = stripped
+        .replace(/<title>.*?<\/title>/, "<title>Blog — ArquitectoChile.com</title>")
+        .replace("</head>", `${ogTags}\n</head>`);
+
+      res.status(200).set({ "Content-Type": "text/html" }).end(injected);
+    } catch (err) {
+      next(err);
+    }
+  });
+
+  // /blog/:slug — per-article OG/Twitter tags
+  app.get("/blog/:slug", async (req, res, next) => {
+    try {
+      const post = await storage.getBlogPostBySlug(req.params.slug);
+
+      // If the post doesn't exist or isn't published, fall through to the SPA
+      // so the client-side 404 handling renders normally.
+      if (!post || !post.published) {
+        return next();
+      }
+
+      const html = await readIndexHtml();
+      const baseUrl = process.env.NODE_ENV === "production"
+        ? "https://arquitectochile.com"
+        : `${req.protocol}://${req.get("host")}`;
+      const pageUrl = `${baseUrl}/blog/${post.slug}`;
+
+      const ogTagsMap: Record<string, string> = {
+        "og:type": "article",
+        "og:title": post.title,
+        "og:description": post.excerpt,
+        "og:url": pageUrl,
+        "og:site_name": "ArquitectoChile.com",
+        "og:locale": "es_CL",
+        "twitter:card": "summary_large_image",
+        "twitter:title": post.title,
+        "twitter:description": post.excerpt,
+      };
+      if (post.imageUrl) {
+        // Ensure the image URL is absolute — crawlers cannot follow relative paths
+        const absoluteImage = post.imageUrl.startsWith("http")
+          ? post.imageUrl
+          : `${baseUrl}${post.imageUrl.startsWith("/") ? "" : "/"}${post.imageUrl}`;
+        ogTagsMap["og:image"] = absoluteImage;
+        ogTagsMap["twitter:image"] = absoluteImage;
+      }
+
+      const canonicalTag = `  <link rel="canonical" href="${escapeHtmlAttr(pageUrl)}" />`;
+      // Include description in the OG map so it gets included and stripped dupes don't reappear
+      ogTagsMap["description"] = post.excerpt;
+      const ogTags = buildOgTags(ogTagsMap);
+
+      const stripped = stripExistingMetaTags(html);
+      const injected = stripped
+        .replace(/<title>.*?<\/title>/, `<title>${escapeHtmlAttr(post.title)} — ArquitectoChile.com</title>`)
+        .replace("</head>", `${ogTags}\n${canonicalTag}\n</head>`);
+
+      res.status(200).set({ "Content-Type": "text/html" }).end(injected);
+    } catch (err) {
+      next(err);
+    }
+  });
+
   // Budget Templates Endpoints
   app.post("/api/budget-templates", async (req, res) => {
     try {
