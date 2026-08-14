@@ -1,3 +1,5 @@
+import { useLocation } from "wouter";
+
 const services = [
   { label: "Regularización de Inmuebles", href: "/regularizacion-inmuebles" },
   { label: "Diseño de Arquitectura", href: "/disenemos-tus-nuevos-espacios" },
@@ -7,7 +9,13 @@ const services = [
   { label: "Contacto General", href: "/contacto" },
 ];
 
-function ServiceList({ ariaHidden }: { ariaHidden?: boolean }) {
+function ServiceList({
+  ariaHidden,
+  onNavigate,
+}: {
+  ariaHidden?: boolean;
+  onNavigate: (href: string) => void;
+}) {
   return (
     <div
       className="flex items-center gap-12 px-6"
@@ -15,12 +23,12 @@ function ServiceList({ ariaHidden }: { ariaHidden?: boolean }) {
     >
       {services.map((s, i) => (
         <span key={i} className="flex items-center gap-12">
-          <a
-            href={s.href}
-            className="text-sm font-semibold tracking-wide text-slate-200 hover:text-amber-400 transition-colors duration-200 whitespace-nowrap"
+          <button
+            onClick={() => onNavigate(s.href)}
+            className="text-sm font-semibold tracking-wide text-slate-200 hover:text-amber-400 transition-colors duration-200 whitespace-nowrap cursor-pointer"
           >
             {s.label}
-          </a>
+          </button>
           <span className="text-amber-500 text-xs select-none">◆</span>
         </span>
       ))}
@@ -29,11 +37,18 @@ function ServiceList({ ariaHidden }: { ariaHidden?: boolean }) {
 }
 
 export default function MarqueeBanner() {
+  const [, setLocation] = useLocation();
+
+  const navigate = (href: string) => {
+    setLocation(href);
+    window.scrollTo(0, 0);
+  };
+
   return (
     <div className="relative w-full overflow-hidden bg-slate-900 border-b border-gray-800 py-3 z-40">
       <div className="flex animate-scroll whitespace-nowrap w-max">
-        <ServiceList />
-        <ServiceList ariaHidden />
+        <ServiceList onNavigate={navigate} />
+        <ServiceList ariaHidden onNavigate={navigate} />
       </div>
     </div>
   );
