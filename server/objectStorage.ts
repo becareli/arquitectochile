@@ -131,6 +131,33 @@ export class ObjectStorageService {
     return `/objects/${entityId}`;
   }
 
+  // Generates a long-lived signed GET URL for a blog cover image stored in the private bucket.
+  // `internalPath` is the value stored in the DB, e.g. "/objects/uploads/blog/<uuid>".
+  // Returns null when the path cannot be resolved (e.g. external http URL).
+  async getSignedReadUrlForBlogImage(internalPath: string, ttlSec: number = 7 * 24 * 3600): Promise<string | null> {
+    // Only handle internal /objects/ paths
+    if (!internalPath || !internalPath.startsWith("/objects/")) {
+      return null;
+    }
+
+    // Strip leading "/objects/" to get the entity ID portion
+    const entityId = internalPath.slice("/objects/".length);
+
+    let entityDir = this.getPrivateObjectDir();
+    if (!entityDir.endsWith("/")) {
+      entityDir = `${entityDir}/`;
+    }
+
+    const fullPath = `${entityDir}${entityId}`;
+    const { bucketName, objectName } = parseObjectPath(fullPath);
+
+    try {
+      return await signObjectURL({ bucketName, objectName, method: "GET", ttlSec });
+    } catch {
+      return null;
+    }
+  }
+
   // Downloads an object to the response.
   async downloadObject(file: File, res: Response, cacheTtlSec: number = 3600) {
     try {

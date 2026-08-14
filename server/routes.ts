@@ -763,12 +763,21 @@ export async function registerRoutes(app: Express): Promise<Server> {
         "twitter:description": post.excerpt,
       };
       if (post.imageUrl) {
-        // Ensure the image URL is absolute — crawlers cannot follow relative paths
-        const absoluteImage = post.imageUrl.startsWith("http")
-          ? post.imageUrl
-          : `${baseUrl}${post.imageUrl.startsWith("/") ? "" : "/"}${post.imageUrl}`;
-        ogTagsMap["og:image"] = absoluteImage;
-        ogTagsMap["twitter:image"] = absoluteImage;
+        // For internal /objects/ paths (private bucket), generate a long-lived signed URL
+        // so social media crawlers (WhatsApp, Facebook, LinkedIn) can fetch the image directly
+        // from GCS without going through the server proxy.
+        let ogImage: string;
+        if (post.imageUrl.startsWith("/objects/")) {
+          const objectStorageService = new ObjectStorageService();
+          const signedUrl = await objectStorageService.getSignedReadUrlForBlogImage(post.imageUrl);
+          ogImage = signedUrl ?? `${baseUrl}${post.imageUrl}`;
+        } else if (post.imageUrl.startsWith("http")) {
+          ogImage = post.imageUrl;
+        } else {
+          ogImage = `${baseUrl}${post.imageUrl.startsWith("/") ? "" : "/"}${post.imageUrl}`;
+        }
+        ogTagsMap["og:image"] = ogImage;
+        ogTagsMap["twitter:image"] = ogImage;
       }
 
       const canonicalTag = `  <link rel="canonical" href="${escapeHtmlAttr(pageUrl)}" />`;
