@@ -614,6 +614,40 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // og:image proxy — redirects to a fresh signed URL on every request so the
+  // og:image tag can point to a stable, never-expiring URL.  Social crawlers
+  // (WhatsApp, Facebook, etc.) follow the 302 and cache the image from GCS.
+  app.get("/api/blog/:slug/og-image", async (req, res) => {
+    try {
+      const post = await storage.getBlogPostBySlug(req.params.slug);
+      if (!post || !post.published || !post.imageUrl) {
+        return res.status(404).send("Not found");
+      }
+
+      if (post.imageUrl.startsWith("/objects/")) {
+        const objectStorageService = new ObjectStorageService();
+        // Generate a fresh signed URL (1 hour TTL is plenty — this endpoint
+        // is the stable reference; the signed URL is only used for this request)
+        const signedUrl = await objectStorageService.getSignedReadUrlForBlogImage(post.imageUrl, 3600);
+        if (signedUrl) {
+          return res.redirect(302, signedUrl);
+        }
+      } else if (post.imageUrl.startsWith("http")) {
+        return res.redirect(302, post.imageUrl);
+      } else {
+        const baseUrl = process.env.NODE_ENV === "production"
+          ? "https://arquitectochile.com"
+          : `${req.protocol}://${req.get("host")}`;
+        return res.redirect(302, `${baseUrl}${post.imageUrl.startsWith("/") ? "" : "/"}${post.imageUrl}`);
+      }
+
+      return res.status(404).send("Image not available");
+    } catch (error) {
+      console.error("Error serving og-image redirect:", error);
+      res.status(500).send("Internal server error");
+    }
+  });
+
   // Get single blog post by slug (published only)
   app.get("/api/blog/:slug", async (req, res) => {
     try {
@@ -740,19 +774,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
         "twitter:description": post.excerpt,
       };
       if (post.imageUrl) {
-        // For internal /objects/ paths (private bucket), generate a long-lived signed URL
-        // so social media crawlers (WhatsApp, Facebook, LinkedIn) can fetch the image directly
-        // from GCS without going through the server proxy.
-        let ogImage: string;
-        if (post.imageUrl.startsWith("/objects/")) {
-          const objectStorageService = new ObjectStorageService();
-          const signedUrl = await objectStorageService.getSignedReadUrlForBlogImage(post.imageUrl);
-          ogImage = signedUrl ?? `${baseUrl}${post.imageUrl}`;
-        } else if (post.imageUrl.startsWith("http")) {
-          ogImage = post.imageUrl;
-        } else {
-          ogImage = `${baseUrl}${post.imageUrl.startsWith("/") ? "" : "/"}${post.imageUrl}`;
-        }
+        // Always use the stable proxy endpoint as og:image so the URL never
+        // expires.  The endpoint issues a fresh 302 redirect to a short-lived
+        // signed URL on every crawl request, avoiding broken previews after
+        // the original signed URL's 7-day TTL expires.
+        const ogImage = `${baseUrl}/api/blog/${post.slug}/og-image`;
         ogTagsMap["og:image"] = ogImage;
         ogTagsMap["twitter:image"] = ogImage;
       }
