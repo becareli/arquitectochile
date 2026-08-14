@@ -178,7 +178,7 @@ export default function InspeccionTecnicaViviendas() {
               className="rounded-lg bg-[#f97316] hover:bg-orange-600 text-white text-xl px-8 py-4"
             >
               <Phone className="mr-2 h-6 w-6" />
-              SOLICITAR INSPECCIÓN AHORA
+              Inspecciona tu Propiedad antes de Comprar
             </Button>
             <Button 
               onClick={scrollToContact}
@@ -703,7 +703,7 @@ export default function InspeccionTecnicaViviendas() {
               className="rounded-lg bg-[#f97316] hover:bg-orange-600 text-white px-8 py-4 text-xl font-bold"
             >
               <Phone className="w-6 h-6 mr-2" />
-              WhatsApp +56 9 7931 6827
+              Inspecciona tu Propiedad antes de Comprar
             </Button>
             <Button 
               onClick={scrollToContact}
