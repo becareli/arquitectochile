@@ -4,6 +4,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ArrowLeft, Upload, Loader2, ImageIcon } from "lucide-react";
+import { csrfHeaders } from "@/lib/csrf";
 
 interface BlogPost {
   id: number;
@@ -80,7 +81,11 @@ export default function AdminBlogEditor() {
     if (!file) return;
     setUploading(true);
     try {
-      const res = await fetch("/api/admin/blog/upload-url", { method: "POST" });
+      const res = await fetch("/api/admin/blog/upload-url", {
+        method: "POST",
+        headers: csrfHeaders(),
+        credentials: "include",
+      });
       if (!res.ok) throw new Error("No se pudo obtener URL de subida");
       const { uploadUrl, internalPath } = await res.json();
       const putRes = await fetch(uploadUrl, {
@@ -104,8 +109,9 @@ export default function AdminBlogEditor() {
       const method = isNew ? "POST" : "PUT";
       const res = await fetch(url, {
         method,
-        headers: { "Content-Type": "application/json" },
+        headers: csrfHeaders("application/json"),
         body: JSON.stringify(body),
+        credentials: "include",
       });
       if (!res.ok) {
         const err = await res.json().catch(() => ({}));

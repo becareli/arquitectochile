@@ -4,6 +4,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Plus, Pencil, Trash2, Eye, EyeOff, ArrowLeft } from "lucide-react";
+import { csrfHeaders } from "@/lib/csrf";
 
 interface BlogPost {
   id: number;
@@ -42,8 +43,9 @@ export default function AdminBlog() {
     mutationFn: async ({ id, published }: { id: number; published: boolean }) => {
       const res = await fetch(`/api/admin/blog/${id}`, {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
+        headers: csrfHeaders("application/json"),
         body: JSON.stringify({ published }),
+        credentials: "include",
       });
       if (!res.ok) throw new Error("Error actualizando");
       return res.json();
@@ -55,6 +57,8 @@ export default function AdminBlog() {
     mutationFn: async (id: number) => {
       const res = await fetch(`/api/admin/blog/${id}`, {
         method: "DELETE",
+        headers: csrfHeaders(),
+        credentials: "include",
       });
       if (!res.ok) throw new Error("Error eliminando");
     },

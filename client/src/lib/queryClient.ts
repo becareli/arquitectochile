@@ -1,15 +1,5 @@
 import { QueryClient, QueryFunction } from "@tanstack/react-query";
-
-// Admin API password
-const ADMIN_API_PASSWORD = "1Lm2ndr1";
-
-function getAdminHeaders(): Record<string, string> {
-  const isAdmin = localStorage.getItem("admin_auth");
-  if (isAdmin) {
-    return { "x-admin-password": ADMIN_API_PASSWORD };
-  }
-  return {};
-}
+import { csrfHeaders } from "./csrf";
 
 async function throwIfResNotOk(res: Response) {
   if (!res.ok) {
@@ -23,12 +13,13 @@ export async function apiRequest(
   url: string,
   data?: unknown | undefined,
 ): Promise<Response> {
-  const adminHeaders = getAdminHeaders();
+  const isMutating = !["GET", "HEAD", "OPTIONS"].includes(method.toUpperCase());
   const res = await fetch(url, {
     method,
-    headers: data
-      ? { "Content-Type": "application/json", ...adminHeaders }
-      : adminHeaders,
+    headers: {
+      ...(data ? { "Content-Type": "application/json" } : {}),
+      ...(isMutating ? csrfHeaders() : {}),
+    },
     body: data ? JSON.stringify(data) : undefined,
     credentials: "include",
   });
@@ -43,10 +34,8 @@ export const getQueryFn: <T>(options: {
 }) => QueryFunction<T> =
   ({ on401: unauthorizedBehavior }) =>
   async ({ queryKey }) => {
-    const adminHeaders = getAdminHeaders();
     const res = await fetch(queryKey.join("/") as string, {
       credentials: "include",
-      headers: adminHeaders,
     });
 
     if (unauthorizedBehavior === "returnNull" && res.status === 401) {

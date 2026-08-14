@@ -47,7 +47,6 @@ SMTP_HOST = "smtp.gmail.com"
 SMTP_PORT = "587"
 SMTP_USER = "arquitectopatriciobecar@gmail.com"
 SMTP_FROM = "ArquitectoChile.com <arquitectopatriciobecar@gmail.com>"
-ADMIN_PASSWORD = "1Lm2ndr1#"
 
 [postMerge]
 path = "scripts/post-merge.sh"

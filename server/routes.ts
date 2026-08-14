@@ -25,12 +25,16 @@ import { sendLeadEmail } from "./lead-integrations";
 import { upsertSystemeIoContact, buildTags } from "./systeme-io";
 import { upsertHubSpotContact } from "./hubspot";
 
-// Admin API password protection
-const ADMIN_API_PASSWORD = "1Lm2ndr1";
+// Admin API password — loaded from environment secret, never hardcoded in source
+const ADMIN_API_PASSWORD = process.env.ADMIN_PASSWORD || "";
 
 const isAdminApiKey: RequestHandler = (req, res, next) => {
-  const password = req.headers["x-admin-password"] as string || req.query["admin_key"] as string;
-  if (password === ADMIN_API_PASSWORD) {
+  // Fail closed: reject if the server password is unconfigured OR if no credential was submitted
+  if (!ADMIN_API_PASSWORD) {
+    return res.status(503).json({ error: "Admin auth not configured." });
+  }
+  const password = (req.headers["x-admin-password"] as string) || (req.query["admin_key"] as string);
+  if (password && password === ADMIN_API_PASSWORD) {
     return next();
   }
   res.status(403).json({ error: "Acceso denegado. Se requiere autenticación de administrador." });
@@ -259,13 +263,42 @@ export async function registerRoutes(app: Express): Promise<Server> {
   await setupAuth(app);
 
   // Admin session endpoints (password verified server-side; credential never sent back to client)
+  // Simple in-memory rate limiter: max 5 attempts per IP per 15 minutes
+  const loginAttempts = new Map<string, { count: number; resetAt: number }>();
   app.post("/api/admin/session", (req, res) => {
+    if (!ADMIN_API_PASSWORD) {
+      return res.status(503).json({ error: "Admin auth not configured." });
+    }
+    const ip = (req.headers["x-forwarded-for"] as string | undefined)?.split(",")[0].trim() || req.socket.remoteAddress || "unknown";
+    const now = Date.now();
+    const windowMs = 15 * 60 * 1000;
+    const entry = loginAttempts.get(ip);
+    if (entry && now < entry.resetAt) {
+      if (entry.count >= 5) {
+        return res.status(429).json({ error: "Demasiados intentos. Intente en 15 minutos." });
+      }
+      entry.count++;
+    } else {
+      loginAttempts.set(ip, { count: 1, resetAt: now + windowMs });
+    }
     const { password } = req.body as { password?: string };
     if (password === ADMIN_API_PASSWORD) {
-      (req as any).session.isAdmin = true;
+      loginAttempts.delete(ip); // reset on success
+      (req as any).session.regenerate((err: any) => {
+        if (err) return res.status(500).json({ error: "Error de sesión." });
+        (req as any).session.isAdmin = true;
+        res.json({ ok: true });
+      });
+    } else {
+      res.status(403).json({ error: "Contraseña incorrecta." });
+    }
+  });
+
+  app.get("/api/admin/session/verify", (req, res) => {
+    if ((req as any).session?.isAdmin === true) {
       return res.json({ ok: true });
     }
-    res.status(403).json({ error: "Contraseña incorrecta." });
+    res.status(403).json({ error: "No autenticado." });
   });
 
   app.delete("/api/admin/session", (req, res) => {
@@ -459,7 +492,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Get all leads (admin only)
-  app.get("/api/leads", isAdminApiKey, async (req, res) => {
+  app.get("/api/leads", isAdminSession, async (req, res) => {
     try {
       const leads = await storage.getLeads();
       res.json(leads);
@@ -469,7 +502,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Update lead status (admin only)
-  app.patch("/api/leads/:id/status", isAdminApiKey, async (req, res) => {
+  app.patch("/api/leads/:id/status", isAdminSession, async (req, res) => {
     try {
       const { status } = req.body;
       const lead = await storage.updateLeadStatus(parseInt(req.params.id), status);
@@ -549,7 +582,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Get projects (admin only)
-  app.get("/api/projects", isAdminApiKey, async (req, res) => {
+  app.get("/api/projects", isAdminSession, async (req, res) => {
     try {
       const projects = await storage.getProjects();
       res.json(projects);
@@ -627,7 +660,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Get budget templates (admin only)
-  app.get("/api/budget-templates", isAdminApiKey, async (req, res) => {
+  app.get("/api/budget-templates", isAdminSession, async (req, res) => {
     try {
       const templates = await storage.getActiveBudgetTemplates();
       res.json(templates);
@@ -661,7 +694,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Get all quotes (admin only)
-  app.get("/api/quotes", isAdminApiKey, async (req, res) => {
+  app.get("/api/quotes", isAdminSession, async (req, res) => {
     try {
       const quotes = await storage.getAllQuotesWithLeads();
       res.json(quotes);

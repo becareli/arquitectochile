@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Lock, Eye, EyeOff } from "lucide-react";
+import { csrfHeaders } from "@/lib/csrf";
 
 const STORAGE_KEY = "admin_auth_ts";
 
@@ -22,7 +23,11 @@ function setCachedAuth() {
 
 export async function logoutAdmin() {
   localStorage.removeItem(STORAGE_KEY);
-  await fetch("/api/admin/session", { method: "DELETE" }).catch(() => {});
+  await fetch("/api/admin/session", {
+    method: "DELETE",
+    headers: csrfHeaders(),
+    credentials: "include",
+  }).catch(() => {});
   window.location.href = "/";
 }
 
@@ -38,8 +43,18 @@ export default function AdminGate({ children }: AdminGateProps) {
   const [checking, setChecking] = useState(true);
 
   useEffect(() => {
-    setAuthenticated(getCachedAuth());
-    setChecking(false);
+    // Always verify with the server — don't trust localStorage alone
+    if (!getCachedAuth()) {
+      setChecking(false);
+      return;
+    }
+    fetch("/api/admin/session/verify", { credentials: "include" })
+      .then((r) => {
+        setAuthenticated(r.ok);
+        if (!r.ok) localStorage.removeItem(STORAGE_KEY);
+      })
+      .catch(() => setAuthenticated(false))
+      .finally(() => setChecking(false));
   }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -48,8 +63,9 @@ export default function AdminGate({ children }: AdminGateProps) {
     try {
       const res = await fetch("/api/admin/session", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: csrfHeaders("application/json"),
         body: JSON.stringify({ password }),
+        credentials: "include",
       });
       if (res.ok) {
         setCachedAuth();
