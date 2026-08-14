@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { Menu, X, ChevronDown, Mail, Lock, Users, LayoutDashboard, Star, PlayCircle, Calculator, ArrowRight, ArrowLeft } from "lucide-react";
+import MarqueeBanner from "@/components/marquee-banner";
 import { useLocation } from "wouter";
 import logoImg from "@assets/ArquitectoChile.com_Logo_1771886286621.webp";
 
@@ -264,6 +265,8 @@ export default function Navigation() {
           </div>
         </div>
       </nav>
+
+      <MarqueeBanner />
 
       {location !== "/" && !location.startsWith("/admin") && !location.startsWith("/crm") && (
         <div className="bg-white border-b border-gray-100">
