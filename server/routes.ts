@@ -760,7 +760,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const baseUrl = process.env.NODE_ENV === "production"
         ? "https://arquitectochile.com"
         : `${req.protocol}://${req.get("host")}`;
-      const pageUrl = `${baseUrl}/blog/${post.slug}`;
+      const encodedSlug = encodeURIComponent(post.slug);
+      const pageUrl = `${baseUrl}/blog/${encodedSlug}`;
 
       const ogTagsMap: Record<string, string> = {
         "og:type": "article",
@@ -778,7 +779,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         // expires.  The endpoint issues a fresh 302 redirect to a short-lived
         // signed URL on every crawl request, avoiding broken previews after
         // the original signed URL's 7-day TTL expires.
-        const ogImage = `${baseUrl}/api/blog/${post.slug}/og-image`;
+        const ogImage = `${baseUrl}/api/blog/${encodedSlug}/og-image`;
         ogTagsMap["og:image"] = ogImage;
         ogTagsMap["twitter:image"] = ogImage;
         // Include dimensions so crawlers don't need to download the image first
@@ -1559,11 +1560,18 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Slugs must contain only lowercase letters, digits and hyphens so they are
+  // always safe to embed directly in URLs without encoding.
+  const SLUG_RE = /^[a-z0-9][a-z0-9-]*[a-z0-9]$|^[a-z0-9]$/;
+
   app.post("/api/admin/blog", isAdminSession, async (req, res) => {
     try {
       const { title, slug, excerpt, content, imageUrl, imageWidth, imageHeight, published } = req.body;
       if (!title || !slug || !excerpt || !content) {
         return res.status(400).json({ error: "Faltan campos obligatorios: title, slug, excerpt, content" });
+      }
+      if (!SLUG_RE.test(slug)) {
+        return res.status(400).json({ error: "El slug solo puede contener letras minúsculas, números y guiones (sin espacios ni caracteres especiales)" });
       }
       const post = await storage.createBlogPost({
         title, slug, excerpt, content,
@@ -1585,7 +1593,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const { title, slug, excerpt, content, imageUrl, imageWidth, imageHeight, published } = req.body;
       const updates: Record<string, any> = {};
       if (title !== undefined) updates.title = title;
-      if (slug !== undefined) updates.slug = slug;
+      if (slug !== undefined) {
+        if (!SLUG_RE.test(slug)) {
+          return res.status(400).json({ error: "El slug solo puede contener letras minúsculas, números y guiones (sin espacios ni caracteres especiales)" });
+        }
+        updates.slug = slug;
+      }
       if (excerpt !== undefined) updates.excerpt = excerpt;
       if (content !== undefined) updates.content = content;
       if (imageUrl !== undefined) updates.imageUrl = imageUrl;

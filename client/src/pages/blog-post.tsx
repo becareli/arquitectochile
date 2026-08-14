@@ -32,7 +32,7 @@ export default function BlogPost() {
   const { data: post, isLoading, isError } = useQuery<BlogPost>({
     queryKey: ["/api/blog", slug],
     queryFn: async () => {
-      const res = await fetch(`/api/blog/${slug}`);
+      const res = await fetch(`/api/blog/${encodeURIComponent(slug)}`);
       if (!res.ok) throw new Error("Artículo no encontrado");
       return res.json();
     },
@@ -66,7 +66,7 @@ export default function BlogPost() {
     );
   }
 
-  const pageUrl = typeof window !== "undefined" ? window.location.href : `https://arquitectochile.com/blog/${post.slug}`;
+  const pageUrl = `https://arquitectochile.com/blog/${encodeURIComponent(post.slug)}`;
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -76,7 +76,7 @@ export default function BlogPost() {
     "datePublished": post.createdAt,
     "dateModified": post.createdAt,
     "url": pageUrl,
-    ...(post.imageUrl ? { "image": post.imageUrl } : {}),
+    ...(post.imageUrl ? { "image": { "@type": "ImageObject", "url": `https://arquitectochile.com/api/blog/${encodeURIComponent(post.slug)}/og-image` } } : {}),
     "author": {
       "@type": "Person",
       "name": "Patricio Becar Elissegaray",
