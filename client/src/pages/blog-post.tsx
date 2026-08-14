@@ -120,6 +120,31 @@ export default function BlogPost() {
         <link rel="canonical" href={pageUrl} />
         {/* JSON-LD Structured Data */}
         <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
+        {/* JSON-LD BreadcrumbList */}
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Inicio",
+              "item": "https://arquitectochile.com"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Blog",
+              "item": "https://arquitectochile.com/blog"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": post.title,
+              "item": pageUrl
+            }
+          ]
+        })}</script>
       </Helmet>
       <Navigation />
 

@@ -60,6 +60,25 @@ export default function Blog() {
         <meta name="twitter:description" content="Artículos de arquitectura: regularización, diseño, permisos y construcción en Chile." />
         {/* Canonical */}
         <link rel="canonical" href="https://arquitectochile.com/blog" />
+        {/* JSON-LD BreadcrumbList */}
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Inicio",
+              "item": "https://arquitectochile.com"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Blog",
+              "item": "https://arquitectochile.com/blog"
+            }
+          ]
+        })}</script>
       </Helmet>
       <Navigation />
 
