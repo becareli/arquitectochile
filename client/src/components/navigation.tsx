@@ -57,6 +57,7 @@ function MobileDrawer({
   if (!isOpen) return null;
 
   const drawerItems = [
+    { label: "Blog", href: "/blog", icon: PlayCircle },
     { label: "Revista Técnica", href: "/revista", icon: PlayCircle },
     { label: "Casos de Éxito", href: "/casos-de-exito", icon: Star },
     { label: "Red de Colaboradores", href: "/colaboradores", icon: Users },
@@ -241,6 +242,14 @@ export default function Navigation() {
                 className="text-base lg:text-lg font-bold lg:font-semibold text-[#0f172a] lg:text-gray-600 hover:text-[#f97316] lg:hover:text-[#0f172a] transition-colors whitespace-nowrap py-2 lg:px-0"
               >
                 Calculadoras
+              </button>
+
+              {/* Blog - desktop only (mobile drawer covers it) */}
+              <button
+                onClick={() => navigateToService('/blog')}
+                className="hidden lg:block text-lg font-semibold text-gray-600 hover:text-[#0f172a] transition-colors whitespace-nowrap"
+              >
+                Blog
               </button>
             </div>
 

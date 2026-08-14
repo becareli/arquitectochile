@@ -36,6 +36,14 @@ const isAdminApiKey: RequestHandler = (req, res, next) => {
   res.status(403).json({ error: "Acceso denegado. Se requiere autenticación de administrador." });
 };
 
+// Session-based admin middleware (no password in client bundle)
+const isAdminSession: RequestHandler = (req, res, next) => {
+  if ((req as any).session?.isAdmin === true) {
+    return next();
+  }
+  res.status(403).json({ error: "Sesión de administrador requerida." });
+};
+
 // Enhanced analytics will be loaded separately to avoid circular imports
 
 // Webhook schemas for AI agent integration
@@ -249,6 +257,21 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   // Auth middleware
   await setupAuth(app);
+
+  // Admin session endpoints (password verified server-side; credential never sent back to client)
+  app.post("/api/admin/session", (req, res) => {
+    const { password } = req.body as { password?: string };
+    if (password === ADMIN_API_PASSWORD) {
+      (req as any).session.isAdmin = true;
+      return res.json({ ok: true });
+    }
+    res.status(403).json({ error: "Contraseña incorrecta." });
+  });
+
+  app.delete("/api/admin/session", (req, res) => {
+    (req as any).session.isAdmin = false;
+    res.json({ ok: true });
+  });
 
   // Auth routes
   app.get('/api/auth/user', isAuthenticated, async (req: any, res) => {
@@ -575,11 +598,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Get single blog post by slug
+  // Get single blog post by slug (published only)
   app.get("/api/blog/:slug", async (req, res) => {
     try {
       const post = await storage.getBlogPostBySlug(req.params.slug);
-      if (!post) {
+      if (!post || !post.published) {
         return res.status(404).json({ error: "Post not found" });
       }
       res.json(post);
@@ -1324,6 +1347,79 @@ export async function registerRoutes(app: Express): Promise<Server> {
   } catch (error) {
     console.error('Failed to load enhanced analytics routes:', error);
   }
+
+  // ── Blog Admin API ──────────────────────────────────────────────────────
+  app.get("/api/admin/blog", isAdminSession, async (_req, res) => {
+    try {
+      const posts = await storage.getBlogPosts();
+      res.json(posts);
+    } catch (error) {
+      res.status(500).json({ error: "Error cargando artículos" });
+    }
+  });
+
+  app.get("/api/admin/blog/:id", isAdminSession, async (req, res) => {
+    try {
+      const post = await storage.getBlogPostById(parseInt(req.params.id));
+      if (!post) return res.status(404).json({ error: "No encontrado" });
+      res.json(post);
+    } catch (error) {
+      res.status(500).json({ error: "Error" });
+    }
+  });
+
+  app.post("/api/admin/blog", isAdminSession, async (req, res) => {
+    try {
+      const { title, slug, excerpt, content, imageUrl, published } = req.body;
+      if (!title || !slug || !excerpt || !content) {
+        return res.status(400).json({ error: "Faltan campos obligatorios: title, slug, excerpt, content" });
+      }
+      const post = await storage.createBlogPost({ title, slug, excerpt, content, imageUrl: imageUrl || null, published: !!published });
+      res.status(201).json(post);
+    } catch (error: any) {
+      if (error?.code === "23505") return res.status(409).json({ error: "Ya existe un artículo con ese slug" });
+      res.status(500).json({ error: "Error creando artículo" });
+    }
+  });
+
+  app.put("/api/admin/blog/:id", isAdminSession, async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      const { title, slug, excerpt, content, imageUrl, published } = req.body;
+      const updates: Record<string, any> = {};
+      if (title !== undefined) updates.title = title;
+      if (slug !== undefined) updates.slug = slug;
+      if (excerpt !== undefined) updates.excerpt = excerpt;
+      if (content !== undefined) updates.content = content;
+      if (imageUrl !== undefined) updates.imageUrl = imageUrl;
+      if (published !== undefined) updates.published = published;
+      const post = await storage.updateBlogPost(id, updates);
+      if (!post) return res.status(404).json({ error: "No encontrado" });
+      res.json(post);
+    } catch (error: any) {
+      if (error?.code === "23505") return res.status(409).json({ error: "Ya existe un artículo con ese slug" });
+      res.status(500).json({ error: "Error actualizando artículo" });
+    }
+  });
+
+  app.delete("/api/admin/blog/:id", isAdminSession, async (req, res) => {
+    try {
+      await storage.deleteBlogPost(parseInt(req.params.id));
+      res.json({ ok: true });
+    } catch (error) {
+      res.status(500).json({ error: "Error eliminando artículo" });
+    }
+  });
+
+  app.post("/api/admin/blog/upload-url", isAdminSession, async (_req, res) => {
+    try {
+      const objectStorageService = new ObjectStorageService();
+      const { uploadUrl, internalPath } = await objectStorageService.getBlogImageUploadURL();
+      res.json({ uploadUrl, internalPath });
+    } catch (error: any) {
+      res.status(500).json({ error: "Error generando URL de subida: " + error.message });
+    }
+  });
 
   const httpServer = createServer(app);
   return httpServer;

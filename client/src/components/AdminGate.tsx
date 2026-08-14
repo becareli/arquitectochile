@@ -3,32 +3,26 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Lock, Eye, EyeOff } from "lucide-react";
 
-const ADMIN_PASSWORD = "1Lm2ndr1";
-const STORAGE_KEY = "admin_auth";
+const STORAGE_KEY = "admin_auth_ts";
 
-function isAdminAuthenticated(): boolean {
+function getCachedAuth(): boolean {
   try {
-    const data = localStorage.getItem(STORAGE_KEY);
-    if (!data) return false;
-    const parsed = JSON.parse(data);
-    // Expira después de 8 horas
-    const expiresAt = parsed.timestamp + 8 * 60 * 60 * 1000;
-    if (Date.now() > expiresAt) {
-      localStorage.removeItem(STORAGE_KEY);
-      return false;
-    }
-    return parsed.authenticated === true;
+    const ts = localStorage.getItem(STORAGE_KEY);
+    if (!ts) return false;
+    const expiresAt = parseInt(ts) + 8 * 60 * 60 * 1000;
+    return Date.now() < expiresAt;
   } catch {
     return false;
   }
 }
 
-function setAdminAuthenticated() {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify({ authenticated: true, timestamp: Date.now() }));
+function setCachedAuth() {
+  localStorage.setItem(STORAGE_KEY, String(Date.now()));
 }
 
-export function logoutAdmin() {
+export async function logoutAdmin() {
   localStorage.removeItem(STORAGE_KEY);
+  await fetch("/api/admin/session", { method: "DELETE" }).catch(() => {});
   window.location.href = "/";
 }
 
@@ -44,18 +38,27 @@ export default function AdminGate({ children }: AdminGateProps) {
   const [checking, setChecking] = useState(true);
 
   useEffect(() => {
-    setAuthenticated(isAdminAuthenticated());
+    setAuthenticated(getCachedAuth());
     setChecking(false);
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
-    if (password === ADMIN_PASSWORD) {
-      setAdminAuthenticated();
-      setAuthenticated(true);
-    } else {
-      setError("Contraseña incorrecta. Intente nuevamente.");
+    try {
+      const res = await fetch("/api/admin/session", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ password }),
+      });
+      if (res.ok) {
+        setCachedAuth();
+        setAuthenticated(true);
+      } else {
+        setError("Contraseña incorrecta. Intente nuevamente.");
+      }
+    } catch {
+      setError("Error de conexión. Intente nuevamente.");
     }
   };
 

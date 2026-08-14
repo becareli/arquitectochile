@@ -71,6 +71,16 @@ export class ObjectStorageService {
     });
   }
 
+  // Gets a signed upload URL plus the internal serving path for blog cover images.
+  async getBlogImageUploadURL(): Promise<{ uploadUrl: string; internalPath: string }> {
+    const privateObjectDir = this.getPrivateObjectDir();
+    const objectId = randomUUID();
+    const fullPath = `${privateObjectDir}/uploads/blog/${objectId}`;
+    const { bucketName, objectName } = parseObjectPath(fullPath);
+    const uploadUrl = await signObjectURL({ bucketName, objectName, method: "PUT", ttlSec: 900 });
+    return { uploadUrl, internalPath: `/objects/uploads/blog/${objectId}` };
+  }
+
   // Gets the object entity file from the object path.
   async getObjectEntityFile(objectPath: string): Promise<File> {
     if (!objectPath.startsWith("/objects/")) {

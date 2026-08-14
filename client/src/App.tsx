@@ -38,6 +38,10 @@ import NotFound from "@/pages/not-found";
 import CookieConsent from "@/components/cookie-consent";
 import AdminGate from "@/components/AdminGate";
 import FormPage from "@/pages/formulario-page";
+import Blog from "@/pages/blog";
+import BlogPost from "@/pages/blog-post";
+import AdminBlog from "@/pages/admin-blog";
+import AdminBlogEditor from "@/pages/admin-blog-editor";
 
 function Router() {
   return (
@@ -115,6 +119,29 @@ function Router() {
       </Route>
       <Route path="/formulario/contacto">
         {() => <FormPage src="https://share.forms.app/becareligroup/formulario-de-calificacion-profesional-arquitectochilecom" title="Contacto General — ArquitectoChile.com" />}
+      </Route>
+      <Route path="/blog" component={Blog} />
+      <Route path="/blog/:slug" component={BlogPost} />
+      <Route path="/admin/blog/new">
+        {() => (
+          <AdminGate>
+            <AdminBlogEditor />
+          </AdminGate>
+        )}
+      </Route>
+      <Route path="/admin/blog/:id/edit">
+        {() => (
+          <AdminGate>
+            <AdminBlogEditor />
+          </AdminGate>
+        )}
+      </Route>
+      <Route path="/admin/blog">
+        {() => (
+          <AdminGate>
+            <AdminBlog />
+          </AdminGate>
+        )}
       </Route>
       <Route component={NotFound} />
     </Switch>

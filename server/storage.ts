@@ -81,6 +81,8 @@ export interface IStorage {
   getBlogPostById(id: number): Promise<BlogPost | undefined>;
   getBlogPostBySlug(slug: string): Promise<BlogPost | undefined>;
   createBlogPost(post: InsertBlogPost): Promise<BlogPost>;
+  updateBlogPost(id: number, post: Partial<InsertBlogPost>): Promise<BlogPost | undefined>;
+  deleteBlogPost(id: number): Promise<void>;
   
   // AI Agent Events
   createAiAgentEvent(event: InsertAiAgentEvent): Promise<AiAgentEvent>;
@@ -291,6 +293,15 @@ export class DatabaseStorage implements IStorage {
   async createBlogPost(post: InsertBlogPost): Promise<BlogPost> {
     const [newPost] = await db.insert(blogPosts).values(post).returning();
     return newPost;
+  }
+
+  async updateBlogPost(id: number, post: Partial<InsertBlogPost>): Promise<BlogPost | undefined> {
+    const [updated] = await db.update(blogPosts).set(post).where(eq(blogPosts.id, id)).returning();
+    return updated || undefined;
+  }
+
+  async deleteBlogPost(id: number): Promise<void> {
+    await db.delete(blogPosts).where(eq(blogPosts.id, id));
   }
 
   // AI Agent Events
