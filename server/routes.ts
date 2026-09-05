@@ -236,6 +236,66 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Dynamic sitemap.xml — static pages + published blog posts (before Vite catch-all)
+  app.get("/sitemap.xml", async (_req, res) => {
+    try {
+      const BASE = "https://arquitectochile.com";
+      const staticPages: Array<{ path: string; changefreq: string; priority: string }> = [
+        { path: "/", changefreq: "weekly", priority: "1.0" },
+        { path: "/servicios-a-domicilio", changefreq: "monthly", priority: "0.8" },
+        { path: "/asesoria-arquitectonica-terreno", changefreq: "monthly", priority: "0.8" },
+        { path: "/regularizacion-inmuebles", changefreq: "monthly", priority: "0.8" },
+        { path: "/regularizacion-viviendas-la-florida", changefreq: "monthly", priority: "0.7" },
+        { path: "/disenemos-tus-nuevos-espacios", changefreq: "monthly", priority: "0.8" },
+        { path: "/fusion-terrenos-urbanos", changefreq: "monthly", priority: "0.8" },
+        { path: "/subdivision-terrenos-urbanos", changefreq: "monthly", priority: "0.8" },
+        { path: "/inspeccion-tecnica-viviendas", changefreq: "monthly", priority: "0.8" },
+        { path: "/tasacion-viviendas-urbanas", changefreq: "monthly", priority: "0.8" },
+        { path: "/reacondicionamiento-termico-viviendas", changefreq: "monthly", priority: "0.8" },
+        { path: "/sistema-eifs", changefreq: "monthly", priority: "0.7" },
+        { path: "/permiso-edificacion-recepcion-final", changefreq: "monthly", priority: "0.8" },
+        { path: "/revisor-independiente-de-arquitectura", changefreq: "monthly", priority: "0.7" },
+        { path: "/obras-menores-empresas", changefreq: "monthly", priority: "0.7" },
+        { path: "/calculadora-costos", changefreq: "monthly", priority: "0.6" },
+        { path: "/colaboradores", changefreq: "monthly", priority: "0.6" },
+        { path: "/portal-cliente", changefreq: "monthly", priority: "0.6" },
+        { path: "/casos-de-exito", changefreq: "monthly", priority: "0.6" },
+        { path: "/revista", changefreq: "weekly", priority: "0.6" },
+        { path: "/contacto", changefreq: "monthly", priority: "0.7" },
+        { path: "/blog", changefreq: "daily", priority: "0.8" },
+        { path: "/aviso-legal", changefreq: "yearly", priority: "0.3" },
+        { path: "/politica-privacidad", changefreq: "yearly", priority: "0.3" },
+        { path: "/politica-cookies", changefreq: "yearly", priority: "0.3" },
+      ];
+
+      const escapeXml = (s: string) =>
+        s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&apos;");
+
+      const posts = await storage.getPublishedBlogPostsForSitemap();
+
+      const urls: string[] = [];
+      for (const p of staticPages) {
+        urls.push(
+          `  <url>\n    <loc>${BASE}${p.path}</loc>\n    <changefreq>${p.changefreq}</changefreq>\n    <priority>${p.priority}</priority>\n  </url>`
+        );
+      }
+      for (const post of posts) {
+        const lastmod = new Date(post.createdAt).toISOString().split("T")[0];
+        urls.push(
+          `  <url>\n    <loc>${BASE}/blog/${escapeXml(encodeURIComponent(post.slug))}</loc>\n    <lastmod>${lastmod}</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>0.7</priority>\n  </url>`
+        );
+      }
+
+      const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.join("\n")}\n</urlset>\n`;
+      res.setHeader("Content-Type", "application/xml; charset=utf-8");
+      res.setHeader("Cache-Control", "public, max-age=3600");
+      res.send(xml);
+    } catch (error) {
+      console.error("Error generating sitemap:", error);
+      res.status(500).send("Error generating sitemap");
+    }
+  });
+
   // Auth middleware
   await setupAuth(app);
 
