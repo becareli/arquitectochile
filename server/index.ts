@@ -42,7 +42,7 @@ app.use(helmet({
       fontSrc: ["'self'", "https://fonts.gstatic.com", "data:"],
       imgSrc: ["'self'", "data:", "https:", "blob:"],
       connectSrc: ["'self'", "https://api.unsplash.com", "wss:", "ws:"],
-      frameSrc: ["'self'", "https://www.google.com", "https://share.forms.app"],
+      frameSrc: ["'self'", "https://www.google.com", "https://share.forms.app", "https://www.youtube-nocookie.com"],
       objectSrc: ["'none'"],
       upgradeInsecureRequests: process.env.NODE_ENV === "production" ? [] : null,
     },

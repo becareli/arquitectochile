@@ -1,4 +1,5 @@
 import { useLocation } from "wouter";
+import { useState } from "react";
 import {
   Award,
   Building2,
@@ -10,6 +11,7 @@ import {
   Mail,
   MapPin,
   Phone,
+  Play,
   ShieldCheck,
 } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
@@ -106,6 +108,20 @@ const faqSchema = {
   })),
 };
 
+const videoThumbnailUrl = "https://i.ytimg.com/vi/tYZlUAyxvuA/hqdefault.jpg";
+const videoEmbedUrl = "https://www.youtube-nocookie.com/embed/tYZlUAyxvuA?autoplay=1";
+
+const videoObjectSchema = {
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  name: "Revisor Independiente de Arquitectura en Santiago",
+  description: "Qué revisa un revisor independiente antes de ingresar un permiso de edificación en Chile",
+  uploadDate: "2015-04-19",
+  duration: "PT1M46S",
+  thumbnailUrl: videoThumbnailUrl,
+  embedUrl: videoEmbedUrl,
+};
+
 const processSteps = [
   {
     title: "Estado de cada documento y lámina",
@@ -183,12 +199,14 @@ function ContactButton({ children = "Quiero que revisen mi expediente" }: { chil
 }
 
 export default function RevisorIndependienteDeArquitectura() {
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+
   useSEO({
     title: "Revisor Independiente de Arquitectura en Santiago | Becar",
     description:
       "Arquitecto revisor independiente MINVU (Rol 237), con experiencia en tres DOM. Informes donde cada observación cita su norma. Pida su revisión.",
     path: "/revisor-independiente-de-arquitectura",
-    jsonLd: [professionalServiceSchema, faqSchema],
+    jsonLd: [professionalServiceSchema, faqSchema, videoObjectSchema],
   });
 
   return (
@@ -267,6 +285,48 @@ export default function RevisorIndependienteDeArquitectura() {
             <p className="text-lg leading-relaxed text-slate-700">
               Por eso, cuando en 2013 me inscribí en el Registro Nacional de Revisores Independientes del MINVU, me puse una regla: <strong>entregarles a mis colegas el informe que me habría gustado recibir cuando era revisor municipal.</strong>
             </p>
+          </div>
+        </section>
+
+        <section className="py-16 sm:py-20">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+            <SectionTitle>El revisor independiente, explicado en 2 minutos</SectionTitle>
+            <div className="mx-auto max-w-[800px]">
+              <div className="relative aspect-video overflow-hidden rounded-xl border border-slate-200 bg-slate-900 shadow-lg">
+                {isVideoPlaying ? (
+                  <iframe
+                    className="absolute inset-0 h-full w-full"
+                    src={videoEmbedUrl}
+                    title="Video animado: qué hace un revisor independiente de arquitectura"
+                    loading="lazy"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowFullScreen
+                  />
+                ) : (
+                  <button
+                    type="button"
+                    onClick={() => setIsVideoPlaying(true)}
+                    className="group absolute inset-0 flex h-full w-full items-center justify-center"
+                    aria-label="Reproducir video: qué hace un revisor independiente de arquitectura"
+                  >
+                    <img
+                      src={videoThumbnailUrl}
+                      alt="Video animado: qué hace un revisor independiente de arquitectura"
+                      loading="lazy"
+                      className="absolute inset-0 h-full w-full object-cover"
+                    />
+                    <span
+                      aria-hidden="true"
+                      className="absolute inset-0 flex items-center justify-center bg-black/20 transition-colors group-hover:bg-black/35"
+                    >
+                      <span className="flex h-16 w-16 items-center justify-center rounded-full bg-[#f97316] text-white shadow-lg ring-4 ring-white/80 transition-transform group-hover:scale-105">
+                        <Play className="ml-1 h-8 w-8 fill-current" />
+                      </span>
+                    </span>
+                  </button>
+                )}
+              </div>
+            </div>
           </div>
         </section>
 
