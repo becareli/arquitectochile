@@ -1,16 +1,29 @@
 import { useEffect } from "react";
 
-interface SEOOptions {
+export interface SEOOptions {
   title: string;
   description: string;
   keywords?: string;
   ogImage?: string;
   path?: string;
   noindex?: boolean;
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[];
 }
 
 const SITE_URL = "https://arquitectochile.com";
 const DEFAULT_OG_IMAGE = `${SITE_URL}/og-image.jpg`;
+
+export const ssrHead: Partial<SEOOptions> = {};
+
+export function resetSSRHead() {
+  delete ssrHead.title;
+  delete ssrHead.description;
+  delete ssrHead.keywords;
+  delete ssrHead.ogImage;
+  delete ssrHead.path;
+  delete ssrHead.noindex;
+  delete ssrHead.jsonLd;
+}
 
 function setMetaTag(name: string, content: string, isProperty = false) {
   const selector = isProperty ? `meta[property="${name}"]` : `meta[name="${name}"]`;
@@ -37,7 +50,13 @@ function setCanonical(url: string) {
   link.href = url;
 }
 
-export function useSEO({ title, description, keywords, ogImage, path, noindex }: SEOOptions) {
+export function useSEO(options: SEOOptions) {
+  const { title, description, keywords, ogImage, path, noindex, jsonLd } = options;
+
+  if (typeof window === "undefined") {
+    Object.assign(ssrHead, options);
+  }
+
   useEffect(() => {
     window.scrollTo(0, 0);
     document.title = title;
@@ -61,6 +80,17 @@ export function useSEO({ title, description, keywords, ogImage, path, noindex }:
     setMetaTag("twitter:title", title);
     setMetaTag("twitter:description", description);
     setMetaTag("twitter:image", ogImage ?? DEFAULT_OG_IMAGE);
+
+    const existingJsonLd = document.getElementById("page-jsonld");
+    if (jsonLd) {
+      const script = (existingJsonLd ?? document.createElement("script")) as HTMLScriptElement;
+      script.id = "page-jsonld";
+      script.type = "application/ld+json";
+      script.textContent = JSON.stringify(jsonLd);
+      if (!existingJsonLd) document.head.appendChild(script);
+    } else {
+      existingJsonLd?.remove();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [title, description, keywords, ogImage, path, noindex]);
+  }, [title, description, keywords, ogImage, path, noindex, jsonLd]);
 }

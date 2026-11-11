@@ -15,11 +15,11 @@ export default function NotFound() {
         <CardContent className="pt-6">
           <div className="flex mb-4 gap-2">
             <AlertCircle className="h-8 w-8 text-[#f97316]" />
-            <h1 className="text-2xl font-bold text-gray-900">404 Page Not Found</h1>
+            <h1 className="text-2xl font-bold text-gray-900">Página no encontrada</h1>
           </div>
 
           <p className="mt-4 text-sm text-gray-600">
-            Did you forget to add the page to the router?
+            La página que buscas no existe o fue movida. Vuelve al inicio de ArquitectoChile.com para encontrar lo que necesitas.
           </p>
         </CardContent>
       </Card>

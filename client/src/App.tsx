@@ -1,6 +1,8 @@
-import { Switch, Route } from "wouter";
+import { Switch, Route, useLocation } from "wouter";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
+import { useSEO } from "@/hooks/useSEO";
+import { getRouteSeoFallback } from "@/lib/route-seo";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import Home from "@/pages/home";
@@ -42,6 +44,17 @@ import Blog from "@/pages/blog";
 import BlogPost from "@/pages/blog-post";
 import AdminBlog from "@/pages/admin-blog";
 import AdminBlogEditor from "@/pages/admin-blog-editor";
+
+function RouteMetadataContent({ options }: { options: NonNullable<ReturnType<typeof getRouteSeoFallback>> }) {
+  useSEO(options);
+  return null;
+}
+
+function RouteMetadata() {
+  const [location] = useLocation();
+  const fallback = getRouteSeoFallback(location);
+  return fallback ? <RouteMetadataContent options={fallback} /> : null;
+}
 
 function Router() {
   return (
@@ -153,6 +166,7 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <Toaster />
+        <RouteMetadata />
         <Router />
         <CookieConsent />
       </TooltipProvider>

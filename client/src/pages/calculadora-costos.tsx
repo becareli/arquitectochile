@@ -32,6 +32,162 @@ const leadFormSchema = z.object({
 
 type LeadFormData = z.infer<typeof leadFormSchema>;
 
+function CalculatorLeadForm({ onSubmit }: { onSubmit: (data: LeadFormData) => void }) {
+  const form = useForm<LeadFormData>({
+    resolver: zodResolver(leadFormSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      phone: "",
+      calle: "",
+      numero: "",
+      comuna: "",
+      projectType: "",
+      budget: "",
+    },
+  });
+
+  return (
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+        <FormField
+          control={form.control}
+          name="name"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Nombre Completo</FormLabel>
+              <FormControl><Input placeholder="Tu nombre" {...field} /></FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="email"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Email</FormLabel>
+              <FormControl><Input placeholder="tu@email.com" type="email" {...field} /></FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="phone"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Teléfono</FormLabel>
+              <FormControl><Input placeholder="+56 9 XXXX XXXX" {...field} /></FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <div className="space-y-3 pt-2">
+          <h4 className="text-sm font-medium text-gray-900">Dirección del Proyecto</h4>
+          <FormField
+            control={form.control}
+            name="calle"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Calle</FormLabel>
+                <FormControl><Input placeholder="Ej: Av. Providencia" {...field} /></FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <div className="grid grid-cols-2 gap-3">
+            <FormField
+              control={form.control}
+              name="numero"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Número</FormLabel>
+                  <FormControl><Input placeholder="1234" {...field} /></FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="comuna"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Comuna</FormLabel>
+                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <FormControl>
+                      <SelectTrigger><SelectValue placeholder="Selecciona" /></SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      <SelectItem value="las-condes">Las Condes</SelectItem>
+                      <SelectItem value="providencia">Providencia</SelectItem>
+                      <SelectItem value="vitacura">Vitacura</SelectItem>
+                      <SelectItem value="santiago">Santiago</SelectItem>
+                      <SelectItem value="nuñoa">Ñuñoa</SelectItem>
+                      <SelectItem value="la-reina">La Reina</SelectItem>
+                      <SelectItem value="lo-barnechea">Lo Barnechea</SelectItem>
+                      <SelectItem value="la-florida">La Florida</SelectItem>
+                      <SelectItem value="puente-alto">Puente Alto</SelectItem>
+                      <SelectItem value="san-miguel">San Miguel</SelectItem>
+                      <SelectItem value="maipú">Maipú</SelectItem>
+                      <SelectItem value="peñalolén">Peñalolén</SelectItem>
+                      <SelectItem value="macul">Macul</SelectItem>
+                      <SelectItem value="san-joaquín">San Joaquín</SelectItem>
+                      <SelectItem value="la-granja">La Granja</SelectItem>
+                      <SelectItem value="otro">Otra</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+        </div>
+        <FormField
+          control={form.control}
+          name="projectType"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Tipo de Proyecto</FormLabel>
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <FormControl><SelectTrigger><SelectValue placeholder="Selecciona tu proyecto" /></SelectTrigger></FormControl>
+                <SelectContent>
+                  <SelectItem value="casa-nueva">Casa Nueva</SelectItem>
+                  <SelectItem value="remodelacion">Remodelación</SelectItem>
+                  <SelectItem value="ampliacion">Ampliación</SelectItem>
+                  <SelectItem value="comercial">Proyecto Comercial</SelectItem>
+                </SelectContent>
+              </Select>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="budget"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Presupuesto Estimado</FormLabel>
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <FormControl><SelectTrigger><SelectValue placeholder="Selecciona tu rango" /></SelectTrigger></FormControl>
+                <SelectContent>
+                  <SelectItem value="50-100m">$50M - $100M</SelectItem>
+                  <SelectItem value="100-200m">$100M - $200M</SelectItem>
+                  <SelectItem value="200-300m">$200M - $300M</SelectItem>
+                  <SelectItem value="300m+">Más de $300M</SelectItem>
+                </SelectContent>
+              </Select>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <Button type="submit" className="w-full">Obtener Cotización Personalizada</Button>
+      </form>
+    </Form>
+  );
+}
+
 interface CalculationResult {
   totalCost: number;
   costPerM2: number;
@@ -58,20 +214,6 @@ export default function CalculadoraCostos() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   
   const { toast } = useToast();
-
-  const form = useForm<LeadFormData>({
-    resolver: zodResolver(leadFormSchema),
-    defaultValues: {
-      name: "",
-      email: "",
-      phone: "",
-      calle: "",
-      numero: "",
-      comuna: "",
-      projectType: "",
-      budget: "",
-    },
-  });
 
   const submitLeadMutation = useMutation({
     mutationFn: async (leadData: InsertCalculatorLead) => {
@@ -371,196 +513,30 @@ export default function CalculadoraCostos() {
         </div>
 
         {/* Lead Capture Modal */}
-        <Dialog open={showLeadForm} onOpenChange={setShowLeadForm}>
-          <DialogContent className="sm:max-w-md">
-            <DialogHeader>
-              <DialogTitle>¡Excelente! Tu estimación está lista</DialogTitle>
-              <DialogDescription>
-                Para enviarte el reporte detallado y brindarte asesoría personalizada, 
-                necesitamos algunos datos de contacto.
-              </DialogDescription>
-            </DialogHeader>
-            
-            {isSubmitted ? (
-              <div className="text-center py-6">
-                <CheckCircle className="h-16 w-16 text-[#f97316] mx-auto mb-4" />
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">¡Gracias!</h3>
-                <p className="text-gray-600">
-                  Hemos recibido tu información. Te contactaremos pronto con tu cotización personalizada.
-                </p>
-              </div>
-            ) : (
-              <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmitLead)} className="space-y-4">
-                  <FormField
-                    control={form.control}
-                    name="name"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Nombre Completo</FormLabel>
-                        <FormControl>
-                          <Input placeholder="Tu nombre" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  
-                  <FormField
-                    control={form.control}
-                    name="email"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Email</FormLabel>
-                        <FormControl>
-                          <Input placeholder="tu@email.com" type="email" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  
-                  <FormField
-                    control={form.control}
-                    name="phone"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Teléfono</FormLabel>
-                        <FormControl>
-                          <Input placeholder="+56 9 XXXX XXXX" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
-                  {/* Address Section */}
-                  <div className="space-y-3 pt-2">
-                    <h4 className="text-sm font-medium text-gray-900">Dirección del Proyecto</h4>
-                    
-                    <FormField
-                      control={form.control}
-                      name="calle"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Calle</FormLabel>
-                          <FormControl>
-                            <Input placeholder="Ej: Av. Providencia" {...field} />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    
-                    <div className="grid grid-cols-2 gap-3">
-                      <FormField
-                        control={form.control}
-                        name="numero"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>Número</FormLabel>
-                            <FormControl>
-                              <Input placeholder="1234" {...field} />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                      
-                      <FormField
-                        control={form.control}
-                        name="comuna"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>Comuna</FormLabel>
-                            <Select onValueChange={field.onChange} defaultValue={field.value}>
-                              <FormControl>
-                                <SelectTrigger>
-                                  <SelectValue placeholder="Selecciona" />
-                                </SelectTrigger>
-                              </FormControl>
-                              <SelectContent>
-                                <SelectItem value="las-condes">Las Condes</SelectItem>
-                                <SelectItem value="providencia">Providencia</SelectItem>
-                                <SelectItem value="vitacura">Vitacura</SelectItem>
-                                <SelectItem value="santiago">Santiago</SelectItem>
-                                <SelectItem value="nuñoa">Ñuñoa</SelectItem>
-                                <SelectItem value="la-reina">La Reina</SelectItem>
-                                <SelectItem value="lo-barnechea">Lo Barnechea</SelectItem>
-                                <SelectItem value="la-florida">La Florida</SelectItem>
-                                <SelectItem value="puente-alto">Puente Alto</SelectItem>
-                                <SelectItem value="san-miguel">San Miguel</SelectItem>
-                                <SelectItem value="maipú">Maipú</SelectItem>
-                                <SelectItem value="peñalolén">Peñalolén</SelectItem>
-                                <SelectItem value="macul">Macul</SelectItem>
-                                <SelectItem value="san-joaquín">San Joaquín</SelectItem>
-                                <SelectItem value="la-granja">La Granja</SelectItem>
-                                <SelectItem value="otro">Otra</SelectItem>
-                              </SelectContent>
-                            </Select>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                    </div>
-                  </div>
-                  
-                  <FormField
-                    control={form.control}
-                    name="projectType"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Tipo de Proyecto</FormLabel>
-                        <Select onValueChange={field.onChange} defaultValue={field.value}>
-                          <FormControl>
-                            <SelectTrigger>
-                              <SelectValue placeholder="Selecciona tu proyecto" />
-                            </SelectTrigger>
-                          </FormControl>
-                          <SelectContent>
-                            <SelectItem value="casa-nueva">Casa Nueva</SelectItem>
-                            <SelectItem value="remodelacion">Remodelación</SelectItem>
-                            <SelectItem value="ampliacion">Ampliación</SelectItem>
-                            <SelectItem value="comercial">Proyecto Comercial</SelectItem>
-                          </SelectContent>
-                        </Select>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  
-                  <FormField
-                    control={form.control}
-                    name="budget"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Presupuesto Estimado</FormLabel>
-                        <Select onValueChange={field.onChange} defaultValue={field.value}>
-                          <FormControl>
-                            <SelectTrigger>
-                              <SelectValue placeholder="Selecciona tu rango" />
-                            </SelectTrigger>
-                          </FormControl>
-                          <SelectContent>
-                            <SelectItem value="50-100m">$50M - $100M</SelectItem>
-                            <SelectItem value="100-200m">$100M - $200M</SelectItem>
-                            <SelectItem value="200-300m">$200M - $300M</SelectItem>
-                            <SelectItem value="300m+">Más de $300M</SelectItem>
-                          </SelectContent>
-                        </Select>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  
-                  <Button type="submit" className="w-full">
-                    Obtener Cotización Personalizada
-                  </Button>
-                </form>
-              </Form>
-            )}
-          </DialogContent>
-        </Dialog>
+        {showLeadForm && (
+          <Dialog open={showLeadForm} onOpenChange={setShowLeadForm}>
+            <DialogContent className="sm:max-w-md">
+              <DialogHeader>
+                <DialogTitle>¡Excelente! Tu estimación está lista</DialogTitle>
+                <DialogDescription>
+                  Para enviarte el reporte detallado y brindarte asesoría personalizada,
+                  necesitamos algunos datos de contacto.
+                </DialogDescription>
+              </DialogHeader>
+              {isSubmitted ? (
+                <div className="text-center py-6">
+                  <CheckCircle className="h-16 w-16 text-[#f97316] mx-auto mb-4" />
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2">¡Gracias!</h3>
+                  <p className="text-gray-600">
+                    Hemos recibido tu información. Te contactaremos pronto con tu cotización personalizada.
+                  </p>
+                </div>
+              ) : (
+                <CalculatorLeadForm onSubmit={onSubmitLead} />
+              )}
+            </DialogContent>
+          </Dialog>
+        )}
         </div>
       </div>
       <Footer />

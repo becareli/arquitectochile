@@ -1,6 +1,45 @@
 {
+  "trailingSlash": false,
+  "redirects": [
+    { "source": "/fusion-de-terrenos", "destination": "/fusion-terrenos-urbanos", "permanent": true },
+    { "source": "/fusion", "destination": "/fusion-terrenos-urbanos", "permanent": true },
+    { "source": "/fusion-predial-2", "destination": "/fusion-terrenos-urbanos", "permanent": true },
+    { "source": "/fusion-predial", "destination": "/fusion-terrenos-urbanos", "permanent": true },
+    { "source": "/costos-y-tramites-para-tener-para-construir-una-casa", "destination": "/calculadora-costos", "permanent": true },
+    { "source": "/parcelas-de-agrado", "destination": "/subdivision-terrenos-urbanos", "permanent": true },
+    { "source": "/revisor-independiente-de-arquitectura-ventajas-de-sus-servicios", "destination": "/revisor-independiente-de-arquitectura", "permanent": true },
+    { "source": "/revisor-independiente", "destination": "/revisor-independiente-de-arquitectura", "permanent": true },
+    { "source": "/quienes-somos-2", "destination": "/", "permanent": true },
+    { "source": "/quienes-somos", "destination": "/", "permanent": true },
+    { "source": "/servicios/diseno-de-arquitectura", "destination": "/disenemos-tus-nuevos-espacios", "permanent": true },
+    { "source": "/servicios/construye-tu-espacio", "destination": "/disenemos-tus-nuevos-espacios", "permanent": true },
+    { "source": "/mansarda-ampliacion-de-vivienda-pareada", "destination": "/disenemos-tus-nuevos-espacios", "permanent": true },
+    { "source": "/remodelacion-de-casas", "destination": "/disenemos-tus-nuevos-espacios", "permanent": true },
+    { "source": "/remodelaciones-de-casas", "destination": "/disenemos-tus-nuevos-espacios", "permanent": true },
+    { "source": "/ampliaciones-de-casas-en-3-pisos", "destination": "/disenemos-tus-nuevos-espacios", "permanent": true },
+    { "source": "/construyendo-ampliaciones-de-casas-3", "destination": "/disenemos-tus-nuevos-espacios", "permanent": true },
+    { "source": "/servicios/tasaciones-de-viviendas-y-locales", "destination": "/tasacion-viviendas-urbanas", "permanent": true },
+    { "source": "/termico", "destination": "/reacondicionamiento-termico-viviendas", "permanent": true },
+    { "source": "/servicios/acondicionamiento-termico-de-viviendas", "destination": "/reacondicionamiento-termico-viviendas", "permanent": true },
+    { "source": "/servicios/eifs", "destination": "/sistema-eifs", "permanent": true },
+    { "source": "/los-planos-de-casa", "destination": "/disenemos-tus-nuevos-espacios", "permanent": true },
+    { "source": "/proyectos/:path*", "destination": "/casos-de-exito", "permanent": true },
+    { "source": "/arquitectura-de-casa-moderna", "destination": "/disenemos-tus-nuevos-espacios", "permanent": true },
+    { "source": "/casa-estilo-mediterraneo", "destination": "/casos-de-exito", "permanent": true },
+    { "source": "/construcciones-de-casas-modernas-constructora-de-casas-en-santiago", "destination": "/disenemos-tus-nuevos-espacios", "permanent": true },
+    { "source": "/construir-una-casa-solida-en-hormigon-armado-y-bloques-hormigon-celular", "destination": "/blog", "permanent": true },
+    { "source": "/casas-de-hormigon-armado-enfierradura-de-losa", "destination": "/blog", "permanent": true },
+    { "source": "/como-lidiar-con-los-retrasos-en-una-construccion", "destination": "/blog", "permanent": true },
+    { "source": "/diseno-de-casas-en-terreno-angosto", "destination": "/disenemos-tus-nuevos-espacios", "permanent": true },
+    { "source": "/nuestros-servicios-profesionales", "destination": "/", "permanent": true }
+  ],
   "rewrites": [
-    { "source": "/api/(.*)", "destination": "/api/$1" },
-    { "source": "/(.*)", "destination": "/index.html" }
+    { "source": "/blog/:slug", "destination": "/spa-shell.html" },
+    { "source": "/colaboradores/:slug", "destination": "/spa-shell.html" },
+    { "source": "/formulario/(.*)", "destination": "/spa-shell.html" },
+    { "source": "/admin(.*)", "destination": "/spa-shell.html" },
+    { "source": "/crm(.*)", "destination": "/spa-shell.html" },
+    { "source": "/portal-cliente(.*)", "destination": "/spa-shell.html" },
+    { "source": "/gracias", "destination": "/spa-shell.html" }
   ]
 }

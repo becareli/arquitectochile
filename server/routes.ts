@@ -258,7 +258,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
         { path: "/obras-menores-empresas", changefreq: "monthly", priority: "0.7" },
         { path: "/calculadora-costos", changefreq: "monthly", priority: "0.6" },
         { path: "/colaboradores", changefreq: "monthly", priority: "0.6" },
-        { path: "/portal-cliente", changefreq: "monthly", priority: "0.6" },
         { path: "/casos-de-exito", changefreq: "monthly", priority: "0.6" },
         { path: "/revista", changefreq: "weekly", priority: "0.6" },
         { path: "/contacto", changefreq: "monthly", priority: "0.7" },
@@ -272,11 +271,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
         s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&apos;");
 
       const posts = await storage.getPublishedBlogPostsForSitemap();
+      const buildDate = new Intl.DateTimeFormat("en-CA", {
+        timeZone: "America/Santiago",
+      }).format(new Date());
 
       const urls: string[] = [];
       for (const p of staticPages) {
         urls.push(
-          `  <url>\n    <loc>${BASE}${p.path}</loc>\n    <changefreq>${p.changefreq}</changefreq>\n    <priority>${p.priority}</priority>\n  </url>`
+          `  <url>\n    <loc>${BASE}${p.path}</loc>\n    <lastmod>${buildDate}</lastmod>\n    <changefreq>${p.changefreq}</changefreq>\n    <priority>${p.priority}</priority>\n  </url>`
         );
       }
       for (const post of posts) {
