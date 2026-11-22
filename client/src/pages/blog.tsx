@@ -78,7 +78,7 @@ export default function Blog() {
                   {post.imageUrl ? (
                     <img
                       src={post.imageUrl}
-                      alt={post.title}
+                      alt={post.imageAlt}
                       className="w-full h-52 object-cover group-hover:scale-105 transition-transform duration-300"
                     />
                   ) : (

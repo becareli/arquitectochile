@@ -14,6 +14,7 @@ export interface BlogPost {
   category: string;
   cta: string;
   imageUrl: string | null;
+  imageAlt: string;
 }
 
 const files = import.meta.glob("../content/blog/*.md", {
@@ -51,6 +52,7 @@ const posts: BlogPost[] = Object.entries(files)
       category: data.category || "",
       cta: data.cta || "",
       imageUrl: data.image || null,
+      imageAlt: data.imageAlt || data.title || slug,
     };
   })
   .filter((p) => data_isPublishable(p))
