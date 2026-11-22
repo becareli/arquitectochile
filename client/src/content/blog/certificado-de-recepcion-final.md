@@ -6,6 +6,7 @@ date: 2026-11-22
 author: "Patricio Becar, arquitecto"
 category: "Recepción final"
 cta: "/permiso-edificacion-recepcion-final"
+image: "/blog/certificado-de-recepcion-final.png"
 ---
 
 *Por Patricio Becar, arquitecto. Llevo 25 años entrando y saliendo de Direcciones de Obras, y esta es una de las preguntas que más me hacen.*
