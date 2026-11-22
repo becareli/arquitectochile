@@ -43,7 +43,7 @@ En algunas comunas también se puede pedir por **DOM en Línea** (domenlinea.min
 
 Aquí es donde se complica, y lo veo seguido. Usted va por la copia y en la DOM descubre que se recibió una casa de 80 m², pero la suya hoy tiene un segundo piso, un quincho techado o la logia cerrada que hizo el dueño anterior. Para los papeles, eso no existe.
 
-Entonces el trámite cambia por completo. Ya no se trata de pedir una copia, sino de **regularizar lo construido**: un permiso de ampliación, una modificación del permiso o una Regularización (para viviendas existe un camino simplificado, la Ley 20.898). Recién después de eso viene la Recepción Final de lo nuevo.
+Entonces el trámite cambia por completo. Ya no se trata de pedir una copia, sino de **regularizar lo construido**: un permiso de ampliación, una modificación del permiso o una **Regularización** (para viviendas existe un camino simplificado, la Ley 20.898). Recién después de eso viene la **Recepción Final** de lo nuevo.
 
 Es un trámite más largo, no le voy a mentir. Pero tiene solución, y es mucho mejor enterarse ahora que el día que está sentado en la notaría. Le explico las opciones en [Regularización de viviendas](/regularizacion-inmuebles).
 
