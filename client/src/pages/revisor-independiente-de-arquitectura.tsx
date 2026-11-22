@@ -25,24 +25,24 @@ import arquitectoPhoto from "@assets/1651766771115_1753490676082.jpeg";
 
 const faqItems = [
   {
-    question: "¿Qué es un revisor independiente de arquitectura?",
+    question: "¿Qué es un Revisor Independiente de arquitectura?",
     answer:
       "Es un profesional inscrito en el Registro Nacional de Revisores Independientes del MINVU (Ley 20.071) que verifica e informa a la DOM que el proyecto y sus obras cumplen las normas urbanísticas y de construcción aplicables.",
   },
   {
-    question: "¿Cuándo es obligatorio contratar un revisor independiente?",
+    question: "¿Cuándo es obligatorio contratar un Revisor Independiente?",
     answer:
       "Según el artículo 116 bis de la LGUC, es obligatorio en edificios de uso público. En los demás casos es voluntario, pero trae beneficios concretos en plazo y derechos municipales.",
   },
   {
-    question: "¿Qué beneficios tiene presentar informe favorable de revisor independiente?",
+    question: "¿Qué beneficios tiene presentar informe favorable de Revisor Independiente?",
     answer:
       "Con la Ley 21.826 (junio de 2026), la DOM debe pronunciarse en 15 días hábiles en vez de 25, y los derechos municipales se reducen en 30%. Pero el beneficio de fondo es otro: ingresar un expediente que ya fue revisado con criterio de DOM.",
   },
   {
-    question: "¿El revisor independiente es responsable del proyecto?",
+    question: "¿El Revisor Independiente es responsable del proyecto?",
     answer:
-      "Sí. Desde la Ley 21.718, el revisor independiente es solidariamente responsable con el arquitecto de que el proyecto y sus obras cumplan las normas aplicables. Por eso la calidad de la revisión importa tanto.",
+      "Sí. Desde la Ley 21.718, el Revisor Independiente es solidariamente responsable con el arquitecto de que el proyecto y sus obras cumplan las normas aplicables. Por eso la calidad de la revisión importa tanto.",
   },
   {
     question: "¿Qué proyectos puede revisar un revisor de Tercera Categoría?",
@@ -50,14 +50,14 @@ const faqItems = [
       "Proyectos y obras cuya superficie total construida no supere los 2.500 m² (artículo 4° de la Ley 20.071).",
   },
   {
-    question: "¿Cuánto cobra un revisor independiente?",
+    question: "¿Cuánto cobra un Revisor Independiente?",
     answer:
       "Depende de la superficie, el destino y el estado del expediente. Envíeme su expediente y le cotizo dentro de 48 horas hábiles.",
   },
   {
     question: "¿El informe sirve también para la recepción definitiva?",
     answer:
-      "Sí. La participación del revisor independiente cubre el permiso y la recepción definitiva de las obras.",
+      "Sí. La participación del Revisor Independiente cubre el permiso y la recepción definitiva de las obras.",
   },
   {
     question: "¿En qué comunas trabaja?",
@@ -85,7 +85,7 @@ const professionalServiceSchema = {
     addressCountry: "CL",
   },
   areaServed: "Región Metropolitana de Santiago",
-  serviceType: "Revisor independiente de arquitectura",
+  serviceType: "Revisor Independiente de arquitectura",
   founder: {
     "@type": "Person",
     name: "Patricio Becar Elissegaray",
@@ -115,7 +115,7 @@ const videoObjectSchema = {
   "@context": "https://schema.org",
   "@type": "VideoObject",
   name: "Revisor Independiente de Arquitectura en Santiago",
-  description: "Qué revisa un revisor independiente antes de ingresar un permiso de edificación en Chile",
+  description: "Qué revisa un Revisor Independiente antes de ingresar un Permiso de Edificación en Chile",
   uploadDate: "2015-04-19",
   duration: "PT1M46S",
   thumbnailUrl: videoThumbnailUrl,
@@ -204,7 +204,7 @@ export default function RevisorIndependienteDeArquitectura() {
   useSEO({
     title: "Revisor Independiente de Arquitectura en Santiago | Becar",
     description:
-      "Arquitecto revisor independiente MINVU (Rol 237), con experiencia en tres DOM. Informes donde cada observación cita su norma. Pida su revisión.",
+      "Arquitecto Revisor Independiente MINVU (Rol 237), con experiencia en tres DOM. Informes donde cada observación cita su norma. Pida su revisión.",
     path: "/revisor-independiente-de-arquitectura",
     jsonLd: [professionalServiceSchema, faqSchema, videoObjectSchema],
   });
@@ -217,7 +217,7 @@ export default function RevisorIndependienteDeArquitectura() {
         <section className="bg-[#0f172a] py-16 text-white sm:py-20">
           <div className="mx-auto max-w-6xl px-4 text-center sm:px-6 lg:px-8">
             <p className="mb-4 inline-flex rounded-full bg-[#f97316] px-4 py-2 text-sm font-bold">
-              Para arquitectos que necesitan informe favorable de revisor independiente
+              Para arquitectos que necesitan informe favorable de Revisor Independiente
             </p>
             <h1 className="mx-auto mb-6 max-w-5xl text-4xl font-bold leading-tight text-white sm:text-5xl lg:text-6xl">
               Revisor Independiente de Arquitectura para colegas que no quieren sorpresas en la DOM
@@ -247,14 +247,14 @@ export default function RevisorIndependienteDeArquitectura() {
 
         <section className="py-16 sm:py-20">
           <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-            <SectionTitle>Desde la Ley 21.718, su revisor independiente responde junto a usted</SectionTitle>
+            <SectionTitle>Desde la Ley 21.718, su Revisor Independiente responde junto a usted</SectionTitle>
             <div className="space-y-5 text-lg leading-relaxed text-slate-700">
               <p>Estimado colega:</p>
               <p>
                 Usted ya sabe lo que pasa cuando un expediente vuelve con observaciones. El cliente pregunta qué pasó. Usted corrige láminas que ya daba por cerradas. Y si el error era de fondo —un área de riesgo sin graficar, una carga de ocupación mal calculada, un rol que no calza con la escritura—, no basta con corregir un plano: hay que rehacer parte del proyecto.
               </p>
               <p>
-                Lo que muchos colegas no han dimensionado es esto: la Ley 21.718 modificó el artículo 116 bis de la LGUC y hoy el revisor independiente es <strong>solidariamente responsable</strong> con el arquitecto de que el proyecto y sus obras cumplan todas las normas aplicables.
+                Lo que muchos colegas no han dimensionado es esto: la Ley 21.718 modificó el artículo 116 bis de la LGUC y hoy el Revisor Independiente es <strong>solidariamente responsable</strong> con el arquitecto de que el proyecto y sus obras cumplan todas las normas aplicables.
               </p>
               <p>En otras palabras, su revisor ya no es un trámite. Es la otra firma en su proyecto.</p>
               <p>
@@ -269,12 +269,12 @@ export default function RevisorIndependienteDeArquitectura() {
           <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
             <SectionTitle>Por qué reviso como revisa la DOM</SectionTitle>
             <p className="mb-6 text-lg leading-relaxed text-slate-700">
-              Antes de ser revisor independiente, trabajé del otro lado del mesón, en tres Direcciones de Obras de Santiago:
+              Antes de ser Revisor Independiente, trabajé del otro lado del mesón, en tres Direcciones de Obras de Santiago:
             </p>
             <ul className="mb-8 space-y-4 text-lg leading-relaxed text-slate-700">
-              <li><strong>Municipalidad de La Florida (2002–2006):</strong> fiscalización de edificaciones y recepciones finales de conjuntos habitacionales, loteos y condominios.</li>
+              <li><strong>Municipalidad de La Florida (2002–2006):</strong> fiscalización de edificaciones y Recepciones Finales de conjuntos habitacionales, loteos y condominios.</li>
               <li><strong>Municipalidad de Santiago (2006–2008):</strong> Dirección de Obras, revisión de expedientes en una de las comunas con más tramitación del país.</li>
-              <li><strong>Municipalidad de Peñalolén (2011–2013):</strong> revisor de proyectos en permisos de edificación, recepciones de urbanización y recepciones finales. Solo en el período que certifica la propia DOM (Certificado N° 589), participé en 24 expedientes que suman 65.503 m².</li>
+              <li><strong>Municipalidad de Peñalolén (2011–2013):</strong> revisor de proyectos en Permisos de Edificación, recepciones de urbanización y Recepciones Finales. Solo en el período que certifica la propia DOM (Certificado N° 589), participé en 24 expedientes que suman 65.503 m².</li>
             </ul>
             <p className="mb-5 text-lg leading-relaxed text-slate-700">
               Ahí aprendí algo que no se enseña en la universidad: <strong>los expedientes casi nunca se observan por falta de talento del arquitecto. Se observan por detalles.</strong> Un formulario con la dirección escrita distinta al CIP. Una superficie que no suma igual en el cuadro y en la lámina. Un documento que «se adjunta después».
@@ -290,14 +290,14 @@ export default function RevisorIndependienteDeArquitectura() {
 
         <section className="py-16 sm:py-20">
           <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-            <SectionTitle>El revisor independiente, explicado en 2 minutos</SectionTitle>
+            <SectionTitle>El Revisor Independiente, explicado en 2 minutos</SectionTitle>
             <div className="mx-auto max-w-[800px]">
               <div className="relative aspect-video overflow-hidden rounded-xl border border-slate-200 bg-slate-900 shadow-lg">
                 {isVideoPlaying ? (
                   <iframe
                     className="absolute inset-0 h-full w-full"
                     src={videoEmbedUrl}
-                    title="Video animado: qué hace un revisor independiente de arquitectura"
+                    title="Video animado: qué hace un Revisor Independiente de arquitectura"
                     loading="lazy"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                     allowFullScreen
@@ -307,11 +307,11 @@ export default function RevisorIndependienteDeArquitectura() {
                     type="button"
                     onClick={() => setIsVideoPlaying(true)}
                     className="group absolute inset-0 flex h-full w-full items-center justify-center"
-                    aria-label="Reproducir video: qué hace un revisor independiente de arquitectura"
+                    aria-label="Reproducir video: qué hace un Revisor Independiente de arquitectura"
                   >
                     <img
                       src={videoThumbnailUrl}
-                      alt="Video animado: qué hace un revisor independiente de arquitectura"
+                      alt="Video animado: qué hace un Revisor Independiente de arquitectura"
                       loading="lazy"
                       className="absolute inset-0 h-full w-full object-cover"
                     />
@@ -377,7 +377,7 @@ export default function RevisorIndependienteDeArquitectura() {
             <div className="mx-auto w-full max-w-sm">
               <img
                 src={arquitectoPhoto}
-                alt="Patricio Becar, arquitecto revisor independiente"
+                alt="Patricio Becar, arquitecto Revisor Independiente"
                 className="aspect-[4/5] w-full rounded-xl object-cover shadow-lg"
                 loading="lazy"
               />
@@ -466,8 +466,8 @@ export default function RevisorIndependienteDeArquitectura() {
                 <CardHeader><CardTitle className="text-2xl text-[#0f172a]">Sí, si…</CardTitle></CardHeader>
                 <CardContent>
                   <ul className="space-y-4">
-                    <li>Es arquitecto y necesita informe favorable para un permiso de edificación, ampliación o recepción definitiva.</li>
-                    <li>Su proyecto es un edificio de uso público, donde el revisor independiente es obligatorio.</li>
+                    <li>Es arquitecto y necesita informe favorable para un Permiso de Edificación, ampliación o recepción definitiva.</li>
+                    <li>Su proyecto es un edificio de uso público, donde el Revisor Independiente es obligatorio.</li>
                     <li>Quiere un revisor que lea, no uno que solo firme.</li>
                     <li>Su proyecto tiene hasta 2.500 m² de superficie total construida (límite de la Tercera Categoría, Ley 20.071).</li>
                   </ul>
@@ -501,7 +501,7 @@ export default function RevisorIndependienteDeArquitectura() {
 
         <section className="bg-slate-50 py-16 sm:py-20">
           <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-            <SectionTitle>Preguntas frecuentes sobre el revisor independiente de arquitectura</SectionTitle>
+            <SectionTitle>Preguntas frecuentes sobre el Revisor Independiente de arquitectura</SectionTitle>
             <Accordion type="single" collapsible className="w-full">
               {faqItems.map(({ question, answer }, index) => (
                 <AccordionItem key={question} value={`faq-${index}`}>

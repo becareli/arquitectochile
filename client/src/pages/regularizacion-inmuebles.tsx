@@ -31,7 +31,7 @@ export default function RegularizacionInmuebles() {
     };
 
     setMetaTag('description', 'Regularización de inmuebles sin permisos (Ley del Mono). Gestión profesional de Permiso de Edificación y Recepción Final. Especialistas en DOM de La Florida.');
-    setMetaTag('keywords', 'regularización inmuebles, ley del mono chile, permiso edificación, recepción final, legalizar construcción');
+    setMetaTag('keywords', 'Regularización inmuebles, ley del mono chile, permiso edificación, Recepción Final, legalizar construcción');
     setMetaTag('og:title', 'Regularización de Inmuebles - Ley del Mono | ArquitectoChile', true);
     setMetaTag('og:description', 'Gestión profesional para propiedades sin permisos. Permiso de Edificación y Recepción Final con respaldo de 26+ años de experiencia.', true);
     setMetaTag('og:type', 'website', true);
@@ -40,7 +40,7 @@ export default function RegularizacionInmuebles() {
       "@context": "https://schema.org",
       "@type": "Service",
       "name": "Regularización de Inmuebles - Ley del Mono",
-      "description": "Servicio integral de regularización de propiedades sin permisos. Gestión completa del proceso DOM.",
+      "description": "Servicio integral de Regularización de propiedades sin permisos. Gestión completa del proceso DOM.",
       "provider": {
         "@type": "Person",
         "name": "Patricio Becar Elissegaray",
@@ -105,7 +105,7 @@ export default function RegularizacionInmuebles() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
               { icon: AlertTriangle, title: "Problema Legal", text: "Propiedad irregular ante la DOM. Riesgo de multas y complicaciones legales." },
-              { icon: TrendingUp, title: "Valor Reducido", text: "Imposible vender a precio justo sin regularización. Pérdida de valor patrimonial." },
+              { icon: TrendingUp, title: "Valor Reducido", text: "Imposible vender a precio justo sin Regularización. Pérdida de valor patrimonial." },
               { icon: Building, title: "Bloqueo Comercial", text: "Bancos no financian propiedades irregulares. Venta restringida a pago contado." },
             ].map((item) => {
               const Icon = item.icon;
@@ -184,7 +184,7 @@ export default function RegularizacionInmuebles() {
               },
               {
                 icon: Clock, title: "Proceso Ágil y Profesional",
-                items: ["26+ años de experiencia en regularizaciones", "Conocimiento profundo de normativas municipales", "Seguimiento constante del proceso", "Comunicación clara en cada etapa"]
+                items: ["26+ años de experiencia en Regularizaciones", "Conocimiento profundo de normativas municipales", "Seguimiento constante del proceso", "Comunicación clara en cada etapa"]
               },
               {
                 icon: Shield, title: "Respaldo Técnico Profesional",
@@ -225,7 +225,7 @@ export default function RegularizacionInmuebles() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
               { icon: Home, title: "Ampliaciones sin Permiso", text: "Segundo piso, terraza, bodega o cualquier ampliación construida sin permisos." },
-              { icon: Building, title: "Construcción Original Irregular", text: "Vivienda completa construida sin recepción final o permisos originales." },
+              { icon: Building, title: "Construcción Original Irregular", text: "Vivienda completa construida sin Recepción Final o permisos originales." },
               { icon: Target, title: "Venta de Propiedad", text: "Necesitas regularizar para vender a mejor precio y con financiamiento disponible." },
               { icon: TrendingUp, title: "Acceso a Créditos", text: "Requieres regularizar para que la propiedad pueda ser evaluada por bancos." },
               { icon: FileText, title: "Herencias y Sucesiones", text: "Propiedad heredada sin documentación municipal al día." },

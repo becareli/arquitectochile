@@ -376,7 +376,7 @@ export default function DisenemosNuevosEspacios() {
                     <li>Gestión completa de permisos municipales</li>
                     <li>Asesoría durante la construcción</li>
                     <li>Supervisión técnica opcional</li>
-                    <li>Soporte hasta la recepción final</li>
+                    <li>Soporte hasta la Recepción Final</li>
                   </ul>
                 </div>
               </div>

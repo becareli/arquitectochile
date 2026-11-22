@@ -3,8 +3,8 @@ import { HelpCircle, ArrowRight } from "lucide-react";
 export default function ObjectionHandling() {
   const faqs = [
     {
-      question: "¿Cuánto demora un permiso de edificación en la municipalidad?",
-      answer: "Los plazos municipales varían según la comuna y el tipo de proyecto. En promedio, un permiso de edificación toma entre 30 y 60 días hábiles. Nosotros nos encargamos de presentar una carpeta técnica completa para minimizar observaciones y agilizar la aprobación."
+      question: "¿Cuánto demora un Permiso de Edificación en la municipalidad?",
+      answer: "Los plazos municipales varían según la comuna y el tipo de proyecto. En promedio, un Permiso de Edificación toma entre 30 y 60 días hábiles. Nosotros nos encargamos de presentar una carpeta técnica completa para minimizar observaciones y agilizar la aprobación."
     },
     {
       question: "¿Para qué sirve el Diagnóstico Técnico de $45.000?",
@@ -23,8 +23,8 @@ export default function ObjectionHandling() {
       answer: "Nuestra oficina está en Santiago (La Florida), pero atendemos proyectos en toda la Región Metropolitana. Para proyectos en regiones, evaluamos caso a caso la factibilidad de servicio."
     },
     {
-      question: "¿Qué diferencia hay entre diseño y regularización?",
-      answer: "El diseño es para obras nuevas o ampliaciones que aún no se construyen. La regularización es para construcciones existentes que nunca obtuvieron permiso municipal. Ambos servicios requieren un arquitecto y trámites ante la DOM."
+      question: "¿Qué diferencia hay entre diseño y Regularización?",
+      answer: "El diseño es para obras nuevas o ampliaciones que aún no se construyen. La Regularización es para construcciones existentes que nunca obtuvieron permiso municipal. Ambos servicios requieren un arquitecto y trámites ante la DOM."
     },
   ];
 

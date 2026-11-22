@@ -96,7 +96,7 @@ const testimonials = [
     id: 12,
     clientName: "Rafael Quiros",
     clientTitle: "Reseña Google Maps",
-    content: "Estimado Patricio, gracias por la gestión de regularización del año 2014 ante la DOM de la municipalidad de la Florida. Fui citado y está en orden toda tu gestión, saludos y gracias.",
+    content: "Estimado Patricio, gracias por la gestión de Regularización del año 2014 ante la DOM de la municipalidad de la Florida. Fui citado y está en orden toda tu gestión, saludos y gracias.",
     rating: 5,
     service: "Regularización DOM La Florida",
   },
@@ -131,7 +131,7 @@ function StarRating({ rating }: { rating: number }) {
 export default function CasosDeExito() {
   useSEO({
     title: "Casos de Éxito | ArquitectoChile.com",
-    description: "Casos de éxito de ArquitectoChile.com: testimonios reales de clientes en Santiago sobre diseño, regularización, tasación y construcción de viviendas.",
+    description: "Casos de éxito de ArquitectoChile.com: testimonios reales de clientes en Santiago sobre diseño, Regularización, tasación y construcción de viviendas.",
     path: "/casos-de-exito",
   });
 

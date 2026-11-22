@@ -63,7 +63,7 @@ export default function AutomatedWebinarSystem() {
       presenter: "Arq. Patricio Becar",
       value: "$197.000",
       topics: [
-        "Proceso completo de regularización paso a paso",
+        "Proceso completo de Regularización paso a paso",
         "Documentos necesarios y cómo obtenerlos",
         "Costos reales vs beneficios económicos",
         "Timeline realista: cuánto demora realmente",

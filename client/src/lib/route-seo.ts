@@ -6,7 +6,7 @@ export const routeSeoFallbacks: Record<string, SEOOptions> = {
   "/": {
     title: "ArquitectoChile.com | Arquitecto Especialista en Santiago - Patricio Becar",
     description:
-      "Servicios profesionales de arquitectura en Santiago. Especialista en regularización de inmuebles, reacondicionamiento térmico, construcción y asesoría a domicilio. Arquitecto Universidad de Chile con 26+ años experiencia.",
+      "Servicios profesionales de arquitectura en Santiago. Especialista en Regularización de inmuebles, reacondicionamiento térmico, construcción y asesoría a domicilio. Arquitecto Universidad de Chile con 26+ años experiencia.",
     path: "/",
   },
   "/servicios-a-domicilio": {
@@ -72,7 +72,7 @@ export const routeSeoFallbacks: Record<string, SEOOptions> = {
   "/blog": {
     title: "Blog de Arquitectura | ArquitectoChile.com",
     description:
-      "Artículos de arquitectura: regularización, diseño, permisos y construcción en Chile. Conocimiento profesional de ArquitectoChile.com.",
+      "Artículos de arquitectura: Regularización, diseño, permisos y construcción en Chile. Conocimiento profesional de ArquitectoChile.com.",
     path: "/blog",
   },
 };

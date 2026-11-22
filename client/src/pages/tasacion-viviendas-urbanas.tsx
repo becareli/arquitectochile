@@ -558,7 +558,7 @@ export default function TasacionViviendasUrbanas() {
               </CardHeader>
               <CardContent>
                 <p className="text-gray-700">
-                  Necesitamos: <strong>permisos de edificación, certificado de recepción final, planos aprobados, 
+                  Necesitamos: <strong>Permisos de Edificación, certificado de Recepción Final, planos aprobados, 
                   CIP (Certificado de Informaciones Previas), escritura de la propiedad</strong> y cualquier documento 
                   que acredite modificaciones o ampliaciones. Si no tiene alguno, le ayudamos a obtenerlo.
                 </p>

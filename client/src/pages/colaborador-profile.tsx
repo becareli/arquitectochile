@@ -28,7 +28,7 @@ const mockColaboradores = [
     rating: 4.8,
     totalProjects: 23,
     profileImage: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&h=300&fit=crop&crop=face",
-    description: "Arquitecto especializado en diseño residencial y remodelaciones. Amplia experiencia en proyectos de ampliación y regularización de viviendas en la Región Metropolitana.",
+    description: "Arquitecto especializado en diseño residencial y remodelaciones. Amplia experiencia en proyectos de ampliación y Regularización de viviendas en la Región Metropolitana.",
     verified: true,
     skills: ["Diseño Residencial", "Remodelaciones", "Regularización", "Ampliaciones"],
     completedProjects: [

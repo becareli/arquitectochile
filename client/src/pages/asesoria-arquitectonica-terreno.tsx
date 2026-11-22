@@ -387,7 +387,7 @@ export default function AsesoriaArquitectonicaTerreno() {
                 <p className="text-[#f97316] font-semibold mb-4">Arquitecto — Universidad de Chile</p>
                 <p className="text-[#64748b] leading-relaxed mb-6">
                   Con más de 26 años de experiencia en proyectos residenciales a lo largo de Chile, 
-                  me especializo en viviendas familiares, ampliaciones y regularizaciones. 
+                  me especializo en viviendas familiares, ampliaciones y Regularizaciones. 
                   Mi forma de trabajar es directa y transparente: te digo exactamente lo que es posible, 
                   lo que conviene y lo que se puede mejorar — sin tecnicismos innecesarios.
                 </p>

@@ -18,7 +18,7 @@ export default function SalesMechanism() {
       step: "03",
       icon: FileCheck,
       title: "Gestión de Permisos",
-      description: "Tramitamos permisos de edificación, recepciones y toda la documentación ante DOM, SII y Conservador de Bienes Raíces.",
+      description: "Tramitamos Permisos de Edificación, recepciones y toda la documentación ante DOM, SII y Conservador de Bienes Raíces.",
     },
     {
       step: "04",

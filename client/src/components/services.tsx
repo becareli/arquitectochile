@@ -38,7 +38,7 @@ export default function Services() {
     {
       id: "normativa",
       title: "Gestión Normativa",
-      subtitle: "Expertos en gestión municipal. Fusión, subdivisión, regularización y permisos ante DOM, SII y CBR.",
+      subtitle: "Expertos en gestión municipal. Fusión, subdivisión, Regularización y permisos ante DOM, SII y CBR.",
       badge: "Recomendado en YouTube",
       icon: Scale,
       services: [

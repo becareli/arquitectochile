@@ -6,7 +6,7 @@ import { useSEO } from "@/hooks/useSEO";
 export default function ObrasMenoresEmpresas() {
   useSEO({
     title: "Obras Menores y Regularización para Empresas | ArquitectoChile",
-    description: "Gestión integral de obras menores, regularizaciones y cumplimiento normativo para empresas, transnacionales y retail en Chile. Continuidad operativa garantizada.",
+    description: "Gestión integral de obras menores, Regularizaciones y cumplimiento normativo para empresas, transnacionales y retail en Chile. Continuidad operativa garantizada.",
     path: "/obras-menores-empresas",
   });
 

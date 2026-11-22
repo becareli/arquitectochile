@@ -48,7 +48,7 @@ export default function InspeccionTecnicaViviendas() {
     };
 
     setMetaTag('description', 'Inspección técnica profesional de viviendas en Chile por arquitecto certificado MINVU. Detecta defectos ocultos, filtraciones, problemas eléctricos antes de comprar. Evita reparaciones millonarias por solo $180.000.');
-    setMetaTag('keywords', 'inspección técnica vivienda chile, inspector certificado MINVU, defectos ocultos casa, arquitecto inspección santiago, informe técnico vivienda, evaluación estructural chile, revisor independiente');
+    setMetaTag('keywords', 'inspección técnica vivienda chile, inspector certificado MINVU, defectos ocultos casa, arquitecto inspección santiago, informe técnico vivienda, evaluación estructural chile, Revisor Independiente');
     setMetaTag('og:title', 'Inspección Técnica de Viviendas Chile - Evita Reparaciones Millonarias', true);
     setMetaTag('og:description', 'Arquitecto certificado MINVU realiza inspección técnica completa de viviendas. Detecta defectos ocultos y previene reparaciones millonarias. Informe completo en 48 horas.', true);
     setMetaTag('og:type', 'website', true);

@@ -38,7 +38,7 @@ export default function PermisoEdificacionRecepcionFinal() {
     };
 
     setMetaTag('description', 'Permiso de Edificación y Recepción Final en Chile. Gestión integral DOM con arquitecto certificado. Evita rechazos costosos y legaliza tu construcción en tiempo récord.');
-    setMetaTag('keywords', 'permiso edificación chile, recepción final DOM, tramites construcción, permiso municipal, arquitecto certificado');
+    setMetaTag('keywords', 'permiso edificación chile, Recepción Final DOM, tramites construcción, permiso municipal, arquitecto certificado');
     setMetaTag('og:title', 'Permiso de Edificación + Recepción Final - Proceso Garantizado', true);
     setMetaTag('og:description', 'Legaliza tu construcción sin rechazos ni demoras. Gestión integral desde Permiso hasta Recepción Final con arquitecto certificado.', true);
     setMetaTag('og:type', 'website', true);
@@ -115,7 +115,7 @@ export default function PermisoEdificacionRecepcionFinal() {
               <h3 className="font-serif text-3xl font-bold mb-6 text-center">Proceso Completo Garantizado</h3>
               <div className="space-y-6">
                 {[
-                  { icon: FileText, title: "Permiso de Edificación", desc: "Aprobación en 15 días con revisor independiente", color: "text-[#f97316]" },
+                  { icon: FileText, title: "Permiso de Edificación", desc: "Aprobación en 15 días con Revisor Independiente", color: "text-[#f97316]" },
                   { icon: Building2, title: "Construcción Legal", desc: "Ejecuta tu obra con respaldo normativo completo", color: "text-[#f97316]" },
                   { icon: BadgeCheck, title: "Recepción Final", desc: "Certifica y legaliza tu propiedad para uso inmediato", color: "text-[#f97316]" }
                 ].map((item, index) => (
@@ -147,7 +147,7 @@ export default function PermisoEdificacionRecepcionFinal() {
               { icon: AlertTriangle, text: "Su solicitud fue RECHAZADA por errores que no vio", color: "text-[#0f172a]" },
               { icon: Timer, text: "Lleva MESES esperando aprobación sin respuestas", color: "text-orange-600" },
               { icon: DollarSign, text: "Le cobraron MULTAS por construir sin permiso", color: "text-[#f97316]" },
-              { icon: Home, text: "No puede VENDER porque falta recepción final", color: "text-[#0f172a]" }
+              { icon: Home, text: "No puede VENDER porque falta Recepción Final", color: "text-[#0f172a]" }
             ].map((item, index) => (
               <Card key={index} className="border-2 hover:border-[#f97316] transition-all duration-300 shadow-lg">
                 <CardContent className="pt-6">
@@ -220,7 +220,7 @@ export default function PermisoEdificacionRecepcionFinal() {
                   "✅ Informe técnico de arquitecto certificando conformidad",
                   "📐 Planos As-Built (como se construyó realmente)",
                   "🔥 Certificados de Bomberos y plan de evacuación",
-                  "⚡ Tramitación en 15 días con revisor independiente",
+                  "⚡ Tramitación en 15 días con Revisor Independiente",
                   "💼 SIN COSTO adicional de derechos municipales",
                   "🏆 Autorización legal para habitar, vender o arrendar"
                 ].map((item, index) => (

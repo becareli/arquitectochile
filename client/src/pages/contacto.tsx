@@ -4,7 +4,7 @@ import { useSEO } from "@/hooks/useSEO";
 export default function Contacto() {
   useSEO({
     title: "Contacto | Agenda tu Asesoría - ArquitectoChile.com",
-    description: "Contacta al arquitecto Patricio Becar Elissegaray en Santiago. Agenda tu asesoría en diseño, regularización, permisos o inspección técnica en Chile.",
+    description: "Contacta al arquitecto Patricio Becar Elissegaray en Santiago. Agenda tu asesoría en diseño, Regularización, permisos o inspección técnica en Chile.",
     path: "/contacto",
   });
 

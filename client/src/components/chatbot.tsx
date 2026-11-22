@@ -80,11 +80,11 @@ export default function Chatbot() {
     }
     
     if (message.includes('permiso') || message.includes('edificación') || message.includes('municipal')) {
-      return 'Gestionamos permisos de edificación completos ante la municipalidad, desde la documentación hasta la aprobación final. Evitamos rechazos y agilizamos el proceso. ¿Tienes un proyecto por presentar?';
+      return 'Gestionamos Permisos de Edificación completos ante la municipalidad, desde la documentación hasta la aprobación final. Evitamos rechazos y agilizamos el proceso. ¿Tienes un proyecto por presentar?';
     }
     
     if (message.includes('recepción') || message.includes('final') || message.includes('legalizar')) {
-      return 'La recepción final legaliza tu proyecto ante la municipalidad para obtener el certificado de recepción definitiva. Necesario para habitar y vender legalmente. ¿Tu obra está lista para recepción?';
+      return 'La Recepción Final legaliza tu proyecto ante la municipalidad para obtener el certificado de recepción definitiva. Necesario para habitar y vender legalmente. ¿Tu obra está lista para recepción?';
     }
     
     if (message.includes('domicilio') || message.includes('visita') || message.includes('terreno')) {
@@ -133,7 +133,7 @@ export default function Chatbot() {
     }
     
     // Respuesta por defecto
-    return 'Gracias por tu consulta. Ofrecemos servicios completos de arquitectura: regularización de viviendas La Florida, subdivisión de terrenos, fusión de terrenos, reacondicionamiento térmico, diseño, permisos, tasaciones y más. Para información específica, visita nuestra página de contacto en /contacto. ¿Te ayudo con algo más?';
+    return 'Gracias por tu consulta. Ofrecemos servicios completos de arquitectura: Regularización de viviendas La Florida, subdivisión de terrenos, fusión de terrenos, reacondicionamiento térmico, diseño, permisos, tasaciones y más. Para información específica, visita nuestra página de contacto en /contacto. ¿Te ayudo con algo más?';
   };
 
   const handleSendMessage = async () => {

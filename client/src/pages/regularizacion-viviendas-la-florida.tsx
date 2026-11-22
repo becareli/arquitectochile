@@ -28,7 +28,7 @@ export default function RegularizacionViviendasLaFloridaPage() {
 
     setMetaTag('description', 'Regularización de viviendas en La Florida bajo Ley del Mono. Especialistas en la DOM de La Florida con 26+ años de experiencia. Gestión profesional integral.');
     setMetaTag('og:title', 'Regularización de Viviendas La Florida | Ley del Mono | ArquitectoChile', true);
-    setMetaTag('og:description', 'Gestión profesional de regularización de viviendas en La Florida. Expertos en Ley del Mono y gestión municipal.', true);
+    setMetaTag('og:description', 'Gestión profesional de Regularización de viviendas en La Florida. Expertos en Ley del Mono y gestión municipal.', true);
   }, []);
 
   return (
@@ -144,7 +144,7 @@ export default function RegularizacionViviendasLaFloridaPage() {
                 <div className="text-center">
                   <p className="text-xs font-semibold tracking-[0.15em] uppercase text-[#f97316] mb-1">Plazo Final</p>
                   <p className="text-2xl font-bold text-[#0f172a]">31 de Diciembre 2027</p>
-                  <p className="text-xs text-[#64748b] mt-2">Después de esta fecha, la regularización será más compleja y costosa</p>
+                  <p className="text-xs text-[#64748b] mt-2">Después de esta fecha, la Regularización será más compleja y costosa</p>
                 </div>
               </div>
             </div>
@@ -166,7 +166,7 @@ export default function RegularizacionViviendasLaFloridaPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              { step: "01", icon: FileText, title: "Diagnóstico Técnico", text: "Visita profesional a tu propiedad para evaluar viabilidad de regularización." },
+              { step: "01", icon: FileText, title: "Diagnóstico Técnico", text: "Visita profesional a tu propiedad para evaluar viabilidad de Regularización." },
               { step: "02", icon: MapPin, title: "Levantamiento de Planos", text: "Medición profesional y elaboración de planos técnicos actualizados." },
               { step: "03", icon: Shield, title: "Informe Técnico", text: "Documentación técnica completa para presentar ante la DOM." },
               { step: "04", icon: CheckCircle, title: "Tramitación Completa", text: "Gestión ante DOM y Conservador de Bienes Raíces hasta la inscripción final." },
@@ -199,7 +199,7 @@ export default function RegularizacionViviendasLaFloridaPage() {
                   "Presentación y tramitación ante la Dirección de Obras",
                   "Gestión completa ante el Conservador de Bienes Raíces",
                   "Seguimiento personalizado durante todo el proceso",
-                  "Entrega de certificados oficiales de regularización",
+                  "Entrega de certificados oficiales de Regularización",
                 ].map((item) => (
                   <div key={item} className="flex items-start gap-2.5">
                     <CheckCircle className="w-4 h-4 text-[#0f172a] flex-shrink-0 mt-0.5" strokeWidth={1.5} />
@@ -220,7 +220,7 @@ export default function RegularizacionViviendasLaFloridaPage() {
               Presupuestos Personalizados
             </h2>
             <p className="text-base text-[#64748b] max-w-2xl mx-auto">
-              Cada caso de regularización es único. Tras el Diagnóstico Técnico entregamos un presupuesto detallado
+              Cada caso de Regularización es único. Tras el Diagnóstico Técnico entregamos un presupuesto detallado
               según las características específicas de tu propiedad.
             </p>
           </div>
@@ -254,7 +254,7 @@ export default function RegularizacionViviendasLaFloridaPage() {
                 {[
                   { label: "Hito 1", title: "Al Contratar", text: "Primera cuota al firmar el contrato e iniciar el proceso." },
                   { label: "Hito 2", title: "Al Ingreso del Expediente", text: "Segunda cuota cuando se ingresa el expediente a la municipalidad." },
-                  { label: "Hito 3", title: "Al Obtener Certificado", text: "Última cuota al obtener el certificado de regularización." },
+                  { label: "Hito 3", title: "Al Obtener Certificado", text: "Última cuota al obtener el certificado de Regularización." },
                 ].map((item) => (
                   <div key={item.label} className="bg-white border border-gray-200 rounded-md p-5">
                     <p className="text-[10px] font-bold tracking-[0.2em] uppercase text-[#f97316] mb-2">{item.label}</p>
@@ -326,7 +326,7 @@ export default function RegularizacionViviendasLaFloridaPage() {
             Regulariza tu Propiedad con Respaldo Profesional
           </h2>
           <p className="text-base text-gray-300 mb-4 max-w-2xl mx-auto">
-            Asegura tu regularización bajo la Ley del Mono antes del plazo vigente.
+            Asegura tu Regularización bajo la Ley del Mono antes del plazo vigente.
             Presupuestos personalizados tras Diagnóstico Técnico.
           </p>
           <p className="text-sm text-gray-400 mb-8">

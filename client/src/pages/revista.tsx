@@ -86,7 +86,7 @@ export default function Revista() {
 
   useSEO({
     title: "Revista Técnica | ArquitectoChile.com",
-    description: "Revista técnica de ArquitectoChile.com: videos y artículos sobre construcción, regularización, aislación térmica y normativa de edificación en Chile.",
+    description: "Revista técnica de ArquitectoChile.com: videos y artículos sobre construcción, Regularización, aislación térmica y normativa de edificación en Chile.",
     path: "/revista",
   });
 

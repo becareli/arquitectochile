@@ -721,7 +721,7 @@ export default function SubdivisionTerrenosUrbanos() {
                 <strong>Sí, es posible</strong>, pero requiere consideraciones especiales:
                 <br/>• La construcción debe quedar completamente dentro de uno de los lotes resultantes
                 <br/>• Debe cumplir con las distanciamientos mínimos a los nuevos deslindes
-                <br/>• Puede requerir modificaciones menores o regularizaciones
+                <br/>• Puede requerir modificaciones menores o Regularizaciones
                 <br/><br/>
                 Evaluamos cada caso específicamente para encontrar la mejor solución técnica.
               </AccordionContent>

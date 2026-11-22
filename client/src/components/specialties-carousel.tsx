@@ -47,7 +47,7 @@ const specialties = [
   },
   {
     title: "Permisos de Edificación",
-    description: "Gestión completa de permisos y recepción final ante la DOM",
+    description: "Gestión completa de permisos y Recepción Final ante la DOM",
     icon: ClipboardCheck,
     route: "/permiso-edificacion-recepcion-final",
     accent: "#f97316",

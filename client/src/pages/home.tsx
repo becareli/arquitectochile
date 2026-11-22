@@ -41,13 +41,13 @@ export default function HomePage() {
       }
     };
 
-    setMetaTag('description', 'Servicios profesionales de arquitectura en Santiago. Especialista en regularización de inmuebles, reacondicionamiento térmico, construcción y asesoría a domicilio. Arquitecto Universidad de Chile con 26+ años experiencia.');
-    setMetaTag('keywords', 'arquitecto santiago chile, servicios arquitectura, regularización inmuebles, reacondicionamiento térmico, construcción casa, asesoría domicilio, patricio becar, universidad chile');
+    setMetaTag('description', 'Servicios profesionales de arquitectura en Santiago. Especialista en Regularización de inmuebles, reacondicionamiento térmico, construcción y asesoría a domicilio. Arquitecto Universidad de Chile con 26+ años experiencia.');
+    setMetaTag('keywords', 'arquitecto santiago chile, servicios arquitectura, Regularización inmuebles, reacondicionamiento térmico, construcción casa, asesoría domicilio, patricio becar, universidad chile');
     setMetaTag('author', 'Patricio Becar Elissegaray - Arquitecto Universidad de Chile');
     setMetaTag('robots', 'index, follow');
 
     setMetaTag('og:title', 'ArquitectoChile.com | Arquitecto Especialista en Santiago - Patricio Becar', true);
-    setMetaTag('og:description', 'Servicios profesionales de arquitectura: regularización de inmuebles, reacondicionamiento térmico, construcción y más. 26+ años de experiencia Universidad de Chile.', true);
+    setMetaTag('og:description', 'Servicios profesionales de arquitectura: Regularización de inmuebles, reacondicionamiento térmico, construcción y más. 26+ años de experiencia Universidad de Chile.', true);
     setMetaTag('og:type', 'website', true);
     setMetaTag('og:url', 'https://arquitectochile.com', true);
     setMetaTag('og:site_name', 'ArquitectoChile.com', true);
@@ -92,7 +92,7 @@ export default function HomePage() {
         <ServicePillar
           sectionLabel="Gestión Normativa y Legal"
           title="Gestión Normativa"
-          subtitle="Expertos en gestión municipal. Fusión, subdivisión, regularización y permisos ante DOM, SII y CBR."
+          subtitle="Expertos en gestión municipal. Fusión, subdivisión, Regularización y permisos ante DOM, SII y CBR."
           badge="Recomendado en YouTube"
           icon={Scale}
           services={gestionNormativaServices}

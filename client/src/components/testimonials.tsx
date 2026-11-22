@@ -123,7 +123,7 @@ export default function Testimonials() {
       id: 12,
       clientName: "Rafael Quiros",
       clientTitle: "Reseña Google Maps · 2 años",
-      content: "Estimado Patricio, gracias por la gestión de regularización del año 2014 ante la DOM de la municipalidad de la Florida. Fui citado y está en orden toda tu gestión, saludos y gracias.",
+      content: "Estimado Patricio, gracias por la gestión de Regularización del año 2014 ante la DOM de la municipalidad de la Florida. Fui citado y está en orden toda tu gestión, saludos y gracias.",
       rating: 5,
       gender: "male",
       isGoogleReview: true

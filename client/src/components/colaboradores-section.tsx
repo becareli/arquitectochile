@@ -136,7 +136,7 @@ const colaboradoresDestacados = [
     rating: 4.8,
     totalProjects: 23,
     profileImage: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&h=300&fit=crop&crop=face",
-    description: "Especializado en diseño residencial y remodelaciones. Amplia experiencia en ampliación y regularización de viviendas."
+    description: "Especializado en diseño residencial y remodelaciones. Amplia experiencia en ampliación y Regularización de viviendas."
   },
   {
     slug: "maria-gonzalez",

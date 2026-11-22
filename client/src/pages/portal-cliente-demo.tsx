@@ -61,7 +61,7 @@ const timeline = [
   { title: "Diseño Arquitectónico", date: "21 Ene - 28 Feb 2025", status: "current" as const, description: "Desarrollo de planos, elevaciones y especificaciones técnicas" },
   { title: "Gestión Documental y Trámites", date: "01 Mar - 15 Abr 2025", status: "upcoming" as const, description: "Preparación y presentación de documentación técnica ante organismos competentes" },
   { title: "Inicio de Construcción", date: "01 May 2025", status: "upcoming" as const, description: "Comienzo de obras según cronograma aprobado" },
-  { title: "Entrega Final", date: "30 Jun 2025", status: "upcoming" as const, description: "Recepción final y entrega de documentación completa" }
+  { title: "Entrega Final", date: "30 Jun 2025", status: "upcoming" as const, description: "Recepción Final y entrega de documentación completa" }
 ];
 
 const payments = [

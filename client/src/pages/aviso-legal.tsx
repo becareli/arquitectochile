@@ -35,7 +35,7 @@ export default function AvisoLegal() {
           <CardContent className="space-y-4">
             <p>
               ArquitectoChile.com es una plataforma digital que ofrece servicios profesionales de arquitectura, 
-              incluyendo diseño arquitectónico, gestión de permisos de edificación, revisoría independiente, 
+              incluyendo diseño arquitectónico, gestión de Permisos de Edificación, revisoría independiente, 
               y asesorías especializadas en construcción.
             </p>
             <p>
