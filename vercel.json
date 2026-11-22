@@ -34,7 +34,6 @@
     { "source": "/nuestros-servicios-profesionales", "destination": "/", "permanent": true }
   ],
   "rewrites": [
-    { "source": "/blog/:slug", "destination": "/spa-shell.html" },
     { "source": "/colaboradores/:slug", "destination": "/spa-shell.html" },
     { "source": "/formulario/(.*)", "destination": "/spa-shell.html" },
     { "source": "/admin(.*)", "destination": "/spa-shell.html" },

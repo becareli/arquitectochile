@@ -1,85 +1,37 @@
 import { useEffect } from "react";
-import { useLocation } from "wouter";
-import { useQuery } from "@tanstack/react-query";
-import { Helmet } from "react-helmet-async";
+import { useSEO } from "@/hooks/useSEO";
+import { getAllPosts, formatDate } from "@/lib/blog";
 import Navigation from "@/components/navigation";
 import Footer from "@/components/footer";
 import { Badge } from "@/components/ui/badge";
 import { Calendar, ArrowRight } from "lucide-react";
 
-interface BlogPost {
-  id: number;
-  title: string;
-  slug: string;
-  excerpt: string;
-  imageUrl: string | null;
-  published: boolean;
-  createdAt: string;
-}
-
-function formatDate(dateStr: string) {
-  return new Date(dateStr).toLocaleDateString("es-CL", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
-}
 
 export default function Blog() {
-  const [, setLocation] = useLocation();
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
-  const { data: posts = [], isLoading } = useQuery<BlogPost[]>({
-    queryKey: ["/api/blog"],
-    queryFn: async () => {
-      const res = await fetch("/api/blog");
-      if (!res.ok) throw new Error("Error cargando artículos");
-      return res.json();
+  const posts = getAllPosts();
+  const isLoading = false;
+
+  useSEO({
+    title: "Blog de arquitectura: permisos, recepción final y regularización | ArquitectoChile",
+    description: "Guías claras sobre permisos de edificación, recepción final, regularización y trámites en la DOM, escritas por un arquitecto con 25 años de experiencia.",
+    path: "/blog",
+    jsonLd: {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://arquitectochile.com" },
+        { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://arquitectochile.com/blog" },
+      ],
     },
   });
 
   return (
     <div className="min-h-screen bg-white">
-      <Helmet>
-        <title>Blog — ArquitectoChile.com</title>
-        <meta name="description" content="Artículos de arquitectura: regularización, diseño, permisos y construcción en Chile. Conocimiento profesional de ArquitectoChile.com." />
-        {/* Open Graph */}
-        <meta property="og:type" content="website" />
-        <meta property="og:title" content="Blog de Arquitectura — ArquitectoChile.com" />
-        <meta property="og:description" content="Artículos de arquitectura: regularización, diseño, permisos y construcción en Chile." />
-        <meta property="og:url" content="https://arquitectochile.com/blog" />
-        <meta property="og:image" content="https://arquitectochile.com/favicon.png" />
-        <meta property="og:site_name" content="ArquitectoChile.com" />
-        <meta property="og:locale" content="es_CL" />
-        {/* Twitter Card */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Blog de Arquitectura — ArquitectoChile.com" />
-        <meta name="twitter:description" content="Artículos de arquitectura: regularización, diseño, permisos y construcción en Chile." />
-        {/* Canonical */}
-        <link rel="canonical" href="https://arquitectochile.com/blog" />
-        {/* JSON-LD BreadcrumbList */}
-        <script type="application/ld+json">{JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "BreadcrumbList",
-          "itemListElement": [
-            {
-              "@type": "ListItem",
-              "position": 1,
-              "name": "Inicio",
-              "item": "https://arquitectochile.com"
-            },
-            {
-              "@type": "ListItem",
-              "position": 2,
-              "name": "Blog",
-              "item": "https://arquitectochile.com/blog"
-            }
-          ]
-        })}</script>
-      </Helmet>
       <Navigation />
 
       {/* Hero */}
@@ -118,10 +70,10 @@ export default function Blog() {
           {!isLoading && posts.length > 0 && (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {posts.map((post) => (
-                <article
-                  key={post.id}
-                  className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow cursor-pointer group"
-                  onClick={() => setLocation(`/blog/${post.slug}`)}
+                <a
+                  key={post.slug}
+                  href={`/blog/${post.slug}`}
+                  className="block bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow group"
                 >
                   {post.imageUrl ? (
                     <img
@@ -147,7 +99,7 @@ export default function Blog() {
                       Leer artículo <ArrowRight className="w-4 h-4" />
                     </div>
                   </div>
-                </article>
+                </a>
               ))}
             </div>
           )}

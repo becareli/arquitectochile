@@ -130,7 +130,8 @@ function insertRenderedApp(template, renderedHtml, route) {
 
 async function main() {
   const template = await readFile(templatePath, "utf8");
-  const { render } = await import(pathToFileURL(serverEntryPath).href);
+  const { render, blogSlugs = [] } = await import(pathToFileURL(serverEntryPath).href);
+  prerenderRoutes.push(...blogSlugs.map((slug) => `/blog/${slug}`));
   const sitemapEntries = [];
   const spaShell = applyPageHead(
     template,

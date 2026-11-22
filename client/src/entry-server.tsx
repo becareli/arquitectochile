@@ -21,3 +21,5 @@ export function render(url: string) {
     helmet: helmetContext,
   };
 }
+
+export { blogSlugs } from "./lib/blog";
