@@ -3,10 +3,10 @@ BG="#1E4E86"; INK="#FFFFFF"; THIN="rgba(255,255,255,0.28)"; MID="rgba(255,255,25
 def base(body, accent):
     return f'''<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
 <defs><filter id="hand"><feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="2" seed="4"/><feDisplacementMap in="SourceGraphic" scale="3"/></filter>
-<pattern id="g" width="30" height="30" patternUnits="userSpaceOnUse"><path d="M30 0H0V30" fill="none" stroke="{THIN}" stroke-width="1"/></pattern></defs>
-<rect width="1200" height="630" fill="{BG}"/><rect width="1200" height="630" fill="url(#g)"/>
+<clipPath id="r"><rect width="1200" height="630" rx="32" ry="32"/></clipPath><pattern id="g" width="30" height="30" patternUnits="userSpaceOnUse"><path d="M30 0H0V30" fill="none" stroke="{THIN}" stroke-width="1"/></pattern></defs>
+<g clip-path="url(#r)"><rect width="1200" height="630" fill="{BG}"/><rect width="1200" height="630" fill="url(#g)"/>
 <g transform="translate(1080 110)"><circle r="26" fill="none" stroke="{INK}" stroke-width="1.5"/><path d="M0 -34 L9 8 L0 2 L-9 8 Z" fill="{INK}"/></g>
-<g filter="url(#hand)">{body}</g>{accent}</svg>'''
+<g filter="url(#hand)">{body}</g>{accent}</g></svg>'''
 def axes(ys,xs):
     return "".join(f'<line x1="120" y1="{y}" x2="1080" y2="{y}" stroke="{MID}" stroke-width="1.2" stroke-dasharray="14 6 2 6"/>' for y in ys)+"".join(f'<line x1="{x}" y1="120" x2="{x}" y2="580" stroke="{MID}" stroke-width="1.2" stroke-dasharray="14 6 2 6"/>' for x in xs)
 def ground(x1,x2):

@@ -80,11 +80,13 @@ function Article({ post }: { post: NonNullable<ReturnType<typeof getPost>> }) {
 
       {/* Cover image */}
       {post.imageUrl && (
-        <div className="w-full bg-gray-50 flex items-center justify-center">
+        <div className="w-full bg-gray-50 flex items-center justify-center px-4 py-8">
           <img
             src={post.imageUrl}
             alt={post.imageAlt}
-            className="w-full max-w-4xl mx-auto object-contain"
+            width={1200}
+            height={630}
+            className="w-full max-w-4xl mx-auto h-auto rounded-2xl object-contain"
           />
         </div>
       )}

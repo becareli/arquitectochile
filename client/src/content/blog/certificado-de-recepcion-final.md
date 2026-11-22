@@ -1,18 +1,18 @@
 ---
-title: "Certificado de recepción final: qué es, para qué sirve y dónde se obtiene"
-seoTitle: "Certificado de recepción final: qué es y dónde obtenerlo"
-description: "Qué es el certificado de recepción final, por qué se lo piden la notaría y el banco, y cómo obtener una copia en la DOM. Explicado por un arquitecto."
+title: "Certificado de Recepción Final: qué es, para qué sirve y dónde se obtiene"
+seoTitle: "Certificado de Recepción Final: qué es y dónde obtenerlo"
+description: "Qué es el certificado de Recepción Final, por qué se lo piden la notaría y el banco, y cómo obtener una copia en la DOM. Explicado por un arquitecto."
 date: 2026-11-22
 author: "Patricio Becar, arquitecto"
-category: "Recepción final"
+category: "Recepción Final"
 cta: "/permiso-edificacion-recepcion-final"
 image: "/blog/certificado-de-recepcion-final.png"
-imageAlt: "Plano de elevación de una casa junto al certificado de recepción final con timbre de aprobación de la DOM"
+imageAlt: "Plano de elevación de una casa junto al certificado de Recepción Final con timbre de aprobación de la DOM"
 ---
 
 *Por Patricio Becar, arquitecto. Llevo 25 años entrando y saliendo de Direcciones de Obras, y esta es una de las preguntas que más me hacen.*
 
-Le pasa a mucha gente. Está a punto de vender su casa, o el banco ya le aprobó el crédito, y de repente alguien le dice: *"falta el certificado de recepción final"*. Y usted se queda pensando: ¿el qué? ¿No bastaba con la escritura?
+Le pasa a mucha gente. Está a punto de vender su casa, o el banco ya le aprobó el crédito, y de repente alguien le dice: *"falta el certificado de Recepción Final"*. Y usted se queda pensando: ¿el qué? ¿No bastaba con la escritura?
 
 Tranquilo. Le explico qué es, por qué se lo piden y cómo conseguirlo. Y también le cuento lo que casi nadie dice: muchas veces el problema no es el papel, sino lo que se construyó después.
 
@@ -20,7 +20,7 @@ Tranquilo. Le explico qué es, por qué se lo piden y cómo conseguirlo. Y tambi
 
 Es el documento con el que la **Dirección de Obras Municipales (DOM)** dice: *"esta construcción está terminada y corresponde a lo que se aprobó"*. En la ley se llama **recepción definitiva** (artículo 144 de la Ley General de Urbanismo y Construcciones).
 
-Piénselo así: el **permiso de edificación** es la autorización para empezar a construir; la **recepción final** es el visto bueno cuando la obra termina. Uno sin el otro queda a medio camino.
+Piénselo así: el **permiso de edificación** es la autorización para empezar a construir; la **Recepción Final** es el visto bueno cuando la obra termina. Uno sin el otro queda a medio camino.
 
 ## ¿Por qué todos se lo piden?
 
@@ -43,7 +43,7 @@ En algunas comunas también se puede pedir por **DOM en Línea** (domenlinea.min
 
 Aquí es donde se complica, y lo veo seguido. Usted va por la copia y en la DOM descubre que se recibió una casa de 80 m², pero la suya hoy tiene un segundo piso, un quincho techado o la logia cerrada que hizo el dueño anterior. Para los papeles, eso no existe.
 
-Entonces el trámite cambia por completo. Ya no se trata de pedir una copia, sino de **regularizar lo construido**: un permiso de ampliación, una modificación del permiso o una regularización (para viviendas existe un camino simplificado, la Ley 20.898). Recién después de eso viene la recepción final de lo nuevo.
+Entonces el trámite cambia por completo. Ya no se trata de pedir una copia, sino de **regularizar lo construido**: un permiso de ampliación, una modificación del permiso o una regularización (para viviendas existe un camino simplificado, la Ley 20.898). Recién después de eso viene la Recepción Final de lo nuevo.
 
 Es un trámite más largo, no le voy a mentir. Pero tiene solución, y es mucho mejor enterarse ahora que el día que está sentado en la notaría. Le explico las opciones en [regularización de viviendas](/regularizacion-inmuebles).
 

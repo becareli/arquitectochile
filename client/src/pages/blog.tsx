@@ -76,11 +76,16 @@ export default function Blog() {
                   className="block bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow group"
                 >
                   {post.imageUrl ? (
-                    <img
-                      src={post.imageUrl}
-                      alt={post.imageAlt}
-                      className="w-full h-52 object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
+                    <div className="p-3 pb-0">
+                      <img
+                        src={post.imageUrl}
+                        alt={post.imageAlt}
+                        width={1200}
+                        height={630}
+                        loading="lazy"
+                        className="w-full h-auto aspect-[1200/630] rounded-2xl object-contain group-hover:scale-[1.02] transition-transform duration-300"
+                      />
+                    </div>
                   ) : (
                     <div className="w-full h-52 bg-gradient-to-br from-[#0f172a] to-[#1e3a5f] flex items-center justify-center">
                       <span className="text-5xl">🏗️</span>
