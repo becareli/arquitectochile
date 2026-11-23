@@ -98,6 +98,7 @@ export default function Footer() {
               <li><a href="/aviso-legal" className="text-sm text-gray-400 hover:text-white transition-colors">Aviso Legal</a></li>
               <li><a href="/politica-privacidad" className="text-sm text-gray-400 hover:text-white transition-colors">Política de Privacidad</a></li>
               <li><a href="/politica-cookies" className="text-sm text-gray-400 hover:text-white transition-colors">Cookies</a></li>
+              <li><button type="button" onClick={() => window.dispatchEvent(new Event("open-cookie-settings"))} className="text-sm text-gray-400 hover:text-white transition-colors">Preferencias de cookies</button></li>
             </ul>
           </div>
 

@@ -1,11 +1,9 @@
 import { useState, useEffect } from "react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { X, Settings, Cookie } from "lucide-react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
-import { Switch } from "@/components/ui/switch";
-import { Label } from "@/components/ui/label";
 import { CONSENT_EVENT } from "@/lib/analytics";
+
+// El sitio solo usa cookies necesarias y Google Analytics (medición).
+// No hay píxel de Meta ni Google Ads instalados: si se agregan, sumar su categoría aquí.
+export const OPEN_COOKIE_SETTINGS_EVENT = "open-cookie-settings";
 
 interface CookiePreferences {
   necessary: boolean;
@@ -14,241 +12,82 @@ interface CookiePreferences {
   preferences: boolean;
 }
 
-const defaultPreferences: CookiePreferences = {
-  necessary: true, // Always required
-  analytics: false,
-  marketing: false,
-  preferences: false,
-};
+const REJECTED: CookiePreferences = { necessary: true, analytics: false, marketing: false, preferences: false };
+const ACCEPTED: CookiePreferences = { necessary: true, analytics: true, marketing: false, preferences: false };
+
+const btn = "h-10 px-4 rounded-lg text-sm font-semibold transition-colors";
 
 export default function CookieConsent() {
-  const [showBanner, setShowBanner] = useState(false);
-  const [showSettings, setShowSettings] = useState(false);
-  const [preferences, setPreferences] = useState<CookiePreferences>(defaultPreferences);
+  const [open, setOpen] = useState(false);
+  const [analytics, setAnalytics] = useState(false);
 
   useEffect(() => {
-    // Check if user has already made a choice
-    const cookieConsent = localStorage.getItem('cookieConsent');
-    if (!cookieConsent) {
-      // Show banner after a short delay
-      const timer = setTimeout(() => {
-        setShowBanner(true);
-      }, 2000);
-      return () => clearTimeout(timer);
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    const saved = localStorage.getItem("cookieConsent");
+    if (!saved) {
+      timer = setTimeout(() => setOpen(true), 1500);
     } else {
-      // Load saved preferences
-      try {
-        const savedPreferences = JSON.parse(cookieConsent);
-        setPreferences(savedPreferences);
-      } catch {
-        // If parsing fails, use defaults
-        setPreferences(defaultPreferences);
-      }
+      try { setAnalytics(!!JSON.parse(saved).analytics); } catch { /* usa valores por defecto */ }
     }
+    const reopen = () => setOpen(true);
+    window.addEventListener(OPEN_COOKIE_SETTINGS_EVENT, reopen);
+    return () => {
+      if (timer) clearTimeout(timer);
+      window.removeEventListener(OPEN_COOKIE_SETTINGS_EVENT, reopen);
+    };
   }, []);
 
-  const acceptAll = () => {
-    const allAccepted: CookiePreferences = {
-      necessary: true,
-      analytics: true,
-      marketing: true,
-      preferences: true,
-    };
-    setPreferences(allAccepted);
-    localStorage.setItem('cookieConsent', JSON.stringify(allAccepted));
+  const save = (prefs: CookiePreferences) => {
+    localStorage.setItem("cookieConsent", JSON.stringify(prefs));
     window.dispatchEvent(new Event(CONSENT_EVENT));
-    setShowBanner(false);
-    setShowSettings(false);
+    setAnalytics(prefs.analytics);
+    setOpen(false);
   };
 
-  const acceptNecessaryOnly = () => {
-    localStorage.setItem('cookieConsent', JSON.stringify(defaultPreferences));
-    window.dispatchEvent(new Event(CONSENT_EVENT));
-    setPreferences(defaultPreferences);
-    setShowBanner(false);
-    setShowSettings(false);
-  };
-
-  const saveCustomPreferences = () => {
-    localStorage.setItem('cookieConsent', JSON.stringify(preferences));
-    window.dispatchEvent(new Event(CONSENT_EVENT));
-    setShowBanner(false);
-    setShowSettings(false);
-  };
-
-  const openSettings = () => {
-    setShowSettings(true);
-  };
-
-  const updatePreference = (key: keyof CookiePreferences, value: boolean) => {
-    if (key === 'necessary') return; // Necessary cookies cannot be disabled
-    setPreferences(prev => ({
-      ...prev,
-      [key]: value
-    }));
-  };
-
-  if (!showBanner) return null;
+  if (!open) return null;
 
   return (
-    <>
-      {/* Cookie Banner */}
-      <div className="fixed bottom-0 left-0 right-0 z-50 p-2">
-        <div className="bg-white border-t shadow-lg">
-          <div className="max-w-7xl mx-auto px-4 py-3">
-            <div className="flex items-center justify-between gap-4">
-              <div className="flex items-center gap-3 flex-1">
-                <Cookie className="h-4 w-4 text-primary flex-shrink-0" />
-                <p className="text-sm text-gray-700">
-                  Utilizamos cookies para mejorar su experiencia. 
-                  <a href="/politica-cookies" className="text-primary hover:underline ml-1">
-                    Más información
-                  </a>
-                </p>
-              </div>
-              
-              <div className="flex items-center gap-2">
-                <Button 
-                  onClick={acceptAll} 
-                  size="sm"
-                  className="bg-primary text-white hover:bg-primary/90 text-xs px-3 py-1"
-                >
-                  Aceptar Todas
-                </Button>
-                <Button 
-                  onClick={openSettings} 
-                  variant="outline" 
-                  size="sm"
-                  className="text-xs px-3 py-1"
-                >
-                  Personalizar
-                </Button>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={acceptNecessaryOnly}
-                  className="p-1"
-                >
-                  <X className="h-4 w-4" />
-                </Button>
-              </div>
-            </div>
-          </div>
+    <div
+      role="dialog"
+      aria-label="Aviso de cookies"
+      className="fixed inset-x-0 bottom-0 z-[60] p-3 sm:p-4 pointer-events-none"
+    >
+      <div className="pointer-events-auto mx-auto max-w-3xl rounded-2xl border border-[#E3E8EE] bg-white p-4 sm:p-5 shadow-2xl text-left">
+        <p className="text-sm leading-relaxed text-[#263238]">
+          Usamos cookies necesarias para que el sitio funcione y, solo si usted lo permite, Google Analytics para
+          saber qué páginas se visitan y mejorar el sitio. No usamos cookies de publicidad.{" "}
+          <a href="/politica-cookies" className="underline text-[#C2410C]">Más información</a>
+        </p>
+        <label className="mt-3 flex items-center gap-2 text-sm text-[#263238]">
+          <input
+            type="checkbox"
+            checked={analytics}
+            onChange={(e) => setAnalytics(e.target.checked)}
+            className="h-4 w-4 accent-[#F97015]"
+          />
+          Permitir cookies de medición (Google Analytics)
+        </label>
+        <div className="mt-4 flex flex-col sm:flex-row gap-2">
+          <button
+            onClick={() => save(ACCEPTED)}
+            className={`${btn} bg-[#F97015] text-[#1D2530] hover:bg-[#e8630d]`}
+          >
+            Aceptar
+          </button>
+          <button
+            onClick={() => save(REJECTED)}
+            className={`${btn} border border-[#1D2530] text-[#1D2530] bg-white hover:bg-[#F4F7FA]`}
+          >
+            Rechazar
+          </button>
+          <button
+            onClick={() => save({ ...REJECTED, analytics })}
+            className={`${btn} text-[#1D2530] hover:bg-[#F4F7FA] sm:ml-auto`}
+          >
+            Guardar mi elección
+          </button>
         </div>
       </div>
-
-      {/* Cookie Settings Dialog */}
-      <Dialog open={showSettings} onOpenChange={setShowSettings}>
-        <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
-          <DialogHeader>
-            <DialogTitle className="flex items-center gap-2">
-              <Settings className="h-5 w-5" />
-              Configuración de Cookies
-            </DialogTitle>
-            <DialogDescription>
-              Personalice qué tipos de cookies desea permitir. Las cookies necesarias no se pueden desactivar.
-            </DialogDescription>
-          </DialogHeader>
-          
-          <div className="space-y-6 py-4">
-            {/* Necessary Cookies */}
-            <div className="space-y-3">
-              <div className="flex items-center justify-between">
-                <div className="space-y-1">
-                  <Label className="text-base font-medium">Cookies Necesarias</Label>
-                  <p className="text-sm text-gray-600">
-                    Estas cookies son esenciales para el funcionamiento básico del sitio web y no se pueden desactivar.
-                  </p>
-                </div>
-                <Switch 
-                  checked={preferences.necessary} 
-                  disabled={true}
-                  className="opacity-50"
-                />
-              </div>
-              <div className="text-xs text-gray-500 bg-gray-50 p-3 rounded">
-                <strong>Incluye:</strong> Gestión de sesiones, configuración de idioma, funcionalidad de formularios
-              </div>
-            </div>
-
-            {/* Analytics Cookies */}
-            <div className="space-y-3">
-              <div className="flex items-center justify-between">
-                <div className="space-y-1">
-                  <Label className="text-base font-medium">Cookies Analíticas</Label>
-                  <p className="text-sm text-gray-600">
-                    Nos ayudan a entender cómo los visitantes interactúan con nuestro sitio web.
-                  </p>
-                </div>
-                <Switch 
-                  checked={preferences.analytics}
-                  onCheckedChange={(checked) => updatePreference('analytics', checked)}
-                />
-              </div>
-              <div className="text-xs text-gray-500 bg-gray-50 p-3 rounded">
-                <strong>Incluye:</strong> Google Analytics, estadísticas de uso, rendimiento del sitio
-              </div>
-            </div>
-
-            {/* Marketing Cookies */}
-            <div className="space-y-3">
-              <div className="flex items-center justify-between">
-                <div className="space-y-1">
-                  <Label className="text-base font-medium">Cookies de Marketing</Label>
-                  <p className="text-sm text-gray-600">
-                    Se utilizan para mostrar anuncios relevantes y medir la efectividad de las campañas.
-                  </p>
-                </div>
-                <Switch 
-                  checked={preferences.marketing}
-                  onCheckedChange={(checked) => updatePreference('marketing', checked)}
-                />
-              </div>
-              <div className="text-xs text-gray-500 bg-gray-50 p-3 rounded">
-                <strong>Incluye:</strong> Facebook Pixel, Google Ads, remarketing
-              </div>
-            </div>
-
-            {/* Preference Cookies */}
-            <div className="space-y-3">
-              <div className="flex items-center justify-between">
-                <div className="space-y-1">
-                  <Label className="text-base font-medium">Cookies de Preferencias</Label>
-                  <p className="text-sm text-gray-600">
-                    Permiten recordar sus configuraciones y personalizar su experiencia.
-                  </p>
-                </div>
-                <Switch 
-                  checked={preferences.preferences}
-                  onCheckedChange={(checked) => updatePreference('preferences', checked)}
-                />
-              </div>
-              <div className="text-xs text-gray-500 bg-gray-50 p-3 rounded">
-                <strong>Incluye:</strong> Preferencias de visualización, configuraciones personalizadas, ubicación
-              </div>
-            </div>
-          </div>
-          
-          <div className="flex flex-col sm:flex-row gap-3 pt-4 border-t">
-            <Button onClick={acceptAll} className="flex-1">
-              Aceptar Todas
-            </Button>
-            <Button onClick={saveCustomPreferences} variant="outline" className="flex-1">
-              Guardar Configuración
-            </Button>
-            <Button onClick={acceptNecessaryOnly} variant="outline" className="flex-1">
-              Solo Necesarias
-            </Button>
-          </div>
-          
-          <div className="text-xs text-gray-500 text-center pt-2">
-            Puede cambiar estas configuraciones en cualquier momento visitando nuestra{" "}
-            <a href="/politica-cookies" className="text-primary hover:underline">
-              Política de Cookies
-            </a>.
-          </div>
-        </DialogContent>
-      </Dialog>
-    </>
+    </div>
   );
 }
