@@ -57,6 +57,7 @@ function MobileDrawer({
   if (!isOpen) return null;
 
   const drawerItems = [
+    { label: "Calculadoras", href: "/calculadora-costos", icon: Calculator },
     { label: "Blog", href: "/blog", icon: PlayCircle },
     { label: "Revista Técnica", href: "/revista", icon: PlayCircle },
     { label: "Casos de Éxito", href: "/casos-de-exito", icon: Star },
@@ -174,8 +175,8 @@ export default function Navigation() {
 
             {/* Logo + Brand */}
             <button onClick={navigateToHome} className="flex items-center gap-2 lg:gap-4 hover:opacity-80 transition-opacity flex-shrink-0 min-w-0">
-              <img src={logoImg} alt="ArquitectoChile" className="h-[58px] sm:h-[68px] lg:h-[86px] w-auto flex-shrink-0" />
-              <span className="inline lg:hidden text-sm sm:text-base font-bold text-[#0f172a] whitespace-nowrap tracking-tight">ArquitectoChile<span className="text-gray-400">.com</span></span>
+              <img src={logoImg} alt="ArquitectoChile" className="h-[44px] sm:h-[60px] lg:h-[86px] w-auto flex-shrink-0" />
+              <span className="hidden sm:inline lg:hidden text-sm sm:text-base font-bold text-[#0f172a] whitespace-nowrap tracking-tight">ArquitectoChile<span className="text-gray-400">.com</span></span>
               <span className="hidden lg:inline text-lg font-semibold whitespace-nowrap">
                 <span className="text-[#0f172a]">ArquitectoChile</span>
                 <span className="text-gray-400">.com</span>
@@ -239,7 +240,7 @@ export default function Navigation() {
               {/* Calculadoras - always visible */}
               <button
                 onClick={() => navigateToService('/calculadora-costos')}
-                className="text-base lg:text-lg font-bold lg:font-semibold text-[#0f172a] lg:text-gray-600 hover:text-[#f97316] lg:hover:text-[#0f172a] transition-colors whitespace-nowrap py-2 lg:px-0"
+                className="hidden sm:block text-base lg:text-lg font-bold lg:font-semibold text-[#0f172a] lg:text-gray-600 hover:text-[#f97316] lg:hover:text-[#0f172a] transition-colors whitespace-nowrap py-2 lg:px-0"
               >
                 Calculadoras
               </button>

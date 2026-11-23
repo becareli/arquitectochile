@@ -38,6 +38,11 @@ import ObrasMenoresEmpresas from "@/pages/obras-menores-empresas";
 import CasosDeExito from "@/pages/casos-de-exito";
 import NotFound from "@/pages/not-found";
 import CookieConsent from "@/components/cookie-consent";
+import FloatingContact from "@/components/floating-contact";
+import { initAnalytics } from "@/lib/analytics";
+
+// Medición: se activa solo en el navegador y solo con permiso de cookies.
+if (typeof window !== "undefined") initAnalytics();
 import AdminGate from "@/components/AdminGate";
 import FormPage from "@/pages/formulario-page";
 import Blog from "@/pages/blog";
@@ -168,6 +173,7 @@ function App() {
         <Toaster />
         <RouteMetadata />
         <Router />
+        <FloatingContact />
         <CookieConsent />
       </TooltipProvider>
     </QueryClientProvider>

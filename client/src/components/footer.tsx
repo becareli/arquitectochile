@@ -1,4 +1,4 @@
-import { Mail, MapPin, ArrowRight, MessageCircle } from "lucide-react";
+import { Mail, MapPin, ArrowRight, MessageCircle, Phone } from "lucide-react";
 import logoImg from "@assets/ArquitectoChile.com_Logo_1771886286621.webp";
 
 export default function Footer() {
@@ -121,6 +121,13 @@ export default function Footer() {
               >
                 <MessageCircle className="w-3.5 h-3.5" strokeWidth={1.5} />
                 WhatsApp +56 9 7931 6827
+              </a>
+              <a
+                href="tel:+56979316827"
+                className="flex items-center gap-2 text-sm text-gray-400 hover:text-white transition-colors"
+              >
+                <Phone className="w-3.5 h-3.5" strokeWidth={1.5} />
+                Llamar +56 9 7931 6827
               </a>
               <div className="text-sm text-gray-500 leading-relaxed">
                 <div className="flex items-start gap-2">

@@ -5,6 +5,7 @@ import { X, Settings, Cookie } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
+import { CONSENT_EVENT } from "@/lib/analytics";
 
 interface CookiePreferences {
   necessary: boolean;
@@ -55,12 +56,14 @@ export default function CookieConsent() {
     };
     setPreferences(allAccepted);
     localStorage.setItem('cookieConsent', JSON.stringify(allAccepted));
+    window.dispatchEvent(new Event(CONSENT_EVENT));
     setShowBanner(false);
     setShowSettings(false);
   };
 
   const acceptNecessaryOnly = () => {
     localStorage.setItem('cookieConsent', JSON.stringify(defaultPreferences));
+    window.dispatchEvent(new Event(CONSENT_EVENT));
     setPreferences(defaultPreferences);
     setShowBanner(false);
     setShowSettings(false);
@@ -68,6 +71,7 @@ export default function CookieConsent() {
 
   const saveCustomPreferences = () => {
     localStorage.setItem('cookieConsent', JSON.stringify(preferences));
+    window.dispatchEvent(new Event(CONSENT_EVENT));
     setShowBanner(false);
     setShowSettings(false);
   };
