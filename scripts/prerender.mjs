@@ -71,7 +71,7 @@ function applyPageHead(template, pageHead, route) {
   const title = pageHead?.title || "ArquitectoChile | Arquitectura en Santiago";
   const description =
     pageHead?.description ||
-    "Arquitecto con 25 años de experiencia. Diseño, permisos, regularizaciones y revisión independiente en Santiago.";
+    "Arquitecto con 27 años de experiencia. Diseño, permisos, regularizaciones y revisión independiente en Santiago.";
   const canonical = `${siteUrl}${route === "/" ? "" : route}`;
   const robots = pageHead?.noindex ? "noindex, nofollow" : "index, follow";
 
@@ -133,12 +133,13 @@ async function main() {
   const { render, blogSlugs = [] } = await import(pathToFileURL(serverEntryPath).href);
   prerenderRoutes.push(...blogSlugs.map((slug) => `/blog/${slug}`));
   const sitemapEntries = [];
+  const llmsEntries = [];
   const spaShell = applyPageHead(
     template,
     {
       title: "ArquitectoChile | Arquitectura, permisos y regularización en Santiago",
       description:
-        "Arquitecto con 25 años de experiencia. Diseño, permisos, regularizaciones y revisión independiente en Santiago.",
+        "Arquitecto con 27 años de experiencia. Diseño, permisos, regularizaciones y revisión independiente en Santiago.",
       path: "/",
     },
     "/",
@@ -159,6 +160,7 @@ async function main() {
     await mkdir(path.dirname(outputPath), { recursive: true });
     await writeFile(outputPath, html);
 
+    llmsEntries.push({ route, title: pageHead?.title, description: pageHead?.description });
     sitemapEntries.push(
       `  <url>\n    <loc>${siteUrl}${route === "/" ? "" : route}</loc>\n    <lastmod>${buildDate}</lastmod>\n  </url>`,
     );
@@ -189,6 +191,30 @@ async function main() {
   ].join("\n");
   await writeFile(path.join(publicDir, "sitemap.xml"), sitemap);
   console.log(`Generated ${path.relative(root, path.join(publicDir, "sitemap.xml"))} (${buildDate})`);
+
+  // llms.txt: mapa del sitio para asistentes de IA (ChatGPT, Claude, Perplexity, Gemini)
+  const clean = (t = "") => String(t).replace(/\s*\|\s*ArquitectoChile.*$/i, "").trim();
+  const line = (e) => `- [${clean(e.title) || e.route}](${siteUrl}${e.route === "/" ? "" : e.route})${e.description ? `: ${e.description}` : ""}`;
+  const blog = llmsEntries.filter((e) => e.route.startsWith("/blog/"));
+  const pages = llmsEntries.filter((e) => !e.route.startsWith("/blog/") && e.route !== "/blog");
+  const llms = [
+    "# ArquitectoChile.com",
+    "",
+    "> Oficina de arquitectura de Patricio Becar Elissegaray, arquitecto de la Universidad de Chile (1999), con 27 años de experiencia y Revisor Independiente de Arquitectura inscrito en el Registro MINVU. Trabajó en las Direcciones de Obras de Peñalolén, Santiago y La Florida. Especialista en Permiso de Edificación, Recepción Final, Regularización de viviendas, fusión de terrenos y revisión independiente en Santiago de Chile.",
+    "",
+    "## Servicios",
+    ...pages.map(line),
+    "",
+    "## Guías del blog",
+    ...blog.map(line),
+    "",
+    "## Contacto",
+    `- Sitio: ${siteUrl}`,
+    "- Correo: contacto@arquitectochile.com",
+    "",
+  ].join("\n");
+  await writeFile(path.join(publicDir, "llms.txt"), llms);
+  console.log("Generated llms.txt");
 }
 
 main().catch((error) => {

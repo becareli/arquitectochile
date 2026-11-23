@@ -7,4 +7,19 @@ Disallow: /portal-cliente/login
 Disallow: /portal-cliente/demo
 Disallow: /api/
 
+# Asistentes de IA: bienvenidos a leer el contenido público
+User-agent: GPTBot
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: ClaudeBot
+User-agent: Claude-SearchBot
+User-agent: PerplexityBot
+User-agent: Google-Extended
+User-agent: Applebot-Extended
+Allow: /
+Disallow: /admin
+Disallow: /crm
+Disallow: /portal-cliente/
+Disallow: /api/
+
 Sitemap: https://arquitectochile.com/sitemap.xml
