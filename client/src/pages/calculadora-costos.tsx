@@ -1,3 +1,4 @@
+import { trackEvent } from "@/lib/analytics";
 import { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -217,14 +218,24 @@ export default function CalculadoraCostos() {
 
   const submitLeadMutation = useMutation({
     mutationFn: async (leadData: InsertCalculatorLead) => {
-      const response = await fetch('/api/leads/calculator', {
+      // Envía la solicitud al mismo cartero que el formulario de /contacto (api/contacto.js).
+      const resumen = result
+        ? `Calculó ${area} m², tipo "${constructionType}", terminación "${finishLevel}": costo estimado ${new Intl.NumberFormat('es-CL', { style: 'currency', currency: 'CLP', maximumFractionDigits: 0 }).format(result.totalCost)}.`
+        : '';
+      const response = await fetch('/api/contacto', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-csrf-token': document.cookie.split('; ').find(r => r.startsWith('csrf-token='))?.split('=')[1] ?? '',
-        },
-        credentials: 'include',
-        body: JSON.stringify(leadData),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          origen: 'calculadora',
+          tipo: leadData.projectType,
+          direccion: `${leadData.calle} ${leadData.numero}`.trim(),
+          comuna: leadData.comuna,
+          presupuesto: leadData.budget,
+          necesidad: `Pidió presupuesto detallado desde la calculadora de costos. ${resumen}`,
+          nombre: leadData.name,
+          correo: leadData.email,
+          telefono: leadData.phone ?? '',
+        }),
       });
       
       if (!response.ok) {
@@ -236,8 +247,9 @@ export default function CalculadoraCostos() {
     onSuccess: (data) => {
       toast({
         title: "¡Solicitud enviada!",
-        description: data.message || "Te contactaremos pronto con tu presupuesto detallado",
+        description: "Te contactaremos pronto con tu presupuesto detallado",
       });
+      trackEvent("generate_lead", { formulario: "calculadora" });
       setIsSubmitted(true);
       setShowLeadForm(false);
     },

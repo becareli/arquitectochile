@@ -16,11 +16,14 @@ const CAMPOS = [
   ["urgencia", "Urgencia"],
   ["presupuesto", "Presupuesto"],
   ["cip", "¿Tiene CIP?"],
+  ["rol", "Rol SII"],
   ["nombre", "Nombre"],
   ["correo", "Correo"],
   ["telefono", "Teléfono / WhatsApp"],
 ];
-const OBLIGATORIOS = ["area", "tipo", "direccion", "comuna", "necesidad", "urgencia", "nombre", "correo", "telefono"];
+// Mínimo común a todos los formularios del sitio (contacto, calculadora y asistente de la portada).
+const OBLIGATORIOS = ["nombre", "correo", "necesidad"];
+const ORIGENES = { contacto: "Contacto", calculadora: "Calculadora", asistente: "Asistente portada" };
 
 const limpiar = (v) => String(v ?? "").trim().slice(0, 3000);
 const esc = (s) => s.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
@@ -49,6 +52,15 @@ export default async function handler(req, res) {
         .map((a) => ({ nombre: limpiar(a.nombre).slice(0, 200), url: a.url }))
     : [];
   const fallaron = Number(body.adjuntosFallaron) || 0;
+  const origen = ORIGENES[body.origen] || ORIGENES.contacto;
+
+  // Audio opcional del asistente de la portada (base64). Se adjunta si pesa menos de ~3 MB.
+  const attachments = [];
+  const audio = typeof body.audioBase64 === "string" ? body.audioBase64 : "";
+  if (audio && audio.length < 4_000_000) {
+    const m = audio.match(/^data:(audio\/[\w.+-]+)(?:;[^,]*)?;base64,(.+)$/);
+    attachments.push({ filename: "audio-cliente.webm", content: Buffer.from(m ? m[2] : audio, "base64"), contentType: m ? m[1] : "audio/webm" });
+  }
 
   const filas = CAMPOS.filter(([k]) => d[k])
     .map(([k, etiqueta]) => `<tr><td style="padding:6px 10px;color:#64748b;vertical-align:top">${etiqueta}</td><td style="padding:6px 10px;color:#0f172a">${esc(d[k]).replace(/\n/g, "<br>")}</td></tr>`)
@@ -58,12 +70,13 @@ export default async function handler(req, res) {
     : "";
   const avisoFallo = fallaron ? `<p style="color:#c2410c">El cliente intentó adjuntar ${fallaron} archivo(s) pero la subida falló. Pídeselos por WhatsApp.</p>` : "";
   const telLimpio = d.telefono.replace(/[^\d]/g, "");
+  const avisoAudio = attachments.length ? "<p>El cliente grabó un audio: va adjunto.</p>" : "";
 
   const html = `<div style="font-family:Arial,sans-serif;font-size:14px">
-    <h2 style="color:#0f172a">Nueva solicitud desde arquitectochile.com</h2>
+    <h2 style="color:#0f172a">Nueva solicitud desde arquitectochile.com (${origen})</h2>
     <table style="border-collapse:collapse">${filas}</table>
-    ${listaAdjuntos}${avisoFallo}
-    <p><a href="https://wa.me/${telLimpio}">Responder por WhatsApp</a> · Responde a este correo para escribirle a ${esc(d.nombre)}.</p>
+    ${listaAdjuntos}${avisoFallo}${avisoAudio}
+    <p>${telLimpio ? `<a href="https://wa.me/${telLimpio}">Responder por WhatsApp</a> · ` : ""}Responde a este correo para escribirle a ${esc(d.nombre)}.</p>
   </div>`;
 
   const user = process.env.SMTP_USER;
@@ -79,8 +92,9 @@ export default async function handler(req, res) {
       from: `"Web ArquitectoChile" <${user}>`,
       to: process.env.CONTACT_TO || "contacto@arquitectochile.com",
       replyTo: `"${d.nombre.replace(/"/g, "")}" <${d.correo}>`,
-      subject: `Solicitud web: ${d.area} · ${d.comuna}${d.urgencia.startsWith("URGENTE") ? " · URGENTE" : ""}`,
+      subject: `Solicitud web (${origen}): ${d.area || d.tipo || "Consulta"}${d.comuna ? " · " + d.comuna : ""}${d.urgencia.startsWith("URGENTE") ? " · URGENTE" : ""}`,
       html,
+      attachments,
     });
     return res.status(200).json({ ok: true });
   } catch (err) {

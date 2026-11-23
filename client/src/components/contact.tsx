@@ -1,3 +1,4 @@
+import { trackEvent } from "@/lib/analytics";
 import { useState, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Mic, ArrowRight, ChevronRight, Save, Phone, Mail, CalendarDays } from "lucide-react";
@@ -182,14 +183,28 @@ export default function Contact() {
     };
 
     try {
-      const apiBase = "https://d19cfc2b-fbaa-4813-9641-a7bfc43e435e-00-34n9cj6jnjhqh.picard.replit.dev";
-      const res = await fetch(`${apiBase}/api/lead`, {
+      // Antes iba a un servidor de prueba de Replit (apagado). Ahora usa el mismo cartero que /contacto.
+      const res = await fetch("/api/contacto", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
+        body: JSON.stringify({
+          origen: "asistente",
+          area: payload.service || "",
+          tipo: payload.branch === "empresa" ? "Empresa" : payload.branch ? "Particular" : "",
+          direccion: payload.direccion,
+          comuna: payload.comuna,
+          rol: payload.rol,
+          presupuesto: payload.presupuesto,
+          necesidad: payload.mensaje || `Consulta sobre ${payload.service || "servicios de arquitectura"}${payload.audioBase64 ? " (dejó un audio)" : ""}`,
+          nombre: payload.nombre,
+          correo: payload.email,
+          telefono: payload.telefono,
+          ...(payload.audioBase64 ? { audioBase64: payload.audioBase64 } : {}),
+        }),
       });
       if (!res.ok) throw new Error("Error del servidor");
       await res.json();
+      trackEvent("generate_lead", { formulario: "asistente_portada" });
       setSpeechText('<b>Solicitud enviada con exito.</b> Te contactaremos pronto.');
       setStep("thanks");
     } catch {
