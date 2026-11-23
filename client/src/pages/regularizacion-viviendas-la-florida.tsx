@@ -26,7 +26,7 @@ export default function RegularizacionViviendasLaFloridaPage() {
       }
     };
 
-    setMetaTag('description', 'Regularización de viviendas en La Florida bajo Ley del Mono. Especialistas en la DOM de La Florida con 26+ años de experiencia. Gestión profesional integral.');
+    setMetaTag('description', 'Regularización de viviendas en La Florida bajo Ley del Mono. Especialistas en la DOM de La Florida con 27+ años de experiencia. Gestión profesional integral.');
     setMetaTag('og:title', 'Regularización de Viviendas La Florida | Ley del Mono | ArquitectoChile', true);
     setMetaTag('og:description', 'Gestión profesional de Regularización de viviendas en La Florida. Expertos en Ley del Mono y gestión municipal.', true);
   }, []);
@@ -44,7 +44,7 @@ export default function RegularizacionViviendasLaFloridaPage() {
             Regulariza tu Hogar en La Florida con la Ley del Mono
           </h1>
           <p className="text-lg text-gray-300 mb-4 max-w-2xl mx-auto">
-            Gestión profesional integral bajo Ley N° 20.898. Protege tu inversión con respaldo técnico de 26+ años de experiencia.
+            Gestión profesional integral bajo Ley N° 20.898. Protege tu inversión con respaldo técnico de 27+ años de experiencia.
           </p>
           <p className="text-sm font-semibold text-[#f97316] mb-8">
             Especialistas en la DOM de La Florida — Expertos en Ley del Mono y Gestión Municipal
@@ -276,7 +276,7 @@ export default function RegularizacionViviendasLaFloridaPage() {
               Experiencia Comprobada en La Florida
             </h2>
             <p className="text-base text-[#64748b] max-w-2xl mx-auto">
-              El Arquitecto Patricio Becar tiene más de 26 años de experiencia y conoce los procesos de la DOM de La Florida.
+              El Arquitecto Patricio Becar tiene más de 27 años de experiencia y conoce los procesos de la DOM de La Florida.
             </p>
           </div>
 

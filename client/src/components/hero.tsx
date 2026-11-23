@@ -22,7 +22,7 @@ export default function Hero() {
             </h1>
 
             <p className="text-lg mb-8 text-gray-300 leading-relaxed max-w-lg">
-              Más de 26 años de experiencia en arquitectura residencial, gestión normativa municipal y soluciones corporativas.
+              Más de 27 años de experiencia en arquitectura residencial, gestión normativa municipal y soluciones corporativas.
             </p>
 
             <div className="space-y-3 mb-10">

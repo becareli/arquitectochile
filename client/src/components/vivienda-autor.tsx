@@ -63,7 +63,7 @@ export default function ViviendaAutor() {
                   {[
                     { label: "Diagnóstico", value: "$45.000" },
                     { label: "Plazo diseño", value: "30-45 días" },
-                    { label: "Experiencia", value: "26+ años" },
+                    { label: "Experiencia", value: "27+ años" },
                   ].map((stat) => (
                     <div key={stat.label} className="text-center">
                       <p className="text-lg font-bold text-[#0f172a]">{stat.value}</p>

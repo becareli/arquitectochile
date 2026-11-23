@@ -96,7 +96,7 @@ export default function RegularizacionInmuebles() {
                   <div className="flex-shrink-0 w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center">
                     <CheckCircle className="w-5 h-5 text-[#f97316]" />
                   </div>
-                  <span>Experiencia de 26+ años en Regularizaciones</span>
+                  <span>Experiencia de 27+ años en Regularizaciones</span>
                 </div>
                 <div className="flex items-center space-x-3">
                   <div className="flex-shrink-0 w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center">

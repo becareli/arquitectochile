@@ -106,7 +106,7 @@ export default function PermisoEdificacionRecepcionFinal() {
                 <Award className="text-[#f97316]" size={40} />
                 <div>
                   <p className="font-bold text-lg">Certificación MINVU ROL 00237-13</p>
-                  <p className="text-sm text-gray-300">26+ años experiencia | 150+ proyectos aprobados</p>
+                  <p className="text-sm text-gray-300">27+ años experiencia | 150+ proyectos aprobados</p>
                 </div>
               </div>
             </div>
@@ -398,7 +398,7 @@ export default function PermisoEdificacionRecepcionFinal() {
                   <CheckCircle className="text-[#f97316] flex-shrink-0 mt-1" size={28} />
                   <div>
                     <h4 className="font-bold text-xl mb-2">Cumplimiento Normativo Total</h4>
-                    <p className="text-gray-700">26+ años experiencia Universidad de Chile. Conocemos TODAS las normas y exigencias municipales.</p>
+                    <p className="text-gray-700">27+ años experiencia Universidad de Chile. Conocemos TODAS las normas y exigencias municipales.</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
@@ -478,7 +478,7 @@ export default function PermisoEdificacionRecepcionFinal() {
             Legalice Su Construcción con Total Tranquilidad
           </h2>
           <p className="text-2xl text-gray-600 mb-12">
-            <strong>ArquitectoChile.com</strong> - 26+ años legalizando construcciones exitosamente
+            <strong>ArquitectoChile.com</strong> - 27+ años legalizando construcciones exitosamente
           </p>
 
           <div className="bg-[#0f172a] text-white rounded-xl p-10 mb-8">

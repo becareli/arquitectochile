@@ -20,7 +20,7 @@ export default function AboutArchitect() {
                 </div>
                 <div>
                   <blockquote className="text-lg text-gray-700 italic mb-4">
-                    "Con más de 25 años de experiencia como Arquitecto MBA y Revisor Independiente de 
+                    "Con más de 27 años de experiencia como Arquitecto MBA y Revisor Independiente de 
                     Arquitectura acreditado por el MINVU (3° Categoría), he desarrollado una visión 
                     integral de la industria de la construcción. Mi objetivo es ofrecer un enfoque de 
                     revisión exhaustivo y eficiente, velando por el cumplimiento normativo y la 
@@ -58,7 +58,7 @@ export default function AboutArchitect() {
             
             <h3 className="text-2xl font-bold text-dark mb-2">Patricio Eduardo Becar Elissegaray</h3>
             <p className="text-lg text-gray-600 mb-2">Arquitecto Revisor Independiente de Arquitectura</p>
-            <p className="text-sm text-gray-500 mb-6">Universidad de Chile desde 1999 • MBA • +25 años de experiencia</p>
+            <p className="text-sm text-gray-500 mb-6">Universidad de Chile desde 1999 • MBA • +27 años de experiencia</p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
               <Button 

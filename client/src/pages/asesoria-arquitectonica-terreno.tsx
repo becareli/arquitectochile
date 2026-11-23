@@ -144,7 +144,7 @@ export default function AsesoriaArquitectonicaTerreno() {
             </div>
             <div className="flex items-center gap-2 text-white/80 text-sm">
               <CheckCircle className="h-4 w-4 text-[#f97316]" />
-              26 años de experiencia
+              27 años de experiencia
             </div>
           </div>
 
@@ -386,7 +386,7 @@ export default function AsesoriaArquitectonicaTerreno() {
                 <h3 className="text-2xl font-bold text-[#0f172a] mb-1">Patricio Becar Elissegaray</h3>
                 <p className="text-[#f97316] font-semibold mb-4">Arquitecto — Universidad de Chile</p>
                 <p className="text-[#64748b] leading-relaxed mb-6">
-                  Con más de 26 años de experiencia en proyectos residenciales a lo largo de Chile, 
+                  Con más de 27 años de experiencia en proyectos residenciales a lo largo de Chile, 
                   me especializo en viviendas familiares, ampliaciones y Regularizaciones. 
                   Mi forma de trabajar es directa y transparente: te digo exactamente lo que es posible, 
                   lo que conviene y lo que se puede mejorar — sin tecnicismos innecesarios.
@@ -396,7 +396,7 @@ export default function AsesoriaArquitectonicaTerreno() {
                   <div className="flex items-start gap-3">
                     <Award className="text-[#f97316] w-5 h-5 flex-shrink-0 mt-0.5" />
                     <div>
-                      <p className="font-semibold text-[#0f172a] text-sm">26+ años</p>
+                      <p className="font-semibold text-[#0f172a] text-sm">27+ años</p>
                       <p className="text-[#64748b] text-xs">de experiencia</p>
                     </div>
                   </div>

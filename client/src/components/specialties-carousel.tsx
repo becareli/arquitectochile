@@ -118,7 +118,7 @@ export default function SpecialtiesCarousel() {
           Ecosistema de Soluciones Técnicas
         </h2>
         <p style={{ fontSize: "1rem", color: "#94a3b8", maxWidth: "36rem", margin: "0 auto" }}>
-          26+ años resolviendo desafíos de arquitectura, normativa y construcción en Chile
+          27+ años resolviendo desafíos de arquitectura, normativa y construcción en Chile
         </p>
       </div>
 

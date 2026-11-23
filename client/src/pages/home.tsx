@@ -41,13 +41,13 @@ export default function HomePage() {
       }
     };
 
-    setMetaTag('description', 'Servicios profesionales de arquitectura en Santiago. Especialista en Regularización de inmuebles, reacondicionamiento térmico, construcción y asesoría a domicilio. Arquitecto Universidad de Chile con 26+ años experiencia.');
+    setMetaTag('description', 'Servicios profesionales de arquitectura en Santiago. Especialista en Regularización de inmuebles, reacondicionamiento térmico, construcción y asesoría a domicilio. Arquitecto Universidad de Chile con 27+ años experiencia.');
     setMetaTag('keywords', 'arquitecto santiago chile, servicios arquitectura, Regularización inmuebles, reacondicionamiento térmico, construcción casa, asesoría domicilio, patricio becar, universidad chile');
     setMetaTag('author', 'Patricio Becar Elissegaray - Arquitecto Universidad de Chile');
     setMetaTag('robots', 'index, follow');
 
     setMetaTag('og:title', 'ArquitectoChile.com | Arquitecto Especialista en Santiago - Patricio Becar', true);
-    setMetaTag('og:description', 'Servicios profesionales de arquitectura: Regularización de inmuebles, reacondicionamiento térmico, construcción y más. 26+ años de experiencia Universidad de Chile.', true);
+    setMetaTag('og:description', 'Servicios profesionales de arquitectura: Regularización de inmuebles, reacondicionamiento térmico, construcción y más. 27+ años de experiencia Universidad de Chile.', true);
     setMetaTag('og:type', 'website', true);
     setMetaTag('og:url', 'https://arquitectochile.com', true);
     setMetaTag('og:site_name', 'ArquitectoChile.com', true);
@@ -55,7 +55,7 @@ export default function HomePage() {
 
     setMetaTag('twitter:card', 'summary_large_image');
     setMetaTag('twitter:title', 'ArquitectoChile.com | Arquitecto Especialista en Santiago');
-    setMetaTag('twitter:description', 'Servicios profesionales de arquitectura en Santiago. Especialista con 26+ años experiencia Universidad de Chile.');
+    setMetaTag('twitter:description', 'Servicios profesionales de arquitectura en Santiago. Especialista con 27+ años experiencia Universidad de Chile.');
   }, []);
 
   const gestionNormativaServices = [

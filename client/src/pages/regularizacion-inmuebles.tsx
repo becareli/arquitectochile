@@ -33,7 +33,7 @@ export default function RegularizacionInmuebles() {
     setMetaTag('description', 'Regularización de inmuebles sin permisos (Ley del Mono). Gestión profesional de Permiso de Edificación y Recepción Final. Especialistas en DOM de La Florida.');
     setMetaTag('keywords', 'Regularización inmuebles, ley del mono chile, permiso edificación, Recepción Final, legalizar construcción');
     setMetaTag('og:title', 'Regularización de Inmuebles - Ley del Mono | ArquitectoChile', true);
-    setMetaTag('og:description', 'Gestión profesional para propiedades sin permisos. Permiso de Edificación y Recepción Final con respaldo de 26+ años de experiencia.', true);
+    setMetaTag('og:description', 'Gestión profesional para propiedades sin permisos. Permiso de Edificación y Recepción Final con respaldo de 27+ años de experiencia.', true);
     setMetaTag('og:type', 'website', true);
 
     const schema = {
@@ -184,7 +184,7 @@ export default function RegularizacionInmuebles() {
               },
               {
                 icon: Clock, title: "Proceso Ágil y Profesional",
-                items: ["26+ años de experiencia en Regularizaciones", "Conocimiento profundo de normativas municipales", "Seguimiento constante del proceso", "Comunicación clara en cada etapa"]
+                items: ["27+ años de experiencia en Regularizaciones", "Conocimiento profundo de normativas municipales", "Seguimiento constante del proceso", "Comunicación clara en cada etapa"]
               },
               {
                 icon: Shield, title: "Respaldo Técnico Profesional",

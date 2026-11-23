@@ -72,7 +72,7 @@ export default function Chatbot() {
     }
     
     if (message.includes('subdivisión') || message.includes('subdivision') || message.includes('dividir terreno') || message.includes('lotes') || message.includes('terreno grande') || message.includes('herencia') || message.includes('múltiples propiedades')) {
-      return 'NUEVO SERVICIO: Subdivisión de Terrenos Urbanos - Convierta 1 terreno en 2+ propiedades independientes y multiplique su patrimonio. Manejamos tanto subdivisiones normales como afectas a utilidad pública. Soluciones especiales para herencias familiares. 26+ años de experiencia. ¿Tiene un terreno que quiere subdividir?';
+      return 'NUEVO SERVICIO: Subdivisión de Terrenos Urbanos - Convierta 1 terreno en 2+ propiedades independientes y multiplique su patrimonio. Manejamos tanto subdivisiones normales como afectas a utilidad pública. Soluciones especiales para herencias familiares. 27+ años de experiencia. ¿Tiene un terreno que quiere subdividir?';
     }
     
     if (message.includes('cabida') || message.includes('edificabilidad') || message.includes('construir')) {
@@ -112,7 +112,7 @@ export default function Chatbot() {
     
     // Calculadoras
     if (message.includes('calculadora') || message.includes('calcular') || message.includes('costo construcción')) {
-      return 'Tenemos calculadoras gratuitas para estimar costos de construcción y eficiencia energética. Son herramientas orientativas basadas en nuestros 26 años de experiencia. ¿Te gustaría usar alguna calculadora?';
+      return 'Tenemos calculadoras gratuitas para estimar costos de construcción y eficiencia energética. Son herramientas orientativas basadas en nuestros 27 años de experiencia. ¿Te gustaría usar alguna calculadora?';
     }
     
     // Información general
@@ -125,7 +125,7 @@ export default function Chatbot() {
     }
     
     if (message.includes('patricio') || message.includes('arquitecto') || message.includes('experiencia')) {
-      return 'Patricio Becar Elissegaray: Arquitecto Universidad de Chile, 26+ años de experiencia, Magister en Gestión, Master in Management (Australia), ex-funcionario municipal. Especialista en fusiones y permisos complejos.';
+      return 'Patricio Becar Elissegaray: Arquitecto Universidad de Chile, 27+ años de experiencia, Magister en Gestión, Master in Management (Australia), ex-funcionario municipal. Especialista en fusiones y permisos complejos.';
     }
     
     if (message.includes('hola') || message.includes('buenas') || message.includes('buenos dias')) {

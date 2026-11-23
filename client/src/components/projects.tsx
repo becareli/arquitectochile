@@ -161,7 +161,7 @@ export default function Projects() {
           <div className="max-w-3xl mx-auto">
             <h3 className="text-2xl font-bold text-dark mb-3">¿Te gustó algún modelo?</h3>
             <p className="text-gray-600 mb-6">
-              Cada diseño ha sido cuidadosamente creado por el Arquitecto Patricio Becar con más de 25 años de experiencia. 
+              Cada diseño ha sido cuidadosamente creado por el Arquitecto Patricio Becar con más de 27 años de experiencia. 
               Los planos incluyen detalles técnicos, especificaciones de materiales y normativa vigente para que puedas construir con total confianza.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">

@@ -41,7 +41,7 @@ export default function DisenemosNuevosEspacios() {
     setMetaTag('robots', 'index, follow');
     
     setMetaTag('og:title', 'Diseño de Nuevos Espacios - Arquitecto Especialista Santiago', true);
-    setMetaTag('og:description', 'Transforme su hogar con diseño arquitectónico profesional. Solo 3 proyectos exclusivos por mes. Arquitecto Universidad de Chile con 26+ años experiencia.', true);
+    setMetaTag('og:description', 'Transforme su hogar con diseño arquitectónico profesional. Solo 3 proyectos exclusivos por mes. Arquitecto Universidad de Chile con 27+ años experiencia.', true);
     setMetaTag('og:type', 'service', true);
     setMetaTag('og:url', 'https://arquitectochile.com/disenemos-tus-nuevos-espacios', true);
     
@@ -282,7 +282,7 @@ export default function DisenemosNuevosEspacios() {
               🎯 EL MÉTODO "DISEÑO DE VIDA" DE 5 PASOS
             </h2>
             <p className="text-xl text-[#64748b]">
-              El mismo proceso que usé para transformar más de 500 hogares en los últimos 26 años
+              El mismo proceso que usé para transformar más de 500 hogares en los últimos 27 años
             </p>
           </div>
 
@@ -404,7 +404,7 @@ export default function DisenemosNuevosEspacios() {
                 </div>
                 <div className="flex items-center">
                   <Award className="w-6 h-6 text-[#0f172a] mr-3" />
-                  <span><strong>26+ años</strong> diseñando espacios que transforman vidas</span>
+                  <span><strong>27+ años</strong> diseñando espacios que transforman vidas</span>
                 </div>
                 <div className="flex items-center">
                   <Award className="w-6 h-6 text-[#0f172a] mr-3" />

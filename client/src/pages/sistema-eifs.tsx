@@ -361,7 +361,7 @@ export default function SistemaEIFS() {
                 <CheckCircle className="text-[#f97316] flex-shrink-0 mt-1" size={28} />
                 <div>
                   <h3 className="font-bold text-xl mb-2 text-[#0f172a]">Profesionales Certificados</h3>
-                  <p className="text-[#64748b]">Disponemos de profesionales y personal calificado con 26+ años de experiencia</p>
+                  <p className="text-[#64748b]">Disponemos de profesionales y personal calificado con 27+ años de experiencia</p>
                 </div>
               </div>
               <div className="flex items-start gap-4">

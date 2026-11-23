@@ -39,7 +39,7 @@ export default function SalesMechanism() {
             Método ArquitectoChile: Diseño con Certeza Técnica
           </h2>
           <p className="text-base text-gray-500 max-w-xl mx-auto">
-            Un proceso claro y profesional respaldado por más de 26 años de experiencia en proyectos residenciales y comerciales.
+            Un proceso claro y profesional respaldado por más de 27 años de experiencia en proyectos residenciales y comerciales.
           </p>
         </div>
 

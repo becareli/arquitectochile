@@ -100,7 +100,7 @@ export default function FusionTerrenosUrbanos() {
                 </div>
                 <div className="flex items-center gap-3">
                   <Shield className="h-6 w-6 text-[#f97316] flex-shrink-0" />
-                  <span className="text-lg">26+ años de experiencia en fusiones exitosas</span>
+                  <span className="text-lg">27+ años de experiencia en fusiones exitosas</span>
                 </div>
               </div>
             </div>
@@ -367,7 +367,7 @@ export default function FusionTerrenosUrbanos() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold mb-6">Proceso Garantizado en 3 Etapas</h2>
-            <p className="text-xl text-[#64748b]">26+ años perfeccionando este sistema</p>
+            <p className="text-xl text-[#64748b]">27+ años perfeccionando este sistema</p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8 mb-16">
@@ -633,7 +633,7 @@ export default function FusionTerrenosUrbanos() {
             <div className="bg-gray-50 p-6 rounded-lg">
               <Star className="h-8 w-8 text-[#0f172a] mx-auto mb-4" />
               <h3 className="text-xl font-bold mb-3">Arquitecto Universidad de Chile</h3>
-              <p className="text-[#64748b]">26+ años de experiencia en proyectos arquitectónicos y fusiones de terrenos exitosas</p>
+              <p className="text-[#64748b]">27+ años de experiencia en proyectos arquitectónicos y fusiones de terrenos exitosas</p>
             </div>
             <div className="bg-gray-50 p-6 rounded-lg">
               <Shield className="h-8 w-8 text-[#0f172a] mx-auto mb-4" />

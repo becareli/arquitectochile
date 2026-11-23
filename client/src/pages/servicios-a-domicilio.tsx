@@ -147,7 +147,7 @@ export default function ServiciosADomicilio() {
                   <div className="bg-white p-4 rounded-lg shadow-sm">
                     <div className="text-2xl mb-2">📊</div>
                     <div className="font-semibold text-[#0f172a]">Análisis Experto</div>
-                    <div className="text-sm text-[#64748b]">25+ años de experiencia</div>
+                    <div className="text-sm text-[#64748b]">27+ años de experiencia</div>
                   </div>
                   <div className="bg-white p-4 rounded-lg shadow-sm">
                     <div className="text-2xl mb-2">💰</div>

@@ -10,7 +10,7 @@ export default function Guarantees() {
     {
       icon: Shield,
       title: "Gestión Legal Profesional",
-      description: "Tramitamos permisos con el respaldo de más de 26 años de experiencia ante DOM.",
+      description: "Tramitamos permisos con el respaldo de más de 27 años de experiencia ante DOM.",
     },
     {
       icon: Clock,

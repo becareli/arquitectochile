@@ -6,7 +6,7 @@ export const routeSeoFallbacks: Record<string, SEOOptions> = {
   "/": {
     title: "ArquitectoChile.com | Arquitecto Especialista en Santiago - Patricio Becar",
     description:
-      "Servicios profesionales de arquitectura en Santiago. Especialista en Regularización de inmuebles, reacondicionamiento térmico, construcción y asesoría a domicilio. Arquitecto Universidad de Chile con 26+ años experiencia.",
+      "Servicios profesionales de arquitectura en Santiago. Especialista en Regularización de inmuebles, reacondicionamiento térmico, construcción y asesoría a domicilio. Arquitecto Universidad de Chile con 27+ años experiencia.",
     path: "/",
   },
   "/servicios-a-domicilio": {
@@ -30,7 +30,7 @@ export const routeSeoFallbacks: Record<string, SEOOptions> = {
   "/regularizacion-viviendas-la-florida": {
     title: "Regularización de Viviendas La Florida | Ley del Mono | ArquitectoChile",
     description:
-      "Regularización de viviendas en La Florida bajo Ley del Mono. Especialistas en la DOM de La Florida con 26+ años de experiencia. Gestión profesional integral.",
+      "Regularización de viviendas en La Florida bajo Ley del Mono. Especialistas en la DOM de La Florida con 27+ años de experiencia. Gestión profesional integral.",
     path: "/regularizacion-viviendas-la-florida",
   },
   "/disenemos-tus-nuevos-espacios": {

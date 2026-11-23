@@ -18,7 +18,7 @@ export default function Blog() {
 
   useSEO({
     title: "Blog de arquitectura: permisos, Recepción Final y Regularización | ArquitectoChile",
-    description: "Guías claras sobre Permisos de Edificación, Recepción Final, Regularización y trámites en la DOM, escritas por un arquitecto con 25 años de experiencia.",
+    description: "Guías claras sobre Permisos de Edificación, Recepción Final, Regularización y trámites en la DOM, escritas por un arquitecto con 27 años de experiencia.",
     path: "/blog",
     jsonLd: {
       "@context": "https://schema.org",

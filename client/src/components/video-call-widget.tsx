@@ -140,7 +140,7 @@ export default function VideoCallWidget() {
           <div className="flex items-center justify-center space-x-8 text-gray-600">
             <div className="flex items-center space-x-2">
               <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-              <span className="text-sm">25+ años de experiencia</span>
+              <span className="text-sm">27+ años de experiencia</span>
             </div>
             <div className="flex items-center space-x-2">
               <div className="w-3 h-3 bg-green-500 rounded-full"></div>

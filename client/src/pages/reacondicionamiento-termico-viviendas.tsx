@@ -308,7 +308,7 @@ export default function ReacondicionamientoTermicoViviendas() {
                 <h4 className="font-bold text-[#f97316] mb-2">🪟 TERMOPANEL</h4>
                 <p className="text-sm mb-2"><strong>Transmitancia:</strong> 1.8-2.8 W/m²K</p>
                 <p className="text-sm mb-2"><strong>Aislamiento:</strong> Doble/Triple vidrio</p>
-                <p className="text-sm"><strong>Vida útil:</strong> 25+ años</p>
+                <p className="text-sm"><strong>Vida útil:</strong> 27+ años</p>
                 <p className="text-xs mt-2 text-gray-300">Reduce pérdidas por ventanas</p>
               </div>
             </div>
@@ -561,7 +561,7 @@ export default function ReacondicionamientoTermicoViviendas() {
                 🛡️ GARANTÍA DE ASESORÍA PROFESIONAL
               </h3>
               <p className="text-[#64748b]">
-                Respaldamos nuestro diagnóstico con más de 26 años de experiencia en arquitectura. 
+                Respaldamos nuestro diagnóstico con más de 27 años de experiencia en arquitectura. 
                 Su inversión está protegida por nuestro compromiso profesional.
               </p>
             </div>
@@ -846,7 +846,7 @@ export default function ReacondicionamientoTermicoViviendas() {
                 <br/>• <strong>Servicio post-venta:</strong> Seguimiento a los 6 meses
                 <br/><br/>
                 Además, todos los trabajos cumplen con las normativas vigentes y 
-                son respaldados por nuestros 26+ años de experiencia profesional.
+                son respaldados por nuestros 27+ años de experiencia profesional.
               </AccordionContent>
             </AccordionItem>
 

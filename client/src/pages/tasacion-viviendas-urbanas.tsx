@@ -312,7 +312,7 @@ export default function TasacionViviendasUrbanas() {
               </div>
               
               <p className="text-lg text-gray-700 leading-relaxed">
-                Con más de <strong>24 años de experiencia certificada</strong> en el mercado inmobiliario chileno y 
+                Con más de <strong>27 años de experiencia certificada</strong> en el mercado inmobiliario chileno y 
                 <strong> Certificación oficial en Tasación de Inmuebles Urbanos</strong> otorgada por la prestigiosa 
                 Universidad de Chile, Patricio Becar Elissegaray no es solo un arquitecto: es su <strong>aliado estratégico certificado</strong> para 
                 tomar la decisión inmobiliaria más importante de su vida.

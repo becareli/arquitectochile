@@ -175,7 +175,7 @@ const trustItems = [
   { label: "Arquitecto U. de Chile", icon: GraduationCap },
   { label: "Revisor Independiente MINVU, Rol 237", icon: ShieldCheck },
   { label: "Ex DOM de La Florida, Santiago y Peñalolén", icon: Building2 },
-  { label: "25 años de ejercicio", icon: CalendarDays },
+  { label: "27 años de ejercicio", icon: CalendarDays },
 ];
 
 function SectionTitle({ children }: { children: React.ReactNode }) {
@@ -390,7 +390,7 @@ export default function RevisorIndependienteDeArquitectura() {
                 <li>Revisor Independiente inscrito en el Registro Nacional del MINVU desde 2013: Rol 237, Tercera Categoría, Región Metropolitana.</li>
                 <li>Ex arquitecto de las Direcciones de Obras de La Florida, Santiago y Peñalolén.</li>
                 <li>Curso de Tramitología de Permisos de Edificación, Centro de Estudios Territoriales, Universidad de los Andes (2024).</li>
-                <li>MBA y 25 años de ejercicio en proyectos, permisos, tasaciones e inspección técnica de obras.</li>
+                <li>MBA y 27 años de ejercicio en proyectos, permisos, tasaciones e inspección técnica de obras.</li>
               </ul>
               <a
                 className="font-semibold text-[#c2410c] underline decoration-orange-300 underline-offset-4 hover:text-[#9a3412]"
