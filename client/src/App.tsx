@@ -1,4 +1,4 @@
-import { Switch, Route, useLocation } from "wouter";
+import { Switch, Route, Redirect, useLocation } from "wouter";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { useSEO } from "@/hooks/useSEO";
@@ -44,7 +44,7 @@ import { initAnalytics } from "@/lib/analytics";
 // Medición: se activa solo en el navegador y solo con permiso de cookies.
 if (typeof window !== "undefined") initAnalytics();
 import AdminGate from "@/components/AdminGate";
-import FormPage from "@/pages/formulario-page";
+import FormularioServicio from "@/pages/formulario-servicio";
 import Blog from "@/pages/blog";
 import BlogPost from "@/pages/blog-post";
 import AdminBlog from "@/pages/admin-blog";
@@ -121,22 +121,22 @@ function Router() {
       <Route path="/obras-menores-empresas" component={ObrasMenoresEmpresas} />
       <Route path="/casos-de-exito" component={CasosDeExito} />
       <Route path="/formulario/colaboradores">
-        {() => <FormPage src="https://share.forms.app/becareligroup/registro-de-colaboradores-arquitectochilecom" title="Postulación a la Red de Colaboradores" />}
+        {() => <FormularioServicio clave="colaboradores" />}
       </Route>
       <Route path="/formulario/asesoria-domicilio">
-        {() => <FormPage src="https://share.forms.app/patriciobecarelissegaray/formulario-de-contacto-1" title="Solicitud de Asesoría Arquitectónica a Domicilio" />}
+        {() => <FormularioServicio clave="asesoria-domicilio" />}
       </Route>
       <Route path="/formulario/diseno-arquitectura">
-        {() => <FormPage src="https://share.forms.app/patriciobecarelissegaray/formulario-de-calificacion-arquitecto-patricio-becar-elissegaray" title="Formulario de Diseño de Arquitectura" />}
+        {() => <FormularioServicio clave="diseno-arquitectura" />}
       </Route>
       <Route path="/formulario/regularizacion">
-        {() => <FormPage src="https://share.forms.app/patriciobecarelissegaray/formulario-de-contacto" title="Solicitud de Regularización de Inmuebles" />}
+        {() => <FormularioServicio clave="regularizacion" />}
       </Route>
       <Route path="/formulario/revisor-independiente">
-        {() => <FormPage src="https://share.forms.app/patriciobecarelissegaray/solicitud-de-presupuesto-para-revision-independiente-ley-20016" title="Solicitud de Revisión Independiente de Arquitectura" />}
+        {() => <FormularioServicio clave="revisor-independiente" />}
       </Route>
       <Route path="/formulario/contacto">
-        {() => <FormPage src="https://share.forms.app/becareligroup/formulario-de-calificacion-profesional-arquitectochilecom" title="Contacto General — ArquitectoChile.com" />}
+        {() => <Redirect to="/contacto" />}
       </Route>
       <Route path="/blog" component={Blog} />
       <Route path="/blog/:slug" component={BlogPost} />
