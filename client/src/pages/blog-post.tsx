@@ -49,7 +49,9 @@ function Article({ post }: { post: NonNullable<ReturnType<typeof getPost>> }) {
       "@type": "Person",
       "name": "Patricio Becar Elissegaray",
       "jobTitle": "Arquitecto",
-      "url": "https://arquitectochile.com"
+      "url": "https://arquitectochile.com",
+      "sameAs": ["https://www.linkedin.com/in/patriciobecar/"],
+      "alumniOf": { "@type": "CollegeOrUniversity", "name": "Universidad de Chile" }
     },
     "publisher": {
       "@type": "Organization",

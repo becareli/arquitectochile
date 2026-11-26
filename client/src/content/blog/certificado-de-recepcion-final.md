@@ -10,7 +10,7 @@ image: "/blog/certificado-de-recepcion-final.png"
 imageAlt: "Plano de elevación de una casa junto al certificado de Recepción Final con timbre de aprobación de la DOM"
 ---
 
-*Por Patricio Becar, arquitecto. Llevo 27 años entrando y saliendo de Direcciones de Obras, y esta es una de las preguntas que más me hacen.*
+*Por <a href="https://www.linkedin.com/in/patriciobecar/" rel="author noopener" target="_blank">Patricio Becar Elissegaray</a>, arquitecto de la Universidad de Chile desde 1999.*
 
 Le pasa a mucha gente. Está a punto de vender su casa, o el banco ya le aprobó el crédito, y de repente alguien le dice: *"falta el certificado de Recepción Final"*. Y usted se queda pensando: ¿el qué? ¿No bastaba con la escritura?
 

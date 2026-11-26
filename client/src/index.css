@@ -137,3 +137,13 @@
 .animate-scroll:hover {
   animation-play-state: paused;
 }
+
+/* Firma del autor en los artículos del blog: negrita, sin subrayado, enlaza a LinkedIn */
+.prose a[rel~="author"] {
+  font-weight: 700;
+  color: inherit;
+  text-decoration: none;
+}
+.prose a[rel~="author"]:hover {
+  color: #F97015;
+}

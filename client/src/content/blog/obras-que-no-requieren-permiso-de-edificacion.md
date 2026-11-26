@@ -10,7 +10,7 @@ image: "/blog/obras-que-no-requieren-permiso-de-edificacion.png"
 imageAlt: "Plano estilo blueprint de una casa con una ampliación de 24 m² marcada en naranja y un signo de pregunta: ¿necesita Permiso de Edificación?"
 ---
 
-*Por Patricio Becar, arquitecto. 27 años tramitando en Direcciones de Obras.*
+*Por <a href="https://www.linkedin.com/in/patriciobecar/" rel="author noopener" target="_blank">Patricio Becar Elissegaray</a>, arquitecto de la Universidad de Chile desde 1999.*
 
 "Es chiquitito, no necesita permiso". Si me dieran una luca por cada vez que escuché esa frase, ya estaría jubilado.
 
