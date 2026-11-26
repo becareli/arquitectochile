@@ -72,6 +72,8 @@ Tiene solución: la **Regularización**. Pero sale más cara, y más lenta, que 
 
 Si su obra sí necesita permiso, le explico cómo se tramita en [Permiso de Edificación y Recepción Final](/permiso-edificacion-recepcion-final). Y si ya construyó y no está seguro de si estaba permitido, le explico cómo ordenarlo en [Regularización de viviendas](/regularizacion-inmuebles).
 
+Y si está diseñando su casa con inteligencia artificial, le dejo [mi opinión sincera sobre las casas diseñadas con IA](/blog/casa-disenada-con-inteligencia-artificial).
+
 ## Preguntas frecuentes
 
 **¿Necesito permiso para construir un quincho?**
