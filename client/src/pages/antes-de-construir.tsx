@@ -1,4 +1,4 @@
-import { useEffect, useState, type CSSProperties, type ReactNode } from "react";
+import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { Link } from "wouter";
 import { useSEO } from "@/hooks/useSEO";
 import logo from "@assets/ArquitectoChile.com_Logo_1771886286621.webp";
@@ -196,11 +196,26 @@ function Section({ bg, children, narrow }: { bg: string; children: ReactNode; na
 
 function Video() {
   const [sonido, setSonido] = useState(false);
-  const src = `https://www.youtube-nocookie.com/embed/${VIDEO_ID}?autoplay=1&mute=${sonido ? 0 : 1}&cc_load_policy=0&hl=es&rel=0&playsinline=1&modestbranding=1`;
+  const frame = useRef<HTMLIFrameElement>(null);
+  const src = `https://www.youtube-nocookie.com/embed/${VIDEO_ID}?autoplay=1&mute=${sonido ? 0 : 1}&cc_load_policy=0&iv_load_policy=3&hl=es&rel=0&playsinline=1&modestbranding=1&enablejsapi=1`;
+  // YouTube activa los subtítulos cuando el video parte en silencio: los apagamos vía la API del reproductor.
+  const apagarSubtitulos = () => {
+    const send = (func: string, args: unknown[] = []) =>
+      frame.current?.contentWindow?.postMessage(JSON.stringify({ event: "command", func, args }), "*");
+    [500, 1500, 3000, 6000].forEach((ms) =>
+      setTimeout(() => {
+        send("unloadModule", ["captions"]);
+        send("unloadModule", ["cc"]);
+        send("setOption", ["captions", "track", {}]);
+      }, ms),
+    );
+  };
   return (
     <div style={{ position: "relative", aspectRatio: "16 / 9", borderRadius: 16, overflow: "hidden", background: "#131820" }}>
       <iframe
         key={sonido ? "on" : "off"}
+        ref={frame}
+        onLoad={apagarSubtitulos}
         src={src}
         title="Evita este error al construir una casa – Arquitecto Patricio Becar"
         allow="autoplay; encrypted-media; picture-in-picture"
