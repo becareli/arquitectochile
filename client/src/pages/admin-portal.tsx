@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { useSEO } from "@/hooks/useSEO";
 import { apiRequest } from "@/lib/queryClient";
+import OfficeTab from "@/pages/admin-oficina";
 
 type Client = { id: number; name: string; email: string; phone: string | null; status: string; lastLogin: string | null };
 type Project = { id: number; name: string; status: string; progress: number | null; permitStatus: string | null; permitFileNumber: string | null; welcomeVideoUrl: string | null };
@@ -411,18 +412,19 @@ function MeetingsTab() {
 
 export default function AdminPortal() {
   useSEO({ title: "Portal de clientes (admin) | ArquitectoChile.com", description: "Administración del portal de clientes.", path: "/admin/portal", noindex: true });
-  const [tab, setTab] = useState<"clientes" | "reuniones" | "referidos" | "opiniones">("clientes");
+  const [tab, setTab] = useState<"clientes" | "reuniones" | "oficina" | "referidos" | "opiniones">("clientes");
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-6xl mx-auto px-4 py-6 space-y-4">
         <h1 className="text-2xl font-bold text-gray-900">Portal de clientes</h1>
         <div className="flex gap-2">
-          {(["clientes", "reuniones", "referidos", "opiniones"] as const).map((t) => (
+          {(["clientes", "reuniones", "oficina", "referidos", "opiniones"] as const).map((t) => (
             <Button key={t} size="sm" variant={tab === t ? "default" : "outline"} onClick={() => setTab(t)}>{t[0].toUpperCase() + t.slice(1)}</Button>
           ))}
         </div>
         {tab === "clientes" && <ClientsTab />}
         {tab === "reuniones" && <MeetingsTab />}
+        {tab === "oficina" && <OfficeTab />}
         {tab === "referidos" && <ReferralsTab />}
         {tab === "opiniones" && <FeedbackTab />}
       </div>

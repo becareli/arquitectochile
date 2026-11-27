@@ -276,6 +276,60 @@ export const portalLoginTokens = pgTable(
   (t) => [index("idx_portal_login_tokens_client").on(t.clientId)],
 );
 
+// ========== OFICINA DIGITAL (colaboradores) ==========
+
+export const collaboratorLoginTokens = pgTable(
+  "collaborator_login_tokens",
+  {
+    id: serial("id").primaryKey(),
+    collaboratorId: integer("collaborator_id").references(() => collaborators.id).notNull(),
+    tokenHash: text("token_hash").notNull().unique(),
+    expiresAt: timestamp("expires_at").notNull(),
+    usedAt: timestamp("used_at"),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+  },
+  (t) => [index("idx_collab_login_tokens_collab").on(t.collaboratorId)],
+);
+
+// Tarea asignada a un colaborador. projectId vacío = tarea interna de la oficina.
+export const officeTasks = pgTable(
+  "office_tasks",
+  {
+    id: serial("id").primaryKey(),
+    projectId: integer("project_id").references(() => clientProjects.id),
+    collaboratorId: integer("collaborator_id").references(() => collaborators.id).notNull(),
+    title: text("title").notNull(),
+    description: text("description"),
+    status: text("status").notNull().default("todo"), // todo, doing, review, done
+    dueDate: timestamp("due_date"),
+    fee: decimal("fee", { precision: 12, scale: 2 }), // honorario acordado por la tarea
+    feeStatus: text("fee_status").notNull().default("pending"), // pending, paid
+    feePaidAt: timestamp("fee_paid_at"),
+    completedAt: timestamp("completed_at"),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+  },
+  (t) => [index("idx_office_tasks_collab").on(t.collaboratorId), index("idx_office_tasks_project").on(t.projectId)],
+);
+
+// Entregables que sube el colaborador. Solo llegan al cliente si el arquitecto los publica.
+export const officeTaskFiles = pgTable("office_task_files", {
+  id: serial("id").primaryKey(),
+  taskId: integer("task_id").references(() => officeTasks.id).notNull(),
+  name: text("name").notNull(),
+  fileUrl: text("file_url").notNull(),
+  fileSize: integer("file_size"),
+  publishedDocumentId: integer("published_document_id").references(() => clientDocuments.id),
+  uploadedAt: timestamp("uploaded_at").defaultNow().notNull(),
+});
+
+export const officeTaskComments = pgTable("office_task_comments", {
+  id: serial("id").primaryKey(),
+  taskId: integer("task_id").references(() => officeTasks.id).notNull(),
+  author: text("author").notNull(), // admin | collaborator
+  body: text("body").notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
 // AI Agent Events table for tracking automation
 export const aiAgentEvents = pgTable("ai_agent_events", {
   id: serial("id").primaryKey(),

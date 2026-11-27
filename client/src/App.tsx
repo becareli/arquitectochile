@@ -18,6 +18,8 @@ import PortalClienteDemo from "@/pages/portal-cliente-demo";
 import PortalClienteAcceso from "@/pages/portal-cliente-acceso";
 import PortalClienteMiProyecto from "@/pages/portal-cliente-mi-proyecto";
 import PortalClienteBienvenida from "@/pages/portal-cliente-bienvenida";
+import Oficina from "@/pages/oficina";
+import OficinaAcceso from "@/pages/oficina-acceso";
 import Recomendado from "@/pages/recomendado";
 import AdminPortal from "@/pages/admin-portal";
 import RevisorIndependienteDeArquitectura from "@/pages/revisor-independiente-de-arquitectura";
@@ -110,6 +112,8 @@ function Router() {
       <Route path="/portal-cliente/acceso" component={PortalClienteAcceso} />
       <Route path="/portal-cliente/mi-proyecto" component={PortalClienteMiProyecto} />
       <Route path="/portal-cliente/bienvenida" component={PortalClienteBienvenida} />
+      <Route path="/oficina" component={Oficina} />
+      <Route path="/oficina/acceso" component={OficinaAcceso} />
       <Route path="/recomendado/:code" component={Recomendado} />
       <Route path="/admin/portal">
         {() => (
