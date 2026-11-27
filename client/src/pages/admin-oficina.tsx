@@ -116,6 +116,81 @@ function TaskDetail({ id, onChange }: { id: number; onChange: () => void }) {
   );
 }
 
+type Impact = { bim: boolean; suggestions: { discipline: string; reason: string; missing: boolean; tasks: { id: number; title: string; status: string; revision: number; collaborator: string }[] }[] };
+
+// Asistente: el cambio pedido -> disciplinas y tareas que probablemente se afectan -> avisa solo a las marcadas
+function ChangeAssistant({ clients, onDone }: { clients: ClientLite[]; onDone: () => void }) {
+  const [clientId, setClientId] = useState("");
+  const [projectId, setProjectId] = useState("");
+  const [note, setNote] = useState("");
+  const [dueDate, setDueDate] = useState("");
+  const [impact, setImpact] = useState<Impact | null>(null);
+  const [checked, setChecked] = useState<Set<number>>(new Set());
+  const [msg, setMsg] = useState<string | null>(null);
+  const projects = useQuery({ queryKey: ["admin-client-projects", clientId], queryFn: () => get<ProjectLite[]>(`/api/portal/admin/clients/${clientId}/projects`), enabled: Boolean(clientId) });
+
+  const analyze = async () => {
+    try {
+      const r: Impact = await send("POST", `/api/office/admin/projects/${projectId}/impact`, { note });
+      setImpact(r);
+      setChecked(new Set(r.suggestions.flatMap((s) => s.tasks.map((t) => t.id))));
+      setMsg(null);
+    } catch (e) { setMsg(`Error: ${(e as Error).message}`); }
+  };
+  const apply = async () => {
+    try {
+      for (const id of Array.from(checked)) await send("POST", `/api/office/admin/tasks/${id}/revision`, { note, dueDate: dueDate || null });
+      setMsg(`Modificación solicitada en ${checked.size} tarea(s) y avisada por correo.`);
+      setImpact(null); setNote("");
+      onDone();
+    } catch (e) { setMsg(`Error: ${(e as Error).message}`); }
+  };
+  const toggle = (id: number) => { const n = new Set(checked); n.has(id) ? n.delete(id) : n.add(id); setChecked(n); };
+
+  return (
+    <Card>
+      <CardHeader><CardTitle className="text-base">Modificación de un proyecto: ¿a quién afecta?</CardTitle></CardHeader>
+      <CardContent className="space-y-2 text-sm">
+        <div className="grid grid-cols-2 gap-2">
+          <select className={sel} value={clientId} onChange={(e) => { setClientId(e.target.value); setProjectId(""); setImpact(null); }}>
+            <option value="">Cliente...</option>
+            {clients.map((k) => <option key={k.id} value={k.id}>{k.name}</option>)}
+          </select>
+          <select className={sel} value={projectId} disabled={!clientId} onChange={(e) => { setProjectId(e.target.value); setImpact(null); }}>
+            <option value="">Proyecto...</option>
+            {(projects.data ?? []).map((p) => <option key={p.id} value={p.id}>{p.name}</option>)}
+          </select>
+        </div>
+        <Textarea rows={2} value={note} onChange={(e) => { setNote(e.target.value); setImpact(null); }} placeholder="Ej.: el propietario quiere mover el baño a la otra muralla y agregar una cocina en la ampliación" />
+        <Button size="sm" disabled={!projectId || note.trim().length < 3} onClick={analyze}>Ver qué se afecta</Button>
+        {impact && (
+          <div className="space-y-2 pt-2">
+            <p className="text-xs text-gray-500">Es una sugerencia por palabras clave: marca o desmarca según tu criterio. Revisa que no falte ninguna disciplina.</p>
+            {impact.suggestions.map((s) => (
+              <div key={s.discipline} className="rounded-md border p-2">
+                <div className="font-medium">{s.discipline} <span className="font-normal text-xs text-gray-500">· {s.reason}</span></div>
+                {s.missing && <p className="text-xs text-orange-700">No hay una tarea de esta disciplina en el proyecto: puede que falte asignarla.</p>}
+                {s.tasks.map((t) => (
+                  <label key={t.id} className="flex items-center gap-2 py-0.5">
+                    <input type="checkbox" checked={checked.has(t.id)} onChange={() => toggle(t.id)} />
+                    <span>{t.title} · {t.collaborator} · {STATUS[t.status]}{t.revision ? ` · modif. ${t.revision}` : ""}</span>
+                  </label>
+                ))}
+              </div>
+            ))}
+            <div className="flex items-center gap-2">
+              <Input type="date" className="w-44" value={dueDate} onChange={(e) => setDueDate(e.target.value)} />
+              <span className="text-xs text-gray-500">nueva fecha (opcional)</span>
+              <Button size="sm" disabled={checked.size === 0} onClick={apply}>Solicitar a las {checked.size} marcadas</Button>
+            </div>
+          </div>
+        )}
+        {msg && <p className="text-gray-600">{msg}</p>}
+      </CardContent>
+    </Card>
+  );
+}
+
 export default function OfficeTab() {
   const qc = useQueryClient();
   const [filter, setFilter] = useState("");
@@ -208,6 +283,8 @@ export default function OfficeTab() {
           </CardContent>
         </Card>
       </div>
+
+      <ChangeAssistant clients={clients.data ?? []} onDone={reload} />
 
       <div className="grid lg:grid-cols-5 gap-4">
         <div className="lg:col-span-2 space-y-2">

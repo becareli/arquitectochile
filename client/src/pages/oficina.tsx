@@ -114,6 +114,9 @@ function TaskPanel({ id, onChange }: { id: number; onChange: () => void }) {
             ))}
           </div>
         )}
+        {t.deliverableFormat === "3d" && (
+          <p className="text-sm rounded-md bg-[#F4F7FA] p-2">Entrega en ArchiCAD: sube el archivo del proyecto (.pln o .pla) y también su exportación en <b>IFC</b>.</p>
+        )}
         {t.fee && (
           <p className="text-sm">Honorario pactado: <b>{clp(t.fee)}</b> · {FEE[t.feeStatus]}</p>
         )}

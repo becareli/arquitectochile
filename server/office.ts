@@ -145,6 +145,44 @@ const logEvent = (taskId: number, type: string, text: string) =>
 const fechaCL = (d: Date) => d.toLocaleDateString("es-CL", { day: "numeric", month: "long", year: "numeric", timeZone: "America/Santiago" });
 const santiagoHour = () => Number(new Intl.DateTimeFormat("en-GB", { hour: "2-digit", hour12: false, timeZone: "America/Santiago" }).format(new Date()));
 
+// ---------- sugerencia de impacto de una modificación ----------
+
+const norm = (v: string) => v.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+
+// Reglas simples y revisables: palabras del cambio -> disciplinas que suelen verse afectadas.
+// "stems" reconoce la disciplina del colaborador (su campo disciplina o su especialidad).
+const IMPACT_RULES: { discipline: string; stems: string[]; keywords: string[] }[] = [
+  { discipline: "Arquitectura", stems: ["arquitect"], keywords: [] }, // siempre
+  { discipline: "Estructura", stems: ["estructur", "calcul"], keywords: ["muro", "tabique", "losa", "viga", "pilar", "fundacion", "ampliar", "ampliacion", "segundo piso", "mansarda", "escalera", "abertura", "porton", "demoler", "demolicion", "altura", "techumbre", "cercha"] },
+  { discipline: "Agua potable", stems: ["sanitari", "agua potable"], keywords: ["bano", "cocina", "lavaplatos", "lavadora", "ducha", "tina", "wc", "artefacto", "agua potable", "llave", "calefon", "termo", "logia", "piscina", "riego", "lavamanos"] },
+  { discipline: "Alcantarillado", stems: ["alcantarill", "sanitari"], keywords: ["bano", "cocina", "lavaplatos", "wc", "ducha", "tina", "lavamanos", "desague", "alcantarillado", "camara", "fosa", "aguas lluvia", "bajada", "patio", "logia"] },
+  { discipline: "Electricidad", stems: ["electric"], keywords: ["enchufe", "tomacorriente", "iluminacion", "luz", "tablero", "electric", "ampliacion", "ampliar", "cocina", "bano", "dormitorio", "muro", "tabique", "cargador", "porton", "calefaccion", "climatiz", "aire acondicionado"] },
+  { discipline: "Gas", stems: ["gas"], keywords: ["gas", "cocina", "calefon", "caldera", "estufa", "logia", "termo", "campana"] },
+  { discipline: "Climatización y ventilación", stems: ["climatiz", "ventilac"], keywords: ["clima", "aire acondicionado", "ventilacion", "extraccion", "calefaccion", "campana", "bano", "cocina"] },
+  { discipline: "Eficiencia térmica", stems: ["termic", "eficiencia"], keywords: ["aislacion", "ventana", "termopanel", "termic", "eifs", "muro", "techumbre", "ampliacion", "orientacion"] },
+];
+
+export function suggestImpact(
+  note: string,
+  tasks: { id: number; title: string; status: string; revision: number; collaborator: string; specialty: string; discipline: string | null; isCoordinator: boolean }[],
+  bim: boolean,
+) {
+  const text = norm(note);
+  const matches = IMPACT_RULES.map((r) => ({ rule: r, hits: r.keywords.filter((k) => text.includes(k)) })).filter((m) => m.rule.keywords.length === 0 || m.hits.length > 0);
+  const result = matches.map(({ rule, hits }) => {
+    const mine = tasks.filter((t) => {
+      const who = norm(`${t.discipline ?? ""} ${t.specialty}`);
+      return rule.stems.some((st) => who.includes(st));
+    });
+    return { discipline: rule.discipline, reason: hits.length ? `Menciona: ${hits.join(", ")}` : "Todo cambio toca el diseño de arquitectura", tasks: mine, missing: mine.length === 0 };
+  });
+  if (bim) {
+    const coord = tasks.filter((t) => t.isCoordinator);
+    result.push({ discipline: "Coordinación BIM", reason: "Proyecto BIM: revisar interferencias entre disciplinas tras el cambio", tasks: coord, missing: coord.length === 0 });
+  }
+  return result;
+}
+
 // ---------- recordatorios automáticos de fechas de entrega ----------
 
 type Reminder = "d7" | "d1" | `overdue:${number}`;
@@ -673,6 +711,21 @@ export function registerOfficeRoutes(app: Express, isAdmin: RequestHandler) {
       emailShell(`<p>Hola ${escapeHtml(row.name)}, hay una modificación (n.º ${n}) en <b>${escapeHtml(row.task.title)}</b>:</p><blockquote>${escapeHtml(parsed.data.note)}</blockquote>${parsed.data.dueDate ? `<p>Nueva fecha de entrega: <b>${fechaCL(new Date(parsed.data.dueDate))}</b></p>` : ""}<p><a href="${PORTAL_BASE_URL}/oficina">Ver en la oficina digital</a></p>`),
     ).catch((e) => console.error("office notify error:", (e as Error).message));
     res.json({ ok: true, revision: n });
+  });
+
+  // Asistente de modificaciones: dado el cambio, sugiere qué disciplinas y tareas del proyecto se afectan
+  app.post(`${admin}/projects/:id/impact`, isAdmin, async (req, res) => {
+    const id = parseId(req.params.id);
+    const parsed = z.object({ note: z.string().min(3).max(3000) }).safeParse(req.body);
+    if (!id || !parsed.success) return res.status(400).json({ error: "Datos inválidos." });
+    const [project] = await db.select({ bim: clientProjects.bimRequired }).from(clientProjects).where(eq(clientProjects.id, id)).limit(1);
+    if (!project) return res.status(404).json({ error: "Proyecto no encontrado." });
+    const tasks = await db
+      .select({ id: officeTasks.id, title: officeTasks.title, status: officeTasks.status, revision: officeTasks.revision, collaborator: collaborators.name, specialty: collaborators.specialty, discipline: collaborators.discipline, isCoordinator: collaborators.isCoordinator })
+      .from(officeTasks)
+      .innerJoin(collaborators, eq(officeTasks.collaboratorId, collaborators.id))
+      .where(eq(officeTasks.projectId, id));
+    res.json({ bim: project.bim, suggestions: suggestImpact(parsed.data.note, tasks, project.bim) });
   });
 
   // Marcar un proyecto como BIM (modelo 3D de arquitectura e instalaciones)
