@@ -30,6 +30,7 @@ const prerenderRoutes = [
   "/calculadora-costos",
   "/colaboradores",
   "/casos-de-exito",
+  "/antes-de-construir",
   "/revista",
   "/blog",
   "/contacto",

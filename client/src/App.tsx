@@ -36,6 +36,7 @@ import RegularizacionInmuebles from "@/pages/regularizacion-inmuebles";
 import Contacto from "@/pages/contacto";
 import ObrasMenoresEmpresas from "@/pages/obras-menores-empresas";
 import CasosDeExito from "@/pages/casos-de-exito";
+import AntesDeConstruir, { AntesDeConstruirAgenda } from "@/pages/antes-de-construir";
 import NotFound from "@/pages/not-found";
 import CookieConsent from "@/components/cookie-consent";
 import FloatingContact from "@/components/floating-contact";
@@ -120,6 +121,8 @@ function Router() {
       <Route path="/contacto" component={Contacto} />
       <Route path="/obras-menores-empresas" component={ObrasMenoresEmpresas} />
       <Route path="/casos-de-exito" component={CasosDeExito} />
+      <Route path="/antes-de-construir" component={AntesDeConstruir} />
+      <Route path="/antes-de-construir/agenda" component={AntesDeConstruirAgenda} />
       <Route path="/formulario/colaboradores">
         {() => <FormularioServicio clave="colaboradores" />}
       </Route>

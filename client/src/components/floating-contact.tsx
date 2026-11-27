@@ -5,7 +5,7 @@ import { CONTACT, whatsappLink } from "@/lib/site-config";
 // Botones fijos de contacto: WhatsApp (siempre) y Llamar (solo en celular).
 // Quedan abajo a la derecha, visibles en cualquier página pública.
 
-const HIDDEN_PREFIXES = ["/admin", "/crm", "/portal-cliente", "/formulario"];
+const HIDDEN_PREFIXES = ["/admin", "/crm", "/portal-cliente", "/formulario", "/antes-de-construir"];
 
 function WhatsAppIcon() {
   return (

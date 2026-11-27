@@ -36,6 +36,7 @@
   "rewrites": [
     { "source": "/colaboradores/:slug", "destination": "/spa-shell.html" },
     { "source": "/formulario/(.*)", "destination": "/spa-shell.html" },
+    { "source": "/antes-de-construir/agenda", "destination": "/spa-shell.html" },
     { "source": "/admin(.*)", "destination": "/spa-shell.html" },
     { "source": "/crm(.*)", "destination": "/spa-shell.html" },
     { "source": "/portal-cliente(.*)", "destination": "/spa-shell.html" },
