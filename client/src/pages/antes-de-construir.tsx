@@ -211,7 +211,7 @@ function Video() {
         <button
           type="button"
           onClick={() => setSonido(true)}
-          style={{ position: "absolute", left: "50%", bottom: 16, transform: "translateX(-50%)", background: ORANGE, color: NAVY, fontWeight: 700, fontSize: 14, padding: "10px 16px", borderRadius: 8, border: 0, cursor: "pointer" }}
+          style={{ position: "absolute", right: 16, top: 56, background: ORANGE, color: NAVY, fontWeight: 700, fontSize: 14, padding: "10px 16px", borderRadius: 8, border: 0, cursor: "pointer" }}
         >
           Toque para activar el sonido
         </button>
