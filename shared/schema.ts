@@ -133,6 +133,7 @@ export const clientProjects = pgTable("client_projects", {
   permitFileNumber: text("permit_file_number"), // N° de expediente en la DOM
   permitStatus: text("permit_status"), // ingresado, observado, reingresado, aprobado, recepcion
   welcomeVideoUrl: text("welcome_video_url"), // video de bienvenida propio de este proyecto
+  bimRequired: boolean("bim_required").notNull().default(false), // proyecto con modelo BIM/3D de instalaciones
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
@@ -303,9 +304,12 @@ export const officeTasks = pgTable(
     status: text("status").notNull().default("todo"), // todo, doing, review, done
     dueDate: timestamp("due_date"),
     fee: decimal("fee", { precision: 12, scale: 2 }), // honorario acordado por la tarea
-    feeStatus: text("fee_status").notNull().default("pending"), // pending, paid
+    feeStatus: text("fee_status").notNull().default("pending"), // pending, invoiced (boleta recibida), paid
     feePaidAt: timestamp("fee_paid_at"),
     completedAt: timestamp("completed_at"),
+    deliverableFormat: text("deliverable_format").notNull().default("2d"), // 2d, 3d
+    revision: integer("revision").notNull().default(0), // cuántas modificaciones se han pedido
+    remindersSent: text("reminders_sent").array().notNull().default(sql`'{}'::text[]`), // d7, d1, overdue:<n>
     createdAt: timestamp("created_at").defaultNow().notNull(),
   },
   (t) => [index("idx_office_tasks_collab").on(t.collaboratorId), index("idx_office_tasks_project").on(t.projectId)],
@@ -319,8 +323,22 @@ export const officeTaskFiles = pgTable("office_task_files", {
   fileUrl: text("file_url").notNull(),
   fileSize: integer("file_size"),
   publishedDocumentId: integer("published_document_id").references(() => clientDocuments.id),
+  kind: text("kind").notNull().default("deliverable"), // deliverable | invoice (boleta o factura del colaborador)
   uploadedAt: timestamp("uploaded_at").defaultNow().notNull(),
 });
+
+// Línea del tiempo de cada tarea: quién hizo qué y cuándo (incluye los recordatorios enviados)
+export const officeTaskEvents = pgTable(
+  "office_task_events",
+  {
+    id: serial("id").primaryKey(),
+    taskId: integer("task_id").references(() => officeTasks.id).notNull(),
+    type: text("type").notNull(), // created, status, file, invoice, comment, revision, reminder, fee
+    text: text("text").notNull(),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+  },
+  (t) => [index("idx_office_task_events_task").on(t.taskId)],
+);
 
 export const officeTaskComments = pgTable("office_task_comments", {
   id: serial("id").primaryKey(),
@@ -427,6 +445,11 @@ export const collaborators = pgTable("collaborators", {
   availability: text("availability").notNull().default("available"), // 'available', 'busy', 'unavailable'
   verified: boolean("verified").default(false),
   active: boolean("active").default(true),
+  linkedinUrl: text("linkedin_url"),
+  discipline: text("discipline"), // arquitectura, sanitario, alcantarillado, electricidad, gas, estructura, bim...
+  canDo3d: boolean("can_do_3d").notNull().default(false), // entrega modelo 3D/BIM; si no, entrega 2D
+  isCoordinator: boolean("is_coordinator").notNull().default(false), // coordinador BIM: ve todo el equipo
+  showOnWebsite: boolean("show_on_website").notNull().default(false), // aparecerá en el staff de la web
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 

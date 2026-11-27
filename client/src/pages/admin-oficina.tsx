@@ -7,20 +7,22 @@ import { Badge } from "@/components/ui/badge";
 import { Textarea } from "@/components/ui/textarea";
 import { apiRequest } from "@/lib/queryClient";
 
-type Collab = { id: number; name: string; email: string; phone: string | null; specialty: string; active: boolean; open: number; review: number; feePending: string };
-type Task = { id: number; title: string; status: string; dueDate: string | null; collaborator: string; project: string | null; fee: string | null; feeStatus: string; collaboratorId: number };
+type Collab = { id: number; name: string; email: string; phone: string | null; specialty: string; active: boolean; discipline: string | null; canDo3d: boolean; isCoordinator: boolean; showOnWebsite: boolean; linkedinUrl: string | null; open: number; review: number; feePending: string };
+type Task = { id: number; title: string; status: string; dueDate: string | null; collaborator: string; project: string | null; fee: string | null; feeStatus: string; collaboratorId: number; deliverableFormat: string; revision: number };
 type TaskFull = {
   task: Task & { description: string | null };
-  files: { id: number; name: string; uploadedAt: string; publishedDocumentId: number | null }[];
+  files: { id: number; name: string; kind: string; uploadedAt: string; publishedDocumentId: number | null }[];
   comments: { id: number; author: string; body: string; createdAt: string }[];
+  events: { id: number; type: string; text: string; createdAt: string }[];
 };
 type ClientLite = { id: number; name: string };
-type ProjectLite = { id: number; name: string };
+type ProjectLite = { id: number; name: string; bimRequired?: boolean };
 
 const STATUS: Record<string, string> = { todo: "Por hacer", doing: "En curso", review: "En revisión", done: "Hecha" };
 const DOC_TYPES: [string, string][] = [["plans", "Planos"], ["renders", "Renders"], ["specifications", "Especificaciones"], ["observations", "Acta de observaciones"], ["permits", "Permisos"], ["photos", "Fotos"], ["other", "Otros"]];
 const clp = (n: number | string) => `$${Math.round(Number(n)).toLocaleString("es-CL")}`;
 const day = (d: string | null) => (d ? new Date(d).toLocaleDateString("es-CL") : "sin fecha");
+const FEE: Record<string, string> = { pending: "pendiente", invoiced: "boleta recibida, por pagar", paid: "pagado" };
 const sel = "border rounded-md p-2 text-sm bg-white";
 const get = async <T,>(url: string): Promise<T> => { const r = await fetch(url, { credentials: "include" }); if (!r.ok) throw new Error(String(r.status)); return r.json(); };
 const send = async (method: string, url: string, body?: unknown) => (await apiRequest(method, url, body)).json();
@@ -31,6 +33,7 @@ function TaskDetail({ id, onChange }: { id: number; onChange: () => void }) {
   const { data } = useQuery({ queryKey: key, queryFn: () => get<TaskFull>(`/api/office/admin/tasks/${id}`) });
   const [comment, setComment] = useState("");
   const [pub, setPub] = useState<Record<number, string>>({});
+  const [rev, setRev] = useState({ note: "", dueDate: "" });
   const [msg, setMsg] = useState<string | null>(null);
   const run = async (fn: () => Promise<unknown>, ok: string) => {
     try { await fn(); setMsg(ok); qc.invalidateQueries({ queryKey: key }); onChange(); } catch (e) { setMsg(`Error: ${(e as Error).message}`); }
@@ -43,7 +46,7 @@ function TaskDetail({ id, onChange }: { id: number; onChange: () => void }) {
     <Card>
       <CardHeader>
         <CardTitle className="text-base">{t.title}</CardTitle>
-        <p className="text-sm text-gray-500">{t.project ? `${t.project} · ` : "Interna · "}{t.collaborator} · entrega {day(t.dueDate)} · <Badge variant="outline">{STATUS[t.status]}</Badge></p>
+        <p className="text-sm text-gray-500">{t.project ? `${t.project} · ` : "Interna · "}{t.collaborator} · entrega {day(t.dueDate)} · en {t.deliverableFormat === "3d" ? "3D" : "2D"} · <Badge variant="outline">{STATUS[t.status]}</Badge></p>
       </CardHeader>
       <CardContent className="space-y-4 text-sm">
         {t.description && <p className="whitespace-pre-wrap">{t.description}</p>}
@@ -54,18 +57,19 @@ function TaskDetail({ id, onChange }: { id: number; onChange: () => void }) {
         </div>
         {t.fee && (
           <div className="flex items-center gap-2">
-            <span>Honorario {clp(t.fee)}: <b>{t.feeStatus === "paid" ? "pagado" : "pendiente"}</b></span>
-            <Button size="sm" variant="outline" onClick={() => patch({ feeStatus: t.feeStatus === "paid" ? "pending" : "paid" }, "Honorario actualizado.")}>{t.feeStatus === "paid" ? "Marcar pendiente" : "Marcar pagado"}</Button>
+            <span>Honorario pactado {clp(t.fee)}: <b>{FEE[t.feeStatus]}</b></span>
+            {t.feeStatus !== "paid" && <Button size="sm" variant="outline" onClick={() => patch({ feeStatus: "paid" }, "Honorario pagado.")}>Marcar pagado</Button>}
+            {t.feeStatus === "paid" && <Button size="sm" variant="ghost" onClick={() => patch({ feeStatus: "pending" }, "Honorario pendiente.")}>Deshacer</Button>}
           </div>
         )}
         <div>
-          <h4 className="font-semibold mb-1">Entregables</h4>
+          <h4 className="font-semibold mb-1">Archivos</h4>
           {data.files.length === 0 && <p className="text-gray-500">Sin archivos.</p>}
           {data.files.map((f) => (
             <div key={f.id} className="flex flex-wrap items-center gap-2 py-1">
               <a className="text-[#C2410C] underline" href={`/api/office/admin/files/${f.id}/download`}>{f.name}</a>
-              <span className="text-gray-400">{day(f.uploadedAt)}</span>
-              {f.publishedDocumentId ? (
+              <span className="text-gray-400">{f.kind === "invoice" ? "boleta/factura" : "entregable"} · {day(f.uploadedAt)}</span>
+              {f.kind === "invoice" ? null : f.publishedDocumentId ? (
                 <Badge>Publicado al cliente</Badge>
               ) : t.project ? (
                 <>
@@ -78,6 +82,22 @@ function TaskDetail({ id, onChange }: { id: number; onChange: () => void }) {
             </div>
           ))}
           <p className="text-xs text-gray-500 mt-1">Publicar deja el archivo visible en el portal del cliente, sin enviarle correo.</p>
+        </div>
+        <div className="rounded-md border p-2 space-y-2">
+          <h4 className="font-semibold">Pedir una modificación {t.revision > 0 && <span className="font-normal text-gray-500">(van {t.revision})</span>}</h4>
+          <p className="text-xs text-gray-500">Para cambios del propietario, de la obra o de otra disciplina. Reabre la tarea, la deja "En curso" y le avisa por correo.</p>
+          <Textarea rows={2} value={rev.note} onChange={(e) => setRev({ ...rev, note: e.target.value })} placeholder="Qué cambia y por qué..." />
+          <div className="flex items-center gap-2">
+            <Input type="date" className="w-44" value={rev.dueDate} onChange={(e) => setRev({ ...rev, dueDate: e.target.value })} />
+            <span className="text-xs text-gray-500">nueva fecha (opcional)</span>
+            <Button size="sm" disabled={rev.note.trim().length < 3} onClick={() => run(async () => { await send("POST", `/api/office/admin/tasks/${id}/revision`, { note: rev.note, dueDate: rev.dueDate || null }); setRev({ note: "", dueDate: "" }); }, "Modificación solicitada y avisada.")}>Solicitar</Button>
+          </div>
+        </div>
+        <div>
+          <h4 className="font-semibold mb-1">Línea de tiempo</h4>
+          <ol className="border-l-2 border-[#F97015] pl-3 space-y-1">
+            {data.events.map((ev) => <li key={ev.id}><span className="text-gray-400">{day(ev.createdAt)}</span> · {ev.text}</li>)}
+          </ol>
         </div>
         <div>
           <h4 className="font-semibold mb-1">Conversación</h4>
@@ -102,7 +122,7 @@ export default function OfficeTab() {
   const [selTask, setSelTask] = useState<number | null>(null);
   const [msg, setMsg] = useState<string | null>(null);
   const [c, setC] = useState({ name: "", email: "", specialty: "", phone: "" });
-  const [t, setT] = useState({ collaboratorId: "", clientId: "", projectId: "", title: "", description: "", dueDate: "", fee: "" });
+  const [t, setT] = useState({ collaboratorId: "", clientId: "", projectId: "", title: "", description: "", dueDate: "", fee: "", format: "2d" });
 
   const collabs = useQuery({ queryKey: ["office-collabs"], queryFn: () => get<Collab[]>("/api/office/admin/collaborators") });
   const tasks = useQuery({ queryKey: ["office-tasks", filter], queryFn: () => get<Task[]>(`/api/office/admin/tasks${filter ? `?status=${filter}` : ""}`) });
@@ -123,10 +143,12 @@ export default function OfficeTab() {
               <div key={k.id} className="flex flex-wrap items-center justify-between gap-2 border-b pb-2">
                 <div>
                   <div className="font-medium">{k.name} {!k.active && <Badge variant="outline">Inactivo</Badge>}</div>
-                  <div className="text-xs text-gray-500">{k.specialty} · {k.email} · {k.open} abiertas{k.review ? ` (${k.review} en revisión)` : ""}{Number(k.feePending) > 0 ? ` · por pagar ${clp(k.feePending)}` : ""}</div>
+                  <div className="text-xs text-gray-500">{k.specialty}{k.isCoordinator ? " · Coordinador BIM" : ""}{k.canDo3d ? " · hace 3D" : " · entrega 2D"}{k.showOnWebsite ? " · en la web" : ""} · {k.email} · {k.open} abiertas{k.review ? ` (${k.review} en revisión)` : ""}{Number(k.feePending) > 0 ? ` · por pagar ${clp(k.feePending)}` : ""}</div>
                 </div>
                 <div className="flex gap-1">
                   <Button size="sm" variant="outline" onClick={() => run(async () => { const r = await send("POST", `/api/office/admin/collaborators/${k.id}/invite`); if (!r.emailed) throw new Error("correo no configurado (SMTP)"); }, `Enlace enviado a ${k.email}.`)}>Enviar acceso</Button>
+                  <Button size="sm" variant="ghost" onClick={() => run(() => send("PATCH", `/api/office/admin/collaborators/${k.id}`, { canDo3d: !k.canDo3d }), "Actualizado.")}>{k.canDo3d ? "Quitar 3D" : "Hace 3D"}</Button>
+                  <Button size="sm" variant="ghost" onClick={() => run(() => send("PATCH", `/api/office/admin/collaborators/${k.id}`, { isCoordinator: !k.isCoordinator }), "Actualizado.")}>{k.isCoordinator ? "Quitar coord." : "Coord. BIM"}</Button>
                   <Button size="sm" variant="ghost" onClick={() => run(() => send("PATCH", `/api/office/admin/collaborators/${k.id}`, { active: !k.active }), k.active ? "Desactivado." : "Activado.")}>{k.active ? "Desactivar" : "Activar"}</Button>
                 </div>
               </div>
@@ -164,9 +186,23 @@ export default function OfficeTab() {
               <Input type="date" value={t.dueDate} onChange={(e) => setT({ ...t, dueDate: e.target.value })} />
               <Input type="number" placeholder="Honorario CLP (opcional)" value={t.fee} onChange={(e) => setT({ ...t, fee: e.target.value })} />
             </div>
+            <div className="flex flex-wrap items-center gap-3">
+              <select className={sel} value={t.format} onChange={(e) => setT({ ...t, format: e.target.value })}>
+                <option value="2d">Entrega en 2D (planos)</option>
+                <option value="3d">Entrega en 3D / modelo</option>
+              </select>
+              {t.projectId && (() => {
+                const pr = (projects.data ?? []).find((p) => String(p.id) === t.projectId);
+                return pr ? (
+                  <label className="flex items-center gap-1 text-xs">
+                    <input type="checkbox" checked={Boolean(pr.bimRequired)} onChange={(e) => run(async () => { await send("PATCH", `/api/office/admin/projects/${pr.id}/bim`, { bimRequired: e.target.checked }); qc.invalidateQueries({ queryKey: ["admin-client-projects", t.clientId] }); }, "Proyecto actualizado.")} /> Proyecto BIM
+                  </label>
+                ) : null;
+              })()}
+            </div>
             <p className="text-xs text-gray-500">El colaborador solo verá el nombre del proyecto, nunca los datos del cliente.</p>
             <Button size="sm" disabled={!t.collaboratorId || !t.title || (Boolean(t.clientId) && !t.projectId)} onClick={() => run(async () => {
-              await send("POST", "/api/office/admin/tasks", { collaboratorId: Number(t.collaboratorId), projectId: t.projectId ? Number(t.projectId) : null, title: t.title, description: t.description || null, dueDate: t.dueDate || null, fee: t.fee ? Number(t.fee) : null });
+              await send("POST", "/api/office/admin/tasks", { collaboratorId: Number(t.collaboratorId), projectId: t.projectId ? Number(t.projectId) : null, title: t.title, description: t.description || null, dueDate: t.dueDate || null, fee: t.fee ? Number(t.fee) : null, deliverableFormat: t.format });
               setT({ ...t, title: "", description: "", dueDate: "", fee: "" });
             }, "Tarea creada y avisada por correo.")}>Crear y avisar</Button>
           </CardContent>
