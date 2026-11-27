@@ -41,6 +41,7 @@
     { "source": "/admin(.*)", "destination": "/spa-shell.html" },
     { "source": "/crm(.*)", "destination": "/spa-shell.html" },
     { "source": "/portal-cliente(.*)", "destination": "/spa-shell.html" },
+    { "source": "/recomendado/(.*)", "destination": "/spa-shell.html" },
     { "source": "/gracias", "destination": "/spa-shell.html" }
   ]
 }

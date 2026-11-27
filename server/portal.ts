@@ -15,6 +15,7 @@ import {
   portalLoginTokens,
   clientMessages,
   clientFeedback,
+  clientReferrals,
 } from "@shared/schema";
 import { ObjectStorageService, ObjectNotFoundError } from "./objectStorage";
 
@@ -250,6 +251,51 @@ const timelineInput = z.object({
   status: z.enum(["completed", "current", "upcoming"]),
   category: z.enum(["design", "permits", "construction", "delivery"]).optional(),
 });
+
+const referralInput = z.object({
+  name: z.string().min(2).max(120),
+  contact: z.string().min(6).max(160),
+  need: z.string().max(200).optional(),
+  note: z.string().max(1000).optional(),
+});
+
+const NOTIFY_EMAIL = process.env.PORTAL_NOTIFY_EMAIL || "contacto@arquitectochile.com";
+
+// Código corto y fácil de dictar (sin letras que se confunden)
+function newReferralCode(): string {
+  const alphabet = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+  const bytes = crypto.randomBytes(8);
+  return Array.from(bytes, (b) => alphabet[b % alphabet.length]).join("");
+}
+
+async function ensureReferralCode(client: { id: number; referralCode: string | null }): Promise<string> {
+  if (client.referralCode) return client.referralCode;
+  for (let i = 0; i < 5; i++) {
+    const code = newReferralCode();
+    try {
+      await db.update(clients).set({ referralCode: code }).where(eq(clients.id, client.id));
+      return code;
+    } catch (err) {
+      if ((err as any)?.code !== "23505") throw err; // choque de código: se prueba otro
+    }
+  }
+  throw new Error("No se pudo generar el código de recomendación");
+}
+
+async function saveReferral(referrerId: number, referrerName: string, data: z.infer<typeof referralInput>, source: "portal" | "link") {
+  const [row] = await db.insert(clientReferrals).values({ ...data, referrerId, source }).returning();
+  // Aviso al arquitecto para que contacte pronto a la persona recomendada
+  sendEmail(
+    NOTIFY_EMAIL,
+    `Nueva recomendación de ${referrerName}: ${data.name}`,
+    emailShell(`<h3 style="color:#1e3a5f">Te recomendaron a alguien</h3>
+      <p><b>${escapeHtml(data.name)}</b> — ${escapeHtml(data.contact)}</p>
+      ${data.need ? `<p>Necesita: ${escapeHtml(data.need)}</p>` : ""}
+      ${data.note ? `<p>${escapeHtml(data.note)}</p>` : ""}
+      <p style="color:#64748b">Recomendado por ${escapeHtml(referrerName)} (${source === "link" ? "enlace personal" : "portal"}).</p>`),
+  ).catch(() => undefined);
+  return row;
+}
 
 function parseId(v: string): number | null {
   const n = Number(v);
@@ -562,6 +608,59 @@ export function registerPortalRoutes(app: Express, isAdmin: RequestHandler) {
     res.status(201).json({ ok: true });
   });
 
+  // ===== Red de referidos =====
+
+  app.get("/api/portal/referrals", requirePortalClient, async (req, res) => {
+    const client = (req as any).portalClient;
+    const code = await ensureReferralCode(client);
+    const list = await db
+      .select({
+        id: clientReferrals.id,
+        name: clientReferrals.name,
+        need: clientReferrals.need,
+        status: clientReferrals.status,
+        createdAt: clientReferrals.createdAt,
+      })
+      .from(clientReferrals)
+      .where(eq(clientReferrals.referrerId, client.id))
+      .orderBy(desc(clientReferrals.createdAt));
+    res.json({ code, link: `${PORTAL_BASE_URL}/recomendado/${code}`, referrals: list });
+  });
+
+  app.post("/api/portal/referrals", requirePortalClient, async (req, res) => {
+    const client = (req as any).portalClient;
+    const parsed = referralInput.safeParse(req.body);
+    if (!parsed.success) return res.status(400).json({ error: "Revisa el nombre y el contacto." });
+    await saveReferral(client.id, client.name, parsed.data, "portal");
+    res.status(201).json({ ok: true });
+  });
+
+  // Página pública a la que llega la persona recomendada desde el enlace de su amigo
+  const publicLimiter = rateLimit({ windowMs: 60 * 60 * 1000, limit: 10, standardHeaders: true, legacyHeaders: false });
+
+  app.get("/api/portal/public/referrer/:code", async (req, res) => {
+    const [row] = await db
+      .select({ name: clients.name })
+      .from(clients)
+      .where(eq(clients.referralCode, req.params.code.toUpperCase()))
+      .limit(1);
+    // Solo el primer nombre: no se expone el nombre completo del cliente
+    res.json(row ? { firstName: row.name.split(" ")[0] } : { firstName: null });
+  });
+
+  app.post("/api/portal/public/referral", publicLimiter, async (req, res) => {
+    const parsed = referralInput
+      .extend({ code: z.string().min(6).max(12), website: z.string().optional() })
+      .safeParse(req.body);
+    if (!parsed.success) return res.status(400).json({ error: "Revisa tus datos." });
+    if (parsed.data.website) return res.json({ ok: true }); // campo trampa para bots: se ignora en silencio
+    const [referrer] = await db.select().from(clients).where(eq(clients.referralCode, parsed.data.code.toUpperCase())).limit(1);
+    if (!referrer) return res.status(404).json({ error: "El enlace no es válido." });
+    const { code: _code, website: _w, ...data } = parsed.data;
+    await saveReferral(referrer.id, referrer.name, data, "link");
+    res.status(201).json({ ok: true });
+  });
+
   // ===== Administración (solo el arquitecto) =====
 
   const admin = "/api/portal/admin";
@@ -606,6 +705,56 @@ export function registerPortalRoutes(app: Express, isAdmin: RequestHandler) {
     res.json(rows);
   });
 
+  app.get(`${admin}/referrals`, isAdmin, async (_req, res) => {
+    const rows = await db
+      .select({
+        id: clientReferrals.id,
+        referrer: clients.name,
+        name: clientReferrals.name,
+        contact: clientReferrals.contact,
+        need: clientReferrals.need,
+        note: clientReferrals.note,
+        source: clientReferrals.source,
+        status: clientReferrals.status,
+        rewardNote: clientReferrals.rewardNote,
+        createdAt: clientReferrals.createdAt,
+      })
+      .from(clientReferrals)
+      .innerJoin(clients, eq(clientReferrals.referrerId, clients.id))
+      .orderBy(desc(clientReferrals.createdAt));
+    res.json(rows);
+  });
+
+  app.patch(`${admin}/referrals/:id`, isAdmin, async (req, res) => {
+    const id = parseId(req.params.id);
+    const parsed = z
+      .object({ status: z.enum(["new", "contacted", "client", "discarded"]).optional(), rewardNote: z.string().max(500).optional() })
+      .safeParse(req.body);
+    if (!id || !parsed.success) return res.status(400).json({ error: "Datos inválidos." });
+    await db.update(clientReferrals).set(parsed.data).where(eq(clientReferrals.id, id));
+    res.json({ ok: true });
+  });
+
+  app.get(`${admin}/clients/:id/projects`, isAdmin, async (req, res) => {
+    const id = parseId(req.params.id);
+    if (!id) return res.status(400).json({ error: "Cliente inválido." });
+    res.json(await db.select().from(clientProjects).where(eq(clientProjects.clientId, id)).orderBy(desc(clientProjects.createdAt)));
+  });
+
+  // Vista completa del proyecto, incluidos los documentos que el cliente aún no ve
+  app.get(`${admin}/projects/:id`, isAdmin, async (req, res) => {
+    const id = parseId(req.params.id);
+    if (!id) return res.status(400).json({ error: "Proyecto inválido." });
+    const [project] = await db.select().from(clientProjects).where(eq(clientProjects.id, id)).limit(1);
+    if (!project) return res.status(404).json({ error: "Proyecto no encontrado." });
+    const [documents, payments, timeline] = await Promise.all([
+      db.select().from(clientDocuments).where(eq(clientDocuments.projectId, id)).orderBy(desc(clientDocuments.uploadDate)),
+      db.select().from(clientPayments).where(eq(clientPayments.projectId, id)).orderBy(asc(clientPayments.dueDate)),
+      db.select().from(clientTimeline).where(eq(clientTimeline.projectId, id)).orderBy(asc(clientTimeline.date)),
+    ]);
+    res.json({ project, documents, payments, timeline });
+  });
+
   app.get(`${admin}/clients`, isAdmin, async (_req, res) => {
     const rows = await db
       .select({
@@ -629,7 +778,7 @@ export function registerPortalRoutes(app: Express, isAdmin: RequestHandler) {
       const unusable = crypto.randomBytes(32).toString("hex");
       const [created] = await db
         .insert(clients)
-        .values({ ...parsed.data, email: normalizeEmail(parsed.data.email), password: unusable })
+        .values({ ...parsed.data, email: normalizeEmail(parsed.data.email), password: unusable, referralCode: newReferralCode() })
         .returning({ id: clients.id, name: clients.name, email: clients.email });
       res.status(201).json(created);
     } catch (err) {

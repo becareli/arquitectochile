@@ -4,7 +4,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Calendar, CheckCircle, Clock, CreditCard, Download, FileText, Home, Loader2, LogOut, Mail, Receipt, Sparkles, Star } from "lucide-react";
+import { Calendar, CheckCircle, Clock, CreditCard, Download, FileText, Home, Loader2, LogOut, Mail, Receipt, Share2, Sparkles, Star } from "lucide-react";
 import { useSEO } from "@/hooks/useSEO";
 import { apiRequest } from "@/lib/queryClient";
 
@@ -88,7 +88,9 @@ async function getJson<T>(url: string): Promise<T | null> {
   return res.json();
 }
 
-type TabKey = "documentos" | "pagos" | "timeline" | "mensajes" | "opinion" | "servicios";
+type TabKey = "documentos" | "pagos" | "timeline" | "mensajes" | "opinion" | "recomienda" | "servicios";
+type RefData = { code: string; link: string; referrals: { id: number; name: string; need: string | null; status: string; createdAt: string }[] };
+const REF_STATUS: Record<string, string> = { new: "Recibida", contacted: "Contactada", client: "Ya es cliente", discarded: "Cerrada" };
 
 export default function PortalClienteMiProyecto() {
   useSEO({
@@ -103,9 +105,18 @@ export default function PortalClienteMiProyecto() {
   const [selected, setSelected] = useState<number | null>(null);
   const qc = useQueryClient();
   const [fb, setFb] = useState({ rating: 5, comment: "", canPublish: true, referralName: "", referralContact: "" });
+  const [refForm, setRefForm] = useState({ name: "", contact: "", need: "" });
+  const [refState, setRefState] = useState<"idle" | "sending" | "done" | "error">("idle");
+  const [copied, setCopied] = useState(false);
   const [fbState, setFbState] = useState<"idle" | "sending" | "done" | "error">("idle");
 
   const me = useQuery({ queryKey: ["portal-me"], queryFn: () => getJson<Me>("/api/portal/me"), retry: false });
+  const refs = useQuery({
+    queryKey: ["portal-referrals"],
+    queryFn: () => getJson<RefData>("/api/portal/referrals"),
+    enabled: tab === "recomienda",
+    retry: false,
+  });
   const projectId = selected ?? me.data?.projects[0]?.id ?? null;
   const data = useQuery({
     queryKey: ["portal-project", projectId],
@@ -133,6 +144,22 @@ export default function PortalClienteMiProyecto() {
     return null;
   }
 
+  async function sendReferral() {
+    setRefState("sending");
+    try {
+      await apiRequest("POST", "/api/portal/referrals", {
+        name: refForm.name,
+        contact: refForm.contact,
+        ...(refForm.need ? { need: refForm.need } : {}),
+      });
+      setRefForm({ name: "", contact: "", need: "" });
+      setRefState("done");
+      qc.invalidateQueries({ queryKey: ["portal-referrals"] });
+    } catch {
+      setRefState("error");
+    }
+  }
+
   async function sendFeedback() {
     if (!projectId) return;
     setFbState("sending");
@@ -158,6 +185,7 @@ export default function PortalClienteMiProyecto() {
     { key: "timeline", label: "Expediente y avance", icon: Calendar },
     { key: "mensajes", label: "Mensajes", icon: Mail },
     { key: "opinion", label: "Tu opinión", icon: Star },
+    { key: "recomienda", label: "Recomienda", icon: Share2 },
     { key: "servicios", label: "Para ti", icon: Sparkles },
   ];
 
@@ -389,6 +417,54 @@ export default function PortalClienteMiProyecto() {
                   )}
                 </CardContent>
               </Card>
+            )}
+
+            {tab === "recomienda" && (
+              <div className="space-y-4">
+                <Card>
+                  <CardHeader><CardTitle className="text-lg">Recomienda a alguien que lo necesite</CardTitle></CardHeader>
+                  <CardContent className="space-y-3">
+                    <p className="text-sm text-gray-600">Si conoces a alguien que quiera regularizar, ampliar o construir, comparte tu enlace personal. Yo me encargo de contactarlo.</p>
+                    {refs.data && (
+                      <div className="flex flex-wrap gap-2 items-center">
+                        <code className="text-xs bg-gray-100 rounded px-2 py-1 break-all">{refs.data.link}</code>
+                        <Button size="sm" variant="outline" onClick={() => { navigator.clipboard.writeText(refs.data!.link); setCopied(true); }}>
+                          {copied ? "¡Copiado!" : "Copiar enlace"}
+                        </Button>
+                        <Button asChild size="sm">
+                          <a href={`https://wa.me/?text=${encodeURIComponent(`Te recomiendo al arquitecto Patricio Becar. Cuéntale qué necesitas aquí: ${refs.data.link}`)}`} target="_blank" rel="noreferrer">Compartir por WhatsApp</a>
+                        </Button>
+                      </div>
+                    )}
+                  </CardContent>
+                </Card>
+                <Card>
+                  <CardHeader><CardTitle className="text-base">¿Prefieres dejarme sus datos?</CardTitle></CardHeader>
+                  <CardContent className="space-y-3">
+                    <div className="grid sm:grid-cols-3 gap-2">
+                      <input className="border rounded-md p-2 text-sm" placeholder="Nombre" value={refForm.name} onChange={(e) => setRefForm({ ...refForm, name: e.target.value })} />
+                      <input className="border rounded-md p-2 text-sm" placeholder="Teléfono o correo" value={refForm.contact} onChange={(e) => setRefForm({ ...refForm, contact: e.target.value })} />
+                      <input className="border rounded-md p-2 text-sm" placeholder="¿Qué necesita? (opcional)" value={refForm.need} onChange={(e) => setRefForm({ ...refForm, need: e.target.value })} />
+                    </div>
+                    {refState === "done" && <p className="text-sm text-green-700">¡Gracias! Lo contactaré pronto.</p>}
+                    {refState === "error" && <p className="text-sm text-red-600">Revisa el nombre y el contacto.</p>}
+                    <Button size="sm" onClick={sendReferral} disabled={refState === "sending" || refForm.name.trim().length < 2 || refForm.contact.trim().length < 6}>Enviar recomendación</Button>
+                  </CardContent>
+                </Card>
+                {refs.data && refs.data.referrals.length > 0 && (
+                  <Card>
+                    <CardHeader><CardTitle className="text-base">Tus recomendaciones</CardTitle></CardHeader>
+                    <CardContent className="divide-y">
+                      {refs.data.referrals.map((r) => (
+                        <div key={r.id} className="flex justify-between py-2 text-sm">
+                          <span>{r.name}{r.need ? ` · ${r.need}` : ""}</span>
+                          <Badge variant="outline">{REF_STATUS[r.status] ?? r.status}</Badge>
+                        </div>
+                      ))}
+                    </CardContent>
+                  </Card>
+                )}
+              </div>
             )}
 
             {tab === "servicios" && (

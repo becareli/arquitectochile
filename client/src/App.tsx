@@ -18,6 +18,8 @@ import PortalClienteDemo from "@/pages/portal-cliente-demo";
 import PortalClienteAcceso from "@/pages/portal-cliente-acceso";
 import PortalClienteMiProyecto from "@/pages/portal-cliente-mi-proyecto";
 import PortalClienteBienvenida from "@/pages/portal-cliente-bienvenida";
+import Recomendado from "@/pages/recomendado";
+import AdminPortal from "@/pages/admin-portal";
 import RevisorIndependienteDeArquitectura from "@/pages/revisor-independiente-de-arquitectura";
 import DisenemosNuevosEspacios from "@/pages/disenemos-tus-nuevos-espacios";
 import FusionTerrenosUrbanos from "@/pages/fusion-terrenos-urbanos";
@@ -108,6 +110,14 @@ function Router() {
       <Route path="/portal-cliente/acceso" component={PortalClienteAcceso} />
       <Route path="/portal-cliente/mi-proyecto" component={PortalClienteMiProyecto} />
       <Route path="/portal-cliente/bienvenida" component={PortalClienteBienvenida} />
+      <Route path="/recomendado/:code" component={Recomendado} />
+      <Route path="/admin/portal">
+        {() => (
+          <AdminGate>
+            <AdminPortal />
+          </AdminGate>
+        )}
+      </Route>
       <Route path="/revisor-independiente-de-arquitectura" component={RevisorIndependienteDeArquitectura} />
       <Route path="/disenemos-tus-nuevos-espacios" component={DisenemosNuevosEspacios} />
       <Route path="/fusion-terrenos-urbanos" component={FusionTerrenosUrbanos} />

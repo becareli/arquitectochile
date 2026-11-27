@@ -116,6 +116,7 @@ export const clients = pgTable("clients", {
   lastLogin: timestamp("last_login"),
   welcomeSeenAt: timestamp("welcome_seen_at"),
   newsletterOptIn: boolean("newsletter_opt_in").notNull().default(false),
+  referralCode: text("referral_code").unique(), // código del enlace personal para recomendar
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
@@ -186,6 +187,24 @@ export const clientMessages = pgTable(
     createdAt: timestamp("created_at").defaultNow().notNull(),
   },
   (t) => [index("idx_client_messages_client").on(t.clientId)],
+);
+
+// Personas recomendadas por un cliente (desde el portal o desde su enlace personal)
+export const clientReferrals = pgTable(
+  "client_referrals",
+  {
+    id: serial("id").primaryKey(),
+    referrerId: integer("referrer_id").references(() => clients.id).notNull(),
+    name: text("name").notNull(),
+    contact: text("contact").notNull(), // teléfono o correo
+    need: text("need"), // qué necesita (regularizar, ampliar, diseñar...)
+    note: text("note"),
+    source: text("source").notNull().default("portal"), // portal, link
+    status: text("status").notNull().default("new"), // new, contacted, client, discarded
+    rewardNote: text("reward_note"), // agradecimiento acordado, lo define el arquitecto
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+  },
+  (t) => [index("idx_client_referrals_referrer").on(t.referrerId)],
 );
 
 // Opiniones y recomendaciones que dejan los clientes desde el portal
