@@ -335,8 +335,36 @@ export const officeTaskFiles = pgTable("office_task_files", {
   version: integer("version").notNull().default(1),
   stdName: text("std_name"),
   docSlug: text("doc_slug"),
+  reviewedBy: text("reviewed_by"), // quién hizo la revisión técnica
+  reviewedAt: timestamp("reviewed_at"),
+  approvedBy: text("approved_by"), // quién lo aprobó (Patricio)
+  approvedAt: timestamp("approved_at"),
+  returnedNote: text("returned_note"), // observación si fue devuelto para corregir
+  returnedAt: timestamp("returned_at"),
   uploadedAt: timestamp("uploaded_at").defaultNow().notNull(),
 });
+
+// Bitácora del proyecto: registro permanente (solo se agrega, nunca se edita) de quién hizo qué, con qué documento y cuándo.
+// actorType: admin | collaborator | agent | system  (agent queda previsto para cuando trabajen agentes de IA)
+export const projectLedger = pgTable(
+  "project_ledger",
+  {
+    id: serial("id").primaryKey(),
+    projectId: integer("project_id").references(() => clientProjects.id).notNull(),
+    projectCode: text("project_code"),
+    taskId: integer("task_id"),
+    fileId: integer("file_id"),
+    docName: text("doc_name"), // nombre estándar del documento, si corresponde
+    docVersion: integer("doc_version"),
+    action: text("action").notNull(), // Asignó tarea, Entregó V02, Revisó, Aprobó, Devolvió, Publicó al cliente...
+    role: text("role").notNull(), // Asignó, Diseñó/ejecutó, Revisó, Aprobó, Devolvió, Publicó, Solicitó, Cerró
+    actorType: text("actor_type").notNull(),
+    actorName: text("actor_name").notNull(),
+    detail: text("detail"),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+  },
+  (t) => [index("idx_project_ledger_project").on(t.projectId, t.createdAt)],
+);
 
 // Línea del tiempo de cada tarea: quién hizo qué y cuándo (incluye los recordatorios enviados)
 export const officeTaskEvents = pgTable(

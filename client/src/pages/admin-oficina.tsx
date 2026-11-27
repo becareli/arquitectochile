@@ -12,7 +12,7 @@ type Collab = { id: number; name: string; email: string; phone: string | null; s
 type Task = { id: number; title: string; status: string; dueDate: string | null; collaborator: string; project: string | null; fee: string | null; feeStatus: string; collaboratorId: number; deliverableFormat: string; revision: number };
 type TaskFull = {
   task: Task & { description: string | null };
-  files: { id: number; name: string; stdName: string | null; version: number; kind: string; uploadedAt: string; publishedDocumentId: number | null }[];
+  files: { id: number; name: string; stdName: string | null; version: number; kind: string; uploadedAt: string; publishedDocumentId: number | null; reviewedBy: string | null; approvedBy: string | null; returnedNote: string | null }[];
   comments: { id: number; author: string; body: string; createdAt: string }[];
   events: { id: number; type: string; text: string; createdAt: string }[];
 };
@@ -35,6 +35,7 @@ function TaskDetail({ id, onChange }: { id: number; onChange: () => void }) {
   const [comment, setComment] = useState("");
   const [pub, setPub] = useState<Record<number, string>>({});
   const [rev, setRev] = useState({ note: "", dueDate: "" });
+  const [ret, setRet] = useState<Record<number, string>>({});
   const [msg, setMsg] = useState<string | null>(null);
   const run = async (fn: () => Promise<unknown>, ok: string) => {
     try { await fn(); setMsg(ok); qc.invalidateQueries({ queryKey: key }); onChange(); } catch (e) { setMsg(`Error: ${(e as Error).message}`); }
@@ -70,9 +71,22 @@ function TaskDetail({ id, onChange }: { id: number; onChange: () => void }) {
             <div key={f.id} className="flex flex-wrap items-center gap-2 py-1">
               <a className="text-[#C2410C] underline break-all" href={`/api/office/admin/files/${f.id}/download`}>{f.stdName ?? f.name}</a>
               <span className="text-gray-400">{f.kind === "invoice" ? "boleta/factura" : "entregable"} · {day(f.uploadedAt)}</span>
+              {f.kind !== "invoice" && (
+                <span className="text-xs text-gray-600">
+                  {f.approvedBy ? `Aprobó: ${f.approvedBy}` : f.reviewedBy ? `Revisó: ${f.reviewedBy}` : f.returnedNote ? "Devuelto" : "Sin revisar"}
+                </span>
+              )}
+              {f.kind !== "invoice" && !f.publishedDocumentId && !f.approvedBy && (
+                <div className="w-full flex flex-wrap items-center gap-2 pl-2">
+                  {!f.reviewedBy && <Button size="sm" variant="outline" onClick={() => run(() => send("POST", `/api/office/admin/files/${f.id}/review`), "Marcado como revisado.")}>Revisé</Button>}
+                  <Button size="sm" onClick={() => run(() => send("POST", `/api/office/admin/files/${f.id}/approve`), "Aprobado.")}>Aprobar</Button>
+                  <Input className="w-64 h-8" placeholder="Observación para devolver..." value={ret[f.id] ?? ""} onChange={(e) => setRet({ ...ret, [f.id]: e.target.value })} />
+                  <Button size="sm" variant="outline" disabled={(ret[f.id] ?? "").trim().length < 3} onClick={() => run(() => send("POST", `/api/office/admin/files/${f.id}/return`, { note: ret[f.id] }), "Devuelto al colaborador.")}>Devolver</Button>
+                </div>
+              )}
               {f.kind === "invoice" ? null : f.publishedDocumentId ? (
                 <Badge>Publicado al cliente</Badge>
-              ) : t.project ? (
+              ) : t.project && f.approvedBy ? (
                 <>
                   <select className={sel} value={pub[f.id] ?? "plans"} onChange={(e) => setPub({ ...pub, [f.id]: e.target.value })}>
                     {DOC_TYPES.map(([v, l]) => <option key={v} value={v}>{l}</option>)}
@@ -82,7 +96,7 @@ function TaskDetail({ id, onChange }: { id: number; onChange: () => void }) {
               ) : null}
             </div>
           ))}
-          <p className="text-xs text-gray-500 mt-1">Publicar deja el archivo visible en el portal del cliente, sin enviarle correo.</p>
+          <p className="text-xs text-gray-500 mt-1">Solo se publica lo aprobado. Publicar deja el archivo visible en el portal del cliente, sin enviarle correo. Todo queda en la bitácora del proyecto.</p>
         </div>
         <div className="rounded-md border p-2 space-y-2">
           <h4 className="font-semibold">Pedir una modificación {t.revision > 0 && <span className="font-normal text-gray-500">(van {t.revision})</span>}</h4>

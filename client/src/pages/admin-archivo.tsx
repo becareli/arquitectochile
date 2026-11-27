@@ -7,6 +7,7 @@ import { apiRequest } from "@/lib/queryClient";
 import { DISCIPLINES, DOC_KINDS } from "@shared/classification";
 
 type Row = { source: string; id: number; name: string; classified: boolean; current: boolean; version: number; docKind: string | null; discipline: string | null; date: string; author: string; projectId: number; code: string | null; address: string | null; project: string; clientVisible: boolean };
+type Ledger = { id: number; projectCode: string | null; docName: string | null; docVersion: number | null; action: string; role: string; actorName: string; actorType: string; detail: string | null; createdAt: string };
 type Client = { id: number; name: string };
 type Project = { id: number; name: string; code: string | null; address: string | null };
 
@@ -30,6 +31,9 @@ export default function ArchiveTab() {
       qc.invalidateQueries({ queryKey: ["admin-client-projects"] });
     } catch (e) { setMsg(`Error: ${(e as Error).message}`); }
   };
+
+  const [q, setQ] = useState("");
+  const ledger = useQuery({ queryKey: ["admin-ledger", f.projectId, q], queryFn: () => get<Ledger[]>(`/api/office/admin/ledger?projectId=${f.projectId}${q ? `&q=${encodeURIComponent(q)}` : ""}`), enabled: Boolean(f.projectId) });
 
   const data = rows.data ?? [];
   return (
@@ -88,6 +92,40 @@ export default function ArchiveTab() {
               {data.length === 0 && <tr><td className="p-4 text-gray-500" colSpan={7}>No hay documentos con estos filtros.</td></tr>}
             </tbody>
           </table>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader><CardTitle className="text-base">Bitácora del proyecto</CardTitle></CardHeader>
+        <CardContent className="space-y-2 text-sm">
+          {!f.projectId ? (
+            <p className="text-gray-500">Elige un cliente y un proyecto arriba para ver su historia: cada documento con su código, qué pasó, quién lo hizo y cuándo.</p>
+          ) : (
+            <>
+              <div className="flex flex-wrap items-center gap-2">
+                <input className="border rounded-md p-2 text-sm w-64" placeholder="Buscar por código, documento o persona" value={q} onChange={(e) => setQ(e.target.value)} />
+                <Button size="sm" variant="outline" asChild><a href={`/api/office/admin/ledger.csv?projectId=${f.projectId}${q ? `&q=${encodeURIComponent(q)}` : ""}`}>Descargar bitácora (CSV)</a></Button>
+                <span className="text-xs text-gray-500">Es un registro permanente: no se puede editar ni borrar.</span>
+              </div>
+              <div className="overflow-x-auto">
+                <table className="w-full">
+                  <thead className="text-left text-xs text-gray-500 border-b"><tr><th className="p-2">Fecha</th><th className="p-2">Documento / código</th><th className="p-2">Qué pasó</th><th className="p-2">Rol</th><th className="p-2">Persona</th></tr></thead>
+                  <tbody>
+                    {(ledger.data ?? []).map((l) => (
+                      <tr key={l.id} className="border-b last:border-0 align-top">
+                        <td className="p-2 whitespace-nowrap">{new Date(l.createdAt).toLocaleString("es-CL", { dateStyle: "short", timeStyle: "short" })}</td>
+                        <td className="p-2 break-all">{l.docName ?? <span className="text-gray-400">{l.projectCode}</span>}</td>
+                        <td className="p-2">{l.action}{l.detail && <div className="text-xs text-gray-500">{l.detail}</div>}</td>
+                        <td className="p-2"><Badge variant="outline">{l.role}</Badge></td>
+                        <td className="p-2">{l.actorName}{l.actorType === "agent" ? " (agente)" : ""}</td>
+                      </tr>
+                    ))}
+                    {ledger.data?.length === 0 && <tr><td className="p-4 text-gray-500" colSpan={5}>Aún no hay movimientos en este proyecto.</td></tr>}
+                  </tbody>
+                </table>
+              </div>
+            </>
+          )}
         </CardContent>
       </Card>
     </div>

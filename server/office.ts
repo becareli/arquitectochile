@@ -11,12 +11,14 @@ import {
   officeTaskFiles,
   officeTaskComments,
   officeTaskEvents,
+  projectLedger,
   clientProjects,
   clientDocuments,
 } from "@shared/schema";
 import { ObjectStorageService, ObjectNotFoundError } from "./objectStorage";
 import { sendEmail, emailShell, escapeHtml, parseId, PORTAL_BASE_URL } from "./portal";
 import { backfillProjectCodes, nextDocVersion } from "./classification";
+import { recordLedger, ADMIN_NAME } from "./ledger";
 import { DISCIPLINE_CODES, DOC_KIND_CODES, extensionOf, slugify, stdFileName } from "@shared/classification";
 
 /**
@@ -446,7 +448,7 @@ export function registerOfficeRoutes(app: Express, isAdmin: RequestHandler) {
     const task = await ownTask(collab.id, id);
     if (!task) return res.status(404).json({ error: "Tarea no encontrada." });
     const [files, comments, names, events, bimRow] = await Promise.all([
-      db.select({ id: officeTaskFiles.id, name: officeTaskFiles.name, stdName: officeTaskFiles.stdName, version: officeTaskFiles.version, kind: officeTaskFiles.kind, fileSize: officeTaskFiles.fileSize, uploadedAt: officeTaskFiles.uploadedAt }).from(officeTaskFiles).where(eq(officeTaskFiles.taskId, id)).orderBy(desc(officeTaskFiles.uploadedAt)),
+      db.select({ id: officeTaskFiles.id, name: officeTaskFiles.name, stdName: officeTaskFiles.stdName, version: officeTaskFiles.version, kind: officeTaskFiles.kind, fileSize: officeTaskFiles.fileSize, uploadedAt: officeTaskFiles.uploadedAt, reviewedBy: officeTaskFiles.reviewedBy, approvedBy: officeTaskFiles.approvedBy, returnedNote: officeTaskFiles.returnedNote }).from(officeTaskFiles).where(eq(officeTaskFiles.taskId, id)).orderBy(desc(officeTaskFiles.uploadedAt)),
       db.select().from(officeTaskComments).where(eq(officeTaskComments.taskId, id)).orderBy(asc(officeTaskComments.createdAt)),
       projectNames([task.projectId]),
       db.select({ id: officeTaskEvents.id, type: officeTaskEvents.type, text: officeTaskEvents.text, createdAt: officeTaskEvents.createdAt }).from(officeTaskEvents).where(eq(officeTaskEvents.taskId, id)).orderBy(asc(officeTaskEvents.createdAt)),
@@ -471,6 +473,9 @@ export function registerOfficeRoutes(app: Express, isAdmin: RequestHandler) {
     if (task.status === "done") return res.status(409).json({ error: "La tarea ya fue cerrada." });
     await db.update(officeTasks).set({ status: parsed.data.status }).where(eq(officeTasks.id, id));
     await logEvent(id, "status", `${collab.name} la pasó a "${STATUS_LABEL[parsed.data.status]}"`);
+    if (parsed.data.status === "review" && task.status !== "review") {
+      await recordLedger({ projectId: task.projectId, taskId: id, action: `Entregó a revisión: ${task.title}`, role: "Diseñó / ejecutó", actorType: "collaborator", actorName: collab.name });
+    }
     if (parsed.data.status === "review" && task.status !== "review") {
       sendEmail(
         NOTIFY_EMAIL,
@@ -537,6 +542,9 @@ export function registerOfficeRoutes(app: Express, isAdmin: RequestHandler) {
       sendEmail(NOTIFY_EMAIL, `Boleta de ${collab.name}: ${task.title}`, emailShell(`<p><b>${escapeHtml(collab.name)}</b> subió su boleta o factura de <b>${escapeHtml(task.title)}</b>.</p><p><a href="${PORTAL_BASE_URL}/admin/portal">Abrir el panel</a></p>`)).catch(() => undefined);
     } else {
       await logEvent(id, "file", `${collab.name} subió ${version > 1 ? `la corrección (V${String(version).padStart(2, "0")})` : "un entregable"}: ${stdName ?? parsed.data.name}`);
+    }
+    if (kind === "deliverable") {
+      await recordLedger({ projectId: task.projectId, taskId: id, fileId: file.id, docName: stdName ?? parsed.data.name, docVersion: stdName ? version : null, action: version > 1 ? `Entregó corrección V${String(version).padStart(2, "0")}` : "Entregó documento", role: "Diseñó / ejecutó", actorType: "collaborator", actorName: collab.name, detail: task.title });
     }
     res.status(201).json({ id: file.id, stdName, version });
   });
@@ -683,6 +691,7 @@ export function registerOfficeRoutes(app: Express, isAdmin: RequestHandler) {
       .values({ collaboratorId: d.collaboratorId, projectId: d.projectId ?? null, title: d.title, description: d.description ?? null, dueDate: toDate(d.dueDate), fee: d.fee != null ? String(d.fee) : null, deliverableFormat: d.deliverableFormat ?? "2d", discipline: d.discipline ?? null })
       .returning();
     await logEvent(task.id, "created", `Tarea asignada a ${collab.name}${d.dueDate ? `, entrega ${fechaCL(new Date(d.dueDate))}` : ""}${d.fee != null ? `, honorario pactado $${Math.round(d.fee).toLocaleString("es-CL")}` : ""}`);
+    await recordLedger({ projectId: d.projectId, taskId: task.id, action: `Asignó la tarea: ${d.title}`, role: "Asignó", actorType: "admin", actorName: ADMIN_NAME, detail: `Asignada a ${collab.name}${d.discipline ? ` (${d.discipline})` : ""}${d.dueDate ? `, entrega ${fechaCL(new Date(d.dueDate))}` : ""}` });
     const emailed = await sendEmail(
       collab.email,
       `Nueva tarea: ${d.title}`,
@@ -718,7 +727,13 @@ export function registerOfficeRoutes(app: Express, isAdmin: RequestHandler) {
     }
     if (!Object.keys(set).length) return res.status(400).json({ error: "Nada que actualizar." });
     await db.update(officeTasks).set(set).where(eq(officeTasks.id, id));
-    if (d.status !== undefined) await logEvent(id, "status", `Patricio la pasó a "${STATUS_LABEL[d.status]}"`);
+    if (d.status !== undefined) {
+      await logEvent(id, "status", `Patricio la pasó a "${STATUS_LABEL[d.status]}"`);
+      if (d.status === "done") {
+        const [tk] = await db.select({ projectId: officeTasks.projectId, title: officeTasks.title }).from(officeTasks).where(eq(officeTasks.id, id)).limit(1);
+        if (tk) await recordLedger({ projectId: tk.projectId, taskId: id, action: `Cerró la tarea: ${tk.title}`, role: "Cerró", actorType: "admin", actorName: ADMIN_NAME });
+      }
+    }
     if (d.dueDate !== undefined) await logEvent(id, "status", d.dueDate ? `Nueva fecha de entrega: ${fechaCL(new Date(d.dueDate))}` : "Se quitó la fecha de entrega");
     if (d.feeStatus !== undefined) await logEvent(id, "fee", d.feeStatus === "paid" ? "Honorario pagado" : d.feeStatus === "invoiced" ? "Boleta recibida, honorario por pagar" : "Honorario pendiente");
     if (d.fee !== undefined) await logEvent(id, "fee", d.fee === null ? "Se quitó el honorario pactado" : `Honorario pactado: $${Math.round(d.fee).toLocaleString("es-CL")}`);
@@ -746,6 +761,7 @@ export function registerOfficeRoutes(app: Express, isAdmin: RequestHandler) {
     await db.update(officeTasks).set(set).where(eq(officeTasks.id, id));
     await db.insert(officeTaskComments).values({ taskId: id, author: "admin", body: `Modificación n.º ${n}: ${parsed.data.note}` });
     await logEvent(id, "revision", `Modificación n.º ${n} solicitada: ${parsed.data.note}`);
+    await recordLedger({ projectId: row.task.projectId, taskId: id, action: `Solicitó modificación n.º ${n}: ${row.task.title}`, role: "Solicitó", actorType: "admin", actorName: ADMIN_NAME, detail: parsed.data.note });
     sendEmail(
       row.email,
       `Modificación solicitada: ${row.task.title}`,
@@ -867,7 +883,7 @@ export function registerOfficeRoutes(app: Express, isAdmin: RequestHandler) {
     const [task] = await db.select().from(officeTasks).where(eq(officeTasks.id, id)).limit(1);
     if (!task) return res.status(404).json({ error: "Tarea no encontrada." });
     const [files, comments, events] = await Promise.all([
-      db.select({ id: officeTaskFiles.id, name: officeTaskFiles.name, stdName: officeTaskFiles.stdName, version: officeTaskFiles.version, kind: officeTaskFiles.kind, fileSize: officeTaskFiles.fileSize, uploadedAt: officeTaskFiles.uploadedAt, publishedDocumentId: officeTaskFiles.publishedDocumentId }).from(officeTaskFiles).where(eq(officeTaskFiles.taskId, id)).orderBy(desc(officeTaskFiles.uploadedAt)),
+      db.select({ id: officeTaskFiles.id, name: officeTaskFiles.name, stdName: officeTaskFiles.stdName, version: officeTaskFiles.version, kind: officeTaskFiles.kind, fileSize: officeTaskFiles.fileSize, uploadedAt: officeTaskFiles.uploadedAt, publishedDocumentId: officeTaskFiles.publishedDocumentId, reviewedBy: officeTaskFiles.reviewedBy, approvedBy: officeTaskFiles.approvedBy, returnedNote: officeTaskFiles.returnedNote }).from(officeTaskFiles).where(eq(officeTaskFiles.taskId, id)).orderBy(desc(officeTaskFiles.uploadedAt)),
       db.select().from(officeTaskComments).where(eq(officeTaskComments.taskId, id)).orderBy(asc(officeTaskComments.createdAt)),
       db.select().from(officeTaskEvents).where(eq(officeTaskEvents.taskId, id)).orderBy(asc(officeTaskEvents.createdAt)),
     ]);
@@ -917,6 +933,7 @@ export function registerOfficeRoutes(app: Express, isAdmin: RequestHandler) {
     if (row.file.kind !== "deliverable") return res.status(400).json({ error: "Las boletas no se publican al cliente." });
     if (!row.projectId) return res.status(400).json({ error: "La tarea no está asociada a un proyecto de cliente." });
     if (row.file.publishedDocumentId) return res.status(409).json({ error: "Este archivo ya fue publicado." });
+    if (!row.file.approvedAt) return res.status(409).json({ error: "Primero apruébalo: solo se publica lo aprobado." });
     const [doc] = await db
       .insert(clientDocuments)
       .values({ projectId: row.projectId, name: parsed.data.name ?? row.file.stdName ?? row.file.name, type: parsed.data.type, fileUrl: row.file.fileUrl, fileSize: row.file.fileSize, visibleToClient: true, version: row.file.version, docKind: row.file.docKind, stdName: row.file.stdName, docSlug: row.file.docSlug, discipline: row.file.stdName ? row.discipline : null })
@@ -926,6 +943,105 @@ export function registerOfficeRoutes(app: Express, isAdmin: RequestHandler) {
     if (row.file.docSlug && row.file.docKind && row.discipline) {
       await db.update(clientDocuments).set({ visibleToClient: false }).where(and(eq(clientDocuments.projectId, row.projectId), eq(clientDocuments.discipline, row.discipline), eq(clientDocuments.docKind, row.file.docKind), eq(clientDocuments.docSlug, row.file.docSlug), ne(clientDocuments.id, doc.id)));
     }
+    await recordLedger({ projectId: row.projectId, taskId: row.file.taskId, fileId: id, docName: row.file.stdName ?? row.file.name, docVersion: row.file.stdName ? row.file.version : null, action: "Publicó al portal del cliente", role: "Publicó", actorType: "admin", actorName: ADMIN_NAME });
     res.status(201).json({ documentId: doc.id });
+  });
+
+  // ----- Revisión y aprobación de entregables -----
+
+  async function fileWithTask(id: number) {
+    const [row] = await db
+      .select({ file: officeTaskFiles, task: officeTasks, collabEmail: collaborators.email, collabName: collaborators.name })
+      .from(officeTaskFiles)
+      .innerJoin(officeTasks, eq(officeTaskFiles.taskId, officeTasks.id))
+      .innerJoin(collaborators, eq(officeTasks.collaboratorId, collaborators.id))
+      .where(and(eq(officeTaskFiles.id, id), eq(officeTaskFiles.kind, "deliverable")))
+      .limit(1);
+    return row;
+  }
+  const docInfo = (f: { stdName: string | null; name: string; version: number }) => ({ docName: f.stdName ?? f.name, docVersion: f.stdName ? f.version : null });
+
+  // Revisión técnica por un coordinador (no puede revisar lo que él mismo entregó)
+  app.post("/api/office/files/:id/review", requireCollaborator, async (req, res) => {
+    const collab = (req as any).collaborator;
+    const id = parseId(req.params.id);
+    if (!id) return res.status(400).json({ error: "Archivo inválido." });
+    if (!collab.isCoordinator) return res.status(403).json({ error: "Solo un coordinador puede revisar." });
+    const row = await fileWithTask(id);
+    if (!row) return res.status(404).json({ error: "Archivo no encontrado." });
+    if (row.task.collaboratorId === collab.id) return res.status(403).json({ error: "No puedes revisar tu propio trabajo." });
+    await db.update(officeTaskFiles).set({ reviewedBy: collab.name, reviewedAt: new Date(), returnedNote: null, returnedAt: null }).where(eq(officeTaskFiles.id, id));
+    await logEvent(row.task.id, "file", `${collab.name} revisó ${row.file.stdName ?? row.file.name}`);
+    await recordLedger({ projectId: row.task.projectId, taskId: row.task.id, fileId: id, ...docInfo(row.file), action: "Revisó el documento", role: "Revisó", actorType: "collaborator", actorName: collab.name });
+    res.json({ ok: true });
+  });
+
+  app.post(`${admin}/files/:id/review`, isAdmin, async (req, res) => {
+    const id = parseId(req.params.id);
+    if (!id) return res.status(400).json({ error: "Archivo inválido." });
+    const row = await fileWithTask(id);
+    if (!row) return res.status(404).json({ error: "Archivo no encontrado." });
+    await db.update(officeTaskFiles).set({ reviewedBy: ADMIN_NAME, reviewedAt: new Date(), returnedNote: null, returnedAt: null }).where(eq(officeTaskFiles.id, id));
+    await logEvent(row.task.id, "file", `Patricio revisó ${row.file.stdName ?? row.file.name}`);
+    await recordLedger({ projectId: row.task.projectId, taskId: row.task.id, fileId: id, ...docInfo(row.file), action: "Revisó el documento", role: "Revisó", actorType: "admin", actorName: ADMIN_NAME });
+    res.json({ ok: true });
+  });
+
+  app.post(`${admin}/files/:id/approve`, isAdmin, async (req, res) => {
+    const id = parseId(req.params.id);
+    if (!id) return res.status(400).json({ error: "Archivo inválido." });
+    const row = await fileWithTask(id);
+    if (!row) return res.status(404).json({ error: "Archivo no encontrado." });
+    const now = new Date();
+    await db.update(officeTaskFiles).set({ approvedBy: ADMIN_NAME, approvedAt: now, reviewedBy: row.file.reviewedBy ?? ADMIN_NAME, reviewedAt: row.file.reviewedAt ?? now, returnedNote: null, returnedAt: null }).where(eq(officeTaskFiles.id, id));
+    await logEvent(row.task.id, "file", `Patricio aprobó ${row.file.stdName ?? row.file.name}`);
+    await recordLedger({ projectId: row.task.projectId, taskId: row.task.id, fileId: id, ...docInfo(row.file), action: "Aprobó el documento", role: "Aprobó", actorType: "admin", actorName: ADMIN_NAME });
+    res.json({ ok: true });
+  });
+
+  // Devolver con observación: reabre la tarea y avisa al colaborador
+  app.post(`${admin}/files/:id/return`, isAdmin, async (req, res) => {
+    const id = parseId(req.params.id);
+    const parsed = z.object({ note: z.string().min(3).max(3000) }).safeParse(req.body);
+    if (!id || !parsed.success) return res.status(400).json({ error: "Escribe la observación." });
+    const row = await fileWithTask(id);
+    if (!row) return res.status(404).json({ error: "Archivo no encontrado." });
+    const name = row.file.stdName ?? row.file.name;
+    await db.update(officeTaskFiles).set({ returnedNote: parsed.data.note, returnedAt: new Date(), approvedBy: null, approvedAt: null }).where(eq(officeTaskFiles.id, id));
+    await db.update(officeTasks).set({ status: "doing", completedAt: null }).where(eq(officeTasks.id, row.task.id));
+    await db.insert(officeTaskComments).values({ taskId: row.task.id, author: "admin", body: `Observación a ${name}: ${parsed.data.note}` });
+    await logEvent(row.task.id, "revision", `Patricio devolvió ${name}: ${parsed.data.note}`);
+    await recordLedger({ projectId: row.task.projectId, taskId: row.task.id, fileId: id, ...docInfo(row.file), action: "Devolvió con observaciones", role: "Devolvió", actorType: "admin", actorName: ADMIN_NAME, detail: parsed.data.note });
+    sendEmail(row.collabEmail, `Observaciones a tu entrega: ${row.task.title}`, emailShell(`<p>Hola ${escapeHtml(row.collabName)}, hay observaciones a <b>${escapeHtml(name)}</b>:</p><blockquote>${escapeHtml(parsed.data.note)}</blockquote><p>Sube la corrección en la misma tarea: el sistema le asigna la versión siguiente.</p><p><a href="${PORTAL_BASE_URL}/oficina">Ver en la oficina digital</a></p>`)).catch(() => undefined);
+    res.json({ ok: true });
+  });
+
+  // ----- Bitácora del proyecto -----
+
+  const ledgerQuery = async (req: Request) => {
+    const projectId = parseId(String(req.query.projectId ?? ""));
+    if (!projectId) return null;
+    const q = typeof req.query.q === "string" ? req.query.q.trim() : "";
+    return db
+      .select()
+      .from(projectLedger)
+      .where(and(eq(projectLedger.projectId, projectId), q ? sql`(${projectLedger.docName} ilike ${"%" + q + "%"} or ${projectLedger.action} ilike ${"%" + q + "%"} or ${projectLedger.actorName} ilike ${"%" + q + "%"})` : undefined))
+      .orderBy(desc(projectLedger.createdAt), desc(projectLedger.id))
+      .limit(1000);
+  };
+
+  app.get(`${admin}/ledger`, isAdmin, async (req, res) => {
+    const rows = await ledgerQuery(req);
+    if (!rows) return res.status(400).json({ error: "Elige un proyecto." });
+    res.json(rows);
+  });
+
+  app.get(`${admin}/ledger.csv`, isAdmin, async (req, res) => {
+    const rows = await ledgerQuery(req);
+    if (!rows) return res.status(400).json({ error: "Elige un proyecto." });
+    const q = (v: unknown) => `"${String(v ?? "").replace(/"/g, '""')}"`;
+    const lines = [...rows].reverse().map((r) => [new Date(r.createdAt).toLocaleString("es-CL", { timeZone: "America/Santiago" }), r.projectCode, r.docName, r.docVersion ? `V${String(r.docVersion).padStart(2, "0")}` : "", r.action, r.role, r.actorName, r.detail].map(q).join(";"));
+    res.set("Content-Type", "text/csv; charset=utf-8").set("Content-Disposition", 'attachment; filename="bitacora-proyecto.csv"');
+    res.send("\uFEFF" + ["fecha;codigo_proyecto;documento;version;accion;rol;persona;detalle", ...lines].join("\r\n"));
   });
 }

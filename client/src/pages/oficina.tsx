@@ -14,7 +14,7 @@ type Task = { id: number; title: string; status: string; dueDate: string | null;
 type Me = { collaborator: { name: string; email: string; specialty: string; isCoordinator: boolean; phone: string | null; description: string | null; linkedinUrl: string | null }; tasks: Task[]; fees: { pending: number; paid: number } };
 type Detail = {
   task: { id: number; title: string; description: string | null; status: string; dueDate: string | null; project: string | null; bim: boolean; discipline: string | null; deliverableFormat: string; revision: number; fee: string | null; feeStatus: string };
-  files: { id: number; name: string; stdName: string | null; version: number; kind: string; uploadedAt: string }[];
+  files: { id: number; name: string; stdName: string | null; version: number; kind: string; uploadedAt: string; reviewedBy: string | null; approvedBy: string | null; returnedNote: string | null }[];
   comments: { id: number; author: string; body: string; createdAt: string }[];
   events: { id: number; type: string; text: string; createdAt: string }[];
 };
@@ -134,7 +134,9 @@ function TaskPanel({ id, onChange }: { id: number; onChange: () => void }) {
           {data.files.length === 0 && <p className="text-sm text-gray-500">Aún no subes archivos.</p>}
           <ul className="text-sm space-y-1">
             {data.files.map((f) => (
-              <li key={f.id}><a className="text-[#C2410C] underline" href={`/api/office/files/${f.id}/download`}>{f.stdName ?? f.name}</a> <span className="text-gray-400">· {f.kind === "invoice" ? "boleta/factura" : "entregable"} · {day(f.uploadedAt)}</span></li>
+              <li key={f.id}><a className="text-[#C2410C] underline" href={`/api/office/files/${f.id}/download`}>{f.stdName ?? f.name}</a> <span className="text-gray-400">· {f.kind === "invoice" ? "boleta/factura" : "entregable"} · {day(f.uploadedAt)}</span>
+                {f.kind !== "invoice" && (f.approvedBy ? <Badge className="ml-2 bg-green-600 text-white">Aprobado</Badge> : f.returnedNote ? <span className="ml-2 text-red-700">Devuelto: {f.returnedNote}</span> : f.reviewedBy ? <Badge variant="outline" className="ml-2">Revisado</Badge> : <Badge variant="outline" className="ml-2">En revisión</Badge>)}
+              </li>
             ))}
           </ul>
           {!closed && t.project && t.discipline && (

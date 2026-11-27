@@ -19,6 +19,7 @@ import {
 } from "@shared/schema";
 import { ObjectStorageService, ObjectNotFoundError } from "./objectStorage";
 import { assignProjectCode, nextDocVersion } from "./classification";
+import { recordLedger, ADMIN_NAME } from "./ledger";
 import { DISCIPLINE_CODES, DOC_KIND_CODES, extensionOf, slugify, stdFileName } from "@shared/classification";
 
 /**
@@ -855,6 +856,7 @@ export function registerPortalRoutes(app: Express, isAdmin: RequestHandler) {
       await db.update(clientDocuments).set({ visibleToClient: false }).where(and(eq(clientDocuments.projectId, projectId), eq(clientDocuments.discipline, discipline), eq(clientDocuments.docKind, docKind), eq(clientDocuments.docSlug, docSlug)));
     }
     const [created] = await db.insert(clientDocuments).values({ ...rest, version, projectId, discipline: discipline ?? null, docKind: docKind ?? null, stdName, docSlug }).returning();
+    await recordLedger({ projectId, docName: stdName ?? rest.name, docVersion: stdName ? version : null, action: version > 1 ? `Subió corrección V${String(version).padStart(2, "0")}` : "Subió documento", role: "Diseñó / ejecutó", actorType: "admin", actorName: ADMIN_NAME, detail: rest.visibleToClient ? "Visible para el cliente" : "Interno" });
     res.status(201).json(created);
   });
 
