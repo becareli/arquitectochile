@@ -71,6 +71,19 @@ export class ObjectStorageService {
     });
   }
 
+  // Subida de archivos de clientes (planos, boletas, actas) a una carpeta privada.
+  // Esta carpeta NO se sirve por la ruta pública /objects: solo el portal la entrega, con sesión.
+  async getClientFileUploadURL(): Promise<{ uploadUrl: string; internalPath: string }> {
+    const privateObjectDir = this.getPrivateObjectDir();
+    if (!privateObjectDir) {
+      throw new Error("PRIVATE_OBJECT_DIR not set.");
+    }
+    const objectId = randomUUID();
+    const { bucketName, objectName } = parseObjectPath(`${privateObjectDir}/client-files/${objectId}`);
+    const uploadUrl = await signObjectURL({ bucketName, objectName, method: "PUT", ttlSec: 900 });
+    return { uploadUrl, internalPath: `/objects/client-files/${objectId}` };
+  }
+
   // Gets a signed upload URL plus the internal serving path for blog cover images.
   async getBlogImageUploadURL(): Promise<{ uploadUrl: string; internalPath: string }> {
     const privateObjectDir = this.getPrivateObjectDir();

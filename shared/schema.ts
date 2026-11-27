@@ -114,6 +114,8 @@ export const clients = pgTable("clients", {
   projectId: text("project_id").unique(), // unique access code for portal
   status: text("status").notNull().default("active"), // active, inactive, completed
   lastLogin: timestamp("last_login"),
+  welcomeSeenAt: timestamp("welcome_seen_at"),
+  newsletterOptIn: boolean("newsletter_opt_in").notNull().default(false),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
@@ -127,6 +129,9 @@ export const clientProjects = pgTable("client_projects", {
   startDate: timestamp("start_date"),
   estimatedCompletion: timestamp("estimated_completion"),
   totalValue: decimal("total_value", { precision: 12, scale: 2 }),
+  permitFileNumber: text("permit_file_number"), // N° de expediente en la DOM
+  permitStatus: text("permit_status"), // ingresado, observado, reingresado, aprobado, recepcion
+  welcomeVideoUrl: text("welcome_video_url"), // video de bienvenida propio de este proyecto
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
@@ -164,6 +169,36 @@ export const clientTimeline = pgTable("client_timeline", {
   date: timestamp("date").notNull(),
   status: text("status").notNull(), // completed, current, upcoming
   category: text("category"), // design, permits, construction, delivery
+});
+
+// Mensajes oficiales, comprobantes y avisos al cliente (quedan guardados y también salen por correo)
+export const clientMessages = pgTable(
+  "client_messages",
+  {
+    id: serial("id").primaryKey(),
+    clientId: integer("client_id").references(() => clients.id).notNull(),
+    projectId: integer("project_id").references(() => clientProjects.id),
+    kind: text("kind").notNull().default("notice"), // official, receipt, notice
+    subject: text("subject").notNull(),
+    body: text("body").notNull(),
+    attachmentUrl: text("attachment_url"),
+    emailedAt: timestamp("emailed_at"),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+  },
+  (t) => [index("idx_client_messages_client").on(t.clientId)],
+);
+
+// Opiniones y recomendaciones que dejan los clientes desde el portal
+export const clientFeedback = pgTable("client_feedback", {
+  id: serial("id").primaryKey(),
+  clientId: integer("client_id").references(() => clients.id).notNull(),
+  projectId: integer("project_id").references(() => clientProjects.id),
+  rating: integer("rating").notNull(), // 1-5
+  comment: text("comment").notNull(),
+  canPublish: boolean("can_publish").notNull().default(false),
+  referralName: text("referral_name"),
+  referralContact: text("referral_contact"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
 // Enlaces de acceso de un solo uso para el portal de clientes (se guarda solo el hash)

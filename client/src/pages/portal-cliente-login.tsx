@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useLocation } from "wouter";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -18,6 +18,44 @@ export default function PortalClienteLogin() {
   const [, setLocation] = useLocation();
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const [googleError, setGoogleError] = useState<string | null>(null);
+  const googleBtn = useRef<HTMLDivElement>(null);
+
+  // Botón "Continuar con Google": solo aparece si el servidor tiene el acceso con Google activo
+  useEffect(() => {
+    let cancelled = false;
+    fetch("/api/portal/config", { credentials: "include" })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((cfg) => {
+        if (cancelled || !cfg?.googleClientId) return;
+        const script = document.createElement("script");
+        script.src = "https://accounts.google.com/gsi/client";
+        script.async = true;
+        script.onload = () => {
+          const g = (window as any).google?.accounts?.id;
+          if (!g || !googleBtn.current) return;
+          g.initialize({
+            client_id: cfg.googleClientId,
+            callback: async (resp: { credential: string }) => {
+              try {
+                const res = await apiRequest("POST", "/api/portal/auth/google", { credential: resp.credential });
+                const data = await res.json();
+                setLocation(data.welcomeSeen ? "/portal-cliente/mi-proyecto" : "/portal-cliente/bienvenida");
+              } catch (err) {
+                const msg = String(err).includes("403")
+                  ? "Ese correo de Google no está registrado como cliente. Escríbenos y te invitamos."
+                  : "No pudimos entrar con Google. Prueba con el enlace por correo.";
+                setGoogleError(msg);
+              }
+            },
+          });
+          g.renderButton(googleBtn.current, { theme: "outline", size: "large", width: 320, text: "continue_with", locale: "es" });
+        };
+        document.head.appendChild(script);
+      })
+      .catch(() => undefined);
+    return () => { cancelled = true; };
+  }, [setLocation]);
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
@@ -79,6 +117,10 @@ export default function PortalClienteLogin() {
                 </Button>
               </form>
             )}
+            <div className="flex flex-col items-center gap-2">
+              <div ref={googleBtn} />
+              {googleError && <p className="text-sm text-red-600 text-center">{googleError}</p>}
+            </div>
             <Button variant="outline" onClick={() => setLocation("/contacto")} className="w-full">
               ¿Aún no eres cliente? Escríbenos
             </Button>

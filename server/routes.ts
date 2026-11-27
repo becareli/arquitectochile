@@ -511,6 +511,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   app.get("/objects/:objectPath(*)", async (req, res) => {
+    // Los archivos de clientes solo se entregan desde el portal, con sesión
+    if (req.path.startsWith("/objects/client-files/")) return res.sendStatus(404);
     try {
       const objectStorageService = new ObjectStorageService();
       const objectFile = await objectStorageService.getObjectEntityFile(req.path);

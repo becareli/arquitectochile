@@ -43,7 +43,7 @@ export function csrfTokenMiddleware(req: Request, res: Response, next: NextFunct
 
   // Skip CSRF for el acceso por enlace del portal: aún no hay sesión que proteger,
   // el token es de un solo uso y las respuestas no revelan si el correo existe
-  if (req.path === '/api/portal/auth/request' || req.path === '/api/portal/auth/verify' || req.path === '/api/portal/auth/logout') {
+  if (req.path === '/api/portal/auth/request' || req.path === '/api/portal/auth/verify' || req.path === '/api/portal/auth/logout' || req.path === '/api/portal/auth/google') {
     return next();
   }
 

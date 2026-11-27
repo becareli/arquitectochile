@@ -3,7 +3,8 @@ import crypto from "crypto";
 import nodemailer from "nodemailer";
 import rateLimit from "express-rate-limit";
 import { z } from "zod";
-import { and, asc, desc, eq, gt, isNull } from "drizzle-orm";
+import { and, asc, desc, eq, gt, isNull, sql } from "drizzle-orm";
+import { OAuth2Client } from "google-auth-library";
 import { db } from "./db";
 import {
   clients,
@@ -12,6 +13,8 @@ import {
   clientPayments,
   clientTimeline,
   portalLoginTokens,
+  clientMessages,
+  clientFeedback,
 } from "@shared/schema";
 import { ObjectStorageService, ObjectNotFoundError } from "./objectStorage";
 
@@ -24,6 +27,8 @@ import { ObjectStorageService, ObjectNotFoundError } from "./objectStorage";
  */
 
 const LOGIN_LINK_TTL_MIN = 20;
+const SESSION_DAYS = 90; // la sesión del cliente queda abierta y se renueva al usar el portal
+const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID || "";
 const PORTAL_BASE_URL = process.env.PORTAL_BASE_URL || "https://arquitectochile.com";
 
 const sha256 = (v: string) => crypto.createHash("sha256").update(v).digest("hex");
@@ -47,6 +52,16 @@ function saveSession(req: Request): Promise<void> {
   });
 }
 
+async function startPortalSession(req: Request, clientId: number) {
+  await regenerateSession(req);
+  const s = getSession(req);
+  s.portalClientId = clientId;
+  s.portalSeenAt = Date.now();
+  s.cookie.maxAge = SESSION_DAYS * 24 * 60 * 60 * 1000;
+  await saveSession(req);
+  await db.update(clients).set({ lastLogin: new Date() }).where(eq(clients.id, clientId));
+}
+
 const requirePortalClient: RequestHandler = async (req, res, next) => {
   const clientId = getSession(req)?.portalClientId;
   if (!clientId) return res.status(401).json({ error: "Debes iniciar sesión." });
@@ -55,18 +70,24 @@ const requirePortalClient: RequestHandler = async (req, res, next) => {
   if (!client || client.status === "inactive") {
     return res.status(401).json({ error: "Acceso no disponible." });
   }
+  // Renueva la sesión como máximo una vez al día para que el cliente no tenga que volver a entrar
+  const s = getSession(req);
+  if (!s.portalSeenAt || Date.now() - s.portalSeenAt > 24 * 60 * 60 * 1000) {
+    s.portalSeenAt = Date.now();
+    s.cookie.maxAge = SESSION_DAYS * 24 * 60 * 60 * 1000;
+  }
   (req as any).portalClient = client;
   next();
 };
 
 // ---------- correo ----------
 
-async function sendLoginEmail(to: string, name: string, link: string): Promise<boolean> {
+async function sendEmail(to: string, subject: string, html: string): Promise<boolean> {
   const host = process.env.SMTP_HOST;
   const user = process.env.SMTP_USER;
   const pass = process.env.SMTP_PASS;
   if (!host || !user || !pass) {
-    console.log("ℹ️ SMTP no configurado: no se envió el enlace de acceso al portal");
+    console.log("ℹ️ SMTP no configurado: correo del portal no enviado");
     return false;
   }
   const port = parseInt(process.env.SMTP_PORT || "587");
@@ -76,22 +97,60 @@ async function sendLoginEmail(to: string, name: string, link: string): Promise<b
     secure: port === 465,
     auth: { user, pass },
   });
-  await transporter.sendMail({
-    from: process.env.SMTP_FROM || user,
-    to,
-    subject: "Tu acceso al portal de ArquitectoChile.com",
-    html: `
-      <div style="font-family:sans-serif;max-width:520px;margin:auto;color:#1e293b">
-        <h2 style="color:#1e3a5f">Hola ${escapeHtml(name)},</h2>
-        <p>Usa este botón para entrar a tu portal. El enlace funciona una sola vez y vence en ${LOGIN_LINK_TTL_MIN} minutos.</p>
-        <p style="margin:28px 0">
-          <a href="${link}" style="background:#1e3a5f;color:#fff;padding:12px 22px;border-radius:8px;text-decoration:none">Entrar a mi portal</a>
-        </p>
-        <p style="font-size:13px;color:#64748b">Si no lo pediste tú, puedes ignorar este correo.</p>
-        <p style="font-size:13px;color:#64748b">Arq. Patricio Becar · ArquitectoChile.com</p>
-      </div>`,
-  });
+  await transporter.sendMail({ from: process.env.SMTP_FROM || user, to, subject, html });
   return true;
+}
+
+function emailShell(inner: string) {
+  return `<div style="font-family:sans-serif;max-width:520px;margin:auto;color:#1e293b">${inner}
+    <p style="font-size:13px;color:#64748b;margin-top:28px">Arq. Patricio Becar · ArquitectoChile.com</p></div>`;
+}
+
+function sendLoginEmail(to: string, name: string, link: string) {
+  return sendEmail(
+    to,
+    "Tu acceso al portal de ArquitectoChile.com",
+    emailShell(`
+      <h2 style="color:#1e3a5f">Hola ${escapeHtml(name)},</h2>
+      <p>Usa este botón para entrar a tu portal. El enlace funciona una sola vez y vence en ${LOGIN_LINK_TTL_MIN} minutos.</p>
+      <p style="margin:28px 0"><a href="${link}" style="background:#1e3a5f;color:#fff;padding:12px 22px;border-radius:8px;text-decoration:none">Entrar a mi portal</a></p>
+      <p style="font-size:13px;color:#64748b">Si no lo pediste tú, puedes ignorar este correo.</p>`),
+  );
+}
+
+// Guarda el mensaje en el portal y lo envía por correo (con aviso para entrar a verlo)
+async function postMessage(input: {
+  clientId: number;
+  projectId?: number | null;
+  kind: "official" | "receipt" | "notice";
+  subject: string;
+  body: string;
+  attachmentUrl?: string | null;
+}) {
+  const [client] = await db.select().from(clients).where(eq(clients.id, input.clientId)).limit(1);
+  if (!client) throw new Error("Cliente no encontrado");
+  const emailed = await sendEmail(
+    client.email,
+    input.subject,
+    emailShell(`
+      <h2 style="color:#1e3a5f">Hola ${escapeHtml(client.name)},</h2>
+      <p style="white-space:pre-line">${escapeHtml(input.body)}</p>
+      ${input.attachmentUrl ? "<p>Adjuntamos el documento en tu portal.</p>" : ""}
+      <p style="margin:24px 0"><a href="${PORTAL_BASE_URL}/portal-cliente/login" style="background:#1e3a5f;color:#fff;padding:10px 18px;border-radius:8px;text-decoration:none">Ver en mi portal</a></p>`),
+  ).catch(() => false);
+  const [row] = await db
+    .insert(clientMessages)
+    .values({
+      clientId: input.clientId,
+      projectId: input.projectId ?? null,
+      kind: input.kind,
+      subject: input.subject,
+      body: input.body,
+      attachmentUrl: input.attachmentUrl ?? null,
+      emailedAt: emailed ? new Date() : null,
+    })
+    .returning();
+  return { message: row, emailed };
 }
 
 function escapeHtml(s: string) {
@@ -140,12 +199,32 @@ const projectInput = z.object({
   startDate: z.coerce.date().optional(),
   estimatedCompletion: z.coerce.date().optional(),
   totalValue: z.string().optional(),
+  permitFileNumber: z.string().optional(),
+  permitStatus: z.enum(["ingresado", "observado", "reingresado", "aprobado", "recepcion"]).optional(),
+  welcomeVideoUrl: z.string().url().optional(),
+});
+
+const messageInput = z.object({
+  clientId: z.number().int(),
+  projectId: z.number().int().optional(),
+  kind: z.enum(["official", "receipt", "notice"]).default("notice"),
+  subject: z.string().min(3),
+  body: z.string().min(3),
+  attachmentUrl: z.string().startsWith("/objects/client-files/").optional(),
+});
+
+const feedbackInput = z.object({
+  rating: z.number().int().min(1).max(5),
+  comment: z.string().min(10).max(2000),
+  canPublish: z.boolean().default(false),
+  referralName: z.string().max(120).optional(),
+  referralContact: z.string().max(160).optional(),
 });
 
 const documentInput = z.object({
   name: z.string().min(2),
-  type: z.enum(["plans", "contracts", "permits", "specifications", "photos", "other"]),
-  fileUrl: z.string().startsWith("/objects/"),
+  type: z.enum(["plans", "contracts", "permits", "specifications", "renders", "observations", "photos", "other"]),
+  fileUrl: z.string().startsWith("/objects/client-files/"),
   fileSize: z.number().int().optional(),
   version: z.number().int().min(1).default(1),
   visibleToClient: z.boolean().default(true),
@@ -160,7 +239,8 @@ const paymentInput = z.object({
   paymentMethod: z.enum(["transfer", "check", "cash"]).nullable().optional(),
   receiptType: z.enum(["boleta", "factura"]).nullable().optional(),
   receiptNumber: z.string().nullable().optional(),
-  receiptUrl: z.string().startsWith("/objects/").nullable().optional(),
+  receiptUrl: z.string().startsWith("/objects/client-files/").nullable().optional(),
+  notify: z.boolean().optional(), // al marcar pagado, envía el comprobante al cliente
 });
 
 const timelineInput = z.object({
@@ -247,12 +327,8 @@ export function registerPortalRoutes(app: Express, isAdmin: RequestHandler) {
       const [client] = await db.select().from(clients).where(eq(clients.id, row.clientId)).limit(1);
       if (!client || client.status === "inactive") return res.status(403).json({ error: "Acceso no disponible." });
 
-      await regenerateSession(req);
-      getSession(req).portalClientId = client.id;
-      await saveSession(req);
-      await db.update(clients).set({ lastLogin: new Date() }).where(eq(clients.id, client.id));
-
-      return res.json({ ok: true, name: client.name });
+      await startPortalSession(req, client.id);
+      return res.json({ ok: true, name: client.name, welcomeSeen: Boolean(client.welcomeSeenAt) });
     } catch (err) {
       console.error("portal verify error:", (err as Error).message);
       return res.status(500).json({ error: "No pudimos iniciar tu sesión." });
@@ -274,7 +350,17 @@ export function registerPortalRoutes(app: Express, isAdmin: RequestHandler) {
       .from(clientProjects)
       .where(eq(clientProjects.clientId, client.id))
       .orderBy(desc(clientProjects.createdAt));
-    res.json({ client: { id: client.id, name: client.name, email: client.email }, projects });
+    res.json({
+      client: {
+        id: client.id,
+        name: client.name,
+        email: client.email,
+        welcomeSeen: Boolean(client.welcomeSeenAt),
+        newsletterOptIn: client.newsletterOptIn,
+      },
+      projects,
+      defaultWelcomeVideo: process.env.PORTAL_WELCOME_VIDEO_URL || null,
+    });
   });
 
   app.get("/api/portal/projects/:id", requirePortalClient, async (req, res) => {
@@ -284,6 +370,26 @@ export function registerPortalRoutes(app: Express, isAdmin: RequestHandler) {
 
     const project = await ownedProject(client.id, projectId);
     if (!project) return res.status(404).json({ error: "Proyecto no encontrado." });
+
+    const [messages, feedbackRows] = await Promise.all([
+      db
+        .select({
+          id: clientMessages.id,
+          kind: clientMessages.kind,
+          subject: clientMessages.subject,
+          body: clientMessages.body,
+          hasAttachment: sql<boolean>`${clientMessages.attachmentUrl} is not null`,
+          createdAt: clientMessages.createdAt,
+        })
+        .from(clientMessages)
+        .where(and(eq(clientMessages.clientId, client.id), eq(clientMessages.projectId, projectId)))
+        .orderBy(desc(clientMessages.createdAt)),
+      db
+        .select({ id: clientFeedback.id })
+        .from(clientFeedback)
+        .where(and(eq(clientFeedback.clientId, client.id), eq(clientFeedback.projectId, projectId)))
+        .limit(1),
+    ]);
 
     const [documents, payments, timeline] = await Promise.all([
       db
@@ -313,6 +419,8 @@ export function registerPortalRoutes(app: Express, isAdmin: RequestHandler) {
       payments: paymentsView,
       paymentSummary: summarizePayments(paymentsView),
       timeline,
+      messages,
+      feedbackSent: feedbackRows.length > 0,
     });
   });
 
@@ -366,9 +474,137 @@ export function registerPortalRoutes(app: Express, isAdmin: RequestHandler) {
     return streamObject(res, row.pay.receiptUrl, label);
   });
 
+  // ===== Acceso con cuenta de Google =====
+
+  const googleClient = GOOGLE_CLIENT_ID ? new OAuth2Client(GOOGLE_CLIENT_ID) : null;
+
+  // El navegador necesita el ID público de Google para mostrar el botón (no es un secreto)
+  app.get("/api/portal/config", (_req, res) => {
+    res.json({ googleClientId: GOOGLE_CLIENT_ID || null });
+  });
+
+  app.post("/api/portal/auth/google", loginLimiter, async (req, res) => {
+    if (!googleClient) return res.status(501).json({ error: "El acceso con Google aún no está activo." });
+    const parsed = z.object({ credential: z.string().min(20) }).safeParse(req.body);
+    if (!parsed.success) return res.status(400).json({ error: "Solicitud inválida." });
+    try {
+      const ticket = await googleClient.verifyIdToken({ idToken: parsed.data.credential, audience: GOOGLE_CLIENT_ID });
+      const payload = ticket.getPayload();
+      if (!payload?.email || !payload.email_verified) {
+        return res.status(401).json({ error: "Tu cuenta de Google no tiene el correo verificado." });
+      }
+      const [client] = await db.select().from(clients).where(eq(clients.email, normalizeEmail(payload.email))).limit(1);
+      // Solo entran quienes fueron invitados: un correo de Google cualquiera no crea cuentas
+      if (!client || client.status === "inactive") {
+        return res.status(403).json({ error: "Ese correo no está registrado como cliente. Escríbenos y te invitamos." });
+      }
+      await startPortalSession(req, client.id);
+      return res.json({ ok: true, name: client.name, welcomeSeen: Boolean(client.welcomeSeenAt) });
+    } catch (err) {
+      console.error("portal google error:", (err as Error).message);
+      return res.status(401).json({ error: "No pudimos validar tu cuenta de Google." });
+    }
+  });
+
+  // ===== Bienvenida, preferencias, mensajes y opiniones =====
+
+  app.post("/api/portal/welcome/seen", requirePortalClient, async (req, res) => {
+    const client = (req as any).portalClient;
+    const parsed = z.object({ newsletterOptIn: z.boolean().optional() }).safeParse(req.body ?? {});
+    if (!parsed.success) return res.status(400).json({ error: "Datos inválidos." });
+    await db
+      .update(clients)
+      .set({
+        welcomeSeenAt: new Date(),
+        ...(parsed.data.newsletterOptIn !== undefined ? { newsletterOptIn: parsed.data.newsletterOptIn } : {}),
+      })
+      .where(eq(clients.id, client.id));
+    res.json({ ok: true });
+  });
+
+  app.post("/api/portal/preferences", requirePortalClient, async (req, res) => {
+    const client = (req as any).portalClient;
+    const parsed = z.object({ newsletterOptIn: z.boolean() }).safeParse(req.body);
+    if (!parsed.success) return res.status(400).json({ error: "Datos inválidos." });
+    await db.update(clients).set({ newsletterOptIn: parsed.data.newsletterOptIn }).where(eq(clients.id, client.id));
+    res.json({ ok: true });
+  });
+
+  app.get("/api/portal/messages/:id/attachment", requirePortalClient, async (req, res) => {
+    const client = (req as any).portalClient;
+    const id = parseId(req.params.id);
+    if (!id) return res.status(400).json({ error: "Mensaje inválido." });
+    const [msg] = await db
+      .select()
+      .from(clientMessages)
+      .where(and(eq(clientMessages.id, id), eq(clientMessages.clientId, client.id)))
+      .limit(1);
+    if (!msg?.attachmentUrl) return res.status(404).json({ error: "Adjunto no disponible." });
+    return streamObject(res, msg.attachmentUrl, `${msg.subject}.pdf`);
+  });
+
+  // Testimonios y recomendaciones: una opinión por proyecto
+  app.post("/api/portal/projects/:id/feedback", requirePortalClient, async (req, res) => {
+    const client = (req as any).portalClient;
+    const projectId = parseId(req.params.id);
+    const parsed = feedbackInput.safeParse(req.body);
+    if (!projectId || !parsed.success) return res.status(400).json({ error: "Revisa los datos de tu opinión." });
+    if (!(await ownedProject(client.id, projectId))) return res.status(404).json({ error: "Proyecto no encontrado." });
+
+    const [existing] = await db
+      .select({ id: clientFeedback.id })
+      .from(clientFeedback)
+      .where(and(eq(clientFeedback.clientId, client.id), eq(clientFeedback.projectId, projectId)))
+      .limit(1);
+    if (existing) return res.status(409).json({ error: "Ya recibimos tu opinión. ¡Gracias!" });
+
+    await db.insert(clientFeedback).values({ ...parsed.data, clientId: client.id, projectId });
+    res.status(201).json({ ok: true });
+  });
+
   // ===== Administración (solo el arquitecto) =====
 
   const admin = "/api/portal/admin";
+
+  // URL firmada para subir planos, boletas y actas a la carpeta privada de clientes
+  app.post(`${admin}/upload-url`, isAdmin, async (_req, res) => {
+    try {
+      res.json(await objectStorage.getClientFileUploadURL());
+    } catch (err) {
+      console.error("portal upload-url error:", (err as Error).message);
+      res.status(500).json({ error: "No se pudo preparar la subida." });
+    }
+  });
+
+  // Mensaje oficial / comprobante / aviso: queda en el portal y sale por correo
+  app.post(`${admin}/messages`, isAdmin, async (req, res) => {
+    const parsed = messageInput.safeParse(req.body);
+    if (!parsed.success) return res.status(400).json({ error: "Datos inválidos", details: parsed.error.flatten() });
+    try {
+      const { message, emailed } = await postMessage(parsed.data);
+      res.status(201).json({ id: message.id, emailed });
+    } catch (err) {
+      res.status(404).json({ error: (err as Error).message });
+    }
+  });
+
+  app.get(`${admin}/feedback`, isAdmin, async (_req, res) => {
+    const rows = await db
+      .select({
+        id: clientFeedback.id,
+        clientName: clients.name,
+        rating: clientFeedback.rating,
+        comment: clientFeedback.comment,
+        canPublish: clientFeedback.canPublish,
+        referralName: clientFeedback.referralName,
+        referralContact: clientFeedback.referralContact,
+        createdAt: clientFeedback.createdAt,
+      })
+      .from(clientFeedback)
+      .innerJoin(clients, eq(clientFeedback.clientId, clients.id))
+      .orderBy(desc(clientFeedback.createdAt));
+    res.json(rows);
+  });
 
   app.get(`${admin}/clients`, isAdmin, async (_req, res) => {
     const rows = await db
@@ -458,8 +694,26 @@ export function registerPortalRoutes(app: Express, isAdmin: RequestHandler) {
     const id = parseId(req.params.id);
     const parsed = paymentInput.partial().safeParse(req.body);
     if (!id || !parsed.success) return res.status(400).json({ error: "Datos inválidos." });
-    const [updated] = await db.update(clientPayments).set(parsed.data).where(eq(clientPayments.id, id)).returning();
+    const { notify, ...changes } = parsed.data;
+    const [updated] = await db.update(clientPayments).set(changes).where(eq(clientPayments.id, id)).returning();
     if (!updated) return res.status(404).json({ error: "Pago no encontrado." });
+
+    if (notify && updated.status === "paid") {
+      const [project] = await db.select().from(clientProjects).where(eq(clientProjects.id, updated.projectId)).limit(1);
+      if (project) {
+        const doc = updated.receiptType === "factura" ? "factura" : "boleta";
+        await postMessage({
+          clientId: project.clientId,
+          projectId: project.id,
+          kind: "receipt",
+          subject: `Comprobante de pago: ${updated.description}`,
+          body: `Recibimos tu pago de ${Number(updated.amount).toLocaleString("es-CL")} CLP por "${updated.description}". Gracias.${
+            updated.receiptNumber ? `\nTu ${doc} N° ${updated.receiptNumber} está disponible en tu portal.` : ""
+          }`,
+          attachmentUrl: updated.receiptUrl,
+        }).catch((e) => console.error("portal receipt message error:", e.message));
+      }
+    }
     res.json(updated);
   });
 

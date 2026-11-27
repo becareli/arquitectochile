@@ -23,7 +23,8 @@ export default function PortalClienteAcceso() {
     window.history.replaceState(null, "", window.location.pathname);
 
     apiRequest("POST", "/api/portal/auth/verify", { token })
-      .then(() => setLocation("/portal-cliente/mi-proyecto"))
+      .then((res) => res.json())
+      .then((data) => setLocation(data.welcomeSeen ? "/portal-cliente/mi-proyecto" : "/portal-cliente/bienvenida"))
       .catch(() => setError("El enlace venció o ya fue usado. Pide uno nuevo para entrar."));
   }, [setLocation]);
 

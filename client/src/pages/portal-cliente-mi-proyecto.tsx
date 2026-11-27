@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useLocation } from "wouter";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Calendar, CheckCircle, Clock, CreditCard, Download, FileText, Home, Loader2, LogOut, Receipt } from "lucide-react";
+import { Calendar, CheckCircle, Clock, CreditCard, Download, FileText, Home, Loader2, LogOut, Mail, Receipt, Sparkles, Star } from "lucide-react";
 import { useSEO } from "@/hooks/useSEO";
 import { apiRequest } from "@/lib/queryClient";
 
@@ -16,8 +16,11 @@ type Project = {
   progress: number | null;
   startDate: string | null;
   estimatedCompletion: string | null;
+  permitFileNumber: string | null;
+  permitStatus: string | null;
 };
-type Me = { client: { id: number; name: string; email: string }; projects: Project[] };
+type Me = { client: { id: number; name: string; email: string; welcomeSeen: boolean }; projects: Project[] };
+type Msg = { id: number; kind: "official" | "receipt" | "notice"; subject: string; body: string; hasAttachment: boolean; createdAt: string };
 type Doc = { id: number; name: string; type: string; fileSize: number | null; version: number; uploadDate: string };
 type Payment = {
   id: number;
@@ -37,7 +40,24 @@ type ProjectData = {
   payments: Payment[];
   paymentSummary: { totalPaid: number; totalPending: number; totalContract: number };
   timeline: TimelineItem[];
+  messages: Msg[];
+  feedbackSent: boolean;
 };
+
+const PERMIT_STEPS: { key: string; label: string }[] = [
+  { key: "ingresado", label: "Ingresado" },
+  { key: "observado", label: "Observado" },
+  { key: "reingresado", label: "Reingresado" },
+  { key: "aprobado", label: "Aprobado" },
+  { key: "recepcion", label: "Recepción final" },
+];
+const DOC_ORDER = ["plans", "renders", "specifications", "observations", "permits", "contracts", "photos", "other"];
+const MSG_LABEL: Record<string, string> = { official: "Oficial", receipt: "Comprobante", notice: "Aviso" };
+const OFFERS = [
+  { title: "Informe de tu propiedad 360", text: "Un diagnóstico completo de tu propiedad: normativa, potencial de ampliación y riesgos. Próximamente.", cta: "Quiero saber más" },
+  { title: "Asesoría de arquitectura a domicilio", text: "Una visita para evaluar mejoras, ampliaciones o regularizaciones en otra propiedad tuya o de un familiar.", cta: "Agendar asesoría" },
+  { title: "Regularización de viviendas", text: "Si conoces a alguien con una construcción sin permiso, podemos ayudarlo a regularizarla.", cta: "Recomendar" },
+];
 
 const STATUS_LABEL: Record<string, string> = {
   planning: "Planificación",
@@ -51,6 +71,8 @@ const DOC_LABEL: Record<string, string> = {
   contracts: "Contratos",
   permits: "Permisos",
   specifications: "Especificaciones",
+  renders: "Renders",
+  observations: "Actas de observaciones",
   photos: "Fotos",
   other: "Otros",
 };
@@ -66,7 +88,7 @@ async function getJson<T>(url: string): Promise<T | null> {
   return res.json();
 }
 
-type TabKey = "documentos" | "pagos" | "timeline";
+type TabKey = "documentos" | "pagos" | "timeline" | "mensajes" | "opinion" | "servicios";
 
 export default function PortalClienteMiProyecto() {
   useSEO({
@@ -79,6 +101,9 @@ export default function PortalClienteMiProyecto() {
   const [, setLocation] = useLocation();
   const [tab, setTab] = useState<TabKey>("documentos");
   const [selected, setSelected] = useState<number | null>(null);
+  const qc = useQueryClient();
+  const [fb, setFb] = useState({ rating: 5, comment: "", canPublish: true, referralName: "", referralContact: "" });
+  const [fbState, setFbState] = useState<"idle" | "sending" | "done" | "error">("idle");
 
   const me = useQuery({ queryKey: ["portal-me"], queryFn: () => getJson<Me>("/api/portal/me"), retry: false });
   const projectId = selected ?? me.data?.projects[0]?.id ?? null;
@@ -103,11 +128,37 @@ export default function PortalClienteMiProyecto() {
     return null;
   }
 
+  if (!me.data.client.welcomeSeen) {
+    setTimeout(() => setLocation("/portal-cliente/bienvenida"), 0);
+    return null;
+  }
+
+  async function sendFeedback() {
+    if (!projectId) return;
+    setFbState("sending");
+    try {
+      await apiRequest("POST", `/api/portal/projects/${projectId}/feedback`, {
+        rating: fb.rating,
+        comment: fb.comment,
+        canPublish: fb.canPublish,
+        ...(fb.referralName ? { referralName: fb.referralName } : {}),
+        ...(fb.referralContact ? { referralContact: fb.referralContact } : {}),
+      });
+      setFbState("done");
+      qc.invalidateQueries({ queryKey: ["portal-project", projectId] });
+    } catch {
+      setFbState("error");
+    }
+  }
+
   const d = data.data;
   const tabs: { key: TabKey; label: string; icon: typeof FileText }[] = [
     { key: "documentos", label: "Documentos", icon: FileText },
     { key: "pagos", label: "Pagos y boletas", icon: CreditCard },
-    { key: "timeline", label: "Línea de tiempo", icon: Calendar },
+    { key: "timeline", label: "Expediente y avance", icon: Calendar },
+    { key: "mensajes", label: "Mensajes", icon: Mail },
+    { key: "opinion", label: "Tu opinión", icon: Star },
+    { key: "servicios", label: "Para ti", icon: Sparkles },
   ];
 
   return (
@@ -183,8 +234,12 @@ export default function PortalClienteMiProyecto() {
                 <CardHeader><CardTitle className="text-lg">Documentos y planos</CardTitle></CardHeader>
                 <CardContent className="divide-y">
                   {d.documents.length === 0 && <p className="text-gray-500">Todavía no hay documentos publicados.</p>}
-                  {d.documents.map((doc) => (
-                    <div key={doc.id} className="flex items-center justify-between gap-3 py-3">
+                  {[...d.documents].sort((a, b) => DOC_ORDER.indexOf(a.type) - DOC_ORDER.indexOf(b.type)).map((doc, i, arr) => (
+                    <div key={doc.id}>
+                      {(i === 0 || arr[i - 1].type !== doc.type) && (
+                        <p className="pt-3 text-xs font-semibold uppercase tracking-wide text-blue-700">{DOC_LABEL[doc.type] ?? doc.type}</p>
+                      )}
+                    <div className="flex items-center justify-between gap-3 py-3">
                       <div className="min-w-0">
                         <p className="font-medium text-gray-900 truncate">{doc.name}</p>
                         <p className="text-xs text-gray-500">
@@ -194,6 +249,7 @@ export default function PortalClienteMiProyecto() {
                       <Button asChild size="sm" variant="outline">
                         <a href={`/api/portal/documents/${doc.id}/download`}><Download className="w-4 h-4 mr-1" /> Descargar</a>
                       </Button>
+                    </div>
                     </div>
                   ))}
                 </CardContent>
@@ -239,8 +295,29 @@ export default function PortalClienteMiProyecto() {
 
             {tab === "timeline" && (
               <Card>
-                <CardHeader><CardTitle className="text-lg">Línea de tiempo</CardTitle></CardHeader>
+                <CardHeader><CardTitle className="text-lg">Expediente y avance</CardTitle></CardHeader>
                 <CardContent className="space-y-5">
+                  {d.project.permitStatus && (
+                    <div className="rounded-lg bg-blue-50 p-4">
+                      <p className="text-sm font-medium text-blue-900 mb-3">
+                        Estado de tu expediente{d.project.permitFileNumber ? ` N° ${d.project.permitFileNumber}` : ""}
+                      </p>
+                      <div className="flex items-center gap-1 overflow-x-auto">
+                        {PERMIT_STEPS.map((st, i) => {
+                          const cur = PERMIT_STEPS.findIndex((x) => x.key === d.project.permitStatus);
+                          const done = i < cur, active = i === cur;
+                          return (
+                            <div key={st.key} className="flex items-center gap-1">
+                              <span className={`px-2 py-1 rounded-full text-xs whitespace-nowrap ${active ? "bg-blue-600 text-white" : done ? "bg-green-100 text-green-800" : "bg-white text-gray-400 border"}`}>
+                                {done ? "✓ " : ""}{st.label}
+                              </span>
+                              {i < PERMIT_STEPS.length - 1 && <span className="text-gray-300">›</span>}
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  )}
                   {d.timeline.length === 0 && <p className="text-gray-500">El cronograma se publicará pronto.</p>}
                   {d.timeline.map((t) => (
                     <div key={t.id} className="flex gap-3">
@@ -254,6 +331,78 @@ export default function PortalClienteMiProyecto() {
                   ))}
                 </CardContent>
               </Card>
+            )}
+
+            {tab === "mensajes" && (
+              <Card>
+                <CardHeader><CardTitle className="text-lg">Mensajes y comprobantes</CardTitle></CardHeader>
+                <CardContent className="divide-y">
+                  {d.messages.length === 0 && <p className="text-gray-500">Aquí verás los mensajes oficiales y comprobantes que te enviemos.</p>}
+                  {d.messages.map((m) => (
+                    <div key={m.id} className="py-3 space-y-1">
+                      <div className="flex items-center gap-2">
+                        <Badge variant="outline">{MSG_LABEL[m.kind]}</Badge>
+                        <span className="text-xs text-gray-500">{fecha(m.createdAt)}</span>
+                      </div>
+                      <p className="font-medium text-gray-900">{m.subject}</p>
+                      <p className="text-sm text-gray-600 whitespace-pre-line">{m.body}</p>
+                      {m.hasAttachment && (
+                        <Button asChild size="sm" variant="outline">
+                          <a href={`/api/portal/messages/${m.id}/attachment`}><Download className="w-4 h-4 mr-1" /> Descargar adjunto</a>
+                        </Button>
+                      )}
+                    </div>
+                  ))}
+                </CardContent>
+              </Card>
+            )}
+
+            {tab === "opinion" && (
+              <Card>
+                <CardHeader><CardTitle className="text-lg">Cuéntanos cómo te fue</CardTitle></CardHeader>
+                <CardContent className="space-y-4">
+                  {d.feedbackSent || fbState === "done" ? (
+                    <p className="text-green-700">¡Gracias! Recibimos tu opinión y la valoramos mucho.</p>
+                  ) : (
+                    <>
+                      <div className="flex gap-1">
+                        {[1, 2, 3, 4, 5].map((n) => (
+                          <button key={n} type="button" aria-label={`${n} estrellas`} onClick={() => setFb({ ...fb, rating: n })}>
+                            <Star className={`w-7 h-7 ${n <= fb.rating ? "fill-yellow-400 text-yellow-500" : "text-gray-300"}`} />
+                          </button>
+                        ))}
+                      </div>
+                      <textarea className="w-full border rounded-md p-3 text-sm min-h-[110px]" placeholder="¿Cómo fue tu experiencia con nosotros?" value={fb.comment} onChange={(e) => setFb({ ...fb, comment: e.target.value })} />
+                      <label className="flex items-start gap-2 text-sm text-gray-700">
+                        <input type="checkbox" className="mt-1" checked={fb.canPublish} onChange={(e) => setFb({ ...fb, canPublish: e.target.checked })} />
+                        <span>Autorizo que ArquitectoChile publique mi opinión (con mi nombre) en su sitio.</span>
+                      </label>
+                      <div className="grid sm:grid-cols-2 gap-3">
+                        <input className="border rounded-md p-2 text-sm" placeholder="¿A quién podríamos ayudar? (nombre, opcional)" value={fb.referralName} onChange={(e) => setFb({ ...fb, referralName: e.target.value })} />
+                        <input className="border rounded-md p-2 text-sm" placeholder="Su teléfono o correo (opcional)" value={fb.referralContact} onChange={(e) => setFb({ ...fb, referralContact: e.target.value })} />
+                      </div>
+                      {fbState === "error" && <p className="text-sm text-red-600">No pudimos enviarla. Revisa que tu comentario tenga al menos 10 caracteres.</p>}
+                      <Button onClick={sendFeedback} disabled={fbState === "sending" || fb.comment.trim().length < 10}>
+                        {fbState === "sending" ? "Enviando..." : "Enviar mi opinión"}
+                      </Button>
+                    </>
+                  )}
+                </CardContent>
+              </Card>
+            )}
+
+            {tab === "servicios" && (
+              <div className="grid sm:grid-cols-3 gap-3">
+                {OFFERS.map((o) => (
+                  <Card key={o.title}>
+                    <CardHeader className="pb-2"><CardTitle className="text-base">{o.title}</CardTitle></CardHeader>
+                    <CardContent className="space-y-3">
+                      <p className="text-sm text-gray-600">{o.text}</p>
+                      <Button size="sm" variant="outline" onClick={() => setLocation("/contacto")}>{o.cta}</Button>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
             )}
           </>
         )}
