@@ -4,6 +4,7 @@ import { z } from "zod";
 import { and, asc, desc, eq, inArray, isNull, or } from "drizzle-orm";
 import { db } from "./db";
 import { clients, clientProjects, clientMeetings, leads, meetingAgreements } from "@shared/schema";
+import { buildMinutaPdf } from "./minuta-pdf";
 import { emailShell, escapeHtml, parseId, PORTAL_BASE_URL, requirePortalClient, sendEmail } from "./portal";
 
 /**
@@ -97,6 +98,41 @@ const agreementInput = z.object({
   owner: z.enum(["architect", "client"]).default("architect"),
   dueDate: z.coerce.date().nullable().optional(),
 });
+
+// Arma el PDF de la minuta con los datos actuales de la reunión
+async function renderMinuta(meetingId: number) {
+  const [meeting] = await db.select().from(clientMeetings).where(eq(clientMeetings.id, meetingId)).limit(1);
+  if (!meeting) return null;
+
+  let recipientName = "Cliente";
+  if (meeting.clientId) {
+    const [c] = await db.select({ name: clients.name }).from(clients).where(eq(clients.id, meeting.clientId)).limit(1);
+    if (c) recipientName = c.name;
+  } else if (meeting.leadId) {
+    const [l] = await db.select({ name: leads.name }).from(leads).where(eq(leads.id, meeting.leadId)).limit(1);
+    if (l) recipientName = l.name;
+  }
+  let projectName: string | null = null;
+  if (meeting.projectId) {
+    const [p] = await db.select({ name: clientProjects.name }).from(clientProjects).where(eq(clientProjects.id, meeting.projectId)).limit(1);
+    projectName = p?.name ?? null;
+  }
+  const agreements = await db.select().from(meetingAgreements).where(eq(meetingAgreements.meetingId, meetingId)).orderBy(asc(meetingAgreements.createdAt));
+
+  const pdf = await buildMinutaPdf({
+    title: meeting.title,
+    heldAt: meeting.heldAt,
+    platform: meeting.platform,
+    recipientName,
+    projectName,
+    minuteText: meeting.minuteText ?? "",
+    agreements: agreements.map((a) => ({ description: a.description, owner: a.owner, status: a.status, dueDate: a.dueDate })),
+    draft: meeting.status !== "published",
+  });
+  const day = meeting.heldAt.toISOString().slice(0, 10);
+  const safe = meeting.title.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^A-Za-z0-9 _-]/g, "").trim().slice(0, 60) || "reunion";
+  return { meeting, pdf, filename: `Minuta ${day} - ${safe}.pdf` };
+}
 
 export function registerMeetingRoutes(app: Express, isAdmin: RequestHandler) {
   // ===== Entrada desde Fathom =====
@@ -239,6 +275,16 @@ export function registerMeetingRoutes(app: Express, isAdmin: RequestHandler) {
     res.json({ meeting, agreements });
   });
 
+  // Vista previa del PDF antes de publicar (sale marcado como borrador)
+  app.get(`${admin}/:id/pdf`, isAdmin, async (req, res) => {
+    const id = parseId(req.params.id);
+    if (!id) return res.status(400).json({ error: "Reunión inválida." });
+    const out = await renderMinuta(id);
+    if (!out) return res.status(404).json({ error: "Reunión no encontrada." });
+    res.set({ "Content-Type": "application/pdf", "Content-Disposition": `inline; filename*=UTF-8''${encodeURIComponent(out.filename)}`, "Cache-Control": "no-store" });
+    res.send(out.pdf);
+  });
+
   app.post(admin, isAdmin, async (req, res) => {
     const parsed = manualMeeting.safeParse(req.body);
     if (!parsed.success) return res.status(400).json({ error: "Datos inválidos", details: parsed.error.flatten() });
@@ -306,23 +352,20 @@ export function registerMeetingRoutes(app: Express, isAdmin: RequestHandler) {
     }
     if (!to) return res.status(400).json({ error: "Asigna la reunión a un cliente o lead antes de publicarla." });
 
-    const agreements = await db.select().from(meetingAgreements).where(eq(meetingAgreements.meetingId, id)).orderBy(asc(meetingAgreements.createdAt));
     await db.update(clientMeetings).set({ status: "published", publishedAt: new Date() }).where(eq(clientMeetings.id, id));
-
-    const list = (owner: string) => agreements.filter((a) => a.owner === owner).map((a) => `<li>${escapeHtml(a.description)}</li>`).join("");
-    const mine = list("architect");
-    const yours = list("client");
-    const emailed = await sendEmail(
-      to.email,
-      `Minuta de nuestra reunión: ${meeting.title}`,
-      emailShell(`
-        <h2 style="color:#1e3a5f">Hola ${escapeHtml(to.name)},</h2>
-        <p>Te comparto lo que conversamos en nuestra reunión.</p>
-        <div style="white-space:pre-line;background:#f8fafc;border-radius:8px;padding:14px">${escapeHtml(meeting.minuteText)}</div>
-        ${mine ? `<h3 style="color:#1e3a5f">Lo que haré yo</h3><ul>${mine}</ul>` : ""}
-        ${yours ? `<h3 style="color:#1e3a5f">Lo que necesito de ti</h3><ul>${yours}</ul>` : ""}
-        ${meeting.clientId ? `<p><a href="${PORTAL_BASE_URL}/portal-cliente/login">Ver en mi portal</a></p>` : ""}`),
-    ).catch(() => false);
+    const out = await renderMinuta(id); // se genera ya publicada, sin marca de borrador
+    const emailed = out
+      ? await sendEmail(
+          to.email,
+          `Minuta de nuestra reunión: ${meeting.title}`,
+          emailShell(`
+            <h2 style="color:#1e3a5f">Hola ${escapeHtml(to.name)},</h2>
+            <p>Gracias por la reunión. Te adjunto la minuta con lo conversado y los acuerdos, para que quede todo ordenado.</p>
+            ${meeting.clientId ? `<p>También la tienes siempre disponible en tu portal:<br><a href="${PORTAL_BASE_URL}/portal-cliente/login">Ver en mi portal</a></p>` : ""}
+            <p>Si algo no quedó como lo conversamos, respóndeme este correo y lo corregimos.</p>`),
+          [{ filename: out.filename, content: out.pdf, contentType: "application/pdf" }],
+        ).catch(() => false)
+      : false;
     res.json({ ok: true, emailed });
   });
 
@@ -373,6 +416,23 @@ export function registerMeetingRoutes(app: Express, isAdmin: RequestHandler) {
           .orderBy(asc(meetingAgreements.createdAt))
       : [];
     res.json(meetings.map((m) => ({ ...m, agreements: agreements.filter((a) => a.meetingId === m.id) })));
+  });
+
+  // Descarga de la minuta en PDF: solo reuniones publicadas del propio cliente
+  app.get("/api/portal/meetings/:id/pdf", requirePortalClient, async (req, res) => {
+    const client = (req as any).portalClient;
+    const id = parseId(req.params.id);
+    if (!id) return res.status(400).json({ error: "Reunión inválida." });
+    const [own] = await db
+      .select({ id: clientMeetings.id })
+      .from(clientMeetings)
+      .where(and(eq(clientMeetings.id, id), eq(clientMeetings.clientId, client.id), eq(clientMeetings.status, "published")))
+      .limit(1);
+    if (!own) return res.status(404).json({ error: "Minuta no encontrada." });
+    const out = await renderMinuta(id);
+    if (!out) return res.status(404).json({ error: "Minuta no encontrada." });
+    res.set({ "Content-Type": "application/pdf", "Content-Disposition": `attachment; filename*=UTF-8''${encodeURIComponent(out.filename)}`, "Cache-Control": "private, no-store" });
+    res.send(out.pdf);
   });
 
   // El cliente puede marcar como cumplidos los acuerdos que le tocan a él

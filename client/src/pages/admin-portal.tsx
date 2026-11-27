@@ -336,7 +336,10 @@ function MeetingEditor({ id, onChange }: { id: number; onChange: () => void }) {
       </div>
       <p className="text-xs text-gray-500">Revisa la minuta antes de publicarla: viene del resumen automático y puede traer comentarios internos.</p>
       <textarea className="w-full border rounded-md p-2 text-sm min-h-[160px]" value={minute ?? m.minuteText ?? ""} onChange={(e) => setMinute(e.target.value)} placeholder="Minuta para el cliente" />
-      <Button size="sm" variant="outline" disabled={minute === null} onClick={() => patch({ minuteText: minute }, "Minuta guardada").then(() => setMinute(null))}>Guardar minuta</Button>
+      <div className="flex flex-wrap gap-2">
+        <Button size="sm" variant="outline" disabled={minute === null} onClick={() => patch({ minuteText: minute }, "Minuta guardada").then(() => setMinute(null))}>Guardar minuta</Button>
+        <Button asChild size="sm" variant="outline"><a href={`/api/portal/admin/meetings/${id}/pdf`} target="_blank" rel="noreferrer">Ver PDF de la minuta</a></Button>
+      </div>
 
       <div className="space-y-2">
         <p className="text-sm font-semibold">Acuerdos</p>

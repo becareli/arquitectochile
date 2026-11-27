@@ -383,6 +383,9 @@ export default function PortalClienteMiProyecto() {
                     </CardHeader>
                     <CardContent className="space-y-3">
                       <p className="text-sm text-gray-700 whitespace-pre-line">{plain(m.minuteText)}</p>
+                      <Button asChild size="sm" variant="outline">
+                        <a href={`/api/portal/meetings/${m.id}/pdf`}><Download className="w-4 h-4 mr-1" /> Descargar minuta (PDF)</a>
+                      </Button>
                       {(["architect", "client"] as const).map((who) => {
                         const items = m.agreements.filter((a) => a.owner === who);
                         if (!items.length) return null;

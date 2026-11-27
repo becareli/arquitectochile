@@ -83,7 +83,12 @@ export const requirePortalClient: RequestHandler = async (req, res, next) => {
 
 // ---------- correo ----------
 
-export async function sendEmail(to: string, subject: string, html: string): Promise<boolean> {
+export async function sendEmail(
+  to: string,
+  subject: string,
+  html: string,
+  attachments?: { filename: string; content: Buffer; contentType: string }[],
+): Promise<boolean> {
   const host = process.env.SMTP_HOST;
   const user = process.env.SMTP_USER;
   const pass = process.env.SMTP_PASS;
@@ -98,7 +103,7 @@ export async function sendEmail(to: string, subject: string, html: string): Prom
     secure: port === 465,
     auth: { user, pass },
   });
-  await transporter.sendMail({ from: process.env.SMTP_FROM || user, to, subject, html });
+  await transporter.sendMail({ from: process.env.SMTP_FROM || user, to, subject, html, attachments });
   return true;
 }
 
