@@ -23,6 +23,18 @@ export const DISCIPLINES = [
   { code: "LEG", label: "Legal y municipal (expediente)", stems: ["legal", "municipal", "expediente"] },
   { code: "OBR", label: "Obra e inspección", stems: ["obra", "inspecci"] },
   { code: "ADM", label: "Administración (contratos, pagos)", stems: ["administr"] },
+  { code: "BIM", label: "Coordinación y modelado BIM", stems: ["bim", "modelad"] },
+  { code: "REV", label: "Revisión independiente", stems: ["revisor", "revision indep"] },
+  { code: "HID", label: "Hidráulica", stems: ["hidraul"] },
+  { code: "VIA", label: "Tránsito e impacto vial (IMIV)", stems: ["transito", "vial", "imiv", "imif"] },
+  { code: "MDS", label: "Mecánica de suelos / geotecnia", stems: ["suelo", "geotec"] },
+  { code: "CDB", label: "Corrientes débiles", stems: ["corrientes debiles", "telecom"] },
+  { code: "ERN", label: "Energías renovables (ERNC)", stems: ["renovable", "ernc", "solar", "fotovolt"] },
+  { code: "PIS", label: "Piscinas", stems: ["piscina"] },
+  { code: "INC", label: "Seguridad contra incendio", stems: ["incendio"] },
+  { code: "ACU", label: "Acústica", stems: ["acustic"] },
+  { code: "PAI", label: "Paisajismo", stems: ["paisaj"] },
+  { code: "PRE", label: "Cubicación y presupuesto", stems: ["cubica", "presupuest"] },
 ] as const;
 
 export const DOC_KINDS = [

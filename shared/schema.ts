@@ -449,6 +449,17 @@ export const officeTaskComments = pgTable("office_task_comments", {
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
+// Conversación por proyecto: solo la ven los colaboradores con tareas en ese proyecto y Patricio
+export const projectMessages = pgTable("project_messages", {
+  id: serial("id").primaryKey(),
+  projectId: integer("project_id").references(() => clientProjects.id).notNull(),
+  authorType: text("author_type").notNull(), // admin | collaborator
+  collaboratorId: integer("collaborator_id").references(() => collaborators.id),
+  authorName: text("author_name").notNull(),
+  body: text("body").notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
 // AI Agent Events table for tracking automation
 export const aiAgentEvents = pgTable("ai_agent_events", {
   id: serial("id").primaryKey(),
@@ -554,6 +565,7 @@ export const collaborators = pgTable("collaborators", {
   onboardedAt: timestamp("onboarded_at"), // terminó la bienvenida y aceptó los compromisos de trabajo
   termsVersion: text("terms_version"),
   // Credenciales (solo las ve Patricio; no se pide carnet de identidad)
+  roleCode: text("role_code"), // perfil del catálogo (shared/roles.ts)
   cvUrl: text("cv_url"),
   cvName: text("cv_name"),
   titleCertUrl: text("title_cert_url"),

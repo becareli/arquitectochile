@@ -1,3 +1,5 @@
+import { ProjectChat } from "@/components/ProjectChat";
+import { ROLES, ROLE_GROUPS } from "@shared/roles";
 import { useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -9,7 +11,7 @@ import { apiRequest } from "@/lib/queryClient";
 import { DISCIPLINES, guessDiscipline } from "@shared/classification";
 import Cotizaciones from "@/pages/admin-cotizaciones";
 
-type Collab = { id: number; name: string; email: string; phone: string | null; specialty: string; active: boolean; onboarded: boolean; discipline: string | null; canDo3d: boolean; isCoordinator: boolean; showOnWebsite: boolean; linkedinUrl: string | null; hasCv: boolean; hasTitle: boolean; titleVerified: boolean; hasPhoto: boolean; publishConsent: boolean; open: number; review: number; feePending: string };
+type Collab = { id: number; name: string; email: string; phone: string | null; specialty: string; roleCode: string | null; active: boolean; onboarded: boolean; discipline: string | null; canDo3d: boolean; isCoordinator: boolean; showOnWebsite: boolean; linkedinUrl: string | null; hasCv: boolean; hasTitle: boolean; titleVerified: boolean; hasPhoto: boolean; publishConsent: boolean; open: number; review: number; feePending: string };
 type Task = { id: number; title: string; status: string; dueDate: string | null; collaborator: string; project: string | null; fee: string | null; feeStatus: string; collaboratorId: number; deliverableFormat: string; revision: number; kickoffRequired?: boolean; acceptedAt?: string | null; advancePercent?: number; advancePaidAt?: string | null; kickoffAt?: string | null; kickoffLink?: string | null; kickoffDoneAt?: string | null };
 type TaskFull = {
   task: Task & { description: string | null };
@@ -233,7 +235,7 @@ export default function OfficeTab() {
   const [filter, setFilter] = useState("");
   const [selTask, setSelTask] = useState<number | null>(null);
   const [msg, setMsg] = useState<string | null>(null);
-  const [c, setC] = useState({ name: "", email: "", specialty: "", phone: "" });
+  const [c, setC] = useState({ name: "", email: "", roleCode: "", phone: "" });
   const [t, setT] = useState({ collaboratorId: "", clientId: "", projectId: "", title: "", description: "", dueDate: "", fee: "", format: "2d", discipline: "" });
 
   const collabs = useQuery({ queryKey: ["office-collabs"], queryFn: () => get<Collab[]>("/api/office/admin/collaborators") });
@@ -275,11 +277,16 @@ export default function OfficeTab() {
             ))}
             <div className="grid grid-cols-2 gap-2 pt-2">
               <Input placeholder="Nombre" value={c.name} onChange={(e) => setC({ ...c, name: e.target.value })} />
-              <Input placeholder="Especialidad (dibujante, ingeniero...)" value={c.specialty} onChange={(e) => setC({ ...c, specialty: e.target.value })} />
+              <select className={sel} value={c.roleCode} onChange={(e) => setC({ ...c, roleCode: e.target.value })}>
+                <option value="">Perfil...</option>
+                {ROLE_GROUPS.map((g) => (
+                  <optgroup key={g} label={g}>{ROLES.filter((r) => r.group === g).map((r) => <option key={r.code} value={r.code}>{r.label}</option>)}</optgroup>
+                ))}
+              </select>
               <Input type="email" placeholder="Correo" value={c.email} onChange={(e) => setC({ ...c, email: e.target.value })} />
               <Input placeholder="Teléfono (opcional)" value={c.phone} onChange={(e) => setC({ ...c, phone: e.target.value })} />
             </div>
-            <Button size="sm" disabled={!c.name || !c.email || !c.specialty} onClick={() => run(async () => { await send("POST", "/api/office/admin/collaborators", { name: c.name, email: c.email, specialty: c.specialty, phone: c.phone || null }); setC({ name: "", email: "", specialty: "", phone: "" }); }, "Colaborador agregado.")}>Agregar colaborador</Button>
+            <Button size="sm" disabled={!c.name || !c.email || !c.roleCode} onClick={() => run(async () => { await send("POST", "/api/office/admin/collaborators", { name: c.name, email: c.email, roleCode: c.roleCode, phone: c.phone || null }); setC({ name: "", email: "", roleCode: "", phone: "" }); }, "Colaborador agregado.")}>Agregar colaborador</Button>
           </CardContent>
         </Card>
 
@@ -358,6 +365,10 @@ export default function OfficeTab() {
         <div className="lg:col-span-3">
           {selTask ? <TaskDetail key={selTask} id={selTask} onChange={reload} /> : <p className="text-sm text-gray-500">Elige una tarea para revisar entregables, comentar, cerrarla o marcar el honorario como pagado.</p>}
         </div>
+      </div>
+      <div className="space-y-2">
+        <h3 className="text-base font-semibold text-[#1D2530]">Conversaciones por proyecto</h3>
+        <ProjectChat base="/api/office/admin/chats" admin />
       </div>
     </div>
   );

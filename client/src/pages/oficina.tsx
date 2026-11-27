@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Textarea } from "@/components/ui/textarea";
 import { Mail, CheckCircle, Paperclip, LogOut } from "lucide-react";
+import { ProjectChat } from "@/components/ProjectChat";
 import { useSEO } from "@/hooks/useSEO";
 import { apiRequest } from "@/lib/queryClient";
 import { DOC_KINDS } from "@shared/classification";
@@ -451,7 +452,7 @@ export default function Oficina() {
   useSEO({ title: "Oficina digital | ArquitectoChile.com", description: "Tareas y entregas de colaboradores de ArquitectoChile.", path: "/oficina", noindex: true });
   const qc = useQueryClient();
   const [sel, setSel] = useState<number | null>(null);
-  const [view, setView] = useState<"tareas" | "cotizaciones" | "equipo" | "perfil">("tareas");
+  const [view, setView] = useState<"tareas" | "cotizaciones" | "equipo" | "chat" | "perfil">("tareas");
   const { data, isLoading, isError } = useQuery({
     queryKey: ["office-me"],
     queryFn: async () => { const r = await fetch("/api/office/me", { credentials: "include" }); if (!r.ok) throw new Error(String(r.status)); return r.json() as Promise<Me>; },
@@ -490,11 +491,12 @@ export default function Oficina() {
           </div>
         )}
         <div className="flex gap-2">
-          {([["tareas", "Mis tareas"], ["cotizaciones", "Cotizaciones"], ["equipo", data.collaborator.isCoordinator ? "Equipo BIM" : "Equipo"], ["perfil", "Mi perfil"]] as const).map(([v, l]) => (
+          {([["tareas", "Mis tareas"], ["cotizaciones", "Cotizaciones"], ["equipo", data.collaborator.isCoordinator ? "Equipo BIM" : "Equipo"], ["chat", "Conversaciones"], ["perfil", "Mi perfil"]] as const).map(([v, l]) => (
             <Button key={v} size="sm" variant={view === v ? "default" : "outline"} onClick={() => setView(v)}>{l}</Button>
           ))}
         </div>
         {view === "cotizaciones" && <RfqView />}
+        {view === "chat" && <ProjectChat base="/api/office/chats" />}
         {view === "equipo" && <TeamBoard coordinator={data.collaborator.isCoordinator} />}
         {view === "perfil" && <ProfileForm me={data.collaborator} onSaved={reload} />}
         {view === "tareas" && <div className="grid lg:grid-cols-5 gap-4">

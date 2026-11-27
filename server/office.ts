@@ -19,6 +19,7 @@ import { ObjectStorageService, ObjectNotFoundError } from "./objectStorage";
 import { sendEmail, emailShell, escapeHtml, parseId, PORTAL_BASE_URL } from "./portal";
 import { backfillProjectCodes, nextDocVersion } from "./classification";
 import { recordLedger, ADMIN_NAME } from "./ledger";
+import { roleByCode } from "@shared/roles";
 import { DISCIPLINE_CODES, DOC_KIND_CODES, extensionOf, slugify, stdFileName } from "@shared/classification";
 
 /**
@@ -94,7 +95,8 @@ const collabInput = z.object({
   name: z.string().min(2).max(120),
   email: z.string().email(),
   phone: z.string().max(40).optional().nullable(),
-  specialty: z.string().min(2).max(80),
+  specialty: z.string().min(2).max(80).optional(),
+  roleCode: z.string().max(40).optional(),
   location: z.string().max(120).optional(),
   active: z.boolean().optional(),
   discipline: z.string().max(60).nullable().optional(),
@@ -674,6 +676,7 @@ export function registerOfficeRoutes(app: Express, isAdmin: RequestHandler) {
         email: c.email,
         phone: c.phone,
         specialty: c.specialty,
+        roleCode: c.roleCode,
         active: c.active,
         onboarded: Boolean(c.onboardedAt),
         discipline: c.discipline,
@@ -698,9 +701,12 @@ export function registerOfficeRoutes(app: Express, isAdmin: RequestHandler) {
     if (!parsed.success) return res.status(400).json({ error: "Datos inválidos", details: parsed.error.flatten() });
     try {
       const d = parsed.data;
+      const role = roleByCode(d.roleCode);
+      const specialty = role?.label ?? d.specialty;
+      if (!specialty) return res.status(400).json({ error: "Elija un perfil." });
       const [row] = await db
         .insert(collaborators)
-        .values({ name: d.name, email: normalizeEmail(d.email), phone: d.phone ?? null, specialty: d.specialty, location: d.location || "Santiago", experience: 0, active: d.active ?? true, discipline: d.discipline ?? null, canDo3d: d.canDo3d ?? false, isCoordinator: d.isCoordinator ?? false })
+        .values({ name: d.name, email: normalizeEmail(d.email), phone: d.phone ?? null, specialty, roleCode: role?.code ?? null, location: d.location || "Santiago", experience: 0, active: d.active ?? true, discipline: d.discipline ?? role?.discipline ?? null, canDo3d: d.canDo3d ?? role?.code === "bim-modelador", isCoordinator: d.isCoordinator ?? role?.code === "bim-coord" })
         .returning();
       res.status(201).json({ id: row.id });
     } catch (err) {
@@ -720,6 +726,11 @@ export function registerOfficeRoutes(app: Express, isAdmin: RequestHandler) {
     if (d.email !== undefined) set.email = normalizeEmail(d.email);
     if (d.phone !== undefined) set.phone = d.phone;
     if (d.specialty !== undefined) set.specialty = d.specialty;
+    if (d.roleCode !== undefined) {
+      const role = roleByCode(d.roleCode);
+      if (!role) return res.status(400).json({ error: "Perfil desconocido." });
+      set.roleCode = role.code; set.specialty = role.label; set.discipline = role.discipline;
+    }
     if (d.location !== undefined) set.location = d.location;
     if (d.active !== undefined) set.active = d.active;
     if (d.discipline !== undefined) set.discipline = d.discipline;
