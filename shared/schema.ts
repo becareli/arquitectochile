@@ -315,11 +315,73 @@ export const officeTasks = pgTable(
     feePaidAt: timestamp("fee_paid_at"),
     completedAt: timestamp("completed_at"),
     deliverableFormat: text("deliverable_format").notNull().default("2d"), // 2d, 3d
+    // Arranque (kickoff) de un proyecto ganado en una cotización
+    rfqId: integer("rfq_id"),
+    kickoffRequired: boolean("kickoff_required").notNull().default(false),
+    deliveryDays: integer("delivery_days"), // el plazo corre desde el kickoff
+    advancePercent: integer("advance_percent").notNull().default(0),
+    acceptedAt: timestamp("accepted_at"), // el colaborador aceptó monto, plazo y forma de pago
+    advancePaidAt: timestamp("advance_paid_at"),
+    kickoffAt: timestamp("kickoff_at"), // reunión de inicio agendada
+    kickoffLink: text("kickoff_link"),
+    kickoffDoneAt: timestamp("kickoff_done_at"),
     revision: integer("revision").notNull().default(0), // cuántas modificaciones se han pedido
     remindersSent: text("reminders_sent").array().notNull().default(sql`'{}'::text[]`), // d7, d1, overdue:<n>
     createdAt: timestamp("created_at").defaultNow().notNull(),
   },
   (t) => [index("idx_office_tasks_collab").on(t.collaboratorId), index("idx_office_tasks_project").on(t.projectId)],
+);
+
+// ----- Cotizaciones: Patricio pide precio a varios colaboradores, compara y adjudica -----
+export const officeRfqs = pgTable("office_rfqs", {
+  id: serial("id").primaryKey(),
+  projectId: integer("project_id").references(() => clientProjects.id),
+  discipline: text("discipline").notNull(),
+  title: text("title").notNull(),
+  requirements: text("requirements").notNull(),
+  deliverableFormat: text("deliverable_format").notNull().default("2d"),
+  quoteDeadline: timestamp("quote_deadline"),
+  status: text("status").notNull().default("open"), // open, awarded, closed
+  awardedQuoteId: integer("awarded_quote_id"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+export const officeRfqFiles = pgTable("office_rfq_files", {
+  id: serial("id").primaryKey(),
+  rfqId: integer("rfq_id").references(() => officeRfqs.id).notNull(),
+  name: text("name").notNull(),
+  fileUrl: text("file_url").notNull(),
+  fileSize: integer("file_size"),
+});
+
+export const officeRfqInvites = pgTable(
+  "office_rfq_invites",
+  {
+    id: serial("id").primaryKey(),
+    rfqId: integer("rfq_id").references(() => officeRfqs.id).notNull(),
+    collaboratorId: integer("collaborator_id").references(() => collaborators.id).notNull(),
+    status: text("status").notNull().default("invited"), // invited, quoted, declined, awarded, not_selected
+    declineReason: text("decline_reason"),
+    invitedAt: timestamp("invited_at").defaultNow().notNull(),
+  },
+  (t) => [index("idx_rfq_invites_rfq").on(t.rfqId), index("idx_rfq_invites_collab").on(t.collaboratorId)],
+);
+
+export const officeQuotes = pgTable(
+  "office_quotes",
+  {
+    id: serial("id").primaryKey(),
+    rfqId: integer("rfq_id").references(() => officeRfqs.id).notNull(),
+    collaboratorId: integer("collaborator_id").references(() => collaborators.id).notNull(),
+    amount: decimal("amount", { precision: 12, scale: 2 }).notNull(),
+    deliveryDays: integer("delivery_days").notNull(),
+    advancePercent: integer("advance_percent").notNull().default(0),
+    paymentNotes: text("payment_notes"), // forma de pago: contra entrega, por etapas, etc.
+    notes: text("notes"),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+    updatedAt: timestamp("updated_at").defaultNow().notNull(),
+  },
+  (t) => [index("idx_office_quotes_rfq").on(t.rfqId)],
 );
 
 // Entregables que sube el colaborador. Solo llegan al cliente si el arquitecto los publica.
@@ -489,6 +551,8 @@ export const collaborators = pgTable("collaborators", {
   canDo3d: boolean("can_do_3d").notNull().default(false), // entrega modelo 3D/BIM; si no, entrega 2D
   isCoordinator: boolean("is_coordinator").notNull().default(false), // coordinador BIM: ve todo el equipo
   showOnWebsite: boolean("show_on_website").notNull().default(false), // aparecerá en el staff de la web
+  onboardedAt: timestamp("onboarded_at"), // terminó la bienvenida y aceptó los compromisos de trabajo
+  termsVersion: text("terms_version"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 

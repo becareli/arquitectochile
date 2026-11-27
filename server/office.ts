@@ -51,7 +51,7 @@ async function startOfficeSession(req: Request, collaboratorId: number) {
   await sessionStep(req, "save");
 }
 
-const requireCollaborator: RequestHandler = async (req, res, next) => {
+export const requireCollaborator: RequestHandler = async (req, res, next) => {
   const id = getSession(req)?.officeCollaboratorId;
   if (!id) return res.status(401).json({ error: "Debes iniciar sesión." });
   const [collab] = await db.select().from(collaborators).where(eq(collaborators.id, id)).limit(1);
@@ -147,11 +147,11 @@ const fileInput = z.object({
 
 const toDate = (v: string | null | undefined) => (v ? new Date(v) : null);
 
-const STATUS_LABEL: Record<string, string> = { todo: "Por hacer", doing: "En curso", review: "En revisión", done: "Hecha" };
-const logEvent = (taskId: number, type: string, text: string) =>
+export const STATUS_LABEL: Record<string, string> = { todo: "Por hacer", doing: "En curso", review: "En revisión", done: "Hecha" };
+export const logEvent = (taskId: number, type: string, text: string) =>
   db.insert(officeTaskEvents).values({ taskId, type, text }).catch((e) => console.error("office event error:", (e as Error).message));
 
-const fechaCL = (d: Date) => d.toLocaleDateString("es-CL", { day: "numeric", month: "long", year: "numeric", timeZone: "America/Santiago" });
+export const fechaCL = (d: Date) => d.toLocaleDateString("es-CL", { day: "numeric", month: "long", year: "numeric", timeZone: "America/Santiago" });
 const santiagoHour = () => Number(new Intl.DateTimeFormat("en-GB", { hour: "2-digit", hour12: false, timeZone: "America/Santiago" }).format(new Date()));
 
 // ---------- sugerencia de impacto de una modificación ----------
@@ -216,7 +216,7 @@ export async function runOfficeReminders(): Promise<{ sent: number }> {
     .select({ task: officeTasks, name: collaborators.name, email: collaborators.email })
     .from(officeTasks)
     .innerJoin(collaborators, eq(officeTasks.collaboratorId, collaborators.id))
-    .where(and(sql`${officeTasks.status} in ('todo','doing')`, sql`${officeTasks.dueDate} is not null`, eq(collaborators.active, true)));
+    .where(and(sql`${officeTasks.status} in ('todo','doing')`, sql`${officeTasks.dueDate} is not null`, sql`(not ${officeTasks.kickoffRequired} or ${officeTasks.kickoffDoneAt} is not null)`, eq(collaborators.active, true)));
   let sent = 0;
   const now = Date.now();
   for (const { task, name, email } of rows) {
@@ -368,6 +368,8 @@ export function registerOfficeRoutes(app: Express, isAdmin: RequestHandler) {
     const sum = (rows: typeof tasks) => rows.reduce((a, t) => a + Number(t.fee ?? 0), 0);
     res.json({
       collaborator: {
+        onboarded: Boolean(collab.onboardedAt),
+        canDo3d: collab.canDo3d,
         name: collab.name,
         email: collab.email,
         specialty: collab.specialty,
@@ -608,6 +610,7 @@ export function registerOfficeRoutes(app: Express, isAdmin: RequestHandler) {
         phone: c.phone,
         specialty: c.specialty,
         active: c.active,
+        onboarded: Boolean(c.onboardedAt),
         discipline: c.discipline,
         canDo3d: c.canDo3d,
         isCoordinator: c.isCoordinator,

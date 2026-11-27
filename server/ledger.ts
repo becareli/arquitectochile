@@ -11,7 +11,7 @@ export type LedgerEntry = {
   docName?: string | null;
   docVersion?: number | null;
   action: string;
-  role: "Asignó" | "Diseñó / ejecutó" | "Revisó" | "Aprobó" | "Devolvió" | "Publicó" | "Solicitó" | "Cerró";
+  role: "Asignó" | "Diseñó / ejecutó" | "Revisó" | "Aprobó" | "Devolvió" | "Publicó" | "Solicitó" | "Cerró" | "Cotizó" | "Aceptó" | "Pagó" | "Inició";
   actorType: "admin" | "collaborator" | "agent" | "system";
   actorName: string;
   detail?: string | null;

@@ -11,9 +11,9 @@ import { apiRequest } from "@/lib/queryClient";
 import { DOC_KINDS } from "@shared/classification";
 
 type Task = { id: number; title: string; status: string; dueDate: string | null; project: string | null; fee: string | null; feeStatus: string; deliverableFormat: string; revision: number };
-type Me = { collaborator: { name: string; email: string; specialty: string; isCoordinator: boolean; phone: string | null; description: string | null; linkedinUrl: string | null }; tasks: Task[]; fees: { pending: number; paid: number } };
+type Me = { collaborator: { onboarded: boolean; canDo3d: boolean; name: string; email: string; specialty: string; isCoordinator: boolean; phone: string | null; description: string | null; linkedinUrl: string | null }; tasks: Task[]; fees: { pending: number; paid: number } };
 type Detail = {
-  task: { id: number; title: string; description: string | null; status: string; dueDate: string | null; project: string | null; bim: boolean; discipline: string | null; deliverableFormat: string; revision: number; fee: string | null; feeStatus: string };
+  task: { id: number; title: string; description: string | null; status: string; dueDate: string | null; project: string | null; bim: boolean; discipline: string | null; deliverableFormat: string; revision: number; fee: string | null; feeStatus: string; kickoffRequired: boolean; acceptedAt: string | null; advancePercent: number; advancePaidAt: string | null; kickoffAt: string | null; kickoffLink: string | null; kickoffDoneAt: string | null; deliveryDays: number | null };
   files: { id: number; name: string; stdName: string | null; version: number; kind: string; uploadedAt: string; reviewedBy: string | null; approvedBy: string | null; returnedNote: string | null }[];
   comments: { id: number; author: string; body: string; createdAt: string }[];
   events: { id: number; type: string; text: string; createdAt: string }[];
@@ -114,6 +114,19 @@ function TaskPanel({ id, onChange }: { id: number; onChange: () => void }) {
       </CardHeader>
       <CardContent className="space-y-4">
         {t.description && <p className="text-sm whitespace-pre-wrap">{t.description}</p>}
+        {t.kickoffRequired && !t.kickoffDoneAt && (
+          <div className="rounded-md border border-[#F97015] bg-orange-50 p-3 text-sm space-y-2">
+            <h4 className="font-semibold">¡Ganaste este proyecto! Así arrancamos</h4>
+            <ol className="space-y-1">
+              <li>{t.acceptedAt ? "✔" : "1."} Confirma las condiciones: <b>{t.fee ? clp(t.fee) : "—"}</b>, plazo de <b>{t.deliveryDays ?? "—"} días</b> desde el kickoff{t.advancePercent ? `, anticipo de ${t.advancePercent}% (${clp((Number(t.fee ?? 0) * t.advancePercent) / 100)})` : ", sin anticipo"}.
+                {!t.acceptedAt && <Button size="sm" className="ml-2" disabled={busy} onClick={() => run(() => send("POST", `/api/office/tasks/${id}/accept`), "Gracias: Patricio fue avisado.")}>Acepto las condiciones</Button>}</li>
+              {t.advancePercent > 0 && <li>{t.advancePaidAt ? "✔ Anticipo pagado" : "2. Patricio registra el pago del anticipo (te avisaremos por correo). Sube tu boleta o factura en esta tarea."}</li>}
+              <li>{t.kickoffAt ? <>✔ Reunión de inicio: <b>{new Date(t.kickoffAt).toLocaleString("es-CL", { dateStyle: "full", timeStyle: "short" })}</b> {t.kickoffLink && <a className="text-[#C2410C] underline" href={t.kickoffLink}>Unirme</a>}</> : "3. Patricio agendará la reunión de inicio y te avisará."}</li>
+              <li>4. Tras el kickoff el proyecto arranca y empieza a correr tu plazo.</li>
+            </ol>
+          </div>
+        )}
+        {t.kickoffDoneAt && <p className="text-xs text-gray-500">Proyecto arrancado el {day(t.kickoffDoneAt)}.</p>}
         {!closed && (
           <div className="flex flex-wrap gap-2">
             {(["todo", "doing", "review"] as const).map((s) => (
@@ -197,6 +210,140 @@ function TaskPanel({ id, onChange }: { id: number; onChange: () => void }) {
   );
 }
 
+const CLOSE_MSG: Record<string, string> = { invited: "Pendiente de tu respuesta", quoted: "Cotizaste", declined: "Declinaste", awarded: "¡Ganaste!", not_selected: "No fue seleccionada" };
+type RfqItem = { id: number; title: string; discipline: string; project: string | null; quoteDeadline: string | null; rfqStatus: string; inviteStatus: string; myQuote: { amount: string; deliveryDays: number } | null };
+type RfqDetail = { rfq: { id: number; title: string; requirements: string; deliverableFormat: string; quoteDeadline: string | null; status: string; project: string | null }; inviteStatus: string; files: { id: number; name: string }[]; quote: { amount: string; deliveryDays: number; advancePercent: number; paymentNotes: string | null; notes: string | null } | null };
+
+function RfqForm({ id, onDone }: { id: number; onDone: () => void }) {
+  const qc = useQueryClient();
+  const { data } = useQuery({ queryKey: ["office-rfq", id], queryFn: async () => { const r = await fetch(`/api/office/rfqs/${id}`, { credentials: "include" }); if (!r.ok) throw new Error(); return r.json() as Promise<RfqDetail>; } });
+  const [f, setF] = useState<{ amount: string; days: string; advance: string; pay: string; notes: string } | null>(null);
+  const [msg, setMsg] = useState<string | null>(null);
+  if (!data) return <p className="text-sm text-gray-500">Cargando...</p>;
+  const form = f ?? { amount: data.quote ? String(Math.round(Number(data.quote.amount))) : "", days: data.quote ? String(data.quote.deliveryDays) : "", advance: data.quote ? String(data.quote.advancePercent) : "0", pay: data.quote?.paymentNotes ?? "", notes: data.quote?.notes ?? "" };
+  const open = data.rfq.status === "open" && data.inviteStatus !== "declined";
+  const refresh = () => { qc.invalidateQueries({ queryKey: ["office-rfq", id] }); qc.invalidateQueries({ queryKey: ["office-rfqs"] }); onDone(); };
+  const submit = async () => {
+    try {
+      await send("PUT", `/api/office/rfqs/${id}/quote`, { amount: Number(form.amount), deliveryDays: Number(form.days), advancePercent: Number(form.advance || 0), paymentNotes: form.pay || null, notes: form.notes || null });
+      setMsg("Cotización enviada. Puedes corregirla hasta que se cierre."); refresh();
+    } catch (e) { setMsg(`Error: ${(e as Error).message}`); }
+  };
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle className="text-base">{data.rfq.title}</CardTitle>
+        <p className="text-xs text-gray-500">{data.rfq.project ? `${data.rfq.project} · ` : ""}Entrega en {data.rfq.deliverableFormat === "3d" ? "3D / modelo" : "2D (planos)"} · responder antes de {day(data.rfq.quoteDeadline)} · <b>{CLOSE_MSG[data.inviteStatus]}</b></p>
+      </CardHeader>
+      <CardContent className="space-y-3 text-sm">
+        <p className="whitespace-pre-wrap">{data.rfq.requirements}</p>
+        {data.files.length > 0 && <div>{data.files.map((fl) => <a key={fl.id} className="text-[#C2410C] underline mr-3" href={`/api/office/rfq-files/${fl.id}/download`}>{fl.name}</a>)}</div>}
+        {open ? (
+          <div className="rounded-md border p-3 space-y-2">
+            <h4 className="font-semibold">Tu cotización</h4>
+            <div className="grid grid-cols-3 gap-2">
+              <Input type="number" min={1} placeholder="Monto total CLP" value={form.amount} onChange={(e) => setF({ ...form, amount: e.target.value })} />
+              <Input type="number" min={1} placeholder="Plazo (días)" value={form.days} onChange={(e) => setF({ ...form, days: e.target.value })} />
+              <Input type="number" min={0} max={100} placeholder="Anticipo %" value={form.advance} onChange={(e) => setF({ ...form, advance: e.target.value })} />
+            </div>
+            <Input placeholder="Forma de pago (ej. 50% al inicio, 50% contra entrega)" value={form.pay} onChange={(e) => setF({ ...form, pay: e.target.value })} />
+            <Textarea rows={2} placeholder="Observaciones (qué incluye, qué necesitas del cliente...)" value={form.notes} onChange={(e) => setF({ ...form, notes: e.target.value })} />
+            <p className="text-xs text-gray-500">El plazo corre desde la reunión de inicio. Nadie más ve tu cotización.</p>
+            <div className="flex gap-2">
+              <Button size="sm" disabled={!Number(form.amount) || !Number(form.days)} onClick={submit}>{data.quote ? "Actualizar cotización" : "Enviar cotización"}</Button>
+              <Button size="sm" variant="outline" onClick={async () => { const reason = window.prompt("¿Por qué no puedes cotizar? (opcional)") ?? ""; try { await send("POST", `/api/office/rfqs/${id}/decline`, { reason }); refresh(); } catch (e) { setMsg(`Error: ${(e as Error).message}`); } }}>No puedo cotizar</Button>
+            </div>
+          </div>
+        ) : data.quote && <p>Tu cotización: <b>{clp(data.quote.amount)}</b> en {data.quote.deliveryDays} días.</p>}
+        {msg && <p className="text-gray-600">{msg}</p>}
+      </CardContent>
+    </Card>
+  );
+}
+
+function RfqView() {
+  const [sel, setSel] = useState<number | null>(null);
+  const qc = useQueryClient();
+  const { data } = useQuery({ queryKey: ["office-rfqs"], queryFn: async () => { const r = await fetch("/api/office/rfqs", { credentials: "include" }); if (!r.ok) throw new Error(); return r.json() as Promise<RfqItem[]> } });
+  if (!data) return <p className="text-sm text-gray-500">Cargando...</p>;
+  return (
+    <div className="grid lg:grid-cols-5 gap-4">
+      <div className="lg:col-span-2 space-y-2">
+        {data.length === 0 && <p className="text-sm text-gray-500">No tienes solicitudes de cotización por ahora.</p>}
+        {data.map((r) => (
+          <button key={r.id} onClick={() => setSel(r.id)} className={`w-full text-left rounded-md border p-3 bg-white hover:border-[#F97015] ${sel === r.id ? "border-[#F97015]" : ""}`}>
+            <div className="font-medium text-sm">{r.title}</div>
+            <div className="text-xs text-gray-500">{r.project ? `${r.project} · ` : ""}{CLOSE_MSG[r.inviteStatus]}{r.rfqStatus === "open" && r.inviteStatus === "invited" ? ` · responder antes de ${day(r.quoteDeadline)}` : ""}</div>
+          </button>
+        ))}
+      </div>
+      <div className="lg:col-span-3">{sel ? <RfqForm key={sel} id={sel} onDone={() => qc.invalidateQueries({ queryKey: ["office-me"] })} /> : data.length > 0 && <p className="text-sm text-gray-500">Elige una solicitud para ver los requerimientos y cotizar.</p>}</div>
+    </div>
+  );
+}
+
+const COMMITMENTS = [
+  "Los datos de los clientes y de sus proyectos son confidenciales: los uso solo para este trabajo y no los comparto.",
+  "Entrego mi trabajo por esta plataforma, en el plazo acordado, y aviso con anticipación si necesito más tiempo.",
+  "Reviso lo que entrego antes de subirlo y corrijo las observaciones que me hagan.",
+  "El honorario, el plazo y la forma de pago se acuerdan por escrito en cada proyecto, antes de empezar.",
+  "Los planos y documentos que elaboro para un proyecto se entregan al cliente a través de ArquitectoChile.",
+];
+
+function Onboarding({ me, onDone }: { me: Me["collaborator"]; onDone: () => void }) {
+  const [step, setStep] = useState(0);
+  const [f, setF] = useState({ phone: me.phone ?? "", linkedinUrl: me.linkedinUrl ?? "", description: me.description ?? "", canDo3d: me.canDo3d });
+  const [ok, setOk] = useState(false);
+  const [msg, setMsg] = useState<string | null>(null);
+  const steps = [
+    ["Tus tareas", "Patricio te asigna tareas con fecha de entrega. Las ves en \"Mis tareas\" y avanzas el estado: por hacer, en curso y en revisión."],
+    ["Entregas sin enredos", "Subes tus archivos y escribes qué es. El sistema les pone el código del proyecto y controla las versiones: tú no te preocupas de eso. Si hay una corrección, la eliges de la lista y se actualiza sola."],
+    ["Revisión y aprobación", "Patricio revisa y aprueba cada entrega. Si hay observaciones, te llegan por correo y subes la corrección en la misma tarea."],
+    ["Fechas y avisos", "Te mandamos recordatorios antes de cada fecha de entrega, para que nada se atrase."],
+    ["Cotizar y cobrar", "Cuando haya un trabajo para cotizar, te llega un correo: respondes con tu monto, plazo y forma de pago. Si ganas, confirmas, recibes el anticipo, hacemos el kickoff y arrancamos. Subes tu boleta o factura en la misma tarea."],
+  ];
+  const finish = async () => {
+    try {
+      await send("POST", "/api/office/onboarding/complete", { accepted: true, phone: f.phone || null, linkedinUrl: f.linkedinUrl || null, description: f.description || null, canDo3d: f.canDo3d });
+      onDone();
+    } catch (e) { setMsg(`Error: ${(e as Error).message}`); }
+  };
+  return (
+    <div className="min-h-screen bg-[#F4F7FA] flex items-center justify-center p-4">
+      <Card className="w-full max-w-xl">
+        <CardHeader>
+          <CardTitle className="text-[#1D2530]">Bienvenido/a, {me.name}</CardTitle>
+          <p className="text-sm text-gray-500">Paso {Math.min(step + 1, steps.length + 2)} de {steps.length + 2}</p>
+        </CardHeader>
+        <CardContent className="space-y-4 text-sm">
+          {step < steps.length && (<><h3 className="font-semibold text-base">{steps[step][0]}</h3><p>{steps[step][1]}</p></>)}
+          {step === steps.length && (
+            <div className="space-y-2">
+              <h3 className="font-semibold text-base">Tu perfil</h3>
+              <Input placeholder="Teléfono" value={f.phone} onChange={(e) => setF({ ...f, phone: e.target.value })} />
+              <Input placeholder="LinkedIn (opcional)" value={f.linkedinUrl} onChange={(e) => setF({ ...f, linkedinUrl: e.target.value })} />
+              <Textarea rows={3} placeholder="Tu experiencia, especialidad y software que usas (AutoCAD, Revit, ArchiCAD...)" value={f.description} onChange={(e) => setF({ ...f, description: e.target.value })} />
+              <label className="flex items-center gap-2"><input type="checkbox" checked={f.canDo3d} onChange={(e) => setF({ ...f, canDo3d: e.target.checked })} /> Entrego también en 3D / modelo BIM</label>
+            </div>
+          )}
+          {step === steps.length + 1 && (
+            <div className="space-y-2">
+              <h3 className="font-semibold text-base">Compromisos de trabajo</h3>
+              <ul className="list-disc pl-5 space-y-1">{COMMITMENTS.map((c) => <li key={c}>{c}</li>)}</ul>
+              <label className="flex items-start gap-2 pt-2"><input type="checkbox" className="mt-1" checked={ok} onChange={(e) => setOk(e.target.checked)} /> Leí y acepto estos compromisos.</label>
+            </div>
+          )}
+          <div className="flex justify-between pt-2">
+            <Button variant="outline" size="sm" disabled={step === 0} onClick={() => setStep(step - 1)}>Atrás</Button>
+            {step <= steps.length ? <Button size="sm" onClick={() => setStep(step + 1)}>Siguiente</Button> : <Button size="sm" disabled={!ok} onClick={finish}>Entrar a la oficina</Button>}
+          </div>
+          {msg && <p className="text-gray-600">{msg}</p>}
+        </CardContent>
+      </Card>
+    </div>
+  );
+}
+
 function TeamBoard({ coordinator }: { coordinator: boolean }) {
   const { data } = useQuery({ queryKey: ["office-team"], queryFn: async () => { const r = await fetch("/api/office/team", { credentials: "include" }); if (!r.ok) throw new Error(); return r.json() as Promise<TeamTask[]> } });
   if (!data) return <p className="text-sm text-gray-500">Cargando...</p>;
@@ -251,7 +398,7 @@ export default function Oficina() {
   useSEO({ title: "Oficina digital | ArquitectoChile.com", description: "Tareas y entregas de colaboradores de ArquitectoChile.", path: "/oficina", noindex: true });
   const qc = useQueryClient();
   const [sel, setSel] = useState<number | null>(null);
-  const [view, setView] = useState<"tareas" | "equipo" | "perfil">("tareas");
+  const [view, setView] = useState<"tareas" | "cotizaciones" | "equipo" | "perfil">("tareas");
   const { data, isLoading, isError } = useQuery({
     queryKey: ["office-me"],
     queryFn: async () => { const r = await fetch("/api/office/me", { credentials: "include" }); if (!r.ok) throw new Error(String(r.status)); return r.json() as Promise<Me>; },
@@ -259,6 +406,7 @@ export default function Oficina() {
   });
   if (isLoading) return <div className="min-h-screen flex items-center justify-center text-gray-500">Cargando...</div>;
   if (isError || !data) return <Login />;
+  if (!data.collaborator.onboarded) return <Onboarding me={data.collaborator} onDone={() => qc.invalidateQueries({ queryKey: ["office-me"] })} />;
 
   const reload = () => qc.invalidateQueries({ queryKey: ["office-me"] });
   const logout = async () => { await send("POST", "/api/office/auth/logout"); qc.clear(); window.location.href = "/oficina"; };
@@ -289,10 +437,11 @@ export default function Oficina() {
           </div>
         )}
         <div className="flex gap-2">
-          {([["tareas", "Mis tareas"], ["equipo", data.collaborator.isCoordinator ? "Equipo BIM" : "Equipo"], ["perfil", "Mi perfil"]] as const).map(([v, l]) => (
+          {([["tareas", "Mis tareas"], ["cotizaciones", "Cotizaciones"], ["equipo", data.collaborator.isCoordinator ? "Equipo BIM" : "Equipo"], ["perfil", "Mi perfil"]] as const).map(([v, l]) => (
             <Button key={v} size="sm" variant={view === v ? "default" : "outline"} onClick={() => setView(v)}>{l}</Button>
           ))}
         </div>
+        {view === "cotizaciones" && <RfqView />}
         {view === "equipo" && <TeamBoard coordinator={data.collaborator.isCoordinator} />}
         {view === "perfil" && <ProfileForm me={data.collaborator} onSaved={reload} />}
         {view === "tareas" && <div className="grid lg:grid-cols-5 gap-4">

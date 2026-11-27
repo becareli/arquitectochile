@@ -7,9 +7,10 @@ import { Badge } from "@/components/ui/badge";
 import { Textarea } from "@/components/ui/textarea";
 import { apiRequest } from "@/lib/queryClient";
 import { DISCIPLINES, guessDiscipline } from "@shared/classification";
+import Cotizaciones from "@/pages/admin-cotizaciones";
 
-type Collab = { id: number; name: string; email: string; phone: string | null; specialty: string; active: boolean; discipline: string | null; canDo3d: boolean; isCoordinator: boolean; showOnWebsite: boolean; linkedinUrl: string | null; open: number; review: number; feePending: string };
-type Task = { id: number; title: string; status: string; dueDate: string | null; collaborator: string; project: string | null; fee: string | null; feeStatus: string; collaboratorId: number; deliverableFormat: string; revision: number };
+type Collab = { id: number; name: string; email: string; phone: string | null; specialty: string; active: boolean; onboarded: boolean; discipline: string | null; canDo3d: boolean; isCoordinator: boolean; showOnWebsite: boolean; linkedinUrl: string | null; open: number; review: number; feePending: string };
+type Task = { id: number; title: string; status: string; dueDate: string | null; collaborator: string; project: string | null; fee: string | null; feeStatus: string; collaboratorId: number; deliverableFormat: string; revision: number; kickoffRequired?: boolean; acceptedAt?: string | null; advancePercent?: number; advancePaidAt?: string | null; kickoffAt?: string | null; kickoffLink?: string | null; kickoffDoneAt?: string | null };
 type TaskFull = {
   task: Task & { description: string | null };
   files: { id: number; name: string; stdName: string | null; version: number; kind: string; uploadedAt: string; publishedDocumentId: number | null; reviewedBy: string | null; approvedBy: string | null; returnedNote: string | null }[];
@@ -36,6 +37,7 @@ function TaskDetail({ id, onChange }: { id: number; onChange: () => void }) {
   const [pub, setPub] = useState<Record<number, string>>({});
   const [rev, setRev] = useState({ note: "", dueDate: "" });
   const [ret, setRet] = useState<Record<number, string>>({});
+  const [ko, setKo] = useState({ at: "", link: "" });
   const [msg, setMsg] = useState<string | null>(null);
   const run = async (fn: () => Promise<unknown>, ok: string) => {
     try { await fn(); setMsg(ok); qc.invalidateQueries({ queryKey: key }); onChange(); } catch (e) { setMsg(`Error: ${(e as Error).message}`); }
@@ -57,6 +59,26 @@ function TaskDetail({ id, onChange }: { id: number; onChange: () => void }) {
             <Button key={s} size="sm" variant={t.status === s ? "default" : "outline"} disabled={t.status === s} onClick={() => patch({ status: s }, "Estado actualizado.")}>{s === "done" ? "Dar por cerrada" : STATUS[s]}</Button>
           ))}
         </div>
+        {t.kickoffRequired && (
+          <div className="rounded-md border p-2 space-y-2">
+            <h4 className="font-semibold">Arranque del proyecto (kickoff)</h4>
+            <ul className="space-y-1">
+              <li>{t.acceptedAt ? "✔" : "○"} El colaborador acepta monto, plazo y forma de pago {t.acceptedAt ? `(${day(t.acceptedAt)})` : "(pendiente)"}</li>
+              <li>{(t.advancePercent ?? 0) === 0 ? "✔ Sin anticipo" : t.advancePaidAt ? `✔ Anticipo pagado (${day(t.advancePaidAt)})` : `○ Falta pagar el anticipo (${t.advancePercent}%${t.fee ? `: ${clp((Number(t.fee) * (t.advancePercent ?? 0)) / 100)}` : ""})`}
+                {(t.advancePercent ?? 0) > 0 && !t.advancePaidAt && <Button size="sm" variant="outline" className="ml-2" onClick={() => run(() => send("POST", `/api/office/admin/tasks/${id}/advance-paid`), "Anticipo registrado.")}>Marcar anticipo pagado</Button>}</li>
+              <li>{t.kickoffAt ? `✔ Reunión de inicio: ${new Date(t.kickoffAt).toLocaleString("es-CL", { dateStyle: "medium", timeStyle: "short" })}` : "○ Reunión de inicio sin agendar"}</li>
+              <li>{t.kickoffDoneAt ? `✔ Kickoff realizado (${day(t.kickoffDoneAt)}): el plazo está corriendo` : "○ Kickoff por realizar: al marcarlo, el plazo empieza a correr"}</li>
+            </ul>
+            {!t.kickoffDoneAt && (
+              <div className="flex flex-wrap items-center gap-2">
+                <Input type="datetime-local" className="w-56" value={ko.at} onChange={(e) => setKo({ ...ko, at: e.target.value })} />
+                <Input className="w-56" placeholder="Enlace Meet/Zoom (opcional)" value={ko.link} onChange={(e) => setKo({ ...ko, link: e.target.value })} />
+                <Button size="sm" variant="outline" disabled={!ko.at} onClick={() => run(() => send("POST", `/api/office/admin/tasks/${id}/kickoff`, { kickoffAt: new Date(ko.at).toISOString(), kickoffLink: ko.link || null }), "Kickoff agendado y avisado.")}>Agendar y avisar</Button>
+                <Button size="sm" onClick={() => run(() => send("POST", `/api/office/admin/tasks/${id}/kickoff-done`), "Kickoff realizado: el proyecto arrancó.")}>Kickoff realizado</Button>
+              </div>
+            )}
+          </div>
+        )}
         {t.fee && (
           <div className="flex items-center gap-2">
             <span>Honorario pactado {clp(t.fee)}: <b>{FEE[t.feeStatus]}</b></span>
@@ -233,7 +255,7 @@ export default function OfficeTab() {
               <div key={k.id} className="flex flex-wrap items-center justify-between gap-2 border-b pb-2">
                 <div>
                   <div className="font-medium">{k.name} {!k.active && <Badge variant="outline">Inactivo</Badge>}</div>
-                  <div className="text-xs text-gray-500">{k.specialty}{k.isCoordinator ? " · Coordinador BIM" : ""}{k.canDo3d ? " · hace 3D" : " · entrega 2D"}{k.showOnWebsite ? " · en la web" : ""} · {k.email} · {k.open} abiertas{k.review ? ` (${k.review} en revisión)` : ""}{Number(k.feePending) > 0 ? ` · por pagar ${clp(k.feePending)}` : ""}</div>
+                  <div className="text-xs text-gray-500">{!k.onboarded && "Sin bienvenida · "}{k.specialty}{k.isCoordinator ? " · Coordinador BIM" : ""}{k.canDo3d ? " · hace 3D" : " · entrega 2D"}{k.showOnWebsite ? " · en la web" : ""} · {k.email} · {k.open} abiertas{k.review ? ` (${k.review} en revisión)` : ""}{Number(k.feePending) > 0 ? ` · por pagar ${clp(k.feePending)}` : ""}</div>
                 </div>
                 <div className="flex gap-1">
                   <Button size="sm" variant="outline" onClick={() => run(async () => { const r = await send("POST", `/api/office/admin/collaborators/${k.id}/invite`); if (!r.emailed) throw new Error("correo no configurado (SMTP)"); }, `Enlace enviado a ${k.email}.`)}>Enviar acceso</Button>
@@ -305,6 +327,8 @@ export default function OfficeTab() {
           </CardContent>
         </Card>
       </div>
+
+      <Cotizaciones collabs={collabs.data ?? []} clients={clients.data ?? []} />
 
       <ChangeAssistant clients={clients.data ?? []} onDone={reload} />
 
