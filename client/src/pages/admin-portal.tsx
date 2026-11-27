@@ -114,9 +114,8 @@ function ProjectPanel({ clientId, projectId }: { clientId: number; projectId: nu
               <option value="">Tipo de documento</option>
               {DOC_KINDS.map((d) => <option key={d.code} value={d.code}>{d.code} · {d.label}</option>)}
             </select>
-            <Input type="number" min={1} placeholder="Versión" value={doc.version} onChange={(e) => setDoc({ ...doc, version: Math.max(1, Number(e.target.value) || 1) })} />
             {p.code && doc.discipline && doc.docKind && doc.name.length >= 2 && (
-              <p className="text-xs text-gray-600 sm:col-span-2">Se guardará como: <b>{stdFileName({ code: p.code, discipline: doc.discipline, kind: doc.docKind, description: doc.name.replace(/\.[A-Za-z0-9]{1,8}$/, ""), version: doc.version, ext: extensionOf(docFile?.name ?? doc.name) })}</b></p>
+              <p className="text-xs text-gray-600 sm:col-span-2">Se guardará como: <b>{stdFileName({ code: p.code, discipline: doc.discipline, kind: doc.docKind, description: doc.name.replace(/\.[A-Za-z0-9]{1,8}$/, ""), version: 1, ext: extensionOf(docFile?.name ?? doc.name) })}</b> (la versión se asigna sola: si ya existe esta lámina, sube a V02, V03...)</p>
             )}
             <input type="file" onChange={(e) => setDocFile(e.target.files?.[0] ?? null)} />
             <label className="text-sm flex items-center gap-2"><input type="checkbox" checked={doc.visible} onChange={(e) => setDoc({ ...doc, visible: e.target.checked })} /> Visible para el cliente</label>

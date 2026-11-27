@@ -151,6 +151,7 @@ export const clientDocuments = pgTable("client_documents", {
   discipline: text("discipline"), // ARQ, EST, SAN, ALC, ELE, GAS...
   docKind: text("doc_kind"), // PLA, MEM, ESP, CAL, MOD...
   stdName: text("std_name"), // nombre estándar: AC-2026-014_ARQ_PLA_Planta-1er-piso_V02.pdf
+  docSlug: text("doc_slug"), // identifica la lámina/documento (Planta-1er-piso): misma lámina = mismo slug, versión sube sola
   uploadDate: timestamp("upload_date").defaultNow().notNull(),
 });
 
@@ -333,6 +334,7 @@ export const officeTaskFiles = pgTable("office_task_files", {
   docKind: text("doc_kind"), // PLA, MEM, MOD...
   version: integer("version").notNull().default(1),
   stdName: text("std_name"),
+  docSlug: text("doc_slug"),
   uploadedAt: timestamp("uploaded_at").defaultNow().notNull(),
 });
 

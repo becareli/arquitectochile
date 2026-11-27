@@ -18,8 +18,8 @@ import {
   clientReferrals,
 } from "@shared/schema";
 import { ObjectStorageService, ObjectNotFoundError } from "./objectStorage";
-import { assignProjectCode } from "./classification";
-import { DISCIPLINE_CODES, DOC_KIND_CODES, extensionOf, stdFileName } from "@shared/classification";
+import { assignProjectCode, nextDocVersion } from "./classification";
+import { DISCIPLINE_CODES, DOC_KIND_CODES, extensionOf, slugify, stdFileName } from "@shared/classification";
 
 /**
  * Portal de clientes de ArquitectoChile.
@@ -842,11 +842,19 @@ export function registerPortalRoutes(app: Express, isAdmin: RequestHandler) {
     const [project] = await db.select({ code: clientProjects.code }).from(clientProjects).where(eq(clientProjects.id, projectId)).limit(1);
     if (!project) return res.status(404).json({ error: "Proyecto no encontrado." });
     // Con código de proyecto, disciplina y tipo, el documento queda con nombre estándar
-    const stdName =
-      project.code && discipline && docKind
-        ? stdFileName({ code: project.code, discipline, kind: docKind, description: rest.name.replace(/\.[A-Za-z0-9]{1,8}$/, ""), version: rest.version ?? 1, ext: extensionOf(rest.name) })
-        : null;
-    const [created] = await db.insert(clientDocuments).values({ ...rest, projectId, discipline: discipline ?? null, docKind: docKind ?? null, stdName }).returning();
+    // La versión la asigna el sistema: misma lámina (proyecto + disciplina + tipo + descripción) = versión siguiente
+    let stdName: string | null = null;
+    let docSlug: string | null = null;
+    let version = rest.version ?? 1;
+    if (project.code && discipline && docKind) {
+      const description = rest.name.replace(/\.[A-Za-z0-9]{1,8}$/, "");
+      docSlug = slugify(description) || "Documento";
+      version = await nextDocVersion(projectId, discipline, docKind, docSlug);
+      stdName = stdFileName({ code: project.code, discipline, kind: docKind, description: docSlug, version, ext: extensionOf(rest.name) });
+      // Las versiones anteriores de esa lámina dejan de verse para el cliente (quedan en el historial)
+      await db.update(clientDocuments).set({ visibleToClient: false }).where(and(eq(clientDocuments.projectId, projectId), eq(clientDocuments.discipline, discipline), eq(clientDocuments.docKind, docKind), eq(clientDocuments.docSlug, docSlug)));
+    }
+    const [created] = await db.insert(clientDocuments).values({ ...rest, version, projectId, discipline: discipline ?? null, docKind: docKind ?? null, stdName, docSlug }).returning();
     res.status(201).json(created);
   });
 

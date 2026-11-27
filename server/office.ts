@@ -16,8 +16,8 @@ import {
 } from "@shared/schema";
 import { ObjectStorageService, ObjectNotFoundError } from "./objectStorage";
 import { sendEmail, emailShell, escapeHtml, parseId, PORTAL_BASE_URL } from "./portal";
-import { backfillProjectCodes } from "./classification";
-import { DISCIPLINES, DISCIPLINE_CODES, DOC_KIND_CODES, extensionOf, stdFileName } from "@shared/classification";
+import { backfillProjectCodes, nextDocVersion } from "./classification";
+import { DISCIPLINE_CODES, DOC_KIND_CODES, extensionOf, slugify, stdFileName } from "@shared/classification";
 
 /**
  * Oficina digital de ArquitectoChile.
@@ -139,7 +139,8 @@ const fileInput = z.object({
   size: z.number().int().nonnegative().optional(),
   kind: z.enum(["deliverable", "invoice"]).default("deliverable"),
   docKind: z.enum(DOC_KIND_CODES).optional(),
-  description: z.string().max(120).optional(),
+  description: z.string().max(120).optional(), // documento nuevo
+  docSlug: z.string().max(60).regex(/^[A-Za-z0-9-]+$/).optional(), // corrección de un documento ya entregado
 });
 
 const toDate = (v: string | null | undefined) => (v ? new Date(v) : null);
@@ -514,32 +515,48 @@ export function registerOfficeRoutes(app: Express, isAdmin: RequestHandler) {
     if (!task) return res.status(404).json({ error: "Tarea no encontrada." });
     const { kind } = parsed.data;
     if (task.status === "done" && kind === "deliverable") return res.status(409).json({ error: "La tarea ya fue cerrada." });
-    // Entregable de un proyecto con código: se nombra solo (código_disciplina_tipo_descripción_versión)
+    // Entregable de un proyecto con código: el sistema lo nombra y le asigna la versión.
+    // Misma lámina (proyecto + disciplina + tipo + descripción), aunque la suba otra tarea = versión siguiente.
     let stdName: string | null = null;
     let version = 1;
     let docKind: string | null = null;
+    let docSlug: string | null = null;
     if (kind === "deliverable" && task.projectId && task.discipline && parsed.data.docKind) {
       const [proj] = await db.select({ code: clientProjects.code }).from(clientProjects).where(eq(clientProjects.id, task.projectId)).limit(1);
       if (proj?.code) {
         docKind = parsed.data.docKind;
-        const description = parsed.data.description?.trim() || task.title;
-        const [{ n }] = await db
-          .select({ n: sql<number>`count(*)::int` })
-          .from(officeTaskFiles)
-          .where(and(eq(officeTaskFiles.taskId, id), eq(officeTaskFiles.docKind, docKind), eq(officeTaskFiles.kind, "deliverable")));
-        version = n + 1; // cada nueva subida del mismo tipo en la tarea es una versión más
-        stdName = stdFileName({ code: proj.code, discipline: task.discipline, kind: docKind, description, version, ext: extensionOf(parsed.data.name) });
+        docSlug = parsed.data.docSlug || slugify(parsed.data.description?.trim() || task.title) || "Documento";
+        version = await nextDocVersion(task.projectId, task.discipline, docKind, docSlug);
+        stdName = stdFileName({ code: proj.code, discipline: task.discipline, kind: docKind, description: docSlug, version, ext: extensionOf(parsed.data.name) });
       }
     }
-    const [file] = await db.insert(officeTaskFiles).values({ taskId: id, name: parsed.data.name, fileUrl: parsed.data.path, fileSize: parsed.data.size ?? null, kind, docKind, version, stdName }).returning();
+    const [file] = await db.insert(officeTaskFiles).values({ taskId: id, name: parsed.data.name, fileUrl: parsed.data.path, fileSize: parsed.data.size ?? null, kind, docKind, version, stdName, docSlug }).returning();
     if (kind === "invoice") {
       if (task.feeStatus === "pending") await db.update(officeTasks).set({ feeStatus: "invoiced" }).where(eq(officeTasks.id, id));
       await logEvent(id, "invoice", `${collab.name} subió su boleta/factura: ${parsed.data.name}`);
       sendEmail(NOTIFY_EMAIL, `Boleta de ${collab.name}: ${task.title}`, emailShell(`<p><b>${escapeHtml(collab.name)}</b> subió su boleta o factura de <b>${escapeHtml(task.title)}</b>.</p><p><a href="${PORTAL_BASE_URL}/admin/portal">Abrir el panel</a></p>`)).catch(() => undefined);
     } else {
-      await logEvent(id, "file", `${collab.name} subió un entregable: ${stdName ?? parsed.data.name}`);
+      await logEvent(id, "file", `${collab.name} subió ${version > 1 ? `la corrección (V${String(version).padStart(2, "0")})` : "un entregable"}: ${stdName ?? parsed.data.name}`);
     }
-    res.status(201).json({ id: file.id });
+    res.status(201).json({ id: file.id, stdName, version });
+  });
+
+  // Documentos que ya existen en el proyecto para la disciplina de esta tarea: sirve para subir una corrección
+  app.get("/api/office/tasks/:id/documents", requireCollaborator, async (req, res) => {
+    const collab = (req as any).collaborator;
+    const id = parseId(req.params.id);
+    if (!id) return res.status(400).json({ error: "Tarea inválida." });
+    const task = await ownTask(collab.id, id);
+    if (!task) return res.status(404).json({ error: "Tarea no encontrada." });
+    if (!task.projectId || !task.discipline) return res.json([]);
+    const rows = await db
+      .select({ docKind: officeTaskFiles.docKind, docSlug: officeTaskFiles.docSlug, version: sql<number>`max(${officeTaskFiles.version})::int` })
+      .from(officeTaskFiles)
+      .innerJoin(officeTasks, eq(officeTaskFiles.taskId, officeTasks.id))
+      .where(and(eq(officeTasks.projectId, task.projectId), eq(officeTasks.discipline, task.discipline), sql`${officeTaskFiles.docSlug} is not null`))
+      .groupBy(officeTaskFiles.docKind, officeTaskFiles.docSlug)
+      .orderBy(asc(officeTaskFiles.docSlug));
+    res.json(rows);
   });
 
   app.get("/api/office/files/:id/download", requireCollaborator, async (req, res) => {
@@ -758,7 +775,7 @@ export function registerOfficeRoutes(app: Express, isAdmin: RequestHandler) {
   });
 
   // Archivo: índice único de documentos (de la oficina y del portal), con filtros. Base del futuro armado de expedientes.
-  async function archiveRows(q: { projectId?: number; discipline?: string; docKind?: string }) {
+  async function archiveRows(q: { projectId?: number; discipline?: string; docKind?: string; all?: boolean }) {
     const fromOffice = await db
       .select({
         id: officeTaskFiles.id,
@@ -766,6 +783,7 @@ export function registerOfficeRoutes(app: Express, isAdmin: RequestHandler) {
         original: officeTaskFiles.name,
         version: officeTaskFiles.version,
         docKind: officeTaskFiles.docKind,
+        docSlug: officeTaskFiles.docSlug,
         discipline: officeTasks.discipline,
         date: officeTaskFiles.uploadedAt,
         author: collaborators.name,
@@ -787,6 +805,7 @@ export function registerOfficeRoutes(app: Express, isAdmin: RequestHandler) {
         original: clientDocuments.name,
         version: clientDocuments.version,
         docKind: clientDocuments.docKind,
+        docSlug: clientDocuments.docSlug,
         discipline: clientDocuments.discipline,
         date: clientDocuments.uploadDate,
         projectId: clientProjects.id,
@@ -799,10 +818,16 @@ export function registerOfficeRoutes(app: Express, isAdmin: RequestHandler) {
       .innerJoin(clientProjects, eq(clientDocuments.projectId, clientProjects.id));
     const publishedIds = new Set(fromOffice.map((r) => r.published).filter((i): i is number => i !== null));
     const rows = [
-      ...fromOffice.map((r) => ({ source: "oficina", id: r.id, name: r.stdName ?? r.original, classified: Boolean(r.stdName), version: r.version, docKind: r.docKind, discipline: r.discipline, date: r.date, author: r.author, projectId: r.projectId, code: r.code, address: r.address, project: r.project, clientVisible: r.published !== null })),
-      ...fromPortal.filter((r) => !publishedIds.has(r.id)).map((r) => ({ source: "portal", id: r.id, name: r.stdName ?? r.original, classified: Boolean(r.stdName), version: r.version, docKind: r.docKind, discipline: r.discipline, date: r.date, author: "Patricio", projectId: r.projectId, code: r.code, address: r.address, project: r.project, clientVisible: r.visible })),
+      ...fromOffice.map((r) => ({ source: "oficina", id: r.id, name: r.stdName ?? r.original, classified: Boolean(r.stdName), docSlug: r.docSlug, version: r.version, docKind: r.docKind, discipline: r.discipline, date: r.date, author: r.author, projectId: r.projectId, code: r.code, address: r.address, project: r.project, clientVisible: r.published !== null })),
+      ...fromPortal.filter((r) => !publishedIds.has(r.id)).map((r) => ({ source: "portal", id: r.id, name: r.stdName ?? r.original, classified: Boolean(r.stdName), docSlug: r.docSlug, version: r.version, docKind: r.docKind, discipline: r.discipline, date: r.date, author: "Patricio", projectId: r.projectId, code: r.code, address: r.address, project: r.project, clientVisible: r.visible })),
     ];
-    return rows
+    // Vigente = la versión más alta de cada lámina (proyecto + disciplina + tipo + descripción)
+    const key = (r: { projectId: number; discipline: string | null; docKind: string | null; docSlug: string | null }) => `${r.projectId}|${r.discipline}|${r.docKind}|${r.docSlug}`;
+    const latest = new Map<string, number>();
+    for (const r of rows) if (r.docSlug) latest.set(key(r), Math.max(latest.get(key(r)) ?? 0, r.version));
+    const withCurrent = rows.map((r) => ({ ...r, current: !r.docSlug || latest.get(key(r)) === r.version }));
+    return withCurrent
+      .filter((r) => q.all || r.current)
       .filter((r) => (!q.projectId || r.projectId === q.projectId) && (!q.discipline || r.discipline === q.discipline) && (!q.docKind || r.docKind === q.docKind))
       .sort((a, b) => (a.code ?? "").localeCompare(b.code ?? "") || a.name.localeCompare(b.name));
   }
@@ -810,6 +835,7 @@ export function registerOfficeRoutes(app: Express, isAdmin: RequestHandler) {
     projectId: parseId(String(req.query.projectId ?? "")) ?? undefined,
     discipline: typeof req.query.discipline === "string" && req.query.discipline ? req.query.discipline : undefined,
     docKind: typeof req.query.docKind === "string" && req.query.docKind ? req.query.docKind : undefined,
+    all: req.query.all === "1",
   });
 
   app.get(`${admin}/archive`, isAdmin, async (req, res) => {
@@ -820,8 +846,8 @@ export function registerOfficeRoutes(app: Express, isAdmin: RequestHandler) {
   app.get(`${admin}/archive.csv`, isAdmin, async (req, res) => {
     const rows = await archiveRows(archiveQuery(req));
     const q = (v: unknown) => `"${String(v ?? "").replace(/"/g, '""')}"`;
-    const head = ["codigo_proyecto", "direccion", "disciplina", "tipo", "version", "nombre_estandar", "fecha", "autor", "visible_cliente"];
-    const lines = rows.map((r) => [r.code, r.address ?? r.project, r.discipline, r.docKind, r.version, r.name, new Date(r.date).toISOString().slice(0, 10), r.author, r.clientVisible ? "si" : "no"].map(q).join(";"));
+    const head = ["codigo_proyecto", "direccion", "disciplina", "tipo", "version", "nombre_estandar", "vigente", "fecha", "autor", "visible_cliente"];
+    const lines = rows.map((r) => [r.code, r.address ?? r.project, r.discipline, r.docKind, r.version, r.name, r.current ? "si" : "no", new Date(r.date).toISOString().slice(0, 10), r.author, r.clientVisible ? "si" : "no"].map(q).join(";"));
     res.set("Content-Type", "text/csv; charset=utf-8").set("Content-Disposition", 'attachment; filename="indice-documentos.csv"');
     res.send("\uFEFF" + [head.join(";"), ...lines].join("\r\n"));
   });
@@ -893,9 +919,13 @@ export function registerOfficeRoutes(app: Express, isAdmin: RequestHandler) {
     if (row.file.publishedDocumentId) return res.status(409).json({ error: "Este archivo ya fue publicado." });
     const [doc] = await db
       .insert(clientDocuments)
-      .values({ projectId: row.projectId, name: parsed.data.name ?? row.file.stdName ?? row.file.name, type: parsed.data.type, fileUrl: row.file.fileUrl, fileSize: row.file.fileSize, visibleToClient: true, version: row.file.version, docKind: row.file.docKind, stdName: row.file.stdName, discipline: row.file.stdName ? row.discipline : null })
+      .values({ projectId: row.projectId, name: parsed.data.name ?? row.file.stdName ?? row.file.name, type: parsed.data.type, fileUrl: row.file.fileUrl, fileSize: row.file.fileSize, visibleToClient: true, version: row.file.version, docKind: row.file.docKind, stdName: row.file.stdName, docSlug: row.file.docSlug, discipline: row.file.stdName ? row.discipline : null })
       .returning();
     await db.update(officeTaskFiles).set({ publishedDocumentId: doc.id }).where(eq(officeTaskFiles.id, id));
+    // Al publicar una versión nueva, las anteriores de esa lámina dejan de verse para el cliente (quedan en el historial)
+    if (row.file.docSlug && row.file.docKind && row.discipline) {
+      await db.update(clientDocuments).set({ visibleToClient: false }).where(and(eq(clientDocuments.projectId, row.projectId), eq(clientDocuments.discipline, row.discipline), eq(clientDocuments.docKind, row.file.docKind), eq(clientDocuments.docSlug, row.file.docSlug), ne(clientDocuments.id, doc.id)));
+    }
     res.status(201).json({ documentId: doc.id });
   });
 }

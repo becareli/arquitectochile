@@ -77,6 +77,8 @@ function TaskPanel({ id, onChange }: { id: number; onChange: () => void }) {
   const [busy, setBusy] = useState(false);
   const [docKind, setDocKind] = useState("");
   const [desc, setDesc] = useState("");
+  const [existing, setExisting] = useState(""); // corrección de un documento ya entregado: "TIPO|slug"
+  const docs = useQuery({ queryKey: ["office-task-docs", id], queryFn: async () => { const r = await fetch(`/api/office/tasks/${id}/documents`, { credentials: "include" }); return r.ok ? (r.json() as Promise<{ docKind: string; docSlug: string; version: number }[]>) : []; } });
   const refresh = () => { qc.invalidateQueries({ queryKey: key }); onChange(); };
   const run = async (fn: () => Promise<unknown>, ok: string) => {
     setBusy(true);
@@ -90,8 +92,12 @@ function TaskPanel({ id, onChange }: { id: number; onChange: () => void }) {
     const { uploadUrl, internalPath } = await send("POST", "/api/office/upload-url");
     const put = await fetch(uploadUrl, { method: "PUT", body: file, headers: { "Content-Type": file.type } });
     if (!put.ok) throw new Error("No se pudo subir el archivo");
-    await send("POST", `/api/office/tasks/${id}/files`, { name: file.name, path: internalPath, size: file.size, kind, ...(kind === "deliverable" && t.project && t.discipline ? { docKind: docKind || (t.deliverableFormat === "3d" ? "MOD" : "PLA"), description: desc || undefined } : {}) });
-  }, kind === "invoice" ? "Boleta subida. Patricio ya fue avisado." : "Archivo subido.");
+    await send("POST", `/api/office/tasks/${id}/files`, { name: file.name, path: internalPath, size: file.size, kind, ...(kind === "deliverable" && t.project && t.discipline
+      ? existing
+        ? { docKind: existing.split("|")[0], docSlug: existing.split("|")[1] }
+        : { docKind: docKind || (t.deliverableFormat === "3d" ? "MOD" : "PLA"), description: desc || undefined }
+      : {}) });
+  }, kind === "invoice" ? "Boleta subida. Patricio ya fue avisado." : "Archivo subido: el sistema le asignó su código y versión.");
 
   return (
     <Card>
@@ -133,11 +139,19 @@ function TaskPanel({ id, onChange }: { id: number; onChange: () => void }) {
           </ul>
           {!closed && t.project && t.discipline && (
             <div className="mt-2 flex flex-wrap items-center gap-2 text-sm">
-              <select className="border rounded-md p-1.5 bg-white" value={docKind || (t.deliverableFormat === "3d" ? "MOD" : "PLA")} onChange={(e) => setDocKind(e.target.value)}>
-                {DOC_KINDS.filter((k) => k.code !== "BOL").map((k) => <option key={k.code} value={k.code}>{k.code} · {k.label}</option>)}
+              <select className="border rounded-md p-1.5 bg-white" value={existing} onChange={(e) => setExisting(e.target.value)}>
+                <option value="">Documento nuevo</option>
+                {(docs.data ?? []).map((d) => <option key={`${d.docKind}|${d.docSlug}`} value={`${d.docKind}|${d.docSlug}`}>Corrección de: {d.docSlug.replace(/-/g, " ")} (va en V{String(d.version).padStart(2, "0")})</option>)}
               </select>
-              <Input className="w-56" placeholder="Descripción (ej. Planta 1er piso)" value={desc} onChange={(e) => setDesc(e.target.value)} />
-              <span className="text-xs text-gray-500">El archivo se nombrará solo con el código del proyecto y la versión.</span>
+              {!existing && (
+                <>
+                  <select className="border rounded-md p-1.5 bg-white" value={docKind || (t.deliverableFormat === "3d" ? "MOD" : "PLA")} onChange={(e) => setDocKind(e.target.value)}>
+                    {DOC_KINDS.filter((k) => k.code !== "BOL").map((k) => <option key={k.code} value={k.code}>{k.label}</option>)}
+                  </select>
+                  <Input className="w-56" placeholder="Nombre (ej. Planta sanitaria 1er piso)" value={desc} onChange={(e) => setDesc(e.target.value)} />
+                </>
+              )}
+              <span className="text-xs text-gray-500 w-full">No te preocupes por códigos ni versiones: el sistema los asigna solo. Si es una corrección, elígela de la lista.</span>
             </div>
           )}
           {!closed && (

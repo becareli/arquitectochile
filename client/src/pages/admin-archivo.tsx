@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { apiRequest } from "@/lib/queryClient";
 import { DISCIPLINES, DOC_KINDS } from "@shared/classification";
 
-type Row = { source: string; id: number; name: string; classified: boolean; version: number; docKind: string | null; discipline: string | null; date: string; author: string; projectId: number; code: string | null; address: string | null; project: string; clientVisible: boolean };
+type Row = { source: string; id: number; name: string; classified: boolean; current: boolean; version: number; docKind: string | null; discipline: string | null; date: string; author: string; projectId: number; code: string | null; address: string | null; project: string; clientVisible: boolean };
 type Client = { id: number; name: string };
 type Project = { id: number; name: string; code: string | null; address: string | null };
 
@@ -16,8 +16,9 @@ const get = async <T,>(url: string): Promise<T> => { const r = await fetch(url, 
 export default function ArchiveTab() {
   const qc = useQueryClient();
   const [f, setF] = useState({ clientId: "", projectId: "", discipline: "", docKind: "" });
+  const [all, setAll] = useState(false);
   const [msg, setMsg] = useState<string | null>(null);
-  const qs = new URLSearchParams(Object.entries({ projectId: f.projectId, discipline: f.discipline, docKind: f.docKind }).filter(([, v]) => v)).toString();
+  const qs = new URLSearchParams(Object.entries({ projectId: f.projectId, discipline: f.discipline, docKind: f.docKind, all: all ? "1" : "" }).filter(([, v]) => v)).toString();
   const rows = useQuery({ queryKey: ["admin-archive", qs], queryFn: () => get<Row[]>(`/api/office/admin/archive${qs ? `?${qs}` : ""}`) });
   const clients = useQuery({ queryKey: ["admin-clients"], queryFn: () => get<Client[]>("/api/portal/admin/clients") });
   const projects = useQuery({ queryKey: ["admin-client-projects", f.clientId], queryFn: () => get<Project[]>(`/api/portal/admin/clients/${f.clientId}/projects`), enabled: Boolean(f.clientId) });
@@ -37,7 +38,7 @@ export default function ArchiveTab() {
         <CardHeader><CardTitle className="text-base">Cómo se nombran los archivos</CardTitle></CardHeader>
         <CardContent className="text-sm space-y-2">
           <p className="font-mono bg-[#F4F7FA] rounded p-2">AC-2026-014_ARQ_PLA_Planta-1er-piso_V02.pdf</p>
-          <p className="text-gray-600">Código del proyecto · disciplina · tipo · descripción · versión. La carpeta del proyecto es "AC-2026-014 El Hualle Sur 9445". Así todo lo de un proyecto queda junto y ordenado en cualquier carpeta.</p>
+          <p className="text-gray-600">Código del proyecto · disciplina · tipo · descripción · versión. La carpeta del proyecto es "AC-2026-014 El Hualle Sur 9445". Así todo lo de un proyecto queda junto y ordenado en cualquier carpeta. El código y la versión los asigna el sistema: cada corrección de la misma lámina sube de V01 a V02 sola, y la anterior queda como reemplazada.</p>
           <div className="flex items-center gap-2">
             <Button size="sm" variant="outline" onClick={assign}>Asignar códigos a proyectos sin código</Button>
             {msg && <span className="text-gray-600">{msg}</span>}
@@ -62,6 +63,7 @@ export default function ArchiveTab() {
           <option value="">Todos los tipos</option>
           {DOC_KINDS.map((d) => <option key={d.code} value={d.code}>{d.code} · {d.label}</option>)}
         </select>
+        <label className="flex items-center gap-1 text-sm"><input type="checkbox" checked={all} onChange={(e) => setAll(e.target.checked)} /> Ver también versiones anteriores</label>
         <Button size="sm" asChild><a href={`/api/office/admin/archive.csv${qs ? `?${qs}` : ""}`}>Descargar índice (CSV)</a></Button>
       </div>
 
@@ -75,6 +77,7 @@ export default function ArchiveTab() {
                   <td className="p-2">
                     <a className="text-[#C2410C] underline break-all" href={r.source === "oficina" ? `/api/office/admin/files/${r.id}/download` : undefined}>{r.name}</a>
                     {!r.classified && <Badge variant="outline" className="ml-2">sin clasificar</Badge>}
+                    {!r.current && <Badge variant="outline" className="ml-2">reemplazada</Badge>}
                     <div className="text-xs text-gray-400">{r.code ? `${r.code} · ` : ""}{r.address ?? r.project}</div>
                   </td>
                   <td className="p-2">{r.discipline ?? "—"}</td><td className="p-2">{r.docKind ?? "—"}</td><td className="p-2">V{String(r.version).padStart(2, "0")}</td>
