@@ -196,7 +196,7 @@ function Section({ bg, children, narrow }: { bg: string; children: ReactNode; na
 
 function Video() {
   const [sonido, setSonido] = useState(false);
-  const src = `https://www.youtube-nocookie.com/embed/${VIDEO_ID}?autoplay=1&mute=${sonido ? 0 : 1}&cc_load_policy=1&cc_lang_pref=es&hl=es&rel=0&playsinline=1&modestbranding=1`;
+  const src = `https://www.youtube-nocookie.com/embed/${VIDEO_ID}?autoplay=1&mute=${sonido ? 0 : 1}&cc_load_policy=0&hl=es&rel=0&playsinline=1&modestbranding=1`;
   return (
     <div style={{ position: "relative", aspectRatio: "16 / 9", borderRadius: 16, overflow: "hidden", background: "#131820" }}>
       <iframe
