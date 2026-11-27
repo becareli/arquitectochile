@@ -553,6 +553,15 @@ export const collaborators = pgTable("collaborators", {
   showOnWebsite: boolean("show_on_website").notNull().default(false), // aparecerá en el staff de la web
   onboardedAt: timestamp("onboarded_at"), // terminó la bienvenida y aceptó los compromisos de trabajo
   termsVersion: text("terms_version"),
+  // Credenciales (solo las ve Patricio; no se pide carnet de identidad)
+  cvUrl: text("cv_url"),
+  cvName: text("cv_name"),
+  titleCertUrl: text("title_cert_url"),
+  titleCertName: text("title_cert_name"),
+  titleVerifiedAt: timestamp("title_verified_at"), // Patricio revisó el certificado de título
+  // Consentimiento para publicar nombre, foto y LinkedIn en la red de colaboradores / web
+  publishConsent: boolean("publish_consent").notNull().default(false),
+  publishConsentAt: timestamp("publish_consent_at"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 

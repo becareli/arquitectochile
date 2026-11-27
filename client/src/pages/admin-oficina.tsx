@@ -9,7 +9,7 @@ import { apiRequest } from "@/lib/queryClient";
 import { DISCIPLINES, guessDiscipline } from "@shared/classification";
 import Cotizaciones from "@/pages/admin-cotizaciones";
 
-type Collab = { id: number; name: string; email: string; phone: string | null; specialty: string; active: boolean; onboarded: boolean; discipline: string | null; canDo3d: boolean; isCoordinator: boolean; showOnWebsite: boolean; linkedinUrl: string | null; open: number; review: number; feePending: string };
+type Collab = { id: number; name: string; email: string; phone: string | null; specialty: string; active: boolean; onboarded: boolean; discipline: string | null; canDo3d: boolean; isCoordinator: boolean; showOnWebsite: boolean; linkedinUrl: string | null; hasCv: boolean; hasTitle: boolean; titleVerified: boolean; hasPhoto: boolean; publishConsent: boolean; open: number; review: number; feePending: string };
 type Task = { id: number; title: string; status: string; dueDate: string | null; collaborator: string; project: string | null; fee: string | null; feeStatus: string; collaboratorId: number; deliverableFormat: string; revision: number; kickoffRequired?: boolean; acceptedAt?: string | null; advancePercent?: number; advancePaidAt?: string | null; kickoffAt?: string | null; kickoffLink?: string | null; kickoffDoneAt?: string | null };
 type TaskFull = {
   task: Task & { description: string | null };
@@ -256,8 +256,16 @@ export default function OfficeTab() {
                 <div>
                   <div className="font-medium">{k.name} {!k.active && <Badge variant="outline">Inactivo</Badge>}</div>
                   <div className="text-xs text-gray-500">{!k.onboarded && "Sin bienvenida · "}{k.specialty}{k.isCoordinator ? " · Coordinador BIM" : ""}{k.canDo3d ? " · hace 3D" : " · entrega 2D"}{k.showOnWebsite ? " · en la web" : ""} · {k.email} · {k.open} abiertas{k.review ? ` (${k.review} en revisión)` : ""}{Number(k.feePending) > 0 ? ` · por pagar ${clp(k.feePending)}` : ""}</div>
+                  <div className="text-xs text-gray-500 flex flex-wrap items-center gap-x-2">
+                    {k.hasCv ? <a className="text-[#C2410C] underline" href={`/api/office/admin/collaborators/${k.id}/credentials/cv`}>CV</a> : <span>CV pendiente</span>}
+                    {k.hasTitle ? <a className="text-[#C2410C] underline" href={`/api/office/admin/collaborators/${k.id}/credentials/title`}>Título</a> : <span>Título pendiente</span>}
+                    {k.hasTitle && <button className="underline" onClick={() => run(() => send("POST", `/api/office/admin/collaborators/${k.id}/verify-title`, { verified: !k.titleVerified }), k.titleVerified ? "Verificación retirada." : "Título verificado.")}>{k.titleVerified ? "✓ verificado (quitar)" : "marcar verificado"}</button>}
+                    {k.linkedinUrl && <a className="text-[#C2410C] underline" href={k.linkedinUrl} target="_blank" rel="noreferrer">LinkedIn</a>}
+                    <span>{k.hasPhoto ? "con foto" : "sin foto"} · {k.publishConsent ? "autoriza publicar" : "no autoriza publicar"}</span>
+                  </div>
                 </div>
                 <div className="flex gap-1">
+                  {k.publishConsent && <Button size="sm" variant="ghost" onClick={() => run(() => send("PATCH", `/api/office/admin/collaborators/${k.id}`, { showOnWebsite: !k.showOnWebsite }), k.showOnWebsite ? "Retirado de la web." : "Visible en la web.")}>{k.showOnWebsite ? "Quitar de web" : "Mostrar en web"}</Button>}
                   <Button size="sm" variant="outline" onClick={() => run(async () => { const r = await send("POST", `/api/office/admin/collaborators/${k.id}/invite`); if (!r.emailed) throw new Error("correo no configurado (SMTP)"); }, `Enlace enviado a ${k.email}.`)}>Enviar acceso</Button>
                   <Button size="sm" variant="ghost" onClick={() => run(() => send("PATCH", `/api/office/admin/collaborators/${k.id}`, { canDo3d: !k.canDo3d }), "Actualizado.")}>{k.canDo3d ? "Quitar 3D" : "Hace 3D"}</Button>
                   <Button size="sm" variant="ghost" onClick={() => run(() => send("PATCH", `/api/office/admin/collaborators/${k.id}`, { isCoordinator: !k.isCoordinator }), "Actualizado.")}>{k.isCoordinator ? "Quitar coord." : "Coord. BIM"}</Button>

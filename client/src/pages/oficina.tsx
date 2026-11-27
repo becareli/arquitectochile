@@ -11,7 +11,7 @@ import { apiRequest } from "@/lib/queryClient";
 import { DOC_KINDS } from "@shared/classification";
 
 type Task = { id: number; title: string; status: string; dueDate: string | null; project: string | null; fee: string | null; feeStatus: string; deliverableFormat: string; revision: number };
-type Me = { collaborator: { onboarded: boolean; canDo3d: boolean; name: string; email: string; specialty: string; isCoordinator: boolean; phone: string | null; description: string | null; linkedinUrl: string | null }; tasks: Task[]; fees: { pending: number; paid: number } };
+type Me = { collaborator: { onboarded: boolean; canDo3d: boolean; name: string; email: string; specialty: string; isCoordinator: boolean; phone: string | null; description: string | null; linkedinUrl: string | null; cvName: string | null; titleCertName: string | null; titleVerified: boolean; hasPhoto: boolean; publishConsent: boolean }; tasks: Task[]; fees: { pending: number; paid: number } };
 type Detail = {
   task: { id: number; title: string; description: string | null; status: string; dueDate: string | null; project: string | null; bim: boolean; discipline: string | null; deliverableFormat: string; revision: number; fee: string | null; feeStatus: string; kickoffRequired: boolean; acceptedAt: string | null; advancePercent: number; advancePaidAt: string | null; kickoffAt: string | null; kickoffLink: string | null; kickoffDoneAt: string | null; deliveryDays: number | null };
   files: { id: number; name: string; stdName: string | null; version: number; kind: string; uploadedAt: string; reviewedBy: string | null; approvedBy: string | null; returnedNote: string | null }[];
@@ -370,6 +370,37 @@ function TeamBoard({ coordinator }: { coordinator: boolean }) {
   );
 }
 
+function CredentialRow({ kind, label, hint, accept, current, onDone, setMsg }: { kind: "cv" | "title" | "photo"; label: string; hint: string; accept: string; current: string | null | boolean; onDone: () => void; setMsg: (m: string) => void }) {
+  const [busy, setBusy] = useState(false);
+  const pick = async (file: File | undefined) => {
+    if (!file) return;
+    if (file.size > 10 * 1024 * 1024) { setMsg("El archivo supera los 10 MB."); return; }
+    setBusy(true);
+    try {
+      const { uploadUrl, internalPath } = await send("POST", "/api/office/upload-url");
+      const put = await fetch(uploadUrl, { method: "PUT", body: file, headers: { "Content-Type": file.type } });
+      if (!put.ok) throw new Error("No se pudo subir el archivo");
+      await send("POST", "/api/office/credentials", { kind, name: file.name, path: internalPath });
+      setMsg(`${label} guardado.`); onDone();
+    } catch (e) { setMsg(`Error: ${(e as Error).message}`); } finally { setBusy(false); }
+  };
+  return (
+    <div className="flex flex-wrap items-center justify-between gap-2 rounded-md border p-2">
+      <div>
+        <div className="font-medium">{label} {current ? <Badge variant="outline">Subido</Badge> : <Badge variant="outline">Pendiente</Badge>}</div>
+        <div className="text-xs text-gray-500">{typeof current === "string" ? current : hint}</div>
+      </div>
+      <div className="flex items-center gap-2">
+        {current && <a className="text-xs text-[#C2410C] underline" href={`/api/office/credentials/${kind}/download`}>Ver</a>}
+        <label className="cursor-pointer text-xs rounded-md border px-2 py-1 hover:border-[#F97015]">
+          {busy ? "Subiendo..." : current ? "Reemplazar" : "Subir"}
+          <input type="file" accept={accept} className="hidden" disabled={busy} onChange={(e) => { pick(e.target.files?.[0]); e.target.value = ""; }} />
+        </label>
+      </div>
+    </div>
+  );
+}
+
 function ProfileForm({ me, onSaved }: { me: Me["collaborator"]; onSaved: () => void }) {
   const [f, setF] = useState({ phone: me.phone ?? "", description: me.description ?? "", linkedinUrl: me.linkedinUrl ?? "" });
   const [msg, setMsg] = useState<string | null>(null);
@@ -379,18 +410,40 @@ function ProfileForm({ me, onSaved }: { me: Me["collaborator"]; onSaved: () => v
       setMsg("Perfil guardado."); onSaved();
     } catch (e) { setMsg(`Error: ${(e as Error).message}`); }
   };
+  const consent = async (v: boolean) => {
+    try { await send("PATCH", "/api/office/profile", { publishConsent: v }); setMsg(v ? "Gracias: autorizó mostrar su perfil." : "Listo: su perfil dejó de ser público."); onSaved(); }
+    catch (e) { setMsg(`Error: ${(e as Error).message}`); }
+  };
   return (
-    <Card className="max-w-xl">
-      <CardHeader><CardTitle className="text-base">Mi perfil</CardTitle></CardHeader>
-      <CardContent className="space-y-2 text-sm">
-        <p className="text-gray-600">Este perfil es de uso interno del equipo. Si Patricio te incorpora al staff de la web, solo se publicará con tu autorización.</p>
-        <Input placeholder="Teléfono" value={f.phone} onChange={(e) => setF({ ...f, phone: e.target.value })} />
-        <Input placeholder="LinkedIn (https://www.linkedin.com/in/...)" value={f.linkedinUrl} onChange={(e) => setF({ ...f, linkedinUrl: e.target.value })} />
-        <Textarea rows={4} placeholder="Cuéntanos tu experiencia, especialidad y software que usas (AutoCAD, Revit, ArchiCAD...)" value={f.description} onChange={(e) => setF({ ...f, description: e.target.value })} />
-        <Button size="sm" onClick={save}>Guardar</Button>
-        {msg && <p className="text-gray-600">{msg}</p>}
-      </CardContent>
-    </Card>
+    <div className="max-w-xl space-y-4">
+      <Card>
+        <CardHeader><CardTitle className="text-base">Mi perfil</CardTitle></CardHeader>
+        <CardContent className="space-y-2 text-sm">
+          <Input placeholder="Teléfono" value={f.phone} onChange={(e) => setF({ ...f, phone: e.target.value })} />
+          <Input placeholder="LinkedIn (https://www.linkedin.com/in/...)" value={f.linkedinUrl} onChange={(e) => setF({ ...f, linkedinUrl: e.target.value })} />
+          <Textarea rows={4} placeholder="Cuéntanos tu experiencia, especialidad y software que usas (AutoCAD, Revit, ArchiCAD...)" value={f.description} onChange={(e) => setF({ ...f, description: e.target.value })} />
+          <Button size="sm" onClick={save}>Guardar</Button>
+        </CardContent>
+      </Card>
+      <Card>
+        <CardHeader><CardTitle className="text-base">Mis credenciales</CardTitle></CardHeader>
+        <CardContent className="space-y-2 text-sm">
+          <p className="text-gray-600">Solo las ve Patricio, para validar al equipo. No pedimos cédula de identidad.</p>
+          <CredentialRow kind="cv" label="Currículum (CV)" hint="PDF o Word, máx. 10 MB" accept=".pdf,.doc,.docx" current={me.cvName} onDone={onSaved} setMsg={setMsg} />
+          <CredentialRow kind="title" label="Certificado de título" hint="PDF o foto (JPG/PNG), máx. 10 MB" accept=".pdf,.jpg,.jpeg,.png" current={me.titleCertName ? `${me.titleCertName}${me.titleVerified ? " · verificado por Patricio" : " · en revisión"}` : null} onDone={onSaved} setMsg={setMsg} />
+          <CredentialRow kind="photo" label="Foto de perfil" hint="Puede ser la de su LinkedIn (JPG, PNG o WebP)" accept=".jpg,.jpeg,.png,.webp" current={me.hasPhoto} onDone={onSaved} setMsg={setMsg} />
+        </CardContent>
+      </Card>
+      <Card>
+        <CardContent className="p-4 space-y-2 text-sm">
+          <label className="flex items-start gap-2 cursor-pointer">
+            <input type="checkbox" className="mt-1" checked={me.publishConsent} onChange={(e) => consent(e.target.checked)} />
+            <span>Autorizo que ArquitectoChile muestre mi nombre, especialidad, foto y enlace de LinkedIn en la red de colaboradores y en su sitio web, para dar confianza a los clientes. Mi CV, título y datos de contacto nunca se publican. Puedo retirar esta autorización cuando quiera desmarcando esta casilla.</span>
+          </label>
+        </CardContent>
+      </Card>
+      {msg && <p className="text-sm text-gray-600">{msg}</p>}
+    </div>
   );
 }
 

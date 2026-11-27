@@ -102,7 +102,14 @@ const collabInput = z.object({
   isCoordinator: z.boolean().optional(),
   showOnWebsite: z.boolean().optional(),
 });
+const CRED_EXT: Record<string, string[]> = { cv: ["pdf", "doc", "docx"], title: ["pdf", "jpg", "jpeg", "png"], photo: ["jpg", "jpeg", "png", "webp"] };
+const credentialInput = z.object({
+  kind: z.enum(["cv", "title", "photo"]),
+  name: z.string().min(1).max(200),
+  path: z.string().startsWith("/objects/client-files/").max(500),
+});
 const profileInput = z.object({
+  publishConsent: z.boolean().optional(),
   phone: z.string().max(40).nullable().optional(),
   description: z.string().max(1500).nullable().optional(),
   linkedinUrl: z
@@ -377,6 +384,11 @@ export function registerOfficeRoutes(app: Express, isAdmin: RequestHandler) {
         phone: collab.phone,
         description: collab.description,
         linkedinUrl: collab.linkedinUrl,
+        cvName: collab.cvName,
+        titleCertName: collab.titleCertName,
+        titleVerified: Boolean(collab.titleVerifiedAt),
+        hasPhoto: Boolean(collab.profileImage),
+        publishConsent: collab.publishConsent,
       },
       tasks: tasks.map((t) => ({
         id: t.id,
@@ -402,9 +414,62 @@ export function registerOfficeRoutes(app: Express, isAdmin: RequestHandler) {
     if (d.phone !== undefined) set.phone = d.phone;
     if (d.description !== undefined) set.description = d.description;
     if (d.linkedinUrl !== undefined) set.linkedinUrl = d.linkedinUrl;
+    if (d.publishConsent !== undefined && d.publishConsent !== collab.publishConsent) {
+      set.publishConsent = d.publishConsent;
+      set.publishConsentAt = d.publishConsent ? new Date() : null;
+      if (!d.publishConsent) set.showOnWebsite = false; // retirar el permiso lo saca de la web al instante
+    }
     if (!Object.keys(set).length) return res.status(400).json({ error: "Nada que actualizar." });
     await db.update(collaborators).set(set).where(eq(collaborators.id, collab.id));
     res.json({ ok: true });
+  });
+
+  // Credenciales: CV, certificado de título y foto (el carnet de identidad NO se pide)
+  app.post("/api/office/credentials", requireCollaborator, async (req, res) => {
+    const collab = (req as any).collaborator;
+    const parsed = credentialInput.safeParse(req.body);
+    if (!parsed.success) return res.status(400).json({ error: "Datos inválidos." });
+    const { kind, name, path } = parsed.data;
+    if (!CRED_EXT[kind].includes(extensionOf(name).toLowerCase())) {
+      return res.status(400).json({ error: `Formato no válido. Use: ${CRED_EXT[kind].join(", ")}.` });
+    }
+    const set: Record<string, unknown> =
+      kind === "cv" ? { cvUrl: path, cvName: name }
+      : kind === "title" ? { titleCertUrl: path, titleCertName: name, titleVerifiedAt: null }
+      : { profileImage: path };
+    await db.update(collaborators).set(set).where(eq(collaborators.id, collab.id));
+    res.json({ ok: true });
+  });
+
+  app.get("/api/office/credentials/:kind/download", requireCollaborator, async (req, res) => {
+    const collab = (req as any).collaborator;
+    const k = req.params.kind;
+    const path = k === "cv" ? collab.cvUrl : k === "title" ? collab.titleCertUrl : k === "photo" ? collab.profileImage : null;
+    if (!path) return res.status(404).json({ error: "No hay archivo." });
+    return streamObject(res, path, k === "cv" ? collab.cvName ?? "CV" : k === "title" ? collab.titleCertName ?? "Titulo" : "Foto");
+  });
+
+  // Staff público: solo quienes aceptaron publicar Y Patricio activó en la web
+  const publicStaff = and(eq(collaborators.active, true), eq(collaborators.publishConsent, true), eq(collaborators.showOnWebsite, true));
+  app.get("/api/public/team", async (_req, res) => {
+    const rows = await db
+      .select({ id: collaborators.id, name: collaborators.name, specialty: collaborators.specialty, discipline: collaborators.discipline, linkedinUrl: collaborators.linkedinUrl, photo: collaborators.profileImage })
+      .from(collaborators)
+      .where(publicStaff)
+      .orderBy(asc(collaborators.name));
+    res.set("Cache-Control", "public, max-age=300");
+    res.json(rows.map((r) => ({ id: r.id, name: r.name, specialty: r.specialty, discipline: r.discipline, linkedinUrl: r.linkedinUrl, photoUrl: r.photo ? `/api/public/team/${r.id}/photo` : null })));
+  });
+  app.get("/api/public/team/:id/photo", async (req, res) => {
+    const id = parseId(req.params.id);
+    if (!id) return res.status(400).end();
+    const [c] = await db.select({ photo: collaborators.profileImage }).from(collaborators).where(and(eq(collaborators.id, id), publicStaff)).limit(1);
+    if (!c?.photo) return res.status(404).end();
+    try {
+      const file = await objectStorage.getObjectEntityFile(c.photo);
+      res.set("Cache-Control", "public, max-age=300");
+      await objectStorage.downloadObject(file, res, 300);
+    } catch { res.status(404).end(); }
   });
 
   // Tablero del equipo: cada colaborador ve las demás tareas de SUS proyectos (sin honorarios);
@@ -616,6 +681,11 @@ export function registerOfficeRoutes(app: Express, isAdmin: RequestHandler) {
         isCoordinator: c.isCoordinator,
         showOnWebsite: c.showOnWebsite,
         linkedinUrl: c.linkedinUrl,
+        hasCv: Boolean(c.cvUrl),
+        hasTitle: Boolean(c.titleCertUrl),
+        titleVerified: Boolean(c.titleVerifiedAt),
+        hasPhoto: Boolean(c.profileImage),
+        publishConsent: c.publishConsent,
         open: byId.get(c.id)?.open ?? 0,
         review: byId.get(c.id)?.review ?? 0,
         feePending: byId.get(c.id)?.feePending ?? "0",
@@ -655,9 +725,35 @@ export function registerOfficeRoutes(app: Express, isAdmin: RequestHandler) {
     if (d.discipline !== undefined) set.discipline = d.discipline;
     if (d.canDo3d !== undefined) set.canDo3d = d.canDo3d;
     if (d.isCoordinator !== undefined) set.isCoordinator = d.isCoordinator;
-    if (d.showOnWebsite !== undefined) set.showOnWebsite = d.showOnWebsite;
+    if (d.showOnWebsite !== undefined) {
+      if (d.showOnWebsite) {
+        const [c] = await db.select({ ok: collaborators.publishConsent }).from(collaborators).where(eq(collaborators.id, id)).limit(1);
+        if (!c?.ok) return res.status(409).json({ error: "Esta persona no ha autorizado publicar sus datos." });
+      }
+      set.showOnWebsite = d.showOnWebsite;
+    }
     if (!Object.keys(set).length) return res.status(400).json({ error: "Nada que actualizar." });
     await db.update(collaborators).set(set).where(eq(collaborators.id, id));
+    res.json({ ok: true });
+  });
+
+  app.get(`${admin}/collaborators/:id/credentials/:kind`, isAdmin, async (req, res) => {
+    const id = parseId(req.params.id);
+    if (!id) return res.status(400).json({ error: "Inválido." });
+    const [c] = await db.select().from(collaborators).where(eq(collaborators.id, id)).limit(1);
+    const k = req.params.kind;
+    const path = c ? (k === "cv" ? c.cvUrl : k === "title" ? c.titleCertUrl : k === "photo" ? c.profileImage : null) : null;
+    if (!c || !path) return res.status(404).json({ error: "No hay archivo." });
+    return streamObject(res, path, k === "cv" ? c.cvName ?? "CV" : k === "title" ? c.titleCertName ?? "Titulo" : "Foto");
+  });
+
+  app.post(`${admin}/collaborators/:id/verify-title`, isAdmin, async (req, res) => {
+    const id = parseId(req.params.id);
+    if (!id) return res.status(400).json({ error: "Inválido." });
+    const [c] = await db.select({ t: collaborators.titleCertUrl }).from(collaborators).where(eq(collaborators.id, id)).limit(1);
+    if (!c?.t) return res.status(409).json({ error: "Aún no sube su certificado de título." });
+    const on = req.body?.verified !== false;
+    await db.update(collaborators).set({ titleVerifiedAt: on ? new Date() : null, verified: on }).where(eq(collaborators.id, id));
     res.json({ ok: true });
   });
 
