@@ -1,18 +1,34 @@
+import { useState } from "react";
 import { useLocation } from "wouter";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Shield, Construction } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { ArrowLeft, Mail, CheckCircle } from "lucide-react";
 import { useSEO } from "@/hooks/useSEO";
+import { apiRequest } from "@/lib/queryClient";
 
 export default function PortalClienteLogin() {
   useSEO({
     title: "Iniciar Sesión | Portal Cliente - ArquitectoChile.com",
-    description: "Inicia sesión en el portal de clientes de ArquitectoChile.com para revisar el avance de tu proyecto.",
+    description: "Ingresa al portal de clientes de ArquitectoChile.com para revisar el avance de tu proyecto.",
     path: "/portal-cliente/login",
     noindex: true,
   });
 
   const [, setLocation] = useLocation();
+  const [email, setEmail] = useState("");
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+
+  async function submit(e: React.FormEvent) {
+    e.preventDefault();
+    setStatus("sending");
+    try {
+      await apiRequest("POST", "/api/portal/auth/request", { email });
+      setStatus("sent");
+    } catch {
+      setStatus("error");
+    }
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-green-50 flex flex-col">
@@ -34,35 +50,37 @@ export default function PortalClienteLogin() {
       <div className="flex-1 flex items-center justify-center p-4">
         <Card className="w-full max-w-md">
           <CardHeader className="text-center">
-            <div className="bg-yellow-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-              <Construction className="w-8 h-8 text-yellow-600" />
+            <div className="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+              {status === "sent" ? <CheckCircle className="w-8 h-8 text-green-600" /> : <Mail className="w-8 h-8 text-blue-600" />}
             </div>
-            <CardTitle className="text-2xl">En Construcción</CardTitle>
+            <CardTitle className="text-2xl">{status === "sent" ? "Revisa tu correo" : "Accede a tu portal"}</CardTitle>
             <p className="text-gray-600 mt-2">
-              El inicio de sesión con Google estará disponible próximamente.
-              Estamos trabajando para ofrecerte una experiencia segura y confiable.
+              {status === "sent"
+                ? "Si tu correo está registrado, te enviamos un enlace de acceso. Vence en 20 minutos y funciona una sola vez."
+                : "Escribe el correo con el que te invitamos y te enviaremos un enlace para entrar. Sin contraseñas."}
             </p>
           </CardHeader>
           <CardContent className="space-y-4">
-            <div className="bg-blue-50 p-4 rounded-lg text-center">
-              <Shield className="w-6 h-6 text-blue-600 mx-auto mb-2" />
-              <p className="text-sm text-blue-800">
-                Tu seguridad es nuestra prioridad. Pronto podrás acceder a tus proyectos
-                de forma segura con tu cuenta de Google.
-              </p>
-            </div>
-            <Button
-              onClick={() => setLocation("/contacto")}
-              className="w-full"
-            >
-              Contactar para más información
-            </Button>
-            <Button
-              variant="outline"
-              onClick={() => setLocation("/")}
-              className="w-full"
-            >
-              Volver al Inicio
+            {status !== "sent" && (
+              <form onSubmit={submit} className="space-y-4">
+                <Input
+                  type="email"
+                  required
+                  autoComplete="email"
+                  placeholder="tu@correo.cl"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+                {status === "error" && (
+                  <p className="text-sm text-red-600">No pudimos enviar la solicitud. Inténtalo de nuevo en unos minutos.</p>
+                )}
+                <Button type="submit" className="w-full" disabled={status === "sending"}>
+                  {status === "sending" ? "Enviando..." : "Enviarme el enlace"}
+                </Button>
+              </form>
+            )}
+            <Button variant="outline" onClick={() => setLocation("/contacto")} className="w-full">
+              ¿Aún no eres cliente? Escríbenos
             </Button>
           </CardContent>
         </Card>

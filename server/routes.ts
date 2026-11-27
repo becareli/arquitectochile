@@ -17,6 +17,7 @@ import { z } from "zod";
 import { setupIntegrationRoutes } from "./integrations/routes";
 import { ObjectStorageService, ObjectNotFoundError } from "./objectStorage";
 import { setupAuth, isAuthenticated, isCrmAdmin } from "./replitAuth";
+import { registerPortalRoutes } from "./portal";
 import crypto from "crypto";
 import path from "path";
 import fs from "fs";
@@ -300,6 +301,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   // Auth middleware
   await setupAuth(app);
+
+  // Portal de clientes (acceso por enlace, permisos por cliente, administración)
+  registerPortalRoutes(app, isAdminSession);
 
   // Admin session endpoints (password verified server-side; credential never sent back to client)
   // Simple in-memory rate limiter: max 5 attempts per IP per 15 minutes

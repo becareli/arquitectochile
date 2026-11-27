@@ -15,6 +15,8 @@ import Colaboradores from "@/pages/colaboradores";
 import ColaboradorProfile from "@/pages/colaborador-profile";
 import PortalClienteLogin from "@/pages/portal-cliente-login";
 import PortalClienteDemo from "@/pages/portal-cliente-demo";
+import PortalClienteAcceso from "@/pages/portal-cliente-acceso";
+import PortalClienteMiProyecto from "@/pages/portal-cliente-mi-proyecto";
 import RevisorIndependienteDeArquitectura from "@/pages/revisor-independiente-de-arquitectura";
 import DisenemosNuevosEspacios from "@/pages/disenemos-tus-nuevos-espacios";
 import FusionTerrenosUrbanos from "@/pages/fusion-terrenos-urbanos";
@@ -102,6 +104,8 @@ function Router() {
       <Route path="/colaboradores/:slug" component={ColaboradorProfile} />
       <Route path="/portal-cliente/login" component={PortalClienteLogin} />
       <Route path="/portal-cliente/demo" component={PortalClienteDemo} />
+      <Route path="/portal-cliente/acceso" component={PortalClienteAcceso} />
+      <Route path="/portal-cliente/mi-proyecto" component={PortalClienteMiProyecto} />
       <Route path="/revisor-independiente-de-arquitectura" component={RevisorIndependienteDeArquitectura} />
       <Route path="/disenemos-tus-nuevos-espacios" component={DisenemosNuevosEspacios} />
       <Route path="/fusion-terrenos-urbanos" component={FusionTerrenosUrbanos} />

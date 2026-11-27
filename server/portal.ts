@@ -1,0 +1,482 @@
+import type { Express, Request, Response, NextFunction, RequestHandler } from "express";
+import crypto from "crypto";
+import nodemailer from "nodemailer";
+import rateLimit from "express-rate-limit";
+import { z } from "zod";
+import { and, asc, desc, eq, gt, isNull } from "drizzle-orm";
+import { db } from "./db";
+import {
+  clients,
+  clientProjects,
+  clientDocuments,
+  clientPayments,
+  clientTimeline,
+  portalLoginTokens,
+} from "@shared/schema";
+import { ObjectStorageService, ObjectNotFoundError } from "./objectStorage";
+
+/**
+ * Portal de clientes de ArquitectoChile.
+ *
+ * Acceso: enlace de un solo uso enviado por correo (sin contraseñas).
+ * Permisos: cada cliente solo ve sus propios proyectos, documentos y pagos.
+ * Administración: rutas /api/portal/admin/* protegidas con el middleware de admin del sitio.
+ */
+
+const LOGIN_LINK_TTL_MIN = 20;
+const PORTAL_BASE_URL = process.env.PORTAL_BASE_URL || "https://arquitectochile.com";
+
+const sha256 = (v: string) => crypto.createHash("sha256").update(v).digest("hex");
+const normalizeEmail = (v: string) => v.trim().toLowerCase();
+
+// ---------- sesión ----------
+
+function getSession(req: Request): any {
+  return (req as any).session;
+}
+
+function regenerateSession(req: Request): Promise<void> {
+  return new Promise((resolve, reject) => {
+    getSession(req).regenerate((err: unknown) => (err ? reject(err) : resolve()));
+  });
+}
+
+function saveSession(req: Request): Promise<void> {
+  return new Promise((resolve, reject) => {
+    getSession(req).save((err: unknown) => (err ? reject(err) : resolve()));
+  });
+}
+
+const requirePortalClient: RequestHandler = async (req, res, next) => {
+  const clientId = getSession(req)?.portalClientId;
+  if (!clientId) return res.status(401).json({ error: "Debes iniciar sesión." });
+
+  const [client] = await db.select().from(clients).where(eq(clients.id, clientId)).limit(1);
+  if (!client || client.status === "inactive") {
+    return res.status(401).json({ error: "Acceso no disponible." });
+  }
+  (req as any).portalClient = client;
+  next();
+};
+
+// ---------- correo ----------
+
+async function sendLoginEmail(to: string, name: string, link: string): Promise<boolean> {
+  const host = process.env.SMTP_HOST;
+  const user = process.env.SMTP_USER;
+  const pass = process.env.SMTP_PASS;
+  if (!host || !user || !pass) {
+    console.log("ℹ️ SMTP no configurado: no se envió el enlace de acceso al portal");
+    return false;
+  }
+  const port = parseInt(process.env.SMTP_PORT || "587");
+  const transporter = nodemailer.createTransport({
+    host,
+    port,
+    secure: port === 465,
+    auth: { user, pass },
+  });
+  await transporter.sendMail({
+    from: process.env.SMTP_FROM || user,
+    to,
+    subject: "Tu acceso al portal de ArquitectoChile.com",
+    html: `
+      <div style="font-family:sans-serif;max-width:520px;margin:auto;color:#1e293b">
+        <h2 style="color:#1e3a5f">Hola ${escapeHtml(name)},</h2>
+        <p>Usa este botón para entrar a tu portal. El enlace funciona una sola vez y vence en ${LOGIN_LINK_TTL_MIN} minutos.</p>
+        <p style="margin:28px 0">
+          <a href="${link}" style="background:#1e3a5f;color:#fff;padding:12px 22px;border-radius:8px;text-decoration:none">Entrar a mi portal</a>
+        </p>
+        <p style="font-size:13px;color:#64748b">Si no lo pediste tú, puedes ignorar este correo.</p>
+        <p style="font-size:13px;color:#64748b">Arq. Patricio Becar · ArquitectoChile.com</p>
+      </div>`,
+  });
+  return true;
+}
+
+function escapeHtml(s: string) {
+  return s.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]!));
+}
+
+async function createLoginLink(clientId: number): Promise<string> {
+  const token = crypto.randomBytes(32).toString("hex");
+  await db.insert(portalLoginTokens).values({
+    clientId,
+    tokenHash: sha256(token),
+    expiresAt: new Date(Date.now() + LOGIN_LINK_TTL_MIN * 60 * 1000),
+  });
+  return `${PORTAL_BASE_URL}/portal-cliente/acceso?token=${token}`;
+}
+
+// ---------- resumen de pagos ----------
+
+function withComputedPaymentStatus<T extends { status: string; dueDate: Date; paidDate: Date | null }>(p: T) {
+  if (p.status === "paid" || p.paidDate) return { ...p, status: "paid" };
+  if (new Date(p.dueDate).getTime() < Date.now()) return { ...p, status: "overdue" };
+  return { ...p, status: "pending" };
+}
+
+function summarizePayments(payments: { amount: string; status: string }[]) {
+  const sum = (arr: { amount: string }[]) => arr.reduce((t, p) => t + Number(p.amount), 0);
+  const paid = payments.filter((p) => p.status === "paid");
+  const pending = payments.filter((p) => p.status !== "paid");
+  return { totalPaid: sum(paid), totalPending: sum(pending), totalContract: sum(payments) };
+}
+
+// ---------- validaciones admin ----------
+
+const clientInput = z.object({
+  name: z.string().min(2),
+  email: z.string().email(),
+  phone: z.string().optional(),
+});
+
+const projectInput = z.object({
+  clientId: z.number().int(),
+  name: z.string().min(2),
+  description: z.string().optional(),
+  status: z.enum(["planning", "design", "permits", "construction", "completed"]).default("planning"),
+  progress: z.number().int().min(0).max(100).default(0),
+  startDate: z.coerce.date().optional(),
+  estimatedCompletion: z.coerce.date().optional(),
+  totalValue: z.string().optional(),
+});
+
+const documentInput = z.object({
+  name: z.string().min(2),
+  type: z.enum(["plans", "contracts", "permits", "specifications", "photos", "other"]),
+  fileUrl: z.string().startsWith("/objects/"),
+  fileSize: z.number().int().optional(),
+  version: z.number().int().min(1).default(1),
+  visibleToClient: z.boolean().default(true),
+});
+
+const paymentInput = z.object({
+  description: z.string().min(2),
+  amount: z.string().regex(/^\d+(\.\d{1,2})?$/),
+  dueDate: z.coerce.date(),
+  paidDate: z.coerce.date().nullable().optional(),
+  status: z.enum(["pending", "paid", "overdue"]).optional(),
+  paymentMethod: z.enum(["transfer", "check", "cash"]).nullable().optional(),
+  receiptType: z.enum(["boleta", "factura"]).nullable().optional(),
+  receiptNumber: z.string().nullable().optional(),
+  receiptUrl: z.string().startsWith("/objects/").nullable().optional(),
+});
+
+const timelineInput = z.object({
+  title: z.string().min(2),
+  description: z.string().optional(),
+  date: z.coerce.date(),
+  status: z.enum(["completed", "current", "upcoming"]),
+  category: z.enum(["design", "permits", "construction", "delivery"]).optional(),
+});
+
+function parseId(v: string): number | null {
+  const n = Number(v);
+  return Number.isInteger(n) && n > 0 ? n : null;
+}
+
+// ---------- registro de rutas ----------
+
+export function registerPortalRoutes(app: Express, isAdmin: RequestHandler) {
+  const objectStorage = new ObjectStorageService();
+
+  const loginLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    limit: 5,
+    standardHeaders: true,
+    legacyHeaders: false,
+    message: { error: "Demasiados intentos. Intenta de nuevo en unos minutos." },
+  });
+  const verifyLimiter = rateLimit({ windowMs: 15 * 60 * 1000, limit: 20, standardHeaders: true, legacyHeaders: false });
+
+  // Ownership: devuelve el proyecto solo si pertenece al cliente en sesión
+  async function ownedProject(clientId: number, projectId: number) {
+    const [project] = await db
+      .select()
+      .from(clientProjects)
+      .where(and(eq(clientProjects.id, projectId), eq(clientProjects.clientId, clientId)))
+      .limit(1);
+    return project;
+  }
+
+  // ===== Acceso de clientes =====
+
+  app.post("/api/portal/auth/request", loginLimiter, async (req, res) => {
+    // Respuesta idéntica exista o no el correo, para no revelar quién es cliente
+    const generic = { ok: true, message: "Si tu correo está registrado, te enviamos un enlace de acceso." };
+    try {
+      const parsed = z.object({ email: z.string().email() }).safeParse(req.body);
+      if (!parsed.success) return res.json(generic);
+
+      const [client] = await db
+        .select()
+        .from(clients)
+        .where(eq(clients.email, normalizeEmail(parsed.data.email)))
+        .limit(1);
+      if (client && client.status !== "inactive") {
+        const link = await createLoginLink(client.id);
+        await sendLoginEmail(client.email, client.name, link);
+      }
+    } catch (err) {
+      console.error("portal request error:", (err as Error).message);
+    }
+    return res.json(generic);
+  });
+
+  // POST (no GET) para que los antivirus de correo que abren enlaces no consuman el token
+  app.post("/api/portal/auth/verify", verifyLimiter, async (req, res) => {
+    try {
+      const parsed = z.object({ token: z.string().length(64) }).safeParse(req.body);
+      if (!parsed.success) return res.status(400).json({ error: "Enlace inválido." });
+
+      const tokenHash = sha256(parsed.data.token);
+      const [row] = await db
+        .update(portalLoginTokens)
+        .set({ usedAt: new Date() })
+        .where(
+          and(
+            eq(portalLoginTokens.tokenHash, tokenHash),
+            isNull(portalLoginTokens.usedAt),
+            gt(portalLoginTokens.expiresAt, new Date()),
+          ),
+        )
+        .returning();
+      if (!row) return res.status(400).json({ error: "El enlace venció o ya fue usado. Pide uno nuevo." });
+
+      const [client] = await db.select().from(clients).where(eq(clients.id, row.clientId)).limit(1);
+      if (!client || client.status === "inactive") return res.status(403).json({ error: "Acceso no disponible." });
+
+      await regenerateSession(req);
+      getSession(req).portalClientId = client.id;
+      await saveSession(req);
+      await db.update(clients).set({ lastLogin: new Date() }).where(eq(clients.id, client.id));
+
+      return res.json({ ok: true, name: client.name });
+    } catch (err) {
+      console.error("portal verify error:", (err as Error).message);
+      return res.status(500).json({ error: "No pudimos iniciar tu sesión." });
+    }
+  });
+
+  app.post("/api/portal/auth/logout", (req, res) => {
+    const s = getSession(req);
+    if (s) delete s.portalClientId;
+    res.json({ ok: true });
+  });
+
+  // ===== Datos del cliente =====
+
+  app.get("/api/portal/me", requirePortalClient, async (req, res) => {
+    const client = (req as any).portalClient;
+    const projects = await db
+      .select()
+      .from(clientProjects)
+      .where(eq(clientProjects.clientId, client.id))
+      .orderBy(desc(clientProjects.createdAt));
+    res.json({ client: { id: client.id, name: client.name, email: client.email }, projects });
+  });
+
+  app.get("/api/portal/projects/:id", requirePortalClient, async (req, res) => {
+    const client = (req as any).portalClient;
+    const projectId = parseId(req.params.id);
+    if (!projectId) return res.status(400).json({ error: "Proyecto inválido." });
+
+    const project = await ownedProject(client.id, projectId);
+    if (!project) return res.status(404).json({ error: "Proyecto no encontrado." });
+
+    const [documents, payments, timeline] = await Promise.all([
+      db
+        .select({
+          id: clientDocuments.id,
+          name: clientDocuments.name,
+          type: clientDocuments.type,
+          fileSize: clientDocuments.fileSize,
+          version: clientDocuments.version,
+          uploadDate: clientDocuments.uploadDate,
+        })
+        .from(clientDocuments)
+        .where(and(eq(clientDocuments.projectId, projectId), eq(clientDocuments.visibleToClient, true)))
+        .orderBy(desc(clientDocuments.uploadDate)),
+      db.select().from(clientPayments).where(eq(clientPayments.projectId, projectId)).orderBy(asc(clientPayments.dueDate)),
+      db.select().from(clientTimeline).where(eq(clientTimeline.projectId, projectId)).orderBy(asc(clientTimeline.date)),
+    ]);
+
+    const paymentsView = payments.map((p) => {
+      const { receiptUrl, ...rest } = withComputedPaymentStatus(p);
+      return { ...rest, hasReceipt: Boolean(receiptUrl) }; // la ruta interna del archivo nunca sale al navegador
+    });
+
+    res.json({
+      project,
+      documents,
+      payments: paymentsView,
+      paymentSummary: summarizePayments(paymentsView),
+      timeline,
+    });
+  });
+
+  async function streamObject(res: Response, objectPath: string, filename: string) {
+    try {
+      const file = await objectStorage.getObjectEntityFile(objectPath);
+      res.set("Content-Disposition", `attachment; filename*=UTF-8''${encodeURIComponent(filename)}`);
+      await objectStorage.downloadObject(file, res, 0);
+    } catch (err) {
+      if (err instanceof ObjectNotFoundError) return res.status(404).json({ error: "Archivo no disponible." });
+      console.error("portal download error:", (err as Error).message);
+      return res.status(500).json({ error: "No pudimos descargar el archivo." });
+    }
+  }
+
+  app.get("/api/portal/documents/:id/download", requirePortalClient, async (req, res) => {
+    const client = (req as any).portalClient;
+    const id = parseId(req.params.id);
+    if (!id) return res.status(400).json({ error: "Documento inválido." });
+
+    const [doc] = await db
+      .select({ doc: clientDocuments })
+      .from(clientDocuments)
+      .innerJoin(clientProjects, eq(clientDocuments.projectId, clientProjects.id))
+      .where(
+        and(
+          eq(clientDocuments.id, id),
+          eq(clientProjects.clientId, client.id),
+          eq(clientDocuments.visibleToClient, true),
+        ),
+      )
+      .limit(1);
+    if (!doc) return res.status(404).json({ error: "Documento no encontrado." });
+    return streamObject(res, doc.doc.fileUrl, doc.doc.name);
+  });
+
+  app.get("/api/portal/payments/:id/receipt", requirePortalClient, async (req, res) => {
+    const client = (req as any).portalClient;
+    const id = parseId(req.params.id);
+    if (!id) return res.status(400).json({ error: "Pago inválido." });
+
+    const [row] = await db
+      .select({ pay: clientPayments })
+      .from(clientPayments)
+      .innerJoin(clientProjects, eq(clientPayments.projectId, clientProjects.id))
+      .where(and(eq(clientPayments.id, id), eq(clientProjects.clientId, client.id)))
+      .limit(1);
+    if (!row?.pay.receiptUrl) return res.status(404).json({ error: "Comprobante no disponible." });
+
+    const label = `${row.pay.receiptType ?? "comprobante"}-${row.pay.receiptNumber ?? row.pay.id}.pdf`;
+    return streamObject(res, row.pay.receiptUrl, label);
+  });
+
+  // ===== Administración (solo el arquitecto) =====
+
+  const admin = "/api/portal/admin";
+
+  app.get(`${admin}/clients`, isAdmin, async (_req, res) => {
+    const rows = await db
+      .select({
+        id: clients.id,
+        name: clients.name,
+        email: clients.email,
+        phone: clients.phone,
+        status: clients.status,
+        lastLogin: clients.lastLogin,
+      })
+      .from(clients)
+      .orderBy(desc(clients.createdAt));
+    res.json(rows);
+  });
+
+  app.post(`${admin}/clients`, isAdmin, async (req, res) => {
+    const parsed = clientInput.safeParse(req.body);
+    if (!parsed.success) return res.status(400).json({ error: "Datos inválidos", details: parsed.error.flatten() });
+    try {
+      // El portal no usa contraseñas: se guarda un valor aleatorio inutilizable
+      const unusable = crypto.randomBytes(32).toString("hex");
+      const [created] = await db
+        .insert(clients)
+        .values({ ...parsed.data, email: normalizeEmail(parsed.data.email), password: unusable })
+        .returning({ id: clients.id, name: clients.name, email: clients.email });
+      res.status(201).json(created);
+    } catch (err) {
+      if ((err as any)?.code === "23505") return res.status(409).json({ error: "Ya existe un cliente con ese correo." });
+      throw err;
+    }
+  });
+
+  // Envía el enlace al cliente. Si el correo no está configurado, devuelve el enlace para copiarlo
+  app.post(`${admin}/clients/:id/invite`, isAdmin, async (req, res) => {
+    const id = parseId(req.params.id);
+    if (!id) return res.status(400).json({ error: "Cliente inválido." });
+    const [client] = await db.select().from(clients).where(eq(clients.id, id)).limit(1);
+    if (!client) return res.status(404).json({ error: "Cliente no encontrado." });
+
+    const link = await createLoginLink(client.id);
+    const sent = await sendLoginEmail(client.email, client.name, link).catch(() => false);
+    res.json(sent ? { sent: true } : { sent: false, link });
+  });
+
+  app.patch(`${admin}/clients/:id`, isAdmin, async (req, res) => {
+    const id = parseId(req.params.id);
+    const parsed = z.object({ status: z.enum(["active", "inactive", "completed"]) }).safeParse(req.body);
+    if (!id || !parsed.success) return res.status(400).json({ error: "Datos inválidos." });
+    await db.update(clients).set({ status: parsed.data.status }).where(eq(clients.id, id));
+    res.json({ ok: true });
+  });
+
+  app.post(`${admin}/projects`, isAdmin, async (req, res) => {
+    const parsed = projectInput.safeParse(req.body);
+    if (!parsed.success) return res.status(400).json({ error: "Datos inválidos", details: parsed.error.flatten() });
+    const [created] = await db.insert(clientProjects).values(parsed.data).returning();
+    res.status(201).json(created);
+  });
+
+  app.patch(`${admin}/projects/:id`, isAdmin, async (req, res) => {
+    const id = parseId(req.params.id);
+    const parsed = projectInput.omit({ clientId: true }).partial().safeParse(req.body);
+    if (!id || !parsed.success) return res.status(400).json({ error: "Datos inválidos." });
+    const [updated] = await db.update(clientProjects).set(parsed.data).where(eq(clientProjects.id, id)).returning();
+    if (!updated) return res.status(404).json({ error: "Proyecto no encontrado." });
+    res.json(updated);
+  });
+
+  app.post(`${admin}/projects/:id/documents`, isAdmin, async (req, res) => {
+    const projectId = parseId(req.params.id);
+    const parsed = documentInput.safeParse(req.body);
+    if (!projectId || !parsed.success) return res.status(400).json({ error: "Datos inválidos." });
+    const [created] = await db.insert(clientDocuments).values({ ...parsed.data, projectId }).returning();
+    res.status(201).json(created);
+  });
+
+  app.post(`${admin}/projects/:id/payments`, isAdmin, async (req, res) => {
+    const projectId = parseId(req.params.id);
+    const parsed = paymentInput.safeParse(req.body);
+    if (!projectId || !parsed.success) return res.status(400).json({ error: "Datos inválidos." });
+    const [created] = await db.insert(clientPayments).values({ ...parsed.data, projectId }).returning();
+    res.status(201).json(created);
+  });
+
+  app.patch(`${admin}/payments/:id`, isAdmin, async (req, res) => {
+    const id = parseId(req.params.id);
+    const parsed = paymentInput.partial().safeParse(req.body);
+    if (!id || !parsed.success) return res.status(400).json({ error: "Datos inválidos." });
+    const [updated] = await db.update(clientPayments).set(parsed.data).where(eq(clientPayments.id, id)).returning();
+    if (!updated) return res.status(404).json({ error: "Pago no encontrado." });
+    res.json(updated);
+  });
+
+  app.post(`${admin}/projects/:id/timeline`, isAdmin, async (req, res) => {
+    const projectId = parseId(req.params.id);
+    const parsed = timelineInput.safeParse(req.body);
+    if (!projectId || !parsed.success) return res.status(400).json({ error: "Datos inválidos." });
+    const [created] = await db.insert(clientTimeline).values({ ...parsed.data, projectId }).returning();
+    res.status(201).json(created);
+  });
+
+  app.patch(`${admin}/timeline/:id`, isAdmin, async (req, res) => {
+    const id = parseId(req.params.id);
+    const parsed = timelineInput.partial().safeParse(req.body);
+    if (!id || !parsed.success) return res.status(400).json({ error: "Datos inválidos." });
+    const [updated] = await db.update(clientTimeline).set(parsed.data).where(eq(clientTimeline.id, id)).returning();
+    if (!updated) return res.status(404).json({ error: "Hito no encontrado." });
+    res.json(updated);
+  });
+}

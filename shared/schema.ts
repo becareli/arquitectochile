@@ -137,6 +137,8 @@ export const clientDocuments = pgTable("client_documents", {
   type: text("type").notNull(), // plans, contracts, permits, specifications, photos
   fileUrl: text("file_url").notNull(),
   fileSize: integer("file_size"), // in bytes
+  version: integer("version").notNull().default(1),
+  visibleToClient: boolean("visible_to_client").notNull().default(true),
   uploadDate: timestamp("upload_date").defaultNow().notNull(),
 });
 
@@ -149,6 +151,9 @@ export const clientPayments = pgTable("client_payments", {
   paidDate: timestamp("paid_date"),
   status: text("status").notNull().default("pending"), // pending, paid, overdue
   paymentMethod: text("payment_method"), // transfer, check, cash
+  receiptType: text("receipt_type"), // boleta, factura
+  receiptNumber: text("receipt_number"),
+  receiptUrl: text("receipt_url"), // ruta del PDF en almacenamiento privado
 });
 
 export const clientTimeline = pgTable("client_timeline", {
@@ -160,6 +165,20 @@ export const clientTimeline = pgTable("client_timeline", {
   status: text("status").notNull(), // completed, current, upcoming
   category: text("category"), // design, permits, construction, delivery
 });
+
+// Enlaces de acceso de un solo uso para el portal de clientes (se guarda solo el hash)
+export const portalLoginTokens = pgTable(
+  "portal_login_tokens",
+  {
+    id: serial("id").primaryKey(),
+    clientId: integer("client_id").references(() => clients.id).notNull(),
+    tokenHash: text("token_hash").notNull().unique(),
+    expiresAt: timestamp("expires_at").notNull(),
+    usedAt: timestamp("used_at"),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+  },
+  (t) => [index("idx_portal_login_tokens_client").on(t.clientId)],
+);
 
 // AI Agent Events table for tracking automation
 export const aiAgentEvents = pgTable("ai_agent_events", {
