@@ -18,6 +18,7 @@ import { setupIntegrationRoutes } from "./integrations/routes";
 import { ObjectStorageService, ObjectNotFoundError } from "./objectStorage";
 import { setupAuth, isAuthenticated, isCrmAdmin } from "./replitAuth";
 import { registerPortalRoutes } from "./portal";
+import { registerMeetingRoutes } from "./meetings";
 import crypto from "crypto";
 import path from "path";
 import fs from "fs";
@@ -304,6 +305,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   // Portal de clientes (acceso por enlace, permisos por cliente, administración)
   registerPortalRoutes(app, isAdminSession);
+  registerMeetingRoutes(app, isAdminSession);
 
   // Admin session endpoints (password verified server-side; credential never sent back to client)
   // Simple in-memory rate limiter: max 5 attempts per IP per 15 minutes

@@ -207,6 +207,48 @@ export const clientReferrals = pgTable(
   (t) => [index("idx_client_referrals_referrer").on(t.referrerId)],
 );
 
+// Bitácora de reuniones con leads y clientes (grabadas con Fathom o ingresadas a mano)
+export const clientMeetings = pgTable(
+  "client_meetings",
+  {
+    id: serial("id").primaryKey(),
+    kind: text("kind").notNull().default("other"), // lead, client, other (sin asignar)
+    clientId: integer("client_id").references(() => clients.id),
+    projectId: integer("project_id").references(() => clientProjects.id),
+    leadId: integer("lead_id").references(() => leads.id),
+    title: text("title").notNull(),
+    heldAt: timestamp("held_at").notNull(),
+    platform: text("platform"), // meet, zoom, teams, otra
+    source: text("source").notNull().default("manual"), // fathom, manual
+    externalId: text("external_id").unique(), // id de la grabación en Fathom (evita duplicados)
+    recordingUrl: text("recording_url"), // enlace a la grabación (solo para el arquitecto)
+    attendees: json("attendees"), // [{ name, email, external }]
+    summary: text("summary"), // borrador interno generado por la herramienta
+    transcript: text("transcript"), // solo para el arquitecto, nunca se muestra al cliente
+    minuteText: text("minute_text"), // minuta revisada que sí puede ver el cliente
+    status: text("status").notNull().default("draft"), // draft, published
+    publishedAt: timestamp("published_at"),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+  },
+  (t) => [index("idx_client_meetings_client").on(t.clientId), index("idx_client_meetings_lead").on(t.leadId)],
+);
+
+// Acuerdos de cada reunión, para ir cumpliéndolos
+export const meetingAgreements = pgTable(
+  "meeting_agreements",
+  {
+    id: serial("id").primaryKey(),
+    meetingId: integer("meeting_id").references(() => clientMeetings.id, { onDelete: "cascade" }).notNull(),
+    description: text("description").notNull(),
+    owner: text("owner").notNull().default("architect"), // architect, client
+    dueDate: timestamp("due_date"),
+    status: text("status").notNull().default("pending"), // pending, done
+    doneAt: timestamp("done_at"),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+  },
+  (t) => [index("idx_meeting_agreements_meeting").on(t.meetingId)],
+);
+
 // Opiniones y recomendaciones que dejan los clientes desde el portal
 export const clientFeedback = pgTable("client_feedback", {
   id: serial("id").primaryKey(),

@@ -4,7 +4,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Calendar, CheckCircle, Clock, CreditCard, Download, FileText, Home, Loader2, LogOut, Mail, Receipt, Share2, Sparkles, Star } from "lucide-react";
+import { Calendar, CheckCircle, Clock, CreditCard, Download, FileText, Home, Loader2, LogOut, Mail, MessagesSquare, Receipt, Share2, Sparkles, Star } from "lucide-react";
 import { useSEO } from "@/hooks/useSEO";
 import { apiRequest } from "@/lib/queryClient";
 
@@ -88,8 +88,10 @@ async function getJson<T>(url: string): Promise<T | null> {
   return res.json();
 }
 
-type TabKey = "documentos" | "pagos" | "timeline" | "mensajes" | "opinion" | "recomienda" | "servicios";
+type TabKey = "documentos" | "pagos" | "timeline" | "reuniones" | "mensajes" | "opinion" | "recomienda" | "servicios";
 type RefData = { code: string; link: string; referrals: { id: number; name: string; need: string | null; status: string; createdAt: string }[] };
+type Meeting = { id: number; title: string; heldAt: string; minuteText: string | null; agreements: { id: number; description: string; owner: string; status: string }[] };
+const plain = (t: string | null) => (t ?? "").replace(/^#+\s*/gm, "").replace(/\*\*/g, "");
 const REF_STATUS: Record<string, string> = { new: "Recibida", contacted: "Contactada", client: "Ya es cliente", discarded: "Cerrada" };
 
 export default function PortalClienteMiProyecto() {
@@ -115,6 +117,12 @@ export default function PortalClienteMiProyecto() {
     queryKey: ["portal-referrals"],
     queryFn: () => getJson<RefData>("/api/portal/referrals"),
     enabled: tab === "recomienda",
+    retry: false,
+  });
+  const meetingsQ = useQuery({
+    queryKey: ["portal-meetings", selected ?? me.data?.projects[0]?.id ?? null],
+    queryFn: () => getJson<Meeting[]>(`/api/portal/projects/${selected ?? me.data?.projects[0]?.id}/meetings`),
+    enabled: tab === "reuniones" && Boolean(selected ?? me.data?.projects[0]?.id),
     retry: false,
   });
   const projectId = selected ?? me.data?.projects[0]?.id ?? null;
@@ -183,6 +191,7 @@ export default function PortalClienteMiProyecto() {
     { key: "documentos", label: "Documentos", icon: FileText },
     { key: "pagos", label: "Pagos y boletas", icon: CreditCard },
     { key: "timeline", label: "Expediente y avance", icon: Calendar },
+    { key: "reuniones", label: "Reuniones", icon: MessagesSquare },
     { key: "mensajes", label: "Mensajes", icon: Mail },
     { key: "opinion", label: "Tu opinión", icon: Star },
     { key: "recomienda", label: "Recomienda", icon: Share2 },
@@ -359,6 +368,48 @@ export default function PortalClienteMiProyecto() {
                   ))}
                 </CardContent>
               </Card>
+            )}
+
+            {tab === "reuniones" && (
+              <div className="space-y-4">
+                {meetingsQ.data?.length === 0 && (
+                  <Card><CardContent className="pt-6 text-gray-500">Aquí quedará la bitácora de nuestras reuniones, con lo conversado y los acuerdos.</CardContent></Card>
+                )}
+                {meetingsQ.data?.map((m) => (
+                  <Card key={m.id}>
+                    <CardHeader>
+                      <CardTitle className="text-base">{m.title}</CardTitle>
+                      <p className="text-xs text-gray-500">{fecha(m.heldAt)}</p>
+                    </CardHeader>
+                    <CardContent className="space-y-3">
+                      <p className="text-sm text-gray-700 whitespace-pre-line">{plain(m.minuteText)}</p>
+                      {(["architect", "client"] as const).map((who) => {
+                        const items = m.agreements.filter((a) => a.owner === who);
+                        if (!items.length) return null;
+                        return (
+                          <div key={who}>
+                            <p className="text-sm font-semibold text-blue-900">{who === "architect" ? "Lo que hará el arquitecto" : "Lo que necesitamos de ti"}</p>
+                            <ul className="space-y-1 mt-1">
+                              {items.map((a) => (
+                                <li key={a.id} className="flex items-start gap-2 text-sm">
+                                  <input
+                                    type="checkbox"
+                                    className="mt-1"
+                                    checked={a.status === "done"}
+                                    disabled={who !== "client" || a.status === "done"}
+                                    onChange={() => apiRequest("POST", `/api/portal/agreements/${a.id}/done`).then(() => qc.invalidateQueries({ queryKey: ["portal-meetings"] }))}
+                                  />
+                                  <span className={a.status === "done" ? "line-through text-gray-400" : ""}>{a.description}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        );
+                      })}
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
             )}
 
             {tab === "mensajes" && (

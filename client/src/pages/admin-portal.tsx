@@ -294,19 +294,132 @@ function FeedbackTab() {
   );
 }
 
+type Mtg = { id: number; kind: string; title: string; heldAt: string; platform: string | null; source: string; status: string; clientId: number | null; leadId: number | null; projectId: number | null; clientName: string | null; leadName: string | null };
+type Agr = { id: number; description: string; owner: string; status: string };
+type MtgFull = { meeting: Mtg & { summary: string | null; minuteText: string | null; recordingUrl: string | null }; agreements: Agr[] };
+type LeadLite = { id: number; name: string; email: string };
+
+function MeetingEditor({ id, onChange }: { id: number; onChange: () => void }) {
+  const qc = useQueryClient();
+  const key = ["admin-meeting", id];
+  const { data } = useQuery({ queryKey: key, queryFn: () => get<MtgFull>(`/api/portal/admin/meetings/${id}`) });
+  const clients = useQuery({ queryKey: ["admin-clients"], queryFn: () => get<Client[]>("/api/portal/admin/clients") });
+  const leads = useQuery({ queryKey: ["admin-leads-lite"], queryFn: () => get<LeadLite[]>("/api/leads") });
+  const [minute, setMinute] = useState<string | null>(null);
+  const [newA, setNewA] = useState({ description: "", owner: "architect" });
+  const [note, setNote] = useState<string | null>(null);
+  const clientId = data?.meeting.clientId ?? null;
+  const projects = useQuery({ queryKey: ["admin-client-projects", clientId], queryFn: () => get<Project[]>(`/api/portal/admin/clients/${clientId}/projects`), enabled: clientId !== null });
+  const refresh = () => { qc.invalidateQueries({ queryKey: key }); onChange(); };
+  const run = async (fn: () => Promise<unknown>, ok: string) => { try { await fn(); setNote(ok); refresh(); } catch (e) { setNote(`Error: ${(e as Error).message}`); } };
+  if (!data) return <p className="text-sm text-gray-500">Cargando...</p>;
+  const m = data.meeting;
+  const patch = (b: object, ok: string) => run(() => send("PATCH", `/api/portal/admin/meetings/${id}`, b), ok);
+
+  return (
+    <div className="space-y-3">
+      {note && <p className="text-sm bg-blue-50 border border-blue-200 rounded p-2">{note}</p>}
+      <div className="grid sm:grid-cols-2 gap-2">
+        <select className={sel} value={m.clientId ?? ""} onChange={(e) => patch({ clientId: e.target.value ? Number(e.target.value) : null, projectId: null, leadId: null }, "Asignada")}>
+          <option value="">Cliente: sin asignar</option>
+          {clients.data?.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}
+        </select>
+        <select className={sel} value={m.projectId ?? ""} disabled={!m.clientId} onChange={(e) => patch({ projectId: e.target.value ? Number(e.target.value) : null }, "Proyecto asignado")}>
+          <option value="">Proyecto: general</option>
+          {projects.data?.map((p) => <option key={p.id} value={p.id}>{p.name}</option>)}
+        </select>
+        <select className={sel} value={m.leadId ?? ""} disabled={Boolean(m.clientId)} onChange={(e) => patch({ leadId: e.target.value ? Number(e.target.value) : null }, "Lead asignado")}>
+          <option value="">Lead (si aún no es cliente)</option>
+          {Array.isArray(leads.data) && leads.data.map((l) => <option key={l.id} value={l.id}>{l.name}</option>)}
+        </select>
+        {m.recordingUrl && <a className="text-sm underline self-center" href={m.recordingUrl} target="_blank" rel="noreferrer">Ver grabación</a>}
+      </div>
+      <p className="text-xs text-gray-500">Revisa la minuta antes de publicarla: viene del resumen automático y puede traer comentarios internos.</p>
+      <textarea className="w-full border rounded-md p-2 text-sm min-h-[160px]" value={minute ?? m.minuteText ?? ""} onChange={(e) => setMinute(e.target.value)} placeholder="Minuta para el cliente" />
+      <Button size="sm" variant="outline" disabled={minute === null} onClick={() => patch({ minuteText: minute }, "Minuta guardada").then(() => setMinute(null))}>Guardar minuta</Button>
+
+      <div className="space-y-2">
+        <p className="text-sm font-semibold">Acuerdos</p>
+        {data.agreements.map((a) => (
+          <div key={a.id} className="flex flex-wrap items-center gap-2 text-sm">
+            <span className={`flex-1 ${a.status === "done" ? "line-through text-gray-400" : ""}`}>{a.description}</span>
+            <select className={sel} value={a.owner} onChange={(e) => run(() => send("PATCH", `/api/portal/admin/agreements/${a.id}`, { owner: e.target.value }), "Acuerdo actualizado")}>
+              <option value="architect">Arquitecto</option><option value="client">Cliente</option>
+            </select>
+            <Button size="sm" variant="outline" onClick={() => run(() => send("PATCH", `/api/portal/admin/agreements/${a.id}`, { status: a.status === "done" ? "pending" : "done" }), "Acuerdo actualizado")}>{a.status === "done" ? "Reabrir" : "Cumplido"}</Button>
+            <Button size="sm" variant="outline" onClick={() => run(() => send("DELETE", `/api/portal/admin/agreements/${a.id}`), "Acuerdo eliminado")}>Quitar</Button>
+          </div>
+        ))}
+        <div className="flex flex-wrap gap-2">
+          <Input className="flex-1 min-w-[200px]" placeholder="Nuevo acuerdo" value={newA.description} onChange={(e) => setNewA({ ...newA, description: e.target.value })} />
+          <select className={sel} value={newA.owner} onChange={(e) => setNewA({ ...newA, owner: e.target.value })}><option value="architect">Arquitecto</option><option value="client">Cliente</option></select>
+          <Button size="sm" disabled={newA.description.length < 3} onClick={() => run(async () => { await send("POST", `/api/portal/admin/meetings/${id}/agreements`, newA); setNewA({ ...newA, description: "" }); }, "Acuerdo agregado")}>Agregar</Button>
+        </div>
+      </div>
+
+      <Button disabled={minute !== null || (!m.clientId && !m.leadId)} onClick={() => run(async () => {
+        const r = await send("POST", `/api/portal/admin/meetings/${id}/publish`);
+        if (!r.emailed) throw new Error("Publicada en el portal, pero el correo no salió (falta configurar SMTP)");
+      }, "Minuta publicada y enviada por correo")}>
+        {m.status === "published" ? "Reenviar minuta" : "Publicar y enviar minuta"}
+      </Button>
+      {minute !== null && <p className="text-xs text-amber-700">Guarda la minuta antes de publicar.</p>}
+    </div>
+  );
+}
+
+function MeetingsTab() {
+  const qc = useQueryClient();
+  const [filter, setFilter] = useState("all");
+  const [sel_, setSel] = useState<number | null>(null);
+  const [nm, setNm] = useState({ title: "", heldAt: "" });
+  const { data } = useQuery({ queryKey: ["admin-meetings", filter], queryFn: () => get<Mtg[]>(`/api/portal/admin/meetings?filter=${filter}`) });
+  const reload = () => qc.invalidateQueries({ queryKey: ["admin-meetings"] });
+  return (
+    <div className="grid lg:grid-cols-3 gap-4">
+      <div className="space-y-3">
+        <div className="flex gap-1 flex-wrap">
+          {[["all", "Todas"], ["draft", "Por revisar"], ["unassigned", "Sin asignar"]].map(([k, l]) => <Button key={k} size="sm" variant={filter === k ? "default" : "outline"} onClick={() => setFilter(k)}>{l}</Button>)}
+        </div>
+        <Card><CardContent className="pt-4 space-y-1">
+          {data?.length === 0 && <p className="text-sm text-gray-500">No hay reuniones.</p>}
+          {data?.map((m) => (
+            <button key={m.id} onClick={() => setSel(m.id)} className={`w-full text-left rounded p-2 text-sm ${sel_ === m.id ? "bg-blue-50" : "hover:bg-gray-50"}`}>
+              <p className="font-medium">{m.title}</p>
+              <p className="text-xs text-gray-500">{new Date(m.heldAt).toLocaleDateString("es-CL")} · {m.clientName ?? m.leadName ?? "Sin asignar"} · {m.status === "published" ? "Publicada" : "Borrador"}</p>
+            </button>
+          ))}
+        </CardContent></Card>
+        <Card>
+          <CardHeader><CardTitle className="text-sm">Registrar reunión a mano</CardTitle></CardHeader>
+          <CardContent className="space-y-2">
+            <Input placeholder="Título" value={nm.title} onChange={(e) => setNm({ ...nm, title: e.target.value })} />
+            <Input type="date" value={nm.heldAt} onChange={(e) => setNm({ ...nm, heldAt: e.target.value })} />
+            <Button size="sm" disabled={nm.title.length < 2 || !nm.heldAt} onClick={() => send("POST", "/api/portal/admin/meetings", nm).then((r) => { setNm({ title: "", heldAt: "" }); setSel(r.id); reload(); })}>Crear</Button>
+          </CardContent>
+        </Card>
+      </div>
+      <div className="lg:col-span-2">
+        {sel_ ? <MeetingEditor key={sel_} id={sel_} onChange={reload} /> : <p className="text-sm text-gray-500">Elige una reunión para revisar su minuta y sus acuerdos.</p>}
+      </div>
+    </div>
+  );
+}
+
 export default function AdminPortal() {
   useSEO({ title: "Portal de clientes (admin) | ArquitectoChile.com", description: "Administración del portal de clientes.", path: "/admin/portal", noindex: true });
-  const [tab, setTab] = useState<"clientes" | "referidos" | "opiniones">("clientes");
+  const [tab, setTab] = useState<"clientes" | "reuniones" | "referidos" | "opiniones">("clientes");
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-6xl mx-auto px-4 py-6 space-y-4">
         <h1 className="text-2xl font-bold text-gray-900">Portal de clientes</h1>
         <div className="flex gap-2">
-          {(["clientes", "referidos", "opiniones"] as const).map((t) => (
+          {(["clientes", "reuniones", "referidos", "opiniones"] as const).map((t) => (
             <Button key={t} size="sm" variant={tab === t ? "default" : "outline"} onClick={() => setTab(t)}>{t[0].toUpperCase() + t.slice(1)}</Button>
           ))}
         </div>
         {tab === "clientes" && <ClientsTab />}
+        {tab === "reuniones" && <MeetingsTab />}
         {tab === "referidos" && <ReferralsTab />}
         {tab === "opiniones" && <FeedbackTab />}
       </div>

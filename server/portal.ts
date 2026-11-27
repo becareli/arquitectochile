@@ -30,7 +30,7 @@ import { ObjectStorageService, ObjectNotFoundError } from "./objectStorage";
 const LOGIN_LINK_TTL_MIN = 20;
 const SESSION_DAYS = 90; // la sesión del cliente queda abierta y se renueva al usar el portal
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID || "";
-const PORTAL_BASE_URL = process.env.PORTAL_BASE_URL || "https://arquitectochile.com";
+export const PORTAL_BASE_URL = process.env.PORTAL_BASE_URL || "https://arquitectochile.com";
 
 const sha256 = (v: string) => crypto.createHash("sha256").update(v).digest("hex");
 const normalizeEmail = (v: string) => v.trim().toLowerCase();
@@ -63,7 +63,7 @@ async function startPortalSession(req: Request, clientId: number) {
   await db.update(clients).set({ lastLogin: new Date() }).where(eq(clients.id, clientId));
 }
 
-const requirePortalClient: RequestHandler = async (req, res, next) => {
+export const requirePortalClient: RequestHandler = async (req, res, next) => {
   const clientId = getSession(req)?.portalClientId;
   if (!clientId) return res.status(401).json({ error: "Debes iniciar sesión." });
 
@@ -83,7 +83,7 @@ const requirePortalClient: RequestHandler = async (req, res, next) => {
 
 // ---------- correo ----------
 
-async function sendEmail(to: string, subject: string, html: string): Promise<boolean> {
+export async function sendEmail(to: string, subject: string, html: string): Promise<boolean> {
   const host = process.env.SMTP_HOST;
   const user = process.env.SMTP_USER;
   const pass = process.env.SMTP_PASS;
@@ -102,7 +102,7 @@ async function sendEmail(to: string, subject: string, html: string): Promise<boo
   return true;
 }
 
-function emailShell(inner: string) {
+export function emailShell(inner: string) {
   return `<div style="font-family:sans-serif;max-width:520px;margin:auto;color:#1e293b">${inner}
     <p style="font-size:13px;color:#64748b;margin-top:28px">Arq. Patricio Becar · ArquitectoChile.com</p></div>`;
 }
@@ -154,7 +154,7 @@ async function postMessage(input: {
   return { message: row, emailed };
 }
 
-function escapeHtml(s: string) {
+export function escapeHtml(s: string) {
   return s.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]!));
 }
 
@@ -297,7 +297,7 @@ async function saveReferral(referrerId: number, referrerName: string, data: z.in
   return row;
 }
 
-function parseId(v: string): number | null {
+export function parseId(v: string): number | null {
   const n = Number(v);
   return Number.isInteger(n) && n > 0 ? n : null;
 }
