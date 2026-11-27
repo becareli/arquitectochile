@@ -133,6 +133,8 @@ export const clientProjects = pgTable("client_projects", {
   permitFileNumber: text("permit_file_number"), // N° de expediente en la DOM
   permitStatus: text("permit_status"), // ingresado, observado, reingresado, aprobado, recepcion
   welcomeVideoUrl: text("welcome_video_url"), // video de bienvenida propio de este proyecto
+  code: text("code").unique(), // AC-2026-014: identifica el proyecto en carpetas, archivos y expedientes
+  address: text("address"), // calle y número, para nombrar la carpeta
   bimRequired: boolean("bim_required").notNull().default(false), // proyecto con modelo BIM/3D de instalaciones
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
@@ -146,6 +148,9 @@ export const clientDocuments = pgTable("client_documents", {
   fileSize: integer("file_size"), // in bytes
   version: integer("version").notNull().default(1),
   visibleToClient: boolean("visible_to_client").notNull().default(true),
+  discipline: text("discipline"), // ARQ, EST, SAN, ALC, ELE, GAS...
+  docKind: text("doc_kind"), // PLA, MEM, ESP, CAL, MOD...
+  stdName: text("std_name"), // nombre estándar: AC-2026-014_ARQ_PLA_Planta-1er-piso_V02.pdf
   uploadDate: timestamp("upload_date").defaultNow().notNull(),
 });
 
@@ -301,6 +306,7 @@ export const officeTasks = pgTable(
     collaboratorId: integer("collaborator_id").references(() => collaborators.id).notNull(),
     title: text("title").notNull(),
     description: text("description"),
+    discipline: text("discipline"), // código de disciplina: define cómo se nombran sus archivos
     status: text("status").notNull().default("todo"), // todo, doing, review, done
     dueDate: timestamp("due_date"),
     fee: decimal("fee", { precision: 12, scale: 2 }), // honorario acordado por la tarea
@@ -324,6 +330,9 @@ export const officeTaskFiles = pgTable("office_task_files", {
   fileSize: integer("file_size"),
   publishedDocumentId: integer("published_document_id").references(() => clientDocuments.id),
   kind: text("kind").notNull().default("deliverable"), // deliverable | invoice (boleta o factura del colaborador)
+  docKind: text("doc_kind"), // PLA, MEM, MOD...
+  version: integer("version").notNull().default(1),
+  stdName: text("std_name"),
   uploadedAt: timestamp("uploaded_at").defaultNow().notNull(),
 });
 

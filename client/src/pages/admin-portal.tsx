@@ -7,10 +7,12 @@ import { Badge } from "@/components/ui/badge";
 import { useSEO } from "@/hooks/useSEO";
 import { apiRequest } from "@/lib/queryClient";
 import OfficeTab from "@/pages/admin-oficina";
+import ArchiveTab from "@/pages/admin-archivo";
+import { DISCIPLINES, DOC_KINDS, stdFileName, extensionOf, projectFolderName } from "@shared/classification";
 
 type Client = { id: number; name: string; email: string; phone: string | null; status: string; lastLogin: string | null };
-type Project = { id: number; name: string; status: string; progress: number | null; permitStatus: string | null; permitFileNumber: string | null; welcomeVideoUrl: string | null };
-type Doc = { id: number; name: string; type: string; version: number; visibleToClient: boolean };
+type Project = { id: number; name: string; code: string | null; address: string | null; status: string; progress: number | null; permitStatus: string | null; permitFileNumber: string | null; welcomeVideoUrl: string | null };
+type Doc = { id: number; name: string; stdName: string | null; type: string; version: number; visibleToClient: boolean };
 type Pay = { id: number; description: string; amount: string; dueDate: string; status: string; receiptNumber: string | null };
 type Hito = { id: number; title: string; date: string; status: string };
 type Full = { project: Project; documents: Doc[]; payments: Pay[]; timeline: Hito[] };
@@ -48,7 +50,7 @@ function ProjectPanel({ clientId, projectId }: { clientId: number; projectId: nu
   };
 
   const [st, setSt] = useState<Partial<Project> | null>(null);
-  const [doc, setDoc] = useState({ name: "", type: "plans", version: 1, visible: true });
+  const [doc, setDoc] = useState({ name: "", type: "plans", version: 1, visible: true, discipline: "", docKind: "" });
   const [docFile, setDocFile] = useState<File | null>(null);
   const [pay, setPay] = useState({ description: "", amount: "", dueDate: "" });
   const [hito, setHito] = useState({ title: "", date: "", status: "upcoming" });
@@ -64,6 +66,16 @@ function ProjectPanel({ clientId, projectId }: { clientId: number; projectId: nu
       {msg && <p className="text-sm bg-blue-50 border border-blue-200 rounded p-2">{msg}</p>}
 
       <Card>
+        <CardHeader>
+          <CardTitle className="text-base">{p.code ? `${p.code} · ` : ""}{p.name}</CardTitle>
+          {p.code ? <p className="text-xs text-gray-500">Carpeta: {projectFolderName(p.code, p.address, p.name)}</p> : <p className="text-xs text-orange-700">Este proyecto aún no tiene código: usa "Asignar códigos" en la pestaña Archivo.</p>}
+        </CardHeader>
+        <CardContent className="pb-0">
+          <Input placeholder="Calle y número (ej. El Hualle Sur 9445)" value={p.address ?? ""} onChange={(e) => setSt({ ...st, address: e.target.value })} />
+        </CardContent>
+      </Card>
+
+      <Card>
         <CardHeader><CardTitle className="text-base">Estado y expediente</CardTitle></CardHeader>
         <CardContent className="grid sm:grid-cols-2 gap-2">
           <select className={sel} value={p.status} onChange={(e) => setSt({ ...st, status: e.target.value })}>
@@ -77,6 +89,7 @@ function ProjectPanel({ clientId, projectId }: { clientId: number; projectId: nu
           <Input className="sm:col-span-2" placeholder="Video de bienvenida de este proyecto (YouTube, opcional)" value={p.welcomeVideoUrl ?? ""} onChange={(e) => setSt({ ...st, welcomeVideoUrl: e.target.value })} />
           <Button className="sm:col-span-2" disabled={!st} onClick={() => run(() => send("PATCH", `/api/portal/admin/projects/${projectId}`, {
             status: p.status, progress: p.progress ?? 0,
+            ...(p.address ? { address: p.address } : {}),
             ...(p.permitStatus ? { permitStatus: p.permitStatus } : {}),
             ...(p.permitFileNumber ? { permitFileNumber: p.permitFileNumber } : {}),
             ...(p.welcomeVideoUrl ? { welcomeVideoUrl: p.welcomeVideoUrl } : {}),
@@ -88,18 +101,30 @@ function ProjectPanel({ clientId, projectId }: { clientId: number; projectId: nu
         <CardHeader><CardTitle className="text-base">Documentos</CardTitle></CardHeader>
         <CardContent className="space-y-3">
           {data.documents.map((d) => (
-            <div key={d.id} className="flex justify-between text-sm"><span>{d.name} · v{d.version}</span><Badge variant="outline">{d.visibleToClient ? "Visible" : "Oculto"}</Badge></div>
+            <div key={d.id} className="flex justify-between text-sm"><span>{d.stdName ?? d.name} · v{d.version}</span><Badge variant="outline">{d.visibleToClient ? "Visible" : "Oculto"}</Badge></div>
           ))}
           <div className="grid sm:grid-cols-2 gap-2">
             <Input placeholder="Nombre (ej. Plano planta 1° piso.pdf)" value={doc.name} onChange={(e) => setDoc({ ...doc, name: e.target.value })} />
             <select className={sel} value={doc.type} onChange={(e) => setDoc({ ...doc, type: e.target.value })}>{DOC_TYPES.map(([v, l]) => <option key={v} value={v}>{l}</option>)}</select>
+            <select className={sel} value={doc.discipline} onChange={(e) => setDoc({ ...doc, discipline: e.target.value })}>
+              <option value="">Disciplina (para el nombre estándar)</option>
+              {DISCIPLINES.map((d) => <option key={d.code} value={d.code}>{d.code} · {d.label}</option>)}
+            </select>
+            <select className={sel} value={doc.docKind} onChange={(e) => setDoc({ ...doc, docKind: e.target.value })}>
+              <option value="">Tipo de documento</option>
+              {DOC_KINDS.map((d) => <option key={d.code} value={d.code}>{d.code} · {d.label}</option>)}
+            </select>
+            <Input type="number" min={1} placeholder="Versión" value={doc.version} onChange={(e) => setDoc({ ...doc, version: Math.max(1, Number(e.target.value) || 1) })} />
+            {p.code && doc.discipline && doc.docKind && doc.name.length >= 2 && (
+              <p className="text-xs text-gray-600 sm:col-span-2">Se guardará como: <b>{stdFileName({ code: p.code, discipline: doc.discipline, kind: doc.docKind, description: doc.name.replace(/\.[A-Za-z0-9]{1,8}$/, ""), version: doc.version, ext: extensionOf(docFile?.name ?? doc.name) })}</b></p>
+            )}
             <input type="file" onChange={(e) => setDocFile(e.target.files?.[0] ?? null)} />
             <label className="text-sm flex items-center gap-2"><input type="checkbox" checked={doc.visible} onChange={(e) => setDoc({ ...doc, visible: e.target.checked })} /> Visible para el cliente</label>
           </div>
           <Button disabled={!docFile || doc.name.length < 2} onClick={() => run(async () => {
             const up = await uploadPrivate(docFile!);
-            await send("POST", `/api/portal/admin/projects/${projectId}/documents`, { name: doc.name, type: doc.type, fileUrl: up.path, fileSize: up.size, version: doc.version, visibleToClient: doc.visible });
-            setDocFile(null); setDoc({ ...doc, name: "" });
+            await send("POST", `/api/portal/admin/projects/${projectId}/documents`, { name: doc.name, type: doc.type, fileUrl: up.path, fileSize: up.size, version: doc.version, visibleToClient: doc.visible, ...(doc.discipline ? { discipline: doc.discipline } : {}), ...(doc.docKind ? { docKind: doc.docKind } : {}) });
+            setDocFile(null); setDoc({ ...doc, name: "", version: 1 });
           }, "Documento subido")}>Subir documento</Button>
         </CardContent>
       </Card>
@@ -412,19 +437,20 @@ function MeetingsTab() {
 
 export default function AdminPortal() {
   useSEO({ title: "Portal de clientes (admin) | ArquitectoChile.com", description: "Administración del portal de clientes.", path: "/admin/portal", noindex: true });
-  const [tab, setTab] = useState<"clientes" | "reuniones" | "oficina" | "referidos" | "opiniones">("clientes");
+  const [tab, setTab] = useState<"clientes" | "reuniones" | "oficina" | "archivo" | "referidos" | "opiniones">("clientes");
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-6xl mx-auto px-4 py-6 space-y-4">
         <h1 className="text-2xl font-bold text-gray-900">Portal de clientes</h1>
         <div className="flex gap-2">
-          {(["clientes", "reuniones", "oficina", "referidos", "opiniones"] as const).map((t) => (
+          {(["clientes", "reuniones", "oficina", "archivo", "referidos", "opiniones"] as const).map((t) => (
             <Button key={t} size="sm" variant={tab === t ? "default" : "outline"} onClick={() => setTab(t)}>{t[0].toUpperCase() + t.slice(1)}</Button>
           ))}
         </div>
         {tab === "clientes" && <ClientsTab />}
         {tab === "reuniones" && <MeetingsTab />}
         {tab === "oficina" && <OfficeTab />}
+        {tab === "archivo" && <ArchiveTab />}
         {tab === "referidos" && <ReferralsTab />}
         {tab === "opiniones" && <FeedbackTab />}
       </div>

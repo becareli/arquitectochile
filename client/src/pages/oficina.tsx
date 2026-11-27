@@ -8,12 +8,13 @@ import { Textarea } from "@/components/ui/textarea";
 import { Mail, CheckCircle, Paperclip, LogOut } from "lucide-react";
 import { useSEO } from "@/hooks/useSEO";
 import { apiRequest } from "@/lib/queryClient";
+import { DOC_KINDS } from "@shared/classification";
 
 type Task = { id: number; title: string; status: string; dueDate: string | null; project: string | null; fee: string | null; feeStatus: string; deliverableFormat: string; revision: number };
 type Me = { collaborator: { name: string; email: string; specialty: string; isCoordinator: boolean; phone: string | null; description: string | null; linkedinUrl: string | null }; tasks: Task[]; fees: { pending: number; paid: number } };
 type Detail = {
-  task: { id: number; title: string; description: string | null; status: string; dueDate: string | null; project: string | null; bim: boolean; deliverableFormat: string; revision: number; fee: string | null; feeStatus: string };
-  files: { id: number; name: string; kind: string; uploadedAt: string }[];
+  task: { id: number; title: string; description: string | null; status: string; dueDate: string | null; project: string | null; bim: boolean; discipline: string | null; deliverableFormat: string; revision: number; fee: string | null; feeStatus: string };
+  files: { id: number; name: string; stdName: string | null; version: number; kind: string; uploadedAt: string }[];
   comments: { id: number; author: string; body: string; createdAt: string }[];
   events: { id: number; type: string; text: string; createdAt: string }[];
 };
@@ -74,6 +75,8 @@ function TaskPanel({ id, onChange }: { id: number; onChange: () => void }) {
   const [comment, setComment] = useState("");
   const [msg, setMsg] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
+  const [docKind, setDocKind] = useState("");
+  const [desc, setDesc] = useState("");
   const refresh = () => { qc.invalidateQueries({ queryKey: key }); onChange(); };
   const run = async (fn: () => Promise<unknown>, ok: string) => {
     setBusy(true);
@@ -87,7 +90,7 @@ function TaskPanel({ id, onChange }: { id: number; onChange: () => void }) {
     const { uploadUrl, internalPath } = await send("POST", "/api/office/upload-url");
     const put = await fetch(uploadUrl, { method: "PUT", body: file, headers: { "Content-Type": file.type } });
     if (!put.ok) throw new Error("No se pudo subir el archivo");
-    await send("POST", `/api/office/tasks/${id}/files`, { name: file.name, path: internalPath, size: file.size, kind });
+    await send("POST", `/api/office/tasks/${id}/files`, { name: file.name, path: internalPath, size: file.size, kind, ...(kind === "deliverable" && t.project && t.discipline ? { docKind: docKind || (t.deliverableFormat === "3d" ? "MOD" : "PLA"), description: desc || undefined } : {}) });
   }, kind === "invoice" ? "Boleta subida. Patricio ya fue avisado." : "Archivo subido.");
 
   return (
@@ -125,9 +128,18 @@ function TaskPanel({ id, onChange }: { id: number; onChange: () => void }) {
           {data.files.length === 0 && <p className="text-sm text-gray-500">Aún no subes archivos.</p>}
           <ul className="text-sm space-y-1">
             {data.files.map((f) => (
-              <li key={f.id}><a className="text-[#C2410C] underline" href={`/api/office/files/${f.id}/download`}>{f.name}</a> <span className="text-gray-400">· {f.kind === "invoice" ? "boleta/factura" : "entregable"} · {day(f.uploadedAt)}</span></li>
+              <li key={f.id}><a className="text-[#C2410C] underline" href={`/api/office/files/${f.id}/download`}>{f.stdName ?? f.name}</a> <span className="text-gray-400">· {f.kind === "invoice" ? "boleta/factura" : "entregable"} · {day(f.uploadedAt)}</span></li>
             ))}
           </ul>
+          {!closed && t.project && t.discipline && (
+            <div className="mt-2 flex flex-wrap items-center gap-2 text-sm">
+              <select className="border rounded-md p-1.5 bg-white" value={docKind || (t.deliverableFormat === "3d" ? "MOD" : "PLA")} onChange={(e) => setDocKind(e.target.value)}>
+                {DOC_KINDS.filter((k) => k.code !== "BOL").map((k) => <option key={k.code} value={k.code}>{k.code} · {k.label}</option>)}
+              </select>
+              <Input className="w-56" placeholder="Descripción (ej. Planta 1er piso)" value={desc} onChange={(e) => setDesc(e.target.value)} />
+              <span className="text-xs text-gray-500">El archivo se nombrará solo con el código del proyecto y la versión.</span>
+            </div>
+          )}
           {!closed && (
             <label className="mt-2 inline-flex items-center gap-2 text-sm cursor-pointer text-[#1D2530]">
               <Paperclip className="w-4 h-4" /> Subir archivo

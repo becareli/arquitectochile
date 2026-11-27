@@ -6,12 +6,13 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Textarea } from "@/components/ui/textarea";
 import { apiRequest } from "@/lib/queryClient";
+import { DISCIPLINES, guessDiscipline } from "@shared/classification";
 
 type Collab = { id: number; name: string; email: string; phone: string | null; specialty: string; active: boolean; discipline: string | null; canDo3d: boolean; isCoordinator: boolean; showOnWebsite: boolean; linkedinUrl: string | null; open: number; review: number; feePending: string };
 type Task = { id: number; title: string; status: string; dueDate: string | null; collaborator: string; project: string | null; fee: string | null; feeStatus: string; collaboratorId: number; deliverableFormat: string; revision: number };
 type TaskFull = {
   task: Task & { description: string | null };
-  files: { id: number; name: string; kind: string; uploadedAt: string; publishedDocumentId: number | null }[];
+  files: { id: number; name: string; stdName: string | null; version: number; kind: string; uploadedAt: string; publishedDocumentId: number | null }[];
   comments: { id: number; author: string; body: string; createdAt: string }[];
   events: { id: number; type: string; text: string; createdAt: string }[];
 };
@@ -67,7 +68,7 @@ function TaskDetail({ id, onChange }: { id: number; onChange: () => void }) {
           {data.files.length === 0 && <p className="text-gray-500">Sin archivos.</p>}
           {data.files.map((f) => (
             <div key={f.id} className="flex flex-wrap items-center gap-2 py-1">
-              <a className="text-[#C2410C] underline" href={`/api/office/admin/files/${f.id}/download`}>{f.name}</a>
+              <a className="text-[#C2410C] underline break-all" href={`/api/office/admin/files/${f.id}/download`}>{f.stdName ?? f.name}</a>
               <span className="text-gray-400">{f.kind === "invoice" ? "boleta/factura" : "entregable"} · {day(f.uploadedAt)}</span>
               {f.kind === "invoice" ? null : f.publishedDocumentId ? (
                 <Badge>Publicado al cliente</Badge>
@@ -197,7 +198,7 @@ export default function OfficeTab() {
   const [selTask, setSelTask] = useState<number | null>(null);
   const [msg, setMsg] = useState<string | null>(null);
   const [c, setC] = useState({ name: "", email: "", specialty: "", phone: "" });
-  const [t, setT] = useState({ collaboratorId: "", clientId: "", projectId: "", title: "", description: "", dueDate: "", fee: "", format: "2d" });
+  const [t, setT] = useState({ collaboratorId: "", clientId: "", projectId: "", title: "", description: "", dueDate: "", fee: "", format: "2d", discipline: "" });
 
   const collabs = useQuery({ queryKey: ["office-collabs"], queryFn: () => get<Collab[]>("/api/office/admin/collaborators") });
   const tasks = useQuery({ queryKey: ["office-tasks", filter], queryFn: () => get<Task[]>(`/api/office/admin/tasks${filter ? `?status=${filter}` : ""}`) });
@@ -241,7 +242,10 @@ export default function OfficeTab() {
         <Card>
           <CardHeader><CardTitle className="text-base">Nueva tarea</CardTitle></CardHeader>
           <CardContent className="space-y-2 text-sm">
-            <select className={`${sel} w-full`} value={t.collaboratorId} onChange={(e) => setT({ ...t, collaboratorId: e.target.value })}>
+            <select className={`${sel} w-full`} value={t.collaboratorId} onChange={(e) => {
+              const k = (collabs.data ?? []).find((x) => String(x.id) === e.target.value);
+              setT({ ...t, collaboratorId: e.target.value, discipline: guessDiscipline(k?.discipline ?? k?.specialty) ?? t.discipline });
+            }}>
               <option value="">Asignar a...</option>
               {(collabs.data ?? []).filter((k) => k.active).map((k) => <option key={k.id} value={k.id}>{k.name} · {k.specialty}</option>)}
             </select>
@@ -262,6 +266,10 @@ export default function OfficeTab() {
               <Input type="number" placeholder="Honorario CLP (opcional)" value={t.fee} onChange={(e) => setT({ ...t, fee: e.target.value })} />
             </div>
             <div className="flex flex-wrap items-center gap-3">
+              <select className={sel} value={t.discipline} onChange={(e) => setT({ ...t, discipline: e.target.value })}>
+                <option value="">Disciplina (nombra sus archivos)</option>
+                {DISCIPLINES.map((d) => <option key={d.code} value={d.code}>{d.code} · {d.label}</option>)}
+              </select>
               <select className={sel} value={t.format} onChange={(e) => setT({ ...t, format: e.target.value })}>
                 <option value="2d">Entrega en 2D (planos)</option>
                 <option value="3d">Entrega en 3D / modelo</option>
@@ -277,7 +285,7 @@ export default function OfficeTab() {
             </div>
             <p className="text-xs text-gray-500">El colaborador solo verá el nombre del proyecto, nunca los datos del cliente.</p>
             <Button size="sm" disabled={!t.collaboratorId || !t.title || (Boolean(t.clientId) && !t.projectId)} onClick={() => run(async () => {
-              await send("POST", "/api/office/admin/tasks", { collaboratorId: Number(t.collaboratorId), projectId: t.projectId ? Number(t.projectId) : null, title: t.title, description: t.description || null, dueDate: t.dueDate || null, fee: t.fee ? Number(t.fee) : null, deliverableFormat: t.format });
+              await send("POST", "/api/office/admin/tasks", { collaboratorId: Number(t.collaboratorId), projectId: t.projectId ? Number(t.projectId) : null, title: t.title, description: t.description || null, dueDate: t.dueDate || null, fee: t.fee ? Number(t.fee) : null, deliverableFormat: t.format, discipline: t.discipline || null });
               setT({ ...t, title: "", description: "", dueDate: "", fee: "" });
             }, "Tarea creada y avisada por correo.")}>Crear y avisar</Button>
           </CardContent>

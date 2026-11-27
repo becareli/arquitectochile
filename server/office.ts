@@ -16,6 +16,8 @@ import {
 } from "@shared/schema";
 import { ObjectStorageService, ObjectNotFoundError } from "./objectStorage";
 import { sendEmail, emailShell, escapeHtml, parseId, PORTAL_BASE_URL } from "./portal";
+import { backfillProjectCodes } from "./classification";
+import { DISCIPLINES, DISCIPLINE_CODES, DOC_KIND_CODES, extensionOf, stdFileName } from "@shared/classification";
 
 /**
  * Oficina digital de ArquitectoChile.
@@ -116,6 +118,7 @@ const taskInput = z.object({
   dueDate: z.string().nullable().optional(),
   fee: z.number().nonnegative().nullable().optional(),
   deliverableFormat: z.enum(["2d", "3d"]).optional(),
+  discipline: z.enum(DISCIPLINE_CODES).nullable().optional(),
 });
 const taskPatch = z.object({
   title: z.string().min(2).max(200).optional(),
@@ -127,6 +130,7 @@ const taskPatch = z.object({
   fee: z.number().nonnegative().nullable().optional(),
   feeStatus: z.enum(["pending", "invoiced", "paid"]).optional(),
   deliverableFormat: z.enum(["2d", "3d"]).optional(),
+  discipline: z.enum(DISCIPLINE_CODES).nullable().optional(),
 });
 const commentInput = z.object({ body: z.string().min(1).max(3000) });
 const fileInput = z.object({
@@ -134,6 +138,8 @@ const fileInput = z.object({
   path: z.string().startsWith("/objects/client-files/").max(500),
   size: z.number().int().nonnegative().optional(),
   kind: z.enum(["deliverable", "invoice"]).default("deliverable"),
+  docKind: z.enum(DOC_KIND_CODES).optional(),
+  description: z.string().max(120).optional(),
 });
 
 const toDate = (v: string | null | undefined) => (v ? new Date(v) : null);
@@ -439,7 +445,7 @@ export function registerOfficeRoutes(app: Express, isAdmin: RequestHandler) {
     const task = await ownTask(collab.id, id);
     if (!task) return res.status(404).json({ error: "Tarea no encontrada." });
     const [files, comments, names, events, bimRow] = await Promise.all([
-      db.select({ id: officeTaskFiles.id, name: officeTaskFiles.name, kind: officeTaskFiles.kind, fileSize: officeTaskFiles.fileSize, uploadedAt: officeTaskFiles.uploadedAt }).from(officeTaskFiles).where(eq(officeTaskFiles.taskId, id)).orderBy(desc(officeTaskFiles.uploadedAt)),
+      db.select({ id: officeTaskFiles.id, name: officeTaskFiles.name, stdName: officeTaskFiles.stdName, version: officeTaskFiles.version, kind: officeTaskFiles.kind, fileSize: officeTaskFiles.fileSize, uploadedAt: officeTaskFiles.uploadedAt }).from(officeTaskFiles).where(eq(officeTaskFiles.taskId, id)).orderBy(desc(officeTaskFiles.uploadedAt)),
       db.select().from(officeTaskComments).where(eq(officeTaskComments.taskId, id)).orderBy(asc(officeTaskComments.createdAt)),
       projectNames([task.projectId]),
       db.select({ id: officeTaskEvents.id, type: officeTaskEvents.type, text: officeTaskEvents.text, createdAt: officeTaskEvents.createdAt }).from(officeTaskEvents).where(eq(officeTaskEvents.taskId, id)).orderBy(asc(officeTaskEvents.createdAt)),
@@ -508,13 +514,30 @@ export function registerOfficeRoutes(app: Express, isAdmin: RequestHandler) {
     if (!task) return res.status(404).json({ error: "Tarea no encontrada." });
     const { kind } = parsed.data;
     if (task.status === "done" && kind === "deliverable") return res.status(409).json({ error: "La tarea ya fue cerrada." });
-    const [file] = await db.insert(officeTaskFiles).values({ taskId: id, name: parsed.data.name, fileUrl: parsed.data.path, fileSize: parsed.data.size ?? null, kind }).returning();
+    // Entregable de un proyecto con código: se nombra solo (código_disciplina_tipo_descripción_versión)
+    let stdName: string | null = null;
+    let version = 1;
+    let docKind: string | null = null;
+    if (kind === "deliverable" && task.projectId && task.discipline && parsed.data.docKind) {
+      const [proj] = await db.select({ code: clientProjects.code }).from(clientProjects).where(eq(clientProjects.id, task.projectId)).limit(1);
+      if (proj?.code) {
+        docKind = parsed.data.docKind;
+        const description = parsed.data.description?.trim() || task.title;
+        const [{ n }] = await db
+          .select({ n: sql<number>`count(*)::int` })
+          .from(officeTaskFiles)
+          .where(and(eq(officeTaskFiles.taskId, id), eq(officeTaskFiles.docKind, docKind), eq(officeTaskFiles.kind, "deliverable")));
+        version = n + 1; // cada nueva subida del mismo tipo en la tarea es una versión más
+        stdName = stdFileName({ code: proj.code, discipline: task.discipline, kind: docKind, description, version, ext: extensionOf(parsed.data.name) });
+      }
+    }
+    const [file] = await db.insert(officeTaskFiles).values({ taskId: id, name: parsed.data.name, fileUrl: parsed.data.path, fileSize: parsed.data.size ?? null, kind, docKind, version, stdName }).returning();
     if (kind === "invoice") {
       if (task.feeStatus === "pending") await db.update(officeTasks).set({ feeStatus: "invoiced" }).where(eq(officeTasks.id, id));
       await logEvent(id, "invoice", `${collab.name} subió su boleta/factura: ${parsed.data.name}`);
       sendEmail(NOTIFY_EMAIL, `Boleta de ${collab.name}: ${task.title}`, emailShell(`<p><b>${escapeHtml(collab.name)}</b> subió su boleta o factura de <b>${escapeHtml(task.title)}</b>.</p><p><a href="${PORTAL_BASE_URL}/admin/portal">Abrir el panel</a></p>`)).catch(() => undefined);
     } else {
-      await logEvent(id, "file", `${collab.name} subió un entregable: ${parsed.data.name}`);
+      await logEvent(id, "file", `${collab.name} subió un entregable: ${stdName ?? parsed.data.name}`);
     }
     res.status(201).json({ id: file.id });
   });
@@ -530,7 +553,7 @@ export function registerOfficeRoutes(app: Express, isAdmin: RequestHandler) {
       .where(and(eq(officeTaskFiles.id, id), eq(officeTasks.collaboratorId, collab.id)))
       .limit(1);
     if (!row) return res.status(404).json({ error: "Archivo no encontrado." });
-    return streamObject(res, row.file.fileUrl, row.file.name);
+    return streamObject(res, row.file.fileUrl, row.file.stdName ?? row.file.name);
   });
 
   // ===== Administración (solo el arquitecto) =====
@@ -640,7 +663,7 @@ export function registerOfficeRoutes(app: Express, isAdmin: RequestHandler) {
     if (!collab || !collab.active) return res.status(400).json({ error: "Colaborador no disponible." });
     const [task] = await db
       .insert(officeTasks)
-      .values({ collaboratorId: d.collaboratorId, projectId: d.projectId ?? null, title: d.title, description: d.description ?? null, dueDate: toDate(d.dueDate), fee: d.fee != null ? String(d.fee) : null, deliverableFormat: d.deliverableFormat ?? "2d" })
+      .values({ collaboratorId: d.collaboratorId, projectId: d.projectId ?? null, title: d.title, description: d.description ?? null, dueDate: toDate(d.dueDate), fee: d.fee != null ? String(d.fee) : null, deliverableFormat: d.deliverableFormat ?? "2d", discipline: d.discipline ?? null })
       .returning();
     await logEvent(task.id, "created", `Tarea asignada a ${collab.name}${d.dueDate ? `, entrega ${fechaCL(new Date(d.dueDate))}` : ""}${d.fee != null ? `, honorario pactado $${Math.round(d.fee).toLocaleString("es-CL")}` : ""}`);
     const emailed = await sendEmail(
@@ -664,6 +687,7 @@ export function registerOfficeRoutes(app: Express, isAdmin: RequestHandler) {
       set.remindersSent = sql`'{}'::text[]`; // nueva fecha, recordatorios de nuevo
     }
     if (d.deliverableFormat !== undefined) set.deliverableFormat = d.deliverableFormat;
+    if (d.discipline !== undefined) set.discipline = d.discipline;
     if (d.collaboratorId !== undefined) set.collaboratorId = d.collaboratorId;
     if (d.projectId !== undefined) set.projectId = d.projectId;
     if (d.fee !== undefined) set.fee = d.fee === null ? null : String(d.fee);
@@ -728,6 +752,80 @@ export function registerOfficeRoutes(app: Express, isAdmin: RequestHandler) {
     res.json({ bim: project.bim, suggestions: suggestImpact(parsed.data.note, tasks, project.bim) });
   });
 
+  // Códigos para los proyectos que aún no tienen (del más antiguo al más nuevo)
+  app.post(`${admin}/projects/assign-codes`, isAdmin, async (_req, res) => {
+    res.json({ assigned: await backfillProjectCodes() });
+  });
+
+  // Archivo: índice único de documentos (de la oficina y del portal), con filtros. Base del futuro armado de expedientes.
+  async function archiveRows(q: { projectId?: number; discipline?: string; docKind?: string }) {
+    const fromOffice = await db
+      .select({
+        id: officeTaskFiles.id,
+        stdName: officeTaskFiles.stdName,
+        original: officeTaskFiles.name,
+        version: officeTaskFiles.version,
+        docKind: officeTaskFiles.docKind,
+        discipline: officeTasks.discipline,
+        date: officeTaskFiles.uploadedAt,
+        author: collaborators.name,
+        published: officeTaskFiles.publishedDocumentId,
+        projectId: clientProjects.id,
+        code: clientProjects.code,
+        address: clientProjects.address,
+        project: clientProjects.name,
+      })
+      .from(officeTaskFiles)
+      .innerJoin(officeTasks, eq(officeTaskFiles.taskId, officeTasks.id))
+      .innerJoin(collaborators, eq(officeTasks.collaboratorId, collaborators.id))
+      .innerJoin(clientProjects, eq(officeTasks.projectId, clientProjects.id))
+      .where(eq(officeTaskFiles.kind, "deliverable"));
+    const fromPortal = await db
+      .select({
+        id: clientDocuments.id,
+        stdName: clientDocuments.stdName,
+        original: clientDocuments.name,
+        version: clientDocuments.version,
+        docKind: clientDocuments.docKind,
+        discipline: clientDocuments.discipline,
+        date: clientDocuments.uploadDate,
+        projectId: clientProjects.id,
+        code: clientProjects.code,
+        address: clientProjects.address,
+        project: clientProjects.name,
+        visible: clientDocuments.visibleToClient,
+      })
+      .from(clientDocuments)
+      .innerJoin(clientProjects, eq(clientDocuments.projectId, clientProjects.id));
+    const publishedIds = new Set(fromOffice.map((r) => r.published).filter((i): i is number => i !== null));
+    const rows = [
+      ...fromOffice.map((r) => ({ source: "oficina", id: r.id, name: r.stdName ?? r.original, classified: Boolean(r.stdName), version: r.version, docKind: r.docKind, discipline: r.discipline, date: r.date, author: r.author, projectId: r.projectId, code: r.code, address: r.address, project: r.project, clientVisible: r.published !== null })),
+      ...fromPortal.filter((r) => !publishedIds.has(r.id)).map((r) => ({ source: "portal", id: r.id, name: r.stdName ?? r.original, classified: Boolean(r.stdName), version: r.version, docKind: r.docKind, discipline: r.discipline, date: r.date, author: "Patricio", projectId: r.projectId, code: r.code, address: r.address, project: r.project, clientVisible: r.visible })),
+    ];
+    return rows
+      .filter((r) => (!q.projectId || r.projectId === q.projectId) && (!q.discipline || r.discipline === q.discipline) && (!q.docKind || r.docKind === q.docKind))
+      .sort((a, b) => (a.code ?? "").localeCompare(b.code ?? "") || a.name.localeCompare(b.name));
+  }
+  const archiveQuery = (req: Request) => ({
+    projectId: parseId(String(req.query.projectId ?? "")) ?? undefined,
+    discipline: typeof req.query.discipline === "string" && req.query.discipline ? req.query.discipline : undefined,
+    docKind: typeof req.query.docKind === "string" && req.query.docKind ? req.query.docKind : undefined,
+  });
+
+  app.get(`${admin}/archive`, isAdmin, async (req, res) => {
+    res.json(await archiveRows(archiveQuery(req)));
+  });
+
+  // CSV (separado por ;, con BOM para que Excel lo abra bien): índice de documentos por proyecto
+  app.get(`${admin}/archive.csv`, isAdmin, async (req, res) => {
+    const rows = await archiveRows(archiveQuery(req));
+    const q = (v: unknown) => `"${String(v ?? "").replace(/"/g, '""')}"`;
+    const head = ["codigo_proyecto", "direccion", "disciplina", "tipo", "version", "nombre_estandar", "fecha", "autor", "visible_cliente"];
+    const lines = rows.map((r) => [r.code, r.address ?? r.project, r.discipline, r.docKind, r.version, r.name, new Date(r.date).toISOString().slice(0, 10), r.author, r.clientVisible ? "si" : "no"].map(q).join(";"));
+    res.set("Content-Type", "text/csv; charset=utf-8").set("Content-Disposition", 'attachment; filename="indice-documentos.csv"');
+    res.send("\uFEFF" + [head.join(";"), ...lines].join("\r\n"));
+  });
+
   // Marcar un proyecto como BIM (modelo 3D de arquitectura e instalaciones)
   app.patch(`${admin}/projects/:id/bim`, isAdmin, async (req, res) => {
     const id = parseId(req.params.id);
@@ -743,7 +841,7 @@ export function registerOfficeRoutes(app: Express, isAdmin: RequestHandler) {
     const [task] = await db.select().from(officeTasks).where(eq(officeTasks.id, id)).limit(1);
     if (!task) return res.status(404).json({ error: "Tarea no encontrada." });
     const [files, comments, events] = await Promise.all([
-      db.select({ id: officeTaskFiles.id, name: officeTaskFiles.name, kind: officeTaskFiles.kind, fileSize: officeTaskFiles.fileSize, uploadedAt: officeTaskFiles.uploadedAt, publishedDocumentId: officeTaskFiles.publishedDocumentId }).from(officeTaskFiles).where(eq(officeTaskFiles.taskId, id)).orderBy(desc(officeTaskFiles.uploadedAt)),
+      db.select({ id: officeTaskFiles.id, name: officeTaskFiles.name, stdName: officeTaskFiles.stdName, version: officeTaskFiles.version, kind: officeTaskFiles.kind, fileSize: officeTaskFiles.fileSize, uploadedAt: officeTaskFiles.uploadedAt, publishedDocumentId: officeTaskFiles.publishedDocumentId }).from(officeTaskFiles).where(eq(officeTaskFiles.taskId, id)).orderBy(desc(officeTaskFiles.uploadedAt)),
       db.select().from(officeTaskComments).where(eq(officeTaskComments.taskId, id)).orderBy(asc(officeTaskComments.createdAt)),
       db.select().from(officeTaskEvents).where(eq(officeTaskEvents.taskId, id)).orderBy(asc(officeTaskEvents.createdAt)),
     ]);
@@ -775,7 +873,7 @@ export function registerOfficeRoutes(app: Express, isAdmin: RequestHandler) {
     if (!id) return res.status(400).json({ error: "Archivo inválido." });
     const [file] = await db.select().from(officeTaskFiles).where(eq(officeTaskFiles.id, id)).limit(1);
     if (!file) return res.status(404).json({ error: "Archivo no encontrado." });
-    return streamObject(res, file.fileUrl, file.name);
+    return streamObject(res, file.fileUrl, file.stdName ?? file.name);
   });
 
   // Publicar un entregable revisado en el portal del cliente (no avisa por correo: eso lo decide el arquitecto)
@@ -784,7 +882,7 @@ export function registerOfficeRoutes(app: Express, isAdmin: RequestHandler) {
     const parsed = z.object({ type: z.string().min(2).max(40), name: z.string().min(1).max(200).optional() }).safeParse(req.body);
     if (!id || !parsed.success) return res.status(400).json({ error: "Datos inválidos." });
     const [row] = await db
-      .select({ file: officeTaskFiles, projectId: officeTasks.projectId })
+      .select({ file: officeTaskFiles, projectId: officeTasks.projectId, discipline: officeTasks.discipline })
       .from(officeTaskFiles)
       .innerJoin(officeTasks, eq(officeTaskFiles.taskId, officeTasks.id))
       .where(eq(officeTaskFiles.id, id))
@@ -795,7 +893,7 @@ export function registerOfficeRoutes(app: Express, isAdmin: RequestHandler) {
     if (row.file.publishedDocumentId) return res.status(409).json({ error: "Este archivo ya fue publicado." });
     const [doc] = await db
       .insert(clientDocuments)
-      .values({ projectId: row.projectId, name: parsed.data.name ?? row.file.name, type: parsed.data.type, fileUrl: row.file.fileUrl, fileSize: row.file.fileSize, visibleToClient: true })
+      .values({ projectId: row.projectId, name: parsed.data.name ?? row.file.stdName ?? row.file.name, type: parsed.data.type, fileUrl: row.file.fileUrl, fileSize: row.file.fileSize, visibleToClient: true, version: row.file.version, docKind: row.file.docKind, stdName: row.file.stdName, discipline: row.file.stdName ? row.discipline : null })
       .returning();
     await db.update(officeTaskFiles).set({ publishedDocumentId: doc.id }).where(eq(officeTaskFiles.id, id));
     res.status(201).json({ documentId: doc.id });

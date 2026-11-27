@@ -18,6 +18,8 @@ import {
   clientReferrals,
 } from "@shared/schema";
 import { ObjectStorageService, ObjectNotFoundError } from "./objectStorage";
+import { assignProjectCode } from "./classification";
+import { DISCIPLINE_CODES, DOC_KIND_CODES, extensionOf, stdFileName } from "@shared/classification";
 
 /**
  * Portal de clientes de ArquitectoChile.
@@ -208,6 +210,7 @@ const projectInput = z.object({
   permitFileNumber: z.string().optional(),
   permitStatus: z.enum(["ingresado", "observado", "reingresado", "aprobado", "recepcion"]).optional(),
   welcomeVideoUrl: z.string().url().optional(),
+  address: z.string().max(200).optional(),
 });
 
 const messageInput = z.object({
@@ -234,6 +237,8 @@ const documentInput = z.object({
   fileSize: z.number().int().optional(),
   version: z.number().int().min(1).default(1),
   visibleToClient: z.boolean().default(true),
+  discipline: z.enum(DISCIPLINE_CODES).optional(),
+  docKind: z.enum(DOC_KIND_CODES).optional(),
 });
 
 const paymentInput = z.object({
@@ -505,7 +510,7 @@ export function registerPortalRoutes(app: Express, isAdmin: RequestHandler) {
       )
       .limit(1);
     if (!doc) return res.status(404).json({ error: "Documento no encontrado." });
-    return streamObject(res, doc.doc.fileUrl, doc.doc.name);
+    return streamObject(res, doc.doc.fileUrl, doc.doc.stdName ?? doc.doc.name);
   });
 
   app.get("/api/portal/payments/:id/receipt", requirePortalClient, async (req, res) => {
@@ -816,7 +821,8 @@ export function registerPortalRoutes(app: Express, isAdmin: RequestHandler) {
     const parsed = projectInput.safeParse(req.body);
     if (!parsed.success) return res.status(400).json({ error: "Datos inválidos", details: parsed.error.flatten() });
     const [created] = await db.insert(clientProjects).values(parsed.data).returning();
-    res.status(201).json(created);
+    const code = await assignProjectCode(created.id, created.createdAt).catch(() => null);
+    res.status(201).json({ ...created, code: code ?? created.code });
   });
 
   app.patch(`${admin}/projects/:id`, isAdmin, async (req, res) => {
@@ -832,7 +838,15 @@ export function registerPortalRoutes(app: Express, isAdmin: RequestHandler) {
     const projectId = parseId(req.params.id);
     const parsed = documentInput.safeParse(req.body);
     if (!projectId || !parsed.success) return res.status(400).json({ error: "Datos inválidos." });
-    const [created] = await db.insert(clientDocuments).values({ ...parsed.data, projectId }).returning();
+    const { discipline, docKind, ...rest } = parsed.data;
+    const [project] = await db.select({ code: clientProjects.code }).from(clientProjects).where(eq(clientProjects.id, projectId)).limit(1);
+    if (!project) return res.status(404).json({ error: "Proyecto no encontrado." });
+    // Con código de proyecto, disciplina y tipo, el documento queda con nombre estándar
+    const stdName =
+      project.code && discipline && docKind
+        ? stdFileName({ code: project.code, discipline, kind: docKind, description: rest.name.replace(/\.[A-Za-z0-9]{1,8}$/, ""), version: rest.version ?? 1, ext: extensionOf(rest.name) })
+        : null;
+    const [created] = await db.insert(clientDocuments).values({ ...rest, projectId, discipline: discipline ?? null, docKind: docKind ?? null, stdName }).returning();
     res.status(201).json(created);
   });
 
