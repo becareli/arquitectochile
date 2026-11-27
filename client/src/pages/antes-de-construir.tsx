@@ -223,8 +223,25 @@ function Video() {
         style={{ position: "absolute", inset: 0, width: "100%", height: "100%", border: 0 }}
       />
       {!sonido && (
+        <style>{`
+          @keyframes mosca {
+            0%, 100% { transform: translateX(0) rotate(0); }
+            10% { transform: translateX(-7px) rotate(-4deg); }
+            20% { transform: translateX(7px) rotate(4deg); }
+            30% { transform: translateX(-6px) rotate(-3deg); }
+            40% { transform: translateX(6px) rotate(3deg); }
+            50% { transform: translateX(-3px) rotate(-1deg); }
+            60% { transform: translateX(0) rotate(0); }
+          }
+          .boton-mosca { animation: mosca 1.6s ease-in-out infinite; }
+          .boton-mosca:hover { animation-play-state: paused; }
+          @media (prefers-reduced-motion: reduce) { .boton-mosca { animation: none; } }
+        `}</style>
+      )}
+      {!sonido && (
         <button
           type="button"
+          className="boton-mosca"
           onClick={() => setSonido(true)}
           style={{ position: "absolute", right: 16, top: 56, background: ORANGE, color: NAVY, fontWeight: 700, fontSize: 14, padding: "10px 16px", borderRadius: 8, border: 0, cursor: "pointer" }}
         >
