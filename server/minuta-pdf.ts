@@ -137,11 +137,13 @@ export function buildMinutaPdf(data: MinutaData): Promise<Buffer> {
       // El pie va dentro del margen inferior: sin esto pdfkit agrega una hoja en blanco por cada pie
       const savedBottom = doc.page.margins.bottom;
       doc.page.margins.bottom = 0;
-      const fy = doc.page.height - 52;
+      const fy = doc.page.height - 64;
       doc.moveTo(left, fy).lineTo(left + width, fy).lineWidth(0.7).strokeColor("#757F8A").stroke();
-      doc.font("Helvetica-Bold").fontSize(8.5).fillColor(NAVY).text("Arq. Patricio Becar Elissegaray", left, fy + 8, { width: width / 2, lineBreak: false });
-      doc.font("Helvetica").fontSize(8.5).fillColor(MUTED).text("arquitectochile.com · contacto@arquitectochile.com", left, fy + 20, { width: width / 2, lineBreak: false });
-      doc.text(`Página ${i - range.start + 1} de ${range.count}`, left + width / 2, fy + 8, { width: width / 2, align: "right", lineBreak: false });
+      doc.font("Helvetica-Bold").fontSize(8.5).fillColor(NAVY).text("Arq. Patricio Becar Elissegaray · Arquitecto Revisor Independiente, Registro MINVU Rol N° 237-13", left, fy + 8, { width: width - 70, lineBreak: false });
+      doc.font("Helvetica").fontSize(8.5).fillColor(MUTED);
+      doc.text("+56 9 7931 6827 · Av. Vicuña Mackenna Poniente 7735, La Florida, Santiago", left, fy + 20, { width, lineBreak: false });
+      doc.text("arquitectochile.com · contacto@arquitectochile.com", left, fy + 32, { width, lineBreak: false });
+      doc.text(`Página ${i - range.start + 1} de ${range.count}`, left + width - 70, fy + 8, { width: 70, align: "right", lineBreak: false });
       doc.page.margins.bottom = savedBottom;
     }
     doc.end();
