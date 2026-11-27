@@ -308,21 +308,21 @@ function Test() {
       ))}
       {asesoria && (
         <div style={card}>
-          <h3 style={{ fontSize: 22, lineHeight: "30px", fontWeight: 700 }}>Tiene {dudas} puntos sin resolver. Le conviene una evaluación previa.</h3>
+          <h3 style={{ fontSize: 22, lineHeight: "30px", fontWeight: 700, color: "#fff" }}>Tiene {dudas} puntos sin resolver. Le conviene una evaluación previa.</h3>
           <p style={{ color: "#D6DCE3", lineHeight: "26px" }}>Resolvámoslos en su terreno, antes de gastar en planos.</p>
           <Link href="/antes-de-construir/agenda" style={{ ...btnOrange, alignSelf: "flex-start" }}>Agendar mi visita</Link>
         </div>
       )}
       {cip && (
         <div style={card}>
-          <h3 style={{ fontSize: 22, lineHeight: "30px", fontWeight: 700 }}>Su proyecto está bien definido. Pasemos a cotizarlo.</h3>
+          <h3 style={{ fontSize: 22, lineHeight: "30px", fontWeight: 700, color: "#fff" }}>Su proyecto está bien definido. Pasemos a cotizarlo.</h3>
           <p style={{ color: "#D6DCE3", lineHeight: "26px" }}>Envíe su Certificado de Informaciones Previas (CIP) y, si es ampliación, el plano de planta. Le respondo con una propuesta.</p>
           <Link href={FORM_CIP} style={{ ...btnOrange, alignSelf: "flex-start" }}>Enviar mi CIP</Link>
         </div>
       )}
       {ebook && (
         <div style={card}>
-          <h3 style={{ fontSize: 22, lineHeight: "30px", fontWeight: 700 }}>Está en la etapa de sueños: el mejor momento para informarse.</h3>
+          <h3 style={{ fontSize: 22, lineHeight: "30px", fontWeight: 700, color: "#fff" }}>Está en la etapa de sueños: el mejor momento para informarse.</h3>
           <p style={{ color: "#D6DCE3", lineHeight: "26px" }}>Descargue gratis la guía con los pasos para construir sin sorpresas. Cuando tenga terreno, lo visito.</p>
           <a href={EBOOK} style={{ ...btnOrange, alignSelf: "flex-start" }}>Descargar la guía gratis</a>
         </div>
@@ -347,7 +347,7 @@ export default function AntesDeConstruir() {
         <div className="max-w-[1120px] mx-auto px-6 py-16 flex flex-wrap gap-12 items-center">
           <div className="flex flex-col gap-6" style={{ flex: "1 1 440px", minWidth: 0 }}>
             <span style={{ fontSize: 14, fontWeight: 600, letterSpacing: 0.5, color: "#A9B2BD" }}>Asesoría de Arquitectura a Domicilio</span>
-            <h1 className="text-[36px] leading-[42px] md:text-[48px] md:leading-[54px]" style={{ fontWeight: 800 }}>Evite el error más caro al construir su casa o proyecto</h1>
+            <h1 className="text-[36px] leading-[42px] md:text-[48px] md:leading-[54px]" style={{ fontWeight: 800, color: "#fff" }}>Evite el error más caro al construir su casa o proyecto</h1>
             <p style={{ fontSize: 18, lineHeight: "28px", color: "#D6DCE3" }}>
               Cambiar un muro en el plano cuesta una goma de borrar. En obra, cuesta un martillo demoledor. Antes de diseñar, evaluemos juntos sus necesidades, opciones y presupuesto, en su propio terreno.
             </p>
